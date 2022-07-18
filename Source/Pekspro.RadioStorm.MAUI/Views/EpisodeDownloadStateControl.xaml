@@ -1,0 +1,78 @@
+﻿<HorizontalStackLayout 
+            xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:base="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Base;assembly=Pekspro.RadioStorm.UI"
+            x:Class="Pekspro.RadioStorm.MAUI.Views.EpisodeDownloadStateControl"
+            xmlns:episode="clr-namespace:Pekspro.RadioStorm.UI.Model.Episode;assembly=Pekspro.RadioStorm.UI"
+            xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
+            xmlns:style="clr-namespace:Pekspro.RadioStorm.MAUI.Resources.Styles"
+            x:DataType="episode:EpisodeModel"
+            IsVisible="{Binding DownloadData, Mode=OneWay, Converter={StaticResource NullToIsVisibleConverter}}"
+            Margin="0,4,0,0"
+            >
+
+    <ActivityIndicator
+        WidthRequest="8"
+        HeightRequest="8"
+        Margin="0,4,0,0"
+        IsRunning="True"
+        VerticalOptions="Start"
+        IsVisible="{Binding DownloadData.Status, Mode=OneWay, Converter={StaticResource DownloadDataStatusWaitingToVisibilityConverter}}"                >
+    </ActivityIndicator>
+
+    <Label Text="{Binding DownloadData.DownloadSizeText, Mode=OneWay}"
+                            TextColor="{Binding IsListened, Mode=OneWay, Converter={StaticResource BoolToIsListenedColorConverter}}"
+                            IsVisible="{Binding DownloadData.Status, Mode=OneWay, Converter={StaticResource DownloadDataStatusDoneOrDownloadingToVisibilityConverter}}"
+                            FontSize="12"
+                            Margin="8,0,0,0" />
+
+    <Grid      WidthRequest="12"
+               HeightRequest="12"
+               Margin="4,2,0,0"
+               VerticalOptions="Start"
+               IsVisible="{Binding DownloadData.Status, Mode=OneWay, Converter={StaticResource DownloadDataStatusDownloadingToVisibilityConverter}}"
+             >
+        <Grid   HeightRequest="12"
+                BackgroundColor="{StaticResource Gray600}"
+                />
+        <Grid   HeightRequest="{Binding DownloadData.DownloadedRatio, Mode=OneWay, Converter={StaticResource RatioToDownloadHeightConverter}}"
+                VerticalOptions="End"
+                BackgroundColor="{StaticResource Blue100Accent}"
+                />
+
+        <!--<Rectangle HeightRequest="1200"
+                   Margin="0,0,0,0"
+                   VerticalOptions="Fill"
+                   BackgroundColor="Red"
+                 />-->
+        <!--<Rectangle HeightRequest="9"
+                   VerticalOptions="Start"
+                   BackgroundColor="{StaticResource Blue100Accent}"
+                 />-->
+    </Grid>
+
+    <!--<ProgressBar WidthRequest="12"
+                     HeightRequest="12"
+                     Margin="4,2,0,0"
+                     BackgroundColor="DarkGray"
+                     VerticalOptions="Start"
+                     Progress="{Binding DownloadData.DownloadedRatio, Mode=OneWay}"
+                     IsVisible="{Binding DownloadData.Status, Mode=OneWay, Converter={StaticResource DownloadDataStatusDownloadingToVisibilityConverter}}"
+                                 >
+        </ProgressBar>
+        -->
+    
+        <Label Text="{OnPlatform UWP='&#xE118;', Default='&#xf019;'}"
+                TextColor="{Binding IsListened, Mode=OneWay, Converter={StaticResource BoolToIsListenedColorConverter}}"
+                IsVisible="{Binding DownloadData.Status, Mode=OneWay, Converter={StaticResource DownloadDataStatusDoneToVisibilityConverter}}"
+                FontSize="12"
+                Margin="4,2,0,0"
+                FontFamily="{OnPlatform UWP='Segoe MDL2 Assets', Default='FontAwesome'}" />
+
+        <Label Text="{x:Static r:Strings.DownloadStatus_Error}"
+                TextColor="{Binding IsListened, Mode=OneWay, Converter={StaticResource BoolToIsListenedColorConverter}}"
+                IsVisible="{Binding DownloadData.Status, Mode=OneWay, Converter={StaticResource DownloadDataStatusErrorToVisibilityConverter}}"
+                FontSize="12"
+                Margin="8,0,4,0" />
+
+</HorizontalStackLayout>

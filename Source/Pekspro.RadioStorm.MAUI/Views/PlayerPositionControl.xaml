@@ -1,0 +1,31 @@
+﻿<Grid xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:player="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Player;assembly=Pekspro.RadioStorm.UI"
+            xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
+            x:Class="Pekspro.RadioStorm.MAUI.Views.PlayerPositionControl"             
+            x:DataType="player:PlayerViewModel"
+            HeightRequest="36"
+            >
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="auto" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="auto" />
+    </Grid.ColumnDefinitions>
+
+    <Label  Grid.Column="0" 
+            Text="{Binding PositionString, Mode=OneWay}" 
+            VerticalTextAlignment="Center" 
+            Padding="4"
+            />
+
+    <Slider x:Name="ProgressSlider" Grid.Column="1" HeightRequest="40" 
+            DragStarted="ProgressSlider_DragStarted" 
+            ValueChanged="ProgressSlider_ValueChanged"
+            DragCompleted="ProgressSlider_DragCompleted" />
+
+    <Label  Grid.Column="2"
+            Text="{Binding MediaLengthString, Mode=OneWay}" 
+            VerticalTextAlignment="Center" 
+            Padding="4"
+            />
+</Grid>

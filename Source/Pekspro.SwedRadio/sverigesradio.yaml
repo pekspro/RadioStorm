@@ -1,0 +1,1916 @@
+openapi: '3.1.0'
+info:
+  title: Sverige Radio API unofficial specification
+  description: This is an unofficial and unsupported OpenAPI specification of Sveriges Radio API. The official specification is available at https://sverigesradio.se/api/documentation/v2/index.html.
+  version: '0.1'
+servers:
+  - url: https://api.sr.se/api/v2
+paths:
+  /channels:
+    get:
+      summary: Get channels.
+      description: Returnera en lista på alla sändande kanaler i Sveriges Radios utbud. https://sverigesradio.se/api/documentation/v2/metoder/kanaler.html
+      operationId: "getChannels"
+      parameters:
+        - in: query
+          name: format
+          description: Format of response. Has to be json.
+          required: true
+          schema: 
+            $ref: '#/components/schemas/Format'
+        - in: query
+          name: page
+          description: Page number.
+          schema: 
+            $ref: '#/components/schemas/Page'
+        - in: query
+          name: size
+          description: Size of each page.
+          schema: 
+            $ref: '#/components/schemas/Size'
+        - in: query
+          name: sort
+          schema: 
+            $ref: '#/components/schemas/ChannelSort'
+        - in: query
+          name: liveAudioTemplateId
+          description: Valid values are 2-5 and 10-12. Will be 2 (mp3) if omitted.
+          schema: 
+            $ref: '#/components/schemas/LiveAudioTemplate'
+        - in: query
+          name: audioquality
+          description: Only supported then liveAudioTemplateId is 2-5.
+          schema: 
+            $ref: '#/components/schemas/AudioQuality'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChannelsResponse'
+  /channels/{id}:
+    get:
+      summary: Get a single channel.
+      description: Returnera en lista på alla sändande kanaler i Sveriges Radios utbud. https://sverigesradio.se/api/documentation/v2/metoder/kanaler.html
+      operationId: "getChannel"
+      parameters:
+        - in: query
+          name: format
+          description: Format of response. Has to be json.
+          required: true
+          schema: 
+            $ref: '#/components/schemas/Format'
+        - in: path
+          name: id
+          description: Id of channel
+          required: true
+          schema: 
+            $ref: '#/components/schemas/Id'
+        - in: query
+          name: liveAudioTemplateId
+          description: Valid values are 2-5 and 10-12. Will be 2 (mp3) if omitted.
+          schema: 
+            $ref: '#/components/schemas/LiveAudioTemplate'
+        - in: query
+          name: audioquality
+          description: Only supported then liveAudioTemplateId is 2-5.
+          schema: 
+            $ref: '#/components/schemas/AudioQuality'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChannelResponse'
+        '404':
+          description: Not found
+  /programcategories:
+    get:
+      summary: Get program categories.
+      description: Returnerar alla de programkategorier som Sveriges Radios program är uppdelade i. https://sverigesradio.se/api/documentation/v2/metoder/program.html
+      operationId: "getProgramCategories"
+      parameters:
+        - in: query
+          name: format
+          description: Format of response. Has to be json.
+          required: true
+          schema: 
+            $ref: '#/components/schemas/Format'
+        - in: query
+          name: page
+          description: Page number.
+          schema: 
+            $ref: '#/components/schemas/Page'
+        - in: query
+          name: size
+          description: Size of each page.
+          schema: 
+            $ref: '#/components/schemas/Size'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProgramCategoriesResponse'
+  /programcategories/{id}:
+    get:
+      summary: Get a single program category.
+      description: Returnerar alla de programkategorier som Sveriges Radios program är uppdelade i. https://sverigesradio.se/api/documentation/v2/metoder/program.html
+      operationId: "getProgramCategory"
+      parameters:
+        - in: query
+          name: format
+          description: Format of response. Has to be json.
+          required: true
+          schema: 
+            $ref: '#/components/schemas/Format'
+        - in: path
+          name: id
+          description: Id of program category
+          required: true
+          schema: 
+            $ref: '#/components/schemas/Id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProgramCategoryResponse'
+        '404':
+          description: Not found
+  /programs:
+    get:
+      summary: Get programs.
+      description: Listar alla program. https://sverigesradio.se/api/documentation/v2/metoder/program.html
+      operationId: "getPrograms"
+      parameters:
+        - in: query
+          name: format
+          description: Format of response. Has to be json.
+          required: true
+          schema: 
+            $ref: '#/components/schemas/Format'
+        - in: query
+          name: page
+          description: Page number.
+          schema: 
+            $ref: '#/components/schemas/Page'
+        - in: query
+          name: size
+          description: Size of each page.
+          schema: 
+            $ref: '#/components/schemas/Size'
+        - in: query
+          name: programCategoryId
+          schema: 
+            $ref: '#/components/schemas/ProgramCategoryId'
+        - in: query
+          name: isArchived
+          description: If program should be archived
+          schema: 
+            $ref: '#/components/schemas/IsArchived'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProgramsResponse'
+  /programs/{id}:
+    get:
+      summary: Get a single program.
+      description: Listar alla program. https://sverigesradio.se/api/documentation/v2/metoder/program.html
+      operationId: "getProgram"
+      parameters:
+        - in: query
+          name: format
+          description: Format of response. Has to be json.
+          required: true
+          schema: 
+            $ref: '#/components/schemas/Format'
+        - in: path
+          name: id
+          description: Id of program
+          required: true
+          schema: 
+            $ref: '#/components/schemas/Id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProgramResponse'
+        '404':
+          description: Not found
+  /episodes:
+    get:
+      summary: Get episodes.
+      description: Listar avsnitt för angivet program. https://sverigesradio.se/api/documentation/v2/metoder/avsnitt.html
+      operationId: "getEpisodes"
+      parameters:
+        - in: query
+          name: format
+          description: Format of response. Has to be json.
+          required: true
+          schema: 
+            $ref: '#/components/schemas/Format'
+        - in: query
+          name: page
+          description: Page number.
+          schema: 
+            $ref: '#/components/schemas/Page'
+        - in: query
+          name: size
+          description: Size of each page.
+          schema: 
+            $ref: '#/components/schemas/Size'
+        - in: query
+          name: programId
+          required: true
+          schema: 
+            $ref: '#/components/schemas/Id'
+        - in: query
+          name: fromDate
+          schema: 
+            $ref: '#/components/schemas/ParameterDate'
+        - in: query
+          name: toDate
+          schema: 
+            $ref: '#/components/schemas/ParameterDate'
+        - in: query
+          name: audioquality
+          description: Only affects broadcast files, not pod files.
+          schema: 
+            $ref: '#/components/schemas/AudioQuality'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EpisodesResponse'
+  /episodes/{id}:
+    get:
+      summary: Get a single episode.
+      description: Listar avsnitt för angivet program. https://sverigesradio.se/api/documentation/v2/metoder/avsnitt.html
+      operationId: "getEpisode"
+      parameters:
+        - in: query
+          name: format
+          description: Format of response. Has to be json.
+          required: true
+          schema: 
+            $ref: '#/components/schemas/Format'
+        - in: path
+          name: id
+          description: Id of episode
+          required: true
+          schema: 
+            $ref: '#/components/schemas/Id'
+        - in: query
+          name: audioquality
+          description: Only affects broadcast files, not pod files.
+          schema: 
+            $ref: '#/components/schemas/AudioQuality'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EpisodeResponse'
+        '404':
+          description: Not found
+  /episodes/search:
+    get:
+      summary: Search episodes.
+      description: Returnerar avsnitt som matchar given fråga. https://sverigesradio.se/api/documentation/v2/metoder/avsnitt.html
+      operationId: "searchEpisodes"
+      parameters:
+        - in: query
+          name: format
+          description: Format of response. Has to be json.
+          required: true
+          schema: 
+            $ref: '#/components/schemas/Format'
+        - in: query
+          name: page
+          description: Page number.
+          schema: 
+            $ref: '#/components/schemas/Page'
+        - in: query
+          name: size
+          description: Size of each page. For episode search this cannot be more than 25.
+          schema: 
+            $ref: '#/components/schemas/SizeEpisodeSearch'
+        - in: query
+          name: query
+          required: true
+          description: String to be search in episodes. For instance 'mask'
+          schema: 
+            $ref: '#/components/schemas/SearchQuery'
+        - in: query
+          name: audioquality
+          description: Only affects broadcast files, not pod files.
+          schema: 
+            $ref: '#/components/schemas/AudioQuality'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EpisodesResponse'
+  /playlists/rightnow:
+    get:
+      summary: Get current playlist for a channel.
+      description: Listar den låt som spelas just nu i angiven kanal samt nästkommande låt. https://sverigesradio.se/api/documentation/v2/metoder/musik.html
+      operationId: "getPlaylistRightNow"
+      parameters:
+        - in: query
+          name: format
+          description: Format of response. Has to be json.
+          required: true
+          schema: 
+            $ref: '#/components/schemas/Format'
+        - in: query
+          name: channelid
+          description: Id of channel
+          required: true
+          schema: 
+            $ref: '#/components/schemas/Id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RightNowPlaylistResponse'
+        '404':
+          description: Not found
+  /playlists/getplaylistbychannelid:
+    get:
+      summary: Get playlist for an channel.
+      description: Listar låtar som spelats i en kanal i angivet tidsintervall. https://sverigesradio.se/api/documentation/v2/metoder/musik.html
+      operationId: "getPlaylistByChannel"
+      parameters:
+        - in: query
+          name: format
+          description: Format of response. Has to be json.
+          required: true
+          schema: 
+            $ref: '#/components/schemas/Format'
+        - in: query
+          name: size
+          description: Maximum number of songs to get. Default is 20.
+          schema: 
+            $ref: '#/components/schemas/Size'
+        - in: query
+          name: id
+          description: Id of channel
+          required: true
+          schema: 
+            $ref: '#/components/schemas/Id'
+        - in: query
+          name: startDateTime
+          description: From which time. If not provided, current date will be used.
+          schema: 
+            $ref: '#/components/schemas/ParameterDateTime'
+        - in: query
+          name: endDateTime
+          description: To which time. If not provided, startDateTime + 1 day will be used.
+          schema: 
+            $ref: '#/components/schemas/ParameterDateTime'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SonglistResponse'
+        '404':
+          description: Not found
+  /playlists/getplaylistbyprogramid:
+    get:
+      summary: Get playlist for a program.
+      description: Listar låtar som spelats i ett program i angivet tidsintervall. https://sverigesradio.se/api/documentation/v2/metoder/musik.html
+      operationId: "getPlaylistByProgram"
+      parameters:
+        - in: query
+          name: format
+          description: Format of response. Has to be json.
+          required: true
+          schema: 
+            $ref: '#/components/schemas/Format'
+        - in: query
+          name: size
+          description: Maximum number of songs to get. Default is 20.
+          schema: 
+            $ref: '#/components/schemas/Size'
+        - in: query
+          name: id
+          description: Id of program
+          required: true
+          schema: 
+            $ref: '#/components/schemas/Id'
+        - in: query
+          name: startDateTime
+          description: From which time. If not provided, current date will be used.
+          schema: 
+            $ref: '#/components/schemas/ParameterDateTime'
+        - in: query
+          name: endDateTime
+          description: To which time. If not provided, startDateTime + 1 day will be used.
+          schema: 
+            $ref: '#/components/schemas/ParameterDateTime'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SonglistResponse'
+        '404':
+          description: Not found
+  /playlists/getplaylistbyepisodeid:
+    get:
+      summary: Get playlist for an episode.
+      description: Listar den låt som spelas just nu i angiven kanal samt nästkommande låt. https://sverigesradio.se/api/documentation/v2/metoder/musik.html
+      operationId: "getPlaylistByEpisode"
+      parameters:
+        - in: query
+          name: format
+          description: Format of response. Has to be json.
+          required: true
+          schema: 
+            $ref: '#/components/schemas/Format'
+        - in: query
+          name: id
+          description: Id of epsiode
+          required: true
+          schema: 
+            $ref: '#/components/schemas/Id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SonglistResponse'
+        '404':
+          description: Not found
+  /news:
+    get:
+      summary: Get news programs.
+      description: Listar Sveriges Radios nyhetsprogram. https://sverigesradio.se/api/documentation/v2/metoder/nyheter.html
+      operationId: "getNewsPrograms"
+      parameters:
+        - in: query
+          name: format
+          description: Format of response. Has to be json.
+          required: true
+          schema: 
+            $ref: '#/components/schemas/Format'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NewsProgramsResponse'
+  /news/episodes:
+    get:
+      summary: Get news episodes.
+      description: Listar senaste avsnitt från Sveriges Radios nyhetsprogram. https://sverigesradio.se/api/documentation/v2/metoder/nyheter.html
+      operationId: "getNewsEpisodes"
+      parameters:
+        - in: query
+          name: format
+          description: Format of response. Has to be json.
+          required: true
+          schema: 
+            $ref: '#/components/schemas/Format'
+        - in: query
+          name: audioquality
+          description: Only affects broadcast files, not pod files.
+          schema: 
+            $ref: '#/components/schemas/AudioQuality'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NewsEpisodesResponse'
+  /extra/broadcasts:
+    get:
+      summary: Get extra broadcasts.
+      description: Listar alla aktuella extrasändningar. https://sverigesradio.se/api/documentation/v2/metoder/extrasandningar.html
+      operationId: "getExtraBroadcasts"
+      parameters:
+        - in: query
+          name: format
+          description: Format of response. Has to be json.
+          required: true
+          schema: 
+            $ref: '#/components/schemas/Format'
+        - in: query
+          name: page
+          description: Page number.
+          schema: 
+            $ref: '#/components/schemas/Page'
+        - in: query
+          name: size
+          description: Size of each page.
+          schema: 
+            $ref: '#/components/schemas/Size'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExtraBroadcastsResponse'
+  /scheduledepisodes:
+    get:
+      summary: Get scheduled episodes for a channel.
+      description: Listar tablån för angiven kanal och dag. https://sverigesradio.se/api/documentation/v2/metoder/tabla.html
+      operationId: "getScheduledEpisodesForChannel"
+      parameters:
+        - in: query
+          name: format
+          description: Format of response. Has to be json.
+          required: true
+          schema: 
+            $ref: '#/components/schemas/Format'
+        - in: query
+          name: page
+          description: Page number.
+          schema: 
+            $ref: '#/components/schemas/Page'
+        - in: query
+          name: size
+          description: Size of each page.
+          schema: 
+            $ref: '#/components/schemas/Size'
+        - in: query
+          name: channelId
+          required: true
+          description: Id of channel.
+          schema: 
+            $ref: '#/components/schemas/Id'
+        - in: query
+          name: date
+          description: Date for schedule. If no date is provided current date will be used.
+          schema: 
+            $ref: '#/components/schemas/ParameterDate'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduledEpisodeResponse'
+  # This is a bit of a hack...
+  /scheduledepisodes/:
+    get:
+      summary: Get scheduled episodes for a program.
+      description: Listar tablån för angivet program och datumintervall. https://sverigesradio.se/api/documentation/v2/metoder/tabla.html
+      operationId: "getScheduledEpisodesForProgram"
+      parameters:
+        - in: query
+          name: format
+          description: Format of response. Has to be json.
+          required: true
+          schema: 
+            $ref: '#/components/schemas/Format'
+        - in: query
+          name: page
+          description: Page number.
+          schema: 
+            $ref: '#/components/schemas/Page'
+        - in: query
+          name: size
+          description: Size of each page.
+          schema: 
+            $ref: '#/components/schemas/Size'
+        - in: query
+          name: programId
+          required: true
+          example: 68
+          description: Id of program.
+          schema: 
+            $ref: '#/components/schemas/Id'
+        - in: query
+          name: fromdate
+          description: From date for schedule. If only fromdate is provided schedule for the that date and the 21 days is returned.
+          schema: 
+            $ref: '#/components/schemas/ParameterDate'
+        - in: query
+          name: todate
+          description: To date for schedule. If only todate is provided schedule from today until todate is returned.
+          schema: 
+            $ref: '#/components/schemas/ParameterDate'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduledEpisodeResponse'
+  /scheduledepisodes/rightnow:
+    get:
+      summary: Get was is playing right now on each channel.
+      description: Listar vad som sänds just nu och kommande program för samtliga kanaler. https://sverigesradio.se/api/documentation/v2/metoder/tabla.html
+      operationId: "getEpisodesRightNowAllChannels"
+      parameters:
+        - in: query
+          name: format
+          description: Format of response. Has to be json.
+          required: true
+          schema: 
+            $ref: '#/components/schemas/Format'
+        - in: query
+          name: page
+          description: Page number.
+          schema: 
+            $ref: '#/components/schemas/Page'
+        - in: query
+          name: size
+          description: Size of each page.
+          schema: 
+            $ref: '#/components/schemas/Size'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChannelsRightNowResponse'
+
+  /scheduledepisodes/rightnow/:
+    get:
+      summary: Get was is playing right now on a single  channel.
+      description: Hämta information om vad som sänds "just nu" i kanalen. https://sverigesradio.se/api/documentation/v2/metoder/tabla.html
+      operationId: "getEpisodesRightNowForChannel"
+      parameters:
+        - in: query
+          name: format
+          description: Format of response. Has to be json.
+          required: true
+          schema: 
+            $ref: '#/components/schemas/Format'
+        - in: query
+          name: channelId
+          required: true
+          description: Id of channel.
+          schema: 
+            $ref: '#/components/schemas/Id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChannelRightNowResponse'
+
+  /lastpublished:
+    get:
+      summary: Get latest published broadcasts and pods.
+      description: Hämta en lista av Sveriges Radios senaste publicerade sändningar och poddar. https://sverigesradio.se/api/documentation/v2/metoder/topplistor.html
+      operationId: "getLastPublishedShows"
+      parameters:
+        - in: query
+          name: format
+          description: Format of response. Has to be json.
+          required: true
+          schema: 
+            $ref: '#/components/schemas/Format'
+        - in: query
+          name: page
+          description: Page number.
+          schema: 
+            $ref: '#/components/schemas/Page'
+        - in: query
+          name: size
+          description: Size of each page.
+          schema: 
+            $ref: '#/components/schemas/Size'
+        - in: query
+          name: audioquality
+          schema: 
+            $ref: '#/components/schemas/AudioQuality'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LastPublishedShowsResponse'
+
+  /vma:
+    get:
+      summary: Get important messages.
+      description: Listar alla tillgängliga viktiga meddelanden till allmänheten. https://sverigesradio.se/api/documentation/v2/metoder/vma.html
+      operationId: "getImportantMessages"
+      parameters:
+        - in: query
+          name: format
+          description: Format of response. Has to be json.
+          required: true
+          schema: 
+            $ref: '#/components/schemas/Format'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessagesResponse'
+
+  /traffic/areas:
+    get:
+      summary: Get traffic areas.
+      description: Listar trafikområden. https://sverigesradio.se/api/documentation/v2/metoder/trafik.html
+      operationId: "getTrafficAreas"
+      parameters:
+        - in: query
+          name: format
+          description: Format of response. Has to be json.
+          required: true
+          schema: 
+            $ref: '#/components/schemas/Format'
+        - in: query
+          name: page
+          description: Page number.
+          schema: 
+            $ref: '#/components/schemas/Page'
+        - in: query
+          name: size
+          description: Size of each page.
+          schema: 
+            $ref: '#/components/schemas/Size'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrafficAreasResponse'
+
+  /traffic/areas/:
+    get:
+      summary: Get traffic area for a specific coordinate.
+      description: Hämtar trafikområde för en viss position. https://sverigesradio.se/api/documentation/v2/metoder/trafik.html
+      operationId: "getTrafficArea"
+      parameters:
+        - in: query
+          name: format
+          description: Format of response. Has to be json.
+          required: true
+          schema: 
+            $ref: '#/components/schemas/Format'
+        - in: query
+          name: latitude
+          required: true
+          description: Latitude. Valid values -90 to 90.
+          schema: 
+            $ref: '#/components/schemas/Latitude'
+        - in: query
+          name: longitude
+          required: true
+          description: Longitude. Valid values -180 to 180.
+          schema: 
+            $ref: '#/components/schemas/Longitude'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrafficAreaResponse'
+
+  /traffic/messages:
+    get:
+      summary: Get traffic messages.
+      description: Listar alla tillgängliga trafikmeddelanden. https://sverigesradio.se/api/documentation/v2/metoder/trafik.html
+      operationId: "getTrafficMessages"
+      parameters:
+        - in: query
+          name: format
+          description: Format of response. Has to be json.
+          required: true
+          schema: 
+            $ref: '#/components/schemas/Format'
+        - in: query
+          name: page
+          description: Page number.
+          schema: 
+            $ref: '#/components/schemas/Page'
+        - in: query
+          name: size
+          description: Size of each page.
+          schema: 
+            $ref: '#/components/schemas/Size'
+        - in: query
+          name: trafficAreaName
+          description: Name of traffic area.
+          schema: 
+            $ref: '#/components/schemas/TrafficeAreaName'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrafficMessagesResponse'
+
+
+components:
+  schemas:
+    Format:
+      type: string
+      default: json
+      enum:
+        - json
+    ChannelSort:
+      type: string
+      default: id
+      enum:
+        - id
+        - id desc
+        - name
+        - name desc
+    ChannelType:
+      type: string
+      # This could be used as an enum.
+      # enum:
+      #   - Rikskanal
+      #   - Lokal kanal
+      #   - Minoritet och språk
+      #   - Fler kanaler
+      #   - Extrakanaler
+    AudioQuality:
+      type: string
+      description: Seems to be supported by live audio template 2-5. Read more about details at https://sverigesradio.se/api/documentation/v2/metoder/ljud.html#kvalitet
+      enum:
+        - normal
+        - hi
+        - lo
+    LiveAudioTemplate:
+      type: integer
+      format: int32
+      default: null
+      description: |
+        Valid values are: 
+          2 (mp3), 
+          3 (aac-http.pls), 
+          4 (aac-http.m3u), 
+          5 (aac-http.pls) 
+          10 (hls) 
+          11 (dash) 
+          12 (also hls?) 
+        Read more about details at https://sverigesradio.se/api/documentation/v2/metoder/ljud.html
+    Id:
+      type: integer
+      format: int32
+    Page:
+      type: integer
+      format: int32
+    Size:
+      type: integer
+      format: int32
+    SizeEpisodeSearch:
+      type: integer
+      maximum: 25
+      format: int32
+    ProgramCategoryId:
+      type: integer
+      format: int32
+    IsArchived:
+      type: boolean
+    Latitude:
+      type: number
+      minimum: -90
+      maximum: 90
+    Longitude:
+      type: number
+      minimum: -180
+      maximum: 180
+    TrafficeAreaName:
+      type: string
+      description: Name of traffic area.
+    TrafficMessagePriority:
+      type: integer
+      format: int32
+      minimum: 1
+      maximum: 5
+      default: null
+      description: |
+        Valid values are: 
+          1 - Very serious event
+          2 - Major event 
+          3 - Disturbance
+          4 - Information
+          5 - Minor disturbance
+        Read more about details at https://sverigesradio.se/api/documentation/v2/metoder/trafik.html
+    TrafficMessageCategory:
+      type: integer
+      format: int32
+      minimum: 0
+      maximum: 3
+      default: null
+      description: |
+        Valid values are: 
+          0 - Road traffic
+          1 - Public transport
+          2 - Planned disturbance
+          3 - Other
+        Read more about details at https://sverigesradio.se/api/documentation/v2/metoder/trafik.html
+    ParameterDate:
+      type: string
+      format: date
+    ParameterDateTime:
+      type: string
+      format: date-time
+    EntityDateTime:
+      type: string
+      format: date-time
+      # pattern: ^\/Date\(\d*\)\/$
+    SearchQuery:
+      type: string
+    Pagination:
+      type: object
+      required:
+        - page
+        - size
+        - totalhits
+        - totalpages
+      properties:
+        page:
+          type: integer
+          format: int32
+          example: 1
+        size:
+          type: integer
+          format: int32
+          example: 5
+        totalhits:
+          type: integer
+          format: int32
+          example: 42
+        totalpages:
+          type: integer
+          format: int32
+          example: 9
+    BaseResponse:
+      type: object
+      required:
+        - copyright
+      properties:
+        copyright:
+          type: string
+          example: Copyright Sveriges Radio
+    PaginationResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          required:
+          - pagination
+          properties:
+            pagination:
+              $ref: '#/components/schemas/Pagination'
+    LiveAudio:
+      required:
+        - id
+        - url
+        - statkey
+      properties:
+        id:
+          $ref: '#/components/schemas/Id'
+        url:
+          type: string
+          example: http://sverigesradio.se/topsy/direkt/srapi/132.mp3
+        statkey:
+          type: string
+          example: /app/direkt/p1[k(132)]
+    SocialMediaPlatform:
+      type: object
+      required:
+        - platform
+        - platformurl
+      properties:
+        platform:
+          type: string
+          example: Facebook
+        platformurl:
+          type: string
+          example: https://www.facebook.com/sverigesradiop3
+
+    Channel:
+      type: object
+      required:
+        - id
+        - name
+        - channeltype
+      properties:
+        id:
+          $ref: '#/components/schemas/Id'
+        name:
+          type: string
+          example: P1
+        image:
+          type: string
+          nullable: true
+          example: https://static-cdn.sr.se/images/132/2186745_512_512.jpg?preset=api-default-square
+        imagetemplate:
+          type: string
+          nullable: true
+          example: https://static-cdn.sr.se/images/132/2186745_512_512.jpg
+        color:
+          type: string
+          nullable: true
+          example: 31a1bd
+        tagline:
+          type: string
+          nullable: true
+          example: Talat innehåll om samhälle, kultur och vetenskap. Kanalen erbjuder nyheter och aktualiteter, granskning och fördjupning men också livsåskådnings-och livsstilsprogram samt underhållning och upplevelser till exempel i form av teater.
+        siteurl:
+          type: string
+          nullable: true
+          example: https://sverigesradio.se/p1
+        liveaudio:
+            $ref: '#/components/schemas/LiveAudio'
+            nullable: true
+        scheduleurl:
+          type: string
+          nullable: true
+          example: http://api.sr.se/v2/scheduledepisodes?channelid=132
+        channeltype:
+            $ref: '#/components/schemas/ChannelType'
+        xmltvid:
+          type: string
+          nullable: true
+          example: p1.sr.se
+    ChannelOverview:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/Id'
+        name:
+          type: string
+          example: P1
+    ChannelsResponse:
+      allOf:
+        - $ref: '#/components/schemas/PaginationResponse'
+        - type: object
+          required:
+            - channels
+          properties:
+            channels:
+              type: array
+              items:
+                $ref: '#/components/schemas/Channel'
+    ChannelResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          required:
+            - channel
+          properties:
+            channel:
+              $ref: '#/components/schemas/Channel'
+
+    ProgramCategory:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          $ref: '#/components/schemas/Id'
+        name:
+          type: string
+          example: Barn
+    ProgramCategoriesResponse:
+     allOf:
+        - $ref: '#/components/schemas/PaginationResponse'
+        - type: object
+          required:
+            - programcategories
+          properties:
+            programcategories:
+              type: array
+              items:
+                $ref: '#/components/schemas/ProgramCategory'
+    ProgramCategoryResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          required:
+            - programcategory
+          properties:
+            programcategory:
+              $ref: '#/components/schemas/ProgramCategory'
+    Program:
+      required:
+        - id
+        - name
+        - archived
+        - hasondemand
+        - haspod
+      properties:
+        id:
+          $ref: '#/components/schemas/Id'
+        name:
+          type: string
+          example: Sporten P4 Skaraborg
+        description:
+          type: string
+          nullable: true
+          example: Sport, P4 Skaraborg, Sveriges Radio.
+        programcategory:
+          $ref: '#/components/schemas/ProgramCategory'
+          nullable: true
+        payoff:
+          type: string
+          nullable: true
+          example: Koppla av med P2 Klassiskt
+        email:
+          type: string
+          nullable: true
+          example: some@mail.com
+        phone:
+          type: string
+          nullable: true
+        broadcastinfo:
+          type: string
+          nullable: true
+          example: Har du nyhetstips? Kontakta oss via e-post some@mail.com eller 012-34 56 78
+        channel:
+          $ref: '#/components/schemas/ChannelOverview'
+          nullable: true
+        socialmediaplatforms:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocialMediaPlatform'
+        programurl:
+          type: string
+          nullable: true
+          example: https://sverigesradio.se/gruppsida.aspx?programid=97&grupp=3840
+        programslug:
+          type: string
+          nullable: true
+          example: sportenp4skaraborg
+        programimage:
+          type: string
+          nullable: true
+          example: https://static-cdn.sr.se/images/content/sverigesradiologga.jpg?preset=api-default-square
+        programimagetemplate:
+          type: string
+          nullable: true
+          example: https://static-cdn.sr.se/images/content/sverigesradiologga.jpg
+        programimagewide:
+          type: string
+          nullable: true
+          example: https://static-cdn.sr.se/images/35/3116563_176_132.jpg?preset=api-default-rectangle
+        programimagetemplatewide:
+          type: string
+          nullable: true
+          example: https://static-cdn.sr.se/images/35/3116563_176_132.jpg
+        socialimage:
+          type: string
+          nullable: true
+          example: https://static-cdn.sr.se/images/content/sverigesradiologga.jpg?preset=api-default-square
+        socialimagetemplate:
+          type: string
+          nullable: true
+          example: https://static-cdn.sr.se/images/content/sverigesradiologga.jpg
+        archived:
+          type: boolean
+          example: false
+        hasondemand:
+          type: boolean
+          example: true
+        haspod:
+          type: boolean
+          example: true
+        responsibleeditor:
+          type: string
+          nullable: true
+          example: Nisse Hult
+      type: object
+    ProgramsResponse:
+      allOf:
+        - $ref: '#/components/schemas/PaginationResponse'
+        - type: object
+          required:
+            - programs
+          properties:
+            programs:
+              type: array
+              items:
+                $ref: '#/components/schemas/Program'
+    ProgramResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          required:
+            - program
+          properties:
+            program:
+              $ref: '#/components/schemas/Program'
+    ProgramOverview:
+      required:
+        - id
+        # name can not be required.
+        # - name
+      properties:
+        id:
+          $ref: '#/components/schemas/Id'
+        name:
+          type: string
+          example: Sporten P4 Skaraborg
+    Playlist:
+      type: object
+      required:
+        - id
+        - url
+        - duration
+      properties:
+        id:
+          $ref: '#/components/schemas/Id'
+        url:
+          type: string
+          example: http://sverigesradio.se/topsy/ljudfil/4148031.m4a
+        statkey:
+          type: string
+          example: webbradio/start/lyssnaigen/164_P3-2519_P3 Dokumentär/4148031_P3 Dokumentär
+        duration:
+          type: integer
+          format: int32
+          example: 3420
+        publishdateutc:
+          description: In some rare cases this is not definied.
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/EntityDateTime'
+    BroadcastFile:
+      type: object
+      required:
+        - id
+        - url
+        - duration
+      properties:
+        id:
+          $ref: '#/components/schemas/Id'
+        url:
+          type: string
+          example: http://sverigesradio.se/topsy/ljudfil/4148031.m4a
+        statkey:
+          type: string
+          example: webbradio/start/lyssnaigen/164_P3-2519_P3 Dokumentär/4148031_P3 Dokumentär
+        duration:
+          type: integer
+          format: int32
+          example: 3420
+        publishdateutc:
+          description: In some rare cases this is not definied.
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/EntityDateTime'
+    Broadcast:
+      type: object
+      properties:
+        availablestoputc:
+          description: In some rare cases this is not definied.
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/EntityDateTime'
+        playlist:
+          $ref: "#/components/schemas/Playlist"
+          nullable: true
+        broadcastfiles:
+          type: array
+          items:
+            $ref: "#/components/schemas/BroadcastFile"
+    PodFile:
+      type: object
+      required:
+        - id
+        - url
+        - duration
+        - filesizeinbytes
+        - publishdateutc
+      properties:
+        id:
+          $ref: '#/components/schemas/Id'
+        url:
+          type: string
+          example: http://sverigesradio.se/topsy/ljudfil/srapi/4119397.mp3
+        statkey:
+          type: string
+          nullable: true
+          example: /app/avsnitt/p3[k(164)]/tankesmedjan[p(3718)]/tankesmedjan 2012-08-30 16:10[e(365)]
+        duration:
+          type: integer
+          format: int32
+          example: 1472
+        publishdateutc:
+          $ref: '#/components/schemas/EntityDateTime'
+        title:
+          type: string
+          nullable: true
+          example: Patriarkatpysslet, järnvägarna och recensionerna
+        description:
+          type: string
+          nullable: true
+          example: Some description
+        filesizeinbytes:
+          type: integer
+          format: int32
+          example: 25270614
+        program:
+          $ref: '#/components/schemas/ProgramOverview'
+          nullable: true
+        availablefromutc:
+          description: In some rare cases this is not definied.
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/EntityDateTime'
+    NewsPodFile:
+      type: object
+      required:
+        - url
+        - duration
+        - filesizeinbytes
+        - publishdateutc
+      properties:
+        url:
+          type: string
+          example: http://sverigesradio.se/topsy/ljudfil/srapi/4119397.mp3
+        statkey:
+          type: string
+          example: /app/avsnitt/p3[k(164)]/tankesmedjan[p(3718)]/tankesmedjan 2012-08-30 16:10[e(365)]
+        duration:
+          type: integer
+          format: int32
+          example: 1472
+        publishdateutc:
+          $ref: '#/components/schemas/EntityDateTime'
+        title:
+          type: string
+          example: Patriarkatpysslet, järnvägarna och recensionerna
+        description:
+          type: string
+          example: Some description
+        filesizeinbytes:
+          type: integer
+          format: int32
+          example: 25270614
+        program:
+          $ref: '#/components/schemas/ProgramOverview'
+    BroadcastTime:
+      type: object
+      required:
+        - starttimeutc
+        - endtimeutc
+      properties:
+        starttimeutc:
+          $ref: '#/components/schemas/EntityDateTime'
+        endtimeutc:
+          $ref: '#/components/schemas/EntityDateTime'
+    Episode:
+      type: object
+      required:
+        - id
+        - title
+        - publishdateutc
+      properties:
+        id:
+          $ref: '#/components/schemas/Id'
+        title:
+          type: string
+          example: Tankesmedjan
+        description:
+          type: string
+          nullable: true
+          example: Dagens program handlar om järnvägssatsningen.
+        url:
+          type: string
+          nullable: true
+          example: https://sverigesradio.se/avsnitt/365
+        channelid:
+          $ref: '#/components/schemas/Id'
+        program:
+          $ref: '#/components/schemas/ProgramOverview'
+          nullable: true
+        audiopreference:
+          type: string
+          nullable: true
+          example: broadcast
+        audiopriority:
+          type: string
+          nullable: true
+          example: mp3
+        audiopresentation:
+          type: string
+          nullable: true
+          example: music
+        publishdateutc:
+          $ref: '#/components/schemas/EntityDateTime'
+        imageurl:
+          type: string
+          nullable: true
+          example: https://static-cdn.sr.se/images/3718/a35fcdd0-69db-43ef-a395-e1e10be83188.jpg?preset=api-default-square
+        imageurltemplate:
+          type: string
+          nullable: true
+          example: https://static-cdn.sr.se/images/3718/a35fcdd0-69db-43ef-a395-e1e10be83188.jpg
+        broadcast:
+          $ref: '#/components/schemas/Broadcast'
+          nullable: true
+        broadcasttime:
+          $ref: '#/components/schemas/BroadcastTime'
+          nullable: true
+        listenpodfile:
+          $ref: '#/components/schemas/PodFile'
+          nullable: true
+        downloadpodfile:
+          $ref: '#/components/schemas/PodFile'
+          nullable: true
+    EpisodesResponse:
+     allOf:
+        - $ref: '#/components/schemas/PaginationResponse'
+        - type: object
+          required:
+            - episodes
+          properties:
+            episodes:
+              type: array
+              items:
+                $ref: '#/components/schemas/Episode'
+    EpisodeResponse:
+     allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          required:
+            - episode
+          properties:
+            episode:
+              $ref: '#/components/schemas/Episode'
+    NewsEpisode:
+      type: object
+      required:
+        - id
+        - title
+        - publishdateutc
+      properties:
+        id:
+          $ref: '#/components/schemas/Id'
+        title:
+          type: string
+          example: Tankesmedjan
+        description:
+          type: string
+          example: Dagens program handlar om järnvägssatsningen.
+        url:
+          type: string
+          example: https://sverigesradio.se/avsnitt/365
+        channelid:
+          $ref: '#/components/schemas/Id'
+        program:
+          $ref: '#/components/schemas/ProgramOverview'
+        audiopreference:
+          type: string
+          example: broadcast
+        audiopriority:
+          type: string
+          example: mp3
+        audiopresentation:
+          type: string
+          example: music
+        publishdateutc:
+          $ref: '#/components/schemas/EntityDateTime'
+        imageurl:
+          type: string
+          example: https://static-cdn.sr.se/images/3718/a35fcdd0-69db-43ef-a395-e1e10be83188.jpg?preset=api-default-square
+        imageurltemplate:
+          type: string
+          example: https://static-cdn.sr.se/images/3718/a35fcdd0-69db-43ef-a395-e1e10be83188.jpg
+        broadcast:
+          $ref: '#/components/schemas/Broadcast'
+        broadcasttime:
+          $ref: '#/components/schemas/BroadcastTime'
+        listenpodfile:
+          $ref: '#/components/schemas/NewsPodFile'
+        downloadpodfile:
+          $ref: '#/components/schemas/NewsPodFile'
+    Song:
+      type: object
+      required:
+        - title
+        - starttimeutc
+        - stoptimeutc
+      properties:
+        title:
+          type: string
+          nullable: true
+          example: Black Heart
+        description:
+          type: string
+          nullable: true
+          example: Stooshe - Black Heart
+        artist:
+          type: string
+          nullable: true
+          example: Stooshe
+        composer:
+          type: string
+          nullable: true
+          example: A composer
+        conductor:
+          type: string
+          nullable: true
+        albumname:
+          type: string
+          nullable: true
+        recordlabel:
+          type: string
+          nullable: true
+        lyricist:
+          type: string
+          nullable: true
+        producer:
+          type: string
+          nullable: true
+        starttimeutc:
+          $ref: '#/components/schemas/EntityDateTime'
+        stoptimeutc:
+          $ref: '#/components/schemas/EntityDateTime'
+    RightNowPlaylist:
+      type: object
+      properties:
+        channel:
+          $ref: '#/components/schemas/ChannelOverview'
+        previoussong:
+          $ref: '#/components/schemas/Song'
+        song:
+          $ref: '#/components/schemas/Song'
+        nextsong:
+          $ref: '#/components/schemas/Song'
+    RightNowPlaylistResponse:
+        type: object
+        required:
+          - playlist
+        properties:
+          playlist:
+            $ref: '#/components/schemas/RightNowPlaylist'
+    SonglistResponse:
+     allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          required:
+            - song
+          properties:
+            song:
+              type: array
+              items:
+                $ref: '#/components/schemas/Song'
+    NewsProgramsResponse:
+      type: object
+      required:
+        - programs
+      properties:
+        programs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Program'
+    NewsEpisodesResponse:
+      type: object
+      required:
+        - episodes
+      properties:
+        episodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/NewsEpisode'
+    ExtraLiveAudio:
+      properties:
+        url:
+          type: string
+          example: http://sverigesradio.se/topsy/direkt/srapi/132.mp3
+        statkey:
+          type: string
+          example: /app/direkt/p1[k(132)]
+    ExtraPublisher:
+      properties:
+        id:
+          $ref: '#/components/schemas/Id'
+        name:
+          type: string
+          example: Nisse Hult
+    ExtraBroadcast:
+      type: object
+      required:
+        - id
+        - name
+        - sport
+        - localstarttime
+        - localstoptime
+      properties:
+        id:
+          $ref: '#/components/schemas/Id'
+        name:
+          type: string
+        sport:
+          type: boolean
+        description:
+          type: string
+        localstarttime:
+          $ref: '#/components/schemas/EntityDateTime'
+        localstoptime:
+          $ref: '#/components/schemas/EntityDateTime'
+        publisher:
+          $ref: '#/components/schemas/ExtraPublisher'
+        channel:
+          $ref: '#/components/schemas/ChannelOverview'
+        liveaudio:
+          $ref: '#/components/schemas/ExtraLiveAudio'
+        mobileliveaudio:
+          $ref: '#/components/schemas/ExtraLiveAudio'
+    ExtraBroadcastsResponse:
+      allOf:
+        - $ref: '#/components/schemas/PaginationResponse'
+        - type: object
+          required:
+            - broadcasts
+          properties:
+            broadcasts:
+              type: array
+              items:
+                $ref: '#/components/schemas/ExtraBroadcast'
+    ScheduledEpisode:
+      type: object
+      required:
+        - title
+        - starttimeutc
+        - endtimeutc
+      properties:
+        episodeid:
+          description: In some rare cases this is not definied.
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/Id'
+        title:
+          type: string
+        description:
+          type: string
+          nullable: true
+        starttimeutc:
+          $ref: '#/components/schemas/EntityDateTime'
+        endtimeutc:
+          $ref: '#/components/schemas/EntityDateTime'
+        program:
+          $ref: '#/components/schemas/ProgramOverview'
+          nullable: true
+        channel:
+          $ref: '#/components/schemas/ChannelOverview'
+          nullable: true
+        imageurl:
+          type: string
+          nullable: true
+          example: https://static-cdn.sr.se/images/3718/a35fcdd0-69db-43ef-a395-e1e10be83188.jpg?preset=api-default-square
+        imageurltemplate:
+          type: string
+          nullable: true
+          example: https://static-cdn.sr.se/images/3718/a35fcdd0-69db-43ef-a395-e1e10be83188.jpg
+    ScheduledEpisodeResponse:
+      allOf:
+        - $ref: '#/components/schemas/PaginationResponse'
+        - type: object
+          required:
+            - schedule
+          properties:
+            schedule:
+              type: array
+              items:
+                $ref: '#/components/schemas/ScheduledEpisode'
+    ChannelRightNowScheduledEpisode:
+      type: object
+      required:
+        # - episodeid This may be ommited.
+        - title
+        - starttimeutc
+        - endtimeutc      
+      properties:
+        episodeid:
+          $ref: '#/components/schemas/Id'
+        title:
+          type: string
+        description:
+          type: string
+        starttimeutc:
+          $ref: '#/components/schemas/EntityDateTime'
+        endtimeutc:
+          $ref: '#/components/schemas/EntityDateTime'
+        program:
+          $ref: '#/components/schemas/ProgramOverview'
+        socialimage:
+          type: string
+          example: http://sverigesradio.se/images/213/2186760_512_512.jpg?preset=api-default-square
+    ChannelRightNow:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          $ref: '#/components/schemas/Id'
+        name:
+          type: string
+        previousscheduledepisode:
+          $ref: '#/components/schemas/ChannelRightNowScheduledEpisode'
+          nullable: true
+        currentscheduledepisode:
+          $ref: '#/components/schemas/ChannelRightNowScheduledEpisode'
+          nullable: true
+        nextscheduledepisode:
+          $ref: '#/components/schemas/ChannelRightNowScheduledEpisode'
+          nullable: true
+    ChannelsRightNowResponse:
+      allOf:
+        - $ref: '#/components/schemas/PaginationResponse'
+        - type: object
+          required:
+            - channels
+          properties:
+            channels:
+              type: array
+              items:
+                $ref: '#/components/schemas/ChannelRightNow'
+    ChannelRightNowResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          required:
+            - channel
+          properties:
+            channel:
+              $ref: '#/components/schemas/ChannelRightNow'
+    Show:
+      type: object
+      required:
+        - id
+        - title
+        - starttimeutc
+      properties:
+        id:
+          $ref: '#/components/schemas/Id'
+        title:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+        starttimeutc:
+          $ref: '#/components/schemas/EntityDateTime'
+        endtimeutc:
+          $ref: '#/components/schemas/EntityDateTime'
+        imageurl:
+          type: string
+          example: https://static-cdn.sr.se/images/3718/a35fcdd0-69db-43ef-a395-e1e10be83188.jpg?preset=api-default-square
+        imageurltemplate:
+          type: string
+          example: https://static-cdn.sr.se/images/3718/a35fcdd0-69db-43ef-a395-e1e10be83188.jpg
+        broadcast:
+          $ref: '#/components/schemas/Broadcast'
+        program:
+          $ref: '#/components/schemas/ProgramOverview'
+    LastPublishedShowsResponse:
+      allOf:
+        - $ref: '#/components/schemas/PaginationResponse'
+        - type: object
+          required:
+            - shows
+          properties:
+            shows:
+              type: array
+              items:
+                $ref: '#/components/schemas/Show'
+    Message:
+      type: object
+      required:
+        - id
+        - title
+        - date
+      properties:
+        id:
+          $ref: '#/components/schemas/Id'
+        title:
+          type: string
+        description:
+          type: string
+        date:
+          $ref: '#/components/schemas/EntityDateTime'
+        url:
+          type: string
+        liveaudio:
+          $ref: '#/components/schemas/ExtraLiveAudio'
+        mobileliveaudio:
+          $ref: '#/components/schemas/ExtraLiveAudio'
+    MessagesResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          required:
+            - messages
+          properties:
+            messages:
+              type: array
+              items:
+                $ref: '#/components/schemas/Message'
+    TrafficArea:
+      type: object
+      required:
+        - name
+        - zoom
+        - radius
+        - trafficdepartmentunitid
+      properties:
+        trafficdepartmentunitid:
+          $ref: '#/components/schemas/Id'
+        name:
+          type: string
+        zoom:
+          type: integer
+          format: int32
+        radius:
+          type: number
+    TrafficAreasResponse:
+      allOf:
+        - $ref: '#/components/schemas/PaginationResponse'
+        - type: object
+          required:
+            - areas
+          properties:
+            areas:
+              type: array
+              items:
+                $ref: '#/components/schemas/TrafficArea'
+    TrafficAreaResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          required:
+            - area
+          properties:
+            area:
+              $ref: '#/components/schemas/TrafficArea'
+    TrafficMessage:
+      type: object
+      required:
+        - id
+        - priority
+        - createddate
+        - latitude
+        - longitude
+        - category
+        - subcategory
+      properties:
+        id:
+          $ref: '#/components/schemas/Id'
+        priority:
+          $ref: '#/components/schemas/TrafficMessagePriority'
+        createddate:
+          $ref: '#/components/schemas/EntityDateTime'
+        exactlocation:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        latitude:
+          $ref: '#/components/schemas/Latitude'
+        longitude:
+          $ref: '#/components/schemas/Longitude'
+        category:
+          $ref: '#/components/schemas/TrafficMessageCategory'
+        subcategory:
+          type: string
+    TrafficMessagesResponse:
+      allOf:
+        - $ref: '#/components/schemas/PaginationResponse'
+        - type: object
+          required:
+            - messages
+          properties:
+            messages:
+              type: array
+              items:
+                $ref: '#/components/schemas/TrafficMessage'

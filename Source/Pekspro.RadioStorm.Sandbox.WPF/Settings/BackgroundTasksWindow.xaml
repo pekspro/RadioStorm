@@ -1,0 +1,19 @@
+﻿<Window x:Class="Pekspro.RadioStorm.Sandbox.WPF.Settings.BackgroundTasksWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Pekspro.RadioStorm.Sandbox.WPF.Settings"
+        mc:Ignorable="d"
+        Title="BackgroundTasksWindow" Height="450" Width="800">
+    <StackPanel>
+        <Button Content="Start prefetch and autodownloads" VerticalAlignment="Top" HorizontalAlignment="Left"
+                Click="ButtonStartPrefetch_Click"
+                x:Name="ButtonStartPrefetch"/>
+
+        <Button Content="Delete obselete downloads" VerticalAlignment="Top" HorizontalAlignment="Left"
+                Click="ButtonDeleteObseleteDownloads_Click"
+                x:Name="ButtonDeleteObseleteDownloads"/>
+
+    </StackPanel>
+</Window>

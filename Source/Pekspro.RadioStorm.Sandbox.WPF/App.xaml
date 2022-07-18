@@ -1,0 +1,45 @@
+﻿<Application x:Class="Pekspro.RadioStorm.Sandbox.WPF.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
+             xmlns:converters="clr-namespace:Pekspro.RadioStorm.Sandbox.WPF.Converters">
+    <Application.Resources>
+        <ResourceDictionary>
+            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+            <converters:BoolToSelectionModeConverter x:Key="BoolToSelectionMode" />
+            <converters:BoolToVisibilityConverter x:Key="InvertedBoolToVisibilityConverter" VisibleValue="False" />
+            <converters:MediaStateConverter x:Key="MediaStateConverter" />
+            <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+            <converters:NullImageConverter x:Key="NullImageConverter" />
+            <converters:BoolToBrushConverter x:Key="BoolToIsListenedColorConverter" 
+                                             FalseValue="Black" 
+                                             TrueValue="Gray" />
+
+            <converters:BoolToStringConverter x:Key="BoolToToggleIsListenedConverter" 
+                                             FalseValue="{x:Static r:Strings.Episodes_SetAsListened}" 
+                                             TrueValue="{x:Static r:Strings.Episodes_SetAsNotListened}" 
+                                             />
+
+            <converters:BoolToStringConverter x:Key="BoolToToggleDownloadConverter" 
+                                             FalseValue="{x:Static r:Strings.General_Download}" 
+                                             TrueValue="{x:Static r:Strings.General_RemoveDownload}" 
+                                             />
+
+            <converters:DownloadDataStatusToVisibilityConverter VisibilityValue="Done"
+                                                            x:Key="DownloadDataStatusDoneToVisibilityConverter" />
+            <converters:DownloadDataStatusToVisibilityConverter VisibilityValue="Error"
+                                                            x:Key="DownloadDataStatusErrorToVisibilityConverter" />
+            <converters:DownloadDataStatusToVisibilityConverter VisibilityValue="Downloading"
+                                                            x:Key="DownloadDataStatusDownloadingToVisibilityConverter" />
+            <converters:DownloadDataStatusToVisibilityConverter VisibilityValue="Starting"
+                                                            VisibilityValue2="Paused"
+                                                            UseVisibilityValue2="True"
+                                                            x:Key="DownloadDataStatusWaitingToVisibilityConverter" />
+            <converters:DownloadDataStatusToVisibilityConverter VisibilityValue="Done"
+                                                            VisibilityValue2="Downloading"
+                                                            UseVisibilityValue2="True"
+                                                            x:Key="DownloadDataStatusDoneOrDownloadingToVisibilityConverter" />
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

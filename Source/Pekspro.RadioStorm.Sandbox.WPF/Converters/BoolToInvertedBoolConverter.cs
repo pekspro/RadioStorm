@@ -1,0 +1,26 @@
+﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Converters;
+
+public class BoolToInvertedBoolConverter : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        if (value is bool)
+        {
+            var v = (bool)value;
+            return !v;
+        }
+
+        return false;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        if (value is bool)
+        {
+            var v = (bool)value;
+            return !v;
+        }
+
+        return false;
+    }
+}

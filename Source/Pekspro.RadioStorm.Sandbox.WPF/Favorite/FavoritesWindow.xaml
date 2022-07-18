@@ -1,0 +1,72 @@
+﻿<Window x:Class="Pekspro.RadioStorm.Sandbox.WPF.Favorite.FavoritesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ChannelControls="clr-namespace:Pekspro.RadioStorm.Sandbox.WPF.Channel" 
+        xmlns:program="clr-namespace:Pekspro.RadioStorm.Sandbox.WPF.Program" 
+        xmlns:UserControls="clr-namespace:Pekspro.RadioStorm.Sandbox.WPF.UserControls"
+        xmlns:templateselector="clr-namespace:Pekspro.RadioStorm.Sandbox.WPF.TemplateSelector" 
+        xmlns:favorite="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Favorite;assembly=Pekspro.RadioStorm.UI"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance favorite:FavoritesViewModel, IsDesignTimeCreatable=True}"
+        Title="Favorites" Height="450" Width="800">
+    <Window.Resources>
+        <DataTemplate x:Key="ChannelTemplate">
+            <ChannelControls:ChannelControl />
+        </DataTemplate>
+        <DataTemplate x:Key="ProgramTemplate">
+            <program:FavoriteProgramControl />
+        </DataTemplate>
+        <templateselector:FavoriteTemplateSelector x:Key="FavoriteSelector" />
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <UserControls:DebugControl Grid.Row="0" />
+        
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <TextBlock Text="Favoriter: " Padding="4" />
+            <TextBlock Text="{Binding Items.Count}" Padding="4" />
+        </StackPanel>
+
+        <UserControls:DownloadStateControl Grid.Row="2" />
+
+        <ListView 
+            x:Name="ListViewFavorites"
+            Grid.Row="2"
+            ItemsSource="{Binding Items}"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+            Visibility="{Binding HasData, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}"
+            ItemTemplateSelector="{StaticResource FavoriteSelector}"
+            Padding="4"
+            MouseDoubleClick="ListView_MouseDoubleClick"
+                >
+            <ListView.Resources>
+                <ContextMenu x:Key="ItemContextMenu">
+                    <MenuItem Header="Remove as favorite (multiple)" Click="MenuItemMultipleRemoveAsFavorite_Click" />
+                </ContextMenu>
+            </ListView.Resources>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="ContextMenu" Value="{StaticResource ItemContextMenu}" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <!--<ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock FontWeight="Bold" FontSize="14" Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </ListView.GroupStyle>-->
+        </ListView>
+    </Grid>
+</Window>
+

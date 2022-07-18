@@ -1,0 +1,96 @@
+﻿<Window x:Class="Pekspro.RadioStorm.Sandbox.WPF.Episode.EpisodeDetailsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:UserControls="clr-namespace:Pekspro.RadioStorm.Sandbox.WPF.UserControls" 
+        xmlns:song="clr-namespace:Pekspro.RadioStorm.Sandbox.WPF.Song" 
+        xmlns:episode="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Episode;assembly=Pekspro.RadioStorm.UI"
+        xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance episode:EpisodeDetailsViewModel, IsDesignTimeCreatable=True}"
+        Title="{Binding EpisodeData.ProgramName}" Height="450" Width="800">
+    <Grid>
+        <TabControl>
+            <TabItem Header="{x:Static r:Strings.Episodes_Information}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <UserControls:DebugControl Grid.Row="0" />
+                    <UserControls:DownloadStateControl Grid.Row="2" DataContext="{Binding }" />
+
+                    <StackPanel Grid.Row="1" Visibility="{Binding HasData, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <TextBlock Text="{Binding Title}" />
+                        <TextBlock Text="{Binding EpisodeData.Description}" TextWrapping="Wrap" />
+
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding EpisodeData.EpisodeImage.LowResolution, Converter={StaticResource NullImageConverter}}" Width="100" Height="100" />
+                        </StackPanel>
+
+                        <CheckBox IsChecked="{Binding EpisodeData.IsListened}" Content="Lyssnad" />
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0">Publicerad</TextBlock>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding EpisodeData.PublishLength.PublishDateString}" />
+            
+                            <TextBlock Grid.Row="1" Grid.Column="0">Längd</TextBlock>
+                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding EpisodeData.PublishLength.LengthString}" />
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Visibility="{Binding PreviousEpisodeData, Converter={StaticResource NullToVisibilityConverter}}" >Föregående</TextBlock>
+                            <TextBlock Grid.Row="2" Grid.Column="1" Visibility="{Binding PreviousEpisodeData, Converter={StaticResource NullToVisibilityConverter}}">
+                                 <Hyperlink Click="PreviousEpisodeHyperlink_Click">
+                                    <Hyperlink.Inlines>
+                                        <Run Text="{Binding PreviousEpisodeData.Title, Mode=OneWay}"/>
+                                   </Hyperlink.Inlines>
+                                </Hyperlink>
+                            </TextBlock>
+
+                            <TextBlock Grid.Row="3" Grid.Column="0">ID</TextBlock>
+                            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding EpisodeData.Id}" />
+
+                            <TextBlock Grid.Row="4" Grid.Column="0" Visibility="{Binding NextEpisodeData, Converter={StaticResource NullToVisibilityConverter}}">Nästa</TextBlock>
+                            <TextBlock Grid.Row="4" Grid.Column="1" Visibility="{Binding NextEpisodeData, Converter={StaticResource NullToVisibilityConverter}}">
+                                <Hyperlink Click="NextEpisodeHyperlink_Click">
+                                    <Hyperlink.Inlines>
+                                        <Run Text="{Binding NextEpisodeData.Title, Mode=OneWay}"/>
+                                   </Hyperlink.Inlines>
+                                </Hyperlink>
+                            </TextBlock>
+
+                            <TextBlock Grid.Row="5" Grid.Column="0" Visibility="{Binding NavigationToProgramPageIsPossible, Converter={StaticResource BoolToVisibilityConverter}}">Program</TextBlock>
+                            <TextBlock Grid.Row="5" Grid.Column="1" Visibility="{Binding NavigationToProgramPageIsPossible, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <Hyperlink Click="ProgramHyperlink_Click">
+                                    <Hyperlink.Inlines>
+                                        <Run Text="{Binding EpisodeData.ProgramName, Mode=OneWay}"/>
+                                   </Hyperlink.Inlines>
+                                </Hyperlink>
+                            </TextBlock>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="{x:Static r:Strings.General_SongList}">
+                <song:SongsControl DataContext="{Binding SongsViewModel}" />
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

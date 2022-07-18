@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="Pekspro.RadioStorm.Sandbox.WPF.ScheduledEpisode.ScheduledEpisodeControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:model="clr-namespace:Pekspro.RadioStorm.UI.Model.SchedulesEpisode;assembly=Pekspro.RadioStorm.UI"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance model:SchedulesEpisodeModel, IsDesignTimeCreatable=True}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Height="76">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="72" />
+            <ColumnDefinition Width="72" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock  Text="{Binding ProgramNameOrTitle, Mode=OneWay}"
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    TextTrimming="CharacterEllipsis"
+                    FontWeight="Bold" />
+
+        <TextBlock  Text="{Binding IsFinished, Mode=OneWay}"
+                    Grid.Column="0"
+                    Grid.Row="2"
+                    TextTrimming="CharacterEllipsis"
+                    />
+
+        <TextBlock  Text="{Binding StartTimeString, Mode=OneWay}"
+                    Grid.Column="0"
+                    Grid.Row="3"
+                    TextTrimming="CharacterEllipsis"
+                    />
+
+        <Button Command="{Binding CopyCommand, Mode=OneWay}"
+                Content="Copy"
+                Grid.Column="2"
+                Grid.Row="0"
+                Grid.RowSpan="4"
+                />
+    </Grid>
+</UserControl>

@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <UserSecretsId>dotnet-RadioStormTestWorker-CFB2B7AF-883D-495C-B08D-2D8B65A4D8D0</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.7">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Pekspro.RadioStorm.Sandbox.Common\Pekspro.RadioStorm.Sandbox.Common.csproj" />
+    <ProjectReference Include="..\Pekspro.RadioStorm.Settings.SynchronizedSettings.FileProvider\Pekspro.RadioStorm.Settings.SynchronizedSettings.FileProvider.csproj" />
+    <ProjectReference Include="..\Pekspro.RadioStorm.UI\Pekspro.RadioStorm.UI.csproj" />
+    <ProjectReference Include="..\Pekspro.SwedRadio\Pekspro.SwedRadio.csproj" />
+  </ItemGroup>
+</Project>

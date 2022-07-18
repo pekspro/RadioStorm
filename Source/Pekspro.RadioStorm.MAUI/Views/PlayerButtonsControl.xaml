@@ -1,0 +1,30 @@
+﻿<HorizontalStackLayout
+            xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:player="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Player;assembly=Pekspro.RadioStorm.UI"
+            xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
+            x:Class="Pekspro.RadioStorm.MAUI.Views.PlayerButtonsControl"             
+            x:DataType="player:PlayerViewModel"
+            HeightRequest="66"
+            >
+
+    <ImageButton Command="{Binding GoToPreviousCommand}"
+                 Style="{x:StaticResource PlayerButton}"
+                 Source="{StaticResource Previous}"
+                 IsVisible="{Binding HasPlayList}"
+                 />
+    <ImageButton Command="{Binding PlayPauseCommand}"
+                 Style="{x:StaticResource PlayerButton}"
+                 Source="{Binding CanPause, Converter={StaticResource BoolToPlayPause}}"
+                 />
+    <ImageButton Command="{Binding GoToNextCommand}"
+                 Style="{x:StaticResource PlayerButton}"
+                 Source="{StaticResource Next}"
+                 IsVisible="{Binding HasPlayList}"
+                 />
+    <ImageButton Clicked="ButtonPlaylist_Clicked"
+                 Style="{x:StaticResource PlayerButton}"
+                 Source="{StaticResource PlayList}"
+                 IsVisible="{Binding HasPlayList}" 
+                 />
+</HorizontalStackLayout>

@@ -1,0 +1,79 @@
+﻿<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:base="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Base;assembly=Pekspro.RadioStorm.UI"
+            x:Class="Pekspro.RadioStorm.MAUI.Views.LargeMediaButtonUserControl"
+            >
+
+    <Grid>
+        <Image x:Name="MediaImage"
+               WidthRequest="4"
+               HeightRequest="4"
+                >
+            <Image.Source>
+                <UriImageSource Uri="https://sverigesradio.se/sida/images/132/2186745_512_512.jpg?preset=api-default-square" />
+            </Image.Source>
+        </Image>
+
+        <Ellipse x:Name="ButtonBackground"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Center"
+                         WidthRequest="60"
+                         HeightRequest="60"
+                         Fill="Black"
+                         Opacity="0.4">
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup Name="FocusState">
+                    <VisualState Name="InFocus">
+                        <VisualState.Setters>
+                            <Setter Property="Fill" Value="#333333" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState Name="NotFocus">
+                        <VisualState.Setters>
+                            <Setter Property="Fill" Value="Black" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+        </Ellipse>
+
+        <!--<Label x:Name="TextPlay"
+                           Opacity="0"
+                           TextColor="White"
+                           Text="&#xE102;"
+                           FontSize="36"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"
+                           FontFamily="Segoe UI Symbol" />
+
+        <Label x:Name="TextPause"
+                           Opacity="0"
+                           Text="&#xE103;"
+                           TextColor="White"
+                           FontSize="36"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"
+                           FontFamily="Segoe UI Symbol" />-->
+
+        <Button x:Name="TheButton"
+                BackgroundColor="Transparent"
+                TextColor="White"
+                MaximumHeightRequest="100"
+                MaximumWidthRequest="100"
+                Opacity="0.9"
+                Text="!" />
+
+        <!--<Label x:Name="TextNotAvailible"
+                           Opacity="0"
+                           Text="Det här avsnittet finns inte tillgängligt för uppspelning"
+                           TextColor="White"
+                           FontSize="16"
+                           HorizontalTextAlignment="Stretch"
+                           TextWrapping="WrapWholeWords"
+                           TextAlignment="Center"
+                           Margin="20"
+                           VerticalAlignment="Center"
+                           FontFamily="Segoe UI Symbol" />-->
+
+    </Grid>
+</ContentView>

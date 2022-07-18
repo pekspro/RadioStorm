@@ -1,0 +1,168 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Channel;assembly=Pekspro.RadioStorm.UI"
+             xmlns:m="clr-namespace:Pekspro.RadioStorm.UI.Model.Channel;assembly=Pekspro.RadioStorm.UI"
+             xmlns:v="clr-namespace:Pekspro.RadioStorm.MAUI.Pages.Channel"
+             xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
+             xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
+             xmlns:style="clr-namespace:Pekspro.RadioStorm.MAUI.Resources.Styles"
+             x:Class="Pekspro.RadioStorm.MAUI.Pages.Channel.ChannelDetailsPage"
+             x:DataType="vm:ChannelDetailsViewModel"
+             Title="{Binding Title, Mode=OneWay}"
+             >
+    <ContentPage.ToolbarItems>
+        
+        <ToolbarItem 
+            Command="{Binding ChannelData.ToggleIsFavoriteCommand}"
+            IconImageSource="{Binding ChannelData.IsFavorite, Converter={StaticResource BoolToFavoriteImageConverter}}"
+            Text="{x:Static r:Strings.General_Favorite}"
+            Order="Primary"
+            Priority="0" />
+
+        <ToolbarItem 
+            Command="{Binding UpdateCommand}"
+            Text="{x:Static r:Strings.General_Update}"
+            Order="Secondary"
+            Priority="0" />
+        
+        <ToolbarItem 
+            Command="{Binding ChannelData.OpenWebPageCommand}"
+            Text="{x:Static r:Strings.GeneralButtonOpenWebPage}"
+            Order="Secondary"
+            Priority="1" />
+        
+    </ContentPage.ToolbarItems>
+
+    <Grid RowDefinitions="*,Auto">
+        <views:DownloadState Grid.Row="0" />
+
+        <RefreshView 
+            Command="{Binding RefreshCommand}" 
+            IsRefreshing="{Binding IsRefreshing}"
+            IsVisible="{Binding HasData}"
+            >
+            <ScrollView Padding="{StaticResource NormalPageMargin}">
+                <Grid RowDefinitions="Auto,Auto,Auto,*"
+                      ColumnDefinitions="Auto,*"
+                      x:Name="GridLayout"
+                      >
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup Name="WidthState">
+                            <VisualState Name="Narrow">
+                                <VisualState.Setters>
+                                    <Setter Property="Grid.Column" Value="0" TargetName="DetailsPanel" />
+                                    <Setter Property="Grid.Row" Value="2" TargetName="DetailsPanel" />
+                                    <Setter Property="Grid.RowSpan" Value="1" TargetName="DetailsPanel" />
+                                    <Setter Property="ColumnDefinitions" Value="*" TargetName="GridLayout" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState Name="Wide">
+                                <VisualState.Setters>
+                                    <Setter Property="Grid.Column" Value="1" TargetName="DetailsPanel" />
+                                    <Setter Property="Grid.Row" Value="1" TargetName="DetailsPanel" />
+                                    <Setter Property="Grid.RowSpan" Value="2" TargetName="DetailsPanel" />
+                                    <Setter Property="ColumnDefinitions" Value="Auto,*" TargetName="GridLayout" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+
+                    <VerticalStackLayout x:Name="ImagePanel" Grid.Row="1" Grid.Column="0">
+                        <views:LargeMediaButtonUserControl
+                            HorizontalOptions="Center"
+                            WidthRequest="200"
+                            HeightRequest="200"
+                            ButtonMouseOverBackgroundFill="{Binding ChannelData.ChannelColor, Mode=OneWay, Converter={StaticResource StringToColorConverter}}"
+                            ButtonStrokeColor="#80000000"
+                            ButtonMouseOverStrokeFill="Black"
+                            ButtonStrokeWidth="2"
+                            Source="{Binding ChannelData.Status.CurrentProgramImage.HighResolution, Mode=OneWay}"
+                            Command="{Binding ChannelData.PlayPauseCommand}"
+                            DisabledText="{x:Static r:Strings.Episodes_NoAudioAvailible}"
+                            AudioMediaState="{Binding ChannelData.AudioMediaState, Mode=OneWay}"
+                            />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout x:Name="DetailsPanel">
+                        <Label Style="{StaticResource SubtitleTextBlockStyle}">
+                            <Label.Text>
+                                <MultiBinding StringFormat="{}{0} {1}">
+                                    <Binding Path="ChannelData.Status.CurrentTimePeriod.StartTimeString" />
+                                    <Binding Path="ChannelData.Status.CurrentProgram" />
+                                </MultiBinding>
+                            </Label.Text>
+                        </Label>
+                        <Label Text="{Binding ChannelData.Status.CurrentProgramDescription}"
+                               IsVisible="{Binding ChannelData.Status.CurrentProgramDescription, Converter={StaticResource StringToIsVisibleConverter}}"   
+                               />
+
+                        <Button x:Name="ButtonOpenCurrentProgram"
+                                Style="{StaticResource HyperlinkButton}"
+                                IsVisible="{Binding ChannelData.Status.CurrentProgramId, Converter={StaticResource NullToIsVisibleConverter}, Mode=OneWay}"
+                                Text="{Binding ChannelData.Status.CurrentProgram, StringFormat={x:Static r:Strings.ChannelInfo_MoreAbout}}"
+                                Clicked="ButtonOpenCurrentProgram_Click"
+                                >
+                        </Button>
+
+                        <ProgressBar Margin="-4,0,0,0"
+                                     Progress="{Binding ChannelData.Status.CurrentProgressRatio}"
+                                     ProgressColor="{Binding ChannelData.ChannelColor, Converter={StaticResource StringToColorConverter}}"
+                                     BackgroundColor="{Binding ChannelData.ChannelColor, Converter={StaticResource StringToHalfTransparentColorConverter}}"
+                                     HeightRequest="1"
+                                     MinimumHeightRequest="1"
+                                      />
+
+                        <Label FontAttributes="Bold"
+                               TextColor="{StaticResource InactiveProgramColor}">
+                            <Label.Text>
+                                <MultiBinding StringFormat="{}{0} {1}">
+                                    <Binding Path="ChannelData.Status.NextTimePeriod.StartTimeString" />
+                                    <Binding Path="ChannelData.Status.NextProgram" />
+                                </MultiBinding>
+                            </Label.Text>
+                        </Label>
+
+                        <Label Text="{Binding ChannelData.Status.NextProgramDescription}"
+                               TextColor="{StaticResource InactiveProgramColor}"
+                               />
+
+                        <Button x:Name="ButtonOpenNextProgram"
+                                Style="{StaticResource HyperlinkButton}"
+                                IsVisible="{Binding ChannelData.Status.NextProgramId, Converter={StaticResource NullToIsVisibleConverter}, Mode=OneWay}"
+                                Text="{Binding ChannelData.Status.NextProgram, StringFormat={x:Static r:Strings.ChannelInfo_MoreAbout}}"
+                                Clicked="ButtonOpenNextProgram_Click"
+                                >
+                        </Button>
+
+                        <!--<VerticalStackLayout>
+                            <Image Source="{Binding ChannelData.ChannelImage.HighResolution, Converter={StaticResource NullImageConverter}}" WidthRequest="40" HeightRequest="40" />
+                            <Image Source="{Binding ChannelData.Status.CurrentProgramImage.HighResolution, Converter={StaticResource NullImageConverter}}" WidthRequest="40" HeightRequest="40" />
+                            <Image Source="{Binding ChannelData.Status.NextProgramImage.HighResolution, Converter={StaticResource NullImageConverter}}" WidthRequest="40" HeightRequest="40" />
+                        </VerticalStackLayout>-->
+                    </VerticalStackLayout>
+
+                    <!--<Label Text="{Binding Title}" />
+                    <Label Text="{Binding ChannelColor, Converter={StaticResource StringToColorConverter}}" />-->
+
+                    <!--<CollectionView 
+                            IsVisible="{Binding HasData}"
+                            ItemsSource="{Binding ChannelDetails}" 
+                            Grid.Row="2">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="m:ChannelModel">
+                                    <v:ChannelControl>
+                                        <v:ChannelControl.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="ChannelTapped"/>
+                                        </v:ChannelControl.GestureRecognizers>
+                                    </v:ChannelControl>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>-->
+
+                </Grid>
+            </ScrollView>
+        </RefreshView>
+
+        <views:PlayerControl Grid.Row="1" />
+    </Grid>
+</ContentPage>

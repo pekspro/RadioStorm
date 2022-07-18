@@ -1,0 +1,55 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Episode;assembly=Pekspro.RadioStorm.UI"
+             xmlns:m="clr-namespace:Pekspro.RadioStorm.UI.Model.Episode;assembly=Pekspro.RadioStorm.UI"
+             xmlns:v="clr-namespace:Pekspro.RadioStorm.MAUI.Pages.Episode"
+             xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
+             xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
+             x:Class="Pekspro.RadioStorm.MAUI.Pages.Episode.DownloadsPage"
+             x:DataType="vm:DownloadsViewModel"
+             Title="{x:Static r:Strings.Downloads_Title}"
+             >
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+                Command="{Binding UpdateCommand}"
+                Text="{x:Static r:Strings.General_Update}"
+                Order="Secondary"
+                Priority="0" />
+    </ContentPage.ToolbarItems>
+
+    <Grid RowSpacing="0" RowDefinitions="Auto,*,Auto">
+
+        <views:DownloadState Grid.Row="0" Grid.RowSpan="2" />
+
+        <!-- Breaks on Android: ItemSizingStrategy="MeasureFirstItem"-->
+        <RefreshView 
+                Command="{Binding RefreshCommand}" 
+                IsRefreshing="{Binding IsRefreshing}"
+                IsVisible="{Binding HasData}"
+                Grid.Row="1"
+            >
+            <CollectionView 
+                ItemsSource="{Binding GroupedItems}"
+                IsGrouped="True"
+                SelectionMode="{Binding SelectionModeHelper.InSelectionMode, Converter={StaticResource BoolToSelectionMode}}"
+                >
+                <CollectionView.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <views:GroupHeaderControl />
+                    </DataTemplate>
+                </CollectionView.GroupHeaderTemplate>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="m:EpisodeModel">
+                        <v:EpisodeControl>
+                            <v:EpisodeControl.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="RecentTapped"/>
+                            </v:EpisodeControl.GestureRecognizers>
+                        </v:EpisodeControl>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+        <views:PlayerControl Grid.Row="2" />
+    </Grid>
+</ContentPage>

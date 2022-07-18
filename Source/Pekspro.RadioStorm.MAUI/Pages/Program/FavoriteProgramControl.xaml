@@ -1,0 +1,96 @@
+<Grid        xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Pekspro.RadioStorm.UI.Model.Program;assembly=Pekspro.RadioStorm.UI"
+             xmlns:style="clr-namespace:Pekspro.RadioStorm.MAUI.Resources.Styles"
+             xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
+             x:Class="Pekspro.RadioStorm.MAUI.Pages.Program.FavoriteProgramControl"
+             x:DataType="vm:ProgramModel"
+             Style="{StaticResource ListItem}"
+             >
+    <VisualStateManager.VisualStateGroups>
+        <VisualStateGroup Name="WidthState">
+            <VisualState Name="Narrow">
+                <VisualState.Setters>
+                    <Setter Property="IsVisible" Value="False" TargetName="ProgramImage" />
+                </VisualState.Setters>
+            </VisualState>
+            <VisualState Name="Wide">
+                <VisualState.Setters>
+                    <Setter Property="IsVisible" Value="True" TargetName="ProgramImage" />
+                </VisualState.Setters>
+            </VisualState>
+        </VisualStateGroup>
+    </VisualStateManager.VisualStateGroups>
+
+    <Image x:Name="ProgramImage"
+           Grid.Row="0" 
+           Grid.Column="0"
+           Grid.RowSpan="2"
+           IsVisible="False"
+           Style="{StaticResource ListItemLeftImage}">
+        <Image.Source>
+            <UriImageSource Uri="{Binding ProgramImage.LowResolution, Mode=OneWay}"
+                CacheValidity="1"  
+                CachingEnabled="True"
+                />
+        </Image.Source>
+    </Image>
+
+    <!--  HeightRequest="30"
+           VerticalOptions="Start" 
+           -->
+    <Grid  Grid.Row="0" 
+           Grid.Column="1" 
+           Style="{StaticResource ListItemTitleArea}"
+           >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <Label  Text="{Binding Name, Mode=OneWay}"
+                Style="{StaticResource ListHeaderTextStyle}"
+                MaxLines="1"
+                IsVisible="{Binding EpisodeStatus, Converter={StaticResource InvertedNullToIsVisibleConverter}}"
+                    />
+
+        <Label  Text="{Binding ProgramNameAndTopEpisodeTitle, Mode=OneWay}"
+                TextColor="{Binding EpisodeStatus.TopEpisode.IsListened, Converter={StaticResource BoolToIsListenedColorConverter}}"
+                Style="{StaticResource ListHeaderTextStyle}"
+                MaxLines="1"
+                IsVisible="{Binding EpisodeStatus, Converter={StaticResource NullToIsVisibleConverter}}"
+                    />
+
+        <Grid   Grid.Column="1" 
+                IsVisible="{Binding EpisodeStatus, Converter={StaticResource NullToIsVisibleConverter}}"
+                >
+
+            <views:EpisodeDownloadStateControl 
+                    HorizontalOptions="End"
+                    BindingContext="{Binding EpisodeStatus.TopEpisode}" 
+                    />
+        </Grid>
+    </Grid>
+
+    <Grid   Grid.Column="1"
+            Grid.Row="1" 
+            Style="{StaticResource ListItemContentArea}">
+        <Label 
+            MaxLines="2"
+            Text="{Binding EpisodeStatus.TopEpisode.Description, Mode=OneWay}"
+            TextColor="{Binding EpisodeStatus.TopEpisode.IsListened, Converter={StaticResource BoolToIsListenedColorConverter}}"
+            Style="{StaticResource ListNormalTextStyle}"
+		    />
+    </Grid>
+
+    <views:LargeMediaButtonUserControl
+        Grid.Column="2"
+        Grid.RowSpan="2"
+        Style="{StaticResource ListItemRightImage}"
+        Source="{Binding ProgramImage.LowResolution, Mode=OneWay}"
+        Command="{Binding EpisodeStatus.TopEpisode.PlayPauseCommand, Mode=OneWay}"
+        AudioMediaState="{Binding EpisodeStatus.TopEpisode.AudioMediaState, Mode=OneWay}"
+        IsVisible="{Binding EpisodeStatus, Converter={StaticResource NullToIsVisibleConverter}}"
+    />
+
+</Grid>

@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="Pekspro.RadioStorm.Sandbox.WPF.UserControls.EpisodeDownloadStateControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:episode="clr-namespace:Pekspro.RadioStorm.UI.Model.Episode;assembly=Pekspro.RadioStorm.UI"
+             xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance episode:EpisodeModel, IsDesignTimeCreatable=True}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <StackPanel Orientation="Horizontal"
+                Visibility="{Binding DownloadData, Mode=OneWay, Converter={StaticResource NullToVisibilityConverter}}">
+        <ProgressBar    Margin="0,0,0,0"
+                        Width="12"
+                        Height="12"
+                        IsIndeterminate="true"
+                        Visibility="{Binding DownloadData.Status, Mode=OneWay, Converter={StaticResource DownloadDataStatusWaitingToVisibilityConverter}}"
+                        RenderTransformOrigin="0.5,0.5">
+            <ProgressBar.RenderTransform>
+                <RotateTransform CenterX="0" CenterY="0" Angle="-90" />
+            </ProgressBar.RenderTransform>
+        </ProgressBar>
+
+        <TextBlock Text="{Binding DownloadData.DownloadSizeText, Mode=OneWay}"
+                               VerticalAlignment="Center"
+                               Foreground="{Binding IsListened, Mode=OneWay, Converter={StaticResource BoolToIsListenedColorConverter}}"
+                               Visibility="{Binding DownloadData.Status, Mode=OneWay, Converter={StaticResource DownloadDataStatusDoneOrDownloadingToVisibilityConverter}}"
+                               FontSize="12"
+                               Margin="8,0,0,0" />
+
+        <ProgressBar Margin="0,0,0,0"
+                                 Width="12"
+                                 Height="12"
+                                 Maximum="1"
+                                 Value="{Binding DownloadData.DownloadedRatio, Mode=OneWay}"
+                                 Visibility="{Binding DownloadData.Status, Mode=OneWay, Converter={StaticResource DownloadDataStatusDownloadingToVisibilityConverter}}"
+                                 RenderTransformOrigin="0.5,0.5">
+            <ProgressBar.RenderTransform>
+                <RotateTransform CenterX="0" CenterY="0" Angle="-90" />
+            </ProgressBar.RenderTransform>
+        </ProgressBar>
+
+        <TextBlock Text="&#xE118;"
+                               VerticalAlignment="Center"
+                               Foreground="{Binding IsListened, Mode=OneWay, Converter={StaticResource BoolToIsListenedColorConverter}}"
+                               Visibility="{Binding DownloadData.Status, Mode=OneWay, Converter={StaticResource DownloadDataStatusDoneToVisibilityConverter}}"
+                               FontSize="12"
+                               Margin="4,0,0,0"
+                               FontFamily="Segoe MDL2 Assets" />
+
+        <TextBlock Text="{x:Static r:Strings.DownloadStatus_Error}"
+                               VerticalAlignment="Center"
+                               Foreground="{Binding IsListened, Mode=OneWay, Converter={StaticResource BoolToIsListenedColorConverter}}"
+                               Visibility="{Binding DownloadData.Status, Mode=OneWay, Converter={StaticResource DownloadDataStatusErrorToVisibilityConverter}}"
+                               FontSize="12"
+                               Margin="8,0,4,0" />
+    </StackPanel>
+</UserControl>

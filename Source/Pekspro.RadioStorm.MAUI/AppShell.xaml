@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Pekspro.RadioStorm.MAUI.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Pekspro.RadioStorm.MAUI"
+    xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
+    xmlns:style="clr-namespace:Pekspro.RadioStorm.MAUI.Resources.Styles"
+    xmlns:favorite="clr-namespace:Pekspro.RadioStorm.MAUI.Pages.Favorite"
+    xmlns:channel="clr-namespace:Pekspro.RadioStorm.MAUI.Pages.Channel"
+    xmlns:program="clr-namespace:Pekspro.RadioStorm.MAUI.Pages.Program"
+    xmlns:episode="clr-namespace:Pekspro.RadioStorm.MAUI.Pages.Episode"
+    xmlns:recent="clr-namespace:Pekspro.RadioStorm.MAUI.Pages.Recent"
+    xmlns:player="clr-namespace:Pekspro.RadioStorm.MAUI.Pages.Player"
+    FlyoutWidth="178"
+    FlyoutBackgroundColor="{StaticResource PanelBackground}"
+    FlyoutBehavior="{OnIdiom Phone=Flyout, Default=Locked}"
+    >
+    <!--FlyoutBackgroundColor="#1E1E1E" -->
+
+    <!--<ShellContent
+        Title="Hello, World!"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />-->
+
+    <!--<Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <BoxView HeightRequest="32"/>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>-->
+    
+    <!-- Desktop/Tablet-->
+    <FlyoutItem Title="{x:Static r:Strings.GeneralButtonFavorites}">
+        <FlyoutItem.Icon>
+            <FontImageSource
+                            FontFamily="FontAwesome"
+                            Glyph="{x:Static style:IconFont.Star}"
+                            Color="{StaticResource PanelIconColor}"
+                            Size="32"/>
+        </FlyoutItem.Icon>
+        <ShellContent ContentTemplate="{DataTemplate favorite:FavoritesPage}"/>
+    </FlyoutItem>
+    <FlyoutItem Title="{x:Static r:Strings.GeneralButtonChannels}">
+        <FlyoutItem.Icon>
+            <FontImageSource
+                            Glyph="{OnPlatform UWP={x:Static style:SegoeIconFont.Microphone}, Default={x:Static style:IconFont.Microphone}}"
+                            Color="{StaticResource PanelIconColor}"
+                            Size="32"
+                        >
+                <FontImageSource.FontFamily>
+                    <OnPlatform x:TypeArguments="x:String" Default="FontAwesome">
+                        <On Platform="UWP" Value="Segoe MDL2 Assets" />
+                    </OnPlatform>
+                </FontImageSource.FontFamily>
+            </FontImageSource>
+        </FlyoutItem.Icon>
+        <ShellContent ContentTemplate="{DataTemplate channel:ChannelsPage}"/>
+    </FlyoutItem>
+    <FlyoutItem Title="{x:Static r:Strings.GeneralButtonProgram}">
+        <FlyoutItem.Icon>
+            <FontImageSource
+                            FontFamily="FontAwesome"
+                            Glyph="{x:Static style:IconFont.Book}"
+                            Color="{StaticResource PanelIconColor}"
+                            Size="32"/>
+        </FlyoutItem.Icon>
+        <ShellContent ContentTemplate="{DataTemplate program:ProgramsPage}"/>
+    </FlyoutItem>
+    <FlyoutItem Title="{x:Static r:Strings.GeneralButtonRecent}">
+        <FlyoutItem.Icon>
+            <FontImageSource
+                            FontFamily="FontAwesome"
+                            Glyph="{x:Static style:IconFont.History}"
+                            Color="{StaticResource PanelIconColor}"
+                            Size="32"/>
+        </FlyoutItem.Icon>
+        <ShellContent ContentTemplate="{DataTemplate recent:RecentEpisodesPage}"/>
+    </FlyoutItem>
+    <FlyoutItem Title="{x:Static r:Strings.GeneralButtonDownloads}">
+        <FlyoutItem.Icon>
+            <FontImageSource
+                            FontFamily="FontAwesome"
+                            Glyph="{x:Static style:IconFont.Download}"
+                            Color="{StaticResource PanelIconColor}"
+                            Size="32"/>
+        </FlyoutItem.Icon>
+        <ShellContent ContentTemplate="{DataTemplate episode:DownloadsPage}"/>
+    </FlyoutItem>
+    <FlyoutItem Title="{x:Static r:Strings.General_PlayList}">
+        <FlyoutItem.Icon>
+            <FontImageSource
+                            FontFamily="FontAwesome"
+                            Glyph="{x:Static style:IconFont.PlayCircle}"
+                            Color="{StaticResource PanelIconColor}"
+                            Size="32"/>
+        </FlyoutItem.Icon>
+        <ShellContent ContentTemplate="{DataTemplate player:PlaylistPage}"/>
+    </FlyoutItem>
+
+    <!-- Phone -->
+    <!--<TabBar x:Name="PhoneTabs">
+                <Tab Title="Home" Icon="tab_home.png">
+                    <ShellContent ContentTemplate="{DataTemplate page:HomePage}"/>
+                </Tab>
+                <Tab Title="Favorites" Icon="tab_favorites.png">
+                    <ShellContent ContentTemplate="{DataTemplate page:FavoritesPage}"/>
+                </Tab>
+                <Tab Title="Map" Icon="tab_map.png">
+                    <ShellContent ContentTemplate="{DataTemplate page:MapPage}"/>
+                </Tab>
+                <Tab Title="Settings" Icon="tab_settings.png">
+                    <ShellContent ContentTemplate="{DataTemplate page:SettingsPage}"/>
+                </Tab>
+                <Tab Title="Settings" Icon="tab_settings.png">
+                    <ShellContent ContentTemplate="{DataTemplate page:SettingsPage}"/>
+                </Tab>
+            </TabBar>-->
+
+    <!--<Shell.ItemTemplate>
+        <DataTemplate>
+            <Grid RowDefinitions="50" HeightRequest="50">
+                <Image Source="{Binding FlyoutIcon}"
+                               HeightRequest="20"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"
+                               />
+            </Grid>
+        </DataTemplate>
+    </Shell.ItemTemplate>-->
+
+    <Shell.FlyoutFooterTemplate>
+        <DataTemplate>
+            <Grid RowDefinitions="44" ColumnDefinitions="56,*">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                </Grid.GestureRecognizers>
+                <Image  VerticalOptions="Center"
+                        HorizontalOptions="End"
+                        WidthRequest="16"
+                        HeightRequest="16"
+                        Margin="0,0,12,0"
+                        >
+                    <Image.Source>
+                        <FontImageSource
+                                    FontFamily="FontAwesome"
+                                    Glyph="{x:Static style:IconFont.Cog}"
+                                    Color="{StaticResource PanelIconColor}"
+                                    Size="20"/>
+                    </Image.Source>
+                </Image>
+
+                <Label Grid.Column="1" Text="{x:Static r:Strings.GeneralButtonSettings}" Margin="0,0"
+                       VerticalOptions="Center"
+                       ></Label>
+            </Grid>
+        </DataTemplate>
+    </Shell.FlyoutFooterTemplate>
+</Shell>

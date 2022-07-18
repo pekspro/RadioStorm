@@ -1,0 +1,37 @@
+﻿<VerticalStackLayout xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
+            xmlns:vm="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Settings;assembly=Pekspro.RadioStorm.UI"
+            x:Class="Pekspro.RadioStorm.MAUI.Views.SynchronizeControl"             
+            x:DataType="vm:SynchronizingViewModel"
+            IsVisible="{Binding HasAnyRemoteSignedInProvider}"
+            >
+    <Button 
+            Text="{x:Static r:Strings.Settings_Synchronize_SyncNow}" 
+            Command="{Binding StartFullSynchronizingCommand}"
+            HorizontalOptions="Start"
+            />
+    <!--<Button 
+            Text="{x:Static r:Strings.Settings_Synchronize_SyncNow}" 
+            Command="{Binding StartSynchronizingCommand}"
+            HorizontalOptions="Start"
+        />-->
+
+    <Grid RowDefinitions="Auto"
+          Margin="0,8"
+          ColumnDefinitions="Auto,*"
+          >
+        <ActivityIndicator IsRunning="True" 
+                           Grid.Column="0" 
+                           HeightRequest="8" 
+                           WidthRequest="8" 
+                           Margin="0,0,8,0"
+                           IsVisible="{Binding IsSynchronizing}"
+                           />
+
+        <Label Text="{Binding CurrentSynchronizingText}"
+               Grid.Column="1"
+               VerticalOptions="Center"
+                />
+    </Grid>
+</VerticalStackLayout>

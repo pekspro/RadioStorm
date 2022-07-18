@@ -1,0 +1,48 @@
+﻿<Window x:Class="Pekspro.RadioStorm.Sandbox.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Pekspro.RadioStorm.Sandbox.WPF" 
+        xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
+        xmlns:usercontrols="clr-namespace:Pekspro.RadioStorm.Sandbox.WPF.UserControls"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <Button x:Name="ButtonFavorites" Click="ButtonFavorites_Click">
+                <TextBlock Text="{x:Static r:Strings.GeneralButtonFavorites}" />
+            </Button>
+            <Button x:Name="ButtonChannels" Click="ButtonChannels_Click">
+                <TextBlock Text="{x:Static r:Strings.GeneralButtonChannels}" />
+            </Button>
+            <Button x:Name="ButtonPrograms" Click="ButtonPrograms_Click">
+                <TextBlock Text="{x:Static r:Strings.GeneralButtonProgram}" />
+            </Button>
+            <Button x:Name="ButtonDownloads" Click="ButtonDownloads_Click">
+                <TextBlock Text="{x:Static r:Strings.GeneralButtonDownloads}" />
+            </Button>
+            <Button x:Name="ButtonRecentEpisodes" Click="ButtonRecentEpisodes_Click">
+                <TextBlock Text="{x:Static r:Strings.GeneralButtonRecent}" />
+            </Button>
+            <Button x:Name="ButtonSettings" Click="ButtonSettings_Click">
+                <TextBlock Text="{x:Static r:Strings.GeneralButtonSettings}" />
+            </Button>
+            <Button x:Name="ButtonBackgroundTasks" Click="ButtonBackgroundTasks_Click">
+                <TextBlock Text="Background tasks" />
+            </Button>
+            <Button x:Name="ButtonLogs" Click="ButtonLogs_Click">Logs</Button>
+            <usercontrols:SynchronizeControl />
+            <usercontrols:GraphStateControl />
+        </StackPanel>
+
+        <usercontrols:PlayerControl Grid.Row="2">
+            
+        </usercontrols:PlayerControl>
+    </Grid>
+</Window>

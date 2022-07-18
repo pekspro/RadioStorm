@@ -1,0 +1,80 @@
+﻿<Window x:Class="Pekspro.RadioStorm.Sandbox.WPF.Program.ProgramsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:usercontrols="clr-namespace:Pekspro.RadioStorm.Sandbox.WPF.UserControls" 
+        xmlns:program1="clr-namespace:Pekspro.RadioStorm.Sandbox.WPF.Program" 
+        xmlns:program="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Program;assembly=Pekspro.RadioStorm.UI"
+        xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance program:ProgramsViewModel, IsDesignTimeCreatable=True}"
+        Title="{x:Static r:Strings.Programs_Title}" Height="450" Width="800">
+    <Grid>
+        <Grid.Resources>
+            <CollectionViewSource x:Key='src' 
+                      Source="{Binding Items}">
+                <CollectionViewSource.GroupDescriptions>
+                    <PropertyGroupDescription PropertyName="Name[0]" />
+                </CollectionViewSource.GroupDescriptions>
+            </CollectionViewSource>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <usercontrols:DebugControl Grid.Row="0" />
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <TextBlock Text="Program: " Padding="4" />
+            <TextBlock Text="{Binding Items.Count}" Padding="4" />
+            <Button Command="{Binding SelectionModeHelper.ToggleSelectionModeCommand}">Selection</Button>
+            <TextBlock Text="Selected:" Padding="4" />
+            <TextBlock Text="{Binding SelectionModeHelper.SelectionCount}" Padding="4" />
+        </StackPanel>
+
+        <usercontrols:DownloadStateControl Grid.Row="2" />
+
+        <ListView 
+            x:Name="ListViewPrograms"
+            Grid.Row="2"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+            ItemsSource="{Binding Source={StaticResource src}}"
+            Visibility="{Binding HasData, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}"
+            SelectionMode="{Binding SelectionModeHelper.InSelectionMode, Converter={StaticResource BoolToSelectionMode}, Mode=OneWay}"
+            SelectionChanged="ListViewPrograms_SelectionChanged"
+            Padding="4"
+            MouseDoubleClick="ListView_MouseDoubleClick"
+                >
+            <ListView.Resources>
+                <ContextMenu x:Key="ItemContextMenu">
+                    <MenuItem Header="Toggle is favorite" Command="{Binding ToggleIsFavoriteCommand}" />
+                    <MenuItem Header="Set as favorite (multiple)" Click="MenuItemMultipleSetAsFavorite_Click" />
+                    <MenuItem Header="Remove as favorite (multiple)" Click="MenuItemMultipleRemoveAsFavorite_Click" />
+                </ContextMenu>
+            </ListView.Resources>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="ContextMenu" Value="{StaticResource ItemContextMenu}" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <program1:ProgramControl />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock FontWeight="Bold" FontSize="14" Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </ListView.GroupStyle>
+        </ListView>
+    </Grid>
+</Window>

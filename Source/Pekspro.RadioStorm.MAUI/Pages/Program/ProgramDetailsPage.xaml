@@ -1,0 +1,170 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Program;assembly=Pekspro.RadioStorm.UI"
+             xmlns:v="clr-namespace:Pekspro.RadioStorm.MAUI.Pages.Program"
+             xmlns:u="clr-namespace:Pekspro.RadioStorm.MAUI.Pages.Episode"
+             xmlns:e="clr-namespace:Pekspro.RadioStorm.UI.Model.Episode;assembly=Pekspro.RadioStorm.UI"
+             xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
+             xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
+             x:Class="Pekspro.RadioStorm.MAUI.Pages.Program.ProgramDetailsPage"
+             x:DataType="vm:ProgramDetailsViewModel"
+             Title="{Binding Name, Mode=OneWay}"
+             >
+    <ContentPage.ToolbarItems>
+
+        <ToolbarItem 
+            Command="{Binding ProgramData.ToggleIsFavoriteCommand}"
+            IconImageSource="{Binding ProgramData.IsFavorite, Converter={StaticResource BoolToFavoriteImageConverter}}"
+            Order="Primary"
+            Priority="0" />
+
+        <ToolbarItem 
+            x:Name="ToolbarItemSettings"
+            Clicked="ToolbarItemSettings_Clicked"
+            IconImageSource="{StaticResource ToolBarIconSettings}"
+            Order="Primary"
+            Priority="1" />
+
+        <ToolbarItem 
+                Command="{Binding UpdateCommand}"
+                Text="{x:Static r:Strings.General_Update}"
+                Order="Secondary"
+                Priority="0" />
+
+    </ContentPage.ToolbarItems>
+
+    <Grid RowDefinitions="Auto,*,Auto,Auto">
+
+        <views:DownloadState Grid.Row="0" Grid.RowSpan="3" Padding="{StaticResource NormalPageMargin}" />
+
+        <Grid Grid.Row="0" 
+              x:Name="GridLayout" 
+              IsVisible="{Binding HasData}"
+              Padding="{StaticResource NormalPageMargin}"
+              RowDefinitions="Auto,Auto" 
+              ColumnDefinitions="*" 
+              HorizontalOptions="FillAndExpand"
+              >
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup Name="WidthState">
+                    <VisualState Name="Narrow">
+                        <VisualState.Setters>
+                            <Setter Property="Grid.Column" Value="0" TargetName="DescriptionPanel" />
+                            <Setter Property="Grid.Row" Value="1" TargetName="DescriptionPanel" />
+                            <Setter Property="Grid.RowSpan" Value="1" TargetName="DescriptionPanel" />
+                            <Setter Property="ColumnDefinitions" Value="*" TargetName="GridLayout" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState Name="Wide">
+                        <VisualState.Setters>
+                            <Setter Property="Grid.Column" Value="1" TargetName="DescriptionPanel" />
+                            <Setter Property="Grid.Row" Value="0" TargetName="DescriptionPanel" />
+                            <Setter Property="Grid.RowSpan" Value="2" TargetName="DescriptionPanel" />
+                            <Setter Property="ColumnDefinitions" Value="Auto,*" TargetName="GridLayout" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+
+            <Image WidthRequest="200" 
+                   HeightRequest="200"
+                   HorizontalOptions="Center"
+                   >
+                <Image.Source>
+                    <UriImageSource Uri="{Binding ProgramData.ProgramImage.HighResolution, Mode=OneWay}"
+                    CacheValidity="1"  
+                    CachingEnabled="True"
+                />
+                </Image.Source>
+            </Image>
+
+            <VerticalStackLayout x:Name="DescriptionPanel" HorizontalOptions="FillAndExpand"
+                         Grid.Row="1">
+                <Label Text="{Binding ProgramData.Description, Mode=OneWay}" />
+
+                <VerticalStackLayout>
+                    <Button Style="{StaticResource HyperlinkButton}"
+                            Text="{x:Static r:Strings.Episodes_AutoCreatePlayList}"
+                            Command="{Binding EpisodesViewModel.AutoCreatePlayListCommand}"
+                            >
+                    </Button>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </Grid>
+
+        <!-- Breaks on Android: ItemSizingStrategy="MeasureFirstItem"-->
+        <RefreshView 
+                Command="{Binding RefreshCommand}" 
+                IsRefreshing="{Binding IsRefreshing}"
+                IsVisible="{Binding HasData}"
+                Grid.Row="1"
+            >
+            <CollectionView 
+                ItemsSource="{Binding EpisodesViewModel.GroupedItems}"
+                IsGrouped="True"
+                SelectionMode="{Binding EpisodesViewModel.SelectionModeHelper.InSelectionMode, Converter={StaticResource BoolToSelectionMode}}"
+                >
+                <CollectionView.Header>
+                    <DataTemplate>
+                        <Label Text="xxx" />
+                    </DataTemplate>
+                </CollectionView.Header>
+                <CollectionView.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <views:GroupHeaderControl />
+                    </DataTemplate>
+                </CollectionView.GroupHeaderTemplate>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="e:EpisodeModel">
+                        <!--<SwipeView>
+                            <SwipeView.LeftItems>
+                                <SwipeItems >
+                                    <SwipeItem Text="{x:Static r:Strings.General_AddToPlayList}"
+                                               IconImageSource="{StaticResource PlayList}"
+                                               Command="{Binding AddToPlayListCommand}"
+                                               BackgroundColor="{StaticResource WelcomeLanguageWarningColor}"
+                                    />
+                                    <SwipeItem Text="{Binding IsListened, Converter={StaticResource BoolToToggleIsListenedConverter}}"
+                                               IconImageSource="{StaticResource ToolBarIconIsNotListened}"
+                                               Command="{Binding ToggleIsListenedCommand}"
+                                               BackgroundColor="{StaticResource SwipeControlBackgroundGeneral}"
+                                    />
+                                </SwipeItems>
+                            </SwipeView.LeftItems>
+                            <SwipeView.RightItems>
+                                <SwipeItems Mode="Execute">
+                                    <SwipeItem Text="{x:Static r:Strings.General_RemoveDownload}"
+                                               IsVisible="{Binding DownloadData, Converter={StaticResource NullToIsVisibleConverter}}"
+                                               IconImageSource="{StaticResource ToolBarIconDelete}"
+                                               Command="{Binding DeleteDownloadCommand}"
+                                               BackgroundColor="{StaticResource SwipeControlBackgroundRemove}" />
+
+                                    <SwipeItem Text="{x:Static r:Strings.General_Download}"
+                                               IsVisible="{Binding HasDownloadSupportAndNoDownload}"
+                                               IconImageSource="{StaticResource ToolBarIconDownload}"
+                                               Command="{Binding DownloadCommand}"
+                                               BackgroundColor="{StaticResource SwipeControlBackgroundDownload}" />
+                                </SwipeItems>
+                            </SwipeView.RightItems>-->
+                            <u:EpisodeControl>
+                                <u:EpisodeControl.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="EpisodeTapped"/>
+                                </u:EpisodeControl.GestureRecognizers>
+                            </u:EpisodeControl>
+                        <!--</SwipeView>-->
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+        
+        <Button 
+            Grid.Row="2" 
+            HorizontalOptions="End"
+            Command="{Binding EpisodesViewModel.DownloadAllEpisodesCommand}" 
+            IsVisible="{Binding EpisodesViewModel.HasMoreEpisodes}"
+            Text="{x:Static r:Strings.Episodes_GetAll}" />
+
+        <views:PlayerControl Grid.Row="3" />
+    </Grid>
+
+</ContentPage>

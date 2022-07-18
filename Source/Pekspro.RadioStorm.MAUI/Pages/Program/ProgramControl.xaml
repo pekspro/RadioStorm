@@ -1,0 +1,74 @@
+<Grid        xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Pekspro.RadioStorm.UI.Model.Program;assembly=Pekspro.RadioStorm.UI"
+             xmlns:style="clr-namespace:Pekspro.RadioStorm.MAUI.Resources.Styles"
+             x:Class="Pekspro.RadioStorm.MAUI.Pages.Program.ProgramControl"
+             x:DataType="vm:ProgramModel"
+             Style="{StaticResource ListItem}"
+             >
+    <VisualStateManager.VisualStateGroups>
+        <VisualStateGroup Name="WidthState">
+            <VisualState Name="Narrow">
+                <VisualState.Setters>
+                    <Setter Property="IsVisible" Value="False" TargetName="ProgramImage" />
+                </VisualState.Setters>
+            </VisualState>
+            <VisualState Name="Wide">
+                <VisualState.Setters>
+                    <Setter Property="IsVisible" Value="True" TargetName="ProgramImage" />
+                </VisualState.Setters>
+            </VisualState>
+        </VisualStateGroup>
+    </VisualStateManager.VisualStateGroups>
+
+    <Image x:Name="ProgramImage"
+           Grid.Row="0" 
+           Grid.Column="0"
+           Grid.RowSpan="2"
+           IsVisible="False"
+           Style="{StaticResource ListItemLeftImage}">
+        <Image.Source>
+            <UriImageSource Uri="{Binding ProgramImage.LowResolution, Mode=OneWay}"
+                CacheValidity="1"  
+                CachingEnabled="True"
+                />
+        </Image.Source>
+    </Image>
+
+    <Grid Grid.Row="0" 
+          Grid.Column="1" 
+          Style="{StaticResource ListItemTitleArea}"
+          >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Image WidthRequest="{StaticResource HeaderFavoriteStarSize}"
+               HeightRequest="{StaticResource HeaderFavoriteStarSize}"
+               Margin="0,0,4,0" 
+               IsVisible="{Binding IsFavorite, Mode=OneWay}"
+               >
+            <Image.Source>
+                <FontImageSource
+                            FontFamily="FontAwesome"
+                            Glyph="{x:Static style:IconFont.Star}"
+                            Size="{StaticResource HeaderFavoriteStarSize}"/>
+            </Image.Source>
+        </Image>
+
+        <Label  Grid.Column="1"
+                Text="{Binding Name, Mode=OneWay}"
+                Style="{StaticResource ListHeaderTextStyle}"
+                MaxLines="1"
+                    />
+    </Grid>
+
+    <Grid Grid.Column="1" Grid.Row="1" Style="{StaticResource ListItemContentArea}">
+        <Label 
+            MaxLines="2"
+            Text="{Binding Description, Mode=OneWay}"
+            Style="{StaticResource ListNormalTextStyle}"    
+			/>
+    </Grid>
+</Grid>

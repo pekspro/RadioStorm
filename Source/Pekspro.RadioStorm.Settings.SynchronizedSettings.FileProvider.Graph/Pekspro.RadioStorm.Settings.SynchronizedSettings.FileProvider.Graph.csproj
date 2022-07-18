@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Graph" Version="4.34.0" />
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.45.0" />
+    <PackageReference Include="Microsoft.Identity.Client.Extensions.Msal" Version="2.22.0" />
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Pekspro.RadioStorm.Settings.SynchronizedSettings.FileProvider.Secrets\Pekspro.RadioStorm.Settings.SynchronizedSettings.FileProvider.Secrets.csproj" />
+    <ProjectReference Include="..\Pekspro.RadioStorm\Pekspro.RadioStorm.csproj" />
+  </ItemGroup>
+  
+</Project>

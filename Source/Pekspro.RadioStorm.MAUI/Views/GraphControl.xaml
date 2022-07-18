@@ -1,0 +1,37 @@
+﻿<VerticalStackLayout xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
+            xmlns:vm="clr-namespace:Pekspro.RadioStorm.Settings.SynchronizedSettings.FileProvider.Graph;assembly=Pekspro.RadioStorm.Settings.SynchronizedSettings.FileProvider.Graph"
+            x:Class="Pekspro.RadioStorm.MAUI.Views.GraphControl"             
+            x:DataType="vm:GraphViewModel"
+            IsVisible="{Binding IsInitialized}"
+            Spacing="8"
+            >
+    <Label Text="{x:Static r:Strings.Settings_Synchronize_Title}" 
+            Style="{StaticResource SubtitleTextBlockStyle}"
+            />
+
+    <Label Text="{x:Static r:Strings.Settings_Synchronize_Description}" />
+
+    <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="True" />
+
+    <VerticalStackLayout IsVisible="{Binding IsBusy, Mode=OneWay, Converter={StaticResource InvertedBoolConverter}}">
+        <Button 
+                Text="{x:Static r:Strings.SynchonizingButton_State_SignIn}" 
+                Command="{Binding SignInCommand}"
+                HorizontalOptions="Start"
+                IsVisible="{Binding IsSignedIn, Mode=OneWay, Converter={StaticResource InvertedBoolConverter}}"
+                />
+        <Button 
+                Text="{x:Static r:Strings.SynchonizingButton_State_SignOut}" 
+                Command="{Binding SignOutCommand}"
+                HorizontalOptions="Start"
+                IsVisible="{Binding IsSignedIn, Mode=OneWay}"
+                />
+
+        <Label Text="{Binding UserName, StringFormat={x:Static r:Strings.Settings_Synchronize_SignedInDetails}}"
+               Margin="0,8,0,0"
+               IsVisible="{Binding IsSignedIn, Mode=OneWay}"
+               />
+    </VerticalStackLayout>
+</VerticalStackLayout>

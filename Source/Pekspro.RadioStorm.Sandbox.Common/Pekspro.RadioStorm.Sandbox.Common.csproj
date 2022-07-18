@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Pekspro.RadioStorm.UI\Pekspro.RadioStorm.UI.csproj" />
+    <ProjectReference Include="..\Pekspro.RadioStorm\Pekspro.RadioStorm.csproj" />
+  </ItemGroup>
+
+</Project>

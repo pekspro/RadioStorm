@@ -1,0 +1,74 @@
+﻿<VerticalStackLayout
+            xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:base="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Settings;assembly=Pekspro.RadioStorm.UI"
+            xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
+            x:Class="Pekspro.RadioStorm.MAUI.Views.DownloadSettingsControl"             
+            x:DataType="base:DownloadSettingsViewModel"
+            >
+
+    <Label Text="{x:Static r:Strings.Settings_Downloads_AutoRemove_Title}" 
+           Style="{StaticResource SubtitleTextBlockStyle}"
+           />
+
+    <Label Margin="0,12,0,16"
+           Text="{x:Static r:Strings.Settings_Downloads_AutoRemove_Description}" />
+
+    <Picker x:Name="ComboBoxAutoDownloadRemove"
+            ItemsSource="{Binding AutoRemovedDownloadFileOptions}"
+            SelectedItem="{Binding AutoRemovedDownloadFilesValue, Mode=TwoWay}"
+            Margin="0,0,0,12"
+            />
+
+    <Rectangle Style="{StaticResource Separator}" />
+    
+    <Label Text="{x:Static r:Strings.Settings_Downloads_Usage_Title}"
+           Style="{StaticResource SubtitleTextBlockStyle}"
+           Margin="0,16,0,0"
+           />
+
+    <Grid Margin="0,12,0,16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Column="0"
+                Grid.Row="0"
+                Text="{x:Static r:Strings.Settings_Downloads_Usage_DownloadCount}" />
+
+        <Label  Grid.Column="1"
+                Grid.Row="0"
+                Margin="8,0,0,0"
+                >
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="{Binding DownloadedCount}" />
+                    <Span Text=" (" />
+                    <Span Text="{Binding ListenedString, Mode=OneWay}" />
+                    <Span Text=")" />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+
+        <Label Grid.Column="0"
+                Grid.Row="1"
+                Text="{x:Static r:Strings.Settings_Downloads_Usage_SpaceUsage}" />
+
+        <Label Grid.Column="1"
+                Grid.Row="1"
+                Margin="8,0,0,0"
+                Text="{Binding DownloadedSize.SizeFormatted}" />
+
+    </Grid>
+
+    <HorizontalStackLayout Spacing="8">
+        <Button Command="{Binding DeleteAllCommand}" Text="{x:Static r:Strings.Settings_Downloads_Usage_RemoveAll}"></Button>
+        <Button Command="{Binding DeleteListenedCommand}" Text="{x:Static r:Strings.Settings_Downloads_Usage_RemoveListened}"></Button>
+    </HorizontalStackLayout>
+
+</VerticalStackLayout>

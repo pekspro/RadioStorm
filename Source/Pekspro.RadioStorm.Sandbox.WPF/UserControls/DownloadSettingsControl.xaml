@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="Pekspro.RadioStorm.Sandbox.WPF.UserControls.DownloadSettingsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:settings="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Settings;assembly=Pekspro.RadioStorm.UI"
+             xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance settings:DownloadSettingsViewModel, IsDesignTimeCreatable=True}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <StackPanel>
+        <TextBlock Text="{x:Static r:Strings.Settings_Downloads_AutoRemove_Title}" />
+
+        <TextBlock Margin="0,12,0,16"
+                   TextWrapping="Wrap"
+                   Text="{x:Static r:Strings.Settings_Downloads_AutoRemove_Description}" />
+
+        <ComboBox x:Name="ComboBoxAutoDownloadRemove"
+                    ItemsSource="{Binding AutoRemovedDownloadFileOptions}"
+                    SelectedItem="{Binding AutoRemovedDownloadFilesValue, Mode=TwoWay}" />
+
+
+        <TextBlock Text="{x:Static r:Strings.Settings_Downloads_Usage_Title}" />
+
+        <Grid Margin="0,12,0,16">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock                 Grid.Column="0"
+                                       Grid.Row="0"
+                                       Text="{x:Static r:Strings.Settings_Downloads_Usage_DownloadCount}" />
+
+            <TextBlock                 Grid.Column="1"
+                                       Grid.Row="0"
+                                       Margin="8,0,0,0"
+                                       xml:space="default"
+                                       >
+                <Run Text="{Binding DownloadedCount}" /><Run Text=" (" /><Run Text="{Binding ListenedString, Mode=OneWay}" /><Run Text=")" />
+            </TextBlock>
+
+            <TextBlock                 Grid.Column="0"
+                                       Grid.Row="1"
+                                       Text="{x:Static r:Strings.Settings_Downloads_Usage_SpaceUsage}" />
+
+            <TextBlock                 Grid.Column="1"
+                                       Grid.Row="1"
+                                       Margin="8,0,0,0"
+                                       Text="{Binding DownloadedSize.SizeFormatted}" />
+
+        </Grid>
+
+        <StackPanel>
+            <Button Command="{Binding DeleteAllCommand}" Content="{x:Static r:Strings.Settings_Downloads_Usage_RemoveAll}"></Button>
+            <Button Command="{Binding DeleteListenedCommand}"  Content="{x:Static r:Strings.Settings_Downloads_Usage_RemoveListened}"></Button>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

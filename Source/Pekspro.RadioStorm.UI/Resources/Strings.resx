@@ -1,0 +1,882 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About_Credits_Line1" xml:space="preserve">
+    <value>…Sveriges Radio som gör sådana här projekt möjliga.</value>
+  </data>
+  <data name="About_Credits_Line2" xml:space="preserve">
+    <value>…Joakim Karlsson för ikonen och grafisk rådgivning.</value>
+  </data>
+  <data name="About_Credits_Line3" xml:space="preserve">
+    <value>…alla er som önskat förbättringar och hittat brister i programmet.</value>
+  </data>
+  <data name="About_Credits_Line4" xml:space="preserve">
+    <value>…dig som just nu använder RadioStorm! :-)</value>
+  </data>
+  <data name="About_Credits_Title" xml:space="preserve">
+    <value>Tack till…</value>
+  </data>
+  <data name="About_Description" xml:space="preserve">
+    <value>RadioStorm är utvecklat av PEK's Productions oberoende av Sveriges Radio. Programmet använder sig av Sveriges Radios öppna API.</value>
+  </data>
+  <data name="About_Email_Note" xml:space="preserve">
+    <value>Saknar du något i RadioStorm? Kontakta oss!</value>
+  </data>
+  <data name="About_Header_Email" xml:space="preserve">
+    <value>E-post</value>
+  </data>
+  <data name="About_Header_Webbpage" xml:space="preserve">
+    <value>Hemsida</value>
+  </data>
+  <data name="About_Title" xml:space="preserve">
+    <value>Om</value>
+  </data>
+  <data name="ChannelInfo_MoreAbout" xml:space="preserve">
+    <value>Mer om {0}</value>
+  </data>
+  <data name="ChannelInfo_NoEpisodes" xml:space="preserve">
+    <value>Den här kanalen har ingen tablå.</value>
+  </data>
+  <data name="Channels_AddMultipleFavoritesWarning" xml:space="preserve">
+    <value>Vill du lägga till {0} kanaler som favoriter?</value>
+  </data>
+  <data name="Channels_AddMultipleFavoritesWarning_Title" xml:space="preserve">
+    <value>Lägga till favoriter</value>
+  </data>
+  <data name="Channels_SearchChannels" xml:space="preserve">
+    <value>Sök kanaler</value>
+  </data>
+  <data name="Channels_Title" xml:space="preserve">
+    <value>Kanaler</value>
+  </data>
+  <data name="Channel_ScheduleEpisodes" xml:space="preserve">
+    <value>Tablå</value>
+  </data>
+  <data name="CurrentPlaying_NothingTitle" xml:space="preserve">
+    <value>Hoppsan</value>
+  </data>
+  <data name="CurrentPlaying_Nothing_Description" xml:space="preserve">
+    <value>Just nu spelas ingenting. Gå till en kanal eller program och hitta något trevligt att lyssna på ;-)</value>
+  </data>
+  <data name="CurrentPlaying_Title" xml:space="preserve">
+    <value>Spelas nu</value>
+  </data>
+  <data name="DowloadControl_NoDataFound" xml:space="preserve">
+    <value>Inga data hittades.</value>
+  </data>
+  <data name="DownloadControl_Retry" xml:space="preserve">
+    <value>Försök igen</value>
+  </data>
+  <data name="DownloadControl_SomethingWentWrong" xml:space="preserve">
+    <value>Hoppsan! Något gick fel :-(</value>
+  </data>
+  <data name="DownloadStatus_Completed" xml:space="preserve">
+    <value>Hämtad ({0:F1} MB)</value>
+  </data>
+  <data name="DownloadStatus_Downloading" xml:space="preserve">
+    <value>Hämtar...</value>
+  </data>
+  <data name="DownloadStatus_Downloading_InProgress" xml:space="preserve">
+    <value>Hämtar ({0}% av {1:F1} MB)</value>
+  </data>
+  <data name="DownloadStatus_Error" xml:space="preserve">
+    <value>FEL</value>
+  </data>
+  <data name="DownloadStatus_Waiting" xml:space="preserve">
+    <value>Väntar...</value>
+  </data>
+  <data name="Downloads_Empty" xml:space="preserve">
+    <value>När du har laddat ned avsnitt ser du dom här.</value>
+  </data>
+  <data name="Downloads_Title" xml:space="preserve">
+    <value>Nedladdningar</value>
+  </data>
+  <data name="Downloads_Toast_ToManyDownloads_Toast_Message" xml:space="preserve">
+    <value>Du har väldigt mycket nedladdningar. Se över dessa om du vill att fler nedladdningar ska göras automatiskt.</value>
+  </data>
+  <data name="Downloads_Toast_ToManyDownloads_Toast_Title" xml:space="preserve">
+    <value>Oj oj oj!</value>
+  </data>
+  <data name="Downloads_ToManyDownloads_ButtonText" xml:space="preserve">
+    <value>Det finns för många nedladdningar</value>
+  </data>
+  <data name="Downloads_ToManyDownloads_Description" xml:space="preserve">
+    <value>Du har just nu {0} nedladdningar. Om du har fler än {1} nedladdningar kommer det inte laddas ned några fler avsnitt automatiskt. Du kan fortfarande ladda ned avsnitt manuellt.</value>
+  </data>
+  <data name="EpisodeInfo_NoSongs" xml:space="preserve">
+    <value>Det här avsnittet har ingen låtlista.</value>
+  </data>
+  <data name="EpisodeInfo_ShowMoreEpisodes" xml:space="preserve">
+    <value>Visa fler avsnitt från {0}</value>
+  </data>
+  <data name="EpisodeSearch_NoEpisodesFound" xml:space="preserve">
+    <value>Inga avsnitt hittades.</value>
+  </data>
+  <data name="EpisodeSearch_SearchEpisodes" xml:space="preserve">
+    <value>Sök avsnitt</value>
+  </data>
+  <data name="EpisodeSearch_SearchPrograms" xml:space="preserve">
+    <value>Sök program</value>
+  </data>
+  <data name="EpisodeSearch_SomeEpisodesFound" xml:space="preserve">
+    <value>{0} avsnitt hittades.</value>
+  </data>
+  <data name="Episodes_AutoCreatePlayList" xml:space="preserve">
+    <value>Skapa spellista</value>
+  </data>
+  <data name="Episodes_DeleteDownloads" xml:space="preserve">
+    <value>Ta bort nedladdningar</value>
+  </data>
+  <data name="Episodes_DownloadSelected" xml:space="preserve">
+    <value>Ladda ned</value>
+  </data>
+  <data name="Episodes_Episodes" xml:space="preserve">
+    <value>Avsnitt</value>
+  </data>
+  <data name="Episodes_ExpireNote_MultipleDays" xml:space="preserve">
+    <value>Tillgänglig {0} dagar till {1}</value>
+  </data>
+  <data name="Episodes_ExpireNote_OneDayOrLess" xml:space="preserve">
+    <value>Tillgänglig {1} fram till {0}</value>
+  </data>
+  <data name="Episodes_ExpireNote_WithMusic" xml:space="preserve">
+    <value>med musik</value>
+  </data>
+  <data name="Episodes_GetAll" xml:space="preserve">
+    <value>Hämta alla</value>
+  </data>
+  <data name="Episodes_Information" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="Episodes_NextEpisode" xml:space="preserve">
+    <value>Nästa: {0}</value>
+  </data>
+  <data name="Episodes_NoAudioAvailible" xml:space="preserve">
+    <value>Det här avsnittet kan inte spelas upp.</value>
+  </data>
+  <data name="Episodes_NoDownloadAvailible" xml:space="preserve">
+    <value>Det här avsnittet finns inte tillgängligt för nedladdning.</value>
+  </data>
+  <data name="Episodes_NoEpisodesFound" xml:space="preserve">
+    <value>Inga avsnitt hittades.</value>
+  </data>
+  <data name="Episodes_PreviousEpisode" xml:space="preserve">
+    <value>Föregående: {0}</value>
+  </data>
+  <data name="Episodes_SearchEpisodes" xml:space="preserve">
+    <value>Sök avsnitt</value>
+  </data>
+  <data name="Episodes_SetAsListened" xml:space="preserve">
+    <value>Markera som spelad</value>
+  </data>
+  <data name="Episodes_SetAsNotListened" xml:space="preserve">
+    <value>Markera som ej spelad</value>
+  </data>
+  <data name="Episodes_SetMultipleAsListenedWarning" xml:space="preserve">
+    <value>Vill du markera {0} avsnitt som spelade?</value>
+  </data>
+  <data name="Episodes_SetMultipleAsListened_Title" xml:space="preserve">
+    <value>Markera som spelad</value>
+  </data>
+  <data name="Episodes_SetMultipleAsNotListenedWarning" xml:space="preserve">
+    <value>Vill du markera {0} avsnitt som ej spelade?</value>
+  </data>
+  <data name="Episodes_SetMultipleAsNotListened_Title" xml:space="preserve">
+    <value>Markera som ej spelad</value>
+  </data>
+  <data name="Episodes_ShowNotPlayedEpisode" xml:space="preserve">
+    <value>Visa ospelat avsnitt</value>
+  </data>
+  <data name="Episodes_TooManyEpisodes" xml:space="preserve">
+    <value>Det finns fler avsnitt.</value>
+  </data>
+  <data name="Episodes_UnknownGroupName" xml:space="preserve">
+    <value>Övrigt</value>
+  </data>
+  <data name="Favorites_AddRecommendedFavorites" xml:space="preserve">
+    <value>Lägg till några godbitar</value>
+  </data>
+  <data name="Favorites_ButtonRemoveFavorites" xml:space="preserve">
+    <value>Ta bort favoriter</value>
+  </data>
+  <data name="Favorites_Group_Channels" xml:space="preserve">
+    <value>Kanaler</value>
+  </data>
+  <data name="Favorites_Group_Programs" xml:space="preserve">
+    <value>Program</value>
+  </data>
+  <data name="Favorites_NothingPlaying" xml:space="preserve">
+    <value>Gå till Kanaler eller Program och lägg till dina favoriter. Det kommer att löna sig ;-)</value>
+  </data>
+  <data name="Favorites_RemoveMultipleFavoritesWarning" xml:space="preserve">
+    <value>Vill du ta bort {0} favoriter?</value>
+  </data>
+  <data name="Favorites_RemoveMultipleFavoritesWarning_Title" xml:space="preserve">
+    <value>Ta bort favoriter</value>
+  </data>
+  <data name="Favorites_Synchronize_Label" xml:space="preserve">
+    <value>Synkronisera</value>
+  </data>
+  <data name="Favorites_Synchronize_ToolTip" xml:space="preserve">
+    <value>Synkronisera favoriter och vad du lyssnat på med andra enheter.</value>
+  </data>
+  <data name="Favorites_Synchronize_ToolTip_Running" xml:space="preserve">
+    <value>Synkroniserar favoriter och vad du lyssnat på med andra enheter...</value>
+  </data>
+  <data name="Favorites_Title" xml:space="preserve">
+    <value>Favoriter</value>
+  </data>
+  <data name="Favorites_Tooltips_Channels" xml:space="preserve">
+    <value>Alla Sveriges Radios kanaler</value>
+  </data>
+  <data name="Favorites_Tooltips_Downloads" xml:space="preserve">
+    <value>Visa dina nedladdade avsnitt</value>
+  </data>
+  <data name="Favorites_Tooltips_Favorites" xml:space="preserve">
+    <value>Dina favoriter</value>
+  </data>
+  <data name="Favorites_Tooltips_Programs" xml:space="preserve">
+    <value>Alla Sveriges Radios program</value>
+  </data>
+  <data name="Favorites_Tooltips_Recent" xml:space="preserve">
+    <value>Historik över vilka avsnitt du nyligen spelat</value>
+  </data>
+  <data name="Favorites_Tooltips_Settings" xml:space="preserve">
+    <value>Inställningar och information om RadioStorm</value>
+  </data>
+  <data name="Favorites_Welcome_1" xml:space="preserve">
+    <value>Hej!</value>
+  </data>
+  <data name="Favorites_Welcome_2" xml:space="preserve">
+    <value>Roligt att du har valt att prova RadioStorm. Här visas i normala fall dina favoriter som finns i Sveriges Radio. Just nu vet vi inte vad du gillar så du får se detta istället! :-)</value>
+  </data>
+  <data name="Favorites_Welcome_3a" xml:space="preserve">
+    <value>Använd menyn för att se vilka </value>
+  </data>
+  <data name="Favorites_Welcome_3b" xml:space="preserve">
+    <value>kanaler</value>
+  </data>
+  <data name="Favorites_Welcome_3c" xml:space="preserve">
+    <value> och </value>
+  </data>
+  <data name="Favorites_Welcome_3d" xml:space="preserve">
+    <value>program</value>
+  </data>
+  <data name="Favorites_Welcome_3e" xml:space="preserve">
+    <value> som finns.</value>
+  </data>
+  <data name="Favorites_Welcome_3f" xml:space="preserve">
+    <value> Klicka på stjärnan på de som du vill ha som favoriter.</value>
+  </data>
+  <data name="Favorites_Welcome_4a" xml:space="preserve">
+    <value>Du kan synkronisera dina favoriter, vad du har lyssnat på och så vidare mellan dina enheter. Gå in i </value>
+  </data>
+  <data name="Favorites_Welcome_4b" xml:space="preserve">
+    <value>inställningarna</value>
+  </data>
+  <data name="Favorites_Welcome_4c" xml:space="preserve">
+    <value> för att aktivera detta.</value>
+  </data>
+  <data name="Favorites_Welcome_5" xml:space="preserve">
+    <value>Ha det så kul! :-)</value>
+  </data>
+  <data name="Favorites_Welcome_6" xml:space="preserve">
+    <value>/PEK</value>
+  </data>
+  <data name="Favorites_Welcome_7" xml:space="preserve">
+    <value>Psst!</value>
+  </data>
+  <data name="Favorites_Welcome_8" xml:space="preserve">
+    <value>Vill du ha lite tips på några favoriter? Klicka på den här knappen.</value>
+  </data>
+  <data name="GeneralButtonAbout" xml:space="preserve">
+    <value>Om</value>
+  </data>
+  <data name="GeneralButtonCancel" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="GeneralButtonChannels" xml:space="preserve">
+    <value>Kanaler</value>
+  </data>
+  <data name="GeneralButtonDownloads" xml:space="preserve">
+    <value>Nedladdningar</value>
+  </data>
+  <data name="GeneralButtonFavorites" xml:space="preserve">
+    <value>Favoriter</value>
+  </data>
+  <data name="GeneralButtonFind" xml:space="preserve">
+    <value>Sök</value>
+  </data>
+  <data name="GeneralButtonIsListened" xml:space="preserve">
+    <value>Är spelad</value>
+  </data>
+  <data name="GeneralButtonOk" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="GeneralButtonOpenFacebookPage" xml:space="preserve">
+    <value>Öppna Facebooksida</value>
+  </data>
+  <data name="GeneralButtonOpenTwitterPage" xml:space="preserve">
+    <value>Öppna Twittersida</value>
+  </data>
+  <data name="GeneralButtonOpenWebPage" xml:space="preserve">
+    <value>Öppna webbsida</value>
+  </data>
+  <data name="GeneralButtonProgram" xml:space="preserve">
+    <value>Program</value>
+  </data>
+  <data name="GeneralButtonRecent" xml:space="preserve">
+    <value>Tidigare</value>
+  </data>
+  <data name="GeneralButtonSelectAll" xml:space="preserve">
+    <value>Välj alla</value>
+  </data>
+  <data name="GeneralButtonSettings" xml:space="preserve">
+    <value>Inställningar</value>
+  </data>
+  <data name="GeneralSelect" xml:space="preserve">
+    <value>Välj</value>
+  </data>
+  <data name="GeneralSelectionMultiple" xml:space="preserve">
+    <value>{0} objekt har markerats</value>
+  </data>
+  <data name="GeneralSelectionNone" xml:space="preserve">
+    <value>Inget objekt har markerats</value>
+  </data>
+  <data name="GeneralSelectionOne" xml:space="preserve">
+    <value>1 objekt har markerats</value>
+  </data>
+  <data name="General_AddAsFavorite" xml:space="preserve">
+    <value>Lägg till som favorit</value>
+  </data>
+  <data name="General_AddAsFavorites" xml:space="preserve">
+    <value>Lägg till som favoriter</value>
+  </data>
+  <data name="General_AddToPlayList" xml:space="preserve">
+    <value>Lägg till i spellista</value>
+  </data>
+  <data name="General_Download" xml:space="preserve">
+    <value>Ladda ned</value>
+  </data>
+  <data name="General_Favorite" xml:space="preserve">
+    <value>Favorit</value>
+  </data>
+  <data name="General_GroupByCategory" xml:space="preserve">
+    <value>Gruppera efter kategori</value>
+  </data>
+  <data name="General_GroupByName" xml:space="preserve">
+    <value>Gruppera efter namn</value>
+  </data>
+  <data name="General_IsInPlayList" xml:space="preserve">
+    <value>Det här avsnittet är inlagt i spellistan</value>
+  </data>
+  <data name="General_Label_CurrentlySending" xml:space="preserve">
+    <value>Sänds nu</value>
+  </data>
+  <data name="General_Label_Later" xml:space="preserve">
+    <value>Senare</value>
+  </data>
+  <data name="General_Length" xml:space="preserve">
+    <value>Längd:</value>
+  </data>
+  <data name="General_Message_RemoveMultipleDownload_Message" xml:space="preserve">
+    <value>Vill du ta bort {0} nedladdningar?</value>
+  </data>
+  <data name="General_Message_RemoveMultipleDownload_Title" xml:space="preserve">
+    <value>Ta bort nedladdningar</value>
+  </data>
+  <data name="General_No" xml:space="preserve">
+    <value>Nej</value>
+  </data>
+  <data name="General_NoSongsFound" xml:space="preserve">
+    <value>Inga låtar hittades.</value>
+  </data>
+  <data name="General_Pekspro_EmailAddress" xml:space="preserve">
+    <value>info@pekspro.com</value>
+  </data>
+  <data name="General_Pekspro_Url" xml:space="preserve">
+    <value>https://www.pekspro.com</value>
+  </data>
+  <data name="General_Pin" xml:space="preserve">
+    <value>Fäst till start</value>
+  </data>
+  <data name="General_Play" xml:space="preserve">
+    <value>Spela</value>
+  </data>
+  <data name="General_PlayList" xml:space="preserve">
+    <value>Spellista</value>
+  </data>
+  <data name="General_PublishDate" xml:space="preserve">
+    <value>Publicerad:</value>
+  </data>
+  <data name="General_Remove" xml:space="preserve">
+    <value>Ta bort</value>
+  </data>
+  <data name="General_RemoveAsFavorite" xml:space="preserve">
+    <value>Ta bort som favorit</value>
+  </data>
+  <data name="General_RemoveDownload" xml:space="preserve">
+    <value>Ta bort nedladdning</value>
+  </data>
+  <data name="General_SelectAll" xml:space="preserve">
+    <value>Välj alla</value>
+  </data>
+  <data name="General_Size" xml:space="preserve">
+    <value>Storlek:</value>
+  </data>
+  <data name="General_SongList" xml:space="preserve">
+    <value>Låtlista</value>
+  </data>
+  <data name="General_Unpin" xml:space="preserve">
+    <value>Ta bort från start</value>
+  </data>
+  <data name="General_Update" xml:space="preserve">
+    <value>Uppdatera</value>
+  </data>
+  <data name="General_Yes" xml:space="preserve">
+    <value>Ja</value>
+  </data>
+  <data name="Player_MenuContinueFromLatestPlayedPosition" xml:space="preserve">
+    <value>Fortsätt från där du senast lyssnade</value>
+  </data>
+  <data name="Player_MenuSleepTimer" xml:space="preserve">
+    <value>Sovtimer</value>
+  </data>
+  <data name="Player_MenuSleepTimer_Disable" xml:space="preserve">
+    <value>Stäng av sovtimer ({0}:{1})</value>
+  </data>
+  <data name="Player_MenuSleepTimer_Set" xml:space="preserve">
+    <value>{0} minuter</value>
+  </data>
+  <data name="Player_MenuSpeed" xml:space="preserve">
+    <value>Hastighet</value>
+  </data>
+  <data name="Player_MenuSpeed_Fast" xml:space="preserve">
+    <value>Snabbt</value>
+  </data>
+  <data name="Player_MenuSpeed_Normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="Player_MenuSpeed_Slow" xml:space="preserve">
+    <value>Långsamt</value>
+  </data>
+  <data name="Player_MenuSpeed_VeryFast" xml:space="preserve">
+    <value>Mycket snabbt</value>
+  </data>
+  <data name="Player_MenuSpeed_VerySlow" xml:space="preserve">
+    <value>Mycket långsamt</value>
+  </data>
+  <data name="Player_PlayList_GoToNext" xml:space="preserve">
+    <value>Spela nästa</value>
+  </data>
+  <data name="Player_PlayList_GoToPrevious" xml:space="preserve">
+    <value>Spela föregående</value>
+  </data>
+  <data name="Player_Playlist_OpenPlaylist" xml:space="preserve">
+    <value>Spellista</value>
+  </data>
+  <data name="Playlist_ButtonMove" xml:space="preserve">
+    <value>Flytta</value>
+  </data>
+  <data name="PlayList_ButtonRemoveFromPlaylist" xml:space="preserve">
+    <value>Ta bort från spellista</value>
+  </data>
+  <data name="Playlist_Empty" xml:space="preserve">
+    <value>Din spellista är tom.</value>
+  </data>
+  <data name="Playlist_RemoveMultiplePlaylistItemsWarning" xml:space="preserve">
+    <value>Vill du ta bort {0} avsnitt från spellista?</value>
+  </data>
+  <data name="Playlist_RemoveMultiplePlaylistItemsWarning_Title" xml:space="preserve">
+    <value>Ta bort avsnitt</value>
+  </data>
+  <data name="Playlist_Title" xml:space="preserve">
+    <value>Spellista</value>
+  </data>
+  <data name="ProgramInfo_AutoDownload_Description" xml:space="preserve">
+    <value>RadioStorm kan automatisk hämta avsnitt som inte blivit spelade. Avsnitten raderas automatisk ett tag efter att du har lyssnat på dom.</value>
+  </data>
+  <data name="ProgramInfo_AutoDownload_QueueSize_Description" xml:space="preserve">
+    <value>Hur många avsnitt vill du ha i kö för det här programmet?</value>
+  </data>
+  <data name="ProgramInfo_AutoDownload_QueueSize_None" xml:space="preserve">
+    <value>Inga</value>
+  </data>
+  <data name="ProgramInfo_AutoDownload_QueueSize_One" xml:space="preserve">
+    <value>Ett avsnitt</value>
+  </data>
+  <data name="ProgramInfo_AutoDownload_QueueSize_X" xml:space="preserve">
+    <value>{0} avsnitt</value>
+  </data>
+  <data name="ProgramInfo_AutoDownload_Title" xml:space="preserve">
+    <value>Hämta avsnitt automatiskt</value>
+  </data>
+  <data name="ProgramInfo_Buttons_AutoDownload" xml:space="preserve">
+    <value>Hämta avsnitt automatiskt</value>
+  </data>
+  <data name="ProgramInfo_Button_Sorting" xml:space="preserve">
+    <value>Sortering</value>
+  </data>
+  <data name="ProgramInfo_NoEpisodes" xml:space="preserve">
+    <value>Det finns inga avsnitt för det här programmet.</value>
+  </data>
+  <data name="ProgramInfo_Sorting_Description" xml:space="preserve">
+    <value>När du ändrar sortering påverkar detta ordningen du ser avsnitten i listan samt vilken ordning de laddas ned om du har automatisk nedladdning aktiverat.</value>
+  </data>
+  <data name="ProgramInfo_Sorting_Order_Description" xml:space="preserve">
+    <value>I vilken ordning ska avsnitten sorteras?</value>
+  </data>
+  <data name="ProgramInfo_Sorting_Order_NewestFirst" xml:space="preserve">
+    <value>De nyaste avsnitten först</value>
+  </data>
+  <data name="ProgramInfo_Sorting_Order_OldestFirst" xml:space="preserve">
+    <value>De äldsta avsnitten först</value>
+  </data>
+  <data name="ProgramInfo_Sorting_Title" xml:space="preserve">
+    <value>Sortering</value>
+  </data>
+  <data name="Programs_AddMultipleFavoritesWarning" xml:space="preserve">
+    <value>Vill du lägga till {0} program som favoriter?</value>
+  </data>
+  <data name="Programs_AddMultipleFavoritesWarning_Title" xml:space="preserve">
+    <value>Lägga till favoriter</value>
+  </data>
+  <data name="Programs_Category_Miscellaneous" xml:space="preserve">
+    <value>Övrigt</value>
+  </data>
+  <data name="Programs_NoProgramsFound" xml:space="preserve">
+    <value>Inga program hittades.</value>
+  </data>
+  <data name="Programs_SearchPrograms" xml:space="preserve">
+    <value>Sök program</value>
+  </data>
+  <data name="Programs_Title" xml:space="preserve">
+    <value>Program</value>
+  </data>
+  <data name="Recent_ButtonRemoveItems" xml:space="preserve">
+    <value>Ta bort från tidigare</value>
+  </data>
+  <data name="Recent_Empty" xml:space="preserve">
+    <value>När du har spelat något program kan du se det här.</value>
+  </data>
+  <data name="Recent_Group_LastWeek" xml:space="preserve">
+    <value>Förra veckan</value>
+  </data>
+  <data name="Recent_Group_Older" xml:space="preserve">
+    <value>Äldre</value>
+  </data>
+  <data name="Recent_Group_ThisWeek" xml:space="preserve">
+    <value>Denna veckan</value>
+  </data>
+  <data name="Recent_RemoveFromRecent" xml:space="preserve">
+    <value>Ta bort från tidigare</value>
+  </data>
+  <data name="Recent_RemoveMultipleRecentItemsWarning" xml:space="preserve">
+    <value>Vill du ta bort {0} objekt från tidigare?</value>
+  </data>
+  <data name="Recent_RemoveMultipleRecentItemsWarning_Title" xml:space="preserve">
+    <value>Ta bort tidigare</value>
+  </data>
+  <data name="Recent_Title" xml:space="preserve">
+    <value>Tidigare</value>
+  </data>
+  <data name="Review_MaybeLater" xml:space="preserve">
+    <value>Kanske någon annan gång</value>
+  </data>
+  <data name="Review_Message" xml:space="preserve">
+    <value>Har du tid att lägga några sekunder på att sätta ett omdöme på RadioStorm? På så sätt gör du det enklare för andra att hitta vår lilla app - det skulle göra oss glada :).</value>
+  </data>
+  <data name="Review_No" xml:space="preserve">
+    <value>Nej</value>
+  </data>
+  <data name="Review_Title" xml:space="preserve">
+    <value>Gillar du RadioStorm?</value>
+  </data>
+  <data name="Review_Yes" xml:space="preserve">
+    <value>Javisst!</value>
+  </data>
+  <data name="SavedPlaylist_Play" xml:space="preserve">
+    <value>Fortsätt spela</value>
+  </data>
+  <data name="SavedPlaylist_Title" xml:space="preserve">
+    <value>Sparad spellista</value>
+  </data>
+  <data name="Settings_Cache_ButtonClean" xml:space="preserve">
+    <value>Töm cache</value>
+  </data>
+  <data name="Settings_Cache_Clearing" xml:space="preserve">
+    <value>Tömmer cache...</value>
+  </data>
+  <data name="Settings_Cache_Cleared" xml:space="preserve">
+    <value>Cachen är tömd.</value>
+  </data>
+  <data name="Settings_Cache_Description" xml:space="preserve">
+    <value>Om du misstänker att du har problem med att informationen i programmet är för gammal, välj att rensa cachen för att hämta hem senaste informationen.</value>
+  </data>
+  <data name="Settings_Cache_Title" xml:space="preserve">
+    <value>Cache</value>
+  </data>
+  <data name="Settings_Downloads_AutoRemove_Description" xml:space="preserve">
+    <value>Ta automatisk bort nedladdade avsnitt som är spelade efter:</value>
+  </data>
+  <data name="Settings_Downloads_AutoRemove_Option_Never" xml:space="preserve">
+    <value>Aldrig</value>
+  </data>
+  <data name="Settings_Downloads_AutoRemove_Option_OneDay" xml:space="preserve">
+    <value>En dag</value>
+  </data>
+  <data name="Settings_Downloads_AutoRemove_Option_XDays" xml:space="preserve">
+    <value>{0} dagar</value>
+  </data>
+  <data name="Settings_Downloads_AutoRemove_Title" xml:space="preserve">
+    <value>Automatisk borttagning</value>
+  </data>
+  <data name="Settings_Downloads_Button_ShowDownladInformation" xml:space="preserve">
+    <value>När hämtas nedladdningar?</value>
+  </data>
+  <data name="Settings_Downloads_DownladInformation" xml:space="preserve">
+    <value>Nedladdningar hämtas automatiskt i bakgrunden när du inte använder enheten och du har tillgång till fritt Internet. Om du har fler än totalt {0} nedladdningar kommer inte fler nedladdningar att göras.</value>
+  </data>
+  <data name="Settings_Downloads_General_ShowToastMessage" xml:space="preserve">
+    <value>Visa meddelande när ett nytt avsnitt laddats ned automatiskt.</value>
+  </data>
+  <data name="Settings_Downloads_General_Title" xml:space="preserve">
+    <value>Allmänt</value>
+  </data>
+  <data name="Settings_Downloads_Listened_Multiple" xml:space="preserve">
+    <value>{0} spelade</value>
+  </data>
+  <data name="Settings_Downloads_Listened_Single" xml:space="preserve">
+    <value>en spelad</value>
+  </data>
+  <data name="Settings_Downloads_Title" xml:space="preserve">
+    <value>Nedladdningar</value>
+  </data>
+  <data name="Settings_Downloads_Usage_DownloadCount" xml:space="preserve">
+    <value>Antal nedladdade avsnitt:</value>
+  </data>
+  <data name="Settings_Downloads_Usage_RemoveAll" xml:space="preserve">
+    <value>Ta bort alla</value>
+  </data>
+  <data name="Settings_Downloads_Usage_RemoveListened" xml:space="preserve">
+    <value>Ta bort spelade avsnitt</value>
+  </data>
+  <data name="Settings_Downloads_Usage_SpaceUsage" xml:space="preserve">
+    <value>Utrymme:</value>
+  </data>
+  <data name="Settings_Downloads_Usage_Title" xml:space="preserve">
+    <value>Användning av lagringsutrymme</value>
+  </data>
+  <data name="Settings_LiveTile_Description" xml:space="preserve">
+    <value>Använd levande panel.</value>
+  </data>
+  <data name="Settings_LiveTile_Title" xml:space="preserve">
+    <value>Levande panel</value>
+  </data>
+  <data name="Settings_Play_DownloadNote" xml:space="preserve">
+    <value>Avsnitt som laddats ned spelas alltid upp utan musik.</value>
+  </data>
+  <data name="Settings_Play_PreferMusicDescription" xml:space="preserve">
+    <value>När ett avsnitt spelas upp, spela upp med musik om det är möjligt.</value>
+  </data>
+  <data name="Settings_Play_Title" xml:space="preserve">
+    <value>Uppspelning</value>
+  </data>
+  <data name="Settings_Synchronize_Description" xml:space="preserve">
+    <value>Om du loggar in med ditt Microsoft-konto så synkroniseras dina favoriter och vad du har lyssnat på mellan dina enheter. Detta sparas i mappen Appar på ditt OneDrive-konto.</value>
+  </data>
+  <data name="Settings_Synchronize_SignedInDetails" xml:space="preserve">
+    <value>Inloggad med {0}.</value>
+  </data>
+  <data name="Settings_Synchronize_SyncNow" xml:space="preserve">
+    <value>Synkronisera nu</value>
+  </data>
+  <data name="Settings_Synchronize_SyncState_Done" xml:space="preserve">
+    <value>Senaste synkroniseringen gjordes {0}.</value>
+  </data>
+  <data name="Settings_Synchronize_SyncState_None" xml:space="preserve">
+    <value>Ingen synkronisering har gjorts.</value>
+  </data>
+  <data name="Settings_Synchronize_SyncState_Running" xml:space="preserve">
+    <value>Synkroniserar...</value>
+  </data>
+  <data name="Settings_Synchronize_Title" xml:space="preserve">
+    <value>Synkronisering</value>
+  </data>
+  <data name="Settings_Theme_Dark" xml:space="preserve">
+    <value>Mörkt</value>
+  </data>
+  <data name="Settings_Theme_Default" xml:space="preserve">
+    <value>Automatiskt</value>
+  </data>
+  <data name="Settings_Theme_Description" xml:space="preserve">
+    <value>Välj vilket tema som ska användas. Du behöver starta om RadioStorm för att aktivera ändringarna.</value>
+  </data>
+  <data name="Settings_Theme_Light" xml:space="preserve">
+    <value>Ljust</value>
+  </data>
+  <data name="Settings_Theme_Title" xml:space="preserve">
+    <value>Tema</value>
+  </data>
+  <data name="Settings_Title" xml:space="preserve">
+    <value>Inställningar</value>
+  </data>
+  <data name="Start_JumpList_Channels" xml:space="preserve">
+    <value>Kanaler</value>
+  </data>
+  <data name="SynchonizingButton_State_SignIn" xml:space="preserve">
+    <value>Logga in</value>
+  </data>
+  <data name="SynchonizingButton_State_SigningIn" xml:space="preserve">
+    <value>Loggar in...</value>
+  </data>
+  <data name="SynchonizingButton_State_SignOut" xml:space="preserve">
+    <value>Logga ut</value>
+  </data>
+  <data name="Weekday_Friday" xml:space="preserve">
+    <value>Fredag</value>
+  </data>
+  <data name="Weekday_Monday" xml:space="preserve">
+    <value>Måndag</value>
+  </data>
+  <data name="Weekday_Saturday" xml:space="preserve">
+    <value>Lördag</value>
+  </data>
+  <data name="Weekday_Sunday" xml:space="preserve">
+    <value>Söndag</value>
+  </data>
+  <data name="Weekday_Thursday" xml:space="preserve">
+    <value>Torsdag</value>
+  </data>
+  <data name="Weekday_Today" xml:space="preserve">
+    <value>Idag</value>
+  </data>
+  <data name="Weekday_Tomorrow" xml:space="preserve">
+    <value>Imorgon</value>
+  </data>
+  <data name="Weekday_Tuesday" xml:space="preserve">
+    <value>Tisdag</value>
+  </data>
+  <data name="Weekday_Wednesday" xml:space="preserve">
+    <value>Onsdag</value>
+  </data>
+  <data name="Weekday_Yesterday" xml:space="preserve">
+    <value>Igår</value>
+  </data>
+</root>

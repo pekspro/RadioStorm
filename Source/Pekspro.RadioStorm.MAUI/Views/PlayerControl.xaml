@@ -1,0 +1,122 @@
+﻿<Grid xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:player="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Player;assembly=Pekspro.RadioStorm.UI"
+            xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
+            x:Class="Pekspro.RadioStorm.MAUI.Views.PlayerControl"             
+            x:DataType="player:PlayerViewModel"
+            IsVisible="{Binding CurrentItem, Converter={StaticResource NullToIsVisibleConverter}}"
+            BackgroundColor="{StaticResource PanelBackground}"
+            HeightRequest="{Binding IsCurrentItemLiveAudio, Converter={StaticResource LiveAudioToHeightConverter}}"
+            >
+    <Grid.RowDefinitions>
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="auto" />
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="Auto" />
+    </Grid.ColumnDefinitions>
+
+    <!--<StackLayout Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2" HeightRequest="28" BackgroundColor="DarkBlue">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <CheckBox IsChecked="{Binding CanPlay, Mode=OneWay}" IsEnabled="false" />
+            <Label Text="Can play" Grid.Column="1" />
+        </Grid>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <CheckBox IsChecked="{Binding CanPause, Mode=OneWay}" IsEnabled="false" />
+            <Label Text="Can pause" Grid.Column="1" />
+        </Grid>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <CheckBox IsChecked="{Binding IsBuffering, Mode=OneWay}" IsEnabled="false" />
+            <Label Text="Is buffering" Grid.Column="1" />
+        </Grid>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <CheckBox IsChecked="{Binding CanGoToPrevious, Mode=OneWay}" IsEnabled="false" />
+            <Label Text="Can go to previous" Grid.Column="1" />
+        </Grid>
+        
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <CheckBox IsChecked="{Binding CanGoToNext, Mode=OneWay}" IsEnabled="false" />
+            <Label Text="Can go to next" Grid.Column="1" />
+        </Grid>
+    </StackLayout>
+
+    <StackLayout Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="2">
+        <Button Command="{Binding CommandPlay, Mode=OneWay}" Text="Play" />
+        <Button Command="{Binding CommandPause, Mode=OneWay}" Text="Pause" />
+        <Button Command="{Binding CommandPlayPause, Mode=OneWay}" Text="Play/Pause" />
+        <Button Command="{Binding CommandGoToPrevious, Mode=OneWay}" Text="Previous" />
+        <Button Command="{Binding CommandGoToNext, Mode=OneWay}" Text="Next" />
+        <Button  Text="Playlist" Clicked="ButtonPlaylist_Clicked" />
+        <Editor 
+                x:Name="SliderVolume" 
+                Text="{Binding Volume}" 
+                BackgroundColor="Orange" 
+                IsVisible="{Binding HasVolmeSupport}"
+                WidthRequest="50" />
+    </StackLayout>
+
+    <StackLayout Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2" BackgroundColor="DarkOrchid">
+        <Label Text="Live: "/>
+        <Label Text="{Binding CurrentItem.IsLiveAudio, Mode=OneWay}" />
+        <Label Text="|"  />
+        <Label Text="{Binding PositionString, Mode=OneWay}" FontAttributes="Bold" />
+        <Label Text="|"  />
+        <Label Text="{Binding MediaLengthString, Mode=OneWay}" />
+        <Label Text="|"  />
+        <Label Text="{Binding ProgressValue, Mode=OneWay}" />
+        <Label Text="|" />
+        <Label Text="{Binding ProgressMaxValue, Mode=OneWay}" />
+    </StackLayout>
+
+    <StackLayout Orientation="Horizontal" Grid.Row="3" Grid.ColumnSpan="2" BackgroundColor="DarkGray">
+        <Label Text="{Binding CurrentItem.AudioId, Mode=OneWay}" />
+        <Label Text="|"  />
+        <Label Text="{Binding CurrentItem.Program, Mode=OneWay}" />
+        <Label Text="|"  />
+        <Label Text="{Binding CurrentItem.Episode, Mode=OneWay}" />
+        <Label Text="|"  />
+        <Label Text="{Binding CurrentItem.Channel, Mode=OneWay}" />
+        <Label Text="|"  />
+        <Label Text="{Binding CurrentItem.AudioId, Mode=OneWay}" />
+    </StackLayout>-->
+
+    <views:CurrentPlayingControl Grid.Row="4" />
+    <!--<StackLayout BackgroundColor="DarkBlue" >
+    </StackLayout>-->
+
+    <views:PlayerButtonsControl Grid.Row="4" Grid.Column="1" />
+    <!--<StackLayout BackgroundColor="DarkGreen" >
+    </StackLayout>-->
+
+    <views:PlayerPositionControl Grid.Row="5" Grid.ColumnSpan="2" IsVisible="{Binding IsCurrentItemEpisode}" />
+    <!--<StackLayout BackgroundColor="DarkRed" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="1">
+    </StackLayout>-->
+</Grid>

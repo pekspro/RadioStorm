@@ -1,0 +1,65 @@
+﻿<Window x:Class="Pekspro.RadioStorm.Sandbox.WPF.RecentEpisodes.RecentEpisodesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:episode="clr-namespace:Pekspro.RadioStorm.Sandbox.WPF.Episode" 
+        xmlns:UserControls="clr-namespace:Pekspro.RadioStorm.Sandbox.WPF.UserControls" 
+        xmlns:episodes="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Episode;assembly=Pekspro.RadioStorm.UI"
+        xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance episodes:DownloadsViewModel, IsDesignTimeCreatable=True}"
+        Title="{x:Static r:Strings.Recent_Title}" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <UserControls:DebugControl Grid.Row="0" />
+
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <Button Command="{Binding SelectionModeHelper.ToggleSelectionModeCommand}">Selection</Button>
+            <TextBlock Text="Selected:" Padding="4" />
+            <TextBlock Text="{Binding SelectionModeHelper.SelectionCount}" Padding="4" />
+        </StackPanel>
+
+        <UserControls:DownloadStateControl Grid.Row="2" DataContext="{Binding }" />
+
+        <ListView 
+            x:Name="ListViewEpisodes"
+            Grid.Row="3"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+            ItemsSource="{Binding Items}"
+            Visibility="{Binding HasData, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}"
+            SelectionMode="{Binding SelectionModeHelper.InSelectionMode, Converter={StaticResource BoolToSelectionMode}, Mode=OneWay}"
+            SelectionChanged="ListViewEpisodes_SelectionChanged"
+            Padding="4"
+            MouseDoubleClick="ListViewEpisodes_MouseDoubleClick"
+                >
+            <ListView.Resources>
+                <ContextMenu x:Key="ItemContextMenu">
+                    <MenuItem Header="Add to playlist" Command="{Binding CommandAddToPlayList}" />
+                    <MenuItem Header="Toggle is listened" Command="{Binding CommandToggleIsListened}" />
+                    <MenuItem Header="Set listened (multiple)" Click="MenuItemMultipleSetListened_Click" />
+                    <MenuItem Header="Set not listened (multiple)" Click="MenuItemMultipleSetNotListened_Click" />
+                    <MenuItem Header="Add to playlist (multiple)" Click="MenuItemMultipleAddToPlayList_Click" />
+                    <MenuItem Header="Remove from recent list (multiple)" Click="MenuItemMultipleRemoveFromRecentList_Click" />
+                </ContextMenu>
+            </ListView.Resources>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="ContextMenu" Value="{StaticResource ItemContextMenu}" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <episode:EpisodeControl />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Window>

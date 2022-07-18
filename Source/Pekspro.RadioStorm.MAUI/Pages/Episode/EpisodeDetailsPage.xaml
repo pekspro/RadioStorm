@@ -1,0 +1,255 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Episode;assembly=Pekspro.RadioStorm.UI"
+             xmlns:m="clr-namespace:Pekspro.RadioStorm.UI.Model.Episode;assembly=Pekspro.RadioStorm.UI"
+             xmlns:v="clr-namespace:Pekspro.RadioStorm.MAUI.Pages.Episode"
+             xmlns:c="clr-namespace:Pekspro.RadioStorm.MAUI.Controls"
+             xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
+             xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
+             x:Class="Pekspro.RadioStorm.MAUI.Pages.Episode.EpisodeDetailsPage"
+             x:DataType="vm:EpisodeDetailsViewModel"
+             Title="{Binding Title, Mode=OneWay}"
+             >
+
+    <ContentPage.ToolbarItems>
+
+        <ToolbarItem 
+            Command="{Binding EpisodeData.ToggleIsListenedCommand}"
+            IconImageSource="{Binding EpisodeData.IsListened, Converter={StaticResource BoolToIsListenedImageConverter}}"
+            Order="Primary"
+            Priority="0" />
+
+        <c:BindableToolbarItem 
+            Command="{Binding EpisodeData.DownloadCommand}"   
+            IconImageSource="{StaticResource ToolBarIconDownload}"
+            Text="{x:Static r:Strings.General_Download}"
+            IsVisible="{Binding EpisodeData.DownloadData, Converter={StaticResource InvertedNullToIsVisibleConverter}}"
+            Order="Primary"
+            Priority="1" />
+
+        <c:BindableToolbarItem 
+            Command="{Binding EpisodeData.DeleteDownloadCommand}"
+            IconImageSource="{StaticResource ToolBarIconDelete}"
+            Text="{x:Static r:Strings.General_RemoveDownload}"
+            IsVisible="{Binding EpisodeData.DownloadData, Converter={StaticResource NullToIsVisibleConverter}}"
+            Order="Primary"
+            Priority="2" />
+
+        <ToolbarItem 
+                Command="{Binding UpdateCommand}"
+                Text="{x:Static r:Strings.General_Update}"
+                Order="Secondary"
+                Priority="0" />
+
+    </ContentPage.ToolbarItems>
+
+    <!--<RefreshView Command="{Binding CommandRetry}" IsRefreshing="{Binding IsBusy}">-->
+    <Grid RowDefinitions="*,Auto">
+        <views:DownloadState Padding="{StaticResource NormalPageMargin}" />
+
+        <RefreshView 
+            Command="{Binding RefreshCommand}" 
+            IsRefreshing="{Binding IsRefreshing}"
+            IsVisible="{Binding HasData}"
+            >
+            <ScrollView Padding="{StaticResource NormalPageMargin}">
+                <Grid RowDefinitions="Auto,Auto,Auto,*"
+                    ColumnDefinitions="Auto,*"
+                    x:Name="GridLayout"
+                    >
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup Name="WidthState">
+                            <VisualState Name="Narrow">
+                                <VisualState.Setters>
+                                    <Setter Property="Grid.Column" Value="0" TargetName="DetailsPanel" />
+                                    <Setter Property="Grid.Row" Value="2" TargetName="DetailsPanel" />
+                                    <Setter Property="Grid.RowSpan" Value="1" TargetName="DetailsPanel" />
+                                    <Setter Property="IsVisible" Value="False" TargetName="DataTableWide" />
+                                    <Setter Property="IsVisible" Value="{Binding EpisodeData.HasAudio, Mode=OneWay}" TargetName="DataTableNarrow" />
+                                    <Setter Property="ColumnDefinitions" Value="*" TargetName="GridLayout" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState Name="Wide">
+                                <VisualState.Setters>
+                                    <Setter Property="Grid.Column" Value="1" TargetName="DetailsPanel" />
+                                    <Setter Property="Grid.Row" Value="1" TargetName="DetailsPanel" />
+                                    <Setter Property="Grid.RowSpan" Value="2" TargetName="DetailsPanel" />
+                                    <Setter Property="IsVisible" Value="{Binding EpisodeData.HasAudio, Mode=OneWay}" TargetName="DataTableWide" />
+                                    <Setter Property="IsVisible" Value="False" TargetName="DataTableNarrow" />
+                                    <Setter Property="ColumnDefinitions" Value="Auto,*" TargetName="GridLayout" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+
+                    <VerticalStackLayout x:Name="ImagePanel" Grid.Row="1" Grid.Column="0">
+                        <views:LargeMediaButtonUserControl    
+                            HorizontalOptions="Center"
+                            WidthRequest="200"
+                            HeightRequest="200"
+                            ButtonStrokeColor="#80000000"
+                            ButtonMouseOverStrokeFill="Black"
+                            ButtonStrokeWidth="2"
+                            Source="{Binding EpisodeData.EpisodeImage.HighResolution, Mode=OneWay}"
+                            Command="{Binding EpisodeData.PlayPauseCommand}"
+                            DisabledText="{x:Static r:Strings.Episodes_NoAudioAvailible}"
+                            AudioMediaState="{Binding EpisodeData.AudioMediaState, Mode=OneWay}"
+                            />
+                    </VerticalStackLayout>
+
+                    <Grid   x:Name="DataTableWide"
+                            HorizontalOptions="Start"
+                            MaximumWidthRequest="200"
+                            Grid.Row="2"
+                            IsVisible="{Binding EpisodeData.HasAudio, Mode=OneWay}"
+                            ColumnDefinitions="Auto, *"
+                            RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
+                        >
+                        <Label  Grid.Row="0"
+                            Grid.Column="0"
+                            Text="{x:Static r:Strings.General_PublishDate}"
+                            Style="{StaticResource DetailedTextStyle}" />
+
+                        <Label  Grid.Row="0"
+                            Grid.Column="1"
+                            Text="{Binding EpisodeData.PublishLength.RelativePublishDateString, Mode=OneWay}"
+                            Style="{StaticResource DetailedTextStyle}"
+                            Margin="7,0,0,0" />
+
+                        <Label  Grid.Row="1"
+                            Grid.Column="0"
+                            Text="{x:Static r:Strings.General_Length}"
+                            Style="{StaticResource DetailedTextStyle}" />
+
+                        <Label  Grid.Row="1"
+                            Grid.Column="1"
+                            Text="{Binding EpisodeData.PublishLength.LengthString, Mode=OneWay}"
+                            Style="{StaticResource DetailedTextStyle}"
+                            Margin="7,0,0,0" />
+
+                        <Label  Grid.Row="2"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            IsVisible="{Binding EpisodeData.HasExpireDateNote, Mode=OneWay}"
+                            Text="{Binding EpisodeData.ExpireDateNote, Mode=OneWay}"
+                            Style="{StaticResource DetailedTextStyle}"
+                            Margin="0,8,0,0" />
+
+                        <Label  Grid.Row="3"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            IsVisible="{Binding EpisodeData.NoDownloadAvailible, Mode=OneWay}"
+                            Text="{x:Static r:Strings.Episodes_NoDownloadAvailible}"
+                            Style="{StaticResource DetailedTextStyle}"
+                            Margin="0,8,0,0" />
+
+                        <Label  Grid.Row="4"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            Margin="0,8,0,0" 
+                            Text="{Binding EpisodeData.DownloadData.DownloadStatusText, Mode=OneWay}" 
+                            Style="{StaticResource DetailedTextStyle}" 
+                            />
+                    </Grid>
+
+                    <VerticalStackLayout x:Name="DetailsPanel">
+                        <Label Text="{Binding Title, Mode=OneWay}" Style="{StaticResource SubtitleTextBlockStyle}" />
+                        <Label Text="{Binding EpisodeData.Description, Mode=OneWay}" />
+
+                        <Grid x:Name="DataTableNarrow"
+                            HorizontalOptions="Start"
+                            MaximumWidthRequest="200"
+                            IsVisible="{Binding EpisodeData.HasAudio, Mode=OneWay}"
+                            ColumnDefinitions="Auto, *"
+                            RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
+                            >
+                            <Label Grid.Row="0"
+                                Grid.Column="0"
+                                Text="{x:Static r:Strings.General_PublishDate}"
+                                Style="{StaticResource DetailedTextStyle}" />
+
+                            <Label Grid.Row="0"
+                                Grid.Column="1"
+                                Text="{Binding EpisodeData.PublishLength.RelativePublishDateString, Mode=OneWay}"
+                                Style="{StaticResource DetailedTextStyle}"
+                                Margin="7,0,0,0" />
+
+                            <Label Grid.Row="1"
+                                Grid.Column="0"
+                                Text="{x:Static r:Strings.General_Length}"
+                                Style="{StaticResource DetailedTextStyle}" />
+
+                            <Label Grid.Row="1"
+                                Grid.Column="1"
+                                Text="{Binding EpisodeData.PublishLength.LengthString, Mode=OneWay}"
+                                Style="{StaticResource DetailedTextStyle}"
+                                Margin="7,0,0,0" />
+
+                            <Label Grid.Row="2"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                IsVisible="{Binding EpisodeData.HasExpireDateNote, Mode=OneWay}"
+                                Text="{Binding EpisodeData.ExpireDateNote, Mode=OneWay}"
+                                Style="{StaticResource DetailedTextStyle}"
+                                Margin="0,8,0,0" />
+
+                            <Label Grid.Row="3"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                IsVisible="{Binding EpisodeData.NoDownloadAvailible, Mode=OneWay}"
+                                Text="{x:Static r:Strings.Episodes_NoDownloadAvailible}"
+                                Style="{StaticResource DetailedTextStyle}"
+                                Margin="0,8,0,0" />
+
+                            <Label Grid.Row="4"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                IsVisible="{Binding EpisodeData.DownloadData, Converter={StaticResource NullToIsVisibleConverter}}"
+                                Margin="0,8,0,0" 
+                                Text="{Binding EpisodeData.DownloadData.DownloadStatusText, Mode=OneWay}" 
+                                Style="{StaticResource DetailedTextStyle}" 
+                                />
+                        </Grid>
+
+                        <Button x:Name="ButtonShowPlayList"
+                                Clicked="ButtonShowPlayList_Clicked"
+                                Style="{StaticResource HyperlinkButton}"
+                                IsVisible="{Binding EpisodeData.InPlayList}"
+                                Text="{x:Static r:Strings.General_IsInPlayList}"
+                                />
+
+                        <Button x:Name="ButtonAddToPlayList"
+                                Command="{Binding EpisodeData.AddToPlayListCommand}"
+                                Style="{StaticResource HyperlinkButton}"
+                                IsVisible="{Binding EpisodeData.CanBeAddedToPlayList}"
+                                Text="{x:Static r:Strings.General_AddToPlayList}"
+                                />
+
+                        <Button x:Name="ButtonShowNextEpisode"
+                                Clicked="ButtonShowNextEpisode_Click"
+                                Style="{StaticResource HyperlinkButton}"
+                                IsVisible="{Binding HasNextEpisodeData}"
+                                Text="{Binding NextEpisodeData.Title, StringFormat={x:Static r:Strings.Episodes_NextEpisode}}"
+                                />
+
+                        <Button x:Name="ButtonShowPreviousEpisode"
+                                Clicked="ButtonShowPreviousEpisode_Click"
+                                Style="{StaticResource HyperlinkButton}"
+                                IsVisible="{Binding HasPreviousEpisodeData}"
+                                Text="{Binding PreviousEpisodeData.Title, StringFormat={x:Static r:Strings.Episodes_PreviousEpisode}}"
+                                />
+
+                        <Button x:Name="ButtonShowMoreEpisodes"
+                                Clicked="ButtonShowMoreEpisodes_Click"
+                                Style="{StaticResource HyperlinkButton}"
+                                Text="{Binding EpisodeData.ProgramName, StringFormat={x:Static r:Strings.EpisodeInfo_ShowMoreEpisodes}}"
+                                />
+
+                    </VerticalStackLayout>
+                </Grid>
+            </ScrollView>
+        </RefreshView>
+
+        <views:PlayerControl Grid.Row="1" />
+    </Grid>
+</ContentPage>

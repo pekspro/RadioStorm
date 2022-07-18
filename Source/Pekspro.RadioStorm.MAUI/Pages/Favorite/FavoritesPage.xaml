@@ -1,0 +1,199 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Favorite;assembly=Pekspro.RadioStorm.UI"
+             xmlns:pm="clr-namespace:Pekspro.RadioStorm.UI.Model.Program;assembly=Pekspro.RadioStorm.UI"
+             xmlns:cm="clr-namespace:Pekspro.RadioStorm.UI.Model.Channel;assembly=Pekspro.RadioStorm.UI"
+             xmlns:t="clr-namespace:Pekspro.RadioStorm.MAUI.TemplateSelector"
+             xmlns:pc="clr-namespace:Pekspro.RadioStorm.MAUI.Pages.Program"
+             xmlns:cc="clr-namespace:Pekspro.RadioStorm.MAUI.Pages.Channel"
+             xmlns:c="clr-namespace:Pekspro.RadioStorm.MAUI.Controls"
+             xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
+             xmlns:settingsvm="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Settings;assembly=Pekspro.RadioStorm.UI"
+             xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
+             x:Class="Pekspro.RadioStorm.MAUI.Pages.Favorite.FavoritesPage"
+             x:DataType="vm:FavoritesViewModel"
+             Title="{x:Static r:Strings.Favorites_Title}"
+             >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:DataType="cm:ChannelModel" x:Key="ChannelTemplate">
+                <!--<SwipeView Threshold="150">
+                    <SwipeView.LeftItems>
+                        <SwipeItems Mode="Execute">
+                            <SwipeItem Text="{Binding IsFavorite, Converter={StaticResource BoolToToggleIsFavoriteConverter}}"
+                                           IconImageSource="{StaticResource ToolBarIconFavorite}"
+                                           Command="{Binding ToggleIsFavoriteCommand}"
+                                           BackgroundColor="{StaticResource SwipeControlBackgroundGeneral}" />
+                        </SwipeItems>
+                    </SwipeView.LeftItems>-->
+                    <cc:ChannelControl>
+                        <cc:ChannelControl.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ChannelTapped"/>
+                        </cc:ChannelControl.GestureRecognizers>
+                    </cc:ChannelControl>
+                <!--</SwipeView>-->
+            </DataTemplate>
+            <DataTemplate x:DataType="pm:ProgramModel" x:Key="ProgramTemplate">
+                <!--<SwipeView Threshold="150">
+                    <SwipeView.LeftItems>
+                        <SwipeItems Mode="Execute">
+                            <SwipeItem Text="{Binding IsFavorite, Converter={StaticResource BoolToToggleIsFavoriteConverter}}"
+                                           IconImageSource="{StaticResource ToolBarIconFavorite}"
+                                           Command="{Binding ToggleIsFavoriteCommand}"
+                                           BackgroundColor="{StaticResource SwipeControlBackgroundGeneral}" />
+                        </SwipeItems>
+                    </SwipeView.LeftItems>-->
+                    <pc:FavoriteProgramControl>
+                        <pc:FavoriteProgramControl.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ProgramTapped"/>
+                        </pc:FavoriteProgramControl.GestureRecognizers>
+                    </pc:FavoriteProgramControl>
+                <!--</SwipeView>-->
+            </DataTemplate>
+            <t:FavoriteTemplateSelector x:Key="favoriteTemplateSelector" ChannelTemplate="{StaticResource ChannelTemplate}" ProgramTemplate="{StaticResource ProgramTemplate}" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <c:BindableToolbarItem 
+            x:Name="ToolBarItemSynchronize"
+            x:DataType="{x:Type settingsvm:SynchronizingViewModel}"
+            Command="{Binding StartFullSynchronizingCommand}"
+            Text="{x:Static r:Strings.Settings_Synchronize_SyncNow}"
+            IsVisible="{Binding HasAnyRemoteSignedInProvider}"
+            Order="Secondary"
+            Priority="1" />
+
+        <ToolbarItem 
+                Command="{Binding UpdateCommand}"
+                Text="{x:Static r:Strings.General_Update}"
+                Order="Secondary"
+                Priority="0" />
+    </ContentPage.ToolbarItems>
+    <!--<RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy}">-->
+
+    <Grid RowSpacing="0" RowDefinitions="Auto,*,Auto">
+
+        <VerticalStackLayout
+            Grid.Row="0"
+            Padding="{StaticResource NormalPageMargin}"
+            Spacing="8"
+            IsVisible="{Binding HasFavorites, Converter={StaticResource InvertedBoolConverter}}">
+
+            <Label Text="{x:Static r:Strings.Favorites_Welcome_1}"
+                    />
+
+            <Label Text="{x:Static r:Strings.Favorites_Welcome_2}"
+                    />
+
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{x:Static r:Strings.Favorites_Welcome_3a}" />
+                        <Span Text="{x:Static r:Strings.Favorites_Welcome_3b}" Style="{StaticResource HyperlinkStyle}">
+                            <Span.GestureRecognizers>
+                                <ClickGestureRecognizer x:Name="ButtonWelcomeModeChannels" Clicked="ButtonWelcomeModeChannels_Clicked" />
+                            </Span.GestureRecognizers>
+                        </Span>
+                        <Span Text="{x:Static r:Strings.Favorites_Welcome_3c}" />
+                        <Span Text="{x:Static r:Strings.Favorites_Welcome_3d}" Style="{StaticResource HyperlinkStyle}">
+                            <Span.GestureRecognizers>
+                                <ClickGestureRecognizer x:Name="ButtonWelcomeModePrograms" Clicked="ButtonWelcomeModePrograms_Clicked" />
+                            </Span.GestureRecognizers>
+                        </Span>
+                        <Span Text="{x:Static r:Strings.Favorites_Welcome_3e}" />
+                        <Span Text="{x:Static r:Strings.Favorites_Welcome_3f}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{x:Static r:Strings.Favorites_Welcome_4a}" />
+                        <Span Text="{x:Static r:Strings.Favorites_Welcome_4b}" Style="{StaticResource HyperlinkStyle}">
+                            <Span.GestureRecognizers>
+                                <ClickGestureRecognizer x:Name="ButtonWelcomeModeSettings" Clicked="ButtonWelcomeModeSettings_Clicked" />
+                            </Span.GestureRecognizers>
+                        </Span>
+                        <Span Text="{x:Static r:Strings.Favorites_Welcome_4c}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+            <Label Text="{x:Static r:Strings.Favorites_Welcome_5}"
+                    />
+
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{x:Static r:Strings.Favorites_Welcome_6}"  Style="{StaticResource HyperlinkStyle}">
+                            <Span.GestureRecognizers>
+                                <ClickGestureRecognizer x:Name="ButtonWelcomeModeFeedback" Clicked="ButtonWelcomeModeFeedback_Clicked" />
+                            </Span.GestureRecognizers>
+                        </Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+            <Label Text="{x:Static r:Strings.Favorites_Welcome_7}"
+                    />
+
+            <Label Text="{x:Static r:Strings.Favorites_Welcome_8}"
+                    />
+
+            <Button Text="{x:Static r:Strings.Favorites_AddRecommendedFavorites}"
+                    HorizontalOptions="Start"
+                    Command="{Binding AddRecommendedFavoritesCommand}"
+                    />
+
+        </VerticalStackLayout>
+
+        <views:DownloadState Grid.Row="0" Grid.RowSpan="2" NoDataText="" />
+
+        <!-- Breaks on Android: ItemSizingStrategy="MeasureFirstItem"-->
+        <RefreshView 
+                Command="{Binding RefreshCommand}" 
+                IsRefreshing="{Binding IsRefreshing}"
+                IsVisible="{Binding HasData}"
+                Grid.Row="1"
+            >
+            <CollectionView 
+                ItemsSource="{Binding GroupedItems}"
+                IsGrouped="True"
+                SelectionMode="{Binding SelectionModeHelper.InSelectionMode, Converter={StaticResource BoolToSelectionMode}}"
+                ItemTemplate="{StaticResource favoriteTemplateSelector}" 
+                >
+                <CollectionView.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <views:GroupHeaderControl />
+                    </DataTemplate>
+                </CollectionView.GroupHeaderTemplate>
+            </CollectionView>
+        </RefreshView>
+
+        <views:PlayerControl Grid.Row="2" />
+
+        <HorizontalStackLayout
+            x:Name="ProgressSynchronize"
+            x:DataType="{x:Type settingsvm:SynchronizingViewModel}"                
+            Grid.Row="1"
+            Padding="4"
+            IsVisible="{Binding IsSynchronizing}"
+            BackgroundColor="#DD222222"
+            VerticalOptions="End"
+            HorizontalOptions="Start"
+            >
+            <ActivityIndicator 
+                IsRunning="True"
+                HeightRequest="14"
+                WidthRequest="14"
+                />
+            <Label Text="{x:Static r:Strings.Settings_Synchronize_SyncState_Running}"
+                   Margin="8,0,0,0"
+                   />
+        </HorizontalStackLayout>
+        
+    </Grid>
+        
+    <!--</RefreshView>-->
+</ContentPage>

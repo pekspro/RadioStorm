@@ -1,0 +1,40 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Player;assembly=Pekspro.RadioStorm.UI"
+             xmlns:m="clr-namespace:Pekspro.RadioStorm.UI.Model.Episode;assembly=Pekspro.RadioStorm.UI"
+             xmlns:v="clr-namespace:Pekspro.RadioStorm.MAUI.Pages.Episode"
+             xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
+             xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
+             x:Class="Pekspro.RadioStorm.MAUI.Pages.Player.PlaylistPage"
+             x:DataType="vm:PlaylistViewModel"
+             Title="{x:Static r:Strings.Playlist_Title}"
+             >
+    <!--<RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy}">-->
+        
+    <Grid RowSpacing="0" RowDefinitions="Auto,*,Auto"
+            Padding="{OnPlatform iOS='30,60,30,30', Default='0'}">
+
+        <views:DownloadState Grid.Row="0" Grid.RowSpan="2" />
+
+        <!-- Breaks on Android: ItemSizingStrategy="MeasureFirstItem"-->
+        <CollectionView 
+            IsVisible="{Binding HasData}"
+            ItemsSource="{Binding Items}"
+            Grid.Row="1">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="m:EpisodeModel">
+                    <v:EpisodeControl>
+                        <v:EpisodeControl.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="RecentTapped"/>
+                        </v:EpisodeControl.GestureRecognizers>
+                    </v:EpisodeControl>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <views:PlayerControl Grid.Row="2" />
+
+    </Grid>
+        
+    <!--</RefreshView>-->
+</ContentPage>

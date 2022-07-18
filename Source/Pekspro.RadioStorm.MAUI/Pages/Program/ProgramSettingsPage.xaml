@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Program;assembly=Pekspro.RadioStorm.UI"
+             xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
+             x:Class="Pekspro.RadioStorm.MAUI.Pages.Program.ProgramSettingsPage"             
+             x:DataType="vm:ProgramSettingsViewModel"
+             Title="{Binding ProgramName, Mode=OneWay}"
+             >
+    <ScrollView Padding="{StaticResource NormalPageMargin}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <Label  Grid.Row="0"
+                    IsVisible="{Binding IsBackgroundDownloadSupported}"
+                    Text="{x:Static r:Strings.ProgramInfo_Sorting_Description}" />
+
+            <Label  Grid.Row="1"
+                    Text="{x:Static r:Strings.ProgramInfo_Sorting_Order_Description}"
+                    Margin="0,0,0,8" />
+
+            <Picker Grid.Row="2"
+                  SelectedIndex="{Binding SortOrderPosition, Mode=TwoWay}"
+                  ItemsSource="{Binding SortOrderStrings}" />
+
+            <Label Grid.Row="3"
+                    IsVisible="{Binding IsBackgroundDownloadSupported}"
+                    Text="{x:Static r:Strings.ProgramInfo_AutoDownload_Title}"
+                    Margin="0,16,0,0"
+                    />
+
+            <Label Grid.Row="4"
+                    IsVisible="{Binding IsBackgroundDownloadSupported}"
+                    Text="{x:Static r:Strings.ProgramInfo_AutoDownload_Description}" />
+
+            <Label Grid.Row="5"
+                    IsVisible="{Binding IsBackgroundDownloadSupported}"
+                    Text="{x:Static r:Strings.ProgramInfo_AutoDownload_QueueSize_Description}"
+                    Margin="0,12,0,8" />
+
+            <Picker Grid.Row="6"
+                  IsVisible="{Binding IsBackgroundDownloadSupported}"
+                  SelectedItem="{Binding SelectedDownloadOptionItem, Mode=TwoWay}"
+                  ItemsSource="{Binding DownloadOptionsItems}" />
+
+            <!--<Button Content="{x:Static r:Strings.Settings_Downloads_Button_ShowDownladInformation}" Grid.Row="7"
+                    Visibility="{Binding IsBackgroundDownloadSupported, Converter={StaticResource BoolToVisibilityConverter}}"
+                    Margin="-8,8,0,0"
+                    Style="{StaticResource TextBlockButtonStyle}">
+                <Button.Flyout>
+                    <Flyout>
+                        <TextBlock MaxWidth="288"
+                                   TextWrapping="WrapWholeWords"
+                                   Text="{Binding DownloadInformationText}" />
+                    </Flyout>
+                </Button.Flyout>
+            </Button>-->
+
+        </Grid>
+    </ScrollView>
+
+</ContentPage>
