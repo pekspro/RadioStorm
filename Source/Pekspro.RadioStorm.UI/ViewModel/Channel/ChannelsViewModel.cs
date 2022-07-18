@@ -142,7 +142,15 @@ public class ChannelsViewModel : ListViewModel<ChannelModel>, ISearch, IDisposab
 
     protected override int GetId(ChannelModel item) => item.Id;
 
-    protected override int Compare(ChannelModel a, ChannelModel b) => a.Title.CompareTo(b.Title);
+    protected override int Compare(ChannelModel a, ChannelModel b)
+    {
+        if (a.ChannelGroupPriority != b.ChannelGroupPriority)
+        {
+            return a.ChannelGroupPriority.CompareTo(b.ChannelGroupPriority);
+        }
+
+        return a.Title.CompareTo(b.Title);
+    }
 
     protected override int GetGroupPriority(ChannelModel item) => item.ChannelGroupPriority;
 
