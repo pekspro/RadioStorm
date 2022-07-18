@@ -43,8 +43,6 @@ public partial class ChannelDetailsViewModel : DownloadViewModel, IDisposable
     private IChannelModelFactory ChannelModelFactory { get; }
     private IAudioManager AudioManager { get; }
     private IChannelRefreshHelper ChannelRefreshHelper { get; }
-    private SongsViewModel SongsViewModel { get; }
-    private SchedulesEpisodesViewModel SchedulesEpisodesViewModel { get; }
 
     private string _Title = string.Empty;
 
@@ -113,6 +111,10 @@ public partial class ChannelDetailsViewModel : DownloadViewModel, IDisposable
     public string Title => ChannelData?.Title ?? _Title;
 
     public string ChannelColor => ChannelData?.ChannelColor ?? _ChannelColor;
+
+    public SongsViewModel SongsViewModel { get; }
+
+    public SchedulesEpisodesViewModel SchedulesEpisodesViewModel { get; }
 
     #endregion
 
