@@ -94,7 +94,7 @@ public partial class ChannelDetailsViewModel : DownloadViewModel, IDisposable
         {
             QueueRefresh(new RefreshSettings(FullRefresh: false));
         });
-        ChannelRefreshHelper.ChannelProgressTimer.SetupCallBack(() => ChannelRefreshHelper.RefreshChannelProgress(ChannelData is null ? null : new ChannelModel[] { ChannelData }));
+        ChannelRefreshHelper.ChannelProgressTimer.SetupCallBack(() => ChannelRefreshHelper.RefreshChannelProgress(ChannelData));
     }
 
     #endregion
@@ -149,6 +149,8 @@ public partial class ChannelDetailsViewModel : DownloadViewModel, IDisposable
                 refreshSettings.AllowCache,
                 cancellationToken
             );
+
+            ChannelRefreshHelper.RefreshChannelProgress(ChannelData);
 
             DownloadState = DownloadStates.Done;
         }

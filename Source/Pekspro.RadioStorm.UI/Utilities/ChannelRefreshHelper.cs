@@ -144,6 +144,11 @@ public class ChannelRefreshHelper : IChannelRefreshHelper
         RefreshTimerHelper.SetupTimer(ChannelStatusTimer, nextRefreshTime);
     }
 
+    public void RefreshChannelProgress(FavoriteBaseModel? models)
+    {
+        RefreshChannelProgress(new List<FavoriteBaseModel?>() { models });
+    }
+    
     public void RefreshChannelProgress(IEnumerable<FavoriteBaseModel?>? models)
     {
         ChannelProgressTimer.Stop();

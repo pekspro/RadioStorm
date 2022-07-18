@@ -13,4 +13,5 @@ public interface IChannelRefreshHelper : IDisposable
     Task RefreshChannelStatusAsync(IDataFetcher dataFetcher, IEnumerable<FavoriteBaseModel?>? models, bool allowCache, CancellationToken cancellationToken);
 
     void SetupStatusRefreshTimer(IEnumerable<FavoriteBaseModel?>? models);
+    void RefreshChannelProgress(FavoriteBaseModel? models);
 }
