@@ -7,7 +7,7 @@
             >
     <VerticalStackLayout>
         <OnPlatform x:TypeArguments="View">
-            <On Platform="UWP">
+            <OnPlatform.Default>
                 <ProgressBar 
                     Progress="{Binding Status.CurrentProgressRatio}"
                     ProgressColor="{Binding ChannelColor, Converter={StaticResource StringToColorConverter}}"
@@ -15,7 +15,7 @@
                     HeightRequest="1"
                     MinimumHeightRequest="1"
                     />
-            </On>
+            </OnPlatform.Default>
             <!-- ProgressBar cannot have height 1 on Android. Use rectangles as a workaround -->
             <On Platform="Android">
                 <Grid x:Name="GridProgress">
