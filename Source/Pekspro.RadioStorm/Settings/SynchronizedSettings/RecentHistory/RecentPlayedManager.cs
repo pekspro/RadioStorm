@@ -62,7 +62,9 @@
             get
             {
                 if (Items.Any())
+                {
                     return Items.Values.Max(a => a.Timestamp).LocalDateTime;
+                }
 
                 return DateTimeProvider.LocalNow;
             }
@@ -160,7 +162,9 @@
             }
 
             if (changed)
+            {
                 SaveLater();
+            }
         }
 
         public void Remove(bool isEpisode, int id)
@@ -260,7 +264,9 @@
                     if (result.ContainsKey(key))
                     {
                         if (Debugger.IsAttached)
+                        {
                             Debugger.Break();
+                        }
                     }
                     else
                     {

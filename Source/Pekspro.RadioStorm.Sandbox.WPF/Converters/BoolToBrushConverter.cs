@@ -24,10 +24,14 @@ public class BoolToBrushConverter : IValueConverter
     {
         bool v = false;
         if (value is bool)
+        {
             v = (bool)value;
+        }
 
         if (v)
+        {
             return TrueValue;
+        }
 
         return FalseValue;
     }

@@ -29,14 +29,18 @@ public class StringToVisibilityConverter : IValueConverter
     {
         string s = value as string;
         if (string.IsNullOrWhiteSpace(s))
+        {
             return NullOrEmptyValue;
-
-
+        }
 
         if (NullOrEmptyValue == Visibility.Collapsed)
+        {
             return Visibility.Visible;
+        }
         else
+        {
             return Visibility.Collapsed;
+        }
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

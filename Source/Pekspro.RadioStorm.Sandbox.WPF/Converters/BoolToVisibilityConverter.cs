@@ -31,10 +31,14 @@ public class BoolToVisibilityConverter : IValueConverter
     {
         bool v = false;
         if (value is bool)
+        {
             v = (bool)value;
+        }
 
         if (v == VisibleValue)
+        {
             return Visibility.Visible;
+        }
 
         return Visibility.Collapsed;
     }

@@ -13,15 +13,21 @@ public class DownloadDataStatusToVisibilityConverter : IValueConverter
     public object Convert(object v, Type targetType, object parameter, CultureInfo culture)
     {
         if (!(v is DownloadDataStatus))
+        {
             return false;
+        }
 
         var value = (DownloadDataStatus)v;
 
         if (value == VisibilityValue)
+        {
             return true;
-        
+        }
+
         if (UseVisibilityValue2 && value == VisibilityValue2)
+        {
             return true;
+        }
 
         return false;
     }

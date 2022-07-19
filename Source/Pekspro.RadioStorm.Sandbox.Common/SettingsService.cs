@@ -44,8 +44,14 @@ public sealed class SettingsService : ISettingsService
     /// <inheritdoc/>
     public void SetValue<T>(string key, T value)
     {
-        if (!SettingsStorage.ContainsKey(key)) SettingsStorage.Add(key, value);
-        else SettingsStorage[key] = value;
+        if (!SettingsStorage.ContainsKey(key))
+        {
+            SettingsStorage.Add(key, value);
+        }
+        else
+        {
+            SettingsStorage[key] = value;
+        }
 
         Save();
     }

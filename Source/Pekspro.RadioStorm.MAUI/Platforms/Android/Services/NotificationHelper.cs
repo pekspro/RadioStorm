@@ -24,7 +24,9 @@ public static class NotificationHelper
 
         PendingIntentFlags flags = PendingIntentFlags.UpdateCurrent;
         if (intentAction.Equals(MediaPlayerService.ActionStop))
+        {
             flags = PendingIntentFlags.CancelCurrent;
+        }
 
         flags |= PendingIntentFlags.Mutable;
 

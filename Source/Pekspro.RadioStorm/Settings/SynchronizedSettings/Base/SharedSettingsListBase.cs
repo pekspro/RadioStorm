@@ -81,7 +81,9 @@
                     if (currentList.ContainsKey(newitem.Key))
                     {
                         if (Debugger.IsAttached)
+                        {
                             Debugger.Break();
+                        }
 
                         continue;
                     }

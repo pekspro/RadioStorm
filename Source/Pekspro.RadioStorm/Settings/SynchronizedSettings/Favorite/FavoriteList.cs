@@ -124,7 +124,9 @@ namespace Pekspro.RadioStorm.Settings.SynchronizedSettings.Favorite
         public bool IsFavorite(int id)
         {
             if (Items.ContainsKey(id))
+            {
                 return Items[id].IsActive;
+            }
 
             return false;
         }
@@ -194,7 +196,9 @@ namespace Pekspro.RadioStorm.Settings.SynchronizedSettings.Favorite
                 if (result.ContainsKey(id))
                 {
                     if (Debugger.IsAttached)
+                    {
                         Debugger.Break();
+                    }
                 }
                 else
                 {

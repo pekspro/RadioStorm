@@ -179,7 +179,9 @@ public class MediaPlayerService : Service,
     {
         int duration = 0;
         if (MediaPlayerState == PlaybackStateCode.Playing || MediaPlayerState == PlaybackStateCode.Paused)
+        {
             duration = mp.Duration;
+        }
 
         int newBufferedTime = duration * percent / 100;
         if (newBufferedTime != Buffered)
@@ -238,9 +240,13 @@ public class MediaPlayerService : Service,
             if (mediaPlayer is null
                 || (MediaPlayerState != PlaybackStateCode.Playing
                     && MediaPlayerState != PlaybackStateCode.Paused))
+            {
                 return 0;
+            }
             else
+            {
                 return mediaPlayer.Duration;
+            }
         }
     }
 
@@ -304,10 +310,14 @@ public class MediaPlayerService : Service,
         }
 
         if (mediaPlayer is null)
+        {
             InitializePlayer();
+        }
 
         if (mediaSession is null)
+        {
             InitMediaSession();
+        }
 
         if (mediaPlayer.IsPlaying)
         {
@@ -463,10 +473,14 @@ public class MediaPlayerService : Service,
     {
         await Task.Run(() => {
             if (mediaPlayer is null)
+            {
                 return;
+            }
 
             if (mediaPlayer.IsPlaying)
+            {
                 mediaPlayer.Pause();
+            }
 
             UpdatePlaybackState(PlaybackStateCode.Paused);
         });
@@ -476,7 +490,9 @@ public class MediaPlayerService : Service,
     {
         await Task.Run(() => {
             if (mediaPlayer is null)
+            {
                 return;
+            }
 
             if (mediaPlayer.IsPlaying)
             {
@@ -537,7 +553,9 @@ public class MediaPlayerService : Service,
     private void StartNotification()
     {
         if (mediaSession is null)
+        {
             return;
+        }
 
         NotificationHelper.StartNotification(
             ApplicationContext,
@@ -553,7 +571,9 @@ public class MediaPlayerService : Service,
     private void UpdateMediaMetadataCompat(MediaMetadataRetriever metaRetriever = null)
     {
         if (mediaSession is null)
+        {
             return;
+        }
 
         MediaMetadata.Builder builder = new MediaMetadata.Builder();
 
@@ -647,7 +667,9 @@ public class MediaPlayerService : Service,
     private void ReleaseWifiLock()
     {
         if (wifiLock is null)
+        {
             return;
+        }
 
         wifiLock.Release();
         wifiLock = null;
@@ -729,7 +751,10 @@ public class MediaPlayerService : Service,
             case AudioFocus.LossTransientCanDuck:
                 //We have lost focus but should till play at a muted 10% volume
                 if (mediaPlayer.IsPlaying)
+                {
                     mediaPlayer.SetVolume(.1f, .1f);
+                }
+
                 break;
         }
     }

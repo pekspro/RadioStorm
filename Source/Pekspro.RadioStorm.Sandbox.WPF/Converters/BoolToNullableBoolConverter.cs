@@ -10,7 +10,9 @@ public class BoolToNullableBoolConverter : IValueConverter
     {
         bool v = false;
         if (value is bool)
+        {
             v = (bool)value;
+        }
 
         return v;
     }
@@ -22,7 +24,9 @@ public class BoolToNullableBoolConverter : IValueConverter
             var v = (bool?)value;
 
             if (v.HasValue)
+            {
                 return v.Value;
+            }
         }
 
         return false;

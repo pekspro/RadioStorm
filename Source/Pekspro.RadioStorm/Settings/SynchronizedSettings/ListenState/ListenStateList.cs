@@ -129,7 +129,9 @@
         public bool IsFullyListen(int id)
         {
             if (Items.ContainsKey(id))
+            {
                 return Items[id].IsFullyListen;
+            }
 
             return false;
         }
@@ -137,7 +139,9 @@
         public int GetListenLength(int id)
         {
             if (Items.ContainsKey(id))
+            {
                 return Items[id].ListenLength;
+            }
 
             return 0;
         }
@@ -184,7 +188,9 @@
             }
 
             if (saveCount > 0)
+            {
                 Debug.WriteLine($"Save {saveCount} files in {watch.ElapsedMilliseconds} ms.");
+            }
 
             RequestSaveTime = DateTime.MinValue;
         }
@@ -234,7 +240,9 @@
                     if (result.ContainsKey(id))
                     {
                         if (Debugger.IsAttached)
+                        {
                             Debugger.Break();
+                        }
                     }
                     else
                     {
@@ -301,7 +309,9 @@
                     current.ListenLength = backgroundSavedItem.ListenLength;
 
                     if (backgroundSavedItem.IsFullyListen)
+                    {
                         current.IsFullyListen = true;
+                    }
 
                     SaveLater(current.Id % FileSlotCount);
                 }
