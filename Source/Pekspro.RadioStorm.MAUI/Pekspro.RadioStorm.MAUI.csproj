@@ -182,6 +182,9 @@
 	    <SubType>Designer</SubType>
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\ChannelProgressBar.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\DownloadSettingsControl.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
