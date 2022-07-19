@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.UI.ViewModel.Episode;
 
-public partial class EpisodesViewModel : ListViewModel<EpisodeModel>
+public partial class EpisodesViewModel : ListViewModel<EpisodeModel>, ISearch
 {
     #region Private properties
 
@@ -178,6 +178,28 @@ public partial class EpisodesViewModel : ListViewModel<EpisodeModel>
 
         return (item.PublishLength.PublishDate.Value.Year * 100 + item.PublishLength.PublishDate.Value.Month) * multiplier;
     }
+
+    public List<SearchItem>? Search(string query)
+    {
+        var items = Items;
+
+        if (items is null)
+        {
+            return null;
+        }
+
+        return items.
+                Where(a => a.Title.Contains(query, StringComparison.CurrentCultureIgnoreCase)).
+                Select(i => new SearchItem
+                (
+                    SearchItemType.Episode,
+                    i.Id,
+                    i.Title,
+                    i.Description,
+                    i.EpisodeImage
+                )).ToList();
+    }
+
 
     #endregion
 

@@ -6,6 +6,7 @@
              xmlns:e="clr-namespace:Pekspro.RadioStorm.UI.Model.Episode;assembly=Pekspro.RadioStorm.UI"
              xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
              xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
+             xmlns:controls="clr-namespace:Pekspro.RadioStorm.MAUI.Controls"
              x:Class="Pekspro.RadioStorm.MAUI.Pages.Program.ProgramDetailsPage"
              x:DataType="vm:ProgramDetailsViewModel"
              Title="{Binding Name, Mode=OneWay}"
@@ -32,6 +33,19 @@
                 Priority="0" />
 
     </ContentPage.ToolbarItems>
+    <Shell.SearchHandler>
+        <controls:ListSearchHandler 
+                BindingContext="{Binding EpisodesViewModel}"
+                Placeholder="{x:Static r:Strings.Episodes_SearchEpisodes}"
+                SearchBoxVisibility="Collapsible"
+                ShowsResults="true">
+            <controls:ListSearchHandler.ItemTemplate>
+                <DataTemplate>
+                    <views:SearchItemView />
+                </DataTemplate>
+            </controls:ListSearchHandler.ItemTemplate>
+        </controls:ListSearchHandler>
+    </Shell.SearchHandler>
 
     <Grid RowDefinitions="Auto,*,Auto,Auto">
 
