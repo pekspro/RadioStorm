@@ -263,7 +263,9 @@
 
 
             <converters:StringToColorConverter x:Key="StringToColorConverter" FallbackColor="{StaticResource PrimaryColor}" />
-            <converters:StringToColorConverter x:Key="StringToHalfTransparentColorConverter" FallbackColor="{StaticResource PrimaryColor}" Alpha="0.1" />
+            <converters:StringToColorConverter x:Key="StringToHalfTransparentColorConverter" FallbackColor="{StaticResource PrimaryColor}" Alpha="{OnPlatform 0.1, Android=0.3}"/>
+
+
             <converters:StringToBoolConverter x:Key="StringToIsVisibleConverter" />
             <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
             <converters:NullToBoolConverter x:Key="NullToIsVisibleConverter" />
@@ -295,6 +297,7 @@
                                              Multiplier="12"
                                              />
             <converters:BoolToIntConverter x:Key="LiveAudioToHeightConverter" TrueValue="64" FalseValue="102"/>
+            <converters:MultiplierConverter x:Key="MultiplierConverter" />
 
             <converters:DownloadDataStatusToVisibilityConverter VisibilityValue="Done"
                                                             x:Key="DownloadDataStatusDoneToVisibilityConverter" />

@@ -5,11 +5,31 @@
              x:Class="Pekspro.RadioStorm.MAUI.Views.ChannelProgressBar"
              x:DataType="vm:ChannelModel"
             >
-    <ProgressBar 
-        Progress="{Binding Status.CurrentProgressRatio}"
-        ProgressColor="{Binding ChannelColor, Converter={StaticResource StringToColorConverter}}"
-        BackgroundColor="{Binding ChannelColor, Converter={StaticResource StringToHalfTransparentColorConverter}}"
-        HeightRequest="1"
-        MinimumHeightRequest="1"
-        />
+    <VerticalStackLayout>
+        <OnPlatform x:TypeArguments="View">
+            <On Platform="UWP">
+                <ProgressBar 
+                    Progress="{Binding Status.CurrentProgressRatio}"
+                    ProgressColor="{Binding ChannelColor, Converter={StaticResource StringToColorConverter}}"
+                    BackgroundColor="{Binding ChannelColor, Converter={StaticResource StringToHalfTransparentColorConverter}}"
+                    HeightRequest="1"
+                    MinimumHeightRequest="1"
+                    />
+            </On>
+            <!-- ProgressBar cannot have height 1 on Android. Use rectangles as a workaround -->
+            <On Platform="Android">
+                <Grid x:Name="GridProgress">
+                    <Rectangle Style="{StaticResource Separator}" Fill="{Binding ChannelColor, Converter={StaticResource StringToHalfTransparentColorConverter}}" StrokeThickness="0" HeightRequest="1" HorizontalOptions="Start" />
+                    <Rectangle Style="{StaticResource Separator}" Fill="{Binding ChannelColor, Converter={StaticResource StringToColorConverter}}" StrokeThickness="0" HeightRequest="1" HorizontalOptions="Start">
+                        <Rectangle.WidthRequest>
+                            <MultiBinding Converter="{StaticResource MultiplierConverter}">
+                                <Binding Path="Status.CurrentProgressRatio" />
+                                <Binding Path="Width" Source="{x:Reference GridProgress}" />
+                            </MultiBinding>
+                        </Rectangle.WidthRequest>
+                    </Rectangle>
+                </Grid>
+            </On>
+        </OnPlatform>
+    </VerticalStackLayout>
 </ContentView>
