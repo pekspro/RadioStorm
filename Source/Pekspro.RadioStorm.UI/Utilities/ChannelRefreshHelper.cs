@@ -146,7 +146,7 @@ public class ChannelRefreshHelper : IChannelRefreshHelper
 
     public void RefreshChannelProgress(FavoriteBaseModel? models)
     {
-        RefreshChannelProgress(new List<FavoriteBaseModel?>() { models });
+        RefreshChannelProgress(new FavoriteBaseModel?[] { models });
     }
     
     public void RefreshChannelProgress(IEnumerable<FavoriteBaseModel?>? models)

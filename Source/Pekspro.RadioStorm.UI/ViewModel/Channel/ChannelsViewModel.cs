@@ -54,8 +54,6 @@ public class ChannelsViewModel : ListViewModel<ChannelModel>, ISearch, IDisposab
     {
         base.OnNavigatedTo(refresh);
 
-        // Do not do this
-        // ChannelRefreshHelper.Start();
         ChannelRefreshHelper.RefreshChannelProgress(Items);
     }
 
@@ -107,6 +105,8 @@ public class ChannelsViewModel : ListViewModel<ChannelModel>, ISearch, IDisposab
             }
         }
 
+        ChannelRefreshHelper.RefreshChannelProgress(Items);
+
         await ChannelRefreshHelper.RefreshChannelStatusAsync
             (
                 DataFetcher,
@@ -114,8 +114,6 @@ public class ChannelsViewModel : ListViewModel<ChannelModel>, ISearch, IDisposab
                 refreshSettings.AllowCache,
                 cancellationToken
             );
-
-        ChannelRefreshHelper.RefreshChannelProgress(Items);
     }
 
     public List<SearchItem>? Search(string query)

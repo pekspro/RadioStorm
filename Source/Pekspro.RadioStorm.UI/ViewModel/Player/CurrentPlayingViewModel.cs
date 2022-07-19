@@ -50,7 +50,7 @@ public partial class CurrentPlayingViewModel : DownloadViewModel, IDisposable
 
         ChannelRefreshHelper.ViewModel = this;
         ChannelRefreshHelper.ChannelStatusTimer.SetupCallBack(() => QueueRefresh(new RefreshSettings(FullRefresh: false)));
-        ChannelRefreshHelper.ChannelProgressTimer.SetupCallBack(() => ChannelRefreshHelper.RefreshChannelProgress(ChannelData is null ? null : new ChannelModel[] { ChannelData }));
+        ChannelRefreshHelper.ChannelProgressTimer.SetupCallBack(() => ChannelRefreshHelper.RefreshChannelProgress(ChannelData));
 
         messenger.Register<PlaylistChanged>(this, (sender, message) =>
         {
@@ -114,6 +114,8 @@ public partial class CurrentPlayingViewModel : DownloadViewModel, IDisposable
                     ChannelData = ChannelModelFactory.Create(channelData);
                 }
 
+                ChannelRefreshHelper.RefreshChannelProgress(ChannelData);
+
                 await ChannelRefreshHelper.RefreshChannelStatusAsync
                 (
                     DataFetcher,
@@ -149,7 +151,7 @@ public partial class CurrentPlayingViewModel : DownloadViewModel, IDisposable
 
     public void OnNavigatedTo(object parameter)
     {
-        ChannelRefreshHelper.RefreshChannelProgress(new List<FavoriteBaseModel?>() { ChannelData });
+        ChannelRefreshHelper.RefreshChannelProgress(ChannelData);
 
         base.OnNavigatedTo();
     }

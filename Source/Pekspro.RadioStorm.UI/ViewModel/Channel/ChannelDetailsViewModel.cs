@@ -144,6 +144,8 @@ public partial class ChannelDetailsViewModel : DownloadViewModel, IDisposable
                 ChannelData = ChannelModelFactory.Create(channelData);
             }
 
+            ChannelRefreshHelper.RefreshChannelProgress(ChannelData);
+
             await ChannelRefreshHelper.RefreshChannelStatusAsync
             (
                 DataFetcher,
@@ -151,8 +153,6 @@ public partial class ChannelDetailsViewModel : DownloadViewModel, IDisposable
                 refreshSettings.AllowCache,
                 cancellationToken
             );
-
-            ChannelRefreshHelper.RefreshChannelProgress(ChannelData);
 
             DownloadState = DownloadStates.Done;
         }
@@ -187,7 +187,7 @@ public partial class ChannelDetailsViewModel : DownloadViewModel, IDisposable
         //SongList.AutoRefresh = true;
         //SongList.UpdateItems(true);
 
-        ChannelRefreshHelper.RefreshChannelProgress(new List<FavoriteBaseModel?>() { ChannelData });
+        ChannelRefreshHelper.RefreshChannelProgress(ChannelData);
 
         SongsViewModel.OnNavigatedTo(true, ChannelId);
         SchedulesEpisodesViewModel.OnNavigatedTo(ChannelId);
