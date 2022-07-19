@@ -214,10 +214,10 @@ public partial class FavoritesViewModel : ListViewModel<FavoriteBaseModel>, IDis
             (
                 DataFetcher,
                 Items,
-                refreshSettings.AllowCache,
+                refreshSettings,
+                false,
                 cancellationToken
             );
-            ChannelRefreshHelper.ChannelStatusTimer.Stop();
 
             await UpdateProgramTopEpisodeAsync(cancellationToken);
         }

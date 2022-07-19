@@ -49,11 +49,31 @@ public class ChannelRefreshHelper : IChannelRefreshHelper
         ChannelProgressTimer.Stop();
     }
 
+    public Task RefreshChannelStatusAsync
+    (
+        IDataFetcher dataFetcher,
+        FavoriteBaseModel? model,
+        RefreshSettings refreshSettings,
+        bool setupTimer,
+        CancellationToken cancellationToken
+    )
+    {
+        return RefreshChannelStatusAsync
+        (
+            dataFetcher,
+            new[] { model },
+            refreshSettings,
+            setupTimer,
+            cancellationToken
+        );
+    }
+    
     public async Task RefreshChannelStatusAsync
         (
             IDataFetcher dataFetcher,
             IEnumerable<FavoriteBaseModel?>? models,
-            bool allowCache,
+            RefreshSettings refreshSettings,
+            bool setupTimer,
             CancellationToken cancellationToken
         )
     {
@@ -78,7 +98,7 @@ public class ChannelRefreshHelper : IChannelRefreshHelper
 
                 if (channels.Count == 1)
                 {
-                    var channelStatus = await dataFetcher.GetChannelStatusAsync(channels[0].Id, allowCache, cancellationToken);
+                    var channelStatus = await dataFetcher.GetChannelStatusAsync(channels[0].Id, refreshSettings.AllowCache, cancellationToken);
 
                     if (channelStatus is not null)
                     {
@@ -90,7 +110,7 @@ public class ChannelRefreshHelper : IChannelRefreshHelper
                 }
                 else
                 {
-                    updatedStatus = await dataFetcher.GetChannelStatusesAsync(allowCache, cancellationToken);
+                    updatedStatus = await dataFetcher.GetChannelStatusesAsync(refreshSettings.AllowCache, cancellationToken);
                 }
 
                 if (updatedStatus is not null)
@@ -110,7 +130,10 @@ public class ChannelRefreshHelper : IChannelRefreshHelper
             Logger.LogDebug($"Updating channels completed in {stopwatch.ElapsedMilliseconds} ms.");
         }
 
-        SetupStatusRefreshTimer(models);
+        if (setupTimer)
+        {
+            SetupStatusRefreshTimer(models);
+        }
     }
 
     public void SetupStatusRefreshTimer(IEnumerable<FavoriteBaseModel?>? models)
@@ -146,7 +169,7 @@ public class ChannelRefreshHelper : IChannelRefreshHelper
 
     public void RefreshChannelProgress(FavoriteBaseModel? models)
     {
-        RefreshChannelProgress(new FavoriteBaseModel?[] { models });
+        RefreshChannelProgress(new[] { models });
     }
     
     public void RefreshChannelProgress(IEnumerable<FavoriteBaseModel?>? models)

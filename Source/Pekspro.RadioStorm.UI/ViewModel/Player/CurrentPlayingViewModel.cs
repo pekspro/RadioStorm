@@ -119,8 +119,9 @@ public partial class CurrentPlayingViewModel : DownloadViewModel, IDisposable
                 await ChannelRefreshHelper.RefreshChannelStatusAsync
                 (
                     DataFetcher,
-                    new FavoriteBaseModel[] { ChannelData },
-                    refreshSettings.AllowCache,
+                    ChannelData,
+                    refreshSettings,
+                    true,
                     cancellationToken
                 );
 

@@ -149,8 +149,9 @@ public partial class ChannelDetailsViewModel : DownloadViewModel, IDisposable
             await ChannelRefreshHelper.RefreshChannelStatusAsync
             (
                 DataFetcher,
-                new FavoriteBaseModel[] { ChannelData },
-                refreshSettings.AllowCache,
+                ChannelData,
+                refreshSettings,
+                true,
                 cancellationToken
             );
 

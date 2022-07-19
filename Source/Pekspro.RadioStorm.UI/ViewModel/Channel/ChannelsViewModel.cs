@@ -111,7 +111,8 @@ public class ChannelsViewModel : ListViewModel<ChannelModel>, ISearch, IDisposab
             (
                 DataFetcher,
                 Items,
-                refreshSettings.AllowCache,
+                refreshSettings,
+                true,
                 cancellationToken
             );
     }
