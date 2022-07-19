@@ -127,24 +127,25 @@ public partial class RecentEpisodesViewModel : ListViewModel<EpisodeModel>
         if (Items?.Count > 0)
         {
             DownloadState = DownloadStates.Done;
+
+            foreach (var item in Items.ToArray())
+            {
+                if (item.ProgramId.HasValue)
+                {
+                    var programData = await DataFetcher.GetProgramAsync(item.ProgramId.Value, refreshSettings.AllowCache, cancellationToken);
+
+                    if (programData is not null)
+                    {
+                        item.ProgramDetails = ProgramModelFactory.Create(programData);
+                    }
+                }
+            }
         }
         else
         {
             DownloadState = DownloadStates.NoData;
         }
 
-        foreach (var item in Items.ToArray())
-        {
-            if (item.ProgramId.HasValue)
-            {
-                var programData = await DataFetcher.GetProgramAsync(item.ProgramId.Value, refreshSettings.AllowCache, cancellationToken);
-
-                if (programData is not null)
-                {
-                    item.ProgramDetails = ProgramModelFactory.Create(programData);
-                }
-            }
-        }
     }
 
     protected override int GetId(EpisodeModel item) => item.Id;
