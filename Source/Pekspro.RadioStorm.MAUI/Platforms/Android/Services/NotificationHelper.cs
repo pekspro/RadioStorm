@@ -92,9 +92,9 @@ public static class NotificationHelper
             .SetOngoing(isPlaying)
             .SetVisibility(NotificationVisibility.Public);
 
-        builder.AddAction(NotificationHelper.GenerateActionCompat(context, Drawable.IcMediaPrevious, "Previous", MediaPlayerService.ActionPrevious));
+        builder.AddAction(NotificationHelper.GenerateActionCompat(context, Pekspro.RadioStorm.MAUI.Resource.Drawable.ic_notification_fast_rewind, "Previous", MediaPlayerService.ActionPrevious));
         AddPlayPauseActionCompat(builder, context, isPlaying);
-        builder.AddAction(NotificationHelper.GenerateActionCompat(context, Drawable.IcMediaNext, "Next", MediaPlayerService.ActionNext));
+        builder.AddAction(NotificationHelper.GenerateActionCompat(context, Pekspro.RadioStorm.MAUI.Resource.Drawable.ic_notification_fast_forward, "Next", MediaPlayerService.ActionNext));
         style.SetShowActionsInCompactView(0, 1, 2);
 
         NotificationManagerCompat.From(context).Notify(NotificationId, builder.Build());
@@ -106,10 +106,12 @@ public static class NotificationHelper
         bool isPlaying)
     {
         if (isPlaying)
-            //builder.AddAction(NotificationHelper.GenerateActionCompat(context, Drawable.IcMediaPause, "Pause", MediaPlayerService.ActionPause));
+        {
             builder.AddAction(NotificationHelper.GenerateActionCompat(context, Pekspro.RadioStorm.MAUI.Resource.Drawable.ic_notification_pause, "Pause", MediaPlayerService.ActionPause));
+        }
         else
-            //builder.AddAction(NotificationHelper.GenerateActionCompat(context, Drawable.IcMediaPlay, "Play", MediaPlayerService.ActionPlay));
+        {
             builder.AddAction(NotificationHelper.GenerateActionCompat(context, Pekspro.RadioStorm.MAUI.Resource.Drawable.ic_notification_play, "Play", MediaPlayerService.ActionPlay));
+        }
     }
 }
