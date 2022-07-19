@@ -4,6 +4,7 @@
              xmlns:m="clr-namespace:Pekspro.RadioStorm.UI.Model.Program;assembly=Pekspro.RadioStorm.UI"
              xmlns:v="clr-namespace:Pekspro.RadioStorm.MAUI.Pages.Program"
              xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
+             xmlns:controls="clr-namespace:Pekspro.RadioStorm.MAUI.Controls"
              xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
              x:Class="Pekspro.RadioStorm.MAUI.Pages.Program.ProgramsPage"
              x:DataType="vm:ProgramsViewModel"
@@ -16,6 +17,18 @@
                 Order="Secondary"
                 Priority="0" />
     </ContentPage.ToolbarItems>
+    <Shell.SearchHandler>
+        <controls:ListSearchHandler 
+                Placeholder="{x:Static r:Strings.Programs_SearchPrograms}"
+                SearchBoxVisibility="Collapsible"
+                ShowsResults="true">
+            <controls:ListSearchHandler.ItemTemplate>
+                <DataTemplate>
+                    <views:SearchItemView />
+                </DataTemplate>
+            </controls:ListSearchHandler.ItemTemplate>
+        </controls:ListSearchHandler>
+    </Shell.SearchHandler>
 
     <Grid RowSpacing="0" RowDefinitions="Auto,*,Auto">
 

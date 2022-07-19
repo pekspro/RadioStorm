@@ -2,7 +2,7 @@
 
 namespace Pekspro.RadioStorm.UI.ViewModel.Program;
 
-public partial class ProgramsViewModel : ListViewModel<ProgramModel>
+public partial class ProgramsViewModel : ListViewModel<ProgramModel>, ISearch
 {
     #region Private properties
 
@@ -91,6 +91,31 @@ public partial class ProgramsViewModel : ListViewModel<ProgramModel>
     protected override string GetGroupName(ProgramModel item) => 
         string.IsNullOrEmpty(item.CategoryName) ? Strings.Programs_Category_Miscellaneous : item.CategoryName;
 
+    public List<SearchItem>? Search(string query)
+    {
+        var items = Items;
+
+        if (items is null)
+        {
+            return null;
+        }
+
+        return items.
+                Where
+                (
+                    a => a.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
+                         a.Description.Contains(query, StringComparison.CurrentCultureIgnoreCase)
+                )
+                .Select(i => new SearchItem
+                (
+                    SearchItemType.Program,
+                    i.Id,
+                    i.Name,
+                    i.Description,
+                    i.ProgramImage
+                )).ToList();
+    }
+    
     #endregion
 
     //#region CommandAddMultipleFavorites property

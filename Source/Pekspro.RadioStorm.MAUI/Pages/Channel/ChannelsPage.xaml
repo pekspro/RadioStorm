@@ -39,8 +39,6 @@
         </controls:ListSearchHandler>
     </Shell.SearchHandler>
 
-    <!--<RefreshView Command="{Binding CommandRetry}" IsRefreshing="{Binding IsBusy}">-->
-
     <Grid RowSpacing="0" RowDefinitions="Auto,*,Auto">
 
         <views:DownloadState Grid.Row="0" Grid.RowSpan="2" />
@@ -86,6 +84,4 @@
 
         <views:PlayerControl Grid.Row="2" />
     </Grid>
-        
-    <!--</RefreshView>-->
 </ContentPage>
