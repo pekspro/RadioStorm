@@ -1456,6 +1456,33 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nästa.
+        /// </summary>
+        public static string Player_Next {
+            get {
+                return ResourceManager.GetString("Player_Next", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Paus.
+        /// </summary>
+        public static string Player_Pause {
+            get {
+                return ResourceManager.GetString("Player_Pause", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spela.
+        /// </summary>
+        public static string Player_Play {
+            get {
+                return ResourceManager.GetString("Player_Play", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Spela nästa.
         /// </summary>
         public static string Player_PlayList_GoToNext {
@@ -1479,6 +1506,15 @@ namespace Pekspro.RadioStorm.UI.Resources {
         public static string Player_Playlist_OpenPlaylist {
             get {
                 return ResourceManager.GetString("Player_Playlist_OpenPlaylist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Föregående.
+        /// </summary>
+        public static string Player_Previous {
+            get {
+                return ResourceManager.GetString("Player_Previous", resourceCulture);
             }
         }
         

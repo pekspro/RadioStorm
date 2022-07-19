@@ -5,6 +5,7 @@ using Android.Media;
 using Android.OS;
 using AndroidX.Core.App;
 using Pekspro.RadioStorm.MAUI;
+using Pekspro.RadioStorm.UI.Resources;
 using static Android.App.Notification;
 using static Android.Resource;
 using AndroidMedia = Android.Media;
@@ -92,9 +93,9 @@ public static class NotificationHelper
             .SetOngoing(isPlaying)
             .SetVisibility(NotificationVisibility.Public);
 
-        builder.AddAction(NotificationHelper.GenerateActionCompat(context, Pekspro.RadioStorm.MAUI.Resource.Drawable.ic_notification_fast_rewind, "Previous", MediaPlayerService.ActionPrevious));
+        builder.AddAction(NotificationHelper.GenerateActionCompat(context, Pekspro.RadioStorm.MAUI.Resource.Drawable.ic_notification_fast_rewind, Strings.Player_Previous, MediaPlayerService.ActionPrevious));
         AddPlayPauseActionCompat(builder, context, isPlaying);
-        builder.AddAction(NotificationHelper.GenerateActionCompat(context, Pekspro.RadioStorm.MAUI.Resource.Drawable.ic_notification_fast_forward, "Next", MediaPlayerService.ActionNext));
+        builder.AddAction(NotificationHelper.GenerateActionCompat(context, Pekspro.RadioStorm.MAUI.Resource.Drawable.ic_notification_fast_forward, Strings.Player_Next, MediaPlayerService.ActionNext));
         style.SetShowActionsInCompactView(0, 1, 2);
 
         NotificationManagerCompat.From(context).Notify(NotificationId, builder.Build());
@@ -107,11 +108,11 @@ public static class NotificationHelper
     {
         if (isPlaying)
         {
-            builder.AddAction(NotificationHelper.GenerateActionCompat(context, Pekspro.RadioStorm.MAUI.Resource.Drawable.ic_notification_pause, "Pause", MediaPlayerService.ActionPause));
+            builder.AddAction(NotificationHelper.GenerateActionCompat(context, Pekspro.RadioStorm.MAUI.Resource.Drawable.ic_notification_pause, Strings.Player_Pause, MediaPlayerService.ActionPause));
         }
         else
         {
-            builder.AddAction(NotificationHelper.GenerateActionCompat(context, Pekspro.RadioStorm.MAUI.Resource.Drawable.ic_notification_play, "Play", MediaPlayerService.ActionPlay));
+            builder.AddAction(NotificationHelper.GenerateActionCompat(context, Pekspro.RadioStorm.MAUI.Resource.Drawable.ic_notification_play, Strings.Player_Play, MediaPlayerService.ActionPlay));
         }
     }
 }

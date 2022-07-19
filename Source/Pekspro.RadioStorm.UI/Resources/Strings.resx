@@ -582,6 +582,15 @@
   <data name="Player_MenuSpeed_VerySlow" xml:space="preserve">
     <value>Mycket långsamt</value>
   </data>
+  <data name="Player_Next" xml:space="preserve">
+    <value>Nästa</value>
+  </data>
+  <data name="Player_Pause" xml:space="preserve">
+    <value>Paus</value>
+  </data>
+  <data name="Player_Play" xml:space="preserve">
+    <value>Spela</value>
+  </data>
   <data name="Player_PlayList_GoToNext" xml:space="preserve">
     <value>Spela nästa</value>
   </data>
@@ -590,6 +599,9 @@
   </data>
   <data name="Player_Playlist_OpenPlaylist" xml:space="preserve">
     <value>Spellista</value>
+  </data>
+  <data name="Player_Previous" xml:space="preserve">
+    <value>Föregående</value>
   </data>
   <data name="Playlist_ButtonMove" xml:space="preserve">
     <value>Flytta</value>
@@ -720,11 +732,11 @@
   <data name="Settings_Cache_ButtonClean" xml:space="preserve">
     <value>Töm cache</value>
   </data>
-  <data name="Settings_Cache_Clearing" xml:space="preserve">
-    <value>Tömmer cache...</value>
-  </data>
   <data name="Settings_Cache_Cleared" xml:space="preserve">
     <value>Cachen är tömd.</value>
+  </data>
+  <data name="Settings_Cache_Clearing" xml:space="preserve">
+    <value>Tömmer cache...</value>
   </data>
   <data name="Settings_Cache_Description" xml:space="preserve">
     <value>Om du misstänker att du har problem med att informationen i programmet är för gammal, välj att rensa cachen för att hämta hem senaste informationen.</value>
