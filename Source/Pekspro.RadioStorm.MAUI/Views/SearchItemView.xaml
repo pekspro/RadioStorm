@@ -5,19 +5,32 @@
              x:Class="Pekspro.RadioStorm.MAUI.Views.SearchItemView"
              x:DataType="search:SearchItem"
              >
-    
-    <Grid Padding="10">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.15*" />
-            <ColumnDefinition Width="0.85*" />
-        </Grid.ColumnDefinitions>
-        <Image Source="{Binding ImageLink.LowResolution}"
-                               Aspect="AspectFill"
-                               HeightRequest="40"
-                               WidthRequest="40" />
+
+    <Grid Margin="4,0" ColumnDefinitions="Auto, *" RowDefinitions="Auto, *" HeightRequest="56">
+        <!--<Image Source="{Binding ImageLink.LowResolution}"
+               Grid.RowSpan="2"
+               Aspect="AspectFill"
+               Margin="0,0,4,0"
+               HeightRequest="40"
+               WidthRequest="40" />-->
+        
         <Label Grid.Column="1"
-                               TextColor="Black"
-                               Text="{Binding Title}"
-                               FontAttributes="Bold" />
+               Grid.Row="0"
+               TextColor="Black"
+               Margin="0,2,0,0"
+               Text="{Binding Title}"
+               Style="{StaticResource ListHeaderTextStyle}"
+               FontSize="{StaticResource FontSizeDetails}"
+               />
+        
+        <Label Grid.Column="1"
+               Grid.Row="1"
+               MaxLines="2"
+               TextColor="Black"
+               Margin="0,2,0,0"
+               Text="{Binding Details}"
+               Style="{StaticResource ListNormalTextStyle}"
+               FontSize="{StaticResource FontSizeDetails}"
+               />
     </Grid>
 </ContentView>
