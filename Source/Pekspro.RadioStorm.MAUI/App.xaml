@@ -147,6 +147,7 @@
                 <Setter Property="TextColor" Value="{StaticResource HyperlinkColor}" />
                 <Setter Property="BackgroundColor" Value="Transparent" />
                 <Setter Property="Padding" Value="4,8" />
+                <Setter Property="Margin" Value="-4,0,0,0" />
                 <Setter Property="BorderWidth" Value="0" />
                 <Setter Property="HorizontalOptions" Value="Start" />
                 <Setter Property="FontSize" Value="{StaticResource FontSizeDetails}" />

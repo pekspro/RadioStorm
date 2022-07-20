@@ -50,6 +50,7 @@
                         <VisualStateGroup Name="WidthState">
                             <VisualState Name="Narrow">
                                 <VisualState.Setters>
+                                    <Setter Property="Margin" Value="0,8,0,0" TargetName="DetailsPanel" />
                                     <Setter Property="Grid.Column" Value="0" TargetName="DetailsPanel" />
                                     <Setter Property="Grid.Row" Value="2" TargetName="DetailsPanel" />
                                     <Setter Property="Grid.RowSpan" Value="1" TargetName="DetailsPanel" />
@@ -58,6 +59,7 @@
                             </VisualState>
                             <VisualState Name="Wide">
                                 <VisualState.Setters>
+                                    <Setter Property="Margin" Value="8,0,0,0" TargetName="DetailsPanel" />
                                     <Setter Property="Grid.Column" Value="1" TargetName="DetailsPanel" />
                                     <Setter Property="Grid.Row" Value="1" TargetName="DetailsPanel" />
                                     <Setter Property="Grid.RowSpan" Value="2" TargetName="DetailsPanel" />
@@ -105,11 +107,12 @@
                         </Button>
 
                         <views:ChannelProgressBar 
-                            Margin="-2,0,2,0"
+                            Margin="0,0,0,0"
                             BindingContext="{Binding ChannelData}"
                             />
 
                         <Label FontAttributes="Bold"
+                               Margin="0,8,0,0"
                                TextColor="{StaticResource InactiveProgramColor}">
                             <Label.Text>
                                 <MultiBinding StringFormat="{}{0} {1}">
@@ -130,32 +133,7 @@
                                 Clicked="ButtonOpenNextProgram_Click"
                                 >
                         </Button>
-
-                        <!--<VerticalStackLayout>
-                            <Image Source="{Binding ChannelData.ChannelImage.HighResolution, Converter={StaticResource NullImageConverter}}" WidthRequest="40" HeightRequest="40" />
-                            <Image Source="{Binding ChannelData.Status.CurrentProgramImage.HighResolution, Converter={StaticResource NullImageConverter}}" WidthRequest="40" HeightRequest="40" />
-                            <Image Source="{Binding ChannelData.Status.NextProgramImage.HighResolution, Converter={StaticResource NullImageConverter}}" WidthRequest="40" HeightRequest="40" />
-                        </VerticalStackLayout>-->
                     </VerticalStackLayout>
-
-                    <!--<Label Text="{Binding Title}" />
-                    <Label Text="{Binding ChannelColor, Converter={StaticResource StringToColorConverter}}" />-->
-
-                    <!--<CollectionView 
-                            IsVisible="{Binding HasData}"
-                            ItemsSource="{Binding ChannelDetails}" 
-                            Grid.Row="2">
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate x:DataType="m:ChannelModel">
-                                    <v:ChannelControl>
-                                        <v:ChannelControl.GestureRecognizers>
-                                            <TapGestureRecognizer Tapped="ChannelTapped"/>
-                                        </v:ChannelControl.GestureRecognizers>
-                                    </v:ChannelControl>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>-->
-
                 </Grid>
             </ScrollView>
         </RefreshView>
