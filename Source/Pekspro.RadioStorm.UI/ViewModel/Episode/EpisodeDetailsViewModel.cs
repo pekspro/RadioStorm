@@ -50,6 +50,7 @@ public partial class EpisodeDetailsViewModel : DownloadViewModel
         EpisodeModelFactory = null!;
         SongsViewModel = new SongsViewModel();
         DownloadState = DownloadStates.Done;
+        AllowNavigationToProgramInfoPage = true;
 
         EpisodeData = EpisodeModel.CreateWithSampleData();
         PreviousEpisodeData = EpisodeModel.CreateWithSampleData(1);

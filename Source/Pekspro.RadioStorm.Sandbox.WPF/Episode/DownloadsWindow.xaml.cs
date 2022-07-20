@@ -40,7 +40,7 @@ namespace Pekspro.RadioStorm.Sandbox.WPF.Episode
             if (p is not null)
             {
                 var programWindow = ServiceProvider.GetRequiredService<EpisodeDetailsWindow>();
-                programWindow.StartParameter = EpisodeDetailsViewModel.CreateStartParameter(p, false);
+                programWindow.StartParameter = EpisodeDetailsViewModel.CreateStartParameter(p, true);
                 programWindow.Show();
             }
         }

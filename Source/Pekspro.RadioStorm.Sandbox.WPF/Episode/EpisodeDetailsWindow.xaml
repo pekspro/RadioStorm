@@ -40,12 +40,6 @@
                                 <RowDefinition Height="auto"></RowDefinition>
                                 <RowDefinition Height="auto"></RowDefinition>
                                 <RowDefinition Height="auto"></RowDefinition>
-                                <RowDefinition Height="auto"></RowDefinition>
-                                <RowDefinition Height="auto"></RowDefinition>
-                                <RowDefinition Height="auto"></RowDefinition>
-                                <RowDefinition Height="auto"></RowDefinition>
-                                <RowDefinition Height="auto"></RowDefinition>
-                                <RowDefinition Height="auto"></RowDefinition>
                             </Grid.RowDefinitions>
 
                             <TextBlock Grid.Row="0" Grid.Column="0">Publicerad</TextBlock>
@@ -54,36 +48,34 @@
                             <TextBlock Grid.Row="1" Grid.Column="0">Längd</TextBlock>
                             <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding EpisodeData.PublishLength.LengthString}" />
 
-                            <TextBlock Grid.Row="2" Grid.Column="0" Visibility="{Binding PreviousEpisodeData, Converter={StaticResource NullToVisibilityConverter}}" >Föregående</TextBlock>
-                            <TextBlock Grid.Row="2" Grid.Column="1" Visibility="{Binding PreviousEpisodeData, Converter={StaticResource NullToVisibilityConverter}}">
-                                 <Hyperlink Click="PreviousEpisodeHyperlink_Click">
-                                    <Hyperlink.Inlines>
-                                        <Run Text="{Binding PreviousEpisodeData.Title, Mode=OneWay}"/>
-                                   </Hyperlink.Inlines>
-                                </Hyperlink>
-                            </TextBlock>
-
-                            <TextBlock Grid.Row="3" Grid.Column="0">ID</TextBlock>
-                            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding EpisodeData.Id}" />
-
-                            <TextBlock Grid.Row="4" Grid.Column="0" Visibility="{Binding NextEpisodeData, Converter={StaticResource NullToVisibilityConverter}}">Nästa</TextBlock>
-                            <TextBlock Grid.Row="4" Grid.Column="1" Visibility="{Binding NextEpisodeData, Converter={StaticResource NullToVisibilityConverter}}">
-                                <Hyperlink Click="NextEpisodeHyperlink_Click">
-                                    <Hyperlink.Inlines>
-                                        <Run Text="{Binding NextEpisodeData.Title, Mode=OneWay}"/>
-                                   </Hyperlink.Inlines>
-                                </Hyperlink>
-                            </TextBlock>
-
-                            <TextBlock Grid.Row="5" Grid.Column="0" Visibility="{Binding NavigationToProgramPageIsPossible, Converter={StaticResource BoolToVisibilityConverter}}">Program</TextBlock>
-                            <TextBlock Grid.Row="5" Grid.Column="1" Visibility="{Binding NavigationToProgramPageIsPossible, Converter={StaticResource BoolToVisibilityConverter}}">
-                                <Hyperlink Click="ProgramHyperlink_Click">
-                                    <Hyperlink.Inlines>
-                                        <Run Text="{Binding EpisodeData.ProgramName, Mode=OneWay}"/>
-                                   </Hyperlink.Inlines>
-                                </Hyperlink>
-                            </TextBlock>
+                            <TextBlock Grid.Row="2" Grid.Column="0">ID</TextBlock>
+                            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding EpisodeData.Id}" />
                         </Grid>
+
+                        <TextBlock Visibility="{Binding PreviousEpisodeData, Converter={StaticResource NullToVisibilityConverter}}">
+                            <Hyperlink Click="PreviousEpisodeHyperlink_Click">
+                                <Hyperlink.Inlines>
+                                    <Run Text="{Binding PreviousEpisodeData.Title, StringFormat={x:Static r:Strings.Episodes_PreviousEpisode}, Mode=OneWay}"/>
+                                </Hyperlink.Inlines>
+                            </Hyperlink>
+                        </TextBlock>
+
+                        <TextBlock Visibility="{Binding NextEpisodeData, Converter={StaticResource NullToVisibilityConverter}}">
+                            <Hyperlink Click="NextEpisodeHyperlink_Click">
+                                <Hyperlink.Inlines>
+                                    <Run Text="{Binding NextEpisodeData.Title, StringFormat={x:Static r:Strings.Episodes_NextEpisode}, Mode=OneWay}"/>
+                                </Hyperlink.Inlines>
+                            </Hyperlink>
+                        </TextBlock>
+
+                        <TextBlock Visibility="{Binding NavigationToProgramPageIsPossible, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <Hyperlink Click="ProgramHyperlink_Click">
+                                <Hyperlink.Inlines>
+                                    <Run Text="{Binding EpisodeData.ProgramName, StringFormat={x:Static r:Strings.EpisodeInfo_ShowMoreEpisodes}, Mode=OneWay}"/>
+                                </Hyperlink.Inlines>
+                            </Hyperlink>
+                        </TextBlock>
+
                     </StackPanel>
                 </Grid>
             </TabItem>
