@@ -61,6 +61,7 @@
                         <VisualStateGroup Name="WidthState">
                             <VisualState Name="Narrow">
                                 <VisualState.Setters>
+                                    <Setter Property="Margin" Value="0,8,0,0" TargetName="DetailsPanel" />
                                     <Setter Property="Grid.Column" Value="0" TargetName="DetailsPanel" />
                                     <Setter Property="Grid.Row" Value="2" TargetName="DetailsPanel" />
                                     <Setter Property="Grid.RowSpan" Value="1" TargetName="DetailsPanel" />
@@ -71,6 +72,7 @@
                             </VisualState>
                             <VisualState Name="Wide">
                                 <VisualState.Setters>
+                                    <Setter Property="Margin" Value="8,0,0,0" TargetName="DetailsPanel" />
                                     <Setter Property="Grid.Column" Value="1" TargetName="DetailsPanel" />
                                     <Setter Property="Grid.Row" Value="1" TargetName="DetailsPanel" />
                                     <Setter Property="Grid.RowSpan" Value="2" TargetName="DetailsPanel" />
@@ -100,6 +102,7 @@
                     <Grid   x:Name="DataTableWide"
                             HorizontalOptions="Start"
                             MaximumWidthRequest="200"
+                            Margin="0,8,0,0"
                             Grid.Row="2"
                             IsVisible="{Binding EpisodeData.HasAudio, Mode=OneWay}"
                             ColumnDefinitions="Auto, *"
@@ -159,6 +162,7 @@
                         <Grid x:Name="DataTableNarrow"
                             HorizontalOptions="Start"
                             MaximumWidthRequest="200"
+                            Margin="0,8,0,0"
                             IsVisible="{Binding EpisodeData.HasAudio, Mode=OneWay}"
                             ColumnDefinitions="Auto, *"
                             RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
