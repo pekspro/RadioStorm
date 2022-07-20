@@ -35,7 +35,7 @@
             <Color x:Key="WelcomeLanguageWarningColor">#FF9900</Color>
 
             <OnPlatform x:Key="NormalPageMargin" x:TypeArguments="Thickness" Default="20">
-                <On Platform="UWP">8</On>
+                <On Platform="WinUI">8</On>
             </OnPlatform>
 
             <Style x:Key="ListItem" TargetType="Grid">
@@ -78,11 +78,11 @@
             </Style>
 
             <OnPlatform x:Key="PanelIconColor" x:TypeArguments="Color" Default="#DDD">
-                <On Platform="UWP">#DDD</On>
+                <On Platform="WinUI">#DDD</On>
             </OnPlatform>
             
             <OnPlatform x:Key="FadedPanelIconColor" x:TypeArguments="Color" Default="#777">
-                <On Platform="UWP">#777</On>
+                <On Platform="WinUI">#777</On>
             </OnPlatform>
 
             

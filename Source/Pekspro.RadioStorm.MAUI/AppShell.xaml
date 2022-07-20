@@ -43,13 +43,13 @@
     <FlyoutItem Title="{x:Static r:Strings.GeneralButtonChannels}">
         <FlyoutItem.Icon>
             <FontImageSource
-                            Glyph="{OnPlatform UWP={x:Static style:SegoeIconFont.Microphone}, Default={x:Static style:IconFont.Microphone}}"
+                            Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.Microphone}, Default={x:Static style:IconFont.Microphone}}"
                             Color="{StaticResource PanelIconColor}"
                             Size="32"
                         >
                 <FontImageSource.FontFamily>
                     <OnPlatform x:TypeArguments="x:String" Default="FontAwesome">
-                        <On Platform="UWP" Value="Segoe MDL2 Assets" />
+                        <On Platform="WinUI" Value="Segoe MDL2 Assets" />
                     </OnPlatform>
                 </FontImageSource.FontFamily>
             </FontImageSource>

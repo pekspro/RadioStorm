@@ -62,12 +62,12 @@
         </ProgressBar>
         -->
     
-        <Label Text="{OnPlatform UWP='&#xE118;', Default='&#xf019;'}"
+        <Label Text="{OnPlatform WinUI='&#xE118;', Default='&#xf019;'}"
                 TextColor="{Binding IsListened, Mode=OneWay, Converter={StaticResource BoolToIsListenedColorConverter}}"
                 IsVisible="{Binding DownloadData.Status, Mode=OneWay, Converter={StaticResource DownloadDataStatusDoneToVisibilityConverter}}"
                 FontSize="12"
                 Margin="4,2,0,0"
-                FontFamily="{OnPlatform UWP='Segoe MDL2 Assets', Default='FontAwesome'}" />
+                FontFamily="{OnPlatform WinUI='Segoe MDL2 Assets', Default='FontAwesome'}" />
 
         <Label Text="{x:Static r:Strings.DownloadStatus_Error}"
                 TextColor="{Binding IsListened, Mode=OneWay, Converter={StaticResource BoolToIsListenedColorConverter}}"
