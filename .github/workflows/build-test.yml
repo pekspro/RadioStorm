@@ -1,0 +1,32 @@
+name: Build test
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test-windows:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.x
+        
+    - name: Restore dependencies
+      run: dotnet restore .\Source\
+      
+    - name: Build console
+      run: dotnet build .\Source\Pekspro.RadioStorm.Sandbox.Console\Pekspro.RadioStorm.Sandbox.Console.csproj --no-restore
+      
+    - name: Build WPF
+      run: dotnet build .\Source\Pekspro.RadioStorm.Sandbox.WPF\Pekspro.RadioStorm.Sandbox.WPF.csproj --no-restore
+      
+    - name: Build MAUI
+      run: dotnet build .\Source\Pekspro.RadioStorm.MAUI\Pekspro.RadioStorm.MAUI.csproj --no-restore
+    
