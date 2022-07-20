@@ -118,6 +118,8 @@
             </ScrollView>
         </Grid>
 
+        <views:DownloadState Grid.Row="1" Grid.RowSpan="2" Padding="{StaticResource NormalPageMargin}" BindingContext="{Binding EpisodesViewModel}" />
+        
         <!-- Breaks on Android: ItemSizingStrategy="MeasureFirstItem"-->
         <RefreshView 
                 Command="{Binding RefreshCommand}" 
@@ -133,7 +135,7 @@
                 >
                 <CollectionView.Header>
                     <DataTemplate>
-                        <Label Text="xxx" />
+                        <Label Text="xxx" TextColor="Red" />
                     </DataTemplate>
                 </CollectionView.Header>
                 <CollectionView.GroupHeaderTemplate>
