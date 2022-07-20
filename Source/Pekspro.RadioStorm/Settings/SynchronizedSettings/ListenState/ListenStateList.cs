@@ -67,7 +67,7 @@
                 SaveLater(id % FileSlotCount);
 
                 // ListenStateManagerUpdated?.Invoke(this, null);
-                Messenger.Send(new ListenStateChanged(id, isFullyListen));
+                Messenger.Send(new ListenStateChangedMessage(id, isFullyListen));
 
                 return true;
             }
@@ -81,7 +81,7 @@
                     SaveLater(id % FileSlotCount);
 
                     // ListenStateManagerUpdated?.Invoke(this, null);
-                    Messenger.Send(new ListenStateChanged(id, isFullyListen));
+                    Messenger.Send(new ListenStateChangedMessage(id, isFullyListen));
 
                     return true;
                 }
@@ -275,7 +275,7 @@
                 await SaveIfDirtyAsync();
 
                 // ListenStateManagerUpdated?.Invoke(this, null);
-                Messenger.Send(new ListenStateChanged(null, false));
+                Messenger.Send(new ListenStateChangedMessage(null, false));
             }
             else
             {

@@ -36,7 +36,7 @@ public partial class DownloadSettingsViewModel : ObservableObject
         messenger?.Register<DownloadDeleted>(this, (a, b) => RefreshProperties());
         messenger?.Register<DownloadUpdated>(this, (a, b) => RefreshProperties());
 
-        messenger?.Register<ListenStateChanged>(this, (a, b) => RefreshProperties());
+        messenger?.Register<ListenStateChangedMessage>(this, (a, b) => RefreshProperties());
 
         var autoRemovedDownloadFileOptions = new List<AutoRemovedDownloadFileDescription>();
         autoRemovedDownloadFileOptions.Add(new AutoRemovedDownloadFileDescription(-1));

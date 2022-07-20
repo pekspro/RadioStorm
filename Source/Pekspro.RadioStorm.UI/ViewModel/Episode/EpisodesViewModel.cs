@@ -63,7 +63,7 @@ public partial class EpisodesViewModel : ListViewModel<EpisodeModel>, ISearch
         }
         );
 
-        messenger?.Register<ListenStateChanged>(this, (r, m) =>
+        messenger?.Register<ListenStateChangedMessage>(this, (r, m) =>
         {
             OnPropertyChanged(nameof(FirstNotListenedEpisodePosition));
         }

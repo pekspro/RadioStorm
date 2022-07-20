@@ -92,7 +92,7 @@ public partial class EpisodeModel : ObservableObject, IComparable<EpisodeModel>
 
         UpdatePublishLength();
 
-        messenger?.Register<ListenStateChanged>(this, (r, m) =>
+        messenger?.Register<ListenStateChangedMessage>(this, (r, m) =>
         {
             if (m?.EpisodeId is null || m.EpisodeId == Id)
             {

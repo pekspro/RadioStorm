@@ -142,7 +142,7 @@ public partial class FavoritesViewModel : ListViewModel<FavoriteBaseModel>, IDis
             QueueRefresh(new RefreshSettings(FullRefresh: false));
         });
 
-        messenger?.Register<ListenStateChanged>(this, (r, m) =>
+        messenger?.Register<ListenStateChangedMessage>(this, (r, m) =>
         {
             Logger.LogDebug("ListenStateChanged - trigger favorite refresh");
             TopEpisodeExpireTime = new ();
