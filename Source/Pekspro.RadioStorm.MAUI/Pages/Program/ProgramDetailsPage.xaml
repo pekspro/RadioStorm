@@ -63,6 +63,7 @@
                 <VisualStateGroup Name="WidthState">
                     <VisualState Name="Narrow">
                         <VisualState.Setters>
+                            <Setter Property="Margin" Value="0,8,0,0" TargetName="DescriptionPanel" />
                             <Setter Property="Grid.Column" Value="0" TargetName="DescriptionPanel" />
                             <Setter Property="Grid.Row" Value="1" TargetName="DescriptionPanel" />
                             <Setter Property="Grid.RowSpan" Value="1" TargetName="DescriptionPanel" />
@@ -71,6 +72,7 @@
                     </VisualState>
                     <VisualState Name="Wide">
                         <VisualState.Setters>
+                            <Setter Property="Margin" Value="8,0,0,0" TargetName="DescriptionPanel" />
                             <Setter Property="Grid.Column" Value="1" TargetName="DescriptionPanel" />
                             <Setter Property="Grid.Row" Value="0" TargetName="DescriptionPanel" />
                             <Setter Property="Grid.RowSpan" Value="2" TargetName="DescriptionPanel" />
@@ -80,8 +82,8 @@
                 </VisualStateGroup>
             </VisualStateManager.VisualStateGroups>
 
-            <Image WidthRequest="200" 
-                   HeightRequest="200"
+            <Image WidthRequest="100" 
+                   HeightRequest="100"
                    HorizontalOptions="Center"
                    >
                 <Image.Source>
@@ -92,18 +94,19 @@
                 </Image.Source>
             </Image>
 
-            <VerticalStackLayout x:Name="DescriptionPanel" HorizontalOptions="FillAndExpand"
-                         Grid.Row="1">
-                <Label Text="{Binding ProgramData.Description, Mode=OneWay}" />
-
+            <ScrollView Grid.Row="1"
+                        x:Name="DescriptionPanel"
+                        MaximumHeightRequest="100"
+                        >
                 <VerticalStackLayout>
+                    <Label Text="{Binding ProgramData.Description, Mode=OneWay}" />
+                    
                     <Button Style="{StaticResource HyperlinkButton}"
                             Text="{x:Static r:Strings.Episodes_AutoCreatePlayList}"
                             Command="{Binding EpisodesViewModel.AutoCreatePlayListCommand}"
-                            >
-                    </Button>
+                            />
                 </VerticalStackLayout>
-            </VerticalStackLayout>
+            </ScrollView>
         </Grid>
 
         <!-- Breaks on Android: ItemSizingStrategy="MeasureFirstItem"-->
@@ -174,6 +177,7 @@
         <Button 
             Grid.Row="2" 
             HorizontalOptions="End"
+            Margin="0,8,0,0"
             Command="{Binding EpisodesViewModel.DownloadAllEpisodesCommand}" 
             IsVisible="{Binding EpisodesViewModel.HasMoreEpisodes}"
             Text="{x:Static r:Strings.Episodes_GetAll}" />
