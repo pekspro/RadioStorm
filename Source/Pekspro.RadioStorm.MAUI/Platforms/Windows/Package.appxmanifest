@@ -7,8 +7,8 @@
   IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="maui-package-name-placeholder"
-    Publisher="CN=User Name"
+    Name="RadioStorm.MAUI"
+    Publisher="CN=30A7FC1D-484E-4B99-B58D-88EFCC23039F"
     Version="1.0.0.0" />
 
   <!--<Properties>
@@ -18,8 +18,9 @@
   </Properties>-->
 
     <Properties>
-	    <DisplayName>$placeholder$</DisplayName>
-	    <PublisherDisplayName>User Name</PublisherDisplayName>
+	    <!-- <DisplayName>$placeholder$</DisplayName> -->
+	    <DisplayName>RadioStorm.MAUI</DisplayName>
+	    <PublisherDisplayName>PEK's Productions</PublisherDisplayName>
 	    <Logo>$placeholder$.png</Logo>
     </Properties>
 
