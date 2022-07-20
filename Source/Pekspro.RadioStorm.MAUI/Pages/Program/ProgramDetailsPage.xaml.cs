@@ -52,4 +52,14 @@ public partial class ProgramDetailsPage : ContentPage
             { "Data", param }
         });
     }
+
+    private void ButtonScrollToFirstNotListened_Clicked(object sender, EventArgs e)
+    {
+        int? position = ViewModel.EpisodesViewModel.FirstNotListenedEpisodePosition;
+
+        if (position is not null)
+        {
+            EpisodesListView.ScrollTo(position.Value, position: ScrollToPosition.Center);
+        }
+    }
 }

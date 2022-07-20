@@ -100,11 +100,20 @@
                         >
                 <VerticalStackLayout>
                     <Label Text="{Binding ProgramData.Description, Mode=OneWay}" />
-                    
-                    <Button Style="{StaticResource HyperlinkButton}"
-                            Text="{x:Static r:Strings.Episodes_AutoCreatePlayList}"
-                            Command="{Binding EpisodesViewModel.AutoCreatePlayListCommand}"
-                            />
+
+                    <HorizontalStackLayout Spacing="8">
+                        <Button Style="{StaticResource HyperlinkButton}"
+                                Text="{x:Static r:Strings.Episodes_AutoCreatePlayList}"
+                                Command="{Binding EpisodesViewModel.AutoCreatePlayListCommand}"
+                                />
+
+                        <Button Style="{StaticResource HyperlinkButton}"
+                                IsVisible="{Binding EpisodesViewModel.FirstNotListenedEpisodePosition, Converter={StaticResource NullToIsVisibleConverter}}"
+                                Text="{x:Static r:Strings.Episodes_ShowNotPlayedEpisode}"
+                                x:Name="ButtonScrollToFirstNotListened"
+                                Clicked="ButtonScrollToFirstNotListened_Clicked"
+                                />
+                    </HorizontalStackLayout>
                 </VerticalStackLayout>
             </ScrollView>
         </Grid>
@@ -117,6 +126,7 @@
                 Grid.Row="1"
             >
             <CollectionView 
+                x:Name="EpisodesListView"
                 ItemsSource="{Binding EpisodesViewModel.GroupedItems}"
                 IsGrouped="True"
                 SelectionMode="{Binding EpisodesViewModel.SelectionModeHelper.InSelectionMode, Converter={StaticResource BoolToSelectionMode}}"

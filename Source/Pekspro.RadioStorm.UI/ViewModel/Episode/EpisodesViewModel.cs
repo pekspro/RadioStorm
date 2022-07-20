@@ -7,6 +7,7 @@ public partial class EpisodesViewModel : ListViewModel<EpisodeModel>, ISearch
     private IDataFetcher DataFetcher { get; }
     private IEpisodeModelFactory EpisodeModelFactory { get; }
     private IEpisodesSortOrderManager EpisodesSortOrderManager { get; }
+    public IListenStateManager ListenStateManager { get; }
     private IAudioManager AudioManager { get; }
     
     public const int MaxEpisodeDownloadCount = 200;
@@ -27,6 +28,7 @@ public partial class EpisodesViewModel : ListViewModel<EpisodeModel>, ISearch
         EpisodeModelFactory = null!;
         EpisodesSortOrderManager = null!;
         AudioManager = null!;
+        ListenStateManager = null!;
         DownloadState = DownloadStates.Done;
 
         Items = new ObservableCollection<EpisodeModel>();
@@ -39,6 +41,7 @@ public partial class EpisodesViewModel : ListViewModel<EpisodeModel>, ISearch
         IDataFetcher dataFetcher,
         IEpisodeModelFactory programModelFactory,
         IEpisodesSortOrderManager episodesSortOrderManager,
+        IListenStateManager listenStateManager,
         IAudioManager audioManager,
         IMessenger messenger,
         IMainThreadRunner mainThreadRunner,
@@ -48,6 +51,7 @@ public partial class EpisodesViewModel : ListViewModel<EpisodeModel>, ISearch
         DataFetcher = dataFetcher;
         EpisodeModelFactory = programModelFactory;
         EpisodesSortOrderManager = episodesSortOrderManager;
+        ListenStateManager = listenStateManager;
         AudioManager = audioManager;
         messenger?.Register<EpisodeSortOrderChangedMessage>(this, (r, m) =>
         {
@@ -56,6 +60,12 @@ public partial class EpisodesViewModel : ListViewModel<EpisodeModel>, ISearch
                 ClearLists();
                 QueueRefresh(new RefreshSettings());
             }
+        }
+        );
+
+        messenger?.Register<ListenStateChanged>(this, (r, m) =>
+        {
+            OnPropertyChanged(nameof(FirstNotListenedEpisodePosition));
         }
         );
     }
@@ -80,6 +90,29 @@ public partial class EpisodesViewModel : ListViewModel<EpisodeModel>, ISearch
             }
 
             return Items?.Any(a => a.IsListened == false) == true;
+        }
+    }
+
+    public int? FirstNotListenedEpisodePosition
+    {
+        get
+        {
+            var items = Items;
+
+            if (items is null || ListenStateManager is null)
+            {
+                return null;
+            }
+
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (!ListenStateManager.IsFullyListen(items[i].Id))
+                {
+                    return i;
+                }
+            }
+
+            return null;
         }
     }
 
@@ -128,6 +161,7 @@ public partial class EpisodesViewModel : ListViewModel<EpisodeModel>, ISearch
             }
 
             UpdateList(temp);
+            OnPropertyChanged(nameof(FirstNotListenedEpisodePosition));
 
             if (Items?.Count > 0)
             {
