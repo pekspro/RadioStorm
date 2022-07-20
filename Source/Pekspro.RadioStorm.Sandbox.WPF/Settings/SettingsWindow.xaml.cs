@@ -1,30 +1,26 @@
-﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Settings
+﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Settings;
+
+public partial class SettingsWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for SettingsWindow.xaml
-    /// </summary>
-    public partial class SettingsWindow : Window
+    public SettingsWindow(SettingsViewModel settingsViewModel)
     {
-        public SettingsWindow(SettingsViewModel settingsViewModel)
-        {
-            InitializeComponent();
-            DataContext = settingsViewModel;
-        }
+        InitializeComponent();
+        DataContext = settingsViewModel;
+    }
 
-        protected SettingsViewModel ViewModel => (SettingsViewModel)DataContext;
+    protected SettingsViewModel ViewModel => (SettingsViewModel)DataContext;
 
-        protected override void OnActivated(EventArgs e)
-        {
-            base.OnActivated(e);
+    protected override void OnActivated(EventArgs e)
+    {
+        base.OnActivated(e);
 
-            // ViewModel.OnNavigatedTo();
-        }
+        // ViewModel.OnNavigatedTo();
+    }
 
-        protected override void OnDeactivated(EventArgs e)
-        {
-            base.OnDeactivated(e);
+    protected override void OnDeactivated(EventArgs e)
+    {
+        base.OnDeactivated(e);
 
-            // ViewModel.OnNavigatedFrom();
-        }
+        // ViewModel.OnNavigatedFrom();
     }
 }

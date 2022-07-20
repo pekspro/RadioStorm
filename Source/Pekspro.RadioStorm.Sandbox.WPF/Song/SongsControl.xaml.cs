@@ -1,13 +1,9 @@
-﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Song
+﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Song;
+
+public partial class SongsControl : UserControl
 {
-    /// <summary>
-    /// Interaction logic for SongsControl.xaml
-    /// </summary>
-    public partial class SongsControl : UserControl
+    public SongsControl()
     {
-        public SongsControl()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

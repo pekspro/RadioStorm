@@ -1,67 +1,63 @@
-﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Program
+﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Program;
+
+public partial class ProgramsWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for ProgramsWindow.xaml
-    /// </summary>
-    public partial class ProgramsWindow : Window
+    public ProgramsWindow(ProgramsViewModel programInfoViewModel, IServiceProvider serviceProvider)
     {
-        public ProgramsWindow(ProgramsViewModel programInfoViewModel, IServiceProvider serviceProvider)
+        InitializeComponent();
+
+        DataContext = programInfoViewModel;
+        ServiceProvider = serviceProvider;
+    }
+
+    public IServiceProvider ServiceProvider { get; }
+
+    protected ProgramsViewModel ViewModel => (ProgramsViewModel)DataContext;
+
+    protected override void OnActivated(EventArgs e)
+    {
+        base.OnActivated(e);
+
+        ViewModel.OnNavigatedTo();
+    }
+
+    protected override void OnDeactivated(EventArgs e)
+    {
+        base.OnDeactivated(e);
+
+        ViewModel.OnNavigatedFrom();
+    }
+
+    private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+        var p = ListViewPrograms.SelectedItem as ProgramModel;
+
+        if (p is not null)
         {
-            InitializeComponent();
-
-            DataContext = programInfoViewModel;
-            ServiceProvider = serviceProvider;
+            var programWindow = ServiceProvider.GetRequiredService<ProgramDetailsWindow>();
+            programWindow.StartParameter = ProgramDetailsViewModel.CreateStartParameter(p);
+            programWindow.Show();
         }
+    }
 
-        public IServiceProvider ServiceProvider { get; }
-
-        protected ProgramsViewModel ViewModel => (ProgramsViewModel)DataContext;
-
-        protected override void OnActivated(EventArgs e)
+    private void MenuItemMultipleSetAsFavorite_Click(object sender, RoutedEventArgs e)
+    {
+        foreach (ProgramModel model in ListViewPrograms.SelectedItems)
         {
-            base.OnActivated(e);
-
-            ViewModel.OnNavigatedTo();
+            model.IsFavorite = true;
         }
+    }
 
-        protected override void OnDeactivated(EventArgs e)
+    private void MenuItemMultipleRemoveAsFavorite_Click(object sender, RoutedEventArgs e)
+    {
+        foreach (ProgramModel model in ListViewPrograms.SelectedItems)
         {
-            base.OnDeactivated(e);
-
-            ViewModel.OnNavigatedFrom();
+            model.IsFavorite = false;
         }
+    }
 
-        private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            var p = ListViewPrograms.SelectedItem as ProgramModel;
-
-            if (p is not null)
-            {
-                var programWindow = ServiceProvider.GetRequiredService<ProgramDetailsWindow>();
-                programWindow.StartParameter = ProgramDetailsViewModel.CreateStartParameter(p);
-                programWindow.Show();
-            }
-        }
-
-        private void MenuItemMultipleSetAsFavorite_Click(object sender, RoutedEventArgs e)
-        {
-            foreach (ProgramModel model in ListViewPrograms.SelectedItems)
-            {
-                model.IsFavorite = true;
-            }
-        }
-
-        private void MenuItemMultipleRemoveAsFavorite_Click(object sender, RoutedEventArgs e)
-        {
-            foreach (ProgramModel model in ListViewPrograms.SelectedItems)
-            {
-                model.IsFavorite = false;
-            }
-        }
-
-        private void ListViewPrograms_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ViewModel.SelectionModeHelper.SelectionCount = ListViewPrograms.SelectedItems.Count;
-        }
+    private void ListViewPrograms_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        ViewModel.SelectionModeHelper.SelectionCount = ListViewPrograms.SelectedItems.Count;
     }
 }

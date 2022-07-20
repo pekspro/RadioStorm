@@ -1,23 +1,19 @@
-﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Channel
+﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Channel;
+
+public partial class ChannelControl : UserControl
 {
-    /// <summary>
-    /// Interaction logic for UserControlChannelItem.xaml
-    /// </summary>
-    public partial class ChannelControl : UserControl
+    public ChannelControl()
     {
-        public ChannelControl()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+    }
 
-        private ChannelModel ViewModel
+    private ChannelModel ViewModel
+    {
+        get
         {
-            get
-            {
-                var vm = DataContext as ChannelModel;
+            var vm = DataContext as ChannelModel;
 
-                return vm;
-            }
+            return vm;
         }
     }
 }

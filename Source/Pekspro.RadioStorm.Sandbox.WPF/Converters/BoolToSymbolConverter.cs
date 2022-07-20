@@ -1,7 +1,6 @@
-﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Converters
-{
-    /*
-    public class BoolToSymbolConverter : IValueConverter
+﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Converters;
+/*
+public class BoolToSymbolConverter : IValueConverter
 	{
 		public BoolToSymbolConverter()
 		{
@@ -67,4 +66,3 @@
 		}
 	}
 	*/
-}

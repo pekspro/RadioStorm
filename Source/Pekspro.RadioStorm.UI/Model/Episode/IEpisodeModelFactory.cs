@@ -1,7 +1,6 @@
-﻿namespace Pekspro.RadioStorm.UI.Model.Episode
+﻿namespace Pekspro.RadioStorm.UI.Model.Episode;
+
+public interface IEpisodeModelFactory
 {
-    public interface IEpisodeModelFactory
-    {
-        EpisodeModel Create(EpisodeData episodeData);
-    }
+    EpisodeModel Create(EpisodeData episodeData);
 }

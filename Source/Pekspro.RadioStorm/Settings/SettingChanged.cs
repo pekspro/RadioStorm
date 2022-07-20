@@ -1,4 +1,3 @@
-﻿namespace Pekspro.RadioStorm.Settings
-{
-    public record SettingChanged(string SettingName);
-}
+﻿namespace Pekspro.RadioStorm.Settings;
+
+public record SettingChanged(string SettingName);

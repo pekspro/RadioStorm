@@ -1,13 +1,9 @@
-﻿namespace Pekspro.RadioStorm.Sandbox.WPF.ScheduledEpisode
+﻿namespace Pekspro.RadioStorm.Sandbox.WPF.ScheduledEpisode;
+
+public partial class ScheduledEpisodeControl : UserControl
 {
-    /// <summary>
-    /// Interaction logic for ScheduledEpisodeControl.xaml
-    /// </summary>
-    public partial class ScheduledEpisodeControl : UserControl
+    public ScheduledEpisodeControl()
     {
-        public ScheduledEpisodeControl()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

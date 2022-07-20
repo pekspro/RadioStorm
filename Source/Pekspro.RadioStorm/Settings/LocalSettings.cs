@@ -1,171 +1,170 @@
-﻿namespace Pekspro.RadioStorm.Settings
+﻿namespace Pekspro.RadioStorm.Settings;
+
+public sealed class LocalSettings : ILocalSettings
 {
-    public sealed class LocalSettings : ILocalSettings
+    public ISettingsService SettingsService { get; }
+    public IMessenger Messenger { get; }
+
+    public LocalSettings(ISettingsService settingsService, IMessenger messenger)
     {
-        public ISettingsService SettingsService { get; }
-        public IMessenger Messenger { get; }
+        SettingsService = settingsService;
+        Messenger = messenger;
+    }
 
-        public LocalSettings(ISettingsService settingsService, IMessenger messenger)
+    public static int LaunchCountBeforeAskForReview => 20;
+
+    #region Volume property
+
+    public int Volume
+    {
+        get
         {
-            SettingsService = settingsService;
-            Messenger = messenger;
+            int v = SettingsService.GetSafeValue(nameof(Volume), 100);
+
+            if (v < -1)
+            {
+                return -1;
+            }
+
+            if (v > 100)
+            {
+                return 100;
+            }
+
+            return v;
         }
-
-        public static int LaunchCountBeforeAskForReview => 20;
-
-        #region Volume property
-
-        public int Volume
+        set
         {
-            get
-            {
-                int v = SettingsService.GetSafeValue(nameof(Volume), 100);
+            SettingsService.SetValue(nameof(Volume), value);
 
-                if (v < -1)
-                {
-                    return -1;
-                }
-
-                if (v > 100)
-                {
-                    return 100;
-                }
-
-                return v;
-            }
-            set
-            {
-                SettingsService.SetValue(nameof(Volume), value);
-
-                NotifySettingChanged(nameof(Volume));
-            }
+            NotifySettingChanged(nameof(Volume));
         }
+    }
 
-        #endregion
+    #endregion
 
-        #region AutoRemoveListenedDownloadedFilesDayDelay property
+    #region AutoRemoveListenedDownloadedFilesDayDelay property
 
-        public int AutoRemoveListenedDownloadedFilesDayDelay
+    public int AutoRemoveListenedDownloadedFilesDayDelay
+    {
+        get
         {
-            get
+            int v = SettingsService.GetSafeValue(nameof(AutoRemoveListenedDownloadedFilesDayDelay), 7);
+
+            if (v < -1)
             {
-                int v = SettingsService.GetSafeValue(nameof(AutoRemoveListenedDownloadedFilesDayDelay), 7);
-
-                if (v < -1)
-                {
-                    return -1;
-                }
-
-                if (v > 365)
-                {
-                    return 365;
-                }
-
-                return v;
+                return -1;
             }
-            set
+
+            if (v > 365)
             {
-                SettingsService.SetValue(nameof(AutoRemoveListenedDownloadedFilesDayDelay), value);
-
-                NotifySettingChanged(nameof(AutoRemoveListenedDownloadedFilesDayDelay));
+                return 365;
             }
+
+            return v;
         }
-
-        #endregion
-
-        #region ShowToastWhenBackgroundDownloadFinished property
-
-        public bool ShowToastWhenBackgroundDownloadFinished
+        set
         {
-            get
-            {
-                return SettingsService.GetSafeValue(nameof(ShowToastWhenBackgroundDownloadFinished), true);
-            }
-            set
-            {
-                SettingsService.SetValue(nameof(ShowToastWhenBackgroundDownloadFinished), value);
+            SettingsService.SetValue(nameof(AutoRemoveListenedDownloadedFilesDayDelay), value);
 
-                NotifySettingChanged(nameof(ShowToastWhenBackgroundDownloadFinished));
-            }
+            NotifySettingChanged(nameof(AutoRemoveListenedDownloadedFilesDayDelay));
         }
+    }
 
-        #endregion
+    #endregion
 
-        #region UseLiveTile property
+    #region ShowToastWhenBackgroundDownloadFinished property
 
-        public bool UseLiveTile
+    public bool ShowToastWhenBackgroundDownloadFinished
+    {
+        get
         {
-            get
-            {
-                return SettingsService.GetSafeValue(nameof(UseLiveTile), true);
-            }
-            set
-            {
-                SettingsService.SetValue(nameof(UseLiveTile), value);
-
-                NotifySettingChanged(nameof(UseLiveTile));
-            }
+            return SettingsService.GetSafeValue(nameof(ShowToastWhenBackgroundDownloadFinished), true);
         }
-
-        #endregion
-
-        #region LaunchCount property
-
-        public int LaunchCount
+        set
         {
-            get
-            {
-                return SettingsService.GetSafeValue(nameof(LaunchCount), 0);
-            }
-            set
-            {
-                SettingsService.SetValue(nameof(LaunchCount), value);
+            SettingsService.SetValue(nameof(ShowToastWhenBackgroundDownloadFinished), value);
 
-                NotifySettingChanged(nameof(LaunchCount));
-            }
+            NotifySettingChanged(nameof(ShowToastWhenBackgroundDownloadFinished));
         }
+    }
 
-        #endregion
+    #endregion
 
-        #region MayWantToReview property
+    #region UseLiveTile property
 
-        public bool MayWantToReview
+    public bool UseLiveTile
+    {
+        get
         {
-            get
-            {
-                return SettingsService.GetSafeValue(nameof(MayWantToReview), true);
-            }
-            set
-            {
-                SettingsService.SetValue(nameof(MayWantToReview), value);
-
-                NotifySettingChanged(nameof(MayWantToReview));
-            }
+            return SettingsService.GetSafeValue(nameof(UseLiveTile), true);
         }
-
-        #endregion
-
-        #region PreferStreamsWithMusic property
-
-        public bool PreferStreamsWithMusic
+        set
         {
-            get
-            {
-                return SettingsService.GetSafeValue(nameof(PreferStreamsWithMusic), true);
-            }
-            set
-            {
-                SettingsService.SetValue(nameof(PreferStreamsWithMusic), value);
+            SettingsService.SetValue(nameof(UseLiveTile), value);
 
-                NotifySettingChanged(nameof(PreferStreamsWithMusic));
-            }
+            NotifySettingChanged(nameof(UseLiveTile));
         }
+    }
 
-        #endregion
+    #endregion
 
-        private void NotifySettingChanged(string settingsName)
+    #region LaunchCount property
+
+    public int LaunchCount
+    {
+        get
         {
-            Messenger.Send(new SettingChanged(settingsName));
+            return SettingsService.GetSafeValue(nameof(LaunchCount), 0);
         }
+        set
+        {
+            SettingsService.SetValue(nameof(LaunchCount), value);
+
+            NotifySettingChanged(nameof(LaunchCount));
+        }
+    }
+
+    #endregion
+
+    #region MayWantToReview property
+
+    public bool MayWantToReview
+    {
+        get
+        {
+            return SettingsService.GetSafeValue(nameof(MayWantToReview), true);
+        }
+        set
+        {
+            SettingsService.SetValue(nameof(MayWantToReview), value);
+
+            NotifySettingChanged(nameof(MayWantToReview));
+        }
+    }
+
+    #endregion
+
+    #region PreferStreamsWithMusic property
+
+    public bool PreferStreamsWithMusic
+    {
+        get
+        {
+            return SettingsService.GetSafeValue(nameof(PreferStreamsWithMusic), true);
+        }
+        set
+        {
+            SettingsService.SetValue(nameof(PreferStreamsWithMusic), value);
+
+            NotifySettingChanged(nameof(PreferStreamsWithMusic));
+        }
+    }
+
+    #endregion
+
+    private void NotifySettingChanged(string settingsName)
+    {
+        Messenger.Send(new SettingChanged(settingsName));
     }
 }

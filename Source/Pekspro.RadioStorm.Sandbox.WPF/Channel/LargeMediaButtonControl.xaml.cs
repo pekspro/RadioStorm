@@ -1,13 +1,9 @@
-﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Channel
+﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Channel;
+
+public partial class LargeMediaButtonControl : UserControl
 {
-    /// <summary>
-    /// Interaction logic for LargeMediaButtonUserControl.xaml
-    /// </summary>
-    public partial class LargeMediaButtonControl : UserControl
+    public LargeMediaButtonControl()
     {
-        public LargeMediaButtonControl()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

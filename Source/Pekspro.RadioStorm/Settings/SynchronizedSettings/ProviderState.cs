@@ -1,11 +1,10 @@
-﻿namespace Pekspro.RadioStorm.Settings.SynchronizedSettings
+﻿namespace Pekspro.RadioStorm.Settings.SynchronizedSettings;
+
+public enum ProviderState
 {
-    public enum ProviderState
-    {
-        Loading,
+    Loading,
 
-        SignedOut,
+    SignedOut,
 
-        SignedIn,
-    }
+    SignedIn,
 }

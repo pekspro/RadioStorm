@@ -1,22 +1,18 @@
-﻿namespace Pekspro.RadioStorm.Sandbox.WPF.UserControls
+﻿namespace Pekspro.RadioStorm.Sandbox.WPF.UserControls;
+
+public partial class CurrentPlayingControl : UserControl
 {
-    /// <summary>
-    /// Interaction logic for CurrentPlayingControl.xaml
-    /// </summary>
-    public partial class CurrentPlayingControl : UserControl
+    public CurrentPlayingControl()
     {
-        public CurrentPlayingControl()
+        InitializeComponent();
+
+        if (App.ServiceProvider is not null)
         {
-            InitializeComponent();
+            DataContext = App.ServiceProvider.GetRequiredService<CurrentPlayingViewModel>();
 
-            if (App.ServiceProvider is not null)
-            {
-                DataContext = App.ServiceProvider.GetRequiredService<CurrentPlayingViewModel>();
-
-                ViewModel.OnNavigatedTo();
-            }
+            ViewModel.OnNavigatedTo();
         }
-
-        protected CurrentPlayingViewModel ViewModel => (CurrentPlayingViewModel)DataContext;
     }
+
+    protected CurrentPlayingViewModel ViewModel => (CurrentPlayingViewModel)DataContext;
 }

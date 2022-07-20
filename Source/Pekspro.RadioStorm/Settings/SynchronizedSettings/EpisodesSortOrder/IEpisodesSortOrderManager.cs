@@ -1,7 +1,6 @@
-﻿namespace Pekspro.RadioStorm.Settings.SynchronizedSettings.EpisodesSortOrder
+﻿namespace Pekspro.RadioStorm.Settings.SynchronizedSettings.EpisodesSortOrder;
+
+public interface IEpisodesSortOrderManager : IFavoriteList
 {
-    public interface IEpisodesSortOrderManager : IFavoriteList
-    {
-        void Init(bool allowBackgroundSaving);
-    }
+    void Init(bool allowBackgroundSaving);
 }

@@ -1,13 +1,9 @@
-﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Episode
+﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Episode;
+
+public partial class EpisodeControl : UserControl
 {
-    /// <summary>
-    /// Interaction logic for EpisodeUserControl.xaml
-    /// </summary>
-    public partial class EpisodeControl : UserControl
+    public EpisodeControl()
     {
-        public EpisodeControl()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

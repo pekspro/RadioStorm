@@ -1,41 +1,37 @@
 ﻿using Pekspro.RadioStorm.UI.ViewModel.Logging;
 
-namespace Pekspro.RadioStorm.Sandbox.WPF.Logging
+namespace Pekspro.RadioStorm.Sandbox.WPF.Logging;
+
+public partial class LoggingWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for LoggingWindow.xaml
-    /// </summary>
-    public partial class LoggingWindow : Window
+    public LoggingWindow(LoggingViewModel loggingViewModel, IServiceProvider serviceProvider)
     {
-        public LoggingWindow(LoggingViewModel loggingViewModel, IServiceProvider serviceProvider)
-        {
-            InitializeComponent();
+        InitializeComponent();
 
-            DataContext = loggingViewModel;
-            ServiceProvider = serviceProvider;
-        }
+        DataContext = loggingViewModel;
+        ServiceProvider = serviceProvider;
+    }
 
-        public IServiceProvider ServiceProvider { get; }
+    public IServiceProvider ServiceProvider { get; }
 
-        protected LoggingViewModel ViewModel => (LoggingViewModel)DataContext;
+    protected LoggingViewModel ViewModel => (LoggingViewModel)DataContext;
 
-        protected override void OnActivated(EventArgs e)
-        {
-            base.OnActivated(e);
+    protected override void OnActivated(EventArgs e)
+    {
+        base.OnActivated(e);
 
-            ViewModel.OnNavigatedTo();
-        }
+        ViewModel.OnNavigatedTo();
+    }
 
-        protected override void OnDeactivated(EventArgs e)
-        {
-            base.OnDeactivated(e);
-        }
+    protected override void OnDeactivated(EventArgs e)
+    {
+        base.OnDeactivated(e);
+    }
 
-        protected override void OnClosed(EventArgs e)
-        {
-            base.OnClosed(e);
+    protected override void OnClosed(EventArgs e)
+    {
+        base.OnClosed(e);
 
-            ViewModel.OnNavigatedFrom();
-        }
+        ViewModel.OnNavigatedFrom();
     }
 }

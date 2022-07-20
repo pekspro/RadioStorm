@@ -1,13 +1,12 @@
-﻿namespace Pekspro.RadioStorm.Logging
+﻿namespace Pekspro.RadioStorm.Logging;
+
+public class InMemLoggerProvider : ILoggerProvider
 {
-    public class InMemLoggerProvider : ILoggerProvider
-    {
-        private readonly InMemoryLogger logger;
+    private readonly InMemoryLogger logger;
 
-        public InMemLoggerProvider(InMemoryLogger logger) => this.logger = logger;
+    public InMemLoggerProvider(InMemoryLogger logger) => this.logger = logger;
 
-        public ILogger CreateLogger(string categoryName) => logger;
+    public ILogger CreateLogger(string categoryName) => logger;
 
-        public void Dispose() { }
-    }
+    public void Dispose() { }
 }

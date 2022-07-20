@@ -1,7 +1,6 @@
-﻿namespace Pekspro.RadioStorm.Settings.SynchronizedSettings.Favorite
+﻿namespace Pekspro.RadioStorm.Settings.SynchronizedSettings.Favorite;
+
+public interface IProgramFavoriteList : IFavoriteList
 {
-    public interface IProgramFavoriteList : IFavoriteList
-    {
-        void Init(bool allowBackgroundSaving);
-    }
+    void Init(bool allowBackgroundSaving);
 }

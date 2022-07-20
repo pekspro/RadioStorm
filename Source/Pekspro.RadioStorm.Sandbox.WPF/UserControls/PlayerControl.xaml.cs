@@ -1,37 +1,33 @@
 ﻿using Pekspro.RadioStorm.Sandbox.WPF.Player;
 
-namespace Pekspro.RadioStorm.Sandbox.WPF.UserControls
+namespace Pekspro.RadioStorm.Sandbox.WPF.UserControls;
+
+public partial class PlayerControl : UserControl
 {
-    /// <summary>
-    /// Interaction logic for PlayerControl.xaml
-    /// </summary>
-    public partial class PlayerControl : UserControl
+    public PlayerControl()
     {
-        public PlayerControl()
+        InitializeComponent();
+
+        if (App.ServiceProvider is not null)
         {
-            InitializeComponent();
-
-            if (App.ServiceProvider is not null)
-            {
-                DataContext = App.ServiceProvider.GetRequiredService<PlayerViewModel>();
-                SliderVolume.Value = (int) ((App.ServiceProvider.GetRequiredService<IAudioManager>() as WpfAudioManager).MediaPlayer.Volume * 100);
-            }
-
-            MouseDoubleClick += PlayerControl_MouseDoubleClick;
+            DataContext = App.ServiceProvider.GetRequiredService<PlayerViewModel>();
+            SliderVolume.Value = (int) ((App.ServiceProvider.GetRequiredService<IAudioManager>() as WpfAudioManager).MediaPlayer.Volume * 100);
         }
 
-        private void PlayerControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            var a = ViewModel;
-            a = null;
-        }
+        MouseDoubleClick += PlayerControl_MouseDoubleClick;
+    }
 
-        protected PlayerViewModel ViewModel => (PlayerViewModel)DataContext;
+    private void PlayerControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+        var a = ViewModel;
+        a = null;
+    }
 
-        private void ButtonOpenPlaylist_Click(object sender, RoutedEventArgs e)
-        {
-            var playListWindow = App.ServiceProvider.GetRequiredService<PlaylistWindow>();
-            playListWindow.Show();
-        }
+    protected PlayerViewModel ViewModel => (PlayerViewModel)DataContext;
+
+    private void ButtonOpenPlaylist_Click(object sender, RoutedEventArgs e)
+    {
+        var playListWindow = App.ServiceProvider.GetRequiredService<PlaylistWindow>();
+        playListWindow.Show();
     }
 }

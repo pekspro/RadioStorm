@@ -1,23 +1,19 @@
-﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Program
+﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Program;
+
+public partial class ProgramControl : UserControl
 {
-    /// <summary>
-    /// Interaction logic for UserControlProgramItem.xaml
-    /// </summary>
-    public partial class ProgramControl : UserControl
+    public ProgramControl()
     {
-        public ProgramControl()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+    }
 
-        private ProgramModel ViewModel
+    private ProgramModel ViewModel
+    {
+        get
         {
-            get
-            {
-                var vm = DataContext as ProgramModel;
+            var vm = DataContext as ProgramModel;
 
-                return vm;
-            }
+            return vm;
         }
     }
 }

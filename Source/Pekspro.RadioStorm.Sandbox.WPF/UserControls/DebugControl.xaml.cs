@@ -1,13 +1,9 @@
-﻿namespace Pekspro.RadioStorm.Sandbox.WPF.UserControls
+﻿namespace Pekspro.RadioStorm.Sandbox.WPF.UserControls;
+
+public partial class DebugControl : UserControl
 {
-    /// <summary>
-    /// Interaction logic for DebugUserControl.xaml
-    /// </summary>
-    public partial class DebugControl : UserControl
+    public DebugControl()
     {
-        public DebugControl()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

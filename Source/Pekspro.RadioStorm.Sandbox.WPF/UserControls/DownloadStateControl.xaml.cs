@@ -1,13 +1,9 @@
-﻿namespace Pekspro.RadioStorm.Sandbox.WPF.UserControls
+﻿namespace Pekspro.RadioStorm.Sandbox.WPF.UserControls;
+
+public partial class DownloadStateControl : UserControl
 {
-    /// <summary>
-    /// Interaction logic for DownloadStateControl.xaml
-    /// </summary>
-    public partial class DownloadStateControl : UserControl
+    public DownloadStateControl()
     {
-        public DownloadStateControl()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

@@ -1,105 +1,101 @@
 ﻿using Pekspro.RadioStorm.Sandbox.WPF.Episode;
 
-namespace Pekspro.RadioStorm.Sandbox.WPF.Episode
+namespace Pekspro.RadioStorm.Sandbox.WPF.Episode;
+
+public partial class DownloadsWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for RecentEpisodesWindow.xaml
-    /// </summary>
-    public partial class DownloadsWindow : Window
+    public DownloadsWindow(DownloadsViewModel programInfoViewModel, IServiceProvider serviceProvider)
     {
-        public DownloadsWindow(DownloadsViewModel programInfoViewModel, IServiceProvider serviceProvider)
-        {
-            InitializeComponent();
+        InitializeComponent();
 
-            DataContext = programInfoViewModel;
-            ServiceProvider = serviceProvider;
+        DataContext = programInfoViewModel;
+        ServiceProvider = serviceProvider;
+    }
+
+    protected DownloadsViewModel ViewModel => (DownloadsViewModel)DataContext;
+
+    public IServiceProvider ServiceProvider { get; }
+
+    protected override void OnActivated(EventArgs e)
+    {
+        base.OnActivated(e);
+
+        ViewModel.OnNavigatedTo();
+    }
+
+    protected override void OnDeactivated(EventArgs e)
+    {
+        base.OnDeactivated(e);
+
+        ViewModel.OnNavigatedFrom();
+    }
+
+    private void ListViewEpisodes_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+        var p = ListViewEpisodes.SelectedItem as EpisodeModel;
+
+        if (p is not null)
+        {
+            var programWindow = ServiceProvider.GetRequiredService<EpisodeDetailsWindow>();
+            programWindow.StartParameter = EpisodeDetailsViewModel.CreateStartParameter(p, true);
+            programWindow.Show();
+        }
+    }
+
+    private void ListViewEpisodes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        ViewModel.SelectionModeHelper.SelectionCount = ListViewEpisodes.SelectedItems.Count;
+    }
+
+    private List<EpisodeModel> GetSelectedEpisodes()
+    {
+        var episodes = new List<EpisodeModel>();
+
+        foreach (EpisodeModel model in ListViewEpisodes.SelectedItems)
+        {
+            episodes.Add(model);
         }
 
-        protected DownloadsViewModel ViewModel => (DownloadsViewModel)DataContext;
-
-        public IServiceProvider ServiceProvider { get; }
-
-        protected override void OnActivated(EventArgs e)
+        return episodes;
+    }
+    
+    private void MenuItemMultipleSetListened_Click(object sender, RoutedEventArgs e)
+    {
+        foreach (EpisodeModel model in GetSelectedEpisodes())
         {
-            base.OnActivated(e);
-
-            ViewModel.OnNavigatedTo();
+            model.IsListened = true;
         }
+    }
 
-        protected override void OnDeactivated(EventArgs e)
+    private void MenuItemMultipleSetNotListened_Click(object sender, RoutedEventArgs e)
+    {
+        foreach (EpisodeModel model in GetSelectedEpisodes())
         {
-            base.OnDeactivated(e);
-
-            ViewModel.OnNavigatedFrom();
+            model.IsListened = false;
         }
+    }
 
-        private void ListViewEpisodes_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    private void MenuItemMultipleAddToPlayList_Click(object sender, RoutedEventArgs e)
+    {
+        foreach (EpisodeModel model in GetSelectedEpisodes())
         {
-            var p = ListViewEpisodes.SelectedItem as EpisodeModel;
-
-            if (p is not null)
-            {
-                var programWindow = ServiceProvider.GetRequiredService<EpisodeDetailsWindow>();
-                programWindow.StartParameter = EpisodeDetailsViewModel.CreateStartParameter(p, true);
-                programWindow.Show();
-            }
+            model.AddToPlayList();
         }
+    }
 
-        private void ListViewEpisodes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private void MenuItemMultipleDownload_Click(object sender, RoutedEventArgs e)
+    {
+        foreach (EpisodeModel model in GetSelectedEpisodes())
         {
-            ViewModel.SelectionModeHelper.SelectionCount = ListViewEpisodes.SelectedItems.Count;
+            model.Download();
         }
+    }
 
-        private List<EpisodeModel> GetSelectedEpisodes()
+    private void MenuItemMultipleDeleteDownload_Click(object sender, RoutedEventArgs e)
+    {
+        foreach (EpisodeModel model in GetSelectedEpisodes())
         {
-            var episodes = new List<EpisodeModel>();
-
-            foreach (EpisodeModel model in ListViewEpisodes.SelectedItems)
-            {
-                episodes.Add(model);
-            }
-
-            return episodes;
-        }
-        
-        private void MenuItemMultipleSetListened_Click(object sender, RoutedEventArgs e)
-        {
-            foreach (EpisodeModel model in GetSelectedEpisodes())
-            {
-                model.IsListened = true;
-            }
-        }
-
-        private void MenuItemMultipleSetNotListened_Click(object sender, RoutedEventArgs e)
-        {
-            foreach (EpisodeModel model in GetSelectedEpisodes())
-            {
-                model.IsListened = false;
-            }
-        }
-
-        private void MenuItemMultipleAddToPlayList_Click(object sender, RoutedEventArgs e)
-        {
-            foreach (EpisodeModel model in GetSelectedEpisodes())
-            {
-                model.AddToPlayList();
-            }
-        }
-
-        private void MenuItemMultipleDownload_Click(object sender, RoutedEventArgs e)
-        {
-            foreach (EpisodeModel model in GetSelectedEpisodes())
-            {
-                model.Download();
-            }
-        }
-
-        private void MenuItemMultipleDeleteDownload_Click(object sender, RoutedEventArgs e)
-        {
-            foreach (EpisodeModel model in GetSelectedEpisodes())
-            {
-                model.DeleteDownload();
-            }
+            model.DeleteDownload();
         }
     }
 }
