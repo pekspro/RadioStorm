@@ -33,6 +33,7 @@ public partial class App : Application
     {
         services.TryAddSingleton<IAudioManager, WpfAudioManager>();
         services.TryAddSingleton<IMainThreadRunner, MainThreadRunner>();
+        services.TryAddSingleton<IVersionProvider, VersionProvider>();
         services.AddRadioStorm(configuration);
         services.AddRadioStormSandboxTools(configuration);
         services.AddRadioStormFileProviders(configuration, true);

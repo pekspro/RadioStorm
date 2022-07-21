@@ -26,6 +26,7 @@ public class Program
 
                 services.TryAddSingleton<IAudioManager, DummyAudioManager>();
                 services.TryAddSingleton<IMainThreadRunner, MainThreadRunner>();
+                services.TryAddSingleton<IVersionProvider, VersionProvider>();
                 services.AddRadioStorm(hostContext.Configuration);
                 services.AddRadioStormSandboxTools(hostContext.Configuration);
                 services.AddRadioStormFileProviders(hostContext.Configuration, true);

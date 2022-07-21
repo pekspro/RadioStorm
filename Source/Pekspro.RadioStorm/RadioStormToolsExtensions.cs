@@ -19,7 +19,6 @@ public static class RadioStormToolsExtensions
         services.TryAddSingleton<IGeneralDatabaseContextFactory, GeneralDatabaseContextFactory>();
         services.TryAddTransient<GeneralDatabaseHelper, GeneralDatabaseHelper>();
         services.TryAddTransient<IShutDownManager, ShutDownManager>();
-        services.TryAddSingleton<IVersionProvider, VersionProvider>();
         services.TryAddSingleton<IDateTimeProvider, DateTimeProvider>();
         services.TryAddSingleton<IMessenger>(WeakReferenceMessenger.Default);
         services.TryAddSingleton<ILocalSettings, LocalSettings>();
@@ -44,6 +43,7 @@ public static class RadioStormToolsExtensions
         // * ISettingsService
         // * IAudioManager
         // * IMainThreadTimer
+        // * IVersionProvider
 
         return services;
     }

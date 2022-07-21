@@ -19,7 +19,7 @@
 		<ApplicationIdGuid>B060A90B-445F-40C2-803A-F68CAE37D5A0</ApplicationIdGuid>
 
 		<!-- Versions -->
-		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationDisplayVersion>0.1.1.0</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
 
 		<!-- Required for C# Hot Reload -->
@@ -100,6 +100,9 @@
 	  </Compile>
 	  <Compile Update="Pages\Settings\SettingsPage.xaml.cs">
 	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Platforms\Android\Services\VersionProvider.cs">
+	    <ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
 	  </Compile>
 	  <Compile Update="Views\DownloadSettingsControl.xaml.cs">
 	    <DependentUpon>DownloadSettingsControl.xaml</DependentUpon>

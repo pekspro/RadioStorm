@@ -9,7 +9,7 @@
   <Identity
     Name="RadioStorm.MAUI"
     Publisher="CN=30A7FC1D-484E-4B99-B58D-88EFCC23039F"
-    Version="1.0.0.0" />
+    Version="0.1.0.0" />
 
   <!--<Properties>
     <DisplayName>Pekspro.RadioStorm.MAUI</DisplayName>

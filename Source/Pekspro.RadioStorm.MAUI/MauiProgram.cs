@@ -42,8 +42,10 @@ public static class MauiProgram
         builder.Services.TryAddSingleton<ISettingsService, SettingsService>();
 #if WINDOWS
         builder.Services.TryAddSingleton<IAudioManager, WindowsAudioManager>();
+        builder.Services.TryAddSingleton<IVersionProvider, Pekspro.RadioStorm.MAUI.Platforms.Windows.Services.WindowsVersionProvider>();
 #elif ANDROID
         builder.Services.TryAddSingleton<IAudioManager, AndroidAudioManager>();
+        builder.Services.TryAddSingleton<IVersionProvider, Pekspro.RadioStorm.MAUI.Platforms.Android.Services.AndroidVersionProvider>();
 #endif
         builder.Services.AddRadioStorm(builder.Configuration);
         builder.Services.AddRadioStormUI(builder.Configuration);
