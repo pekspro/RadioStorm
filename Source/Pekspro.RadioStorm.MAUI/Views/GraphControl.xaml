@@ -13,6 +13,11 @@
 
     <Label Text="{x:Static r:Strings.Settings_Synchronize_Description}" />
 
+    <Label Text="{x:Static r:Strings.Settings_Synchronize_IsTestEnvironment}"
+           TextColor="{StaticResource WarningColor}"
+           IsVisible="{Binding IsTestEnvironment}"
+           />
+
     <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="True" />
 
     <VerticalStackLayout IsVisible="{Binding IsBusy, Mode=OneWay, Converter={StaticResource InvertedBoolConverter}}">

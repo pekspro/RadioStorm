@@ -22,6 +22,7 @@
             <Color x:Key="DebugColor">#bbbbbb</Color>
             <Color x:Key="HyperlinkColor">#0063B1</Color>
             <Color x:Key="PanelBackground">#1E1E1E</Color>
+            <Color x:Key="WarningColor">#FF9900</Color>
             <x:Double x:Key="FontSizeHeader">20</x:Double>
             <x:Double x:Key="FontSizeNormal">14</x:Double>
             <x:Double x:Key="FontSizeDetails">12</x:Double>
@@ -32,7 +33,6 @@
             <Color x:Key="SwipeControlBackgroundGeneral">DarkBlue</Color>
             <Color x:Key="SwipeControlBackgroundDownload">DarkGreen</Color>
             <Color x:Key="SwipeControlBackgroundRemove">DarkRed</Color>
-            <Color x:Key="WelcomeLanguageWarningColor">#FF9900</Color>
 
             <OnPlatform x:Key="NormalPageMargin" x:TypeArguments="Thickness" Default="20">
                 <On Platform="WinUI">8</On>

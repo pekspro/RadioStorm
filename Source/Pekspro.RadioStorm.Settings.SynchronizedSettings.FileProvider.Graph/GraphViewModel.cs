@@ -32,7 +32,8 @@ public partial class GraphViewModel : ObservableObject
         GraphHelper = graphHelper;
         MainThreadRunner = mainThreadRunner;
         BootstrapState = bootstrapState;
-        
+        IsTestEnvironment = Secrets.Secrets.IsTestEnvironment;
+
         messenger.Register<ProviderStateChangedEventArgs>(this, (a, b) => { UpdateState(); });
         messenger.Register<FileProvidersInitialized>(this, (a, b) => { UpdateState(); });
         
@@ -58,6 +59,8 @@ public partial class GraphViewModel : ObservableObject
     [ObservableProperty]
     private ProviderState _ProviderState;
 
+    public bool IsTestEnvironment { get; }
+    
     #endregion
 
     #region Commands

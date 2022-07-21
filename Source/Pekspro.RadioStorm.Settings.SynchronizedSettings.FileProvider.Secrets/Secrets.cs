@@ -10,6 +10,9 @@ public static partial class Secrets
     static partial void Initialize();
 
     public static string? GraphClientId { get; private set; }
+
+    public static bool IsTestEnvironment { get; private set; } = true;
+
 }
 
 // To assign secrets, create a file named Secrets-Protected.cs.

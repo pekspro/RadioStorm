@@ -151,7 +151,7 @@
                                     <SwipeItem Text="{x:Static r:Strings.General_AddToPlayList}"
                                                IconImageSource="{StaticResource PlayList}"
                                                Command="{Binding AddToPlayListCommand}"
-                                               BackgroundColor="{StaticResource WelcomeLanguageWarningColor}"
+                                               BackgroundColor="{StaticResource WarningColor}"
                                     />
                                     <SwipeItem Text="{Binding IsListened, Converter={StaticResource BoolToToggleIsListenedConverter}}"
                                                IconImageSource="{StaticResource ToolBarIconIsNotListened}"

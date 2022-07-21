@@ -813,6 +813,9 @@
   <data name="Settings_Synchronize_Description" xml:space="preserve">
     <value>Om du loggar in med ditt Microsoft-konto så synkroniseras dina favoriter och vad du har lyssnat på mellan dina enheter. Detta sparas i mappen Appar på ditt OneDrive-konto.</value>
   </data>
+  <data name="Settings_Synchronize_IsTestEnvironment" xml:space="preserve">
+    <value>OBS! Den här versionen av RadioStorm synkroniserar data mot en testmiljö.</value>
+  </data>
   <data name="Settings_Synchronize_SignedInDetails" xml:space="preserve">
     <value>Inloggad med {0}.</value>
   </data>

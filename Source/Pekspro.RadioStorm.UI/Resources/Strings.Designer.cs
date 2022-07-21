@@ -2149,6 +2149,15 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OBS! Den här versionen av RadioStorm synkroniserar data mot en testmiljö..
+        /// </summary>
+        public static string Settings_Synchronize_IsTestEnvironment {
+            get {
+                return ResourceManager.GetString("Settings_Synchronize_IsTestEnvironment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Inloggad med {0}..
         /// </summary>
         public static string Settings_Synchronize_SignedInDetails {
