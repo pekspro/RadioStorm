@@ -297,16 +297,16 @@ public class Worker : BackgroundService
         //var sharedSettingsManager = ServiceProvider.GetRequiredService<SharedSettingsManager>();
         //sharedSettingsManager.Init(true);
         //await sharedSettingsManager.ReadLocalSettingsAsync();
-        RadioStormSandboxToolExtensions.SetupFakeRoamingFileProviders(ServiceProvider);
+        //RadioStormSandboxToolExtensions.SetupFakeRoamingFileProviders(ServiceProvider);
 
-        var bootstrap = ServiceProvider.GetRequiredService<Bootstrap.Bootstrap>();
-        await bootstrap.SetupAsync(false);
+        //var bootstrap = ServiceProvider.GetRequiredService<Bootstrap.Bootstrap>();
+        //await bootstrap.SetupAsync(false);
 
-        var channelFav = ServiceProvider.GetRequiredService<IChannelFavoriteList>();
-        channelFav.SetFavorite(1, false);
-        channelFav.SetFavorite(1, true);
+        //var channelFav = ServiceProvider.GetRequiredService<IChannelFavoriteList>();
+        //channelFav.SetFavorite(1, false);
+        //channelFav.SetFavorite(1, true);
 
-        return;
+        //return;
 
         //RecentPlayedManager recentPlayedManager = new RecentPlayedManager();
         //recentPlayedManager.Init(true);

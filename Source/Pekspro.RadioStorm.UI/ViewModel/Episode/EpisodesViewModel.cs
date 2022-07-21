@@ -249,6 +249,11 @@ public partial class EpisodesViewModel : ListViewModel<EpisodeModel>, ISearch
     [RelayCommand(CanExecute = nameof(CanAutoCreatePlayList))]
     public void AutoCreatePlayList()
     {
+        if (Items == null)
+        {
+            return;
+        }
+        
         List<PlayListItem> playListItems = new List<PlayListItem>();
 
         foreach (var episode in Items.Where(a => !a.IsListened && a.HasAudio))

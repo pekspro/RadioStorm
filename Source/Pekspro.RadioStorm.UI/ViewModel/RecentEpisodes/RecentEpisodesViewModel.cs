@@ -27,6 +27,7 @@ public partial class RecentEpisodesViewModel : ListViewModel<EpisodeModel>
         DateTimeProvider = null!;
         DownloadState = DownloadStates.Done;
 
+        Items = new ObservableCollection<EpisodeModel>();
         Items.Add(EpisodeModel.CreateWithSampleData(0));
         Items.Add(EpisodeModel.CreateWithSampleData(1));
         Items.Add(EpisodeModel.CreateWithSampleData(2));
