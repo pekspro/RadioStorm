@@ -78,20 +78,28 @@ public static class MauiProgram
         SQLitePCL.Batteries_V2.Init();
         var app = builder.Build();
 
-
-        //var bootstrap = app.Services.GetRequiredService<Bootstrap.Bootstrap>();
-        //// await bootstrap.Setup();
-        //_ = bootstrap.Setup();
-
+        Task.Run(async () =>
+        {
+            //await Task.Delay(2000);
+            await SetupAsync(app.Services);
+            //var bootstrap = app.Services.GetRequiredService<Bootstrap.Bootstrap>();
+            //await bootstrap.SetupAsync();
+        }).Wait();
+        
         return app;
     }
 
-    public static async Task SetupAsync()
+    public static Task SetupAsync()
     {
-        var bootstrap = Services.ServiceProvider.Current.GetRequiredService<Bootstrap.Bootstrap>();
+        return SetupAsync(Services.ServiceProvider.Current);
+    }
+
+    public static async Task SetupAsync(IServiceProvider serviceProvider)
+    {
+        var bootstrap = serviceProvider.GetRequiredService<Bootstrap.Bootstrap>();
         await bootstrap.SetupAsync();
 
-        var fileProvidersHelper = Services.ServiceProvider.Current.GetRequiredService<IFileProvidersManager>();
+        var fileProvidersHelper = serviceProvider.GetRequiredService<IFileProvidersManager>();
         fileProvidersHelper.InitWithDelay();
     }
 }
