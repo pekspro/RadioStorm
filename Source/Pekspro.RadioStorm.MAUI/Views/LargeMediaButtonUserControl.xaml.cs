@@ -64,17 +64,30 @@ public partial class LargeMediaButtonUserControl : ContentView
         if (owner.AudioMediaState == MediaState.CanPlay)
         {
             s = "\u25B6";
+
+            owner.PauseRectangleLeft.IsVisible = false;
+            owner.PauseRectangleRight.IsVisible = false;
+            owner.PlayTriangle.IsVisible = true;
         }
         else if (owner.AudioMediaState == MediaState.CanPause)
         {
             s = "\u23F8";
+
+            owner.PauseRectangleLeft.IsVisible = true;
+            owner.PauseRectangleRight.IsVisible = true;
+            owner.PlayTriangle.IsVisible = false;
+
         }
         else
         {
+            owner.PauseRectangleLeft.IsVisible = false;
+            owner.PauseRectangleRight.IsVisible = false;
+            owner.PlayTriangle.IsVisible = false;
+
             s = owner.AudioMediaState.ToString();
         }
 
-        owner.TheButton.Text = s;
+        // owner.TheButton.Text = s;
         owner.TheButton.IsEnabled = (owner.AudioMediaState != MediaState.Disabled);
     }
 

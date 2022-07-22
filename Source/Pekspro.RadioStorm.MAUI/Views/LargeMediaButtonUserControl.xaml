@@ -55,13 +55,40 @@
                            VerticalTextAlignment="Center"
                            FontFamily="Segoe UI Symbol" />-->
 
+        <Rectangle Fill="#88FFFFFF"
+                   WidthRequest="5"
+                   HeightRequest="19"
+                   StrokeThickness="0"
+                   Margin="-10,0,0,0"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   x:Name="PauseRectangleLeft"
+                           />
+
+        <Rectangle Fill="#88FFFFFF"
+                   WidthRequest="5"
+                   HeightRequest="19"
+                   StrokeThickness="0"
+                   Margin="10,0,0,0"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   x:Name="PauseRectangleRight"
+                           />
+
+        <Polygon Points="0,0 0,19 18,10"
+                 Fill="#88FFFFFF"
+                 HorizontalOptions="Center"
+                 VerticalOptions="Center"
+                 x:Name="PlayTriangle"
+                     />
+
         <Button x:Name="TheButton"
                 BackgroundColor="Transparent"
                 TextColor="White"
                 MaximumHeightRequest="100"
                 MaximumWidthRequest="100"
                 Opacity="0.9"
-                Text="!" />
+                />
 
         <!--<Label x:Name="TextNotAvailible"
                            Opacity="0"
