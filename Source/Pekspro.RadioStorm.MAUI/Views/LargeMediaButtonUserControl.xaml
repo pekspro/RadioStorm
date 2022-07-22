@@ -17,11 +17,7 @@
                                 Property="Opacity" 
                                 Value="1" />
 
-                        <Setter TargetName="PauseRectangleRight"
-                                Property="Opacity" 
-                                Value="1" />
-
-                        <Setter TargetName="PauseRectangleLeft"
+                        <Setter TargetName="PauseSymbol"
                                 Property="Opacity" 
                                 Value="1" />
                     </VisualState.Setters>
@@ -36,11 +32,7 @@
                                 Property="Opacity" 
                                 Value="0.7" />
 
-                        <Setter TargetName="PauseRectangleRight"
-                                Property="Opacity" 
-                                Value="0.7" />
-
-                        <Setter TargetName="PauseRectangleLeft"
+                        <Setter TargetName="PauseSymbol"
                                 Property="Opacity" 
                                 Value="0.7" />
                     </VisualState.Setters>
@@ -54,11 +46,7 @@
                                 Property="IsVisible" 
                                 Value="True" />
 
-                        <Setter TargetName="PauseRectangleRight"
-                                Property="IsVisible" 
-                                Value="False" />
-
-                        <Setter TargetName="PauseRectangleLeft"
+                        <Setter TargetName="PauseSymbol"
                                 Property="IsVisible" 
                                 Value="False" />
 
@@ -73,11 +61,7 @@
                                 Property="IsVisible" 
                                 Value="False" />
 
-                        <Setter TargetName="PauseRectangleRight"
-                                Property="IsVisible" 
-                                Value="True" />
-
-                        <Setter TargetName="PauseRectangleLeft"
+                        <Setter TargetName="PauseSymbol"
                                 Property="IsVisible" 
                                 Value="True" />
 
@@ -96,11 +80,7 @@
                                 Property="IsVisible" 
                                 Value="False" />
 
-                        <Setter TargetName="PauseRectangleRight"
-                                Property="IsVisible" 
-                                Value="False" />
-
-                        <Setter TargetName="PauseRectangleLeft"
+                        <Setter TargetName="PauseSymbol"
                                 Property="IsVisible" 
                                 Value="False" />
 
@@ -130,55 +110,21 @@
                          Fill="Black"
                          Opacity="0.4"/>
 
-        <!--<Ellipse         HorizontalOptions="Center"
-                         VerticalOptions="Center"
-                         WidthRequest="50"
-                         HeightRequest="50"
-                         Fill="Yellow"
-                         Stroke="Purple" 
-                         StrokeThickness="4"
-                         Opacity="0.4"/>-->
-
-        <!--<Label x:Name="TextPlay"
-                           Opacity="0"
-                           TextColor="White"
-                           Text="&#xE102;"
-                           FontSize="36"
-                           HorizontalTextAlignment="Center"
-                           VerticalTextAlignment="Center"
-                           FontFamily="Segoe UI Symbol" />
-
-        <Label x:Name="TextPause"
-                           Opacity="0"
-                           Text="&#xE103;"
-                           TextColor="White"
-                           FontSize="36"
-                           HorizontalTextAlignment="Center"
-                           VerticalTextAlignment="Center"
-                           FontFamily="Segoe UI Symbol" />-->
-
-        <Rectangle Fill="#FFFFFF"
-                   Opacity="0.7"
-                   WidthRequest="5"
-                   HeightRequest="19"
-                   StrokeThickness="0"
-                   Margin="-10,0,0,0"
-                   HorizontalOptions="Center"
-                   VerticalOptions="Center"
-                   x:Name="PauseRectangleLeft" />
-
-        <Rectangle Fill="#FFFFFF"
-                   Opacity="0.7"
-                   WidthRequest="5"
-                   HeightRequest="19"
-                   StrokeThickness="0"
-                   Margin="10,0,0,0"
-                   HorizontalOptions="Center"
-                   VerticalOptions="Center"
-                   x:Name="PauseRectangleRight" />
+        <Path  Data="M 0,0 L 10,0 10,28 0,28 Z  M 18,0 L 28,0 28,28 18,28 Z"
+                 Fill="#FFFFFF"
+                 Aspect="Uniform"
+                 WidthRequest="28"
+                 HeightRequest="28"
+                 Opacity="0.7"
+                 HorizontalOptions="Center"
+                 VerticalOptions="Center"
+                 x:Name="PauseSymbol" />
 
         <Polygon Points="0,0 0,19 18,10"
                  Fill="#FFFFFF"
+                 Aspect="Uniform"
+                 WidthRequest="28"
+                 HeightRequest="28"
                  Opacity="0.7"
                  HorizontalOptions="Center"
                  VerticalOptions="Center"
@@ -188,8 +134,8 @@
                Source="{StaticResource LargeImageButtonDisabledImage}"
                Opacity="0.7"
                IsVisible="False"
-               HeightRequest="24"
-               WidthRequest="24"
+               HeightRequest="40"
+               WidthRequest="40"
                />
 
         <Button x:Name="TheButton"
