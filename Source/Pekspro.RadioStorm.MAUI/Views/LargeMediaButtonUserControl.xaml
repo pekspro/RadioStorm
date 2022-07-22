@@ -4,7 +4,93 @@
             x:Class="Pekspro.RadioStorm.MAUI.Views.LargeMediaButtonUserControl"
             >
 
-    <Grid>
+    <Grid x:Name="GridLayout">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup Name="FocusState">
+                <VisualState Name="InFocus">
+                    <VisualState.Setters>
+                        <Setter TargetName="ButtonBackground"
+                                Property="Ellipse.Fill" 
+                                Value="#333333" />
+                        
+                        <Setter TargetName="ButtonBackground"
+                                Property="Ellipse.Stroke" 
+                                Value="Black" />
+
+                        <Setter TargetName="ButtonBackground"
+                                Property="Ellipse.StrokeThickness" 
+                                Value="4" />
+                        
+                        <Setter TargetName="PlayTriangle"
+                                Property="Opacity" 
+                                Value="1" />
+
+                        <Setter TargetName="PauseRectangleRight"
+                                Property="Opacity" 
+                                Value="1" />
+
+                        <Setter TargetName="PauseRectangleLeft"
+                                Property="Opacity" 
+                                Value="1" />
+
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState Name="NotFocus">
+                    <VisualState.Setters>
+                        <Setter TargetName="ButtonBackground"
+                                Property="Ellipse.Fill" 
+                                Value="Black" />
+
+                        <Setter TargetName="ButtonBackground"
+                                Property="Ellipse.Stroke" 
+                                Value="Black" />
+
+                        <Setter TargetName="ButtonBackground"
+                                Property="Ellipse.StrokeThickness" 
+                                Value="4" />
+
+                        <Setter TargetName="PlayTriangle"
+                                Property="Opacity" 
+                                Value="0.7" />
+
+                        <Setter TargetName="PauseRectangleRight"
+                                Property="Opacity" 
+                                Value="0.7" />
+
+                        <Setter TargetName="PauseRectangleLeft"
+                                Property="Opacity" 
+                                Value="0.7" />
+                        
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState Name="Disabled">
+                    <VisualState.Setters>
+                        <Setter TargetName="ButtonBackground"
+                                Property="Ellipse.Fill" 
+                                Value="Black" />
+
+                        <Setter TargetName="PlayTriangle"
+                                Property="IsVisible" 
+                                Value="False" />
+
+                        <Setter TargetName="PauseRectangleRight"
+                                Property="IsVisible" 
+                                Value="False" />
+
+                        <Setter TargetName="PauseRectangleLeft"
+                                Property="IsVisible" 
+                                Value="False" />
+
+                        <Setter TargetName="DisabledButton"
+                                Property="IsVisible" 
+                                Value="True" />
+
+                    </VisualState.Setters>
+                </VisualState>
+
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
         <Image x:Name="MediaImage"
                WidthRequest="4"
                HeightRequest="4"
@@ -20,22 +106,16 @@
                          WidthRequest="60"
                          HeightRequest="60"
                          Fill="Black"
-                         Opacity="0.4">
-            <VisualStateManager.VisualStateGroups>
-                <VisualStateGroup Name="FocusState">
-                    <VisualState Name="InFocus">
-                        <VisualState.Setters>
-                            <Setter Property="Fill" Value="#333333" />
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState Name="NotFocus">
-                        <VisualState.Setters>
-                            <Setter Property="Fill" Value="Black" />
-                        </VisualState.Setters>
-                    </VisualState>
-                </VisualStateGroup>
-            </VisualStateManager.VisualStateGroups>
-        </Ellipse>
+                         Opacity="0.4"/>
+
+        <!--<Ellipse         HorizontalOptions="Center"
+                         VerticalOptions="Center"
+                         WidthRequest="50"
+                         HeightRequest="50"
+                         Fill="Yellow"
+                         Stroke="Purple" 
+                         StrokeThickness="4"
+                         Opacity="0.4"/>-->
 
         <!--<Label x:Name="TextPlay"
                            Opacity="0"
@@ -55,32 +135,39 @@
                            VerticalTextAlignment="Center"
                            FontFamily="Segoe UI Symbol" />-->
 
-        <Rectangle Fill="#88FFFFFF"
+        <Rectangle Fill="#FFFFFF"
+                   Opacity="0.7"
                    WidthRequest="5"
                    HeightRequest="19"
                    StrokeThickness="0"
                    Margin="-10,0,0,0"
                    HorizontalOptions="Center"
                    VerticalOptions="Center"
-                   x:Name="PauseRectangleLeft"
-                           />
+                   x:Name="PauseRectangleLeft" />
 
-        <Rectangle Fill="#88FFFFFF"
+        <Rectangle Fill="#FFFFFF"
+                   Opacity="0.7"
                    WidthRequest="5"
                    HeightRequest="19"
                    StrokeThickness="0"
                    Margin="10,0,0,0"
                    HorizontalOptions="Center"
                    VerticalOptions="Center"
-                   x:Name="PauseRectangleRight"
-                           />
+                   x:Name="PauseRectangleRight" />
 
         <Polygon Points="0,0 0,19 18,10"
-                 Fill="#88FFFFFF"
+                 Fill="#FFFFFF"
+                 Opacity="0.7"
                  HorizontalOptions="Center"
                  VerticalOptions="Center"
-                 x:Name="PlayTriangle"
-                     />
+                 x:Name="PlayTriangle" />
+
+        <Image x:Name="DisabledButton"
+               Source="{StaticResource LargeImageButtonDisabledImage}"
+               IsVisible="False"
+               HeightRequest="24"
+               WidthRequest="24"
+               />
 
         <Button x:Name="TheButton"
                 BackgroundColor="Transparent"
@@ -89,6 +176,7 @@
                 MaximumWidthRequest="100"
                 Opacity="0.9"
                 />
+
 
         <!--<Label x:Name="TextNotAvailible"
                            Opacity="0"

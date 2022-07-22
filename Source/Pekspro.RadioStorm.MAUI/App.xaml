@@ -262,6 +262,13 @@
                 Size="16"/>
 
 
+            <FontImageSource
+                x:Key="LargeImageButtonDisabledImage"
+                FontFamily="FontAwesome"
+                Glyph="{x:Static style:IconFont.Ban}"
+                Color="White"
+                Size="60"/>
+
 
             <converters:StringToColorConverter x:Key="StringToColorConverter" FallbackColor="{StaticResource PrimaryColor}" />
             <converters:StringToColorConverter x:Key="StringToHalfTransparentColorConverter" FallbackColor="{StaticResource PrimaryColor}" Alpha="{OnPlatform 0.1, Android=0.3}"/>

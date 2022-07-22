@@ -9,8 +9,8 @@ public partial class LargeMediaButtonUserControl : ContentView
     {
         InitializeComponent();
 
-        TheButton.Pressed += (a, b) => VisualStateManager.GoToState(ButtonBackground, "InFocus");
-        TheButton.Released += (a, b) => VisualStateManager.GoToState(ButtonBackground, "NotFocus");
+        TheButton.Pressed += (a, b) => VisualStateManager.GoToState(GridLayout, "InFocus");
+        TheButton.Released += (a, b) => VisualStateManager.GoToState(GridLayout, "NotFocus");
 
         // Set image size when WidthReqest is changing
         this.PropertyChanged += (a, b) =>
@@ -83,6 +83,8 @@ public partial class LargeMediaButtonUserControl : ContentView
             owner.PauseRectangleLeft.IsVisible = false;
             owner.PauseRectangleRight.IsVisible = false;
             owner.PlayTriangle.IsVisible = false;
+
+            VisualStateManager.GoToState(owner.GridLayout, "NotFocus");
 
             s = owner.AudioMediaState.ToString();
         }
@@ -263,7 +265,7 @@ public partial class LargeMediaButtonUserControl : ContentView
         LargeMediaButtonUserControl owner = (LargeMediaButtonUserControl) bindable;
 
         //owner.ButtonBackground.Fill = (Color)newValue;
-        VisualStateManager.GetVisualStateGroups(owner.ButtonBackground)[0].States[0].Setters[0].Value = newValue;
+        VisualStateManager.GetVisualStateGroups(owner.GridLayout)[0].States[0].Setters[0].Value = newValue;
 
         //owner.PauseMouseOverBackgroundColorAnimation.To =
         //    owner.PlayMouseOverBackgroundColorAnimation.To = (Color) newValue;
