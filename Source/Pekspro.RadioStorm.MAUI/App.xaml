@@ -71,9 +71,9 @@
                 <Setter Property="Margin" Value="4,0,0,0" />
                 <Setter Property="HeightRequest" Value="{StaticResource ListItemImageSize}" />
                 <Setter Property="WidthRequest" Value="{StaticResource ListItemImageSize}" />
-                <Setter Property="ButtonStrokeColor" Value="#80000000" />
+                <Setter Property="ButtonStrokeColor" Value="#000000" />
                 <Setter Property="ButtonMouseOverStrokeFill" Value="Black" />
-                <Setter Property="ButtonStrokeWidth" Value="2" />
+                <Setter Property="ButtonStrokeWidth" Value="4" />
                 <Setter Property="ButtonBackgroundDiameter" Value="40" />
             </Style>
 

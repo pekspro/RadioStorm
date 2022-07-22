@@ -51,51 +51,24 @@ public partial class LargeMediaButtonUserControl : ContentView
 
     // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
     public static readonly BindableProperty AudioMediaStateProperty =
-        BindableProperty.Create(nameof(AudioMediaState), typeof(MediaState), typeof(LargeMediaButtonUserControl), MediaState.Disabled, BindingMode.OneWay, null, OnAudioMediaStateChanged);
+        BindableProperty.Create(nameof(AudioMediaState), typeof(MediaState?), typeof(LargeMediaButtonUserControl), null, BindingMode.OneWay, null, OnAudioMediaStateChanged);
 
     private static void OnAudioMediaStateChanged(BindableObject bindable, object oldValue, object newValue)
     {
         LargeMediaButtonUserControl owner = (LargeMediaButtonUserControl)bindable;
 
-        owner.UpdateState();
-
-        string s;
-
-        if (owner.AudioMediaState == MediaState.CanPlay)
+        var state = owner.AudioMediaState;
+        if (state is null)
         {
-            s = "\u25B6";
-
-            owner.PauseRectangleLeft.IsVisible = false;
-            owner.PauseRectangleRight.IsVisible = false;
-            owner.PlayTriangle.IsVisible = true;
+            return;
         }
-        else if (owner.AudioMediaState == MediaState.CanPause)
-        {
-            s = "\u23F8";
-
-            owner.PauseRectangleLeft.IsVisible = true;
-            owner.PauseRectangleRight.IsVisible = true;
-            owner.PlayTriangle.IsVisible = false;
-
-        }
-        else
-        {
-            owner.PauseRectangleLeft.IsVisible = false;
-            owner.PauseRectangleRight.IsVisible = false;
-            owner.PlayTriangle.IsVisible = false;
-
-            VisualStateManager.GoToState(owner.GridLayout, "NotFocus");
-
-            s = owner.AudioMediaState.ToString();
-        }
-
-        // owner.TheButton.Text = s;
-        owner.TheButton.IsEnabled = (owner.AudioMediaState != MediaState.Disabled);
+        
+        VisualStateManager.GoToState(owner.GridLayout, state.ToString());
     }
 
-    public MediaState AudioMediaState
+    public MediaState? AudioMediaState
     {
-        get { return (MediaState)GetValue(AudioMediaStateProperty); }
+        get { return (MediaState?)GetValue(AudioMediaStateProperty); }
         set { SetValue(AudioMediaStateProperty, value); }
     }
 
@@ -301,49 +274,4 @@ public partial class LargeMediaButtonUserControl : ContentView
     }
 
     #endregion
-
-    private void UpdateState()
-    {
-        //bool shouldHaveGrayscale = false;
-        //if (AudioMediaState == MediaState.CanPause)
-        //{
-        //    if (TheButton.IsPointerOver || CurrentButtonStateName == "Pressed")
-        //    {
-        //        VisualStateManager.GoToState(this, "CanPauseMouseOver", true);
-        //        shouldHaveGrayscale = true;
-        //    }
-        //    else if (UseBrightImageIfPauseble)
-        //        VisualStateManager.GoToState(this, "CanPause", true);
-        //    else
-        //        VisualStateManager.GoToState(this, "CanPauseVisible", true);
-        //}
-        //else if (AudioMediaState == MediaState.CanPlay)
-        //{
-        //    if (TheButton.IsPointerOver || CurrentButtonStateName == "Pressed")
-        //    {
-        //        VisualStateManager.GoToState(this, "CanPlayMouseOver", true);
-        //        shouldHaveGrayscale = true;
-        //    }
-        //    else if (UseBrightImageIfPlayble)
-        //        VisualStateManager.GoToState(this, "CanPause", true);
-        //    else
-        //        VisualStateManager.GoToState(this, "CanPlay", true);
-        //}
-        //else
-        //    VisualStateManager.GoToState(this, "Disabled", true);
-
-        //if (IsInGrayscaleMode != shouldHaveGrayscale)
-        //{
-        //    IsInGrayscaleMode = shouldHaveGrayscale;
-
-        //    if (IsInGrayscaleMode)
-        //    {
-        //        StartToGrayscaleAnimation();
-        //    }
-        //    else
-        //    {
-        //        StartFromGrayscaleAnimation();
-        //    }
-        //}
-    }
 }

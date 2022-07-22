@@ -13,14 +13,6 @@
                                 Property="Ellipse.Fill" 
                                 Value="#333333" />
                         
-                        <Setter TargetName="ButtonBackground"
-                                Property="Ellipse.Stroke" 
-                                Value="Black" />
-
-                        <Setter TargetName="ButtonBackground"
-                                Property="Ellipse.StrokeThickness" 
-                                Value="4" />
-                        
                         <Setter TargetName="PlayTriangle"
                                 Property="Opacity" 
                                 Value="1" />
@@ -32,7 +24,6 @@
                         <Setter TargetName="PauseRectangleLeft"
                                 Property="Opacity" 
                                 Value="1" />
-
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState Name="NotFocus">
@@ -41,14 +32,6 @@
                                 Property="Ellipse.Fill" 
                                 Value="Black" />
 
-                        <Setter TargetName="ButtonBackground"
-                                Property="Ellipse.Stroke" 
-                                Value="Black" />
-
-                        <Setter TargetName="ButtonBackground"
-                                Property="Ellipse.StrokeThickness" 
-                                Value="4" />
-
                         <Setter TargetName="PlayTriangle"
                                 Property="Opacity" 
                                 Value="0.7" />
@@ -60,7 +43,47 @@
                         <Setter TargetName="PauseRectangleLeft"
                                 Property="Opacity" 
                                 Value="0.7" />
-                        
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+
+            <VisualStateGroup Name="MediaState">
+                <VisualState Name="CanPlay">
+                    <VisualState.Setters>
+                        <Setter TargetName="PlayTriangle"
+                                Property="IsVisible" 
+                                Value="True" />
+
+                        <Setter TargetName="PauseRectangleRight"
+                                Property="IsVisible" 
+                                Value="False" />
+
+                        <Setter TargetName="PauseRectangleLeft"
+                                Property="IsVisible" 
+                                Value="False" />
+
+                        <Setter TargetName="DisabledButton"
+                                Property="IsVisible" 
+                                Value="False" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState Name="CanPause">
+                    <VisualState.Setters>
+                        <Setter TargetName="PlayTriangle"
+                                Property="IsVisible" 
+                                Value="False" />
+
+                        <Setter TargetName="PauseRectangleRight"
+                                Property="IsVisible" 
+                                Value="True" />
+
+                        <Setter TargetName="PauseRectangleLeft"
+                                Property="IsVisible" 
+                                Value="True" />
+
+                        <Setter TargetName="DisabledButton"
+                                Property="IsVisible" 
+                                Value="False" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState Name="Disabled">
@@ -84,11 +107,10 @@
                         <Setter TargetName="DisabledButton"
                                 Property="IsVisible" 
                                 Value="True" />
-
                     </VisualState.Setters>
                 </VisualState>
-
             </VisualStateGroup>
+
         </VisualStateManager.VisualStateGroups>
 
         <Image x:Name="MediaImage"
@@ -164,6 +186,7 @@
 
         <Image x:Name="DisabledButton"
                Source="{StaticResource LargeImageButtonDisabledImage}"
+               Opacity="0.7"
                IsVisible="False"
                HeightRequest="24"
                WidthRequest="24"
@@ -174,7 +197,7 @@
                 TextColor="White"
                 MaximumHeightRequest="100"
                 MaximumWidthRequest="100"
-                Opacity="0.9"
+                Opacity="0"
                 />
 
 
