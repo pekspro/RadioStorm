@@ -1,0 +1,118 @@
+name: Build release
+
+on:
+  workflow_dispatch:
+    inputs:
+      productionApiKeys:
+        description: 'Use production API keys'
+        type: boolean
+        default: false
+        required: true
+
+env:
+  SECRETS_FILE: ./Source/Pekspro.RadioStorm.Settings.SynchronizedSettings.FileProvider.Secrets/Secrets-Protected.cs
+
+
+jobs:
+  publish:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: "Sets production API keys"
+      if: github.event.inputs.productionApiKeys == 'true'
+      run: |
+        echo "Set production API keys" 
+        echo "OUTPUT_SUFFIX=production" >> $env:GITHUB_ENV
+        echo "GRAPH_CLIENT_ID=${{ secrets.GRAPH_CLIENT_ID_PRODUCTION }}" >> $env:GITHUB_ENV
+        echo "IS_TEST_ENVIRONMENT=false" >> $env:GITHUB_ENV
+
+    - name: "Sets test API keys"
+      if: github.event.inputs.productionApiKeys != 'true'
+      run: |
+        echo "Set test API keys" 
+        echo "OUTPUT_SUFFIX=test" >> $env:GITHUB_ENV
+        echo "GRAPH_CLIENT_ID=${{ secrets.GRAPH_CLIENT_ID_TEST }}" >> $env:GITHUB_ENV
+        echo "IS_TEST_ENVIRONMENT=true" >> $env:GITHUB_ENV
+
+    - name: "Creating secrets file"
+      run: |
+        echo "namespace Pekspro.RadioStorm.Settings.SynchronizedSettings.FileProvider.Secrets;" >> $env:SECRETS_FILE
+        echo "public static partial class Secrets" >> $env:SECRETS_FILE
+        echo "{" >> $env:SECRETS_FILE
+        echo "    static partial void Initialize()" >> $env:SECRETS_FILE
+        echo "    {" >> $env:SECRETS_FILE
+        echo "        GraphClientId = ""${{ env.GRAPH_CLIENT_ID }}"";" >> $env:SECRETS_FILE
+        echo "        IsTestEnvironment = ${{ env.IS_TEST_ENVIRONMENT }};" >> $env:SECRETS_FILE
+        echo "    }" >> $env:SECRETS_FILE
+        echo "}" >> $env:SECRETS_FILE
+
+    - name: Get current date
+      run: |
+        echo "CURRENT_TIME=$(date +'%Y%m%d_%H%M%S')" >> $env:GITHUB_ENV
+
+    - name: Output settings
+      run: |
+        echo "Suffix: ${{ env.OUTPUT_SUFFIX }}"
+        echo "Is test: ${{ env.IS_TEST_ENVIRONMENT }}"
+        echo "Build setting: ${{ github.event.inputs.productionApiKeys }}"
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.x
+        
+    - name: Install MAUI Workload
+      run: dotnet workload install maui --ignore-failed-sources
+
+    - name: windows-certificate-to-file
+      uses: timheuer/base64-to-file@v1.1
+      id: create_windows_certificate_file
+      with:
+        fileName: radiostorm.pfx
+        encodedString: ${{ secrets.WINDOWS_KEY_FILE }}
+
+    - name: Add Cert to Store
+      run: certutil -user -q -p ${{ secrets.WINDOWS_KEY_PASSWORD }} -importpfx ${{ steps.create_windows_certificate_file.outputs.filePath }} NoRoot
+      
+    - name: Build MAUI for Windows
+      run: dotnet publish ./Source/Pekspro.RadioStorm.MAUI/Pekspro.RadioStorm.MAUI.csproj --framework:net6.0-windows10.0.19041.0 --configuration:Release /p:GenerateAppxPackageOnBuild=true /p:AppxPackageSigningEnabled=true /p:PackageCertificateThumbprint=${{ secrets.WINDOWS_KEY_THUMBPRINT }} --output ./publish
+  
+    - name: Move to root folder
+      run: |
+        mv ./Source/Pekspro.RadioStorm.MAUI/bin/Release/net6.0-windows*/win10*/AppPackages/*/*.msix ./
+        mv ./Source/Pekspro.RadioStorm.MAUI/bin/Release/net6.0-windows*/win10*/AppPackages/*/*.cer ./
+
+    - name: Upload Windows Artifact
+      uses: actions/upload-artifact@v3.1.0
+      with:
+        name: windows-${{ env.OUTPUT_SUFFIX }}-${{ env.CURRENT_TIME }}
+        retention-days: 5
+        path: |
+          ./*.msix
+          ./*.cer
+
+
+    - name: android-key-to-file
+      uses: timheuer/base64-to-file@v1.1
+      id: create_android_key_file
+      with:
+        fileName: androidkeyfile
+        encodedString: ${{ secrets.ANDROID_KEY_FILE }}
+     
+    - name: Build MAUI for Android
+      run: dotnet publish ./Source/Pekspro.RadioStorm.MAUI/Pekspro.RadioStorm.MAUI.csproj --framework:net6.0-android --configuration:Release /p:AndroidSigningKeyStore=${{ steps.create_android_key_file.outputs.filePath }} /p:AndroidSigningKeyAlias=${{ secrets.ANDROID_KEY_ALIAS }} /p:AndroidSigningKeyPass=${{ secrets.ANDROID_KEY_PASSWORD }} /p:AndroidSigningStorePass=${{ secrets.ANDROID_KEY_PASSWORD }}  --output ./Android
+
+    - name: Move to root folder
+      run: |
+         mv ./Android/*.* ./
+
+    - name: Upload a Android Artifact
+      uses: actions/upload-artifact@v3.1.0
+      with:
+        name: android-${{ env.OUTPUT_SUFFIX }}-${{ env.CURRENT_TIME }}
+        retention-days: 5
+        path: |
+          ./*.aab
+          ./*.apk
