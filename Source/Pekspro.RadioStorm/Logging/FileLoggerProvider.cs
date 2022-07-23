@@ -2,9 +2,11 @@
 
 public class FileLoggerProvider : ILoggerProvider
 {
-    public FileStream? FileStream { get; }
-    
-    public IDateTimeProvider DateTimeProvider { get; }
+    private bool disposedValue;
+
+    private FileStream? FileStream { get; set; }
+
+    private IDateTimeProvider DateTimeProvider { get; }
 
     public FileLoggerProvider(IDateTimeProvider dateTimeProvider, FileStream? fileStream)
     {
@@ -24,7 +26,11 @@ public class FileLoggerProvider : ILoggerProvider
         return new FileLogger(this, categoryName, DateTimeProvider);
     }
 
-    public void Dispose() { }
+    public void Close()
+    {
+        FileStream?.Close();
+        FileStream = null;
+    }
 
     internal void Write(byte[] bytes, bool flush)
     {
@@ -38,5 +44,25 @@ public class FileLoggerProvider : ILoggerProvider
                 FileStream?.Flush();
             }
         }
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!disposedValue)
+        {
+            if (disposing)
+            {
+                Close();
+            }
+
+            disposedValue = true;
+        }
+    }
+
+    public void Dispose()
+    {
+        // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 }
