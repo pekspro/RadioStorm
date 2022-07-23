@@ -79,8 +79,7 @@
             Spacing="8"
             IsVisible="{Binding HasFavorites, Converter={StaticResource InvertedBoolConverter}}">
 
-            <Label Text="{x:Static r:Strings.Favorites_Welcome_1}"
-                    />
+            <Label Text="{x:Static r:Strings.Favorites_Welcome_1}" />
 
             <Label Text="{x:Static r:Strings.Favorites_Welcome_2}"
                     />
@@ -91,13 +90,13 @@
                         <Span Text="{x:Static r:Strings.Favorites_Welcome_3a}" />
                         <Span Text="{x:Static r:Strings.Favorites_Welcome_3b}" Style="{StaticResource HyperlinkStyle}">
                             <Span.GestureRecognizers>
-                                <ClickGestureRecognizer x:Name="ButtonWelcomeModeChannels" Clicked="ButtonWelcomeModeChannels_Clicked" />
+                                <TapGestureRecognizer x:Name="ButtonWelcomeModeChannels" Tapped="ButtonWelcomeModeChannels_Tapped" />
                             </Span.GestureRecognizers>
                         </Span>
                         <Span Text="{x:Static r:Strings.Favorites_Welcome_3c}" />
                         <Span Text="{x:Static r:Strings.Favorites_Welcome_3d}" Style="{StaticResource HyperlinkStyle}">
                             <Span.GestureRecognizers>
-                                <ClickGestureRecognizer x:Name="ButtonWelcomeModePrograms" Clicked="ButtonWelcomeModePrograms_Clicked" />
+                                <TapGestureRecognizer x:Name="ButtonWelcomeModePrograms" Tapped="ButtonWelcomeModePrograms_Tapped" />
                             </Span.GestureRecognizers>
                         </Span>
                         <Span Text="{x:Static r:Strings.Favorites_Welcome_3e}" />
@@ -112,7 +111,7 @@
                         <Span Text="{x:Static r:Strings.Favorites_Welcome_4a}" />
                         <Span Text="{x:Static r:Strings.Favorites_Welcome_4b}" Style="{StaticResource HyperlinkStyle}">
                             <Span.GestureRecognizers>
-                                <ClickGestureRecognizer x:Name="ButtonWelcomeModeSettings" Clicked="ButtonWelcomeModeSettings_Clicked" />
+                                <TapGestureRecognizer x:Name="ButtonWelcomeModeSettings" Tapped="ButtonWelcomeModeSettings_Tapped" />
                             </Span.GestureRecognizers>
                         </Span>
                         <Span Text="{x:Static r:Strings.Favorites_Welcome_4c}" />
@@ -128,7 +127,7 @@
                     <FormattedString>
                         <Span Text="{x:Static r:Strings.Favorites_Welcome_6}"  Style="{StaticResource HyperlinkStyle}">
                             <Span.GestureRecognizers>
-                                <ClickGestureRecognizer x:Name="ButtonWelcomeModeFeedback" Clicked="ButtonWelcomeModeFeedback_Clicked" />
+                                <TapGestureRecognizer x:Name="ButtonWelcomeModeFeedback" Command="{Binding EmailCommand}" />
                             </Span.GestureRecognizers>
                         </Span>
                     </FormattedString>

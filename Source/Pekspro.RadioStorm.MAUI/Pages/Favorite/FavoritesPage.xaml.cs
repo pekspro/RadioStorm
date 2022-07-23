@@ -57,23 +57,18 @@ public partial class FavoritesPage : ContentPage
         }
     }
 
-    private async void ButtonWelcomeModeChannels_Clicked(object sender, EventArgs e)
+    private async void ButtonWelcomeModeChannels_Tapped(object sender, EventArgs e)
     {
         await Shell.Current.GoToAsync(nameof(ChannelsPage));
     }
 
-    private async void ButtonWelcomeModePrograms_Clicked(object sender, EventArgs e)
+    private async void ButtonWelcomeModePrograms_Tapped(object sender, EventArgs e)
     {
         await Shell.Current.GoToAsync(nameof(ProgramsPage));
     }
 
-    private async void ButtonWelcomeModeSettings_Clicked(object sender, EventArgs e)
+    private async void ButtonWelcomeModeSettings_Tapped(object sender, EventArgs e)
     {
         await Shell.Current.GoToAsync(nameof(SettingsPage));
-    }
-
-    private void ButtonWelcomeModeFeedback_Clicked(object sender, EventArgs e)
-    {
-
     }
 }
