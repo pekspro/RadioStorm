@@ -25,6 +25,8 @@ public class Bootstrap
     private IBootstrapState BootstrapState { get; }
 
     private ISharedSettingsManager SharedSettingsManager { get; }
+    
+    private ILogFileHelper LogFileHelper { get; }
 
     private StorageLocations StorageLocation { get; }
 
@@ -34,7 +36,7 @@ public class Bootstrap
 
     public Bootstrap
         (
-            ISettingsService settingsService, 
+            ISettingsService settingsService,
             IVersionProvider versionProvider,
             GeneralDatabaseHelper generalDatabaseHelper,
             CacheDatabaseHelper cacheDatabaseHelper,
@@ -44,9 +46,9 @@ public class Bootstrap
             IDownloadSettings downloadSettings,
             ILogger<Bootstrap> logger,
             IBootstrapState bootstrapState,
-            ISharedSettingsManager sharedSettingsManager, 
-            IOptions<StorageLocations> storageLocationOptions
-        )
+            ISharedSettingsManager sharedSettingsManager,
+            IOptions<StorageLocations> storageLocationOptions,
+            ILogFileHelper logFileHelper)
     {
         SettingsService = settingsService;
         VersionProvider = versionProvider;
@@ -60,6 +62,7 @@ public class Bootstrap
         BootstrapState = bootstrapState;
         SharedSettingsManager = sharedSettingsManager;
         StorageLocation = storageLocationOptions.Value;
+        LogFileHelper = logFileHelper;
     }
 
     #endregion
@@ -270,6 +273,11 @@ public class Bootstrap
 
     private void RunDelayedSetup()
     {
+        if (LocalSettings.WriteLogsToFile)
+        {
+            _ = LogFileHelper.RemoveOldLogFilesAsync();
+        }
+
         //
         // var nextTypeToDelete = CacheDatabaseHelper.DeleteObseleteData();
         // Logger.Write("Type to delete from cache database: " + nextTypeToDelete);

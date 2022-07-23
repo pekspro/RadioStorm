@@ -37,7 +37,7 @@ public partial class App : Application
         services.AddRadioStorm(configuration);
         services.AddRadioStormSandboxTools(configuration);
         services.AddRadioStormFileProviders(configuration, true);
-        services.AddLogging(j => j.AddInMemory().AddFile());
+        services.AddLogging(j => j.AddInMemory().AddFileIfEnabled());
         services.AddRadioStormUI(configuration);
 
         services.TryAddTransient<MainWindow>();

@@ -61,10 +61,17 @@ public static class RadioStormToolsExtensions
         return builder.AddProvider(inMemoryProvider);
     }
 
-    public static ILoggingBuilder AddFile(this ILoggingBuilder builder)
+    public static ILoggingBuilder AddFileIfEnabled(this ILoggingBuilder builder)
     {
         // Build service provider
         var serviceProvider = builder.Services.BuildServiceProvider();
+
+        var localSettings = serviceProvider.GetRequiredService<ILocalSettings>();
+
+        if (!localSettings.WriteLogsToFile)
+        {
+            return builder;
+        }
 
         // Create file name
         var logFileName = serviceProvider.GetRequiredService<ILogFileNameCreator>().CreateLogFilName("main");
