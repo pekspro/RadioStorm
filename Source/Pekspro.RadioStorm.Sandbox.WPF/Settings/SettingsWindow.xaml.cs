@@ -2,10 +2,11 @@
 
 public partial class SettingsWindow : Window
 {
-    public SettingsWindow(SettingsViewModel settingsViewModel)
+    public SettingsWindow(SettingsViewModel settingsViewModel, DebugSettingsViewModel debugSettingsViewModel)
     {
         InitializeComponent();
         DataContext = settingsViewModel;
+        DebugSettingsPanel.DataContext = debugSettingsViewModel;
     }
 
     protected SettingsViewModel ViewModel => (SettingsViewModel)DataContext;

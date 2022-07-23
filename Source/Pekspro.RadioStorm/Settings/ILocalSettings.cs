@@ -9,4 +9,5 @@ public interface ILocalSettings
     bool PreferStreamsWithMusic { get; set; }
     bool UseLiveTile { get; set; }
     bool ShowDebugSettings { get; set; }
+    bool WriteLogsToFile { get; set; }
 }

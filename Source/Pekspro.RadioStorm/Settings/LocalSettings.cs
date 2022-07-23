@@ -126,6 +126,20 @@ public sealed class LocalSettings : ILocalSettings
         }
     }
 
+    public bool WriteLogsToFile
+    {
+        get
+        {
+            return SettingsService.GetSafeValue(nameof(WriteLogsToFile), false);
+        }
+        set
+        {
+            SettingsService.SetValue(nameof(WriteLogsToFile), value);
+
+            NotifySettingChanged(nameof(WriteLogsToFile));
+        }
+    }
+
     #endregion
 
     #region Methods

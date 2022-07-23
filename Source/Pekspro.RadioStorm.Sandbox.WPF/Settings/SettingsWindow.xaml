@@ -16,5 +16,13 @@
         <UserControls:DownloadSettingsControl />
         
         <UserControls:GraphControl />
+
+        <StackPanel d:DataContext="{d:DesignInstance settings:DebugSettingsViewModel, IsDesignTimeCreatable=True}"
+                    x:Name="DebugSettingsPanel"
+                    >
+            <CheckBox IsChecked="{Binding ShowDebugSettings}" Content="{x:Static r:Strings.Settings_Debug_EnableDebugSettings}" />
+
+            <CheckBox IsChecked="{Binding Settings.WriteLogsToFile}" Content="{x:Static r:Strings.Settings_Debug_EnableLogToFile}" Visibility="{Binding ShowDebugSettings, Converter={StaticResource BoolToVisibilityConverter}}" />
+        </StackPanel>
     </StackPanel>
 </Window>

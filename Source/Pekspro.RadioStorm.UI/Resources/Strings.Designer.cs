@@ -1942,6 +1942,24 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Aktivera inställningar för felsökning.
+        /// </summary>
+        public static string Settings_Debug_EnableDebugSettings {
+            get {
+                return ResourceManager.GetString("Settings_Debug_EnableDebugSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aktivera loggning (kräver omstart).
+        /// </summary>
+        public static string Settings_Debug_EnableLogToFile {
+            get {
+                return ResourceManager.GetString("Settings_Debug_EnableLogToFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ta automatisk bort nedladdade avsnitt som är spelade efter:.
         /// </summary>
         public static string Settings_Downloads_AutoRemove_Description {
