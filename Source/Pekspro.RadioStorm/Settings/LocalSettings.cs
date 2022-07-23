@@ -112,6 +112,20 @@ public sealed class LocalSettings : ILocalSettings
         }
     }
 
+    public bool ShowDebugSettings
+    {
+        get
+        {
+            return SettingsService.GetSafeValue(nameof(ShowDebugSettings), false);
+        }
+        set
+        {
+            SettingsService.SetValue(nameof(ShowDebugSettings), value);
+
+            NotifySettingChanged(nameof(ShowDebugSettings));
+        }
+    }
+
     #endregion
 
     #region Methods
