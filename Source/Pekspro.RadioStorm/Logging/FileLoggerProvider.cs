@@ -26,13 +26,17 @@ public class FileLoggerProvider : ILoggerProvider
 
     public void Dispose() { }
 
-    internal void Write(byte[] bytes)
+    internal void Write(byte[] bytes, bool flush)
     {
         lock (this)
         {
             // Write to file
             FileStream?.Write(bytes);
-            FileStream?.Flush();
+
+            if (flush)
+            {
+                FileStream?.Flush();
+            }
         }
     }
 }
