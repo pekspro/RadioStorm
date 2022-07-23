@@ -12,7 +12,11 @@
         <VerticalStackLayout Spacing="8">
 
             <VerticalStackLayout Spacing="8" x:DataType="vm:AboutViewModel" x:Name="AboutLayout">
-                <Label Text="{Binding VersionString}" Style="{StaticResource SubtitleTextBlockStyle}" />
+                <Label Text="{Binding VersionString}" Style="{StaticResource SubtitleTextBlockStyle}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="VersionNumberLabel_Tapped" />
+                    </Label.GestureRecognizers>
+                </Label>
                 <Label Text="{x:Static r:Strings.About_Description}" />
                 <Label Text="{x:Static r:Strings.About_Credits_Title}" Style="{StaticResource Subtitle2TextBlockStyle}" />
                 <Label Text="{x:Static r:Strings.About_Credits_Line1}" />
@@ -79,28 +83,29 @@
             
             <views:DownloadSettingsControl />
 
-            <Rectangle Style="{StaticResource Separator}" />
+            <VerticalStackLayout x:Name="DebugSettings" x:DataType="vm:DebugSettingsViewModel" IsVisible="{Binding ShowDebugSettings}" BackgroundColor="DarkRed">
+                <Rectangle Style="{StaticResource Separator}" />
 
-            <Label Text="Debug"
-               Style="{StaticResource SubtitleTextBlockStyle}"
-               />
+                <Label Text="Debug"
+                   Style="{StaticResource SubtitleTextBlockStyle}"
+                   />
 
-            <Grid RowDefinitions="Auto, *" HeightRequest="700">
-                <HorizontalStackLayout Spacing="25" Padding="30,0"  VerticalOptions="Center">   
-                    <Button Text="Read logs" Clicked="OnReadLogFileClicked" HorizontalOptions="Center" />
-                    <Button Text="Clear logs" Clicked="OnClearLogFileClicked" HorizontalOptions="Center" />
-                </HorizontalStackLayout>
+                <Grid RowDefinitions="Auto, *" HeightRequest="700">
+                    <HorizontalStackLayout Spacing="25" Padding="30,0"  VerticalOptions="Center">
+                        <Button Text="Read logs" Clicked="OnReadLogFileClicked" HorizontalOptions="Center" />
+                        <Button Text="Clear logs" Clicked="OnClearLogFileClicked" HorizontalOptions="Center" />
+                    </HorizontalStackLayout>
 
-                <Editor 
-                    x:Name="LogEditorBox" 
-                    HeightRequest="500"
-                    BackgroundColor="DarkBlue"
+                    <Editor 
+                        x:Name="LogEditorBox" 
+                        HeightRequest="500"
+                        BackgroundColor="DarkBlue"
 
-                    Placeholder="No log file" 
-                    Grid.Row="1"
-                    />
-            </Grid>
-
+                        Placeholder="No log file" 
+                        Grid.Row="1"
+                        />
+                </Grid>
+            </VerticalStackLayout>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
