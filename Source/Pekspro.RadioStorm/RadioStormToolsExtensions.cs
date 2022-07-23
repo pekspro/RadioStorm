@@ -51,8 +51,12 @@ public static class RadioStormToolsExtensions
 
     public static ILoggingBuilder AddInMemory(this ILoggingBuilder builder)
     {
-        var logger = new InMemoryLogger(new DateTimeProvider());
-        builder.Services.TryAddSingleton(logger);
-        return builder.AddProvider(new InMemLoggerProvider(logger));
+        // Build service provider
+        var serviceProvider = builder.Services.BuildServiceProvider();
+
+        var inMemoryProvider = new InMemLoggerProvider(serviceProvider.GetRequiredService<IDateTimeProvider>());
+        builder.Services.TryAddSingleton(inMemoryProvider);
+        
+        return builder.AddProvider(inMemoryProvider);
     }
 }

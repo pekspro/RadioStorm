@@ -5,8 +5,7 @@ public partial class LoggingViewModel : DownloadViewModel, IDisposable
     #region Private properties
 
     private IMainThreadTimer Timer;
-    private InMemoryLogger MemoryLogger { get; }
-    private IRefreshTimerHelper RefreshTimeHelper { get; }
+    private InMemLoggerProvider MemoryLoggerProvider { get; }
 
     private LogRecord? LastLogRecord = null;
 
@@ -21,8 +20,7 @@ public partial class LoggingViewModel : DownloadViewModel, IDisposable
         : base(null!, null!)
     {
         Timer = null!;
-        MemoryLogger = null!;
-        RefreshTimeHelper = null!;
+        MemoryLoggerProvider = null!;
         DownloadState = DownloadStates.Done;
 
         int offset = 0;
@@ -33,6 +31,7 @@ public partial class LoggingViewModel : DownloadViewModel, IDisposable
                 (
                     LogLevel: logLevel,
                     Exception: null,
+                    Category: "The cateogory",
                     Message: $"Message with log level type {logLevel.ToString()}",
                     Timestamp: SampleData.SampleTime.AddSeconds(offset)
                 ));
@@ -42,8 +41,7 @@ public partial class LoggingViewModel : DownloadViewModel, IDisposable
     }
 
     public LoggingViewModel(
-        InMemoryLogger memoryLogger,
-        IRefreshTimerHelper refreshTimeHelper,
+        InMemLoggerProvider memoryLoggerProvider,
         IMainThreadTimerFactory mainThreadTimerFactory,
         IMainThreadRunner mainThreadRunner,
         ILogger<LoggingViewModel> logger)
@@ -52,9 +50,7 @@ public partial class LoggingViewModel : DownloadViewModel, IDisposable
         Timer = mainThreadTimerFactory.CreateTimer("Logging refresh");
 
         Timer.SetupCallBack(() => QueueRefresh(new RefreshSettings(FullRefresh: false)));
-        MemoryLogger = memoryLogger;
-
-            RefreshTimeHelper = refreshTimeHelper;
+        MemoryLoggerProvider = memoryLoggerProvider;
     }
 
     #endregion
@@ -72,16 +68,16 @@ public partial class LoggingViewModel : DownloadViewModel, IDisposable
     {
         Timer.Stop();
 
-        if (!MemoryLogger.LogRecords.Any())
+        if (!MemoryLoggerProvider.LogRecords.Any())
         {
             DownloadState = DownloadStates.NoData;
         }
         else
         {
-            if (MemoryLogger.LogRecords.Last() != LastLogRecord)
+            if (MemoryLoggerProvider.LogRecords.Last() != LastLogRecord)
             {
                 int fromPos = 0;
-                var records = MemoryLogger.LogRecords.ToList();
+                var records = MemoryLoggerProvider.LogRecords.ToList();
 
                 if (LastLogRecord is not null)
                 {

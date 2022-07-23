@@ -2,11 +2,21 @@
 
 public class InMemLoggerProvider : ILoggerProvider
 {
-    private readonly InMemoryLogger logger;
+    private readonly List<LogRecord> _LogRecords = new List<LogRecord>();
 
-    public InMemLoggerProvider(InMemoryLogger logger) => this.logger = logger;
+    public InMemLoggerProvider(IDateTimeProvider dateTimeProvider)
+    {
+        DateTimeProvider = dateTimeProvider;
+    }
+    
+    public IEnumerable<LogRecord> LogRecords => _LogRecords.AsReadOnly();
 
-    public ILogger CreateLogger(string categoryName) => logger;
+    public IDateTimeProvider DateTimeProvider { get; }
+
+    public ILogger CreateLogger(string categoryName)
+    {
+        return new InMemoryLogger(DateTimeProvider, _LogRecords, categoryName);
+    }
 
     public void Dispose() { }
 }

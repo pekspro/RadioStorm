@@ -2,36 +2,38 @@
 
 public class InMemoryLogger : ILogger
 {
-    public int MaxLinesCount { get; set; } = 1000;
+    private int MaxLinesCount { get; set; } = 1000;
 
-    public int NumberOfLinesToKeep { get; set; } = 500;
+    private int NumberOfLinesToKeep { get; set; } = 500;
 
-    private readonly List<LogRecord> _LogRecords = new List<LogRecord>();
+    private readonly List<LogRecord> LogRecords = new List<LogRecord>();
 
-    public IEnumerable<LogRecord> LogRecords => _LogRecords.AsReadOnly();
+    private readonly string Category;
 
-    public IDateTimeProvider DateTimeProvider { get; }
+    private IDateTimeProvider DateTimeProvider { get; }
 
     public IDisposable BeginScope<TState>(TState state) => null!;
 
     public bool IsEnabled(LogLevel logLevel) => true;
 
-    public InMemoryLogger(IDateTimeProvider dateTimeProvider)
+    public InMemoryLogger(IDateTimeProvider dateTimeProvider, List<LogRecord> logRecords, string category)
     {
         DateTimeProvider = dateTimeProvider;
+        LogRecords = logRecords;
+        Category = category;
     }
 
     public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
     {
         var message = formatter(state, exception);
 
-        lock (_LogRecords)
+        lock (LogRecords)
         {
-            _LogRecords.Add(new LogRecord(logLevel, exception, message, DateTimeProvider.OffsetNow));
+            LogRecords.Add(new LogRecord(logLevel, exception, Category, message, DateTimeProvider.OffsetNow));
 
-            if (_LogRecords.Count >= MaxLinesCount)
+            if (LogRecords.Count >= MaxLinesCount)
             {
-                _LogRecords.RemoveRange(0, _LogRecords.Count - NumberOfLinesToKeep);
+                LogRecords.RemoveRange(0, LogRecords.Count - NumberOfLinesToKeep);
             }
         }
     }
