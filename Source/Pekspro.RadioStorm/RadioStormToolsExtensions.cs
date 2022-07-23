@@ -30,6 +30,7 @@ public static class RadioStormToolsExtensions
         services.TryAddTransient<ICachePrefetcher, CachePrefetcher>();
         services.TryAddTransient<IAutoDownloadManager, AutoDownloadManager>();
         services.TryAddTransient<IAutoDownloadDeleteManager, AutoDownloadDeleteManager>();
+        services.TryAddTransient<ILogFileHelper, LogFileHelper>();
 
         services.TryAddSingleton<IListenStateManager, ListenStateManager>();
         services.TryAddSingleton<IEpisodesSortOrderManager, EpisodesSortOrderManager>();
@@ -69,7 +70,7 @@ public static class RadioStormToolsExtensions
         var logFileName = serviceProvider.GetRequiredService<ILogFileNameCreator>().CreateLogFilName("main");
 
         // Open file
-        var fileStream = new FileStream(logFileName, FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
+        var fileStream = new FileStream(logFileName, FileMode.Create, FileAccess.Write, FileShare.Read);
 
         // Create FileLoggerProvder
         var fileLogger = new FileLoggerProvider
