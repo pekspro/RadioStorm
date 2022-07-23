@@ -69,7 +69,13 @@ public static class MauiProgram
         builder.Services.AddLogging(a =>
         {
             a.AddDebug()
-                .AddFilter("Pekspro.RadioStorm", LogLevel.Debug);
+             .AddFilter("Pekspro.RadioStorm", LogLevel.Debug)
+             .AddFileIfEnabled();
+        });
+#else
+        builder.Services.AddLogging(a =>
+        {
+            a.AddFileIfEnabled();
         });
 #endif
 
