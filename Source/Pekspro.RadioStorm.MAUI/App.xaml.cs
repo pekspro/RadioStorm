@@ -14,7 +14,9 @@ public partial class App : Application
 
         Routing.RegisterRoute("test", typeof(MainPage));
         Routing.RegisterRoute(nameof(SettingsPage), typeof(SettingsPage));
+        Routing.RegisterRoute(nameof(ChannelsPage), typeof(ChannelsPage));
         Routing.RegisterRoute(nameof(ChannelDetailsPage), typeof(ChannelDetailsPage));
+        Routing.RegisterRoute(nameof(ProgramsPage), typeof(ProgramsPage));
         Routing.RegisterRoute(nameof(ProgramDetailsPage), typeof(ProgramDetailsPage));
         Routing.RegisterRoute(nameof(ProgramSettingsPage), typeof(ProgramSettingsPage));
         Routing.RegisterRoute(nameof(EpisodeDetailsPage), typeof(EpisodeDetailsPage));
