@@ -22,6 +22,7 @@ public static class RadioStormToolsExtensions
         services.TryAddSingleton<IDateTimeProvider, DateTimeProvider>();
         services.TryAddSingleton<IMessenger>(WeakReferenceMessenger.Default);
         services.TryAddSingleton<ILocalSettings, LocalSettings>();
+        services.TryAddSingleton<ILogFileNameCreator, LogFileNameCreator>();
         services.TryAddSingleton<IDownloadSettings, DownloadSettings>();
         services.TryAddSingleton<IBootstrapState, BootstrapState>();
         services.TryAddSingleton<IDownloadManager, DownloadManager>();
