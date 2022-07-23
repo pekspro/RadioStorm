@@ -7,6 +7,5 @@ public interface ILocalSettings
     int LaunchCount { get; set; }
     bool MayWantToReview { get; set; }
     bool PreferStreamsWithMusic { get; set; }
-    bool ShowToastWhenBackgroundDownloadFinished { get; set; }
     bool UseLiveTile { get; set; }
 }

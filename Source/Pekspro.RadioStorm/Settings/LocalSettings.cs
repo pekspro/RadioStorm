@@ -2,8 +2,17 @@
 
 public sealed class LocalSettings : ILocalSettings
 {
-    public ISettingsService SettingsService { get; }
-    public IMessenger Messenger { get; }
+    #region Private properties
+
+    private ISettingsService SettingsService { get; }
+    
+    private IMessenger Messenger { get; }
+    
+    public static int LaunchCountBeforeAskForReview => 20;
+
+    #endregion
+
+    #region Constructor
 
     public LocalSettings(ISettingsService settingsService, IMessenger messenger)
     {
@@ -11,9 +20,9 @@ public sealed class LocalSettings : ILocalSettings
         Messenger = messenger;
     }
 
-    public static int LaunchCountBeforeAskForReview => 20;
+    #endregion
 
-    #region Volume property
+    #region Properties
 
     public int Volume
     {
@@ -21,17 +30,7 @@ public sealed class LocalSettings : ILocalSettings
         {
             int v = SettingsService.GetSafeValue(nameof(Volume), 100);
 
-            if (v < -1)
-            {
-                return -1;
-            }
-
-            if (v > 100)
-            {
-                return 100;
-            }
-
-            return v;
+            return Math.Clamp(v, -1, 100);
         }
         set
         {
@@ -41,27 +40,13 @@ public sealed class LocalSettings : ILocalSettings
         }
     }
 
-    #endregion
-
-    #region AutoRemoveListenedDownloadedFilesDayDelay property
-
     public int AutoRemoveListenedDownloadedFilesDayDelay
     {
         get
         {
             int v = SettingsService.GetSafeValue(nameof(AutoRemoveListenedDownloadedFilesDayDelay), 7);
 
-            if (v < -1)
-            {
-                return -1;
-            }
-
-            if (v > 365)
-            {
-                return 365;
-            }
-
-            return v;
+            return Math.Clamp(v, -1, 365);
         }
         set
         {
@@ -70,28 +55,6 @@ public sealed class LocalSettings : ILocalSettings
             NotifySettingChanged(nameof(AutoRemoveListenedDownloadedFilesDayDelay));
         }
     }
-
-    #endregion
-
-    #region ShowToastWhenBackgroundDownloadFinished property
-
-    public bool ShowToastWhenBackgroundDownloadFinished
-    {
-        get
-        {
-            return SettingsService.GetSafeValue(nameof(ShowToastWhenBackgroundDownloadFinished), true);
-        }
-        set
-        {
-            SettingsService.SetValue(nameof(ShowToastWhenBackgroundDownloadFinished), value);
-
-            NotifySettingChanged(nameof(ShowToastWhenBackgroundDownloadFinished));
-        }
-    }
-
-    #endregion
-
-    #region UseLiveTile property
 
     public bool UseLiveTile
     {
@@ -107,10 +70,6 @@ public sealed class LocalSettings : ILocalSettings
         }
     }
 
-    #endregion
-
-    #region LaunchCount property
-
     public int LaunchCount
     {
         get
@@ -125,10 +84,6 @@ public sealed class LocalSettings : ILocalSettings
         }
     }
 
-    #endregion
-
-    #region MayWantToReview property
-
     public bool MayWantToReview
     {
         get
@@ -142,10 +97,6 @@ public sealed class LocalSettings : ILocalSettings
             NotifySettingChanged(nameof(MayWantToReview));
         }
     }
-
-    #endregion
-
-    #region PreferStreamsWithMusic property
 
     public bool PreferStreamsWithMusic
     {
@@ -163,8 +114,12 @@ public sealed class LocalSettings : ILocalSettings
 
     #endregion
 
+    #region Methods
+
     private void NotifySettingChanged(string settingsName)
     {
         Messenger.Send(new SettingChanged(settingsName));
     }
+
+    #endregion
 }
