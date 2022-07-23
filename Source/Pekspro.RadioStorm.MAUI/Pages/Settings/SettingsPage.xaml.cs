@@ -35,7 +35,7 @@ public partial class SettingsPage : ContentPage
 #endif
     }
 
-    private List<DateTime> TapTimestamps = new List<DateTime>();
+    private readonly List<DateTime> TapTimestamps = new();
 
     private void VersionNumberLabel_Tapped(object sender, EventArgs e)
     {

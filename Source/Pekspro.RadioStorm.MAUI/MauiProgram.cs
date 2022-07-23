@@ -31,7 +31,8 @@ public static class MauiProgram
             (
                 Path.GetDirectoryName(currentApplicationData.LocalFolder.Path),
                 currentApplicationData.LocalFolder.Path,
-                currentApplicationData.LocalCacheFolder.Path
+                currentApplicationData.LocalCacheFolder.Path,
+                currentApplicationData.TemporaryFolder.Path
             ));
 #else
         string baseStoragePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
