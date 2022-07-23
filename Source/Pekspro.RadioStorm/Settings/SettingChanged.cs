@@ -1,3 +1,3 @@
 ﻿namespace Pekspro.RadioStorm.Settings;
 
-public record SettingChanged(string SettingName);
+public record SettingChangedMessage(string SettingName);

@@ -101,7 +101,7 @@ public partial class EpisodeModel : ObservableObject, IComparable<EpisodeModel>
         }
         );
 
-        messenger?.Register<SettingChanged>(this, (r, m) =>
+        messenger?.Register<SettingChangedMessage>(this, (r, m) =>
         {
             if (m.SettingName == nameof(LocalSettings.PreferStreamsWithMusic))
             {

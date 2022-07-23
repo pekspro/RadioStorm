@@ -118,7 +118,7 @@ public sealed class LocalSettings : ILocalSettings
 
     private void NotifySettingChanged(string settingsName)
     {
-        Messenger.Send(new SettingChanged(settingsName));
+        Messenger.Send(new SettingChangedMessage(settingsName));
     }
 
     #endregion
