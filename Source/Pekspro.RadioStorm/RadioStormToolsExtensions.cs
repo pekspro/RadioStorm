@@ -59,4 +59,27 @@ public static class RadioStormToolsExtensions
         
         return builder.AddProvider(inMemoryProvider);
     }
+
+    public static ILoggingBuilder AddFile(this ILoggingBuilder builder)
+    {
+        // Build service provider
+        var serviceProvider = builder.Services.BuildServiceProvider();
+
+        // Create file name
+        var logFileName = serviceProvider.GetRequiredService<ILogFileNameCreator>().CreateLogFilName("main");
+
+        // Open file
+        var fileStream = new FileStream(logFileName, FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
+
+        // Create FileLoggerProvder
+        var fileLogger = new FileLoggerProvider
+            (
+                serviceProvider.GetRequiredService<IDateTimeProvider>(),
+                fileStream
+            );
+
+        builder.Services.TryAddSingleton(fileLogger);
+        
+        return builder.AddProvider(fileLogger);
+    } 
 }
