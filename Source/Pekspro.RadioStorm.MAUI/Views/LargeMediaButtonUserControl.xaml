@@ -116,6 +116,7 @@
                  WidthRequest="28"
                  HeightRequest="28"
                  Opacity="0.7"
+                 IsVisible="False"
                  HorizontalOptions="Center"
                  VerticalOptions="Center"
                  x:Name="PauseSymbol" />
@@ -126,6 +127,7 @@
                  WidthRequest="28"
                  HeightRequest="28"
                  Opacity="0.7"
+                 IsVisible="False"
                  HorizontalOptions="Center"
                  VerticalOptions="Center"
                  x:Name="PlayTriangle" />
