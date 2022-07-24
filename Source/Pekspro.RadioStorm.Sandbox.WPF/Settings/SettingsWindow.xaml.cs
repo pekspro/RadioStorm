@@ -1,4 +1,6 @@
-﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Settings;
+﻿using System.Diagnostics;
+
+namespace Pekspro.RadioStorm.Sandbox.WPF.Settings;
 
 public partial class SettingsWindow : Window
 {
@@ -7,6 +9,11 @@ public partial class SettingsWindow : Window
         InitializeComponent();
         DataContext = settingsViewModel;
         DebugSettingsPanel.DataContext = debugSettingsViewModel;
+
+        debugSettingsViewModel.OnZipFileCreated = (x) =>
+        {
+            Process.Start("explorer.exe", string.Format("/select,\"{0}\"", x));
+        };
     }
 
     protected SettingsViewModel ViewModel => (SettingsViewModel)DataContext;

@@ -9,7 +9,14 @@ public partial class SettingsPage : ContentPage
         BindingContext = viewModel;
         AboutLayout.BindingContext = aboutViewModel;
         DebugSettings.BindingContext = debugSettingsViewModel;
-        
+
+#if WINDOWS
+        debugSettingsViewModel.OnZipFileCreated = (x) =>
+        {
+            Process.Start("explorer.exe", string.Format("/select,\"{0}\"", x));
+        };
+#endif
+
 #if ANDROID
         LogEditorBox.Text = Microsoft.NetConf2021.Maui.Platforms.Android.Services.MaintenanceJobService.GetLog().ReplaceLineEndings();
 #endif

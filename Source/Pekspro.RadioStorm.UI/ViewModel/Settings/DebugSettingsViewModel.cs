@@ -4,8 +4,8 @@ public partial class DebugSettingsViewModel : ObservableObject
 {
     #region Private properties
 
-    public ILocalSettings Settings { get; }
-    
+    private ILogFileHelper LogFileHelper { get; }
+
     #endregion
 
     #region Constructor
@@ -13,16 +13,20 @@ public partial class DebugSettingsViewModel : ObservableObject
     public DebugSettingsViewModel()
     {
         Settings = null!;
+        LogFileHelper = null!;
     }
 
-    public DebugSettingsViewModel(ILocalSettings localSettings)
+    public DebugSettingsViewModel(ILocalSettings localSettings, ILogFileHelper logFileHelper)
     {
         Settings = localSettings;
+        LogFileHelper = logFileHelper;
     }
 
     #endregion
 
     #region Public properties
+    
+    public ILocalSettings Settings { get; }
 
     public bool ShowDebugSettings
     {
@@ -38,6 +42,38 @@ public partial class DebugSettingsViewModel : ObservableObject
                 OnPropertyChanged(nameof(ShowDebugSettings));
             }
         }
+    }
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(CanZipLogFiles))]
+    [NotifyCanExecuteChangedFor(nameof(ZipLogFilesCommand))]
+    private bool _IsZippingLogFiles;
+
+    public bool CanZipLogFiles => !IsZippingLogFiles;
+
+    public Action<string>? OnZipFileCreated { get; set; }
+
+    #endregion
+
+    #region Methods
+
+    [RelayCommand(CanExecute = nameof(CanZipLogFiles))]
+    public async Task ZipLogFiles()
+    {
+        IsZippingLogFiles = true;
+
+        try
+        {
+            string zipFileName = await LogFileHelper.ZipAllLogFilesAsync();
+        
+            OnZipFileCreated?.Invoke(zipFileName);
+        }
+        catch (Exception )
+        {
+
+        }
+
+        IsZippingLogFiles = false;
     }
 
     #endregion

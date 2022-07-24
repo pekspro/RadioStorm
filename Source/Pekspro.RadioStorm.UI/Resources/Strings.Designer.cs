@@ -1942,6 +1942,15 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Samlar ihop logfiler....
+        /// </summary>
+        public static string Settings_Debug_CollectingLogFiles {
+            get {
+                return ResourceManager.GetString("Settings_Debug_CollectingLogFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Aktivera inställningar för felsökning.
         /// </summary>
         public static string Settings_Debug_EnableDebugSettings {
@@ -1956,6 +1965,15 @@ namespace Pekspro.RadioStorm.UI.Resources {
         public static string Settings_Debug_EnableLogToFile {
             get {
                 return ResourceManager.GetString("Settings_Debug_EnableLogToFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skicka loggfiler.
+        /// </summary>
+        public static string Settings_Debug_SendLogFiles {
+            get {
+                return ResourceManager.GetString("Settings_Debug_SendLogFiles", resourceCulture);
             }
         }
         

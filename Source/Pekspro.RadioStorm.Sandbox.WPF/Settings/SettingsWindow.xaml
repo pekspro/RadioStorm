@@ -22,7 +22,22 @@
                     >
             <CheckBox IsChecked="{Binding ShowDebugSettings}" Content="{x:Static r:Strings.Settings_Debug_EnableDebugSettings}" />
 
-            <CheckBox IsChecked="{Binding Settings.WriteLogsToFile}" Content="{x:Static r:Strings.Settings_Debug_EnableLogToFile}" Visibility="{Binding ShowDebugSettings, Converter={StaticResource BoolToVisibilityConverter}}" />
+            <StackPanel Visibility="{Binding ShowDebugSettings, Converter={StaticResource BoolToVisibilityConverter}}">
+                <CheckBox IsChecked="{Binding Settings.WriteLogsToFile}" Content="{x:Static r:Strings.Settings_Debug_EnableLogToFile}" />
+
+                <Button Command="{Binding ZipLogFilesCommand}" Content="{x:Static r:Strings.Settings_Debug_SendLogFiles}" />
+
+                <StackPanel Orientation="Horizontal" Margin="0,8" Visibility="{Binding IsZippingLogFiles, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <ProgressBar 
+                        Width="60"
+                        Height="20"
+                        IsIndeterminate="True"
+                        Margin="0,0,8,0"
+                        />
+
+                    <TextBlock Text="{x:Static r:Strings.Settings_Debug_CollectingLogFiles }" />
+                </StackPanel>
+            </StackPanel>
         </StackPanel>
     </StackPanel>
 </Window>
