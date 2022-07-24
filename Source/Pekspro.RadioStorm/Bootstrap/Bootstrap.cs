@@ -275,7 +275,7 @@ public class Bootstrap
     {
         if (LocalSettings.WriteLogsToFile)
         {
-            _ = LogFileHelper.RemoveOldLogFilesAsync();
+            _ = LogFileHelper.RemoveOldLogFilesAsync(TimeSpan.FromDays(7));
         }
 
         //

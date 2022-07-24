@@ -744,17 +744,29 @@
   <data name="Settings_Cache_Title" xml:space="preserve">
     <value>Cache</value>
   </data>
-  <data name="Settings_Debug_CollectingLogFiles" xml:space="preserve">
-    <value>Samlar ihop logfiler...</value>
-  </data>
   <data name="Settings_Debug_EnableDebugSettings" xml:space="preserve">
     <value>Aktivera inställningar för felsökning</value>
   </data>
-  <data name="Settings_Debug_EnableLogToFile" xml:space="preserve">
+  <data name="Settings_Debug_LogFiles_CollectingLogFiles" xml:space="preserve">
+    <value>Samlar ihop logfiler...</value>
+  </data>
+  <data name="Settings_Debug_LogFiles_EnableLogToFile" xml:space="preserve">
     <value>Aktivera loggning (kräver omstart)</value>
   </data>
-  <data name="Settings_Debug_SendLogFiles" xml:space="preserve">
+  <data name="Settings_Debug_LogFiles_NoFiles" xml:space="preserve">
+    <value>Det finns inga loggfiler.</value>
+  </data>
+  <data name="Settings_Debug_LogFiles_RemoveOldLogFiles" xml:space="preserve">
+    <value>Radera gamla loggfiler</value>
+  </data>
+  <data name="Settings_Debug_LogFiles_SendLogFiles" xml:space="preserve">
     <value>Skicka loggfiler</value>
+  </data>
+  <data name="Settings_Debug_LogFiles_Title" xml:space="preserve">
+    <value>Loggfiler</value>
+  </data>
+  <data name="Settings_Debug_Title" xml:space="preserve">
+    <value>Felsökning</value>
   </data>
   <data name="Settings_Downloads_AutoRemove_Description" xml:space="preserve">
     <value>Ta automatisk bort nedladdade avsnitt som är spelade efter:</value>

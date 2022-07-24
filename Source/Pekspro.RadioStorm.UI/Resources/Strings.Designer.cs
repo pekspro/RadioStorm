@@ -1942,15 +1942,6 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Samlar ihop logfiler....
-        /// </summary>
-        public static string Settings_Debug_CollectingLogFiles {
-            get {
-                return ResourceManager.GetString("Settings_Debug_CollectingLogFiles", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Aktivera inställningar för felsökning.
         /// </summary>
         public static string Settings_Debug_EnableDebugSettings {
@@ -1960,20 +1951,65 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Samlar ihop logfiler....
+        /// </summary>
+        public static string Settings_Debug_LogFiles_CollectingLogFiles {
+            get {
+                return ResourceManager.GetString("Settings_Debug_LogFiles_CollectingLogFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Aktivera loggning (kräver omstart).
         /// </summary>
-        public static string Settings_Debug_EnableLogToFile {
+        public static string Settings_Debug_LogFiles_EnableLogToFile {
             get {
-                return ResourceManager.GetString("Settings_Debug_EnableLogToFile", resourceCulture);
+                return ResourceManager.GetString("Settings_Debug_LogFiles_EnableLogToFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Det finns inga loggfiler..
+        /// </summary>
+        public static string Settings_Debug_LogFiles_NoFiles {
+            get {
+                return ResourceManager.GetString("Settings_Debug_LogFiles_NoFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Radera gamla loggfiler.
+        /// </summary>
+        public static string Settings_Debug_LogFiles_RemoveOldLogFiles {
+            get {
+                return ResourceManager.GetString("Settings_Debug_LogFiles_RemoveOldLogFiles", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Skicka loggfiler.
         /// </summary>
-        public static string Settings_Debug_SendLogFiles {
+        public static string Settings_Debug_LogFiles_SendLogFiles {
             get {
-                return ResourceManager.GetString("Settings_Debug_SendLogFiles", resourceCulture);
+                return ResourceManager.GetString("Settings_Debug_LogFiles_SendLogFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loggfiler.
+        /// </summary>
+        public static string Settings_Debug_LogFiles_Title {
+            get {
+                return ResourceManager.GetString("Settings_Debug_LogFiles_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Felsökning.
+        /// </summary>
+        public static string Settings_Debug_Title {
+            get {
+                return ResourceManager.GetString("Settings_Debug_Title", resourceCulture);
             }
         }
         

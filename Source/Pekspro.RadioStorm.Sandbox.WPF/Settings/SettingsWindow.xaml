@@ -20,12 +20,25 @@
         <StackPanel d:DataContext="{d:DesignInstance settings:DebugSettingsViewModel, IsDesignTimeCreatable=True}"
                     x:Name="DebugSettingsPanel"
                     >
+
+            <Label Content="{x:Static r:Strings.Settings_Debug_Title}" 
+                    />
+
             <CheckBox IsChecked="{Binding ShowDebugSettings}" Content="{x:Static r:Strings.Settings_Debug_EnableDebugSettings}" />
 
             <StackPanel Visibility="{Binding ShowDebugSettings, Converter={StaticResource BoolToVisibilityConverter}}">
-                <CheckBox IsChecked="{Binding Settings.WriteLogsToFile}" Content="{x:Static r:Strings.Settings_Debug_EnableLogToFile}" />
+                <CheckBox IsChecked="{Binding Settings.WriteLogsToFile}" Content="{x:Static r:Strings.Settings_Debug_LogFiles_EnableLogToFile}" />
 
-                <Button Command="{Binding ZipLogFilesCommand}" Content="{x:Static r:Strings.Settings_Debug_SendLogFiles}" />
+                <Label Content="{x:Static r:Strings.Settings_Debug_LogFiles_Title}" 
+                       />
+
+                <Label Content="{x:Static r:Strings.Settings_Debug_LogFiles_NoFiles}" 
+                       Visibility="{Binding HasLogFiles, Converter={StaticResource InvertedBoolToVisibilityConverter}}" />
+
+                <StackPanel Orientation="Horizontal">
+                    <Button Command="{Binding ZipLogFilesCommand}" Content="{x:Static r:Strings.Settings_Debug_LogFiles_SendLogFiles}" />
+                    <Button Command="{Binding RemoveLogFilesCommand}" Content="{x:Static r:Strings.Settings_Debug_LogFiles_RemoveOldLogFiles}" />
+                </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="0,8" Visibility="{Binding IsZippingLogFiles, Converter={StaticResource BoolToVisibilityConverter}}">
                     <ProgressBar 
@@ -35,7 +48,7 @@
                         Margin="0,0,8,0"
                         />
 
-                    <TextBlock Text="{x:Static r:Strings.Settings_Debug_CollectingLogFiles }" />
+                    <TextBlock Text="{x:Static r:Strings.Settings_Debug_LogFiles_CollectingLogFiles }" />
                 </StackPanel>
             </StackPanel>
         </StackPanel>

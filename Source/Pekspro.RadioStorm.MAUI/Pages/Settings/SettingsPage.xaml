@@ -86,37 +86,48 @@
             <VerticalStackLayout x:Name="DebugSettings" x:DataType="vm:DebugSettingsViewModel" IsVisible="{Binding ShowDebugSettings}" BackgroundColor="DarkRed">
                 <Rectangle Style="{StaticResource Separator}" />
 
-                <Label Text="Debug"
-                   Style="{StaticResource SubtitleTextBlockStyle}"
-                   />
+                <Label 
+                    Text="{x:Static r:Strings.Settings_Debug_Title}" 
+                    Style="{StaticResource SubtitleTextBlockStyle}"
+                    />
 
-                <Grid Margin="0,8,0,0">
+                <Label 
+                    Text="{x:Static r:Strings.Settings_Debug_LogFiles_Title}" 
+                    Style="{StaticResource Subtitle2TextBlockStyle}"
+                    />
+
+                <Grid Margin="0,8">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <CheckBox IsChecked="{Binding Settings.WriteLogsToFile}" Margin="0,0,8,0" />
-                    <Label Text="{x:Static r:Strings.Settings_Debug_EnableLogToFile}" Grid.Column="1" />
+                    <Label Text="{x:Static r:Strings.Settings_Debug_LogFiles_EnableLogToFile}" Grid.Column="1" />
                 </Grid>
 
-                <Button 
-                    Command="{Binding ZipLogFilesCommand}" 
-                    Text="{x:Static r:Strings.Settings_Debug_SendLogFiles}" 
-                    HorizontalOptions="Start"
-                    />
+                <Label Text="{x:Static r:Strings.Settings_Debug_LogFiles_NoFiles}" 
+                       IsVisible="{Binding HasLogFiles, Converter={StaticResource InvertedBoolConverter}}" />
 
-                <HorizontalStackLayout Margin="0,8" IsVisible="{Binding IsZippingLogFiles}">
-                    <ActivityIndicator 
-                        WidthRequest="12"
-                        HeightRequest="12"
-                        Margin="0,0,4,0" 
-                        IsRunning="True" />
+                <VerticalStackLayout IsVisible="{Binding HasLogFiles}">
+                    <HorizontalStackLayout Spacing="8">
+                        <Button Command="{Binding ZipLogFilesCommand}" Text="{x:Static r:Strings.Settings_Debug_LogFiles_SendLogFiles}" />
+                        <Button Command="{Binding RemoveLogFilesCommand}" Text="{x:Static r:Strings.Settings_Debug_LogFiles_RemoveOldLogFiles}" />
+                    </HorizontalStackLayout>
 
-                    <Label Text="{x:Static r:Strings.Settings_Debug_CollectingLogFiles}"
-                           VerticalOptions="Center"
-                           />
-                </HorizontalStackLayout>
+                    <HorizontalStackLayout 
+                        Margin="0,8" 
+                        IsVisible="{Binding IsZippingLogFiles}">
+                        <ActivityIndicator 
+                            WidthRequest="12"
+                            HeightRequest="12"
+                            Margin="0,0,4,0" 
+                            IsRunning="True" />
 
+                        <Label Text="{x:Static r:Strings.Settings_Debug_LogFiles_CollectingLogFiles}"
+                            VerticalOptions="Center"
+                            />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
 
                 <Grid RowDefinitions="Auto, *" HeightRequest="700" Margin="0,8,0,0">
                     <HorizontalStackLayout Spacing="25" Padding="30,0"  VerticalOptions="Center">

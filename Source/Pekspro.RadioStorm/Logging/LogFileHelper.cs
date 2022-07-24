@@ -17,19 +17,19 @@ internal class LogFileHelper : ILogFileHelper
         DateTimeProvider = dateTimeProvider;
     }
 
-    public Task RemoveOldLogFilesAsync()
+    public Task RemoveOldLogFilesAsync(TimeSpan minAge)
     {
-        return Task.Run(() =>
+        return Task.Run(async() =>
         {
             try
             {
-                // Remove all log file olders than 7 days.
-                var files = Directory.GetFiles(TemporaryPath, "*.log");
+                var files = await GetLogFileNamesAsync();
+                                
                 foreach (var file in files)
                 {
                     var fileInfo = new FileInfo(file);
 
-                    if (fileInfo.CreationTime < DateTimeProvider.LocalNow.AddDays(-7))
+                    if (fileInfo.LastWriteTime < DateTimeProvider.LocalNow.Add(-minAge))
                     {
                         File.Delete(file);
                     }
@@ -40,6 +40,25 @@ internal class LogFileHelper : ILogFileHelper
 
             }
         });
+    }
+
+    public async Task<List<string>> GetLogFileNamesAsync()
+    {
+        List<string> logFileNames = new List<string>();
+
+        await Task.Run(() =>
+        {
+            try
+            {
+                logFileNames = Directory.GetFiles(TemporaryPath, "*.log").ToList();
+            }
+            catch (Exception)
+            {
+
+            }
+        }).ConfigureAwait(false);
+
+        return logFileNames;
     }
 
     public async Task<string> ZipAllLogFilesAsync()

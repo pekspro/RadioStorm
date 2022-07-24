@@ -2,6 +2,8 @@
 
 public interface ILogFileHelper
 {
-    Task RemoveOldLogFilesAsync();
+    Task<List<string>> GetLogFileNamesAsync();
+    Task RemoveOldLogFilesAsync(TimeSpan minAge);
+
     Task<string> ZipAllLogFilesAsync();
 }

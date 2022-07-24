@@ -17,10 +17,14 @@ public partial class SettingsWindow : Window
     }
 
     protected SettingsViewModel ViewModel => (SettingsViewModel)DataContext;
+    
+    protected DebugSettingsViewModel DebugViewModel => (DebugSettingsViewModel) DebugSettingsPanel.DataContext;
 
     protected override void OnActivated(EventArgs e)
     {
         base.OnActivated(e);
+
+        DebugViewModel.OnNavigatedTo();
 
         // ViewModel.OnNavigatedTo();
     }

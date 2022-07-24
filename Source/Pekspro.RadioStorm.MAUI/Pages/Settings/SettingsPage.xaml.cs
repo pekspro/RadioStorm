@@ -26,20 +26,11 @@ public partial class SettingsPage : ContentPage
 
     protected DebugSettingsViewModel DebugSettingsViewModel => DebugSettings.BindingContext as DebugSettingsViewModel;
 
-    private void OnReadLogFileClicked(object sender, EventArgs e)
+    protected override void OnNavigatedTo(NavigatedToEventArgs args)
     {
-#if ANDROID
-        LogEditorBox.Text = Microsoft.NetConf2021.Maui.Platforms.Android.Services.MaintenanceJobService.GetLog()
-            .ReplaceLineEndings();
-#endif
-    }
+        base.OnNavigatedTo(args);
 
-    private void OnClearLogFileClicked(object sender, EventArgs e)
-    {
-#if ANDROID
-        Microsoft.NetConf2021.Maui.Platforms.Android.Services.MaintenanceJobService.ClearLog();
-        LogEditorBox.Text = string.Empty;
-#endif
+        DebugSettingsViewModel.OnNavigatedTo();
     }
 
     private readonly List<DateTime> TapTimestamps = new();
@@ -55,5 +46,21 @@ public partial class SettingsPage : ContentPage
             TapTimestamps.Clear();
             DebugSettingsViewModel.ShowDebugSettings = !DebugSettingsViewModel.ShowDebugSettings;
         }
+    }
+
+    private void OnReadLogFileClicked(object sender, EventArgs e)
+    {
+#if ANDROID
+        LogEditorBox.Text = Microsoft.NetConf2021.Maui.Platforms.Android.Services.MaintenanceJobService.GetLog()
+            .ReplaceLineEndings();
+#endif
+    }
+
+    private void OnClearLogFileClicked(object sender, EventArgs e)
+    {
+#if ANDROID
+        Microsoft.NetConf2021.Maui.Platforms.Android.Services.MaintenanceJobService.ClearLog();
+        LogEditorBox.Text = string.Empty;
+#endif
     }
 }
