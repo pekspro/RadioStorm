@@ -18,13 +18,13 @@ public partial class SettingsWindow : Window
 
     protected SettingsViewModel ViewModel => (SettingsViewModel)DataContext;
     
-    protected DebugSettingsViewModel DebugViewModel => (DebugSettingsViewModel) DebugSettingsPanel.DataContext;
+    protected DebugSettingsViewModel DebugSettingsViewModel => (DebugSettingsViewModel) DebugSettingsPanel.DataContext;
 
     protected override void OnActivated(EventArgs e)
     {
         base.OnActivated(e);
 
-        DebugViewModel.OnNavigatedTo();
+        DebugSettingsViewModel.OnNavigatedTo();
 
         // ViewModel.OnNavigatedTo();
     }
@@ -34,5 +34,15 @@ public partial class SettingsWindow : Window
         base.OnDeactivated(e);
 
         // ViewModel.OnNavigatedFrom();
+    }
+
+    private void ButtonOpenLogFile_Click(object sender, RoutedEventArgs e)
+    {
+        var logFilePath = DebugSettingsViewModel.SelectedLogFilePath;
+
+        if (logFilePath is not null)
+        {
+            Process.Start("notepad", string.Format("\"{0}\"", logFilePath));
+        }
     }
 }

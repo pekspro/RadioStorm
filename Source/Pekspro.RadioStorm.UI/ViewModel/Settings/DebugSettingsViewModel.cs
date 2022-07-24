@@ -54,9 +54,23 @@ public partial class DebugSettingsViewModel : ObservableObject
     [NotifyPropertyChangedFor(nameof(CanZipLogFiles))]
     [NotifyCanExecuteChangedFor(nameof(RemoveLogFilesCommand))]
     [NotifyCanExecuteChangedFor(nameof(ZipLogFilesCommand))]
-    private List<string> _LogFiles = new List<string>();
+    private List<string> _LogFilesFullPath = new List<string>();
 
-    public bool HasLogFiles => LogFiles.Any();
+    [ObservableProperty]
+    private List<string> _LogFilesNameOnly = new List<string>();
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(SelectedLogFileName))]
+    [NotifyPropertyChangedFor(nameof(SelectedLogFilePath))]
+    private int _SelectedLogFileIndex;
+
+    public string? SelectedLogFilePath =>
+        LogFilesFullPath.Count > SelectedLogFileIndex && SelectedLogFileIndex >= 0 ? LogFilesFullPath[_SelectedLogFileIndex] : null;
+
+    public string? SelectedLogFileName =>
+        LogFilesNameOnly.Count > SelectedLogFileIndex && SelectedLogFileIndex >= 0 ? LogFilesNameOnly[_SelectedLogFileIndex] : null;
+
+    public bool HasLogFiles => LogFilesFullPath.Any();
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(CanZipLogFiles))]
@@ -91,13 +105,20 @@ public partial class DebugSettingsViewModel : ObservableObject
     {
         try
         {
-            var logFiles = await LogFileHelper.GetLogFileNamesAsync();
-            LogFiles = logFiles;
+            List<string> logFiles = await LogFileHelper.GetLogFileNamesAsync() ?? new List<string>();
+
+            LogFilesNameOnly = logFiles.Select(a => Path.GetFileName(a) ?? a).ToList();
+            LogFilesFullPath = logFiles;
+
+            if (LogFilesNameOnly.Any())
+            {
+                SelectedLogFileIndex = LogFilesNameOnly.Count - 1;
+            }
         }
         catch (Exception ex)
         {
             Logger.LogError(ex, "Error refreshing log files");
-            LogFiles = new List<string>();
+            LogFilesFullPath = new List<string>();
         }
     }
 
@@ -125,7 +146,7 @@ public partial class DebugSettingsViewModel : ObservableObject
     {
         IsRemovingLogFiles = true;
 
-        // Write a warning, will trigger a flus.
+        // Write a warning, will trigger a flush.
         Logger.LogWarning("Starts removing log files.");
 
         try

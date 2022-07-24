@@ -1,4 +1,6 @@
-﻿namespace Pekspro.RadioStorm.MAUI.Pages.Settings;
+﻿using Pekspro.RadioStorm.UI.ViewModel.Settings;
+
+namespace Pekspro.RadioStorm.MAUI.Pages.Settings;
 
 public partial class SettingsPage : ContentPage
 {
@@ -62,5 +64,17 @@ public partial class SettingsPage : ContentPage
         Microsoft.NetConf2021.Maui.Platforms.Android.Services.MaintenanceJobService.ClearLog();
         LogEditorBox.Text = string.Empty;
 #endif
+    }
+
+    private void ButtonOpenLogFile_Clicked(object sender, EventArgs e)
+    {
+        var logFilePath = DebugSettingsViewModel.SelectedLogFilePath;
+
+        if (logFilePath is not null)
+        {
+#if WINDOWS
+            Process.Start("notepad", string.Format("\"{0}\"", logFilePath));
+#endif
+        }
     }
 }

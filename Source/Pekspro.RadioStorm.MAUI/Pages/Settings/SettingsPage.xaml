@@ -109,6 +109,37 @@
                        IsVisible="{Binding HasLogFiles, Converter={StaticResource InvertedBoolConverter}}" />
 
                 <VerticalStackLayout IsVisible="{Binding HasLogFiles}">
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        
+                        <Label Text="{x:Static r:Strings.Settings_Debug_LogFiles_Title}" 
+                               Margin="0,7,8,7"
+                               Grid.Column="0" />
+
+                        <Picker 
+                            Grid.Column="1"
+                            ItemsSource="{Binding LogFilesNameOnly}"
+                            SelectedIndex="{Binding SelectedLogFileIndex, Mode=TwoWay}"
+                            Margin="0,0,0,12"
+                            />
+
+                        <Button Text="{x:Static r:Strings.Settings_Debug_LogFiles_Open}"
+                                Margin="8,0,0,0"
+                                x:Name="ButtonOpenLogFile"
+                                Clicked="ButtonOpenLogFile_Clicked"
+                                HorizontalOptions="Start"
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                />
+                    </Grid>
+
                     <HorizontalStackLayout Spacing="8">
                         <Button Command="{Binding ZipLogFilesCommand}" Text="{x:Static r:Strings.Settings_Debug_LogFiles_SendLogFiles}" />
                         <Button Command="{Binding RemoveLogFilesCommand}" Text="{x:Static r:Strings.Settings_Debug_LogFiles_RemoveOldLogFiles}" />

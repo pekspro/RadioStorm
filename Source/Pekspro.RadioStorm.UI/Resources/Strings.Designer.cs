@@ -1978,6 +1978,15 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Öppna.
+        /// </summary>
+        public static string Settings_Debug_LogFiles_Open {
+            get {
+                return ResourceManager.GetString("Settings_Debug_LogFiles_Open", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Radera gamla loggfiler.
         /// </summary>
         public static string Settings_Debug_LogFiles_RemoveOldLogFiles {

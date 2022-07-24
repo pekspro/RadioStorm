@@ -756,6 +756,9 @@
   <data name="Settings_Debug_LogFiles_NoFiles" xml:space="preserve">
     <value>Det finns inga loggfiler.</value>
   </data>
+  <data name="Settings_Debug_LogFiles_Open" xml:space="preserve">
+    <value>Öppna</value>
+  </data>
   <data name="Settings_Debug_LogFiles_RemoveOldLogFiles" xml:space="preserve">
     <value>Radera gamla loggfiler</value>
   </data>

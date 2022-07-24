@@ -8,7 +8,7 @@
         xmlns:settings="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Settings;assembly=Pekspro.RadioStorm.UI"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance settings:SettingsViewModel, IsDesignTimeCreatable=True}"
-        Title="{x:Static r:Strings.Settings_Title}" Height="450" Width="800">
+        Title="{x:Static r:Strings.Settings_Title}" Height="650" Width="800">
     <StackPanel>
         <CheckBox IsChecked="{Binding Settings.PreferStreamsWithMusic}" Content="{x:Static r:Strings.Settings_Play_PreferMusicDescription}" />
         <Button Command="{Binding ClearCacheCommand}" Content="{x:Static r:Strings.Settings_Cache_ButtonClean}" />
@@ -27,10 +27,10 @@
             <CheckBox IsChecked="{Binding ShowDebugSettings}" Content="{x:Static r:Strings.Settings_Debug_EnableDebugSettings}" />
 
             <StackPanel Visibility="{Binding ShowDebugSettings, Converter={StaticResource BoolToVisibilityConverter}}">
-                <CheckBox IsChecked="{Binding Settings.WriteLogsToFile}" Content="{x:Static r:Strings.Settings_Debug_LogFiles_EnableLogToFile}" />
-
                 <Label Content="{x:Static r:Strings.Settings_Debug_LogFiles_Title}" 
                        />
+                
+                <CheckBox IsChecked="{Binding Settings.WriteLogsToFile}" Content="{x:Static r:Strings.Settings_Debug_LogFiles_EnableLogToFile}" />
 
                 <Label Content="{x:Static r:Strings.Settings_Debug_LogFiles_NoFiles}" 
                        Visibility="{Binding HasLogFiles, Converter={StaticResource InvertedBoolToVisibilityConverter}}" />
@@ -40,15 +40,45 @@
                     <Button Command="{Binding RemoveLogFilesCommand}" Content="{x:Static r:Strings.Settings_Debug_LogFiles_RemoveOldLogFiles}" />
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal" Margin="0,8" Visibility="{Binding IsZippingLogFiles, Converter={StaticResource BoolToVisibilityConverter}}">
-                    <ProgressBar 
-                        Width="60"
-                        Height="20"
-                        IsIndeterminate="True"
-                        Margin="0,0,8,0"
-                        />
+                <StackPanel Orientation="Vertical" Visibility="{Binding HasLogFiles, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
 
-                    <TextBlock Text="{x:Static r:Strings.Settings_Debug_LogFiles_CollectingLogFiles }" />
+                        <Label Content="{x:Static r:Strings.Settings_Debug_LogFiles_Title}" 
+                               Grid.Column="0" />
+
+                        <ComboBox 
+                            Grid.Column="1"
+                            ItemsSource="{Binding LogFilesNameOnly}"
+                            SelectedIndex="{Binding SelectedLogFileIndex, Mode=TwoWay}"
+                            />
+
+                        <Button Content="{x:Static r:Strings.Settings_Debug_LogFiles_Open}"
+                                x:Name="ButtonOpenLogFile"
+                                Click="ButtonOpenLogFile_Click"
+                                HorizontalAlignment="Left"
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                />
+                    </Grid>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,8" Visibility="{Binding IsZippingLogFiles, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <ProgressBar 
+                            Width="60"
+                            Height="20"
+                            IsIndeterminate="True"
+                            Margin="0,0,8,0"
+                            />
+
+                        <TextBlock Text="{x:Static r:Strings.Settings_Debug_LogFiles_CollectingLogFiles }" />
+                    </StackPanel>
                 </StackPanel>
             </StackPanel>
         </StackPanel>
