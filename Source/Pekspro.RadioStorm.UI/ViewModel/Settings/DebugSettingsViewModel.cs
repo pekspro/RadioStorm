@@ -123,6 +123,8 @@ public partial class DebugSettingsViewModel : ObservableObject
             if (LogFilesNameOnly.Any())
             {
                 SelectedLogFileIndex = LogFilesNameOnly.Count - 1;
+                // OnPropertyChanged is needed when there are exactly 1 item.
+                OnPropertyChanged(nameof(SelectedLogFileIndex));
             }
         }
         catch (Exception ex)
