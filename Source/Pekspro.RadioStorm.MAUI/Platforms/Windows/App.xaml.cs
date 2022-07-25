@@ -17,6 +17,23 @@ public partial class App : MauiWinUIApplication
     public App()
     {
         this.InitializeComponent();
+
+        UnhandledException += App_UnhandledException;
+    }
+
+    private ILogger _Logger;
+    
+    private ILogger Logger
+    {
+        get
+        {
+            return _Logger ??= Services.GetRequiredService<ILogger<App>>();
+        }       
+    }
+
+    private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
+    {
+        Logger.LogError(e.Exception, "Unhandled exception.");
     }
 
     protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
@@ -25,6 +42,9 @@ public partial class App : MauiWinUIApplication
     {
         base.OnLaunched(args);
 
+        Logger.LogInformation("Application launced.");
+
         await MauiProgram.SetupAsync();
     }
 }
+  

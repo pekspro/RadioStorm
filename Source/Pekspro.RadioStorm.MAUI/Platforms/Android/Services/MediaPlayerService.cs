@@ -86,6 +86,17 @@ public class MediaPlayerService : Service,
         };
     }
 
+
+    private ILogger _Logger;
+
+    private ILogger Logger
+    {
+        get
+        {
+            return _Logger ??= Pekspro.RadioStorm.MAUI.Services.ServiceProvider.Current.GetRequiredService<ILogger<MediaPlayerService>>();
+        }
+    }
+
     protected virtual void OnStatusChanged(EventArgs e)
     {
         StatusChanged?.Invoke(this, e);
@@ -117,6 +128,9 @@ public class MediaPlayerService : Service,
     public override void OnCreate()
     {
         base.OnCreate();
+
+        Logger.LogInformation("OnCreate");
+
         //Find our audio and notificaton managers
         audioManager = (AudioManager)GetSystemService(AudioService);
         wifiManager = (WifiManager)GetSystemService(WifiService);
