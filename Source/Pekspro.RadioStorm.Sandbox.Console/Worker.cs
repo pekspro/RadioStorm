@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Messaging;
+using EFCore.BulkExtensions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -14,7 +16,6 @@ using Pekspro.RadioStorm.CacheDatabase;
 using Pekspro.RadioStorm.CacheDatabase.Models;
 using Pekspro.RadioStorm.DataFetcher;
 using Pekspro.RadioStorm.Options;
-using Pekspro.RadioStorm.Sandbox.Common;
 using Pekspro.RadioStorm.Settings.SynchronizedSettings;
 using Pekspro.RadioStorm.Settings.SynchronizedSettings.Favorite;
 using Pekspro.RadioStorm.Settings.SynchronizedSettings.FileProvider.Graph;
@@ -62,6 +63,7 @@ public class Worker : BackgroundService
             System.Console.WriteLine("4. Fetch channels");
             System.Console.WriteLine("5. Fetch episodes");
             System.Console.WriteLine("6. Prefetch");
+            System.Console.WriteLine("7. Benchmark: Insert");
 
             try
             {
@@ -86,6 +88,9 @@ public class Worker : BackgroundService
                         break;
                     case '6':
                         await PrefetchAsync(stoppingToken);
+                        break;
+                    case '7':
+                        await BenchmarkInsertAsync(stoppingToken);
                         break;
                 }
             }
@@ -270,6 +275,60 @@ public class Worker : BackgroundService
 
         await cachePrefetcher.PrefetchAsync(stoppingToken);
     }
+
+
+    private async Task BenchmarkInsertAsync(CancellationToken stoppingToken)
+    {
+        System.Console.Clear();
+        Log();
+
+        var episodeSongItems = new List<EpisodeSongListItemData>();
+        for (int i = 0; i < 10000; i++)
+        {
+            episodeSongItems.Add(new EpisodeSongListItemData
+            {
+                EpisodeId = i,
+                Artist = "Artist " + i,
+                Title = "Title " + i,
+                AlbumName = "Alb " + i,
+                EpisodeSongListItemDataId = i
+            });
+        };
+
+        System.Console.WriteLine($"Inserting {episodeSongItems.Count} items... Make sure logging is disabled.");
+
+        Stopwatch stopwatchBatch, stopwatchNormal;
+
+        ICacheDatabaseContextFactory factory = ServiceProvider.GetRequiredService<ICacheDatabaseContextFactory>();
+        {
+            using var contextBatch = factory.Create();
+            await contextBatch.EpisodeSongListItemData.BatchDeleteAsync(stoppingToken);
+
+            stopwatchBatch = Stopwatch.StartNew();
+            await contextBatch.BulkInsertAsync(episodeSongItems, cancellationToken: stoppingToken);
+            stopwatchBatch.Stop();
+
+            await contextBatch.EpisodeSongListItemData.BatchDeleteAsync(stoppingToken);
+        }
+
+        {
+            using var contextNormal = factory.Create();
+
+            stopwatchNormal = Stopwatch.StartNew();
+            contextNormal.EpisodeSongListItemData.AddRange(episodeSongItems);
+            await contextNormal.SaveChangesAsync(stoppingToken);
+            stopwatchNormal.Stop();
+
+            await contextNormal.EpisodeSongListItemData.BatchDeleteAsync(stoppingToken);
+        }
+
+        await Task.Delay(1000);
+
+        System.Console.WriteLine($"{stopwatchBatch.ElapsedMilliseconds} ms with BatchInsert.");
+        System.Console.WriteLine($"{stopwatchNormal.ElapsedMilliseconds} ms with normal insert.");
+    }
+
+
 
     private async Task RunUglyCode(CancellationToken stoppingToken)
     {
