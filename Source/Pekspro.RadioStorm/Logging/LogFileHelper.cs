@@ -63,7 +63,7 @@ internal class LogFileHelper : ILogFileHelper
 
     public async Task<string> ZipAllLogFilesAsync()
     {
-        string zipFileName = Path.Combine(TemporaryPath, $"logs.zip");
+        string zipFileName = Path.Combine(TemporaryPath, $"radiostorm-logs.zip");
 
         // TODO: Proper async support in .NET 7?
         // https://github.com/dotnet/runtime/issues/62658

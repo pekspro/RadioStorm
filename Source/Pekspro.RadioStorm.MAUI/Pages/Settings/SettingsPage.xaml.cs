@@ -21,6 +21,16 @@ public partial class SettingsPage : ContentPage
 
 #if ANDROID
         LogEditorBox.Text = Microsoft.NetConf2021.Maui.Platforms.Android.Services.MaintenanceJobService.GetLog().ReplaceLineEndings();
+
+        debugSettingsViewModel.OnZipFileCreated = async (x) =>
+        {
+            await Share.RequestAsync(new ShareFileRequest
+            {
+                Title = Pekspro.RadioStorm.UI.Resources.Strings.Settings_Debug_LogFiles_SendLogFiles,
+                File = new ShareFile(x)
+            });
+        };
+
 #endif
     }
 
