@@ -8,51 +8,13 @@ namespace Microsoft.NetConf2021.Maui.Platforms.Android.Services;
 [Service(Permission = "android.permission.BIND_JOB_SERVICE")]
 public class MaintenanceJobService : JobService
 {
-    private static string _LogFileName = null;
+    private ILogger _Logger;
 
-    private static string LogFileName
+    private ILogger Logger
     {
         get
         {
-            return _LogFileName ??= System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), "maintenance.log");
-        }
-    }
-
-    static void WriteLog(string text)
-    {
-        try
-        {
-            System.Diagnostics.Debug.WriteLine(text);
-            // Write to log with timestamp
-            File.AppendAllText(LogFileName, $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")} {text}\r\n");
-        }
-        catch(Exception )
-        {            
-
-        }
-    }
-
-    public static string GetLog()
-    {
-        try
-        {
-            return File.ReadAllText(LogFileName);
-        }
-        catch (Exception)
-        {
-            return string.Empty;
-        }
-    }
-
-    public static void ClearLog()
-    {
-        try
-        {
-            File.Delete(LogFileName);
-        }
-        catch (Exception)
-        {
-            
+            return _Logger ??= Pekspro.RadioStorm.MAUI.Services.ServiceProvider.Current.GetRequiredService<ILogger<MediaPlayerService>>();
         }
     }
 
@@ -64,7 +26,7 @@ public class MaintenanceJobService : JobService
         {
             try
             {
-                WriteLog("Starting maintenance.");
+                Logger.LogInformation("Starting maintenance.");
 
                 var autoDeleteManager = Pekspro.RadioStorm.MAUI.Services.ServiceProvider.Current.GetRequiredService<IAutoDownloadDeleteManager>();
                 autoDeleteManager.DeleteObseleteDownloads();
@@ -74,11 +36,11 @@ public class MaintenanceJobService : JobService
             }
             catch (Exception e)
             {
-                WriteLog($"Error starting maintenance: ({e.GetType()}) {e.Message}");
+                Logger.LogError(e, $"Error starting maintenance: ({e.GetType()}) {e.Message}");
             }
             finally
             {
-                WriteLog("Maintenance completed.");
+                Logger.LogInformation("Maintenance completed.");
             }
         });
 
@@ -87,7 +49,7 @@ public class MaintenanceJobService : JobService
 
     public override bool OnStopJob(JobParameters jobParams)
     {
-        WriteLog("Stopping maintenance.");
+        Logger.LogInformation("Stopping maintenance.");
 
         CancellationTokenSource.Cancel();
 

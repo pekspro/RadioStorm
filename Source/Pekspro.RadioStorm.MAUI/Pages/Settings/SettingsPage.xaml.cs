@@ -18,8 +18,6 @@ public partial class SettingsPage : ContentPage
 #endif
 
 #if ANDROID
-        LogEditorBox.Text = Microsoft.NetConf2021.Maui.Platforms.Android.Services.MaintenanceJobService.GetLog().ReplaceLineEndings();
-
         debugSettingsViewModel.OnZipFileCreated = async (x) =>
         {
             await Share.RequestAsync(new ShareFileRequest
@@ -28,7 +26,6 @@ public partial class SettingsPage : ContentPage
                 File = new ShareFile(x)
             });
         };
-
 #endif
     }
 

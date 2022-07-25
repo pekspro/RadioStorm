@@ -40,8 +40,6 @@ public class MainActivity : MauiAppCompatActivity
 
         #region Scheduler
 
-        var log = MaintenanceJobService.GetLog();
-
         var jobBuilder = MaintenanceJobService.CreateJobBuilderUsingJobId(this, 152);
 
         jobBuilder

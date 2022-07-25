@@ -86,7 +86,6 @@ public class MediaPlayerService : Service,
         };
     }
 
-
     private ILogger _Logger;
 
     private ILogger Logger

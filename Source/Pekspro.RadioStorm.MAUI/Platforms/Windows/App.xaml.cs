@@ -42,7 +42,7 @@ public partial class App : MauiWinUIApplication
     {
         base.OnLaunched(args);
 
-        Logger.LogInformation("Application launced.");
+        Logger.LogInformation("Application launched.");
 
         await MauiProgram.SetupAsync();
     }
