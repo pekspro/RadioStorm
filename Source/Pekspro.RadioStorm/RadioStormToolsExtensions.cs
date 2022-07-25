@@ -66,25 +66,12 @@ public static class RadioStormToolsExtensions
         // Build service provider
         var serviceProvider = builder.Services.BuildServiceProvider();
 
-        var localSettings = serviceProvider.GetRequiredService<ILocalSettings>();
+        var fileLogger = FileLoggerProvider.CreateIfEnabled(serviceProvider, "main");
 
-        if (!localSettings.WriteLogsToFile)
+        if (fileLogger is null)
         {
             return builder;
         }
-
-        // Create file name
-        var logFileName = serviceProvider.GetRequiredService<ILogFileNameCreator>().CreateLogFilName("main");
-
-        // Open file
-        var fileStream = new FileStream(logFileName, FileMode.Create, FileAccess.Write, FileShare.Read);
-
-        // Create FileLoggerProvder
-        var fileLogger = new FileLoggerProvider
-            (
-                serviceProvider.GetRequiredService<IDateTimeProvider>(),
-                fileStream
-            );
 
         builder.Services.TryAddSingleton(fileLogger);
         

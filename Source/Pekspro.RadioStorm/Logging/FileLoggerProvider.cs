@@ -14,6 +14,31 @@ public class FileLoggerProvider : ILoggerProvider
         FileStream = fileStream;
     }
 
+    public static FileLoggerProvider? CreateIfEnabled(IServiceProvider serviceProvider, string logName)
+    {
+        var localSettings = serviceProvider.GetRequiredService<ILocalSettings>();
+
+        if (!localSettings.WriteLogsToFile)
+        {
+            return null;
+        }
+
+        // Create file name
+        var logFileName = serviceProvider.GetRequiredService<ILogFileNameCreator>().CreateLogFilName(logName);
+
+        // Open file
+        var fileStream = new FileStream(logFileName, FileMode.Create, FileAccess.Write, FileShare.Read);
+
+        // Create FileLoggerProvder
+        var fileLogger = new FileLoggerProvider
+            (
+                serviceProvider.GetRequiredService<IDateTimeProvider>(),
+                fileStream
+            );
+
+        return fileLogger;
+    }
+
     public ILogger CreateLogger(string categoryName)
     {
         // Get string after last .
