@@ -10,13 +10,13 @@ public class StorageLocations
     
     public string TemporaryPath { get; private set; } = null!;
     
-    public void ConfigureFromBasePath(string baseStoragePath)
+    public void ConfigureFromBasePath(string baseStoragePath, string? cachePath = null, string? temporaryPath = null)
     {        
         // Setup paths
         BaseStoragePath = baseStoragePath;
         LocalSettingsPath = Path.Combine(BaseStoragePath, "LocalState");
-        CacheSettingsPath = Path.Combine(BaseStoragePath, "LocalCache");
-        TemporaryPath = Path.Combine(BaseStoragePath, "Temp");
+        CacheSettingsPath = cachePath ?? Path.Combine(BaseStoragePath, "LocalCache");
+        TemporaryPath = temporaryPath ?? Path.Combine(BaseStoragePath, "Temp");
     }
 
     public void Configure(string baseStoragePath, string localSettingsPath, string cacheSettingsPath, string temporaryPath)

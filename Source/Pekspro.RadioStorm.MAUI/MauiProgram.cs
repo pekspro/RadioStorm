@@ -22,7 +22,7 @@ public static class MauiProgram
                 fonts.AddFont("fa-solid-900.ttf", "FontAwesome");
             })
             ;
-        
+
 #if WINDOWS
         var currentApplicationData = global::Windows.Storage.ApplicationData.Current;
 
@@ -34,6 +34,11 @@ public static class MauiProgram
                 currentApplicationData.LocalCacheFolder.Path,
                 currentApplicationData.TemporaryFolder.Path
             ));
+#elif ANDROID
+        string baseStoragePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        string cachePath = MainApplication.Context.CacheDir.AbsolutePath;
+        string temporaryPath = Path.Combine(cachePath, "temp");
+        builder.Services.Configure<StorageLocations>(a => a.ConfigureFromBasePath(baseStoragePath, cachePath, temporaryPath));
 #else
         string baseStoragePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         builder.Services.Configure<StorageLocations>(a => a.ConfigureFromBasePath(baseStoragePath));
