@@ -1,6 +1,4 @@
-﻿using Pekspro.RadioStorm.UI.ViewModel.Settings;
-
-namespace Pekspro.RadioStorm.MAUI.Pages.Settings;
+﻿namespace Pekspro.RadioStorm.MAUI.Pages.Settings;
 
 public partial class SettingsPage : ContentPage
 {
@@ -57,34 +55,6 @@ public partial class SettingsPage : ContentPage
         {
             TapTimestamps.Clear();
             DebugSettingsViewModel.ShowDebugSettings = !DebugSettingsViewModel.ShowDebugSettings;
-        }
-    }
-
-    private void OnReadLogFileClicked(object sender, EventArgs e)
-    {
-#if ANDROID
-        LogEditorBox.Text = Microsoft.NetConf2021.Maui.Platforms.Android.Services.MaintenanceJobService.GetLog()
-            .ReplaceLineEndings();
-#endif
-    }
-
-    private void OnClearLogFileClicked(object sender, EventArgs e)
-    {
-#if ANDROID
-        Microsoft.NetConf2021.Maui.Platforms.Android.Services.MaintenanceJobService.ClearLog();
-        LogEditorBox.Text = string.Empty;
-#endif
-    }
-
-    private void ButtonOpenLogFile_Clicked(object sender, EventArgs e)
-    {
-        var logFilePath = DebugSettingsViewModel.SelectedLogFilePath;
-
-        if (logFilePath is not null)
-        {
-#if WINDOWS
-            Process.Start("notepad", string.Format("\"{0}\"", logFilePath));
-#endif
         }
     }
 }

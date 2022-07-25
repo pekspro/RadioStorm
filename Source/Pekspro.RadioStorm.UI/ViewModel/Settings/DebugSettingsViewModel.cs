@@ -1,4 +1,6 @@
-﻿namespace Pekspro.RadioStorm.UI.ViewModel.Settings;
+﻿using System.IO;
+
+namespace Pekspro.RadioStorm.UI.ViewModel.Settings;
 
 public partial class DebugSettingsViewModel : ObservableObject
 {
@@ -62,13 +64,21 @@ public partial class DebugSettingsViewModel : ObservableObject
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(SelectedLogFileName))]
     [NotifyPropertyChangedFor(nameof(SelectedLogFilePath))]
+    [NotifyPropertyChangedFor(nameof(CanReadSelectedLogFile))]
+    [NotifyCanExecuteChangedFor(nameof(ReadSelectedLogFileCommand))]
+    
     private int _SelectedLogFileIndex;
+    
+    public bool CanReadSelectedLogFile => LogFilesFullPath.Count > SelectedLogFileIndex && SelectedLogFileIndex >= 0;
 
     public string? SelectedLogFilePath =>
         LogFilesFullPath.Count > SelectedLogFileIndex && SelectedLogFileIndex >= 0 ? LogFilesFullPath[_SelectedLogFileIndex] : null;
 
     public string? SelectedLogFileName =>
         LogFilesNameOnly.Count > SelectedLogFileIndex && SelectedLogFileIndex >= 0 ? LogFilesNameOnly[_SelectedLogFileIndex] : null;
+
+    [ObservableProperty]
+    public string? _SelectedLogFileContent;
 
     public bool HasLogFiles => LogFilesFullPath.Any();
 
@@ -163,6 +173,27 @@ public partial class DebugSettingsViewModel : ObservableObject
         IsRemovingLogFiles = false;
 
         RefreshLogFiles();
+    }
+
+    [RelayCommand(CanExecute = nameof(CanReadSelectedLogFile))]
+    public async Task ReadSelectedLogFile()
+    {
+        if (string.IsNullOrWhiteSpace(SelectedLogFilePath))
+        {
+            return;
+        }
+        
+        try
+        {
+            // Open file and allow share with other processes
+            using var stream = File.Open(SelectedLogFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
+            using var reader = new StreamReader(stream);
+            SelectedLogFileContent = (await reader.ReadToEndAsync()).ReplaceLineEndings();
+        }
+        catch(Exception e)
+        {
+            SelectedLogFileContent = e.Message;
+        }
     }
 
     #endregion
