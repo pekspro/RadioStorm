@@ -2,12 +2,9 @@
 
 public class CacheDatabaseContext : DbContext
 {
-    public string FileName;
-
     private ILoggerFactory LoggerFactory;
 
-    //private static readonly LoggerFactory _logger
-    //    = new LoggerFactory(new[] { new ConsoleLoggerProvider((_, __) => true, true) });
+    public string FileName;
 
     public CacheDatabaseContext()
     {

@@ -2,31 +2,27 @@
 
 public class GeneralDatabaseContext : DbContext
 {
+    private ILoggerFactory LoggerFactory { get; }
+
     public string FileName;
 
     public GeneralDatabaseContext()
     {
         // Only used by ef migrations.
         FileName = "@:";
+        LoggerFactory = null!;
     }
 
-    public GeneralDatabaseContext(IOptions<StorageLocations> storageLocationOptions)
+    public GeneralDatabaseContext(IOptions<StorageLocations> storageLocationOptions, ILoggerFactory loggerFactory)
     {
         FileName = Path.Combine(storageLocationOptions.Value.LocalSettingsPath, "generaldb.sqlite");
+        LoggerFactory = loggerFactory;
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        var loggerFactory = LoggerFactory.Create(builder =>
-        {
-            builder /*.AddFilter("Microsoft", LogLevel.Warning)
-					   .AddFilter("System", LogLevel.Warning)
-					   .AddFilter("SampleApp.Program", LogLevel.Debug)*/
-                   .AddConsole();
-        });
-
         optionsBuilder
-            .UseLoggerFactory(loggerFactory)
+            .UseLoggerFactory(LoggerFactory)
             .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
             .UseModel(CompiledModel.GeneralDatabaseContextModel.Instance)
             .UseSqlite($"Data Source={FileName};");

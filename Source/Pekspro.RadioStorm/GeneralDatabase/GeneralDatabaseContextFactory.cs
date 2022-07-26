@@ -2,16 +2,20 @@
 
 public class GeneralDatabaseContextFactory : IGeneralDatabaseContextFactory
 {
-    public GeneralDatabaseContextFactory(IOptions<StorageLocations> storageLocationOptions)
+    public IOptions<StorageLocations> StorageLocationOptions { get; }
+    
+    public ILoggerFactory LoggerFactory { get; }
+
+    public GeneralDatabaseContextFactory(IOptions<StorageLocations> storageLocationOptions, ILoggerFactory loggerFactory)
     {
         StorageLocationOptions = storageLocationOptions;
+        LoggerFactory = loggerFactory;
     }
-
-    public IOptions<StorageLocations> StorageLocationOptions { get; }
 
     public GeneralDatabaseContext Create()
     {
-        var context = new GeneralDatabaseContext(StorageLocationOptions);
+        var context = new GeneralDatabaseContext(StorageLocationOptions, LoggerFactory);
+
         return context;
     }
 }
