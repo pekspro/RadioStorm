@@ -79,7 +79,11 @@ public class MediaPlayerService : Service,
 
         // On Status changed to PLAYING, start raising the Playing event
         StatusChanged += (object sender, EventArgs e) => {
-            if (MediaPlayerState == PlaybackStateCode.Playing)
+            var state = MediaPlayerState;
+
+            Logger.LogInformation($"StatusChanged: {state}");
+
+            if (state == PlaybackStateCode.Playing)
             {
                 PlayingHandler.PostDelayed(PlayingHandlerRunnable, 0);
             }
@@ -128,7 +132,7 @@ public class MediaPlayerService : Service,
     {
         base.OnCreate();
 
-        Logger.LogInformation("OnCreate");
+        Logger.LogInformation($"{nameof(OnCreate)}");
 
         //Find our audio and notificaton managers
         audioManager = (AudioManager)GetSystemService(AudioService);
@@ -144,8 +148,11 @@ public class MediaPlayerService : Service,
     {
         try
         {
+            Logger.LogInformation(nameof(InitMediaSession));
+            
             if (mediaSession is null)
             {
+                Logger.LogInformation($"{nameof(InitMediaSession)} - Creating new session");
                 Intent nIntent = new Intent(ApplicationContext, typeof(MainActivity));
 
                 remoteComponentName = new ComponentName(PackageName, new RemoteControlBroadcastReceiver().ComponentName);
@@ -171,6 +178,8 @@ public class MediaPlayerService : Service,
     /// </summary>
     private void InitializePlayer()
     {
+        Logger.LogInformation(nameof(InitializePlayer));
+        
         mediaPlayer = new MediaPlayer();
 
         mediaPlayer.SetAudioAttributes(
@@ -210,6 +219,8 @@ public class MediaPlayerService : Service,
 
     public bool OnError(MediaPlayer mp, MediaError what, int extra)
     {
+        Logger.LogError($"{nameof(OnError)}: {what} - {extra}");
+
         UpdatePlaybackState(PlaybackStateCode.Error);
         return true;
     }
@@ -310,6 +321,8 @@ public class MediaPlayerService : Service,
     /// </summary>
     public async Task Play()
     {
+        Logger.LogError($"{nameof(Play)}");
+        
         if (mediaPlayer is not null && MediaPlayerState == PlaybackStateCode.Paused)
         {
             //We are simply paused so just start again
@@ -422,6 +435,8 @@ public class MediaPlayerService : Service,
 
     public async Task Seek(int position)
     {
+        Logger.LogInformation($"{nameof(Seek)} - position {position}");
+        
         UpdatePlaybackState(PlaybackStateCode.Buffering);
         
         await Task.Run(() => {
@@ -436,6 +451,8 @@ public class MediaPlayerService : Service,
 
     public async Task PlayNext()
     {
+        Logger.LogInformation($"{nameof(PlayNext)}");
+        
         if (mediaPlayer is not null)
         {
             mediaPlayer.Reset();
@@ -450,6 +467,8 @@ public class MediaPlayerService : Service,
 
     public async Task PlayPrevious()
     {
+        Logger.LogInformation($"{nameof(PlayPrevious)}");
+        
         // Start current track from beginning if it's the first track or the track has played more than 3sec and you hit "playPrevious".
         if (Position > 3000)
         {
@@ -472,6 +491,8 @@ public class MediaPlayerService : Service,
 
     public async Task PlayPause()
     {
+        Logger.LogInformation($"{nameof(PlayPause)}");
+        
         if (mediaPlayer is null || (mediaPlayer is not null && MediaPlayerState == PlaybackStateCode.Paused))
         {
             await Play();
@@ -484,6 +505,8 @@ public class MediaPlayerService : Service,
 
     public async Task Pause()
     {
+        Logger.LogInformation($"{nameof(Pause)}");
+        
         await Task.Run(() => {
             if (mediaPlayer is null)
             {
@@ -501,6 +524,8 @@ public class MediaPlayerService : Service,
 
     public async Task Stop()
     {
+        Logger.LogInformation($"{nameof(Stop)}");
+
         await Task.Run(() => {
             if (mediaPlayer is null)
             {
@@ -724,6 +749,7 @@ public class MediaPlayerService : Service,
     public override void OnDestroy()
     {
         base.OnDestroy();
+        
         if (mediaPlayer is not null)
         {
             mediaPlayer.Release();
@@ -738,6 +764,8 @@ public class MediaPlayerService : Service,
 
     public async void OnAudioFocusChange(AudioFocus focusChange)
     {
+        Logger.LogInformation($"{nameof(OnAudioFocusChange)} - {focusChange}");
+
         switch (focusChange)
         {
             case AudioFocus.Gain:
