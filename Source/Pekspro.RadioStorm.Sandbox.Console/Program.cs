@@ -1,35 +1,35 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Pekspro.RadioStorm;
 using Pekspro.RadioStorm.Audio;
 using Pekspro.RadioStorm.Sandbox.Common;
+using Pekspro.RadioStorm.Sandbox.Console;
 using Pekspro.RadioStorm.Settings.SynchronizedSettings.FileProvider;
 using Pekspro.RadioStorm.UI;
 using Pekspro.RadioStorm.Utilities;
 
-namespace Pekspro.RadioStorm.Sandbox.Console;
+SQLitePCL.Batteries.Init();
 
-public class Program
-{
-    public static void Main(string[] args)
+IHost host = Host.CreateDefaultBuilder(args)
+    .ConfigureServices((ctx, services) =>
     {
-        SQLitePCL.Batteries.Init();
+        services.AddLogging(conf =>
+        {
+            conf.AddConsole();
 
-        CreateHostBuilder(args).Build().Run();
-    }
+        });
+        services.AddHostedService<Worker>();
 
-    public static IHostBuilder CreateHostBuilder(string[] args) =>
-        Host.CreateDefaultBuilder(args)
-            .ConfigureServices((hostContext, services) =>
-            {
-                services.AddHostedService<Worker>();
+        services.TryAddSingleton<IAudioManager, DummyAudioManager>();
+        services.TryAddSingleton<IMainThreadRunner, MainThreadRunner>();
+        services.TryAddSingleton<IVersionProvider, VersionProvider>();
+        services.AddRadioStorm(ctx.Configuration);
+        services.AddRadioStormSandboxTools(ctx.Configuration);
+        services.AddRadioStormFileProviders(ctx.Configuration, true);
+        services.AddRadioStormUI(ctx.Configuration);
+    })
+.Build();
 
-                services.TryAddSingleton<IAudioManager, DummyAudioManager>();
-                services.TryAddSingleton<IMainThreadRunner, MainThreadRunner>();
-                services.TryAddSingleton<IVersionProvider, VersionProvider>();
-                services.AddRadioStorm(hostContext.Configuration);
-                services.AddRadioStormSandboxTools(hostContext.Configuration);
-                services.AddRadioStormFileProviders(hostContext.Configuration, true);
-                services.AddRadioStormUI(hostContext.Configuration);
-            });
-}
+await host.RunAsync();
