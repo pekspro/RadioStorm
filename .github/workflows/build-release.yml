@@ -8,6 +8,14 @@ on:
         type: boolean
         default: false
         required: true
+      buildWindows:
+        description: 'Build Windows version'
+        type: boolean
+        default: true
+      buildAndroid:
+        description: 'Build Android version'
+        type: boolean
+        default: true
 
 env:
   SECRETS_FILE: ./Source/Pekspro.RadioStorm.Settings.SynchronizedSettings.FileProvider.Secrets/Secrets-Protected.cs
@@ -67,6 +75,7 @@ jobs:
       run: dotnet workload install maui --ignore-failed-sources
 
     - name: windows-certificate-to-file
+      if: github.event.inputs.buildWindows == 'true'
       uses: timheuer/base64-to-file@v1.1
       id: create_windows_certificate_file
       with:
@@ -74,17 +83,21 @@ jobs:
         encodedString: ${{ secrets.WINDOWS_KEY_FILE }}
 
     - name: Add Cert to Store
+      if: github.event.inputs.buildWindows == 'true'
       run: certutil -user -q -p ${{ secrets.WINDOWS_KEY_PASSWORD }} -importpfx ${{ steps.create_windows_certificate_file.outputs.filePath }} NoRoot
       
     - name: Build MAUI for Windows
+      if: github.event.inputs.buildWindows == 'true'
       run: dotnet publish ./Source/Pekspro.RadioStorm.MAUI/Pekspro.RadioStorm.MAUI.csproj --framework:net6.0-windows10.0.19041.0 --configuration:Release /p:GenerateAppxPackageOnBuild=true /p:AppxPackageSigningEnabled=true /p:PackageCertificateThumbprint=${{ secrets.WINDOWS_KEY_THUMBPRINT }} --output ./publish
   
     - name: Move to root folder
+      if: github.event.inputs.buildWindows == 'true'
       run: |
         mv ./Source/Pekspro.RadioStorm.MAUI/bin/Release/net6.0-windows*/win10*/AppPackages/*/*.msix ./
         mv ./Source/Pekspro.RadioStorm.MAUI/bin/Release/net6.0-windows*/win10*/AppPackages/*/*.cer ./
 
     - name: Upload Windows Artifact
+      if: github.event.inputs.buildWindows == 'true'
       uses: actions/upload-artifact@v3.1.0
       with:
         name: windows-${{ env.OUTPUT_SUFFIX }}-${{ env.CURRENT_TIME }}
@@ -95,6 +108,7 @@ jobs:
 
 
     - name: android-key-to-file
+      if: github.event.inputs.buildAndroid == 'true'
       uses: timheuer/base64-to-file@v1.1
       id: create_android_key_file
       with:
@@ -102,13 +116,16 @@ jobs:
         encodedString: ${{ secrets.ANDROID_KEY_FILE }}
      
     - name: Build MAUI for Android
+      if: github.event.inputs.buildAndroid == 'true'
       run: dotnet publish ./Source/Pekspro.RadioStorm.MAUI/Pekspro.RadioStorm.MAUI.csproj --framework:net6.0-android --configuration:Release /p:AndroidSigningKeyStore=${{ steps.create_android_key_file.outputs.filePath }} /p:AndroidSigningKeyAlias=${{ secrets.ANDROID_KEY_ALIAS }} /p:AndroidSigningKeyPass=${{ secrets.ANDROID_KEY_PASSWORD }} /p:AndroidSigningStorePass=${{ secrets.ANDROID_KEY_PASSWORD }}  --output ./Android
 
     - name: Move to root folder
+      if: github.event.inputs.buildAndroid == 'true'
       run: |
          mv ./Android/*.* ./
 
     - name: Upload a Android Artifact
+      if: github.event.inputs.buildAndroid == 'true'
       uses: actions/upload-artifact@v3.1.0
       with:
         name: android-${{ env.OUTPUT_SUFFIX }}-${{ env.CURRENT_TIME }}
