@@ -54,7 +54,13 @@ internal class FileLogger : ILogger
 
         if (exception is not null)
         {
-            logBuilder.AppendLine(exception.ToString());
+            foreach(string exceptionLine in exception.ToString().Split("\r\n".ToCharArray()))
+            {
+                if (!string.IsNullOrWhiteSpace(exceptionLine))
+                {
+                    logBuilder.AppendLine($"\t\t\t{exceptionLine.Replace("\t", "    ")}");
+                }
+            }
         }
 
         byte[] bytes = Encoding.UTF8.GetBytes(logBuilder.ToString());

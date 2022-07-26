@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace Pekspro.RadioStorm.UI.ViewModel.Settings;
+﻿namespace Pekspro.RadioStorm.UI.ViewModel.Settings;
 
 public partial class DebugSettingsViewModel : ObservableObject
 {
