@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Pekspro.RadioStorm.Bootstrap;
@@ -37,7 +36,12 @@ public partial class App : Application
         services.AddRadioStorm(configuration);
         services.AddRadioStormSandboxTools(configuration);
         services.AddRadioStormFileProviders(configuration, true);
-        services.AddLogging(j => j.AddInMemory().AddFileIfEnabled());
+        services.AddLogging(j => j
+            .AddInMemory()
+            .AddFileIfEnabled()
+            // Change this in .csproj: <OutputType>Exe</OutputType>
+            .AddConsole()
+        );
         services.AddRadioStormUI(configuration);
 
         services.TryAddTransient<MainWindow>();
