@@ -15,11 +15,6 @@ SQLitePCL.Batteries.Init();
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((ctx, services) =>
     {
-        services.AddLogging(conf =>
-        {
-            conf.AddConsole();
-
-        });
         services.AddHostedService<Worker>();
 
         services.TryAddSingleton<IAudioManager, DummyAudioManager>();
