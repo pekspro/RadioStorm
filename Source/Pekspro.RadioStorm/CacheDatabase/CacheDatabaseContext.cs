@@ -4,6 +4,8 @@ public class CacheDatabaseContext : DbContext
 {
     public string FileName;
 
+    private ILoggerFactory LoggerFactory;
+
     //private static readonly LoggerFactory _logger
     //    = new LoggerFactory(new[] { new ConsoleLoggerProvider((_, __) => true, true) });
 
@@ -11,26 +13,19 @@ public class CacheDatabaseContext : DbContext
     {
         // Only used by ef migrations.
         FileName = "@:";
+        LoggerFactory = null!;
     }
 
-    public CacheDatabaseContext(IOptions<StorageLocations> storageLocationOptions)
+    public CacheDatabaseContext(IOptions<StorageLocations> storageLocationOptions, ILoggerFactory loggerFactory)
     {
         FileName = Path.Combine(storageLocationOptions.Value.CacheSettingsPath, "cachedb.sqlite");
+        LoggerFactory = loggerFactory;
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        var loggerFactory = LoggerFactory.Create(builder =>
-        {
-            builder /*.AddFilter("Microsoft", LogLevel.Warning)
-					   .AddFilter("System", LogLevel.Warning)
-					   .AddFilter("SampleApp.Program", LogLevel.Debug)*/
-                   //.AddDebug()
-                   .AddConsole();
-        });
-
         optionsBuilder
-            .UseLoggerFactory(loggerFactory)
+            .UseLoggerFactory(LoggerFactory)
             .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
             .UseModel(CompiledModel.CacheDatabaseContextModel.Instance)
             .UseSqlite($"Data Source={FileName};");

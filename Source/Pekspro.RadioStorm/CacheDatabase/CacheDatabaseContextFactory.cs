@@ -2,15 +2,18 @@
 
 public class CacheDatabaseContextFactory : ICacheDatabaseContextFactory
 {
-    public CacheDatabaseContextFactory(IOptions<StorageLocations> options)
+    public IOptions<StorageLocations> Options { get; }
+
+    public ILoggerFactory LoggerFactory { get; }
+
+    public CacheDatabaseContextFactory(IOptions<StorageLocations> options, ILoggerFactory loggerFactory)
     {
         Options = options;
+        LoggerFactory = loggerFactory;
     }
-
-    public IOptions<StorageLocations> Options { get; }
 
     public CacheDatabaseContext Create()
     {
-        return new CacheDatabaseContext(Options);
+        return new CacheDatabaseContext(Options, LoggerFactory);
     }
 }
