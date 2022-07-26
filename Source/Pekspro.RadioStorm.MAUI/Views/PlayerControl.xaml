@@ -19,6 +19,7 @@
     <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*" />
         <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Width="Auto" />
     </Grid.ColumnDefinitions>
 
     <!--<StackLayout Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2" HeightRequest="28" BackgroundColor="DarkBlue">
@@ -112,11 +113,21 @@
     <!--<StackLayout BackgroundColor="DarkBlue" >
     </StackLayout>-->
 
-    <views:PlayerButtonsControl Grid.Row="4" Grid.Column="1" />
+    <ActivityIndicator 
+            Grid.Row="4"
+            Grid.Column="1"
+            Margin="8,0,0,0"
+            IsRunning="True"
+            WidthRequest="20"
+            HeightRequest="20"
+            IsVisible="{Binding IsBuffering}"
+            />
+
+    <views:PlayerButtonsControl Grid.Row="4" Grid.Column="2" />
     <!--<StackLayout BackgroundColor="DarkGreen" >
     </StackLayout>-->
 
-    <views:PlayerPositionControl Grid.Row="5" Grid.ColumnSpan="2" IsVisible="{Binding IsCurrentItemEpisode}" />
+    <views:PlayerPositionControl Grid.Row="5" Grid.ColumnSpan="3" IsVisible="{Binding IsCurrentItemEpisode}" />
     <!--<StackLayout BackgroundColor="DarkRed" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="1">
     </StackLayout>-->
 </Grid>
