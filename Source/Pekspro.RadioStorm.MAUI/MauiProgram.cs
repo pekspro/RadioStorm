@@ -29,14 +29,14 @@ public static class MauiProgram
         builder.Services.Configure<StorageLocations>(a => 
             a.Configure
             (
-                Path.GetDirectoryName(currentApplicationData.LocalFolder.Path),
+                Path.GetDirectoryName(currentApplicationData.LocalFolder.Path)!,
                 currentApplicationData.LocalFolder.Path,
                 currentApplicationData.LocalCacheFolder.Path,
                 currentApplicationData.TemporaryFolder.Path
             ));
 #elif ANDROID
         string baseStoragePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-        string cachePath = MainApplication.Context.CacheDir.AbsolutePath;
+        string cachePath = MainApplication.Context.CacheDir!.AbsolutePath;
         string temporaryPath = Path.Combine(cachePath, "temp");
         builder.Services.Configure<StorageLocations>(a => a.ConfigureFromBasePath(baseStoragePath, cachePath, temporaryPath));
 #else

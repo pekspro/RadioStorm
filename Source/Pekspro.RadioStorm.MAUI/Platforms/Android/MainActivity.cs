@@ -6,6 +6,8 @@ using Android.OS;
 using Microsoft.Identity.Client;
 using Microsoft.NetConf2021.Maui.Platforms.Android.Services;
 
+#nullable disable
+
 namespace Pekspro.RadioStorm.MAUI;
 [Activity(Theme = "@style/Maui.SplashTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize)]
 public class MainActivity : MauiAppCompatActivity
@@ -137,5 +139,4 @@ public class MainActivity : MauiAppCompatActivity
         {
         }
     }
-
 }

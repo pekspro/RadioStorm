@@ -8,7 +8,7 @@ namespace Microsoft.NetConf2021.Maui.Platforms.Android.Services;
 [Service(Permission = "android.permission.BIND_JOB_SERVICE")]
 public class MaintenanceJobService : JobService
 {
-    private ILogger _Logger;
+    private ILogger? _Logger;
 
     private ILogger Logger
     {
@@ -20,7 +20,7 @@ public class MaintenanceJobService : JobService
 
     private CancellationTokenSource CancellationTokenSource = new CancellationTokenSource();
 
-    public override bool OnStartJob(JobParameters jobParams)
+    public override bool OnStartJob(JobParameters? jobParams)
     {
         Task.Run(async () =>
         {
@@ -47,7 +47,7 @@ public class MaintenanceJobService : JobService
         return true;
     }
 
-    public override bool OnStopJob(JobParameters jobParams)
+    public override bool OnStopJob(JobParameters? jobParams)
     {
         Logger.LogInformation("Stopping maintenance.");
 

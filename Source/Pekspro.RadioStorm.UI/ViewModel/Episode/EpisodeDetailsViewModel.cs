@@ -6,14 +6,14 @@ public partial class EpisodeDetailsViewModel : DownloadViewModel
 
     record StartParameter(int EpisodeId, string? Title, bool AllowNavigationToProgramInfoPage);
 
-    public static string? CreateStartParameter(EpisodeModel c, bool allowNavigationToProgramInfoPage) => CreateStartParameter
+    public static string CreateStartParameter(EpisodeModel c, bool allowNavigationToProgramInfoPage) => CreateStartParameter
         (
             c.Id,
             c.Title,
             allowNavigationToProgramInfoPage
         );
 
-    public static string? CreateStartParameter(SearchItem c) => CreateStartParameter
+    public static string CreateStartParameter(SearchItem c) => CreateStartParameter
         (
             c.Id,
             c.Title,

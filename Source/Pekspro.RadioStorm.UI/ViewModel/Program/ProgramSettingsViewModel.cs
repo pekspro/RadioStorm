@@ -6,7 +6,7 @@ public partial class ProgramSettingsViewModel : ObservableObject
 
     record StartParameter(int ProgramId, string ProgramName);
 
-    public static string? CreateStartParameter(ProgramModel c) => CreateStartParameter
+    public static string CreateStartParameter(ProgramModel c) => CreateStartParameter
         (
             c.Id,
             c.Name

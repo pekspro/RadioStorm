@@ -9,5 +9,5 @@ public partial class FavoriteProgramControl
         WidthStateHelper.ConfigureWidthState(this);
     }
 
-    protected ProgramModel ViewModel => BindingContext as ProgramModel;
+    protected ProgramModel ViewModel => (ProgramModel) BindingContext;
 }

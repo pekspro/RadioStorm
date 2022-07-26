@@ -1,5 +1,7 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Converters;
 
+#nullable enable
+
 public class StringToBoolConverter : IValueConverter
 {
     public StringToBoolConverter()
@@ -27,7 +29,7 @@ public class StringToBoolConverter : IValueConverter
 
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        string s = value as string;
+        string? s = value as string;
 
         if (string.IsNullOrWhiteSpace(s))
         {

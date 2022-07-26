@@ -3,7 +3,7 @@
 [QueryProperty(nameof(Data), nameof(Data))]
 public partial class ChannelDetailsPage : ContentPage
 {
-    public string Data { get; set; }
+    public string Data { get; set; } = null!;
 
     public ChannelDetailsPage(ChannelDetailsViewModel viewModel)
     {
@@ -14,7 +14,7 @@ public partial class ChannelDetailsPage : ContentPage
         BindingContext = viewModel;
     }
 
-    protected ChannelDetailsViewModel ViewModel => BindingContext as ChannelDetailsViewModel;
+    protected ChannelDetailsViewModel ViewModel => (ChannelDetailsViewModel) BindingContext;
 
     protected override void OnAppearing()
     {
@@ -61,5 +61,4 @@ public partial class ChannelDetailsPage : ContentPage
             }
         }
     }
-
 }

@@ -2,7 +2,7 @@
 
 internal class StringToColorConverter : IValueConverter
 {
-    public Color FallbackColor { get; set; }
+    public Color FallbackColor { get; set; } = null!;
     public float Alpha { get; set; } = 1;
 
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

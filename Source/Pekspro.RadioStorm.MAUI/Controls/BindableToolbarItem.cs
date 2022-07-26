@@ -20,7 +20,7 @@ internal class BindableToolbarItem : ToolbarItem
 
     private static void OnIsVisibleChanged(BindableObject bindable, object oldvalue, object newvalue)
     {
-        var item = bindable as BindableToolbarItem;
+        var item = (BindableToolbarItem) bindable;
 
         item.RefreshVisibility();
     }
@@ -38,11 +38,11 @@ internal class BindableToolbarItem : ToolbarItem
 
         if (value && !toolbarItems.Contains(this))
         {
-            Application.Current.Dispatcher.Dispatch(() => { toolbarItems.Add(this); });
+            Application.Current!.Dispatcher.Dispatch(() => { toolbarItems.Add(this); });
         }
         else if (!value && toolbarItems.Contains(this))
         {
-            Application.Current.Dispatcher.Dispatch(() => { toolbarItems.Remove(this); });
+            Application.Current!.Dispatcher.Dispatch(() => { toolbarItems.Remove(this); });
         }
     }
 }

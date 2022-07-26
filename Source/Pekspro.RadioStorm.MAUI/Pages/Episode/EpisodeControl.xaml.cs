@@ -10,5 +10,5 @@ public partial class EpisodeControl
         InitializeComponent();
     }
 
-    protected EpisodeModel ViewModel => BindingContext as EpisodeModel;
+    protected EpisodeModel ViewModel => (EpisodeModel) BindingContext;
 }

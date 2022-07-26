@@ -9,7 +9,7 @@ public partial class ProgramsPage : ContentPage
         BindingContext = viewModel;
     }
 
-    protected ProgramsViewModel ViewModel => BindingContext as ProgramsViewModel;
+    protected ProgramsViewModel ViewModel => (ProgramsViewModel) BindingContext;
 
     protected override void OnAppearing()
     {

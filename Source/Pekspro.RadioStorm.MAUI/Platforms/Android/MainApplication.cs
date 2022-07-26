@@ -14,7 +14,7 @@ public class MainApplication : MauiApplication
         AndroidEnvironment.UnhandledExceptionRaiser += AndroidEnvironment_UnhandledExceptionRaiser;
     }
 
-    private ILogger _Logger;
+    private ILogger? _Logger;
 
     private ILogger Logger
     {
@@ -24,12 +24,12 @@ public class MainApplication : MauiApplication
         }
     }
         
-    private void AndroidEnvironment_UnhandledExceptionRaiser(object sender, RaiseThrowableEventArgs e)
+    private void AndroidEnvironment_UnhandledExceptionRaiser(object? sender, RaiseThrowableEventArgs e)
     {
         Logger.LogError(e.Exception, nameof(AndroidEnvironment_UnhandledExceptionRaiser));
     }
 
-    private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
+    private void TaskScheduler_UnobservedTaskException(object? sender, UnobservedTaskExceptionEventArgs e)
     {
         Logger.LogError(e.Exception, nameof(TaskScheduler_UnobservedTaskException));
     }

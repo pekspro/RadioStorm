@@ -3,7 +3,7 @@
 [QueryProperty(nameof(Data), nameof(Data))]
 public partial class ProgramDetailsPage : ContentPage
 {
-    public string Data { get; set; }
+    public string Data { get; set; } = null!;
 
     public ProgramDetailsPage(ProgramDetailsViewModel viewModel)
     {
@@ -14,7 +14,7 @@ public partial class ProgramDetailsPage : ContentPage
         BindingContext = viewModel;
     }
 
-    protected ProgramDetailsViewModel ViewModel => BindingContext as ProgramDetailsViewModel;
+    protected ProgramDetailsViewModel ViewModel => (ProgramDetailsViewModel) BindingContext;
 
     protected override void OnAppearing()
     {
@@ -45,6 +45,11 @@ public partial class ProgramDetailsPage : ContentPage
     
     async private void ToolbarItemSettings_Clicked(object sender, EventArgs e)
     {
+        if (ViewModel.ProgramData is null)
+        {
+            return;
+        }
+
         string param = ProgramSettingsViewModel.CreateStartParameter(ViewModel.ProgramData);
 
         await Shell.Current.GoToAsync(nameof(ProgramSettingsPage), new Dictionary<string, object>()

@@ -160,6 +160,11 @@ class WindowsAudioManager : AudioManagerBase
 
     private static MediaPlaybackItem CreateMediaPlaybackItem(PlayListItem song)
     {
+        if (song.PreferablePlayUrl is null)
+        {
+            throw new NullReferenceException(nameof(song.PreferablePlayUrl));
+        }
+
         var source = MediaSource.CreateFromUri(new Uri(song.PreferablePlayUrl));
         source.CustomProperties[nameof(PlayListItem)] = song;
         var mediaItem = new MediaPlaybackItem(source);
@@ -169,8 +174,8 @@ class WindowsAudioManager : AudioManagerBase
 
         if (song.IsLiveAudio)
         {
-            displayProperties.MusicProperties.Title = song?.Channel ?? "";
-            displayProperties.MusicProperties.Artist = "";
+            displayProperties.MusicProperties.Title = song.Channel ?? "";
+            displayProperties.MusicProperties.Artist = string.Empty;
         }
         else
         {

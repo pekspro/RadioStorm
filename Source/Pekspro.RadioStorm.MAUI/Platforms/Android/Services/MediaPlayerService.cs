@@ -12,6 +12,8 @@ using Pekspro.RadioStorm.Audio.Models;
 using Pekspro.RadioStorm.MAUI;
 using AndroidNet = Android.Net;
 
+#nullable disable
+
 namespace Microsoft.NetConf2021.Maui.Platforms.Android.Services;
 
 [Service(Exported = true)]

@@ -12,6 +12,8 @@ using AndroidMedia = Android.Media;
 
 namespace Microsoft.NetConf2021.Maui.Platforms.Android.Services;
 
+#nullable disable
+
 public static class NotificationHelper
 {
     public static readonly string CHANNEL_ID = "location_notification";

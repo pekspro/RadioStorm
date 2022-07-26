@@ -32,7 +32,7 @@ public sealed class SettingsService : ISettingsService
     /// <inheritdoc/>
     public T GetValue<T>(string key)
     {
-        return GetSafeValue(key, default(T));
+        return GetSafeValue(key, default(T))!;
     }
 
     /// <inheritdoc/>
@@ -56,7 +56,7 @@ public sealed class SettingsService : ISettingsService
         }
         else if (defaultValue is null)
         {
-            return (T)(object) Preferences.Get(key, null);
+            return (T)(object) Preferences.Get(key, null)!;
         }
         else
         {

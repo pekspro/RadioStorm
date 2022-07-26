@@ -1,5 +1,7 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Services;
 
+#nullable disable
+
 internal class AndroidAudioManager : AudioManagerBase
 {
     MainActivity instance;

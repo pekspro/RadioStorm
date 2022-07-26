@@ -1,5 +1,7 @@
 ﻿using Microsoft.UI.Xaml;
 
+#nullable enable
+
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
@@ -21,7 +23,7 @@ public partial class App : MauiWinUIApplication
         UnhandledException += App_UnhandledException;
     }
 
-    private ILogger _Logger;
+    private ILogger? _Logger;
     
     private ILogger Logger
     {
@@ -47,4 +49,3 @@ public partial class App : MauiWinUIApplication
         await MauiProgram.SetupAsync();
     }
 }
-  

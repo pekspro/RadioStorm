@@ -1,7 +1,5 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Converters;
 
-#nullable enable
-
 public class MultiplierConverter : IMultiValueConverter
 {
     public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)

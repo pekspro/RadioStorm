@@ -108,7 +108,7 @@ public partial class LargeMediaButtonUserControl : ContentView
             {
                 UriImageSource uriImageSource = new UriImageSource()
                 {
-                    Uri = new Uri(newValue.ToString())
+                    Uri = new Uri(newValue.ToString()!)
                 };
 
                 owner.MediaImage.Source = uriImageSource;

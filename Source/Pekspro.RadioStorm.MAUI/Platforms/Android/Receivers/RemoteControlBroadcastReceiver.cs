@@ -5,6 +5,8 @@ using Microsoft.NetConf2021.Maui.Platforms.Android.Services;
 
 namespace Microsoft.NetConf2021.Maui.Platforms.Android.Receivers;
 
+#nullable disable
+
 [BroadcastReceiver(Exported = true)]
 [IntentFilter(new[] { Intent.ActionMediaButton })]
 public class RemoteControlBroadcastReceiver : BroadcastReceiver
@@ -69,5 +71,3 @@ public class RemoteControlBroadcastReceiver : BroadcastReceiver
         context.StartService(remoteIntent);
     }
 }
-
-

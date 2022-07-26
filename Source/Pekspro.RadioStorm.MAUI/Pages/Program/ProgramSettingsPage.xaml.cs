@@ -3,8 +3,8 @@ namespace Pekspro.RadioStorm.MAUI.Pages.Program;
 [QueryProperty(nameof(Data), nameof(Data))]
 public partial class ProgramSettingsPage : ContentPage
 {
-    public string Data { get; set; }
-    
+    public string Data { get; set; } = null!;
+
     public ProgramSettingsPage(ProgramSettingsViewModel viewModel)
 	{
 		InitializeComponent();
@@ -12,7 +12,7 @@ public partial class ProgramSettingsPage : ContentPage
         BindingContext = viewModel;
     }
 
-    protected ProgramSettingsViewModel ViewModel => BindingContext as ProgramSettingsViewModel;
+    protected ProgramSettingsViewModel ViewModel => (ProgramSettingsViewModel) BindingContext;
 
     protected override void OnAppearing()
     {

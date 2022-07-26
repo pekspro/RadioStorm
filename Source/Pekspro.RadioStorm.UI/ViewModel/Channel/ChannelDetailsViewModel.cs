@@ -6,7 +6,7 @@ public partial class ChannelDetailsViewModel : DownloadViewModel, IDisposable
 
     record StartParameter(int ChannelId, string? ChannelName, string? Color, string? ChannelImageUri);
 
-    public static string? CreateStartParameter(ChannelModel c) => CreateStartParameter
+    public static string CreateStartParameter(ChannelModel c) => CreateStartParameter
         (
             c.Id,
             c.Title,
@@ -14,7 +14,7 @@ public partial class ChannelDetailsViewModel : DownloadViewModel, IDisposable
             c.ChannelImage?.HighResolution
         );
 
-    public static string? CreateStartParameter(SearchItem c) => CreateStartParameter
+    public static string CreateStartParameter(SearchItem c) => CreateStartParameter
         (
             c.Id,
             c.Title,

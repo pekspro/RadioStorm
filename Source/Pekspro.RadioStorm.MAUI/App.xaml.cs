@@ -35,8 +35,10 @@ public partial class App : Application
         
         var shutDownManager = Services.ServiceProvider.GetService<IShutDownManager>();
 
-        await shutDownManager.ShutDownAsync();
+        if (shutDownManager is not null)
+        {
+            await shutDownManager.ShutDownAsync();
+        }
     }
 #endif
-            
 }

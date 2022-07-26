@@ -1,8 +1,10 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Services;
 
+#nullable enable
+
 public static class ServiceProvider
 {
-    public static TService GetService<TService>() => Current.GetService<TService>();
+    public static TService? GetService<TService>() => Current.GetService<TService>();
     public static TService GetRequiredService<TService>() where TService : notnull => Current.GetRequiredService<TService>();
 
     public static IServiceProvider Current
@@ -14,6 +16,6 @@ public static class ServiceProvider
 #elif IOS || MACCATALYST
 			MauiUIApplicationDelegate.Current.Services;
 #else
-			null;
+			null!;
 #endif
 }

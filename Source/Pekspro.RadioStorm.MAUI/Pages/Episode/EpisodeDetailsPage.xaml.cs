@@ -3,7 +3,7 @@
 [QueryProperty(nameof(Data), nameof(Data))]
 public partial class EpisodeDetailsPage : ContentPage
 {
-    public string Data { get; set; }
+    public string Data { get; set; } = null!;
 
     public EpisodeDetailsPage(EpisodeDetailsViewModel viewModel)
     {
@@ -14,7 +14,7 @@ public partial class EpisodeDetailsPage : ContentPage
         BindingContext = viewModel;
     }
 
-    protected EpisodeDetailsViewModel ViewModel => BindingContext as EpisodeDetailsViewModel;
+    protected EpisodeDetailsViewModel ViewModel => (EpisodeDetailsViewModel) BindingContext;
 
     protected override void OnAppearing()
     {
@@ -72,7 +72,7 @@ public partial class EpisodeDetailsPage : ContentPage
 
     protected async void ButtonShowMoreEpisodes_Click(object sender, EventArgs args)
     {
-        if (ViewModel.EpisodeData.ProgramId.HasValue)
+        if (ViewModel.EpisodeData?.ProgramId is not null)
         {
             string param = ProgramDetailsViewModel.CreateStartParameter(ViewModel.EpisodeData.ProgramId.Value, ViewModel.EpisodeData.ProgramName);
 
@@ -82,5 +82,4 @@ public partial class EpisodeDetailsPage : ContentPage
                 });
         }
     }
-
 }

@@ -29,9 +29,9 @@ public partial class SettingsPage : ContentPage
 #endif
     }
 
-    protected SettingsViewModel ViewModel => BindingContext as SettingsViewModel;
+    protected SettingsViewModel ViewModel => (SettingsViewModel) BindingContext;
 
-    protected DebugSettingsViewModel DebugSettingsViewModel => DebugSettings.BindingContext as DebugSettingsViewModel;
+    protected DebugSettingsViewModel DebugSettingsViewModel => (DebugSettingsViewModel) DebugSettings.BindingContext;
 
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
     {

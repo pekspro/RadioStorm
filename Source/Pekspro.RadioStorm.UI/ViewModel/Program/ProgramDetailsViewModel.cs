@@ -6,14 +6,14 @@ public partial class ProgramDetailsViewModel : DownloadViewModel
 
     record StartParameter(int ProgramId, string? ProgramName, bool IsAutoScrollSupported);
 
-    public static string? CreateStartParameter(ProgramModel c, bool isAutoScrollSupported = false) => CreateStartParameter
+    public static string CreateStartParameter(ProgramModel c, bool isAutoScrollSupported = false) => CreateStartParameter
         (
             c.Id,
             c.Name,
             isAutoScrollSupported
         );
 
-    public static string? CreateStartParameter(SearchItem c) => CreateStartParameter
+    public static string CreateStartParameter(SearchItem c) => CreateStartParameter
         (
             c.Id,
             c.Title,

@@ -2,9 +2,9 @@
 
 public class FavoriteTemplateSelector : DataTemplateSelector
 {
-    public DataTemplate ChannelTemplate { get; set; }
+    public DataTemplate ChannelTemplate { get; set; } = null!;
 
-    public DataTemplate ProgramTemplate { get; set; }
+    public DataTemplate ProgramTemplate { get; set; } = null!;
 
     protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
     {
