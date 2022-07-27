@@ -438,8 +438,6 @@ public class MediaPlayerService : Service,
                 mediaPlayer.SeekTo(position);
             }
         });
-
-        UpdatePlaybackState(PlaybackStateCode.Playing);
     }
 
     public async Task PlayNext()
@@ -606,6 +604,16 @@ public class MediaPlayerService : Service,
             mediaSession,
             Cover,
             MediaPlayerState == PlaybackStateCode.Playing);
+    }
+
+    internal void SetMuted(bool value)
+    {
+        mediaPlayer.SetVolume(0, 0);
+    }
+
+    internal void SetVolume(float value)
+    {
+        mediaPlayer.SetVolume(value, value);
     }
 
     /// <summary>
