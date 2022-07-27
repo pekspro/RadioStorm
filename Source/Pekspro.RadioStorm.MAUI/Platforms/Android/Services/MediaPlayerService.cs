@@ -50,6 +50,10 @@ public class MediaPlayerService : Service,
 
     public event BufferingEventHandler Buffering;
 
+    public string AudioUrl;
+
+    public PlayListItem Item;
+
     private readonly Handler PlayingHandler;
     private readonly Java.Lang.Runnable PlayingHandlerRunnable;
 
@@ -70,7 +74,8 @@ public class MediaPlayerService : Service,
         PlayingHandler = new Handler(Looper.MainLooper);
 
         // Create a runnable, restarting itself if the status still is "playing"
-        PlayingHandlerRunnable = new Java.Lang.Runnable(() => {
+        PlayingHandlerRunnable = new Java.Lang.Runnable(() => 
+        {
             OnPlaying(EventArgs.Empty);
 
             if (MediaPlayerState == PlaybackStateCode.Playing)
@@ -80,7 +85,8 @@ public class MediaPlayerService : Service,
         });
 
         // On Status changed to PLAYING, start raising the Playing event
-        StatusChanged += (object sender, EventArgs e) => {
+        StatusChanged += (sender, e) => 
+        {
             var state = MediaPlayerState;
 
             Logger.LogInformation($"StatusChanged: {state}");
@@ -233,22 +239,13 @@ public class MediaPlayerService : Service,
         UpdatePlaybackState(PlaybackStateCode.Playing);
     }
 
-    public string AudioUrl;
-    public PlayListItem Item;
-
     public int Position
     {
         get
         {
-            if (mediaPlayer is null)
-            {
-                return -1;
-            }
-            else if (MediaPlayerState == PlaybackStateCode.Buffering)
-            {
-                return mediaPlayer.CurrentPosition;
-            }
-            else if (MediaPlayerState != PlaybackStateCode.Playing && MediaPlayerState != PlaybackStateCode.Paused)
+            if (mediaPlayer is null ||
+                (MediaPlayerState != PlaybackStateCode.Playing && MediaPlayerState != PlaybackStateCode.Paused)
+                )
             {
                 return -1;
             }
@@ -422,16 +419,9 @@ public class MediaPlayerService : Service,
                 }
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            UpdatePlaybackState(PlaybackStateCode.Stopped);
-
-            mediaPlayer.Reset();
-            mediaPlayer.Release();
-            mediaPlayer = null;
-
-            // Unable to start playback log error
-            Console.WriteLine(ex);
+            UpdatePlaybackStateStopped();
         }
     }
 
@@ -441,7 +431,8 @@ public class MediaPlayerService : Service,
         
         UpdatePlaybackState(PlaybackStateCode.Buffering);
         
-        await Task.Run(() => {
+        await Task.Run(() => 
+        {
             if (mediaPlayer is not null)
             {
                 mediaPlayer.SeekTo(position);
@@ -546,6 +537,18 @@ public class MediaPlayerService : Service,
             ReleaseWifiLock();
             UnregisterMediaSessionCompat();
         });
+    }
+
+    public void UpdatePlaybackStateStopped()
+    {
+        UpdatePlaybackState(PlaybackStateCode.Stopped);
+
+        if (mediaPlayer != null)
+        {
+            mediaPlayer.Reset();
+            mediaPlayer.Release();
+            mediaPlayer = null;
+        }
     }
 
     private void UpdatePlaybackState(PlaybackStateCode state)
