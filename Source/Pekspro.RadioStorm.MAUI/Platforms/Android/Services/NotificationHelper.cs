@@ -55,7 +55,7 @@ public static class NotificationHelper
 
         var name = "Local Notifications";
         var description = "The count from MainActivity.";
-        var channel = new NotificationChannel(CHANNEL_ID, name, NotificationImportance.Default)
+        var channel = new NotificationChannel(CHANNEL_ID, name, NotificationImportance.Low)
         {
             Description = description
         };
@@ -88,7 +88,6 @@ public static class NotificationHelper
             .SetContentTitle(currentTrack.GetString(MediaMetadata.MetadataKeyTitle))
             .SetContentText(currentTrack.GetString(MediaMetadata.MetadataKeyArtist))
             .SetSubText(currentTrack.GetString(MediaMetadata.MetadataKeyAlbum))
-            .SetOnlyAlertOnce(true)
             .SetColor(color)
             .SetSmallIcon(Pekspro.RadioStorm.MAUI.Resource.Drawable.player_play) 
             .SetLargeIcon(largeIcon as Bitmap)
