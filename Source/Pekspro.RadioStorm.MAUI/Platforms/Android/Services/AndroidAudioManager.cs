@@ -155,7 +155,17 @@ internal class AndroidAudioManager : AudioManagerBase
         if (!EventsAreSetup)
         {
             EventsAreSetup = true;
-            service.StatusChanged += (a, b) => RefreshState();
+            service.StatusChanged += (a, b) =>
+            {
+                RefreshState();
+
+                var currentState = MediaPlayerService.MediaPlayerState;
+
+                if (currentState == Android.Media.Session.PlaybackStateCode.Playing)
+                {
+                    TryRestorePosition(MediaLength);
+                }
+            };
         }
     }
 }
