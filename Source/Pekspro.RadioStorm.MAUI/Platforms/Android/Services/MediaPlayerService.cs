@@ -21,6 +21,7 @@ namespace Microsoft.NetConf2021.Maui.Platforms.Android.Services;
 public class MediaPlayerService : Service,
    AudioManager.IOnAudioFocusChangeListener,
    MediaPlayer.IOnBufferingUpdateListener,
+   MediaPlayer.IOnSeekCompleteListener,
    MediaPlayer.IOnCompletionListener,
    MediaPlayer.IOnErrorListener,
    MediaPlayer.IOnPreparedListener
@@ -199,6 +200,7 @@ public class MediaPlayerService : Service,
         mediaPlayer.SetWakeMode(ApplicationContext, WakeLockFlags.Partial);
 
         mediaPlayer.SetOnBufferingUpdateListener(this);
+        mediaPlayer.SetOnSeekCompleteListener(this);
         mediaPlayer.SetOnCompletionListener(this);
         mediaPlayer.SetOnErrorListener(this);
         mediaPlayer.SetOnPreparedListener(this);
@@ -218,6 +220,11 @@ public class MediaPlayerService : Service,
         {
             Buffered = newBufferedTime;
         }
+    }
+
+    public void OnSeekComplete(MediaPlayer mp)
+    {
+        UpdatePlaybackState(PlaybackStateCode.Playing);
     }
 
     public async void OnCompletion(MediaPlayer mp)
@@ -243,8 +250,10 @@ public class MediaPlayerService : Service,
     {
         get
         {
+            // Note: On buffering, position and duration is probably not valid. These
+            // values should be cached somehow.
             if (mediaPlayer is null ||
-                (MediaPlayerState != PlaybackStateCode.Playing && MediaPlayerState != PlaybackStateCode.Paused)
+                (MediaPlayerState != PlaybackStateCode.Playing && MediaPlayerState != PlaybackStateCode.Paused && MediaPlayerState != PlaybackStateCode.Buffering)
                 )
             {
                 return -1;
