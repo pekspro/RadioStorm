@@ -32,7 +32,7 @@ jobs:
       if: github.event.inputs.productionApiKeys == 'true'
       run: |
         echo "Set production API keys" 
-        echo "OUTPUT_SUFFIX=production" >> $env:GITHUB_ENV
+        echo "BUILD_TYPE=production" >> $env:GITHUB_ENV
         echo "GRAPH_CLIENT_ID=${{ secrets.GRAPH_CLIENT_ID_PRODUCTION }}" >> $env:GITHUB_ENV
         echo "IS_TEST_ENVIRONMENT=false" >> $env:GITHUB_ENV
 
@@ -40,7 +40,7 @@ jobs:
       if: github.event.inputs.productionApiKeys != 'true'
       run: |
         echo "Set test API keys" 
-        echo "OUTPUT_SUFFIX=test" >> $env:GITHUB_ENV
+        echo "BUILD_TYPE=test" >> $env:GITHUB_ENV
         echo "GRAPH_CLIENT_ID=${{ secrets.GRAPH_CLIENT_ID_TEST }}" >> $env:GITHUB_ENV
         echo "IS_TEST_ENVIRONMENT=true" >> $env:GITHUB_ENV
 
@@ -62,9 +62,10 @@ jobs:
 
     - name: Output settings
       run: |
-        echo "Suffix: ${{ env.OUTPUT_SUFFIX }}"
         echo "Is test: ${{ env.IS_TEST_ENVIRONMENT }}"
+        echo "Build type: ${{ env.BUILD_TYPE }}"
         echo "Build setting: ${{ github.event.inputs.productionApiKeys }}"
+
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
@@ -74,7 +75,21 @@ jobs:
     - name: Install MAUI Workload
       run: dotnet workload install maui --ignore-failed-sources
 
-    - name: windows-certificate-to-file
+
+    - name: Get Windows version
+      if: github.event.inputs.buildWindows == 'true'
+      id: windows_version
+      uses: mavrosxristoforos/get-xml-info@1.1.0
+      with:
+        xml-file: Source/Pekspro.RadioStorm.MAUI/Platforms/Windows/Package.appxmanifest
+        xpath: /*[local-name()='Package']/*[local-name()='Identity']/@Version
+
+    - name: Print Windows version
+      if: github.event.inputs.buildWindows == 'true'
+      run: |
+        echo "Windows version ${{ steps.windows_version.outputs.info }} will be built."
+
+    - name: Create Windows certificate file
       if: github.event.inputs.buildWindows == 'true'
       uses: timheuer/base64-to-file@v1.1
       id: create_windows_certificate_file
@@ -82,7 +97,7 @@ jobs:
         fileName: radiostorm.pfx
         encodedString: ${{ secrets.WINDOWS_KEY_FILE }}
 
-    - name: Add Cert to Store
+    - name: Add certificate to Store
       if: github.event.inputs.buildWindows == 'true'
       run: certutil -user -q -p ${{ secrets.WINDOWS_KEY_PASSWORD }} -importpfx ${{ steps.create_windows_certificate_file.outputs.filePath }} NoRoot
       
@@ -100,14 +115,35 @@ jobs:
       if: github.event.inputs.buildWindows == 'true'
       uses: actions/upload-artifact@v3.1.0
       with:
-        name: windows-${{ env.OUTPUT_SUFFIX }}-${{ env.CURRENT_TIME }}
+        name: windows-${{ env.BUILD_TYPE }}-${{ env.CURRENT_TIME }}-${{ steps.windows_version.outputs.info }}
         retention-days: 5
         path: |
           ./*.msix
           ./*.cer
 
 
-    - name: android-key-to-file
+    - name: Get Android display version
+      id: android_display_version
+      if: github.event.inputs.buildAndroid == 'true'
+      uses: mavrosxristoforos/get-xml-info@1.1.0
+      with:
+        xml-file: Source/Pekspro.RadioStorm.MAUI/Pekspro.RadioStorm.MAUI.csproj
+        xpath: /Project/PropertyGroup/ApplicationDisplayVersion
+
+    - name: Get Android version
+      id: android_version
+      if: github.event.inputs.buildAndroid == 'true'
+      uses: mavrosxristoforos/get-xml-info@1.1.0
+      with:
+        xml-file: Source/Pekspro.RadioStorm.MAUI/Pekspro.RadioStorm.MAUI.csproj
+        xpath: /Project/PropertyGroup/ApplicationVersion
+
+    - name: Print Android version
+      if: github.event.inputs.buildAndroid == 'true'
+      run: |
+        echo "Android version ${{ steps.android_display_version.outputs.info }} (${{ steps.android_version.outputs.info }}) will be built."
+
+    - name: Create Android key file
       if: github.event.inputs.buildAndroid == 'true'
       uses: timheuer/base64-to-file@v1.1
       id: create_android_key_file
@@ -119,16 +155,23 @@ jobs:
       if: github.event.inputs.buildAndroid == 'true'
       run: dotnet publish ./Source/Pekspro.RadioStorm.MAUI/Pekspro.RadioStorm.MAUI.csproj --framework:net6.0-android --configuration:Release /p:AndroidSigningKeyStore=${{ steps.create_android_key_file.outputs.filePath }} /p:AndroidSigningKeyAlias=${{ secrets.ANDROID_KEY_ALIAS }} /p:AndroidSigningKeyPass=${{ secrets.ANDROID_KEY_PASSWORD }} /p:AndroidSigningStorePass=${{ secrets.ANDROID_KEY_PASSWORD }}  --output ./Android
 
-    - name: Move to root folder
+    - name: Move Android outputs to root folder
       if: github.event.inputs.buildAndroid == 'true'
       run: |
          mv ./Android/*.* ./
+
+    - name: Add version to file name
+      if: github.event.inputs.buildAndroid == 'true'
+      shell: powershell 
+      run: |
+         Get-ChildItem -Filter *.aab | Rename-Item -NewName { $_.BaseName + '-${{ steps.android_display_version.outputs.info }} [${{ steps.android_version.outputs.info }}]' + $_.Extension }
+         Get-ChildItem -Filter *.apk | Rename-Item -NewName { $_.BaseName + '-${{ steps.android_display_version.outputs.info }} [${{ steps.android_version.outputs.info }}]' + $_.Extension }
 
     - name: Upload a Android Artifact
       if: github.event.inputs.buildAndroid == 'true'
       uses: actions/upload-artifact@v3.1.0
       with:
-        name: android-${{ env.OUTPUT_SUFFIX }}-${{ env.CURRENT_TIME }}
+        name: android-${{ env.BUILD_TYPE }}-${{ env.CURRENT_TIME }}-${{ steps.android_display_version.outputs.info }} (${{ steps.android_version.outputs.info }})
         retention-days: 5
         path: |
           ./*.aab
