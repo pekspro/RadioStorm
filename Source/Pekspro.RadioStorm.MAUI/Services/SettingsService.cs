@@ -38,29 +38,36 @@ public sealed class SettingsService : ISettingsService
     /// <inheritdoc/>
     public T GetSafeValue<T>(string key, T defaultValue)
     {
-        if (defaultValue is int t)
+        try
         {
-            return (T) (object) Preferences.Get(key, t);
+            if (defaultValue is int t)
+            {
+                return (T) (object) Preferences.Get(key, t);
+            }
+            else if (defaultValue is long t2)
+            {
+                return (T)(object) Preferences.Get(key, t2);
+            }
+            else if (defaultValue is bool t3)
+            {
+                return (T)(object) Preferences.Get(key, t3);
+            }
+            else if (defaultValue is string t4)
+            {
+                return (T)(object) Preferences.Get(key, t4);
+            }
+            else if (defaultValue is null)
+            {
+                return (T)(object) Preferences.Get(key, null)!;
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
         }
-        else if (defaultValue is long t2)
+        catch (InvalidCastException)
         {
-            return (T)(object) Preferences.Get(key, t2);
-        }
-        else if (defaultValue is bool t3)
-        {
-            return (T)(object) Preferences.Get(key, t3);
-        }
-        else if (defaultValue is string t4)
-        {
-            return (T)(object) Preferences.Get(key, t4);
-        }
-        else if (defaultValue is null)
-        {
-            return (T)(object) Preferences.Get(key, null)!;
-        }
-        else
-        {
-            throw new NotImplementedException();
+            return defaultValue;
         }
     }
 }
