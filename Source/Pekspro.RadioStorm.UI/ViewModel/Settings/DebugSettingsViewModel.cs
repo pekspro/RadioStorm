@@ -115,7 +115,7 @@ public partial class DebugSettingsViewModel : ObservableObject
         {
             List<string> logFiles = await LogFileHelper.GetLogFileNamesAsync() ?? new List<string>();
 
-            LogFilesNameOnly = logFiles.Select(a => Path.GetFileName(a) ?? a).ToList();
+            LogFilesNameOnly = logFiles.Select(a => Path.GetFileName(a) ?? a).OrderBy(a => a).ToList();
             LogFilesFullPath = logFiles;
 
             if (LogFilesNameOnly.Any())
