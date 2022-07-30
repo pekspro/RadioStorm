@@ -49,14 +49,11 @@
                Style="{StaticResource SubtitleTextBlockStyle}"
                />
 
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <CheckBox IsChecked="{Binding Settings.PreferStreamsWithMusic}" />
-                <Label Text="{x:Static r:Strings.Settings_Play_PreferMusicDescription}" Grid.Column="1" />
-            </Grid>
+            <Label 
+                Text="{x:Static r:Strings.Settings_Play_PreferMusicDescription}"
+                Margin="0,8,0,0"
+                />
+            <Switch IsToggled="{Binding Settings.PreferStreamsWithMusic}" />
 
             <Label Text="{x:Static r:Strings.Settings_Play_DownloadNote}" 
                />
@@ -83,7 +80,7 @@
             
             <views:DownloadSettingsControl />
 
-            <VerticalStackLayout x:Name="DebugSettings" x:DataType="vm:DebugSettingsViewModel" IsVisible="{Binding ShowDebugSettings}" BackgroundColor="DarkRed">
+            <VerticalStackLayout x:Name="DebugSettings" x:DataType="vm:DebugSettingsViewModel" IsVisible="{Binding ShowDebugSettings}">
                 <Rectangle Style="{StaticResource Separator}" />
 
                 <Label 
@@ -93,22 +90,20 @@
 
                 <Label 
                     Text="{x:Static r:Strings.Settings_Debug_LogFiles_Title}" 
+                    Margin="0,8,0,0"
                     Style="{StaticResource Subtitle2TextBlockStyle}"
                     />
 
-                <Grid Margin="0,8">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <CheckBox IsChecked="{Binding Settings.WriteLogsToFile}" Margin="0,0,8,0" />
-                    <Label Text="{x:Static r:Strings.Settings_Debug_LogFiles_EnableLogToFile}" Grid.Column="1" />
-                </Grid>
+                <Label 
+                    Text="{x:Static r:Strings.Settings_Debug_LogFiles_EnableLogToFile}"                    
+                    Margin="0,12,0,8"
+                    />
+                <Switch IsToggled="{Binding Settings.WriteLogsToFile}" />
 
                 <Label Text="{x:Static r:Strings.Settings_Debug_LogFiles_NoFiles}" 
                        IsVisible="{Binding HasLogFiles, Converter={StaticResource InvertedBoolConverter}}" />
 
-                <VerticalStackLayout IsVisible="{Binding HasLogFiles}">
+                <VerticalStackLayout IsVisible="{Binding HasLogFiles}" Margin="0,16,0,0">
 
                     <HorizontalStackLayout Spacing="8">
                         <Button Command="{Binding ZipLogFilesCommand}" Text="{x:Static r:Strings.Settings_Debug_LogFiles_SendLogFiles}" />
