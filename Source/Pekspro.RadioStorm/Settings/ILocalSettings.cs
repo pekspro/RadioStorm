@@ -10,4 +10,5 @@ public interface ILocalSettings
     bool UseLiveTile { get; set; }
     bool ShowDebugSettings { get; set; }
     bool WriteLogsToFile { get; set; }
+    ThemeType Theme { get; set; }
 }

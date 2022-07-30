@@ -140,6 +140,20 @@ public sealed class LocalSettings : ILocalSettings
         }
     }
 
+    public ThemeType Theme
+    {
+        get
+        {
+            return (ThemeType) SettingsService.GetSafeValue(nameof(Theme), (int) ThemeType.Dark);
+        }
+        set
+        {
+            SettingsService.SetValue(nameof(Theme), (int) value);
+            
+            NotifySettingChanged(nameof(Theme));
+        }
+    }
+
     #endregion
 
     #region Methods

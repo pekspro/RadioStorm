@@ -4,6 +4,8 @@ namespace Pekspro.RadioStorm.MAUI;
 
 public partial class App : Application
 {
+    private ILocalSettings LocalSettings;
+    
     public App()
     {
         InitializeComponent();
@@ -21,6 +23,31 @@ public partial class App : Application
         Routing.RegisterRoute(nameof(ProgramSettingsPage), typeof(ProgramSettingsPage));
         Routing.RegisterRoute(nameof(EpisodeDetailsPage), typeof(EpisodeDetailsPage));
         Routing.RegisterRoute(nameof(PlaylistPage), typeof(PlaylistPage));
+
+        LocalSettings = Services.ServiceProvider.GetRequiredService<ILocalSettings>();
+        var messenger = Services.ServiceProvider.GetRequiredService<IMessenger>();
+        
+        messenger.Register<SettingChangedMessage>(this, (r, m) =>
+        {
+            if (m.SettingName == nameof(LocalSettings.Theme))
+            {
+                UpdateTheme();
+            }
+        });
+
+        UpdateTheme();
+    }
+
+    private void UpdateTheme()
+    {
+        var theme = LocalSettings.Theme;
+
+        UserAppTheme = theme switch
+        {
+            ThemeType.Light => AppTheme.Light,
+            ThemeType.Dark => AppTheme.Dark,
+            _ => AppTheme.Unspecified,
+        };
     }
 
     async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
