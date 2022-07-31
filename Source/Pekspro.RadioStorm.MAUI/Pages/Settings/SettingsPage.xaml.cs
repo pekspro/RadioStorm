@@ -1,4 +1,6 @@
-﻿namespace Pekspro.RadioStorm.MAUI.Pages.Settings;
+﻿using Pekspro.RadioStorm.MAUI.Pages.Logging;
+
+namespace Pekspro.RadioStorm.MAUI.Pages.Settings;
 
 public partial class SettingsPage : ContentPage
 {
@@ -52,6 +54,21 @@ public partial class SettingsPage : ContentPage
         {
             TapTimestamps.Clear();
             DebugSettingsViewModel.ShowDebugSettings = !DebugSettingsViewModel.ShowDebugSettings;
+        }
+    }
+
+    private async void ButtonOpenLogFile_Clicked(object sender, EventArgs e)
+    {
+        var path = DebugSettingsViewModel.SelectedLogFilePath;
+
+        if (path is not null)
+        {
+            string param = LogFileDetailsViewModel.CreateStartParameter(path);
+
+            await Shell.Current.GoToAsync(nameof(LogFileDetailsPage), new Dictionary<string, object>()
+                {
+                    { "Data", param }
+                });
         }
     }
 }

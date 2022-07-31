@@ -174,21 +174,15 @@
                             />
 
                         <Button Text="{x:Static r:Strings.Settings_Debug_LogFiles_Open}"
-                                Command="{Binding ReadSelectedLogFileCommand}"
+                                x:Name="ButtonOpenLogFile"
+                                IsEnabled="{Binding CanReadSelectedLogFile}"
+                                Clicked="ButtonOpenLogFile_Clicked"
                                 HorizontalOptions="Start"
                                 Grid.Row="1"
                                 Grid.Column="2"
                                 />
                     </Grid>
                 </VerticalStackLayout>
-
-                <Editor 
-                    x:Name="LogEditorBox" 
-                    HeightRequest="500"
-                    BackgroundColor="DarkBlue"
-                    IsVisible="{Binding SelectedLogFileContent, Converter={StaticResource NullToIsVisibleConverter}}"
-                    Text="{Binding SelectedLogFileContent}"
-                    />
             </VerticalStackLayout>
         </VerticalStackLayout>
     </ScrollView>

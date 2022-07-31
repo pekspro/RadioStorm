@@ -1,4 +1,4 @@
-namespace Pekspro.RadioStorm.UI.ViewModel.Settings;
+namespace Pekspro.RadioStorm.UI.ViewModel.Logging;
 
 public partial class LogFileDetailsViewModel : DownloadViewModel
 {

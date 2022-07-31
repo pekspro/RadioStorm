@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Pekspro.RadioStorm.MAUI.Pages.Logging.LogFileDetailsPage"
+             xmlns:vm="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Logging;assembly=Pekspro.RadioStorm.UI"
+             xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
+             xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
+             x:DataType="vm:LogFileDetailsViewModel"
+             Title="{Binding Title}">
+    <Grid RowDefinitions="*">
+        <views:DownloadState Padding="{StaticResource NormalPageMargin}" />
+
+        <RefreshView 
+            Command="{Binding RefreshCommand}" 
+            IsRefreshing="{Binding IsRefreshing}"
+            IsVisible="{Binding HasData}">
+            <Editor 
+                x:Name="LogEditorBox" 
+                Margin="{StaticResource NormalPageMargin}"
+                Text="{Binding LogFileContent}"
+                />
+        </RefreshView>
+    </Grid>
+</ContentPage>
