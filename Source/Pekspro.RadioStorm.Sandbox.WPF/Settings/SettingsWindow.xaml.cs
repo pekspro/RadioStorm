@@ -1,10 +1,12 @@
 ﻿using System.Diagnostics;
+using Pekspro.RadioStorm.Sandbox.WPF.LogFile;
 
 namespace Pekspro.RadioStorm.Sandbox.WPF.Settings;
 
 public partial class SettingsWindow : Window
 {
-    public SettingsWindow(SettingsViewModel settingsViewModel, DebugSettingsViewModel debugSettingsViewModel)
+    public SettingsWindow(SettingsViewModel settingsViewModel, DebugSettingsViewModel debugSettingsViewModel, 
+        IServiceProvider serviceProvider)
     {
         InitializeComponent();
         DataContext = settingsViewModel;
@@ -14,7 +16,10 @@ public partial class SettingsWindow : Window
         {
             Process.Start("explorer.exe", string.Format("/select,\"{0}\"", x));
         };
+        ServiceProvider = serviceProvider;
     }
+    
+    protected IServiceProvider ServiceProvider { get; }
 
     protected SettingsViewModel ViewModel => (SettingsViewModel)DataContext;
     
@@ -40,9 +45,8 @@ public partial class SettingsWindow : Window
     {
         var logFilePath = DebugSettingsViewModel.SelectedLogFilePath;
 
-        if (logFilePath is not null)
-        {
-            Process.Start("notepad", string.Format("\"{0}\"", logFilePath));
-        }
+        var logDetailsWindow = ServiceProvider.GetRequiredService<LogFileDetailsWindow>();
+        logDetailsWindow.StartParameter = LogFileDetailsViewModel.CreateStartParameter(logFilePath);
+        logDetailsWindow.Show();
     }
 }

@@ -32,6 +32,7 @@ public static class RadioStormUIExtensions
         services.TryAddTransient<AboutViewModel, AboutViewModel>();
         services.TryAddTransient<DownloadSettingsViewModel, DownloadSettingsViewModel>();
         services.TryAddTransient<LoggingViewModel, LoggingViewModel>();
+        services.TryAddTransient<LogFileDetailsViewModel, LogFileDetailsViewModel>();
         services.TryAddTransient<SynchronizingViewModel, SynchronizingViewModel>();
         services.TryAddTransient<SongsViewModel, SongsViewModel>();
         services.TryAddTransient<SchedulesEpisodesViewModel, SchedulesEpisodesViewModel>();
