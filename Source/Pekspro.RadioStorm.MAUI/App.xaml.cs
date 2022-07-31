@@ -24,7 +24,7 @@ public partial class App : Application
         Routing.RegisterRoute(nameof(LogFileDetailsPage), typeof(LogFileDetailsPage));
     }
 
-    async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+    public async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
     {
         await Shell.Current.GoToAsync(nameof(SettingsPage));
     }

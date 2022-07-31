@@ -11,7 +11,7 @@
         <views:DownloadState Padding="{StaticResource NormalPageMargin}" />
 
         <RefreshView 
-            Command="{Binding RefreshCommand}" 
+            Command="{Binding FullRefreshCommand}" 
             IsRefreshing="{Binding IsRefreshing}"
             IsVisible="{Binding HasData}">
             <Editor 
