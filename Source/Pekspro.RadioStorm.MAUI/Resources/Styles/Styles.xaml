@@ -6,6 +6,7 @@
 
     <OnPlatform x:Key="DefaultFont" x:TypeArguments="x:String" Default="OpenSansRegular">
         <On Platform="WinUI">Segoe UI</On>
+        <On Platform="Android">sans-serif</On>
     </OnPlatform>
 
     <Style TargetType="ActivityIndicator">
