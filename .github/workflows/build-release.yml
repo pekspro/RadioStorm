@@ -185,7 +185,7 @@ jobs:
       if: github.event.inputs.buildAndroid == 'true'
       uses: actions/upload-artifact@v3.1.0
       with:
-        name: android-${{ env.BUILD_TYPE }}-${{ env.CURRENT_TIME }}-${{ steps.android_display_version.outputs.info }} (${{ steps.android_version.outputs.info }})
+        name: android-${{ env.BUILD_TYPE }}-${{ env.CURRENT_TIME }}-${{ steps.android_display_version.outputs.info }} [${{ steps.android_version.outputs.info }}]
         retention-days: 5
         path: |
           ./*.aab
