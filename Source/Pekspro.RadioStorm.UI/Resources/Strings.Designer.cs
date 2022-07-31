@@ -1933,7 +1933,7 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Om du misstänker att du har problem med att informationen i programmet är för gammal, välj att rensa cachen för att hämta hem senaste informationen..
+        ///   Looks up a localized string similar to Om du misstänker att du har problem med att informationen i programmet är för gammal, välj att rensa cachen för att hämta senaste informationen..
         /// </summary>
         public static string Settings_Cache_Description {
             get {

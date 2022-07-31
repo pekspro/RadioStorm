@@ -742,7 +742,7 @@
     <value>Tömmer cache...</value>
   </data>
   <data name="Settings_Cache_Description" xml:space="preserve">
-    <value>Om du misstänker att du har problem med att informationen i programmet är för gammal, välj att rensa cachen för att hämta hem senaste informationen.</value>
+    <value>Om du misstänker att du har problem med att informationen i programmet är för gammal, välj att rensa cachen för att hämta senaste informationen.</value>
   </data>
   <data name="Settings_Cache_Title" xml:space="preserve">
     <value>Cache</value>
