@@ -13,7 +13,7 @@
     xmlns:recent="clr-namespace:Pekspro.RadioStorm.MAUI.Pages.Recent"
     xmlns:player="clr-namespace:Pekspro.RadioStorm.MAUI.Pages.Player"
     FlyoutWidth="178"
-    FlyoutBackgroundColor="{StaticResource PanelBackground}"
+    FlyoutBackgroundColor="{AppThemeBinding Dark={StaticResource PanelBackgroundDark}, Light={StaticResource PanelBackgroundLight}}"
     FlyoutBehavior="{OnIdiom Phone=Flyout, Default=Locked}"
     >
     <!--FlyoutBackgroundColor="#1E1E1E" -->
@@ -35,7 +35,7 @@
             <FontImageSource
                             FontFamily="FontAwesome"
                             Glyph="{x:Static style:IconFont.Star}"
-                            Color="{StaticResource PanelIconColor}"
+                            Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
                             Size="32"/>
         </FlyoutItem.Icon>
         <ShellContent ContentTemplate="{DataTemplate favorite:FavoritesPage}"/>
@@ -44,7 +44,7 @@
         <FlyoutItem.Icon>
             <FontImageSource
                             Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.Microphone}, Default={x:Static style:IconFont.Microphone}}"
-                            Color="{StaticResource PanelIconColor}"
+                            Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
                             Size="32"
                         >
                 <FontImageSource.FontFamily>
@@ -61,7 +61,7 @@
             <FontImageSource
                             FontFamily="FontAwesome"
                             Glyph="{x:Static style:IconFont.Book}"
-                            Color="{StaticResource PanelIconColor}"
+                            Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
                             Size="32"/>
         </FlyoutItem.Icon>
         <ShellContent ContentTemplate="{DataTemplate program:ProgramsPage}"/>
@@ -71,7 +71,7 @@
             <FontImageSource
                             FontFamily="FontAwesome"
                             Glyph="{x:Static style:IconFont.History}"
-                            Color="{StaticResource PanelIconColor}"
+                            Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
                             Size="32"/>
         </FlyoutItem.Icon>
         <ShellContent ContentTemplate="{DataTemplate recent:RecentEpisodesPage}"/>
@@ -81,7 +81,7 @@
             <FontImageSource
                             FontFamily="FontAwesome"
                             Glyph="{x:Static style:IconFont.Download}"
-                            Color="{StaticResource PanelIconColor}"
+                            Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
                             Size="32"/>
         </FlyoutItem.Icon>
         <ShellContent ContentTemplate="{DataTemplate episode:DownloadsPage}"/>
@@ -91,7 +91,7 @@
             <FontImageSource
                             FontFamily="FontAwesome"
                             Glyph="{x:Static style:IconFont.PlayCircle}"
-                            Color="{StaticResource PanelIconColor}"
+                            Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
                             Size="32"/>
         </FlyoutItem.Icon>
         <ShellContent ContentTemplate="{DataTemplate player:PlaylistPage}"/>
@@ -144,7 +144,7 @@
                         <FontImageSource
                                     FontFamily="FontAwesome"
                                     Glyph="{x:Static style:IconFont.Cog}"
-                                    Color="{StaticResource PanelIconColor}"
+                                    Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
                                     Size="20"/>
                     </Image.Source>
                 </Image>

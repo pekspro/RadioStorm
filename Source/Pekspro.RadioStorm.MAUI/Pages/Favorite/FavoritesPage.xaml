@@ -178,7 +178,8 @@
             Grid.Row="1"
             Padding="4"
             IsVisible="{Binding IsSynchronizing}"
-            BackgroundColor="#DD222222"
+            Opacity="0.8"
+            BackgroundColor="{AppThemeBinding Dark={StaticResource PanelBackgroundDark}, Light={StaticResource PanelBackgroundLight}}"
             VerticalOptions="End"
             HorizontalOptions="Start"
             >

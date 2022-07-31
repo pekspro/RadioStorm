@@ -1,8 +1,16 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Converters;
 
-internal class StringToColorConverter : IValueConverter
+internal class StringToColorConverter : BindableObject, IValueConverter
 {
-    public Color FallbackColor { get; set; } = null!;
+    public static readonly BindableProperty FallbackColorProperty =
+        BindableProperty.Create(nameof(FallbackColor), typeof(Color), typeof(BoolToColorConverter), null, BindingMode.OneWay, null, null);
+
+    public Color FallbackColor
+    {
+        get { return (Color) GetValue(FallbackColorProperty); }
+        set { SetValue(FallbackColorProperty, value); }
+    }
+
     public float Alpha { get; set; } = 1;
 
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

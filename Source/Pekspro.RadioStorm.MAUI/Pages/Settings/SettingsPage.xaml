@@ -7,7 +7,7 @@
              x:Class="Pekspro.RadioStorm.MAUI.Pages.Settings.SettingsPage"
              x:DataType="vm:SettingsViewModel"
              Title="{x:Static r:Strings.Settings_Title}"
-             >
+    >
     <ScrollView Padding="{StaticResource NormalPageMargin}">
         <VerticalStackLayout Spacing="8">
 
