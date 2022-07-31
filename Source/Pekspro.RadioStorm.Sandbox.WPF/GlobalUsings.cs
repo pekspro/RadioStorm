@@ -27,6 +27,7 @@ global using Pekspro.RadioStorm.UI.Model.Episode;
 global using Pekspro.RadioStorm.UI.Model.Program;
 global using Pekspro.RadioStorm.UI.ViewModel.Channel;
 global using Pekspro.RadioStorm.UI.ViewModel.Episode;
+global using Pekspro.RadioStorm.UI.ViewModel.Logging;
 global using Pekspro.RadioStorm.UI.ViewModel.Player;
 global using Pekspro.RadioStorm.UI.ViewModel.Program;
 global using Pekspro.RadioStorm.UI.ViewModel.RecentEpisodes;

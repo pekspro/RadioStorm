@@ -23,6 +23,7 @@ public partial class App : Application
         Routing.RegisterRoute(nameof(ProgramSettingsPage), typeof(ProgramSettingsPage));
         Routing.RegisterRoute(nameof(EpisodeDetailsPage), typeof(EpisodeDetailsPage));
         Routing.RegisterRoute(nameof(PlaylistPage), typeof(PlaylistPage));
+        Routing.RegisterRoute(nameof(LogFileDetailsPage), typeof(LogFileDetailsPage));
 
         LocalSettings = Services.ServiceProvider.GetRequiredService<ILocalSettings>();
         var messenger = Services.ServiceProvider.GetRequiredService<IMessenger>();
@@ -50,7 +51,7 @@ public partial class App : Application
         };
     }
 
-    async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+    public async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
     {
         await Shell.Current.GoToAsync(nameof(SettingsPage));
     }

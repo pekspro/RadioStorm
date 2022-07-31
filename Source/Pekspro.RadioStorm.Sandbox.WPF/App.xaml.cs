@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Pekspro.RadioStorm.Bootstrap;
+using Pekspro.RadioStorm.Sandbox.WPF.LogFile;
 using Pekspro.RadioStorm.Sandbox.WPF.Player;
 using Pekspro.RadioStorm.Settings.SynchronizedSettings.FileProvider;
 
@@ -55,6 +56,7 @@ public partial class App : Application
         services.TryAddTransient<DownloadsWindow>();
         services.TryAddTransient<RecentEpisodesWindow>();
         services.TryAddTransient<SettingsWindow>();
+        services.TryAddTransient<LogFileDetailsWindow>();
         services.TryAddTransient<EpisodeDetailsWindow>();
         services.TryAddTransient<LoggingWindow>();
         services.TryAddTransient<BackgroundTasksWindow>();

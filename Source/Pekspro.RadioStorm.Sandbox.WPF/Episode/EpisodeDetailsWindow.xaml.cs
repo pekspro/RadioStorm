@@ -1,6 +1,4 @@
-﻿using Pekspro.RadioStorm.Sandbox.WPF.Program;
-
-namespace Pekspro.RadioStorm.Sandbox.WPF.Episode;
+﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Episode;
 
 public partial class EpisodeDetailsWindow : Window
 {

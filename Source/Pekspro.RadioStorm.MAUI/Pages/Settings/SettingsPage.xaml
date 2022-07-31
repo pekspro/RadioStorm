@@ -18,6 +18,7 @@
                     </Label.GestureRecognizers>
                 </Label>
                 <Label Text="{x:Static r:Strings.About_Description}" />
+                <Label Text="{Binding BuildDetails}" Style="{StaticResource DetailedTextStyle}" TextColor="{StaticResource InactiveProgramColor}" />
                 <Label Text="{x:Static r:Strings.About_Credits_Title}" Style="{StaticResource Subtitle2TextBlockStyle}" />
                 <Label Text="{x:Static r:Strings.About_Credits_Line1}" />
                 <Label Text="{x:Static r:Strings.About_Credits_Line2}" />
@@ -63,11 +64,24 @@
                Style="{StaticResource SubtitleTextBlockStyle}"
                />
 
-            <Label 
-                Text="{x:Static r:Strings.Settings_Play_PreferMusicDescription}"
-                Margin="0,8,0,0"
-                />
-            <Switch IsToggled="{Binding Settings.PreferStreamsWithMusic}" />
+            <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="*, Auto">
+                <!-- On Windows, label on top off switch. On Android label left to switch -->
+                
+                <Label 
+                    Text="{x:Static r:Strings.Settings_Play_PreferMusicDescription}"
+                    VerticalOptions="Center"
+                    Grid.Row="{OnPlatform WinUI=0, Default=0}"
+                    Grid.Column="{OnPlatform WinUI=0, Default=0}"
+                    Margin="{OnPlatform WinUI='0,0,0,8', Default=0}"
+                    />
+
+                <Switch 
+                    VerticalOptions="Center"
+                    IsToggled="{Binding Settings.PreferStreamsWithMusic}"
+                    Grid.Row="{OnPlatform WinUI=1, Default=0}"
+                    Grid.Column="{OnPlatform WinUI=0, Default=1}"
+                    />
+            </Grid>
 
             <Label Text="{x:Static r:Strings.Settings_Play_DownloadNote}" 
                />
@@ -98,26 +112,40 @@
                 <Rectangle Style="{StaticResource Separator}" />
 
                 <Label 
-                    Text="{x:Static r:Strings.Settings_Debug_Title}" 
+                    Text="{x:Static r:Strings.Settings_Debug_Title}"
+                    Margin="0,8"
                     Style="{StaticResource SubtitleTextBlockStyle}"
                     />
 
-                <Label 
-                    Text="{x:Static r:Strings.Settings_Debug_LogFiles_Title}" 
-                    Margin="0,8,0,0"
-                    Style="{StaticResource Subtitle2TextBlockStyle}"
+                <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="*, Auto">
+                    <!-- On Windows, label on top off switch. On Android label left to switch -->
+
+                    <Label 
+                        Text="{x:Static r:Strings.Settings_Debug_LogFiles_EnableLogToFile}"
+                        VerticalOptions="Center"
+                        Grid.Row="{OnPlatform WinUI=0, Default=0}"
+                        Grid.Column="{OnPlatform WinUI=0, Default=0}"
+                        Margin="{OnPlatform WinUI='0,0,0,4', Default=0}"
                     />
 
-                <Label 
-                    Text="{x:Static r:Strings.Settings_Debug_LogFiles_EnableLogToFile}"                    
-                    Margin="0,12,0,8"
+                    <Switch 
+                        VerticalOptions="Center"
+                        IsToggled="{Binding Settings.WriteLogsToFile}"
+                        Grid.Row="{OnPlatform WinUI=1, Default=0}"
+                        Grid.Column="{OnPlatform WinUI=0, Default=1}"
                     />
-                <Switch IsToggled="{Binding Settings.WriteLogsToFile}" />
+                </Grid>
+
+                <Label 
+                    Text="{x:Static r:Strings.Settings_Debug_LogFiles_Title}" 
+                    Margin="0,8"
+                    Style="{StaticResource Subtitle2TextBlockStyle}"
+                    />
 
                 <Label Text="{x:Static r:Strings.Settings_Debug_LogFiles_NoFiles}" 
                        IsVisible="{Binding HasLogFiles, Converter={StaticResource InvertedBoolConverter}}" />
 
-                <VerticalStackLayout IsVisible="{Binding HasLogFiles}" Margin="0,16,0,0">
+                <VerticalStackLayout IsVisible="{Binding HasLogFiles}" Margin="0,8,0,0">
 
                     <HorizontalStackLayout Spacing="8">
                         <Button Command="{Binding ZipLogFilesCommand}" Text="{x:Static r:Strings.Settings_Debug_LogFiles_SendLogFiles}" />
@@ -160,21 +188,15 @@
                             />
 
                         <Button Text="{x:Static r:Strings.Settings_Debug_LogFiles_Open}"
-                                Command="{Binding ReadSelectedLogFileCommand}"
+                                x:Name="ButtonOpenLogFile"
+                                IsEnabled="{Binding CanReadSelectedLogFile}"
+                                Clicked="ButtonOpenLogFile_Clicked"
                                 HorizontalOptions="Start"
                                 Grid.Row="1"
                                 Grid.Column="2"
                                 />
                     </Grid>
                 </VerticalStackLayout>
-
-                <Editor 
-                    x:Name="LogEditorBox" 
-                    HeightRequest="500"
-                    BackgroundColor="DarkBlue"
-                    IsVisible="{Binding SelectedLogFileContent, Converter={StaticResource NullToIsVisibleConverter}}"
-                    Text="{Binding SelectedLogFileContent}"
-                    />
             </VerticalStackLayout>
         </VerticalStackLayout>
     </ScrollView>

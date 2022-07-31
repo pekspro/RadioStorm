@@ -45,6 +45,7 @@ public partial class DownloadViewModel : ObservableObject
     [NotifyPropertyChangedFor(nameof(HasData))]
     [NotifyPropertyChangedFor(nameof(HasNoData))]
     [NotifyPropertyChangedFor(nameof(HasError))]
+    [NotifyCanExecuteChangedFor(nameof(FullRefreshCommand))]
     [NotifyCanExecuteChangedFor(nameof(RefreshCommand))]
     [NotifyCanExecuteChangedFor(nameof(UpdateCommand))]
     [NotifyCanExecuteChangedFor(nameof(CancelCommand))]
@@ -79,6 +80,12 @@ public partial class DownloadViewModel : ObservableObject
 
     [ObservableProperty]
     private bool _IsActive;
+
+    [RelayCommand(CanExecute = nameof(IsNotBusy))]
+    private void FullRefresh()
+    {
+        QueueRefresh(new RefreshSettings(AllowCache: false, FullRefresh: true));
+    }
 
     [RelayCommand(CanExecute = nameof(IsNotBusy))]
     private void Refresh()

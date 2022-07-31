@@ -29,6 +29,7 @@ public partial class EpisodeDetailsPage : ContentPage
 
         ViewModel.OnNavigatedFrom();
     }
+
     private async void ButtonShowPlayList_Clicked(object sender, EventArgs e)
     {
         await Shell.Current.GoToAsync(nameof(PlaylistPage));

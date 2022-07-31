@@ -19,6 +19,7 @@ on:
 
 env:
   SECRETS_FILE: ./Source/Pekspro.RadioStorm.Settings.SynchronizedSettings.FileProvider.Secrets/Secrets-Protected.cs
+  BUILD_TIME_FILE: ./Source/Pekspro.RadioStorm/Utilities/BuildTimeProvider-Build.cs
 
 
 jobs:
@@ -27,6 +28,23 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+
+
+    - name: Get current date
+      run: |
+        echo "CURRENT_TIME=$(date +'%Y%m%d_%H%M%S')" >> $env:GITHUB_ENV
+        echo "CURRENT_TIME_UTC_STRING=$(date +'%Y-%m-%dT%H:%M:%SZ')" >> $env:GITHUB_ENV
+
+    - name: "Create build time file"
+      run: |
+        echo "namespace Pekspro.RadioStorm.Utilities;" >> $env:BUILD_TIME_FILE
+        echo "public static partial class BuildTimeProvider" >> $env:BUILD_TIME_FILE
+        echo "{" >> $env:BUILD_TIME_FILE
+        echo "    static partial void Initialize()" >> $env:BUILD_TIME_FILE
+        echo "    {" >> $env:BUILD_TIME_FILE
+        echo "        BuildTimeString  = ""${{ env.CURRENT_TIME_UTC_STRING }}"";" >> $env:BUILD_TIME_FILE
+        echo "    }" >> $env:BUILD_TIME_FILE
+        echo "}" >> $env:BUILD_TIME_FILE
 
     - name: "Sets production API keys"
       if: github.event.inputs.productionApiKeys == 'true'
@@ -56,16 +74,12 @@ jobs:
         echo "    }" >> $env:SECRETS_FILE
         echo "}" >> $env:SECRETS_FILE
 
-    - name: Get current date
-      run: |
-        echo "CURRENT_TIME=$(date +'%Y%m%d_%H%M%S')" >> $env:GITHUB_ENV
-
     - name: Output settings
       run: |
         echo "Is test: ${{ env.IS_TEST_ENVIRONMENT }}"
         echo "Build type: ${{ env.BUILD_TYPE }}"
         echo "Build setting: ${{ github.event.inputs.productionApiKeys }}"
-
+        echo "Build time string: ${{ env.CURRENT_TIME_UTC_STRING }}"
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
@@ -171,7 +185,7 @@ jobs:
       if: github.event.inputs.buildAndroid == 'true'
       uses: actions/upload-artifact@v3.1.0
       with:
-        name: android-${{ env.BUILD_TYPE }}-${{ env.CURRENT_TIME }}-${{ steps.android_display_version.outputs.info }} (${{ steps.android_version.outputs.info }})
+        name: android-${{ env.BUILD_TYPE }}-${{ env.CURRENT_TIME }}-${{ steps.android_display_version.outputs.info }} [${{ steps.android_version.outputs.info }}]
         retention-days: 5
         path: |
           ./*.aab
