@@ -30,6 +30,13 @@ public partial class AboutViewModel
     public string VersionString => $"RadioStorm {VersionProvider.ApplicationVersion}";
 
     public string PureVersionString => VersionProvider.ApplicationVersion.ToString();
+    
+    public string BuildDetails => string.Format
+        (
+            Strings.About_BuildDetails, 
+            BuildTimeProvider.BuildTime.ToShortDateString(),
+            BuildTimeProvider.BuildTime.ToShortTimeString()
+        );
 
     #endregion
 

@@ -61,6 +61,15 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Den här versionen skapades {0} {1}..
+        /// </summary>
+        public static string About_BuildDetails {
+            get {
+                return ResourceManager.GetString("About_BuildDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to …Sveriges Radio som gör sådana här projekt möjliga..
         /// </summary>
         public static string About_Credits_Line1 {
