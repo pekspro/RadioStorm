@@ -18,6 +18,7 @@
                 x:Name="LogEditorBox" 
                 Margin="{StaticResource NormalPageMargin}"
                 Text="{Binding LogFileContent}"
+                IsReadOnly="True"
                 />
         </RefreshView>
     </Grid>
