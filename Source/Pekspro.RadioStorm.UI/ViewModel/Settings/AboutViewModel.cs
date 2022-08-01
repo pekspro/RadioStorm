@@ -15,12 +15,14 @@ public partial class AboutViewModel
     {
         VersionProvider = null!;
         UriLauncher = null!;
+        LocalSettings = null!;
     }
 
-    public AboutViewModel(IVersionProvider versionProvider, IUriLauncher uriLauncher)
+    public AboutViewModel(IVersionProvider versionProvider, IUriLauncher uriLauncher, ILocalSettings localSettings)
     {
         VersionProvider = versionProvider;
         UriLauncher = uriLauncher;
+        LocalSettings = localSettings;
     }
 
     #endregion
@@ -37,6 +39,8 @@ public partial class AboutViewModel
             BuildTimeProvider.BuildTime.ToShortDateString(),
             BuildTimeProvider.BuildTime.ToShortTimeString()
         );
+
+    public ILocalSettings LocalSettings { get; }
 
     #endregion
 

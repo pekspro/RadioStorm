@@ -19,11 +19,19 @@ public partial class DebugSettingsViewModel : ObservableObject
         Logger = null!;
     }
 
-    public DebugSettingsViewModel(ILocalSettings localSettings, ILogFileHelper logFileHelper, ILogger<DebugSettingsViewModel> logger)
+    public DebugSettingsViewModel(ILocalSettings localSettings, ILogFileHelper logFileHelper, IMessenger messenger, ILogger<DebugSettingsViewModel> logger)
     {
         Settings = localSettings;
         LogFileHelper = logFileHelper;
         Logger = logger;
+
+        messenger.Register<SettingChangedMessage>(this, (r, n) =>
+        {
+            if (n.SettingName == nameof(Settings.ShowDebugSettings))
+            {
+                OnPropertyChanged(nameof(ShowDebugSettings));
+            }
+        });
     }
 
     #endregion
