@@ -28,6 +28,7 @@ public sealed class DownloadSettings : IDownloadSettings
 
             if (s is not null)
             {
+                // , DownloadSettingJsonContext.Default.DownloadSetting
                 var d = System.Text.Json.JsonSerializer.Deserialize<List<DownloadSetting>>(s);
                 Settings = d ?? Settings;
             }
@@ -40,7 +41,7 @@ public sealed class DownloadSettings : IDownloadSettings
 
     private void Save()
     {
-        var s = System.Text.Json.JsonSerializer.Serialize(Settings);
+        var s = System.Text.Json.JsonSerializer.Serialize(Settings, DownloadSettingJsonContext.Default.DownloadSetting);
 
         SettingsService.SetValue(SettingsName, s);
     }
