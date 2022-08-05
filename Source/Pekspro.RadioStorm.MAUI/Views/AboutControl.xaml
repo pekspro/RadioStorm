@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Settings;assembly=Pekspro.RadioStorm.UI"
+             xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
+             x:Class="Pekspro.RadioStorm.MAUI.Views.AboutControl"
+             x:DataType="vm:AboutViewModel">
+
+    <VerticalStackLayout Spacing="8" x:Name="AboutLayout">
+        <Label Text="{Binding VersionString}" Style="{StaticResource SubtitleTextBlockStyle}">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="VersionNumberLabel_Tapped" />
+            </Label.GestureRecognizers>
+        </Label>
+        <Label Text="{x:Static r:Strings.About_Description}" />
+        <Label Text="{Binding BuildDetails}" Style="{StaticResource DetailedTextStyle}" TextColor="{StaticResource InactiveProgramColor}" />
+        <Label Text="{x:Static r:Strings.About_Credits_Title}" Style="{StaticResource Subtitle2TextBlockStyle}" />
+        <Label Text="{x:Static r:Strings.About_Credits_Line1}" />
+        <Label Text="{x:Static r:Strings.About_Credits_Line2}" />
+        <Label Text="{x:Static r:Strings.About_Credits_Line3}" />
+        <Label Text="{x:Static r:Strings.About_Credits_Line4}" />
+
+        <Label Text="{x:Static r:Strings.About_Header_Email}" Style="{StaticResource Subtitle2TextBlockStyle}" />
+        <Label Text="{x:Static r:Strings.About_Email_Note}" />
+        <Button Command="{Binding EmailCommand}"
+                        Style="{StaticResource HyperlinkButton}"
+                        Text="{x:Static r:Strings.General_Pekspro_EmailAddress}"
+                        />
+
+        <Label Text="{x:Static r:Strings.About_Header_Webbpage}" Style="{StaticResource Subtitle2TextBlockStyle}" />
+        <Button Command="{Binding OpenWebPageCommand}"
+                        Style="{StaticResource HyperlinkButton}"
+                        Text="{x:Static r:Strings.General_Pekspro_Url}"
+                        />
+    </VerticalStackLayout>
+
+</ContentView>

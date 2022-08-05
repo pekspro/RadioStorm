@@ -221,7 +221,9 @@ public partial class EpisodeModel : ObservableObject, IComparable<EpisodeModel>
             {
                 string s = Strings.Episodes_ExpireNote_OneDayOrLess;
 
-                string expireString = WeekdaynameHelper.GetRelativeWeekdayName(localExpireDate, false, false, true).ToLower();
+                (string name, _) = WeekdaynameHelper.GetRelativeWeekdayName(localExpireDate, false, false, true);
+
+                string expireString = name.ToLower();
                 s = string.Format(s, expireString, withMusicString);
 
                 return s.Replace("  ", " ").Trim() + ".";

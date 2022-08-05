@@ -7,19 +7,27 @@
              xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
              x:DataType="vm:LogFileDetailsViewModel"
              Title="{Binding Title}">
+    <ContentPage.ToolbarItems>
+
+        <ToolbarItem 
+                Command="{Binding UpdateCommand}"
+                Text="{x:Static r:Strings.General_Update}"
+                Order="Secondary"
+                Priority="0" />
+
+    </ContentPage.ToolbarItems>
+
     <Grid RowDefinitions="*">
         <views:DownloadState Padding="{StaticResource NormalPageMargin}" />
 
-        <RefreshView 
-            Command="{Binding FullRefreshCommand}" 
-            IsRefreshing="{Binding IsRefreshing}"
-            IsVisible="{Binding HasData}">
-            <Editor 
-                x:Name="LogEditorBox" 
-                Margin="{StaticResource NormalPageMargin}"
-                Text="{Binding LogFileContent}"
-                IsReadOnly="True"
-                />
-        </RefreshView>
+        <Editor 
+            x:Name="LogEditorBox" 
+            VerticalOptions="FillAndExpand"
+            Margin="{StaticResource NormalPageMargin}"
+            Text="{Binding LogFileContent}"
+            />
+        <!-- TODO: Should be read only when this is fixed:
+        https://github.com/dotnet/maui/issues/7989
+        -->
     </Grid>
 </ContentPage>

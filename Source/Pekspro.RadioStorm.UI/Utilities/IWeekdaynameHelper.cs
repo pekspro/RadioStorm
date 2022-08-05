@@ -2,7 +2,7 @@
 
 public interface IWeekdaynameHelper
 {
-    string GetRelativeWeekdayName(DateTime day, bool allowWeekdayName = true, bool useTimeInsteadOfToday = false, bool alwaysIncludeTime = false);
+    (string text, DateTime dateTime) GetRelativeWeekdayName(DateTime day, bool allowWeekdayName = true, bool useTimeInsteadOfToday = false, bool alwaysIncludeTime = false);
 
     string GetWeekdayName(DateTime day);
 

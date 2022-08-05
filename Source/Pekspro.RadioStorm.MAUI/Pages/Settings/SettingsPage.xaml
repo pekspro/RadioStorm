@@ -11,34 +11,8 @@
     <ScrollView Padding="{StaticResource NormalPageMargin}">
         <VerticalStackLayout Spacing="8">
 
-            <VerticalStackLayout Spacing="8" x:DataType="vm:AboutViewModel" x:Name="AboutLayout">
-                <Label Text="{Binding VersionString}" Style="{StaticResource SubtitleTextBlockStyle}">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="VersionNumberLabel_Tapped" />
-                    </Label.GestureRecognizers>
-                </Label>
-                <Label Text="{x:Static r:Strings.About_Description}" />
-                <Label Text="{Binding BuildDetails}" Style="{StaticResource DetailedTextStyle}" TextColor="{StaticResource InactiveProgramColor}" />
-                <Label Text="{x:Static r:Strings.About_Credits_Title}" Style="{StaticResource Subtitle2TextBlockStyle}" />
-                <Label Text="{x:Static r:Strings.About_Credits_Line1}" />
-                <Label Text="{x:Static r:Strings.About_Credits_Line2}" />
-                <Label Text="{x:Static r:Strings.About_Credits_Line3}" />
-                <Label Text="{x:Static r:Strings.About_Credits_Line4}" />
-
-                <Label Text="{x:Static r:Strings.About_Header_Email}" Style="{StaticResource Subtitle2TextBlockStyle}" />
-                <Label Text="{x:Static r:Strings.About_Email_Note}" />
-                <Button Command="{Binding EmailCommand}"
-                        Style="{StaticResource HyperlinkButton}"
-                        Text="{x:Static r:Strings.General_Pekspro_EmailAddress}"
-                        />
-
-                <Label Text="{x:Static r:Strings.About_Header_Webbpage}" Style="{StaticResource Subtitle2TextBlockStyle}" />
-                <Button Command="{Binding OpenWebPageCommand}"
-                        Style="{StaticResource HyperlinkButton}"
-                        Text="{x:Static r:Strings.General_Pekspro_Url}"
-                        />
-            </VerticalStackLayout>
-
+            <views:AboutControl />
+            
             <Rectangle Style="{StaticResource Separator}" />
 
             <views:GraphControl />
@@ -108,96 +82,8 @@
             
             <views:DownloadSettingsControl />
 
-            <VerticalStackLayout x:Name="DebugSettings" x:DataType="vm:DebugSettingsViewModel" IsVisible="{Binding ShowDebugSettings}">
-                <Rectangle Style="{StaticResource Separator}" />
-
-                <Label 
-                    Text="{x:Static r:Strings.Settings_Debug_Title}"
-                    Margin="0,8"
-                    Style="{StaticResource SubtitleTextBlockStyle}"
-                    />
-
-                <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="*, Auto">
-                    <!-- On Windows, label on top off switch. On Android label left to switch -->
-
-                    <Label 
-                        Text="{x:Static r:Strings.Settings_Debug_LogFiles_EnableLogToFile}"
-                        VerticalOptions="Center"
-                        Grid.Row="{OnPlatform WinUI=0, Default=0}"
-                        Grid.Column="{OnPlatform WinUI=0, Default=0}"
-                        Margin="{OnPlatform WinUI='0,0,0,4', Default=0}"
-                    />
-
-                    <Switch 
-                        VerticalOptions="Center"
-                        IsToggled="{Binding Settings.WriteLogsToFile}"
-                        Grid.Row="{OnPlatform WinUI=1, Default=0}"
-                        Grid.Column="{OnPlatform WinUI=0, Default=1}"
-                    />
-                </Grid>
-
-                <Label 
-                    Text="{x:Static r:Strings.Settings_Debug_LogFiles_Title}" 
-                    Margin="0,8"
-                    Style="{StaticResource Subtitle2TextBlockStyle}"
-                    />
-
-                <Label Text="{x:Static r:Strings.Settings_Debug_LogFiles_NoFiles}" 
-                       IsVisible="{Binding HasLogFiles, Converter={StaticResource InvertedBoolConverter}}" />
-
-                <VerticalStackLayout IsVisible="{Binding HasLogFiles}" Margin="0,8,0,0">
-
-                    <HorizontalStackLayout Spacing="8">
-                        <Button Command="{Binding ZipLogFilesCommand}" Text="{x:Static r:Strings.Settings_Debug_LogFiles_SendLogFiles}" />
-                        <Button Command="{Binding RemoveLogFilesCommand}" Text="{x:Static r:Strings.Settings_Debug_LogFiles_RemoveOldLogFiles}" />
-                    </HorizontalStackLayout>
-
-                    <HorizontalStackLayout 
-                        Margin="0,8" 
-                        IsVisible="{Binding IsZippingLogFiles}">
-                        <ActivityIndicator 
-                            WidthRequest="12"
-                            HeightRequest="12"
-                            Margin="0,0,4,0" 
-                            IsRunning="True" />
-
-                        <Label Text="{x:Static r:Strings.Settings_Debug_LogFiles_CollectingLogFiles}"
-                            VerticalOptions="Center"
-                            />
-                    </HorizontalStackLayout>
-                    
-                    <Grid Margin="0,8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                        </Grid.RowDefinitions>
-                        
-                        <Label Text="{x:Static r:Strings.Settings_Debug_LogFiles_Title}" 
-                               Margin="{OnPlatform 0, WinUI='0,7,8,7', Android='0,10,8,0'}"
-                               Grid.Column="0" />
-
-                        <Picker 
-                            Grid.Column="1"
-                            ItemsSource="{Binding LogFilesNameOnly}"
-                            SelectedIndex="{Binding SelectedLogFileIndex, Mode=TwoWay}"
-                            Margin="{OnPlatform 0, WinUI='0,0,0,12'}"
-                            />
-
-                        <Button Text="{x:Static r:Strings.Settings_Debug_LogFiles_Open}"
-                                x:Name="ButtonOpenLogFile"
-                                IsEnabled="{Binding CanReadSelectedLogFile}"
-                                Clicked="ButtonOpenLogFile_Clicked"
-                                HorizontalOptions="Start"
-                                Grid.Row="1"
-                                Grid.Column="2"
-                                />
-                    </Grid>
-                </VerticalStackLayout>
-            </VerticalStackLayout>
+            <views:DebugSettingsControl x:Name="DebugSettings" />
+            
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

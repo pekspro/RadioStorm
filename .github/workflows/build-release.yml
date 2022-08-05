@@ -6,16 +6,20 @@ on:
       productionApiKeys:
         description: 'Use production API keys'
         type: boolean
-        default: false
+        default: true
         required: true
       buildWindows:
-        description: 'Build Windows version'
+        description: 'Windows: Build'
         type: boolean
         default: true
       buildAndroid:
-        description: 'Build Android version'
+        description: 'Android: Build'
         type: boolean
         default: true
+      androidKeepAab:
+        description: 'Android: Keep AAB-files'
+        type: boolean
+        default: false
 
 env:
   SECRETS_FILE: ./Source/Pekspro.RadioStorm.Settings.SynchronizedSettings.FileProvider.Secrets/Secrets-Protected.cs
@@ -28,7 +32,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-
 
     - name: Get current date
       run: |
@@ -45,6 +48,17 @@ jobs:
         echo "        BuildTimeString  = ""${{ env.CURRENT_TIME_UTC_STRING }}"";" >> $env:BUILD_TIME_FILE
         echo "    }" >> $env:BUILD_TIME_FILE
         echo "}" >> $env:BUILD_TIME_FILE
+
+    - name: Upload source
+      uses: actions/upload-artifact@v3.1.0
+      with:
+        name: source-${{ env.CURRENT_TIME }}
+        retention-days: 5
+        path: |
+          ./**/*.*
+          !./.git
+          # Doesn't work :-( !/.git
+          # Doesn't work :-( !/.git/**/*.*
 
     - name: "Sets production API keys"
       if: github.event.inputs.productionApiKeys == 'true'
@@ -168,6 +182,11 @@ jobs:
     - name: Build MAUI for Android
       if: github.event.inputs.buildAndroid == 'true'
       run: dotnet publish ./Source/Pekspro.RadioStorm.MAUI/Pekspro.RadioStorm.MAUI.csproj --framework:net6.0-android --configuration:Release /p:AndroidSigningKeyStore=${{ steps.create_android_key_file.outputs.filePath }} /p:AndroidSigningKeyAlias=${{ secrets.ANDROID_KEY_ALIAS }} /p:AndroidSigningKeyPass=${{ secrets.ANDROID_KEY_PASSWORD }} /p:AndroidSigningStorePass=${{ secrets.ANDROID_KEY_PASSWORD }}  --output ./Android
+
+    - name: Delete AAB-files
+      if: github.event.inputs.buildAndroid == 'true' && github.event.inputs.androidKeepAab == 'false'
+      run: |
+         del ./Android/*.aab
 
     - name: Move Android outputs to root folder
       if: github.event.inputs.buildAndroid == 'true'

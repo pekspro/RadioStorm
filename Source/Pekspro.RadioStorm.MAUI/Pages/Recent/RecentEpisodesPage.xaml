@@ -6,9 +6,13 @@
              xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
              xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
              x:Class="Pekspro.RadioStorm.MAUI.Pages.Recent.RecentEpisodesPage"
-             x:DataType="vm:RecentEpisodesViewModel"
              Title="{x:Static r:Strings.Recent_Title}"
              >
+            <!-- TODO: Add:
+        
+                    x:DataType="vm:RecentEpisodesViewModel"
+    
+                when this issue is fixed: https://github.com/dotnet/maui/issues/9131 -->
     <ContentPage.ToolbarItems>
         <ToolbarItem 
                 Command="{Binding UpdateCommand}"
@@ -39,12 +43,15 @@
                     </DataTemplate>
                 </CollectionView.GroupHeaderTemplate>
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="m:EpisodeModel">
-                        <v:EpisodeControl>
-                            <v:EpisodeControl.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="RecentTapped"/>
-                            </v:EpisodeControl.GestureRecognizers>
-                        </v:EpisodeControl>
+                    <DataTemplate>
+                        <!-- TODO: Remove Grid when this issue is fixed: https://github.com/dotnet/maui/issues/9131 -->
+                        <Grid>
+                            <v:EpisodeControl BindingContext="{Binding Model}">
+                                <v:EpisodeControl.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="RecentTapped"/>
+                                </v:EpisodeControl.GestureRecognizers>
+                            </v:EpisodeControl>
+                        </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

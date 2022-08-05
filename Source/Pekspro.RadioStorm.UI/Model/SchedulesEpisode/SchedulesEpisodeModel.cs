@@ -83,7 +83,16 @@ public partial class SchedulesEpisodeModel : ObservableObject
     
     public bool IsFinished => DateTimeProvider.OffsetNow > EndTimeUtc;
 
-    public string RelativeStartDateString => WeekdaynameHelper.GetRelativeWeekdayName(StartTimeUtc.LocalDateTime);
+    public string RelativeStartDateString
+    {
+        get
+        {
+            (string name, _) = WeekdaynameHelper.GetRelativeWeekdayName(StartTimeUtc.LocalDateTime);
+
+            return name;
+        }
+    }
+
 
     public string StartDateString => StartTimeUtc.LocalDateTime.ToString("yyyy-MM-dd");
 
