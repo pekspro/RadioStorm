@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:episode="clr-namespace:Pekspro.RadioStorm.Sandbox.WPF.Episode" 
         xmlns:UserControls="clr-namespace:Pekspro.RadioStorm.Sandbox.WPF.UserControls" 
-        xmlns:episodes="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Episode;assembly=Pekspro.RadioStorm.UI"
+        xmlns:recent="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.RecentEpisodes;assembly=Pekspro.RadioStorm.UI"
         xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
         mc:Ignorable="d"
-        d:DataContext="{d:DesignInstance episodes:DownloadsViewModel, IsDesignTimeCreatable=True}"
+        d:DataContext="{d:DesignInstance recent:RecentEpisodesViewModel, IsDesignTimeCreatable=True}"
         Title="{x:Static r:Strings.Recent_Title}" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
@@ -57,7 +57,7 @@
             </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <episode:EpisodeControl />
+                    <episode:EpisodeControl DataContext="{Binding Model}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

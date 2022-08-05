@@ -44,7 +44,9 @@ public class DateTimeHolder
                 return string.Empty;
             }
 
-            return WeekdaynameHelper.GetRelativeWeekdayName(Date.Value.LocalDateTime, true, true, true);
+            (string name, _) = WeekdaynameHelper.GetRelativeWeekdayName(Date.Value.LocalDateTime, true, true, true);
+
+            return name;
         }
     }
 

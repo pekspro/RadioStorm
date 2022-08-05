@@ -35,10 +35,11 @@ public class WeekdaynameHelper : IWeekdaynameHelper
         _ => Strings.Weekday_Sunday,
     };
 
-    public string GetRelativeWeekdayName(DateTime day, bool allowWeekdayName = true, bool useTimeInsteadOfToday = false, bool alwaysIncludeTime = false)
+    public (string text, DateTime dateTime) GetRelativeWeekdayName(DateTime day, bool allowWeekdayName = true, bool useTimeInsteadOfToday = false, bool alwaysIncludeTime = false)
     {
         var today = DateTimeProvider.LocalNow.Date;
         int diff = (int)(day.Date - today).TotalDays;
+        DateTime retDate;
 
         string text;
 
@@ -46,18 +47,24 @@ public class WeekdaynameHelper : IWeekdaynameHelper
         {
             if (useTimeInsteadOfToday)
             {
-                return day.ToString("HH:mm");
+                text = day.ToString("HH:mm");
+            }
+            else
+            {
+                text = Strings.Weekday_Today;
             }
 
-            text = Strings.Weekday_Today;
+            retDate = day.Date;
         }
         else if (diff == -1)
         {
             text = Strings.Weekday_Yesterday;
+            retDate = day.Date.AddDays(-1);
         }
         else if (diff == 1)
         {
             text = Strings.Weekday_Tomorrow;
+            retDate = day.Date.AddDays(1);
         }
         else if (diff >= 0 && diff < 9 && allowWeekdayName)
         {
@@ -91,19 +98,25 @@ public class WeekdaynameHelper : IWeekdaynameHelper
             {
                 text = day.ToString("yyyy-MM-dd");
             }
+
+            retDate = day.Date;
         }
         else
         {
             text = day.ToString("yyyy-MM-dd");
+
+            retDate = day.Date;
         }
 
 
         if (alwaysIncludeTime)
         {
             text += " " + day.ToString("HH:mm");
+
+            retDate = new DateTime(retDate.Year, retDate.Month, retDate.Day, day.Hour, day.Minute, 0);
         }
 
-        return text;
+        return (text, retDate);
     }
 
     #endregion

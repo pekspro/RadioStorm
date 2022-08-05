@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.UI.ViewModel.RecentEpisodes;
 
-public partial class RecentEpisodesViewModel : ListViewModel<EpisodeModel>
+public partial class RecentEpisodesViewModel : ListViewModel<RecentEpisodeModel>
 {
     #region Private properties
 
@@ -8,6 +8,7 @@ public partial class RecentEpisodesViewModel : ListViewModel<EpisodeModel>
     private IEpisodeModelFactory EpisodeModelFactory { get; }
     private IProgramModelFactory ProgramModelFactory { get; }
     private IRecentPlayedManager RecentPlayedManager { get; }
+    private IWeekdaynameHelper WeekdaynameHelper { get; }
     private IDateTimeProvider DateTimeProvider { get; }
 
     #endregion
@@ -23,14 +24,15 @@ public partial class RecentEpisodesViewModel : ListViewModel<EpisodeModel>
         DataFetcher = null!;
         EpisodeModelFactory = null!;
         ProgramModelFactory = null!;
+        WeekdaynameHelper = null!;
         RecentPlayedManager = null!;
         DateTimeProvider = null!;
         DownloadState = DownloadStates.Done;
 
-        Items = new ObservableCollection<EpisodeModel>();
-        Items.Add(EpisodeModel.CreateWithSampleData(0));
-        Items.Add(EpisodeModel.CreateWithSampleData(1));
-        Items.Add(EpisodeModel.CreateWithSampleData(2));
+        Items = new ObservableCollection<RecentEpisodeModel>();
+        Items.Add(new RecentEpisodeModel(EpisodeModel.CreateWithSampleData(0), new DateTime(2022, 8, 5, 10, 11, 12), new DateOnly(2022, 8, 5), "Idag"));
+        Items.Add(new RecentEpisodeModel(EpisodeModel.CreateWithSampleData(1), new DateTime(2022, 8, 5, 4, 11, 12), new DateOnly(2022, 8, 5), "Idag"));
+        Items.Add(new RecentEpisodeModel(EpisodeModel.CreateWithSampleData(2), new DateTime(2022, 8, 4, 14, 16, 18), new DateOnly(2022, 8, 4), "Igår"));
     }
 
     public RecentEpisodesViewModel(
@@ -38,6 +40,7 @@ public partial class RecentEpisodesViewModel : ListViewModel<EpisodeModel>
         IEpisodeModelFactory episodeModelFactory,
         IProgramModelFactory programModelFactory,
         IRecentPlayedManager recentPlayedManager,
+        IWeekdaynameHelper weekdaynameHelper,  
         IMessenger messenger,
         IDateTimeProvider dateTimeProvider,
         IMainThreadRunner mainThreadRunner,
@@ -48,6 +51,7 @@ public partial class RecentEpisodesViewModel : ListViewModel<EpisodeModel>
         EpisodeModelFactory = episodeModelFactory;
         ProgramModelFactory = programModelFactory;
         RecentPlayedManager = recentPlayedManager;
+        WeekdaynameHelper = weekdaynameHelper;
         DateTimeProvider = dateTimeProvider;
         messenger.Register<RecentListChangedMessage>(this, (r, m) =>
         {
@@ -83,7 +87,8 @@ public partial class RecentEpisodesViewModel : ListViewModel<EpisodeModel>
 
         HasRecentItems = recentItems.Any();
 
-        List<KeyValuePair<EpisodeModel, DateTimeOffset>> pendingItemsToAdd = new List<KeyValuePair<EpisodeModel, DateTimeOffset>>();
+        List<KeyValuePair<RecentEpisodeModel, DateTimeOffset>> pendingItemsToAdd = 
+            new List<KeyValuePair<RecentEpisodeModel, DateTimeOffset>>();
         DateTime latestAddTime = DateTimeProvider.UtcNow;
         
         void AddFetchedItems()
@@ -111,8 +116,14 @@ public partial class RecentEpisodesViewModel : ListViewModel<EpisodeModel>
             if (dbEpisodeData is not null)
             {
                 EpisodeModel episodeModel = EpisodeModelFactory.Create(dbEpisodeData);
+                (string dayName, DateTime date) = WeekdaynameHelper.GetRelativeWeekdayName(recentItem.Timestamp.DateTime);
 
-                pendingItemsToAdd.Add(new KeyValuePair<EpisodeModel, DateTimeOffset>(episodeModel, recentItem.Timestamp));
+                RecentEpisodeModel recentEpisodeModel = new RecentEpisodeModel(episodeModel,
+                    recentItem.Timestamp.DateTime,
+                    DateOnly.FromDateTime(date),
+                    dayName);
+
+                pendingItemsToAdd.Add(new KeyValuePair<RecentEpisodeModel, DateTimeOffset>(recentEpisodeModel, recentItem.Timestamp));
             }
 
             DateTime now = DateTimeProvider.UtcNow;
@@ -131,13 +142,13 @@ public partial class RecentEpisodesViewModel : ListViewModel<EpisodeModel>
 
             foreach (var item in Items.ToArray())
             {
-                if (item.ProgramId.HasValue)
+                if (item.Model.ProgramId.HasValue)
                 {
-                    var programData = await DataFetcher.GetProgramAsync(item.ProgramId.Value, refreshSettings.AllowCache, cancellationToken);
+                    var programData = await DataFetcher.GetProgramAsync(item.Model.ProgramId.Value, refreshSettings.AllowCache, cancellationToken);
 
                     if (programData is not null)
                     {
-                        item.ProgramDetails = ProgramModelFactory.Create(programData);
+                        item.Model.ProgramDetails = ProgramModelFactory.Create(programData);
                     }
                 }
             }
@@ -146,13 +157,21 @@ public partial class RecentEpisodesViewModel : ListViewModel<EpisodeModel>
         {
             DownloadState = DownloadStates.NoData;
         }
-
     }
 
-    protected override int GetId(EpisodeModel item) => item.Id;
+    protected override int GetId(RecentEpisodeModel item) => item.Model.Id;
 
-    protected override int Compare(EpisodeModel a, EpisodeModel b)
+    protected override int Compare(RecentEpisodeModel a1, RecentEpisodeModel b1)
     {
+        int timeCompare = a1.LatestListenTime.CompareTo(b1.LatestListenTime);
+        if (timeCompare != 0)
+        {
+            return timeCompare;
+        }
+
+        var a = a1.Model;
+        var b = b1.Model;
+
         int nameCompare = a.ProgramName.CompareTo(b.ProgramName);
 
         if (nameCompare != 0)
@@ -173,7 +192,12 @@ public partial class RecentEpisodesViewModel : ListViewModel<EpisodeModel>
         return a.PublishLength.PublishDate.Value.CompareTo(b.PublishLength.PublishDate.Value);
     }
 
-    protected override string GetGroupName(EpisodeModel item) => item.ProgramName ?? "?";
+    protected override int GetGroupPriority(RecentEpisodeModel item)
+    {
+        return -(item.DatePeriod.Year * 10000 + item.DatePeriod.Month * 100 + item.DatePeriod.Day);
+    }
+
+    protected override string GetGroupName(RecentEpisodeModel item) => item.RecentPeriod ?? "?";
 
     public void RemoveFromRecentList(EpisodeModel episodeModel)
     {

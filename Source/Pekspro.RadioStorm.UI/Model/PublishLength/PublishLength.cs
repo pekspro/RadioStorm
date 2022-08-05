@@ -72,7 +72,9 @@ public partial class PublishLength : ObservableObject
                 return string.Empty;
             }
 
-            return WeekdaynameHelper.GetRelativeWeekdayName(PublishDate.Value.LocalDateTime, true, true);
+            (string name, _) = WeekdaynameHelper.GetRelativeWeekdayName(PublishDate.Value.LocalDateTime, true, true);
+            
+            return name;
         }
     }
 
