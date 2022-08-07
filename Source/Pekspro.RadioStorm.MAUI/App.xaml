@@ -37,8 +37,10 @@
 
             <Color x:Key="PanelIconColorDark">#DDD</Color>
             <Color x:Key="PanelIconColorLight">#222</Color>
-            <Color x:Key="FadedPanelIconColorDark">#777</Color>
-            <Color x:Key="FadedPanelIconColorLight">#999</Color>
+            <Color x:Key="ToolbarIconColorDark">#DDDDDD</Color>
+            <Color x:Key="ToolbarIconColorLight">#CCCCCC</Color>
+            <Color x:Key="ToolbarIconColorFadedDark">#777777</Color>
+            <Color x:Key="ToolbarIconColorFadedLight">#999999</Color>
 
             <OnPlatform x:Key="NormalPageMargin" x:TypeArguments="Thickness" Default="20">
                 <On Platform="WinUI">8</On>
@@ -149,84 +151,84 @@
                 x:Key="ToolBarIconNotFavorite"
                 FontFamily="FontAwesome"
                 Glyph="{x:Static style:IconFont.Star}"
-                Color="{AppThemeBinding Dark={StaticResource FadedPanelIconColorDark}, Light={StaticResource FadedPanelIconColorLight}}"
+                Color="{AppThemeBinding Dark={StaticResource ToolbarIconColorFadedDark}, Light={StaticResource ToolbarIconColorFadedLight}}"
                 Size="16"/>
 
             <FontImageSource
                 x:Key="ToolBarIconFavorite"
                 FontFamily="FontAwesome"
                 Glyph="{x:Static style:IconFont.Star}"
-                Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
+                Color="{AppThemeBinding Dark={StaticResource ToolbarIconColorDark}, Light={StaticResource ToolbarIconColorLight}}"
                 Size="16"/>
 
             <FontImageSource
                 x:Key="ToolBarIconDownload"
                 FontFamily="FontAwesome"
                 Glyph="{x:Static style:IconFont.Download}"
-                Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
+                Color="{AppThemeBinding Dark={StaticResource ToolbarIconColorDark}, Light={StaticResource ToolbarIconColorLight}}"
                 Size="16"/>
 
             <FontImageSource
                 x:Key="ToolBarIconDelete"
                 FontFamily="FontAwesome"
                 Glyph="{x:Static style:IconFont.Trash}"
-                Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
+                Color="{AppThemeBinding Dark={StaticResource ToolbarIconColorDark}, Light={StaticResource ToolbarIconColorLight}}"
                 Size="16"/>
 
             <FontImageSource
                 x:Key="ToolBarIconIsNotListened"
                 FontFamily="FontAwesome"
                 Glyph="{x:Static style:IconFont.CheckCircle}"
-                Color="{AppThemeBinding Dark={StaticResource FadedPanelIconColorDark}, Light={StaticResource FadedPanelIconColorLight}}"
+                Color="{AppThemeBinding Dark={StaticResource ToolbarIconColorFadedDark}, Light={StaticResource ToolbarIconColorFadedLight}}"
                 Size="16"/>
 
             <FontImageSource
                 x:Key="ToolBarIconIsListened"
                 FontFamily="FontAwesome"
                 Glyph="{x:Static style:IconFont.CheckCircle}"
-                Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
+                Color="{AppThemeBinding Dark={StaticResource ToolbarIconColorDark}, Light={StaticResource ToolbarIconColorLight}}"
                 Size="16"/>
 
             <FontImageSource
                 x:Key="ToolBarIconSettings"
                 FontFamily="FontAwesome"
                 Glyph="{x:Static style:IconFont.Cog}"
-                Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
+                Color="{AppThemeBinding Dark={StaticResource ToolbarIconColorDark}, Light={StaticResource ToolbarIconColorLight}}"
                 Size="16"/>
 
             <FontImageSource
                 x:Key="Play"
                 FontFamily="FontAwesome"
                 Glyph="{x:Static style:IconFont.Play}"
-                Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
+                Color="{AppThemeBinding Dark={StaticResource ToolbarIconColorDark}, Light={StaticResource ToolbarIconColorLight}}"
                 Size="16"/>
 
             <FontImageSource
                 x:Key="Pause"
                 FontFamily="FontAwesome"
                 Glyph="{x:Static style:IconFont.Pause}"
-                Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
+                Color="{AppThemeBinding Dark={StaticResource ToolbarIconColorDark}, Light={StaticResource ToolbarIconColorLight}}"
                 Size="16"/>
 
             <FontImageSource
                 x:Key="Previous"
                 FontFamily="FontAwesome"
                 Glyph="{x:Static style:IconFont.Backward}"
-                Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
+                Color="{AppThemeBinding Dark={StaticResource ToolbarIconColorDark}, Light={StaticResource ToolbarIconColorLight}}"
                 Size="16"/>
 
             <FontImageSource
                 x:Key="Next"
                 FontFamily="FontAwesome"
                 Glyph="{x:Static style:IconFont.Forward}"
-                Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
+                Color="{AppThemeBinding Dark={StaticResource ToolbarIconColorDark}, Light={StaticResource ToolbarIconColorLight}}"
                 Size="16"/>
 
             <FontImageSource
                 x:Key="PlayList"
                 FontFamily="FontAwesome"
                 Glyph="{x:Static style:IconFont.List}"
-                Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
+                Color="{AppThemeBinding Dark={StaticResource ToolbarIconColorDark}, Light={StaticResource ToolbarIconColorLight}}"
                 Size="16"/>
 
 
