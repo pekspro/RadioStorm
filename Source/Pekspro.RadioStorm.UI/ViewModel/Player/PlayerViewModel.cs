@@ -148,16 +148,16 @@ public partial class PlayerViewModel : ObservableObject
 
     #endregion
 
-    public TimeSpan Position => LatestDraggingPosition ?? AudioPosition;
+    public TimeSpan Position => DraggingPosition ?? LatestDraggingPosition ?? AudioPosition;
 
-    public string PositionString => Position.ToString("hh\\:mm\\:ss");
-
+    public string PositionString => CreatePositionString(Position);
+    
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(MediaLengthString))]
     [NotifyPropertyChangedFor(nameof(IsMediaLengthKnown))]
     private TimeSpan _MediaLength;
 
-    public string MediaLengthString => _MediaLength.ToString("hh\\:mm\\:ss");
+    public string MediaLengthString => CreatePositionString(_MediaLength);
 
     public bool IsMediaLengthKnown
     {
@@ -265,10 +265,13 @@ public partial class PlayerViewModel : ObservableObject
     }
 
     public void SeekPosition(TimeSpan position)
-            {
+    {
         AudioManager.SetPlaybackPosition(position);
         AudioPosition = AudioManager.Position;
     }
 
+    public string CreatePositionString(TimeSpan position) =>
+        position.ToString("hh\\:mm\\:ss");
+    
     #endregion
 }
