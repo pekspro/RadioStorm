@@ -129,17 +129,14 @@ internal class AndroidAudioManager : AudioManagerBase
         }
         else
         {
-            //var duration = mediaPlayer.PlaybackSession.NaturalDuration;
-            //if (duration.TotalSeconds <= 0)
-            //{
-            //    SetLiveAudioPositionAndLength();
-            //    return;
-            //}
+            var position = MediaPlayerService.Position;
+            var mediaLength = MediaPlayerService.Duration;
 
-            var position = TimeSpan.FromMilliseconds(MediaPlayerService.Position);
-            var mediaLength = TimeSpan.FromMilliseconds(MediaPlayerService.Duration);
-
-            SetPositionAndLength(position, mediaLength);
+            // Position are not valid is some situations (for instances, when stopped).
+            if (position >= 0 && mediaLength > 0)
+            {
+                SetPositionAndLength(TimeSpan.FromMilliseconds(position), TimeSpan.FromMilliseconds(mediaLength));
+            }
         }
     }
 
