@@ -246,12 +246,32 @@ public class MediaPlayerService : Service,
         UpdatePlaybackState(PlaybackStateCode.Playing);
     }
 
+    private int _LatestValidPosition = -1;
+
     public int Position
     {
         get
         {
-            // Note: On buffering, position and duration is probably not valid. These
-            // values should be cached somehow.
+            var pos = RawPosition;
+
+            if (pos >= 0)
+            {
+                _LatestValidPosition = pos;
+            }
+
+            return _LatestValidPosition;
+        }
+        private set
+        {
+            _LatestValidPosition = value;
+        }
+    }
+
+    private int RawPosition
+    {
+        get
+        {
+            // Note: On buffering, position and duration is probably not valid.
             if (mediaPlayer is null ||
                 (MediaPlayerState != PlaybackStateCode.Playing && MediaPlayerState != PlaybackStateCode.Paused && MediaPlayerState != PlaybackStateCode.Buffering)
                 )
@@ -265,7 +285,28 @@ public class MediaPlayerService : Service,
         }
     }
 
+    private int _LatestValidDuration = -1;
+
     public int Duration
+    {
+        get
+        {
+            var duration = RawDuration;
+
+            if (duration > 0)
+            {
+                _LatestValidDuration = duration;
+            }
+
+            return _LatestValidDuration;
+        }
+        set
+        {
+            _LatestValidDuration = value;
+        }
+    }
+
+    private int RawDuration
     {
         get
         {
@@ -444,14 +485,47 @@ public class MediaPlayerService : Service,
         {
             if (mediaPlayer is not null)
             {
+                Position = position;
                 mediaPlayer.SeekTo(position);
             }
         });
     }
 
+    private async Task<bool> TrySeek(TimeSpan length)
+    {
+        var position = Position;
+        var duration = Duration;
+
+        if (position < 0 || duration <= 0)
+        {
+            return false;
+        }
+
+        int newPosition = position + (int) length.TotalMilliseconds;
+
+        if (newPosition < 0)
+        {
+            newPosition = 0;
+        }
+
+        if (newPosition > duration)
+        {
+            return false;
+        }
+
+        await Seek(newPosition);
+
+        return true;
+    }
+
     public async Task PlayNext()
     {
         Logger.LogInformation($"{nameof(PlayNext)}");
+
+        if (await TrySeek(TimeSpan.FromSeconds(15)))
+        {
+            return;
+        }
         
         if (mediaPlayer is not null)
         {
@@ -468,9 +542,15 @@ public class MediaPlayerService : Service,
     public async Task PlayPrevious()
     {
         Logger.LogInformation($"{nameof(PlayPrevious)}");
-        
+
+        if (await TrySeek(TimeSpan.FromSeconds(-15)))
+        {
+            return;
+        }
+
+
         // Start current track from beginning if it's the first track or the track has played more than 3sec and you hit "playPrevious".
-        if (Position > 3000)
+        if (RawPosition > 3000)
         {
             await Seek(0);
         }
@@ -577,7 +657,7 @@ public class MediaPlayerService : Service,
                     PlaybackState.ActionStop |
                     PlaybackState.ActionSeekTo
                 )
-                .SetState(state, Position, 1.0f);
+                .SetState(state, RawPosition, 1.0f);
 
             mediaSession.SetPlaybackState(stateBuilder.Build());
 
