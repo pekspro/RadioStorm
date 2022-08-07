@@ -185,15 +185,26 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </RefreshView>
-        
-        <Button 
-            Grid.Row="2" 
-            HorizontalOptions="End"
-            Margin="0,8,0,0"
-            Command="{Binding EpisodesViewModel.DownloadAllEpisodesCommand}" 
-            IsVisible="{Binding EpisodesViewModel.HasMoreEpisodes}"
-            Text="{x:Static r:Strings.Episodes_GetAll}" />
 
+        <Grid
+            Grid.Row="2" 
+            Padding="{StaticResource NormalPageMargin}"
+            ColumnDefinitions="*, Auto"
+            IsVisible="{Binding EpisodesViewModel.HasMoreEpisodes}"
+            >
+            <Label 
+                Text="{x:Static r:Strings.Episodes_TooManyEpisodes}"
+                VerticalOptions="Center"
+                Grid.Column="0"
+                />
+            
+            <Button 
+                HorizontalOptions="End"
+                Grid.Column="1"
+                Command="{Binding EpisodesViewModel.DownloadAllEpisodesCommand}" 
+                Text="{x:Static r:Strings.Episodes_GetAll}" />
+        </Grid>
+        
         <views:PlayerControl Grid.Row="3" />
     </Grid>
 
