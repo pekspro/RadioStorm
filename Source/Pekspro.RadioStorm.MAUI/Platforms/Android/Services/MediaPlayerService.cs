@@ -178,7 +178,7 @@ public class MediaPlayerService : Service,
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex);
+            Logger.LogError(ex, $"Error in {nameof(InitMediaSession)}");
         }
     }
 
@@ -421,7 +421,7 @@ public class MediaPlayerService : Service,
                 if (focusResult != AudioFocusRequest.Granted)
                 {
                     // Could not get audio focus
-                    Console.WriteLine("Could not get audio focus");
+                    Logger.LogWarning("Could not get audio focus.");
                 }
 
                 UpdatePlaybackState(PlaybackStateCode.Buffering);
@@ -663,7 +663,7 @@ public class MediaPlayerService : Service,
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex);
+            Logger.LogError(ex, $"Error in {nameof(UpdateMediaMetadataCompat)}");
         }
     }
 
@@ -797,7 +797,7 @@ public class MediaPlayerService : Service,
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex);
+            Logger.LogError(ex, $"Error in {nameof(UnregisterMediaSessionCompat)}");
         }
     }
 
