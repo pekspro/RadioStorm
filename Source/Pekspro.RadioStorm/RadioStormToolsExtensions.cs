@@ -46,6 +46,7 @@ public static class RadioStormToolsExtensions
         // * IAudioManager
         // * IMainThreadTimer
         // * IVersionProvider
+        // * IConnectivityProvider
 
         return services;
     }
