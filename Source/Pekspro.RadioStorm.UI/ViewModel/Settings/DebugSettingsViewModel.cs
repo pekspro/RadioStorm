@@ -110,7 +110,10 @@ public partial class DebugSettingsViewModel : ObservableObject
 
     public void OnNavigatedTo()
     {
-        RefreshLogFiles();
+        if (LogFilesNameOnly.Count == 0)
+        {
+            RefreshLogFiles();
+        }
     }
     
     public async void RefreshLogFiles()
@@ -127,9 +130,9 @@ public partial class DebugSettingsViewModel : ObservableObject
 
             if (LogFilesNameOnly.Any())
             {
+                // Make sure SelectedLogFileIndex get changed.
+                SelectedLogFileIndex = -1;
                 SelectedLogFileIndex = LogFilesNameOnly.Count - 1;
-                // OnPropertyChanged is needed when there are exactly 1 item.
-                OnPropertyChanged(nameof(SelectedLogFileIndex));
             }
         }
         catch (Exception ex)
