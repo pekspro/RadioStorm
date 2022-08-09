@@ -178,7 +178,7 @@ public class MediaPlayerService : Service,
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex);
+            Logger.LogError(ex, $"Error in {nameof(InitMediaSession)}");
         }
     }
 
@@ -370,7 +370,7 @@ public class MediaPlayerService : Service,
     /// </summary>
     public async Task Play()
     {
-        Logger.LogError($"{nameof(Play)}");
+        Logger.LogInformation($"{nameof(Play)}");
         
         if (mediaPlayer is not null && MediaPlayerState == PlaybackStateCode.Paused)
         {
@@ -409,23 +409,10 @@ public class MediaPlayerService : Service,
         {
             if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
             {
-                // TODO: Remove this? Not needed.
-                MediaMetadataRetriever metaRetriever = new MediaMetadataRetriever();
 
                 AndroidNet.Uri uri = AndroidNet.Uri.Parse(AudioUrl);
                 await mediaPlayer.SetDataSourceAsync(base.ApplicationContext, uri);
                 
-                if (uri.Scheme is null)
-                {
-                    // Local file
-                    await metaRetriever.SetDataSourceAsync(AudioUrl);
-                }
-                else
-                {
-                    // Remote file
-                    await metaRetriever.SetDataSourceAsync(AudioUrl, new Dictionary<string, string>());
-                }
-
                 var focusResult = audioManager.RequestAudioFocus(new AudioFocusRequestClass
                     .Builder(AudioFocus.Gain)
                     .SetOnAudioFocusChangeListener(this)
@@ -434,14 +421,14 @@ public class MediaPlayerService : Service,
                 if (focusResult != AudioFocusRequest.Granted)
                 {
                     // Could not get audio focus
-                    Console.WriteLine("Could not get audio focus");
+                    Logger.LogWarning("Could not get audio focus.");
                 }
 
                 UpdatePlaybackState(PlaybackStateCode.Buffering);
                 mediaPlayer.PrepareAsync();
 
                 AquireWifiLock();
-                UpdateMediaMetadataCompat(metaRetriever);
+                UpdateMediaMetadataCompat();
                 StartNotification();
 
                 try
@@ -676,7 +663,7 @@ public class MediaPlayerService : Service,
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex);
+            Logger.LogError(ex, $"Error in {nameof(UpdateMediaMetadataCompat)}");
         }
     }
 
@@ -708,7 +695,7 @@ public class MediaPlayerService : Service,
     /// <summary>
     /// Updates the metadata on the lock screen
     /// </summary>
-    private void UpdateMediaMetadataCompat(MediaMetadataRetriever metaRetriever = null)
+    private void UpdateMediaMetadataCompat()
     {
         if (mediaSession is null)
         {
@@ -716,23 +703,6 @@ public class MediaPlayerService : Service,
         }
 
         MediaMetadata.Builder builder = new MediaMetadata.Builder();
-
-        /*
-        if (metaRetriever is not null)
-        {
-            builder
-            .PutString(MediaMetadata.MetadataKeyAlbum, metaRetriever.ExtractMetadata(MetadataKey.Album))
-            .PutString(MediaMetadata.MetadataKeyArtist, metaRetriever.ExtractMetadata(MetadataKey.Artist))
-            .PutString(MediaMetadata.MetadataKeyTitle, metaRetriever.ExtractMetadata(MetadataKey.Title));
-        }
-        else
-        {
-            builder
-                .PutString(MediaMetadata.MetadataKeyAlbum, mediaSession.Controller.Metadata.GetString(MediaMetadata.MetadataKeyAlbum))
-                .PutString(MediaMetadata.MetadataKeyArtist, mediaSession.Controller.Metadata.GetString(MediaMetadata.MetadataKeyArtist))
-                .PutString(MediaMetadata.MetadataKeyTitle, mediaSession.Controller.Metadata.GetString(MediaMetadata.MetadataKeyTitle));
-        }
-        */
 
         builder
             // .PutString(MediaMetadata.MetadataKeyAlbum, "")
@@ -827,7 +797,7 @@ public class MediaPlayerService : Service,
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex);
+            Logger.LogError(ex, $"Error in {nameof(UnregisterMediaSessionCompat)}");
         }
     }
 

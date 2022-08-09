@@ -17,17 +17,14 @@
 
     </ContentPage.ToolbarItems>
 
-    <Grid RowDefinitions="*">
-        <views:DownloadState Padding="{StaticResource NormalPageMargin}" />
+    <ScrollView Padding="{StaticResource NormalPageMargin}">
+        <Grid RowDefinitions="*">
+            <views:DownloadState />
 
-        <Editor 
-            x:Name="LogEditorBox" 
-            VerticalOptions="FillAndExpand"
-            Margin="{StaticResource NormalPageMargin}"
-            Text="{Binding LogFileContent}"
+            <Label x:Name="LogEditorBox" 
+                   VerticalOptions="FillAndExpand"
+                   Text="{Binding LogFileContent}"
             />
-        <!-- TODO: Should be read only when this is fixed:
-        https://github.com/dotnet/maui/issues/7989
-        -->
-    </Grid>
+        </Grid>
+    </ScrollView>
 </ContentPage>
