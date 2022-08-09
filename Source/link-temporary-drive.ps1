@@ -1,4 +1,19 @@
-﻿$ramDiskDrive = "D:"
+﻿# Parameters to file
+param(
+    [Parameter(Position=0,mandatory=$true)]
+    [string] $DiskDrive,
+    [Parameter(Position=1)]
+    [bool] $LinkObjFolder=$true,
+    [Parameter(Position=2)]
+    [bool] $LinkBinFolder=$false
+)
+
+# If neither LinkBinFolder nor LinkObjFolder is specified, return with an error
+if ($LinkBinFolder -eq $false -and $LinkObjFolder -eq $false)
+{
+    Write-Error "Neither LinkBinFolder and LinkObjFolder are specified"
+    exit 1
+}
 
 # Find all project files for CSharp, FSharp and Basic
 $projectFiles = Get-ChildItem -Include ("*.csproj", "*.fsproj", "*.vbproj") -Recurse 
@@ -9,101 +24,43 @@ if($projectFiles.Length -gt 0)
     # Get project directories
     $projectDirectories = $projectFiles | ForEach-Object { $_.DirectoryName } | Get-Unique
 
-
-    # Create a bin-directory on the RAM-drive
-    $projectDirectories | ForEach-Object { New-Item -ItemType Directory -Force -Path "$ramDiskDrive$($_.Substring(2))\bin" } 
-
-    # Remove existing bin-directories
-    $projectDirectories | ForEach-Object { Remove-Item "$($_)\bin" -Force -Recurse }
-
-    # Link bin-directories to ramdisk
-    $projectDirectories | ForEach-Object { cmd /c mklink /D "$($_)\bin" "$ramDiskDrive$($_.Substring(2))\bin" }
-
-
-    # Create a obj-directory on the RAM-drive
-    $projectDirectories | ForEach-Object { New-Item -ItemType Directory -Force -Path "$ramDiskDrive$($_.Substring(2))\obj" } 
-
-    # Remove existing obj-directories
-    $projectDirectories | ForEach-Object { Remove-Item "$($_)\obj" -Force -Recurse }
-
-    # Link obj-directories to ramdisk
-    $projectDirectories | ForEach-Object { cmd /c mklink /D "$($_)\obj" "$ramDiskDrive$($_.Substring(2))\obj" }
-}
-
-
-# Find all projects files for C++.
-$projectFiles = Get-ChildItem -Include ("*.vcxproj") -Recurse 
-
-# Setup C++-directories is any found.
-if($projectFiles.Length -gt 0)
-{
-    # Get project directories
-    $projectDirectories = $projectFiles | ForEach-Object { $_.DirectoryName } | Get-Unique
-
-
-    $projectDirectories | ForEach-Object { New-Item -ItemType Directory -Force -Path "$ramDiskDrive$($_.Substring(2))\x64" } 
-
-    # Remove existing x64-directories
-    $projectDirectories | ForEach-Object { Remove-Item "$($_)\x64" -Force -Recurse }
-
-    # Link x64-directories to ramdisk
-    $projectDirectories | ForEach-Object { cmd /c mklink /D "$($_)\x64" "$ramDiskDrive$($_.Substring(2))\x64" }
-
-
-    $projectDirectories | ForEach-Object { New-Item -ItemType Directory -Force -Path "$ramDiskDrive$($_.Substring(2))\Debug" } 
-
-    # Remove existing Debug-directories
-    $projectDirectories | ForEach-Object { Remove-Item "$($_)\Debug" -Force -Recurse }
-
-    # Link Debug-directories to ramdisk
-    $projectDirectories | ForEach-Object { cmd /c mklink /D "$($_)\Debug" "$ramDiskDrive$($_.Substring(2))\Debug" }
-
-
-    $projectDirectories | ForEach-Object { New-Item -ItemType Directory -Force -Path "$ramDiskDrive$($_.Substring(2))\Release" } 
-
-    # Remove existing Release-directories
-    $projectDirectories | ForEach-Object { Remove-Item "$($_)\Release" -Force -Recurse }
-
-    # Link Release-directories to ramdisk
-    $projectDirectories | ForEach-Object { cmd /c mklink /D "$($_)\Release" "$ramDiskDrive$($_.Substring(2))\Release" }
-
-
-
-    # For C++-project, directories in the same folder as the solution file are used for outputs.
-    # Find all solution files.
-    $projectFiles = Get-ChildItem -Include ("*.sln") -Recurse 
-
-    # Setup C++-directories is any solution file found.
-    if($projectFiles.Length -gt 0)
+    if ($LinkObjFolder -eq $true)
     {
-        # Get project directories
-        $projectDirectories = $projectFiles | ForEach-Object { $_.DirectoryName } | Get-Unique
+        # Create a obj-directory on the drive
+        $projectDirectories | ForEach-Object { New-Item -ItemType Directory -Force -Path "$($DiskDrive):$($_.Substring(2))\obj" } 
 
+        # Remove existing obj-directories
+        $projectDirectories | ForEach-Object {
 
-        $projectDirectories | ForEach-Object { New-Item -ItemType Directory -Force -Path "$ramDiskDrive$($_.Substring(2))\x64" } 
+            $objDirectory = Join-Path -Path $_ -ChildPath "obj"
+            if(Test-Path $objDirectory)
+            {
+                # Remove-Item -Path $objDirectory -Force -Recurse
+                $projectDirectories | ForEach-Object { cmd /c rmdir "$objDirectory" }
+            }
+        }
+   
+        # Link obj-directories to drive
+        $projectDirectories | ForEach-Object { cmd /c mklink /D "$($_)\obj" "$($DiskDrive):$($_.Substring(2))\obj" }
+    }
 
-        # Remove existing x64-directories
-        $projectDirectories | ForEach-Object { Remove-Item "$($_)\x64" -Force -Recurse }
+    if ($LinkBinFolder -eq $true)
+    {
+        # Create a bin-directory on the drive
+        $projectDirectories | ForEach-Object { New-Item -ItemType Directory -Force -Path "$($DiskDrive):$($_.Substring(2))\bin" } 
 
-        # Link x64-directories to ramdisk
-        $projectDirectories | ForEach-Object { cmd /c mklink /D "$($_)\x64" "$ramDiskDrive$($_.Substring(2))\x64" }
+        # Remove existing bin-directories
+        $projectDirectories | ForEach-Object {
 
+            $binDirectory = Join-Path -Path $_ -ChildPath "bin"
+            if(Test-Path $binDirectory)
+            {
+                # Remove-Item -Path $binDirectory -Force -Recurse
+                $projectDirectories | ForEach-Object { cmd /c rmdir "$binDirectory" }
+            }
+        }
 
-        $projectDirectories | ForEach-Object { New-Item -ItemType Directory -Force -Path "$ramDiskDrive$($_.Substring(2))\Debug" }
-
-        # Remove existing Debug-directories
-        $projectDirectories | ForEach-Object { Remove-Item "$($_)\Debug" -Force -Recurse }
-
-        # Link Debug-directories to ramdisk
-        $projectDirectories | ForEach-Object { cmd /c mklink /D "$($_)\Debug" "$ramDiskDrive$($_.Substring(2))\Debug" }
-
-
-        $projectDirectories | ForEach-Object { New-Item -ItemType Directory -Force -Path "$ramDiskDrive$($_.Substring(2))\Release" } 
-
-        # Remove existing Release-directories
-        $projectDirectories | ForEach-Object { Remove-Item "$($_)\Release" -Force -Recurse }
-
-        # Link Release-directories to ramdisk
-        $projectDirectories | ForEach-Object { cmd /c mklink /D "$($_)\Release" "$ramDiskDrive$($_.Substring(2))\Release" }
+        # Link bin-directories to drive
+        $projectDirectories | ForEach-Object { cmd /c mklink /D "$($_)\bin" "$($DiskDrive):$($_.Substring(2))\bin" }
     }
 }
