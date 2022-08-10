@@ -39,6 +39,7 @@
             <Button x:Name="ButtonLogs" Click="ButtonLogs_Click">Logs</Button>
             <usercontrols:SynchronizeControl />
             <usercontrols:GraphStateControl />
+            <usercontrols:DebugSettingsControl />
         </StackPanel>
 
         <usercontrols:PlayerControl Grid.Row="2">

@@ -10,6 +10,7 @@ public class SharedSettingsManager : ISharedSettingsManager
     private IEpisodesSortOrderManager EpisodesSortOrderManager { get; }
     private IRecentPlayedManager RecentPlayedManager { get; }
     public IDateTimeProvider DateTimeProvider { get; }
+    public IConnectivityProvider ConnectivityProvider { get; }
     private SemaphoreSlim Semaphore { get; } = new SemaphoreSlim(1);
 
     private static readonly TimeSpan SemaphoreTimeout = TimeSpan.FromSeconds(15);
@@ -59,6 +60,7 @@ public class SharedSettingsManager : ISharedSettingsManager
         IEpisodesSortOrderManager episodesSortOrderManager,
         IRecentPlayedManager recentPlayedManager,
         IDateTimeProvider dateTimeProvider,
+        IConnectivityProvider connectivityProvider,
         ILogger<SharedSettingsManager> logger
         )
     {
@@ -69,6 +71,7 @@ public class SharedSettingsManager : ISharedSettingsManager
         EpisodesSortOrderManager = episodesSortOrderManager;
         RecentPlayedManager = recentPlayedManager;
         DateTimeProvider = dateTimeProvider;
+        ConnectivityProvider = connectivityProvider;
         Logger = logger;
 
         messenger.Register<LocalSharedFileUpdated>(this, (r, m) =>
@@ -200,57 +203,64 @@ public class SharedSettingsManager : ISharedSettingsManager
 
         try
         {
-            Stopwatch stopwatch = Stopwatch.StartNew();
-            List<FileBaseProviderAndFiles> fileBaseProviderAndFiles = new List<FileBaseProviderAndFiles>();
-
-            List<(IFileProvider Provider, Task<Dictionary<string, FileOverview>> GetFileTask)> providerTasks =
-                new List<(IFileProvider Provider, Task<Dictionary<string, FileOverview>> GetFileTask)>();
-
-            foreach (var provider in SafeRemoteFileProviders)
+            if (ConnectivityProvider.HasInternetAccess)
             {
-                if (provider.IsSlow && !synchronizeSettings.UseSlowProviders)
+                Stopwatch stopwatch = Stopwatch.StartNew();
+                List<FileBaseProviderAndFiles> fileBaseProviderAndFiles = new List<FileBaseProviderAndFiles>();
+
+                List<(IFileProvider Provider, Task<Dictionary<string, FileOverview>> GetFileTask)> providerTasks =
+                    new List<(IFileProvider Provider, Task<Dictionary<string, FileOverview>> GetFileTask)>();
+
+                foreach (var provider in SafeRemoteFileProviders)
                 {
-                    continue;
+                    if (provider.IsSlow && !synchronizeSettings.UseSlowProviders)
+                    {
+                        continue;
+                    }
+
+                    if (!provider.IsReady)
+                    {
+                        continue;
+                    }
+
+
+                    Logger.LogInformation($"Getting files from {provider.Name}.");
+
+                    Task<Dictionary<string, FileOverview>>? task = provider.GetFilesAsync(AllowedLowerCaseFileNames);
+
+                    providerTasks.Add((provider, task));
                 }
 
-                if (!provider.IsReady)
+                var delayTask = Task.Delay(5000);
+                var waitAllTask = Task.WhenAll(providerTasks.Select(t => t.GetFileTask));
+                await Task.WhenAny(delayTask, waitAllTask).ConfigureAwait(false);
+
+                foreach (var providerTask in providerTasks)
                 {
-                    continue;
+                    if (providerTask.GetFileTask.Status == TaskStatus.RanToCompletion && providerTask.GetFileTask.Result is not null)
+                    {
+                        Logger.LogInformation($"Got {providerTask.GetFileTask.Result.Count} files from {providerTask.Provider.Name}.");
+
+                        fileBaseProviderAndFiles.Insert(0, new FileBaseProviderAndFiles(providerTask.Provider, providerTask.GetFileTask.Result));
+                    }
+                    else
+                    {
+                        Logger.LogWarning($"Failed to get files from {providerTask.Provider.Name}.");
+                    }
                 }
 
+                await ChannelFavorites.SynchronizeSettingsAsync(synchronizeSettings, fileBaseProviderAndFiles).ConfigureAwait(false);
+                await ProgramFavorites.SynchronizeSettingsAsync(synchronizeSettings, fileBaseProviderAndFiles).ConfigureAwait(false);
+                await EpisodesSortOrderManager.SynchronizeSettingsAsync(synchronizeSettings, fileBaseProviderAndFiles).ConfigureAwait(false);
+                await ListenStateManager.SynchronizeSettingsAsync(synchronizeSettings, fileBaseProviderAndFiles).ConfigureAwait(false);
+                await RecentPlayedManager.SynchronizeSettingsAsync(synchronizeSettings, fileBaseProviderAndFiles).ConfigureAwait(false);
 
-                Logger.LogInformation($"Getting files from {provider.Name}.");
-
-                Task<Dictionary<string, FileOverview>>? task = provider.GetFilesAsync(AllowedLowerCaseFileNames);
-
-                providerTasks.Add((provider, task));
+                Logger.LogInformation($"Synchronizing settings completed in {stopwatch.ElapsedMilliseconds} ms.");
             }
-
-            var delayTask = Task.Delay(5000);
-            var waitAllTask = Task.WhenAll(providerTasks.Select(t => t.GetFileTask));
-            await Task.WhenAny(delayTask, waitAllTask).ConfigureAwait(false);
-
-            foreach (var providerTask in providerTasks)
+            else
             {
-                if (providerTask.GetFileTask.Status == TaskStatus.RanToCompletion && providerTask.GetFileTask.Result is not null)
-                {
-                    Logger.LogInformation($"Got {providerTask.GetFileTask.Result.Count} files from {providerTask.Provider.Name}.");
-
-                    fileBaseProviderAndFiles.Insert(0, new FileBaseProviderAndFiles(providerTask.Provider, providerTask.GetFileTask.Result));
-                }
-                else
-                {
-                    Logger.LogWarning($"Failed to get files from {providerTask.Provider.Name}.");
-                }
+                Logger.LogWarning($"Internet not available. Will not synchronize.");
             }
-
-            await ChannelFavorites.SynchronizeSettingsAsync(synchronizeSettings, fileBaseProviderAndFiles).ConfigureAwait(false);
-            await ProgramFavorites.SynchronizeSettingsAsync(synchronizeSettings, fileBaseProviderAndFiles).ConfigureAwait(false);
-            await EpisodesSortOrderManager.SynchronizeSettingsAsync(synchronizeSettings, fileBaseProviderAndFiles).ConfigureAwait(false);
-            await ListenStateManager.SynchronizeSettingsAsync(synchronizeSettings, fileBaseProviderAndFiles).ConfigureAwait(false);
-            await RecentPlayedManager.SynchronizeSettingsAsync(synchronizeSettings, fileBaseProviderAndFiles).ConfigureAwait(false);
-
-            Logger.LogInformation($"Synchronizing settings completed in {stopwatch.ElapsedMilliseconds} ms.");
         }
         finally
         {
