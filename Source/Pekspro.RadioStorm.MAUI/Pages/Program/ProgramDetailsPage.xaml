@@ -133,11 +133,6 @@
                 IsGrouped="True"
                 SelectionMode="{Binding EpisodesViewModel.SelectionModeHelper.InSelectionMode, Converter={StaticResource BoolToSelectionMode}}"
                 >
-                <CollectionView.Header>
-                    <DataTemplate>
-                        <Label Text="xxx" TextColor="Red" />
-                    </DataTemplate>
-                </CollectionView.Header>
                 <CollectionView.GroupHeaderTemplate>
                     <DataTemplate>
                         <views:GroupHeaderControl />
