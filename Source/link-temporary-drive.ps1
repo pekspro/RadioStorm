@@ -29,19 +29,21 @@ if($projectFiles.Length -gt 0)
         # Create a obj-directory on the drive
         $projectDirectories | ForEach-Object { New-Item -ItemType Directory -Force -Path "$($DiskDrive):$($_.Substring(2))\obj" } 
 
-        # Remove existing obj-directories
+        # Iterate directories
         $projectDirectories | ForEach-Object {
 
             $objDirectory = Join-Path -Path $_ -ChildPath "obj"
             if(Test-Path $objDirectory)
             {
                 # Remove-Item -Path $objDirectory -Force -Recurse
-                $projectDirectories | ForEach-Object { cmd /c rmdir "$objDirectory" }
+                cmd /c rmdir "$objDirectory" /s /q
             }
+
+            # Replace drive letter in objDirectory
+            $targetObjDirectory = "$($DiskDrive):$($objDirectory.Substring(2))";
+
+            cmd /c mklink /D $objDirectory $targetObjDirectory
         }
-   
-        # Link obj-directories to drive
-        $projectDirectories | ForEach-Object { cmd /c mklink /D "$($_)\obj" "$($DiskDrive):$($_.Substring(2))\obj" }
     }
 
     if ($LinkBinFolder -eq $true)
@@ -49,18 +51,20 @@ if($projectFiles.Length -gt 0)
         # Create a bin-directory on the drive
         $projectDirectories | ForEach-Object { New-Item -ItemType Directory -Force -Path "$($DiskDrive):$($_.Substring(2))\bin" } 
 
-        # Remove existing bin-directories
+        # Iterate directories
         $projectDirectories | ForEach-Object {
 
             $binDirectory = Join-Path -Path $_ -ChildPath "bin"
             if(Test-Path $binDirectory)
             {
                 # Remove-Item -Path $binDirectory -Force -Recurse
-                $projectDirectories | ForEach-Object { cmd /c rmdir "$binDirectory" }
+                cmd /c rmdir "$binDirectory" /s /q
             }
-        }
 
-        # Link bin-directories to drive
-        $projectDirectories | ForEach-Object { cmd /c mklink /D "$($_)\bin" "$($DiskDrive):$($_.Substring(2))\bin" }
+            # Replace drive letter in binDirectory
+            $targetBinDirectory = "$($DiskDrive):$($binDirectory.Substring(2))";
+
+            cmd /c mklink /D $binDirectory $targetBinDirectory
+        }
     }
 }
