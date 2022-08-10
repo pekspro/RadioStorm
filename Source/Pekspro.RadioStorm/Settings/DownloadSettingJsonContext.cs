@@ -2,8 +2,8 @@
 
 namespace Pekspro.RadioStorm.Settings;
 
-[JsonSourceGenerationOptions(WriteIndented = true)]
-[JsonSerializable(typeof(DownloadSetting))]
+[JsonSourceGenerationOptions()]
+[JsonSerializable(typeof(List<DownloadSetting>))]
 internal partial class DownloadSettingJsonContext : JsonSerializerContext
 {
 }
