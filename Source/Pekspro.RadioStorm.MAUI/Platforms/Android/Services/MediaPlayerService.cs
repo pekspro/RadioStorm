@@ -178,7 +178,7 @@ public class MediaPlayerService : Service,
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex);
+            Logger.LogError(ex, $"Error in {nameof(InitMediaSession)}");
         }
     }
 
@@ -246,12 +246,32 @@ public class MediaPlayerService : Service,
         UpdatePlaybackState(PlaybackStateCode.Playing);
     }
 
+    private int _LatestValidPosition = -1;
+
     public int Position
     {
         get
         {
-            // Note: On buffering, position and duration is probably not valid. These
-            // values should be cached somehow.
+            var pos = RawPosition;
+
+            if (pos >= 0)
+            {
+                _LatestValidPosition = pos;
+            }
+
+            return _LatestValidPosition;
+        }
+        private set
+        {
+            _LatestValidPosition = value;
+        }
+    }
+
+    private int RawPosition
+    {
+        get
+        {
+            // Note: On buffering, position and duration is probably not valid.
             if (mediaPlayer is null ||
                 (MediaPlayerState != PlaybackStateCode.Playing && MediaPlayerState != PlaybackStateCode.Paused && MediaPlayerState != PlaybackStateCode.Buffering)
                 )
@@ -265,7 +285,28 @@ public class MediaPlayerService : Service,
         }
     }
 
+    private int _LatestValidDuration = -1;
+
     public int Duration
+    {
+        get
+        {
+            var duration = RawDuration;
+
+            if (duration > 0)
+            {
+                _LatestValidDuration = duration;
+            }
+
+            return _LatestValidDuration;
+        }
+        set
+        {
+            _LatestValidDuration = value;
+        }
+    }
+
+    private int RawDuration
     {
         get
         {
@@ -329,7 +370,7 @@ public class MediaPlayerService : Service,
     /// </summary>
     public async Task Play()
     {
-        Logger.LogError($"{nameof(Play)}");
+        Logger.LogInformation($"{nameof(Play)}");
         
         if (mediaPlayer is not null && MediaPlayerState == PlaybackStateCode.Paused)
         {
@@ -368,23 +409,10 @@ public class MediaPlayerService : Service,
         {
             if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
             {
-                // TODO: Remove this? Not needed.
-                MediaMetadataRetriever metaRetriever = new MediaMetadataRetriever();
 
                 AndroidNet.Uri uri = AndroidNet.Uri.Parse(AudioUrl);
                 await mediaPlayer.SetDataSourceAsync(base.ApplicationContext, uri);
                 
-                if (uri.Scheme is null)
-                {
-                    // Local file
-                    await metaRetriever.SetDataSourceAsync(AudioUrl);
-                }
-                else
-                {
-                    // Remote file
-                    await metaRetriever.SetDataSourceAsync(AudioUrl, new Dictionary<string, string>());
-                }
-
                 var focusResult = audioManager.RequestAudioFocus(new AudioFocusRequestClass
                     .Builder(AudioFocus.Gain)
                     .SetOnAudioFocusChangeListener(this)
@@ -393,14 +421,14 @@ public class MediaPlayerService : Service,
                 if (focusResult != AudioFocusRequest.Granted)
                 {
                     // Could not get audio focus
-                    Console.WriteLine("Could not get audio focus");
+                    Logger.LogWarning("Could not get audio focus.");
                 }
 
                 UpdatePlaybackState(PlaybackStateCode.Buffering);
                 mediaPlayer.PrepareAsync();
 
                 AquireWifiLock();
-                UpdateMediaMetadataCompat(metaRetriever);
+                UpdateMediaMetadataCompat();
                 StartNotification();
 
                 try
@@ -444,14 +472,47 @@ public class MediaPlayerService : Service,
         {
             if (mediaPlayer is not null)
             {
+                Position = position;
                 mediaPlayer.SeekTo(position);
             }
         });
     }
 
+    private async Task<bool> TrySeek(TimeSpan length)
+    {
+        var position = Position;
+        var duration = Duration;
+
+        if (position < 0 || duration <= 0)
+        {
+            return false;
+        }
+
+        int newPosition = position + (int) length.TotalMilliseconds;
+
+        if (newPosition < 0)
+        {
+            newPosition = 0;
+        }
+
+        if (newPosition > duration)
+        {
+            return false;
+        }
+
+        await Seek(newPosition);
+
+        return true;
+    }
+
     public async Task PlayNext()
     {
         Logger.LogInformation($"{nameof(PlayNext)}");
+
+        if (await TrySeek(TimeSpan.FromSeconds(15)))
+        {
+            return;
+        }
         
         if (mediaPlayer is not null)
         {
@@ -468,9 +529,15 @@ public class MediaPlayerService : Service,
     public async Task PlayPrevious()
     {
         Logger.LogInformation($"{nameof(PlayPrevious)}");
-        
+
+        if (await TrySeek(TimeSpan.FromSeconds(-15)))
+        {
+            return;
+        }
+
+
         // Start current track from beginning if it's the first track or the track has played more than 3sec and you hit "playPrevious".
-        if (Position > 3000)
+        if (RawPosition > 3000)
         {
             await Seek(0);
         }
@@ -577,7 +644,7 @@ public class MediaPlayerService : Service,
                     PlaybackState.ActionStop |
                     PlaybackState.ActionSeekTo
                 )
-                .SetState(state, Position, 1.0f);
+                .SetState(state, RawPosition, 1.0f);
 
             mediaSession.SetPlaybackState(stateBuilder.Build());
 
@@ -596,7 +663,7 @@ public class MediaPlayerService : Service,
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex);
+            Logger.LogError(ex, $"Error in {nameof(UpdateMediaMetadataCompat)}");
         }
     }
 
@@ -628,7 +695,7 @@ public class MediaPlayerService : Service,
     /// <summary>
     /// Updates the metadata on the lock screen
     /// </summary>
-    private void UpdateMediaMetadataCompat(MediaMetadataRetriever metaRetriever = null)
+    private void UpdateMediaMetadataCompat()
     {
         if (mediaSession is null)
         {
@@ -636,23 +703,6 @@ public class MediaPlayerService : Service,
         }
 
         MediaMetadata.Builder builder = new MediaMetadata.Builder();
-
-        /*
-        if (metaRetriever is not null)
-        {
-            builder
-            .PutString(MediaMetadata.MetadataKeyAlbum, metaRetriever.ExtractMetadata(MetadataKey.Album))
-            .PutString(MediaMetadata.MetadataKeyArtist, metaRetriever.ExtractMetadata(MetadataKey.Artist))
-            .PutString(MediaMetadata.MetadataKeyTitle, metaRetriever.ExtractMetadata(MetadataKey.Title));
-        }
-        else
-        {
-            builder
-                .PutString(MediaMetadata.MetadataKeyAlbum, mediaSession.Controller.Metadata.GetString(MediaMetadata.MetadataKeyAlbum))
-                .PutString(MediaMetadata.MetadataKeyArtist, mediaSession.Controller.Metadata.GetString(MediaMetadata.MetadataKeyArtist))
-                .PutString(MediaMetadata.MetadataKeyTitle, mediaSession.Controller.Metadata.GetString(MediaMetadata.MetadataKeyTitle));
-        }
-        */
 
         builder
             // .PutString(MediaMetadata.MetadataKeyAlbum, "")
@@ -747,7 +797,7 @@ public class MediaPlayerService : Service,
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex);
+            Logger.LogError(ex, $"Error in {nameof(UnregisterMediaSessionCompat)}");
         }
     }
 

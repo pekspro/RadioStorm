@@ -9,6 +9,11 @@ public partial class AppShell : Shell
 
     async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync(nameof(SettingsPage));
+        await Current.GoToAsync(nameof(SettingsPage));
+
+        if (Current.FlyoutBehavior == FlyoutBehavior.Flyout)
+        {
+            Current.FlyoutIsPresented = false;
+        }
     }
 }
