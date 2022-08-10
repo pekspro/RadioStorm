@@ -23,7 +23,7 @@ public static class RadioStormSandboxToolExtensions
         services.TryAddSingleton<FakeRoamingFileProvider1, FakeRoamingFileProvider1>();
         services.TryAddSingleton<FakeRoamingFileProvider2, FakeRoamingFileProvider2>();
         services.TryAddSingleton<IUriLauncher, UriLauncher>();
-
+        services.TryAddSingleton<IConnectivityProvider, FakeConnectivityProvider>();
 
         return services;
     }
