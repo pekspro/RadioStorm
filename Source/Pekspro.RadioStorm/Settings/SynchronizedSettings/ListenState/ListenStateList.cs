@@ -169,7 +169,7 @@ public class ListenStateManager : SharedSettingsListBase<ListenStateItem>, IList
 
     public override async Task SaveIfDirtyAsync()
     {
-        Debug.WriteLine("It's time to save dirty slots.");
+        Logger.LogInformation("It's time to save dirty slots.");
         Stopwatch watch = new Stopwatch();
         // Timer?.Stop();
         int saveCount = 0;
@@ -178,7 +178,7 @@ public class ListenStateManager : SharedSettingsListBase<ListenStateItem>, IList
         {
             if (DirtySlots[i])
             {
-                Debug.WriteLine($"Saving dirty slot {i}.");
+                Logger.LogInformation($"Saving dirty slot {i}.");
                 saveCount++;
                 await SaveAsync(i);
 
@@ -189,7 +189,7 @@ public class ListenStateManager : SharedSettingsListBase<ListenStateItem>, IList
 
         if (saveCount > 0)
         {
-            Debug.WriteLine($"Save {saveCount} files in {watch.ElapsedMilliseconds} ms.");
+            Logger.LogInformation($"Saved {saveCount} files in {watch.ElapsedMilliseconds} ms.");
         }
 
         RequestSaveTime = DateTime.MinValue;
@@ -334,7 +334,7 @@ public class ListenStateManager : SharedSettingsListBase<ListenStateItem>, IList
                 //If roaming value is changed after local value, use that one instead.
                 if (roamingValue.LastChangedTimestamp > localValue.LastChangedTimestamp)
                 {
-                    Debug.WriteLine($"Listen state item {roamingValue.Id} updated from roaming settings.");
+                    Logger.LogDebug($"Listen state item {roamingValue.Id} updated from roaming settings.");
                     localList[key] = roamingValue;
 
                     changeDetected = true;
@@ -347,7 +347,7 @@ public class ListenStateManager : SharedSettingsListBase<ListenStateItem>, IList
 
         foreach (var roamingValue in roamingList)
         {
-            Debug.WriteLine($"Adding listen state item {roamingValue.Value.Id} added from roaming settings.");
+            Logger.LogDebug($"Adding listen state item {roamingValue.Value.Id} added from roaming settings.");
             localList[roamingValue.Key] = roamingValue.Value;
 
             changeDetected = true;

@@ -62,10 +62,10 @@ public partial class DebugSettingsViewModel : ObservableObject
     [NotifyPropertyChangedFor(nameof(CanZipLogFiles))]
     [NotifyCanExecuteChangedFor(nameof(RemoveLogFilesCommand))]
     [NotifyCanExecuteChangedFor(nameof(ZipLogFilesCommand))]
-    private List<string> _LogFilesFullPath = new List<string>();
+    private IReadOnlyList<string> _LogFilesFullPath = new List<string>();
 
     [ObservableProperty]
-    private List<string> _LogFilesNameOnly = new List<string>();
+    private IReadOnlyList<string> _LogFilesNameOnly = new List<string>();
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(SelectedLogFileName))]
@@ -121,6 +121,9 @@ public partial class DebugSettingsViewModel : ObservableObject
 
             LogFilesNameOnly = logFiles.Select(a => Path.GetFileName(a) ?? a).OrderBy(a => a).ToList();
             LogFilesFullPath = logFiles;
+
+            // TODO: Remove when fixed: https://github.com/dotnet/maui/issues/9239
+            LogFilesNameOnly = new List<string>(LogFilesNameOnly);
 
             if (LogFilesNameOnly.Any())
             {
