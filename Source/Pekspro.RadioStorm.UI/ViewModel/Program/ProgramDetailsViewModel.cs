@@ -4,7 +4,21 @@ public partial class ProgramDetailsViewModel : DownloadViewModel
 {
     #region Start parameter
 
-    record StartParameter(int ProgramId, string? ProgramName, bool IsAutoScrollSupported);
+    class StartParameter
+    {
+        public int ProgramId { get; set; }
+
+        public string? ProgramName { get; set; }
+        
+        public bool IsAutoScrollSupported { get; set; }
+    }
+
+
+    [JsonSourceGenerationOptions()]
+    [JsonSerializable(typeof(StartParameter))]
+    partial class ProgramDetailsStartParameterJsonContext : JsonSerializerContext
+    {
+    }
 
     public static string CreateStartParameter(ProgramModel c, bool isAutoScrollSupported = false) => CreateStartParameter
         (
@@ -20,12 +34,15 @@ public partial class ProgramDetailsViewModel : DownloadViewModel
             false
         );
 
-    public static string CreateStartParameter(int programId, string? programName, bool isAutoScrollSupported = false) => StartParameterHelper.Serialize(new StartParameter(
-
-            ProgramId: programId,
-            ProgramName: programName,
-            IsAutoScrollSupported: isAutoScrollSupported
-        ));
+    public static string CreateStartParameter(int programId, string? programName, bool isAutoScrollSupported = false) => StartParameterHelper.Serialize(
+        new StartParameter()
+        {
+            ProgramId = programId,
+            ProgramName = programName,
+            IsAutoScrollSupported = isAutoScrollSupported
+        },
+        ProgramDetailsStartParameterJsonContext.Default.StartParameter
+    );
 
     #endregion
 
@@ -123,7 +140,7 @@ public partial class ProgramDetailsViewModel : DownloadViewModel
 
     public void OnNavigatedTo(object parameter)
     {
-        StartParameter startParameter = StartParameterHelper.Deserialize<StartParameter>(parameter);
+        StartParameter startParameter = StartParameterHelper.Deserialize<StartParameter>(parameter, ProgramDetailsStartParameterJsonContext.Default.StartParameter);
 
         if (startParameter.ProgramId != ProgramId)
         {

@@ -4,7 +4,18 @@ public partial class ProgramSettingsViewModel : ObservableObject
 {
     #region Start parameter
 
-    record StartParameter(int ProgramId, string ProgramName);
+    class StartParameter
+    {
+        public int ProgramId { get; set; }
+
+        public string ProgramName { get; set; } = null!;
+    }
+
+    [JsonSourceGenerationOptions()]
+    [JsonSerializable(typeof(StartParameter))]
+    partial class ProgramSettingsStartParameterJsonContext : JsonSerializerContext
+    {
+    }
 
     public static string CreateStartParameter(ProgramModel c) => CreateStartParameter
         (
@@ -12,11 +23,14 @@ public partial class ProgramSettingsViewModel : ObservableObject
             c.Name
         );
 
-    public static string CreateStartParameter(int programId, string programName) => StartParameterHelper.Serialize(new StartParameter(
-
-            ProgramId: programId,
-            ProgramName: programName
-        ));
+    public static string CreateStartParameter(int programId, string programName) => StartParameterHelper.Serialize(
+        new StartParameter()
+        {
+            ProgramId = programId,
+            ProgramName = programName
+        },
+        ProgramSettingsStartParameterJsonContext.Default.StartParameter
+    );
 
     #endregion
 
@@ -127,7 +141,7 @@ public partial class ProgramSettingsViewModel : ObservableObject
 
     public void OnNavigatedTo(object parameter)
     {
-        StartParameter startParameter = StartParameterHelper.Deserialize<StartParameter>(parameter);
+        StartParameter startParameter = StartParameterHelper.Deserialize<StartParameter>(parameter, ProgramSettingsStartParameterJsonContext.Default.StartParameter);
 
         ProgramId = startParameter.ProgramId;
         ProgramName = startParameter.ProgramName!;
