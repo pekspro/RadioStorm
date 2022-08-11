@@ -2,13 +2,13 @@
 
 public class StorageLocations
 {
-    public string BaseStoragePath { get; private set; } = null!;
+    public string BaseStoragePath { get; internal set; } = null!;
     
-    public string LocalSettingsPath { get; private set; } = null!;
+    public string LocalSettingsPath { get; internal set; } = null!;
     
-    public string CacheSettingsPath { get; private set; } = null!;
+    public string CacheSettingsPath { get; internal set; } = null!;
     
-    public string TemporaryPath { get; private set; } = null!;
+    public string TemporaryPath { get; internal set; } = null!;
     
     public void ConfigureFromBasePath(string baseStoragePath, string? cachePath = null, string? temporaryPath = null)
     {        

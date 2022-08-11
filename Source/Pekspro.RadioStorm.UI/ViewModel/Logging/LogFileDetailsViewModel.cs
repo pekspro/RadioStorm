@@ -4,10 +4,25 @@ public partial class LogFileDetailsViewModel : DownloadViewModel
 {
     #region Start parameter
 
-    record StartParameter(string LogFilePath);
+    class StartParameter
+    {
+        public string LogFilePath { get; set; } = null!;
+    }
+
+    [JsonSourceGenerationOptions()]
+    [JsonSerializable(typeof(StartParameter))]
+    partial class LogFileDetailsStartParameterJsonContext : JsonSerializerContext
+    {
+    }
 
     public static string CreateStartParameter(string logFileName) => 
-        StartParameterHelper.Serialize(new StartParameter(logFileName));
+        StartParameterHelper.Serialize(
+            new StartParameter()
+            {
+                LogFilePath = logFileName,
+            },
+            LogFileDetailsStartParameterJsonContext.Default.StartParameter
+        );
 
     #endregion
 
@@ -74,7 +89,7 @@ Second line";
 
     public void OnNavigatedTo(object parameter)
     {
-        StartParameter startParameter = StartParameterHelper.Deserialize<StartParameter>(parameter);
+        StartParameter startParameter = StartParameterHelper.Deserialize<StartParameter>(parameter, LogFileDetailsStartParameterJsonContext.Default.StartParameter);
 
         if (startParameter.LogFilePath != _LogFilePath)
         {
