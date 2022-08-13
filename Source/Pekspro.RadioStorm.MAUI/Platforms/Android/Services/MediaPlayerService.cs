@@ -227,9 +227,18 @@ public class MediaPlayerService : Service,
         UpdatePlaybackState(PlaybackStateCode.Playing);
     }
 
-    public async void OnCompletion(MediaPlayer mp)
+    public void OnCompletion(MediaPlayer mp)
     {
-        await PlayNext();
+        // await PlayNext();
+
+        Logger.LogInformation("Audio playing is completed.");
+        
+        if (mediaPlayer.IsPlaying)
+        {
+            mediaPlayer.Pause();
+        }
+
+        UpdatePlaybackState(PlaybackStateCode.Paused);
     }
 
     public bool OnError(MediaPlayer mp, MediaError what, int extra)
