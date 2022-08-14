@@ -7,51 +7,25 @@ $projectDirectories = $projectFiles | ForEach-Object { $_.DirectoryName } | Get-
 # Clear directories if any projects found.
 if($projectFiles.Length -gt 0)
 {
-    # Unlink bin-directories to ramdisk
-    $projectDirectories | ForEach-Object { cmd /c rmdir "$($_)\bin"   }
+    # Unlink obj-directories to drive by removing them from the project directories.
+    $projectDirectories | ForEach-Object {
 
-    # Unlink obj-directories to ramdisk
-    $projectDirectories | ForEach-Object { cmd /c rmdir "$($_)\obj"   }
-}
+        $objDirectory = Join-Path -Path $_ -ChildPath "obj"
+        if(Test-Path $objDirectory)
+        {
+            # Remove-Item -Path $objDirectory -Force -Recurse
+            cmd /c rmdir "$objDirectory" /s /q
+        }
+    }
 
-# Find all projects files for C++.
-$projectFiles = Get-ChildItem -Include ("*.vcxproj") -Recurse 
+    # Unlink bin-directories to drive by removing them from the project directories.
+    $projectDirectories | ForEach-Object {
 
-# Setup C++-directories is any found.
-if($projectFiles.Length -gt 0)
-{
-    # Get project directories
-    $projectDirectories = $projectFiles | ForEach-Object { $_.DirectoryName } | Get-Unique
-
-
-    # Unlink x64-directories to ramdisk
-    $projectDirectories | ForEach-Object { cmd /c rmdir "$($_)\x64"   }
-
-    # Unlink Debug-directories to ramdisk
-    $projectDirectories | ForEach-Object { cmd /c rmdir "$($_)\Debug"   }
-
-    # Unlink Release-directories to ramdisk
-    $projectDirectories | ForEach-Object { cmd /c rmdir "$($_)\Release"   }
-
-
-    # For C++-project, directories in the same folder as the solution file are used for outputs.
-    # Find all solution files.
-    $projectFiles = Get-ChildItem -Include ("*.sln") -Recurse 
-
-    # Setup C++-directories is any solution file found.
-    if($projectFiles.Length -gt 0)
-    {
-        # Get project directories
-        $projectDirectories = $projectFiles | ForEach-Object { $_.DirectoryName } | Get-Unique
-
-
-        # Unlink x64-directories to ramdisk
-        $projectDirectories | ForEach-Object { cmd /c rmdir "$($_)\x64"   }
-
-        # Unlink Debug-directories to ramdisk
-        $projectDirectories | ForEach-Object { cmd /c rmdir "$($_)\Debug"   }
-
-        # Unlink Release-directories to ramdisk
-        $projectDirectories | ForEach-Object { cmd /c rmdir "$($_)\Release"   }
+        $binDirectory = Join-Path -Path $_ -ChildPath "bin"
+        if(Test-Path $binDirectory)
+        {
+            # Remove-Item -Path $binDirectory -Force -Recurse
+            cmd /c rmdir "$binDirectory" /s /q
+        }
     }
 }

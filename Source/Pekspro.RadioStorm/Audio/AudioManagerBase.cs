@@ -595,8 +595,6 @@ public abstract class AudioManagerBase : IAudioManager
 
     private void OnLengthAndPositionUpdated()
     {
-        //Debug.WriteLine($"Updating progress bar {ProgressValue}/{ProgressMaxValue}");
-
         if (CurrentItem is not null && CurrentItem.IsLiveAudio == false && ProgressMaxValue > 0)
         {
             bool shouldSetToFullyListen = false;

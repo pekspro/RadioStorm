@@ -62,10 +62,10 @@ public partial class DebugSettingsViewModel : ObservableObject
     [NotifyPropertyChangedFor(nameof(CanZipLogFiles))]
     [NotifyCanExecuteChangedFor(nameof(RemoveLogFilesCommand))]
     [NotifyCanExecuteChangedFor(nameof(ZipLogFilesCommand))]
-    private List<string> _LogFilesFullPath = new List<string>();
+    private IReadOnlyList<string> _LogFilesFullPath = new List<string>();
 
     [ObservableProperty]
-    private List<string> _LogFilesNameOnly = new List<string>();
+    private IReadOnlyList<string> _LogFilesNameOnly = new List<string>();
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(SelectedLogFileName))]
@@ -110,7 +110,10 @@ public partial class DebugSettingsViewModel : ObservableObject
 
     public void OnNavigatedTo()
     {
-        RefreshLogFiles();
+        if (LogFilesNameOnly.Count == 0)
+        {
+            RefreshLogFiles();
+        }
     }
     
     public async void RefreshLogFiles()
@@ -119,14 +122,17 @@ public partial class DebugSettingsViewModel : ObservableObject
         {
             List<string> logFiles = await LogFileHelper.GetLogFileNamesAsync() ?? new List<string>();
 
-            LogFilesNameOnly = logFiles.Select(a => Path.GetFileName(a) ?? a).OrderBy(a => a).ToList();
-            LogFilesFullPath = logFiles;
+            LogFilesFullPath = logFiles.OrderBy(a => a).ToList();
+            LogFilesNameOnly = logFiles.OrderBy(a => a).Select(a => Path.GetFileName(a) ?? a).ToList();
+
+            // TODO: Remove when fixed: https://github.com/dotnet/maui/issues/9239
+            LogFilesNameOnly = new List<string>(LogFilesNameOnly);
 
             if (LogFilesNameOnly.Any())
             {
+                // Make sure SelectedLogFileIndex get changed.
+                SelectedLogFileIndex = -1;
                 SelectedLogFileIndex = LogFilesNameOnly.Count - 1;
-                // OnPropertyChanged is needed when there are exactly 1 item.
-                OnPropertyChanged(nameof(SelectedLogFileIndex));
             }
         }
         catch (Exception ex)

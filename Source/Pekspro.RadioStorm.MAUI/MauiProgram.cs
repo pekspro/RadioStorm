@@ -46,6 +46,7 @@ public static class MauiProgram
         builder.Services.TryAddSingleton<IMainThreadRunner, MainThreadRunner>();
         builder.Services.TryAddSingleton<IUriLauncher, UriLauncher>();
         builder.Services.TryAddSingleton<ISettingsService, SettingsService>();
+        builder.Services.TryAddSingleton<IConnectivityProvider, ConnectivityProvider>();
 #if WINDOWS
         builder.Services.TryAddSingleton<IAudioManager, WindowsAudioManager>();
         builder.Services.TryAddSingleton<IVersionProvider, Pekspro.RadioStorm.MAUI.Platforms.Windows.Services.WindowsVersionProvider>();
