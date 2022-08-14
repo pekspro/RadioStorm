@@ -4,9 +4,14 @@ namespace Pekspro.RadioStorm.MAUI;
 
 public partial class App : Application
 {
+    private ILogger Logger { get; }
+
     public App()
     {
         InitializeComponent();
+
+        Logger = Services.ServiceProvider.GetRequiredService<ILogger<App>>();
+        Logger.LogInformation("Creating app.");
 
         MainPage = new AppShell();
         // MainPage = new MainPage();
@@ -33,6 +38,8 @@ public partial class App : Application
     protected async override void OnSleep()
     {
         base.OnSleep();
+
+        Logger.LogInformation("OnSleep. Will shut down services, running on Windows.");
         
         var shutDownManager = Services.ServiceProvider.GetService<IShutDownManager>();
 
@@ -41,5 +48,26 @@ public partial class App : Application
             await shutDownManager.ShutDownAsync();
         }
     }
+#else
+    protected override void OnSleep()
+    {
+        base.OnSleep();
+
+        Logger.LogInformation("OnSleep.");
+    }
 #endif
+
+    protected override void OnStart()
+    {
+        base.OnStart();
+
+        Logger.LogInformation("OnStart.");
+    }
+
+    protected override void OnResume()
+    {
+        base.OnResume();
+
+        Logger.LogInformation("OnResume.");
+    }
 }
