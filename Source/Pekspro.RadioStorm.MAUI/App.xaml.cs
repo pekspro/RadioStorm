@@ -14,10 +14,7 @@ public partial class App : Application
         Logger.LogInformation("Creating app.");
 
         MainPage = new AppShell();
-        // MainPage = new MainPage();
-        // MainPage = new ChannelsPage();
 
-        Routing.RegisterRoute("test", typeof(MainPage));
         Routing.RegisterRoute(nameof(SettingsPage), typeof(SettingsPage));
         Routing.RegisterRoute(nameof(ChannelsPage), typeof(ChannelsPage));
         Routing.RegisterRoute(nameof(ChannelDetailsPage), typeof(ChannelDetailsPage));
