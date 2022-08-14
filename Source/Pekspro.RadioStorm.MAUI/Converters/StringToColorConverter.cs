@@ -3,7 +3,7 @@
 internal class StringToColorConverter : BindableObject, IValueConverter
 {
     public static readonly BindableProperty FallbackColorProperty =
-        BindableProperty.Create(nameof(FallbackColor), typeof(Color), typeof(BoolToColorConverter), null, BindingMode.OneWay, null, null);
+        BindableProperty.Create(nameof(FallbackColor), typeof(Color), typeof(StringToColorConverter), null, BindingMode.OneWay, null, null);
 
     public Color FallbackColor
     {
