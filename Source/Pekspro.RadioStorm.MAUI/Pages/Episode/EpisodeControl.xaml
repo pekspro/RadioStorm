@@ -14,16 +14,56 @@
            Grid.Column="1" 
            Style="{StaticResource ListItemTitleArea}"
            >
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup Name="ListenState">
+                <VisualState Name="Listened">
+                    <VisualState.StateTriggers>
+                        <StateTrigger 
+                            IsActive="{Binding IsListened, Converter={StaticResource SafeBoolConverter}}"  
+                        />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Property="Label.TextColor" 
+                            Value="{AppThemeBinding Light={StaticResource InactiveProgramColorLight}, Dark={StaticResource InactiveProgramColorDark}}"
+                            TargetName="LabelHeader"
+                            />
+                        <Setter Property="Label.TextColor" 
+                            Value="{AppThemeBinding Light={StaticResource InactiveProgramColorLight}, Dark={StaticResource InactiveProgramColorDark}}"
+                            TargetName="LabelDescription"
+                            />
+
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState Name="NotListened">
+                    <VisualState.StateTriggers>
+                        <StateTrigger 
+                            IsActive="{Binding IsListened, Converter={StaticResource InvertedBoolConverter}}"
+                        />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Property="Label.TextColor" 
+                            Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"
+                            TargetName="LabelHeader"
+                            />
+                        <Setter Property="Label.TextColor" 
+                            Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"
+                            TargetName="LabelDescription"
+                            />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
         <Label 
+            x:Name="LabelHeader"
             Grid.Column="0"
             Grid.Row="0"
             Text="{Binding Title, Mode=OneWay}"
-            TextColor="{Binding IsListened, Converter={StaticResource BoolToIsListenedColorConverter}}"
             Style="{StaticResource ListHeaderTextStyle}"
             MaxLines="1"
             />
@@ -39,10 +79,10 @@
     <Grid   Grid.Column="1"
             Grid.Row="1" 
             Style="{StaticResource ListItemContentArea}">
-        <Label 
+        <Label
+            x:Name="LabelDescription"
             MaxLines="2"
             Text="{Binding Description, Mode=OneWay}"
-            TextColor="{Binding IsListened, Converter={StaticResource BoolToIsListenedColorConverter}}"
             Style="{StaticResource ListNormalTextStyle}"
 		    />
     </Grid>

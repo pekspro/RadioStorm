@@ -18,7 +18,8 @@
 
             <Color x:Key="PrimaryColor">White</Color>
             <Color x:Key="SecondaryColor">Black</Color>
-            <Color x:Key="InactiveProgramColor">Gray</Color>
+            <Color x:Key="InactiveProgramColorDark">Gray</Color>
+            <Color x:Key="InactiveProgramColorLight">#999999</Color>
             <Color x:Key="DebugColor">#bbbbbb</Color>
             <Color x:Key="HyperlinkColor">#0063B1</Color>
             <Color x:Key="PanelBackgroundDark">#1E1E1E</Color>
@@ -259,9 +260,6 @@
             <converters:BoolToImageConverter x:Key="BoolToPlayPause" 
                                              FalseImage="{StaticResource Play}" 
                                              TrueImage="{StaticResource Pause}" />
-            <converters:BoolToColorConverter x:Key="BoolToIsListenedColorConverter" 
-                                             FalseColor="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}" 
-                                             TrueColor="{StaticResource InactiveProgramColor}" />
             <converters:BoolToStringConverter x:Key="BoolToToggleIsListenedConverter" 
                                              FalseValue="{x:Static r:Strings.Episodes_SetAsListened}" 
                                              TrueValue="{x:Static r:Strings.Episodes_SetAsNotListened}" 

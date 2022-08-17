@@ -20,8 +20,45 @@
                 </VisualState.Setters>
             </VisualState>
         </VisualStateGroup>
-    </VisualStateManager.VisualStateGroups>
+        <VisualStateGroup Name="ListenState">
+            <VisualState Name="Listened">
+                <VisualState.StateTriggers>
+                    <StateTrigger 
+                        IsActive="{Binding EpisodeStatus.TopEpisode.IsListened, Converter={StaticResource SafeBoolConverter}}"  
+                        />
+                </VisualState.StateTriggers>
+                <VisualState.Setters>
+                    <Setter Property="Label.TextColor" 
+                            Value="{AppThemeBinding Light={StaticResource InactiveProgramColorLight}, Dark={StaticResource InactiveProgramColorDark}}"
+                            TargetName="LabelHeader"
+                            />
+                    <Setter Property="Label.TextColor" 
+                            Value="{AppThemeBinding Light={StaticResource InactiveProgramColorLight}, Dark={StaticResource InactiveProgramColorDark}}"
+                            TargetName="LabelDescription"
+                            />
 
+                </VisualState.Setters>
+            </VisualState>
+            <VisualState Name="NotListened">
+                <VisualState.StateTriggers>
+                    <StateTrigger 
+                        IsActive="{Binding EpisodeStatus.TopEpisode.IsListened, Converter={StaticResource InvertedBoolConverter}}"
+                        />
+                </VisualState.StateTriggers>
+                <VisualState.Setters>
+                    <Setter Property="Label.TextColor" 
+                            Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"
+                            TargetName="LabelHeader"
+                            />
+                    <Setter Property="Label.TextColor" 
+                            Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"
+                            TargetName="LabelDescription"
+                            />
+                </VisualState.Setters>
+            </VisualState>
+        </VisualStateGroup>
+    </VisualStateManager.VisualStateGroups>
+    
     <Image x:Name="ProgramImage"
            Grid.Row="0" 
            Grid.Column="0"
@@ -54,8 +91,8 @@
                 IsVisible="{Binding EpisodeStatus, Converter={StaticResource InvertedNullToIsVisibleConverter}}"
                     />
 
-        <Label  Text="{Binding ProgramNameAndTopEpisodeTitle, Mode=OneWay}"
-                TextColor="{Binding EpisodeStatus.TopEpisode.IsListened, Converter={StaticResource BoolToIsListenedColorConverter}}"
+        <Label  x:Name="LabelHeader"
+                Text="{Binding ProgramNameAndTopEpisodeTitle, Mode=OneWay}"
                 Style="{StaticResource ListHeaderTextStyle}"
                 MaxLines="1"
                 IsVisible="{Binding EpisodeStatus, Converter={StaticResource NullToIsVisibleConverter}}"
@@ -76,9 +113,9 @@
             Grid.Row="1" 
             Style="{StaticResource ListItemContentArea}">
         <Label 
+            x:Name="LabelDescription"
             MaxLines="2"
             Text="{Binding EpisodeStatus.TopEpisode.Description, Mode=OneWay}"
-            TextColor="{Binding EpisodeStatus.TopEpisode.IsListened, Converter={StaticResource BoolToIsListenedColorConverter}}"
             Style="{StaticResource ListNormalTextStyle}"
 		    />
     </Grid>
