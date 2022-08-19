@@ -16,6 +16,11 @@
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <OnPlatform x:Key="DefaultIconFont" x:TypeArguments="x:String" Default="FontAwesome">
+                <On Platform="WinUI">Segoe MDL2 Assets</On>
+            </OnPlatform>
+
+
             <Color x:Key="PrimaryColor">White</Color>
             <Color x:Key="SecondaryColor">Black</Color>
             <Color x:Key="InactiveProgramColor">Gray</Color>
@@ -179,50 +184,50 @@
 
             <FontImageSource
                 x:Key="ToolBarIconNotFavorite"
-                FontFamily="FontAwesome"
-                Glyph="{x:Static style:IconFont.Star}"
+                FontFamily="{StaticResource DefaultIconFont}"
+                Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.FavoriteStar}, Default={x:Static style:IconFont.Star}}"
                 Color="{StaticResource FadedPanelIconColor}"
                 Size="16"/>
 
             <FontImageSource
                 x:Key="ToolBarIconFavorite"
-                FontFamily="FontAwesome"
-                Glyph="{x:Static style:IconFont.Star}"
+                FontFamily="{StaticResource DefaultIconFont}"
+                Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.FavoriteStarFill}, Default={x:Static style:IconFont.Star}}"
                 Color="{StaticResource PanelIconColor}"
                 Size="16"/>
 
             <FontImageSource
                 x:Key="ToolBarIconDownload"
-                FontFamily="FontAwesome"
-                Glyph="{x:Static style:IconFont.Download}"
+                FontFamily="{StaticResource DefaultIconFont}"
+                Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.Download}, Default={x:Static style:IconFont.Download}}"
                 Color="{StaticResource PanelIconColor}"
                 Size="16"/>
 
             <FontImageSource
                 x:Key="ToolBarIconDelete"
-                FontFamily="FontAwesome"
-                Glyph="{x:Static style:IconFont.Trash}"
+                FontFamily="{StaticResource DefaultIconFont}"
+                Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.Delete}, Default={x:Static style:IconFont.Trash}}"
                 Color="{StaticResource PanelIconColor}"
                 Size="16"/>
 
             <FontImageSource
                 x:Key="ToolBarIconIsNotListened"
-                FontFamily="FontAwesome"
-                Glyph="{x:Static style:IconFont.CheckCircle}"
+                FontFamily="{StaticResource DefaultIconFont}"
+                Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.CheckMark}, Default={x:Static style:IconFont.CheckCircle}}"
                 Color="{StaticResource FadedPanelIconColor}"
                 Size="16"/>
 
             <FontImageSource
                 x:Key="ToolBarIconIsListened"
-                FontFamily="FontAwesome"
-                Glyph="{x:Static style:IconFont.CheckCircle}"
+                FontFamily="{StaticResource DefaultIconFont}"
+                Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.CheckMark}, Default={x:Static style:IconFont.CheckCircle}}"
                 Color="{StaticResource PanelIconColor}"
                 Size="16"/>
 
             <FontImageSource
                 x:Key="ToolBarIconSettings"
-                FontFamily="FontAwesome"
-                Glyph="{x:Static style:IconFont.Cog}"
+                FontFamily="{StaticResource DefaultIconFont}"
+                Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.Setting}, Default={x:Static style:IconFont.Cog}}"
                 Color="{StaticResource PanelIconColor}"
                 Size="16"/>
 

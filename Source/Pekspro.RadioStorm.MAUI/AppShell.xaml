@@ -33,68 +33,52 @@
     <FlyoutItem Title="{x:Static r:Strings.GeneralButtonFavorites}">
         <FlyoutItem.Icon>
             <FontImageSource
-                            FontFamily="FontAwesome"
-                            Glyph="{x:Static style:IconFont.Star}"
+                            FontFamily="{StaticResource DefaultIconFont}"
+                            Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.FavoriteStarFill}, Default={x:Static style:IconFont.Star}}"
                             Color="{StaticResource PanelIconColor}"
-                            Size="32"/>
+                            Size="64"/>
         </FlyoutItem.Icon>
         <ShellContent ContentTemplate="{DataTemplate favorite:FavoritesPage}"/>
     </FlyoutItem>
     <FlyoutItem Title="{x:Static r:Strings.GeneralButtonChannels}">
         <FlyoutItem.Icon>
             <FontImageSource
+                            FontFamily="{StaticResource DefaultIconFont}"
                             Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.Microphone}, Default={x:Static style:IconFont.Microphone}}"
                             Color="{StaticResource PanelIconColor}"
-                            Size="32"
-                        >
-                <FontImageSource.FontFamily>
-                    <OnPlatform x:TypeArguments="x:String" Default="FontAwesome">
-                        <On Platform="WinUI" Value="Segoe MDL2 Assets" />
-                    </OnPlatform>
-                </FontImageSource.FontFamily>
-            </FontImageSource>
+                            Size="64" />
         </FlyoutItem.Icon>
         <ShellContent ContentTemplate="{DataTemplate channel:ChannelsPage}"/>
     </FlyoutItem>
     <FlyoutItem Title="{x:Static r:Strings.GeneralButtonProgram}">
         <FlyoutItem.Icon>
             <FontImageSource
-                            FontFamily="FontAwesome"
-                            Glyph="{x:Static style:IconFont.Book}"
+                            FontFamily="{StaticResource DefaultIconFont}"
+                            Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.Library}, Default={x:Static style:IconFont.Book}}"
                             Color="{StaticResource PanelIconColor}"
-                            Size="32"/>
+                            Size="64"/>
         </FlyoutItem.Icon>
         <ShellContent ContentTemplate="{DataTemplate program:ProgramsPage}"/>
     </FlyoutItem>
     <FlyoutItem Title="{x:Static r:Strings.GeneralButtonRecent}">
         <FlyoutItem.Icon>
             <FontImageSource
-                            FontFamily="FontAwesome"
-                            Glyph="{x:Static style:IconFont.History}"
+                            FontFamily="{StaticResource DefaultIconFont}"
+                            Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.History}, Default={x:Static style:IconFont.History}}"
                             Color="{StaticResource PanelIconColor}"
-                            Size="32"/>
+                            Size="64"/>
         </FlyoutItem.Icon>
         <ShellContent ContentTemplate="{DataTemplate recent:RecentEpisodesPage}"/>
     </FlyoutItem>
     <FlyoutItem Title="{x:Static r:Strings.GeneralButtonDownloads}">
         <FlyoutItem.Icon>
             <FontImageSource
-                            FontFamily="FontAwesome"
-                            Glyph="{x:Static style:IconFont.Download}"
+                            FontFamily="{StaticResource DefaultIconFont}"
+                            Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.Download}, Default={x:Static style:IconFont.Download}}"
                             Color="{StaticResource PanelIconColor}"
-                            Size="32"/>
+                            Size="64"/>
         </FlyoutItem.Icon>
         <ShellContent ContentTemplate="{DataTemplate episode:DownloadsPage}"/>
-    </FlyoutItem>
-    <FlyoutItem Title="{x:Static r:Strings.General_PlayList}">
-        <FlyoutItem.Icon>
-            <FontImageSource
-                            FontFamily="FontAwesome"
-                            Glyph="{x:Static style:IconFont.PlayCircle}"
-                            Color="{StaticResource PanelIconColor}"
-                            Size="32"/>
-        </FlyoutItem.Icon>
-        <ShellContent ContentTemplate="{DataTemplate player:PlaylistPage}"/>
     </FlyoutItem>
 
     <!-- Phone -->
@@ -142,10 +126,10 @@
                         >
                     <Image.Source>
                         <FontImageSource
-                                    FontFamily="FontAwesome"
-                                    Glyph="{x:Static style:IconFont.Cog}"
+                                    FontFamily="{StaticResource DefaultIconFont}"
+                                    Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.Setting}, Default={x:Static style:IconFont.Cog}}"
                                     Color="{StaticResource PanelIconColor}"
-                                    Size="20"/>
+                                    Size="64"/>
                     </Image.Source>
                 </Image>
 
