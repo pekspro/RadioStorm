@@ -9,4 +9,8 @@
     <ProjectReference Include="..\Pekspro.RadioStorm\Pekspro.RadioStorm.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0.0" />
+  </ItemGroup>
+    
 </Project>

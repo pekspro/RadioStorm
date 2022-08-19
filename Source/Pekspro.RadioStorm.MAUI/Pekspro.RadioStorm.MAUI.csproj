@@ -8,6 +8,7 @@
 		<RootNamespace>Pekspro.RadioStorm.MAUI</RootNamespace>
 		<UseMaui>true</UseMaui>
 		<Nullable>enable</Nullable>
+		<EnableTrimAnalyzer>true</EnableTrimAnalyzer>
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>

@@ -4,7 +4,19 @@ public partial class ChannelDetailsViewModel : DownloadViewModel, IDisposable
 {
     #region Start parameter
 
-    record StartParameter(int ChannelId, string? ChannelName, string? Color, string? ChannelImageUri);
+    class StartParameter
+    {
+        public int ChannelId { get; set; }
+        public string? ChannelName { get; set; }
+        public string? Color { get; set; }
+        public string? ChannelImageUri { get; set; }
+    }
+
+    [JsonSourceGenerationOptions()]
+    [JsonSerializable(typeof(StartParameter))]
+    partial class ChannelDetailsStartParameterJsonContext : JsonSerializerContext
+    {
+    }
 
     public static string CreateStartParameter(ChannelModel c) => CreateStartParameter
         (
@@ -22,13 +34,16 @@ public partial class ChannelDetailsViewModel : DownloadViewModel, IDisposable
             c.ImageLink?.HighResolution
         );
 
-    public static string CreateStartParameter(int channelId, string? channelName, string? color, string? channelImageUri) => StartParameterHelper.Serialize(new StartParameter(
-
-            ChannelId: channelId,
-            ChannelName: channelName,
-            Color: color,
-            ChannelImageUri: channelImageUri
-        ));
+    public static string CreateStartParameter(int channelId, string? channelName, string? color, string? channelImageUri) => StartParameterHelper.Serialize(
+        new StartParameter()
+        {
+            ChannelId = channelId,
+            ChannelName = channelName,
+            Color = color,
+            ChannelImageUri = channelImageUri
+        },
+        ChannelDetailsStartParameterJsonContext.Default.StartParameter
+    );
 
     #endregion
 
@@ -167,7 +182,7 @@ public partial class ChannelDetailsViewModel : DownloadViewModel, IDisposable
         //AutoPlay = AutoPlayNextNavigation;
         //AutoPlayNextNavigation = false;
 
-        StartParameter startParameter = StartParameterHelper.Deserialize<StartParameter>(parameter);
+        StartParameter startParameter = StartParameterHelper.Deserialize<StartParameter>(parameter, ChannelDetailsStartParameterJsonContext.Default.StartParameter);
 
         if (startParameter.ChannelId != ChannelId)
         {

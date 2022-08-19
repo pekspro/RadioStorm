@@ -14,7 +14,7 @@ if($projectFiles.Length -gt 0)
         if(Test-Path $objDirectory)
         {
             # Remove-Item -Path $objDirectory -Force -Recurse
-            $projectDirectories | ForEach-Object { cmd /c rmdir "$objDirectory" }
+            cmd /c rmdir "$objDirectory" /s /q
         }
     }
 
@@ -25,7 +25,7 @@ if($projectFiles.Length -gt 0)
         if(Test-Path $binDirectory)
         {
             # Remove-Item -Path $binDirectory -Force -Recurse
-            $projectDirectories | ForEach-Object { cmd /c rmdir "$binDirectory" }
+            cmd /c rmdir "$binDirectory" /s /q
         }
     }
 }

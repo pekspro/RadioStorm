@@ -6,9 +6,6 @@ public static class RadioStormToolsExtensions
 {
     public static IServiceCollection AddRadioStorm(this IServiceCollection services, IConfiguration Configuration)
     {
-        IConfigurationSection configurationSection = Configuration.GetSection("StorageLocation");
-        services.Configure<StorageLocations>(configurationSection);
-
         services.AddLogging();
 
         services.TryAddTransient<Bootstrap.Bootstrap, Bootstrap.Bootstrap>();

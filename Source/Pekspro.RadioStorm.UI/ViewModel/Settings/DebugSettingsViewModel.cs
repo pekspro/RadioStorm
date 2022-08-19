@@ -122,8 +122,8 @@ public partial class DebugSettingsViewModel : ObservableObject
         {
             List<string> logFiles = await LogFileHelper.GetLogFileNamesAsync() ?? new List<string>();
 
-            LogFilesNameOnly = logFiles.Select(a => Path.GetFileName(a) ?? a).OrderBy(a => a).ToList();
-            LogFilesFullPath = logFiles;
+            LogFilesFullPath = logFiles.OrderBy(a => a).ToList();
+            LogFilesNameOnly = logFiles.OrderBy(a => a).Select(a => Path.GetFileName(a) ?? a).ToList();
 
             // TODO: Remove when fixed: https://github.com/dotnet/maui/issues/9239
             LogFilesNameOnly = new List<string>(LogFilesNameOnly);

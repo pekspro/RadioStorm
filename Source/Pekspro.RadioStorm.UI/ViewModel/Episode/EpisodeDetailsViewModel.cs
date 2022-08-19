@@ -4,7 +4,18 @@ public partial class EpisodeDetailsViewModel : DownloadViewModel
 {
     #region Start parameter
 
-    record StartParameter(int EpisodeId, string? Title, bool AllowNavigationToProgramInfoPage);
+    class StartParameter
+    {
+        public int EpisodeId { get; set; }
+        public string? Title { get; set; }
+        public bool AllowNavigationToProgramInfoPage { get; set; }
+    }
+
+    [JsonSourceGenerationOptions()]
+    [JsonSerializable(typeof(StartParameter))]
+    partial class EpisodeDetailsStartParameterJsonContext : JsonSerializerContext
+    {
+    }
 
     public static string CreateStartParameter(EpisodeModel c, bool allowNavigationToProgramInfoPage) => CreateStartParameter
         (
@@ -21,9 +32,14 @@ public partial class EpisodeDetailsViewModel : DownloadViewModel
         );
 
     public static string CreateStartParameter(int episodeId, string title, bool allowNavigationToProgramInfoPage) => StartParameterHelper.Serialize(
-        new StartParameter(
-        episodeId, title, allowNavigationToProgramInfoPage
-    ));
+        new StartParameter()
+        {
+            EpisodeId = episodeId,
+            Title = title,
+            AllowNavigationToProgramInfoPage = allowNavigationToProgramInfoPage
+        },
+        EpisodeDetailsStartParameterJsonContext.Default.StartParameter
+    );
 
     #endregion
 
@@ -168,7 +184,7 @@ public partial class EpisodeDetailsViewModel : DownloadViewModel
 
     public void OnNavigatedTo(object parameter)
     {
-        StartParameter startParameter = StartParameterHelper.Deserialize<StartParameter>(parameter);
+        StartParameter startParameter = StartParameterHelper.Deserialize<StartParameter>(parameter, EpisodeDetailsStartParameterJsonContext.Default.StartParameter);
 
         if (startParameter.EpisodeId != EpisodeId)
         {

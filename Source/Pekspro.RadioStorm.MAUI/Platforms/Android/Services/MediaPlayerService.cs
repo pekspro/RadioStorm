@@ -227,9 +227,18 @@ public class MediaPlayerService : Service,
         UpdatePlaybackState(PlaybackStateCode.Playing);
     }
 
-    public async void OnCompletion(MediaPlayer mp)
+    public void OnCompletion(MediaPlayer mp)
     {
-        await PlayNext();
+        // await PlayNext();
+
+        Logger.LogInformation("Audio playing is completed.");
+        
+        if (mediaPlayer.IsPlaying)
+        {
+            mediaPlayer.Pause();
+        }
+
+        UpdatePlaybackState(PlaybackStateCode.Paused);
     }
 
     public bool OnError(MediaPlayer mp, MediaError what, int extra)
@@ -834,6 +843,8 @@ public class MediaPlayerService : Service,
         }
     }
 
+    private bool RestartAudioOnGainAudioFocus = false;
+
     public async void OnAudioFocusChange(AudioFocus focusChange)
     {
         Logger.LogInformation($"{nameof(OnAudioFocusChange)} - {focusChange}");
@@ -841,26 +852,47 @@ public class MediaPlayerService : Service,
         switch (focusChange)
         {
             case AudioFocus.Gain:
-                if (mediaPlayer is null)
+                Logger.LogInformation("Gaining audio focus.");
+
+                if (RestartAudioOnGainAudioFocus)
                 {
-                    InitializePlayer();
+                    Logger.LogInformation("Restarting audio.");
+
+                    _ = Play();
+                }
+                else
+                {
+                    Logger.LogInformation("Restarting audio not needed.");
                 }
 
-                if (!mediaPlayer.IsPlaying)
-                {
-                    mediaPlayer.Start();
-                }
-
-                mediaPlayer.SetVolume(1.0f, 1.0f);
                 break;
             case AudioFocus.Loss:
+                Logger.LogInformation("Permanent lost audio focus.");
+                RestartAudioOnGainAudioFocus = false;
+
                 //We have lost focus stop!
                 await Stop();
                 break;
             case AudioFocus.LossTransient:
-                //We have lost focus for a short time, but likely to resume so pause
+                Logger.LogInformation("Transient lost audio focus.");
+                
+                //We have lost focus for a short time
+
+                // Restart if playing
+                if (this.MediaPlayerState == PlaybackStateCode.Playing)
+                {
+                    Logger.LogInformation("Was playing. Will restart audio on gain audio focus.");
+                    RestartAudioOnGainAudioFocus = true;
+                }
+                else
+                {
+                    Logger.LogInformation("Was not playing. Will not restart audio on gain audio focus.");
+                    RestartAudioOnGainAudioFocus = false;
+                }
+
                 await Pause();
                 break;
+
             case AudioFocus.LossTransientCanDuck:
                 //We have lost focus but should till play at a muted 10% volume
                 if (mediaPlayer.IsPlaying)
