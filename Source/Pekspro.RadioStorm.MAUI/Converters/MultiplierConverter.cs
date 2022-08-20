@@ -43,11 +43,7 @@ public class MultiplierConverter : IMultiValueConverter
             }
         }
         
-        var x = Math.Max(MinValue, result);
-
-        System.Diagnostics.Debug.WriteLine("***** " + x);
-
-        return x;
+        return Math.Max(MinValue, result);
     }
 
     public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
