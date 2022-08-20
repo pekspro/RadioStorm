@@ -17,7 +17,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:DataType="cm:ChannelModel" x:Key="ChannelTemplate">
-                <!--<SwipeView Threshold="150">
+                <SwipeView Threshold="{StaticResource DefaultSwipeThreshold}">
                     <SwipeView.LeftItems>
                         <SwipeItems Mode="Execute">
                             <SwipeItem Text="{Binding IsFavorite, Converter={StaticResource BoolToToggleIsFavoriteConverter}}"
@@ -25,16 +25,25 @@
                                            Command="{Binding ToggleIsFavoriteCommand}"
                                            BackgroundColor="{StaticResource SwipeControlBackgroundGeneral}" />
                         </SwipeItems>
-                    </SwipeView.LeftItems>-->
+                    </SwipeView.LeftItems>
                     <cc:ChannelControl>
                         <cc:ChannelControl.GestureRecognizers>
                             <TapGestureRecognizer Tapped="ChannelTapped"/>
                         </cc:ChannelControl.GestureRecognizers>
                     </cc:ChannelControl>
-                <!--</SwipeView>-->
+                </SwipeView>
             </DataTemplate>
+
+            <DataTemplate x:DataType="cm:ChannelModel" x:Key="ChannelTemplateWindows">
+                <cc:ChannelControl>
+                    <cc:ChannelControl.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ChannelTapped"/>
+                    </cc:ChannelControl.GestureRecognizers>
+                </cc:ChannelControl>
+            </DataTemplate>
+
             <DataTemplate x:DataType="pm:ProgramModel" x:Key="ProgramTemplate">
-                <!--<SwipeView Threshold="150">
+                <SwipeView Threshold="{StaticResource DefaultSwipeThreshold}">
                     <SwipeView.LeftItems>
                         <SwipeItems Mode="Execute">
                             <SwipeItem Text="{Binding IsFavorite, Converter={StaticResource BoolToToggleIsFavoriteConverter}}"
@@ -42,15 +51,29 @@
                                            Command="{Binding ToggleIsFavoriteCommand}"
                                            BackgroundColor="{StaticResource SwipeControlBackgroundGeneral}" />
                         </SwipeItems>
-                    </SwipeView.LeftItems>-->
+                    </SwipeView.LeftItems>
                     <pc:FavoriteProgramControl>
                         <pc:FavoriteProgramControl.GestureRecognizers>
                             <TapGestureRecognizer Tapped="ProgramTapped"/>
                         </pc:FavoriteProgramControl.GestureRecognizers>
                     </pc:FavoriteProgramControl>
-                <!--</SwipeView>-->
+                </SwipeView>
             </DataTemplate>
-            <t:FavoriteTemplateSelector x:Key="favoriteTemplateSelector" ChannelTemplate="{StaticResource ChannelTemplate}" ProgramTemplate="{StaticResource ProgramTemplate}" />
+
+            <DataTemplate x:DataType="pm:ProgramModel" x:Key="ProgramTemplateWindows">
+                <pc:FavoriteProgramControl>
+                    <pc:FavoriteProgramControl.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ProgramTapped"/>
+                    </pc:FavoriteProgramControl.GestureRecognizers>
+                </pc:FavoriteProgramControl>
+            </DataTemplate>
+
+            <t:FavoriteTemplateSelector x:Key="favoriteTemplateSelector" 
+                                        ChannelTemplate="{StaticResource ChannelTemplate}" 
+                                        ProgramTemplate="{StaticResource ProgramTemplate}"
+                                        ChannelTemplateWindows="{StaticResource ChannelTemplateWindows}" 
+                                        ProgramTemplateWindows="{StaticResource ProgramTemplateWindows}"
+                                        />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
