@@ -64,6 +64,7 @@ public partial class ProgramDetailsPage : ContentPage
 
         if (position is not null)
         {
+            // TODO: Not working properly on Android. See this issue: https://github.com/dotnet/maui/issues/8718
             EpisodesListView.ScrollTo(position.Value, position: ScrollToPosition.Center);
         }
     }
