@@ -9,6 +9,10 @@
         <On Platform="Android">sans-serif</On>
     </OnPlatform>
 
+    <OnPlatform x:Key="DefaultIconFont" x:TypeArguments="x:String" Default="FontAwesome">
+        <On Platform="WinUI">Segoe MDL2 Assets</On>
+    </OnPlatform>
+
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
     </Style>

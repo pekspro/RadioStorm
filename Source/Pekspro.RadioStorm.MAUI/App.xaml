@@ -16,13 +16,6 @@
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <OnPlatform x:Key="DefaultIconFont" x:TypeArguments="x:String" Default="FontAwesome">
-                <On Platform="WinUI">Segoe MDL2 Assets</On>
-            </OnPlatform>
-
-
-            <Color x:Key="PrimaryColor">White</Color>
-            <Color x:Key="SecondaryColor">Black</Color>
             <Color x:Key="InactiveProgramColorDark">Gray</Color>
             <Color x:Key="InactiveProgramColorLight">#777777</Color>
             <Color x:Key="HyperlinkColorDark">#0063B1</Color>
@@ -145,13 +138,6 @@
             </Style>
 
             <FontImageSource
-                x:Key="CircleIcon"
-                FontFamily="FontAwesome"
-                Glyph="{x:Static style:IconFont.Star}"
-                Color="Cyan"
-                Size="32"/>
-
-            <FontImageSource
                 x:Key="ToolBarIconNotFavorite"
                 FontFamily="{StaticResource DefaultIconFont}"
                 Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.FavoriteStar}, Default={x:Static style:IconFont.Star}}"
@@ -202,44 +188,43 @@
 
             <FontImageSource
                 x:Key="Play"
-                FontFamily="FontAwesome"
-                Glyph="{x:Static style:IconFont.Play}"
+                FontFamily="{StaticResource DefaultIconFont}"
+                Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.PlaySolid}, Default={x:Static style:IconFont.Play}}"
                 Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
                 Size="16"/>
 
             <FontImageSource
                 x:Key="Pause"
-                FontFamily="FontAwesome"
-                Glyph="{x:Static style:IconFont.Pause}"
+                FontFamily="{StaticResource DefaultIconFont}"
+                Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.PauseBold}, Default={x:Static style:IconFont.Pause}}"
                 Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
                 Size="16"/>
 
             <FontImageSource
                 x:Key="Previous"
-                FontFamily="FontAwesome"
-                Glyph="{x:Static style:IconFont.Backward}"
+                FontFamily="{StaticResource DefaultIconFont}"
+                Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.BackSolidBold}, Default={x:Static style:IconFont.Backward}}"
                 Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
                 Size="16"/>
 
             <FontImageSource
                 x:Key="Next"
-                FontFamily="FontAwesome"
-                Glyph="{x:Static style:IconFont.Forward}"
+                FontFamily="{StaticResource DefaultIconFont}"
+                Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.ForwardSolidBold}, Default={x:Static style:IconFont.Forward}}"
                 Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
                 Size="16"/>
 
             <FontImageSource
                 x:Key="PlayList"
-                FontFamily="FontAwesome"
-                Glyph="{x:Static style:IconFont.List}"
+                FontFamily="{StaticResource DefaultIconFont}"
+                Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.BulletedList}, Default={x:Static style:IconFont.List}}"
                 Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
                 Size="16"/>
 
-
             <FontImageSource
                 x:Key="LargeImageButtonDisabledImage"
-                FontFamily="FontAwesome"
-                Glyph="{x:Static style:IconFont.Ban}"
+                FontFamily="{StaticResource DefaultIconFont}"
+                Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.StatusCircleBlock}, Default={x:Static style:IconFont.Ban}}"
                 Color="White"
                 Size="60"/>
 
