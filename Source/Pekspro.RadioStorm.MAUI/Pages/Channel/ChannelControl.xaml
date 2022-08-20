@@ -48,12 +48,12 @@
         <Image WidthRequest="{StaticResource HeaderFavoriteStarSize}" 
                HeightRequest="{StaticResource HeaderFavoriteStarSize}" 
                Grid.Column="0"
-               Margin="0,0,4,0" 
+               Margin="{OnPlatform WinUI='0,0,4,8', Default='0,0,4,10'}" 
                IsVisible="{Binding IsFavorite, Mode=OneWay}">
             <Image.Source>
                 <FontImageSource
-                        FontFamily="FontAwesome"
-                        Glyph="{x:Static style:IconFont.Star}"
+                        FontFamily="{StaticResource DefaultIconFont}"
+                        Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.FavoriteStarFill}, Default={x:Static style:IconFont.Star}}"
                         Color="{Binding ChannelColor, Converter={StaticResource StringToColorConverter}}"
                         Size="{StaticResource HeaderFavoriteStarSize}"/>
             </Image.Source>
