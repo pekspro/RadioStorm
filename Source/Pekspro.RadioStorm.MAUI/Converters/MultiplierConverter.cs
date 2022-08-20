@@ -2,11 +2,13 @@
 
 public class MultiplierConverter : IMultiValueConverter
 {
+    public double MinValue { get; set; } = 0.01;
+
     public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
     {
         if (values == null || !targetType.IsAssignableFrom(typeof(double)))
         {
-            return 0;
+            return MinValue;
         }
 
         double result = 1;
@@ -21,7 +23,7 @@ public class MultiplierConverter : IMultiValueConverter
                 }
                 else
                 {
-                    return 0;
+                    return MinValue;
                 }
             }
             else if (value is double d)
@@ -32,16 +34,20 @@ public class MultiplierConverter : IMultiValueConverter
                 }
                 else
                 {
-                    return 0;
+                    return MinValue;
                 }
             }
             else
             {
-                return 0;
+                return MinValue;
             }
         }
         
-        return Math.Max(0, result);
+        var x = Math.Max(MinValue, result);
+
+        System.Diagnostics.Debug.WriteLine("***** " + x);
+
+        return x;
     }
 
     public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
