@@ -14,7 +14,7 @@
     <Label Text="{x:Static r:Strings.Settings_Synchronize_Description}" />
 
     <Label Text="{x:Static r:Strings.Settings_Synchronize_IsTestEnvironment}"
-           TextColor="{StaticResource WarningColor}"
+           TextColor="{AppThemeBinding Dark={StaticResource WarningColorDark}, Light={StaticResource WarningColorLight}}"
            IsVisible="{Binding IsTestEnvironment}"
            />
 

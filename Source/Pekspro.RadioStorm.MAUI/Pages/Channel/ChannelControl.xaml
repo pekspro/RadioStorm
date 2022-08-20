@@ -100,13 +100,13 @@
             Grid.Column="0"
             Text="{Binding Status.NextTimePeriod.StartTimeString, Mode=OneWay}"
             Style="{StaticResource ListNormalTextStyle}"
-            TextColor="{StaticResource InactiveProgramColor}"
+            TextColor="{AppThemeBinding Dark={StaticResource InactiveProgramColorDark}, Light={StaticResource InactiveProgramColorLight}}"
 				/>
         <Label Grid.Row="2"
 				Grid.Column="1"
                 Text="{Binding Status.NextProgram, Mode=OneWay}"
 				Style="{StaticResource ListNormalTextStyle}"
-                TextColor="{StaticResource InactiveProgramColor}"
+                TextColor="{AppThemeBinding Dark={StaticResource InactiveProgramColorDark}, Light={StaticResource InactiveProgramColorLight}}"
 				/>
     </Grid>
 
