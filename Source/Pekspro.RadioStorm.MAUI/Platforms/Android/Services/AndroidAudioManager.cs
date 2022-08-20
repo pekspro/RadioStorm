@@ -162,6 +162,20 @@ internal class AndroidAudioManager : AudioManagerBase
                 {
                     TryRestorePosition(MediaLength);
                 }
+                else if (currentState == Android.Media.Session.PlaybackStateCode.SkippingToNext)
+                {
+                    if (!GoToNext())
+                    {
+                        Pause();
+                    }
+                }
+                else if (currentState == Android.Media.Session.PlaybackStateCode.SkippingToPrevious)
+                {
+                    if (!GoToPrevious())
+                    {
+                        Pause();
+                    }
+                }
             };
         }
     }

@@ -227,40 +227,44 @@ public abstract class AudioManagerBase : IAudioManager
         }
     }
 
-    public virtual void GoToNext()
+    public bool GoToNext()
     {
         if (CurrentPlayList is null)
         {
-            return;
+            return false;
         }
 
         if (CurrentPlayList.CurrentPosition + 1 >= CurrentPlayList.Items.Count)
         {
-            return;
+            return false;
         }
 
         CurrentPlayList.CurrentPosition++;
         SendCurrentItemChanged();
 
         SetPlaylistPosition(CurrentPlayList.CurrentPosition);
+
+        return true;
     }
 
-    public virtual void GoToPrevious()
+    public bool GoToPrevious()
     {
         if (CurrentPlayList is null)
         {
-            return;
+            return false;
         }
 
         if (CurrentPlayList.CurrentPosition <= 0)
         {
-            return;
+            return false;
         }
 
         CurrentPlayList.CurrentPosition--;
         SendCurrentItemChanged();
 
         SetPlaylistPosition(CurrentPlayList.CurrentPosition);
+
+        return true;
     }
 
     private bool TryUpdateCurrentItemDownloadedFile()
