@@ -963,6 +963,7 @@ static class SegoeIconFont
     public const string CaretRightSolid8 = "\uedda";
     public const string CaretUpSolid8 = "\ueddb";
     public const string CaretDownSolid8 = "\ueddc";
+    public const string Strikethrough = "\uede0";
     public const string Export = "\uede1";
     public const string ExportMirrored = "\uede2";
     public const string ButtonMenu = "\uede3";
@@ -972,6 +973,8 @@ static class SegoeIconFont
     public const string ReplyMirrored = "\uee35";
     public const string LockscreenDesktop = "\uee3f";
     public const string TaskViewSettings = "\uee40";
+    public const string MiniExpand2Mirrored = "\uee47";
+    public const string MiniContract2Mirrored = "\uee49";
     public const string Play36 = "\uee4a";
     public const string PenPalette = "\uee56";
     public const string GuestUser = "\uee57";
@@ -1059,6 +1062,7 @@ static class SegoeIconFont
     public const string SpatialVolume1 = "\uf0ec";
     public const string SpatialVolume2 = "\uf0ed";
     public const string SpatialVolume3 = "\uf0ee";
+    public const string ApplicationGuard = "\uf0ef";
     public const string OutlineStarLeftHalf = "\uf0f7";
     public const string OutlineStarRightHalf = "\uf0f8";
     public const string ChromeAnnotateContrast = "\uf0f9";
@@ -1139,6 +1143,8 @@ static class SegoeIconFont
     public const string HeadlessDevice = "\uf191";
     public const string NetworkSharing = "\uf193";
     public const string EyeGaze = "\uf19d";
+    public const string ToggleLeft = "\uf19e";
+    public const string ToggleRight = "\uf19f";
     public const string WindowsInsider = "\uf1ad";
     public const string ChromeSwitch = "\uf1cb";
     public const string ChromeSwitchContast = "\uf1cc";
@@ -1163,6 +1169,7 @@ static class SegoeIconFont
     public const string Bullseye = "\uf272";
     public const string LocaleLanguage = "\uf2b7";
     public const string PassiveAuthentication = "\uf32a";
+    public const string ColorSolid = "\uf354";
     public const string NetworkOffline = "\uf384";
     public const string NetworkConnected = "\uf385";
     public const string NetworkConnectedCheckmark = "\uf386";
@@ -1191,6 +1198,7 @@ static class SegoeIconFont
     public const string MobWifiWarning3 = "\uf475";
     public const string MobWifiWarning4 = "\uf476";
     public const string Globe2 = "\uf49a";
+    public const string SpecialEffectSize = "\uf4a5";
     public const string GIF = "\uf4a9";
     public const string Sticker2 = "\uf4aa";
     public const string SurfaceHubSelected = "\uf4be";
@@ -1316,6 +1324,8 @@ static class SegoeIconFont
     public const string WifiCall3F = "\uf65b";
     public const string WifiCall4F = "\uf65c";
     public const string CHTLanguageBar = "\uf69e";
+    public const string ComposeMode = "\uf6a9";
+    public const string ExpressiveInputEntry = "\uf6b8";
     public const string EmojiTabMoreSymbols = "\uf6ba";
     public const string WebSearch = "\uf6fa";
     public const string Kiosk = "\uf712";
@@ -1367,4 +1377,21 @@ static class SegoeIconFont
     public const string RestartUpdate = "\uf83e";
     public const string UpdateStatusDot = "\uf83f";
     public const string Eject = "\uf847";
+    public const string Spelling = "\uf87b";
+    public const string SpellingKorean = "\uf87c";
+    public const string SpellingSerbian = "\uf87d";
+    public const string SpellingChinese = "\uf87e";
+    public const string FolderSelect = "\uf89a";
+    public const string SmartScreen = "\uf8a5";
+    public const string ExploitProtection = "\uf8a6";
+    public const string AddBold = "\uf8aa";
+    public const string SubtractBold = "\uf8ab";
+    public const string BackSolidBold = "\uf8ac";
+    public const string ForwardSolidBold = "\uf8ad";
+    public const string PauseBold = "\uf8ae";
+    public const string ClickSolid = "\uf8af";
+    public const string SettingsSolid = "\uf8b0";
+    public const string MicrophoneSolidBold = "\uf8b1";
+    public const string SpeechSolidBold = "\uf8b2";
+    public const string ClickedOutLoudSolidBold = "\uf8b3";
 }
