@@ -110,11 +110,11 @@
         -->
     
         <Label  x:Name="LabelDownloadStatus"
-                Text="{OnPlatform WinUI='&#xE118;', Default='&#xf019;'}"
+                Text="{OnPlatform WinUI={x:Static style:SegoeIconFont.Download}, Default={x:Static style:IconFont.Download}}"
                 IsVisible="{Binding DownloadData.Status, Mode=OneWay, Converter={StaticResource DownloadDataStatusDoneToVisibilityConverter}}"
                 FontSize="12"
                 Margin="4,2,0,0"
-                FontFamily="{OnPlatform WinUI='Segoe MDL2 Assets', Default='FontAwesome'}" />
+                FontFamily="{StaticResource DefaultIconFont}" />
 
         <Label  x:Name="LabelDownloadError"
                 Text="{x:Static r:Strings.DownloadStatus_Error}"
