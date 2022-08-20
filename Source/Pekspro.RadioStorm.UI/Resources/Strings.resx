@@ -871,7 +871,7 @@
     <value>Automatiskt</value>
   </data>
   <data name="Settings_Theme_Description" xml:space="preserve">
-    <value>Välj vilket tema som ska användas. Du behöver starta om RadioStorm för att aktivera ändringarna.</value>
+    <value>Välj vilket tema som ska användas.</value>
   </data>
   <data name="Settings_Theme_Light" xml:space="preserve">
     <value>Ljust</value>

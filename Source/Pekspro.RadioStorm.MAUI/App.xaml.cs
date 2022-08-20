@@ -6,6 +6,8 @@ public partial class App : Application
 {
     private ILogger Logger { get; }
 
+    private ILocalSettings LocalSettings { get; }
+
     public App()
     {
         InitializeComponent();
@@ -24,6 +26,31 @@ public partial class App : Application
         Routing.RegisterRoute(nameof(EpisodeDetailsPage), typeof(EpisodeDetailsPage));
         Routing.RegisterRoute(nameof(PlaylistPage), typeof(PlaylistPage));
         Routing.RegisterRoute(nameof(LogFileDetailsPage), typeof(LogFileDetailsPage));
+
+        LocalSettings = Services.ServiceProvider.GetRequiredService<ILocalSettings>();
+        var messenger = Services.ServiceProvider.GetRequiredService<IMessenger>();
+        
+        messenger.Register<SettingChangedMessage>(this, (r, m) =>
+        {
+            if (m.SettingName == nameof(LocalSettings.Theme))
+            {
+                UpdateTheme();
+            }
+        });
+
+        UpdateTheme();
+    }
+
+    private void UpdateTheme()
+    {
+        var theme = LocalSettings.Theme;
+
+        UserAppTheme = theme switch
+        {
+            ThemeType.Light => AppTheme.Light,
+            ThemeType.Dark => AppTheme.Dark,
+            _ => AppTheme.Unspecified,
+        };
     }
 
     public async void TapGestureRecognizer_Tapped(object sender, EventArgs e)

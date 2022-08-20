@@ -26,6 +26,9 @@ public partial class SettingsViewModel : ObservableObject
     {
         CacheDatabaseManager = cacheDatabaseManager;
         Settings = localSettings;
+        ThemeTypes.Add(Strings.Settings_Theme_Default);
+        ThemeTypes.Add(Strings.Settings_Theme_Light);
+        ThemeTypes.Add(Strings.Settings_Theme_Dark);
     }
 
     #endregion
@@ -36,6 +39,25 @@ public partial class SettingsViewModel : ObservableObject
 
     [ObservableProperty]
     private bool _IsCacheClearing = false;
+
+    public List<string> ThemeTypes { get; } = new List<string>();
+
+    public int ThemeIndex
+    {
+        get
+        {
+            return (int) Settings.Theme;
+        }
+        set
+        {
+            Settings.Theme = value switch
+            {
+                1 => ThemeType.Light,
+                2 => ThemeType.Dark,
+                _ => ThemeType.Auto
+            };
+        }
+    }
 
     #endregion
 

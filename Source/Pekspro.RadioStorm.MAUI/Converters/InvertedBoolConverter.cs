@@ -4,14 +4,14 @@ internal class InvertedBoolConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        try
+        if(value is bool b)
         {
-            return !(bool)value;
+            return !b;
         }
-        catch
+        else
         {
             return false;
-        }
+        }        
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

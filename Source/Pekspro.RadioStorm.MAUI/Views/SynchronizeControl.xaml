@@ -23,8 +23,8 @@
           >
         <ActivityIndicator IsRunning="True" 
                            Grid.Column="0" 
-                           HeightRequest="8" 
-                           WidthRequest="8" 
+                           HeightRequest="{OnPlatform Default=8, Android=12}" 
+                           WidthRequest="{OnPlatform Default=8, Android=12}" 
                            Margin="0,0,8,0"
                            IsVisible="{Binding IsSynchronizing}"
                            />

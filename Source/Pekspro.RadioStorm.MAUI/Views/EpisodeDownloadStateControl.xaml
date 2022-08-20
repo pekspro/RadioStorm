@@ -10,6 +10,53 @@
             IsVisible="{Binding DownloadData, Mode=OneWay, Converter={StaticResource NullToIsVisibleConverter}}"
             Margin="0,4,0,0"
             >
+    <VisualStateManager.VisualStateGroups>
+        <VisualStateGroup Name="ListenState">
+            <VisualState Name="Listened">
+                <VisualState.StateTriggers>
+                    <StateTrigger 
+                            IsActive="{Binding IsListened, Converter={StaticResource SafeBoolConverter}}"  
+                        />
+                </VisualState.StateTriggers>
+                <VisualState.Setters>
+                    <Setter Property="Label.TextColor" 
+                            Value="{AppThemeBinding Light={StaticResource InactiveProgramColorLight}, Dark={StaticResource InactiveProgramColorDark}}"
+                            TargetName="LabelDownloadSize"
+                            />
+                    <Setter Property="Label.TextColor" 
+                            Value="{AppThemeBinding Light={StaticResource InactiveProgramColorLight}, Dark={StaticResource InactiveProgramColorDark}}"
+                            TargetName="LabelDownloadStatus"
+                            />
+                    <Setter Property="Label.TextColor" 
+                            Value="{AppThemeBinding Light={StaticResource InactiveProgramColorLight}, Dark={StaticResource InactiveProgramColorDark}}"
+                            TargetName="LabelDownloadError"
+                            />
+
+                </VisualState.Setters>
+            </VisualState>
+            <VisualState Name="NotListened">
+                <VisualState.StateTriggers>
+                    <StateTrigger 
+                            IsActive="{Binding IsListened, Converter={StaticResource InvertedBoolConverter}}"
+                        />
+                </VisualState.StateTriggers>
+                <VisualState.Setters>
+                    <Setter Property="Label.TextColor" 
+                            Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"
+                            TargetName="LabelDownloadSize"
+                            />
+                    <Setter Property="Label.TextColor" 
+                            Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"
+                            TargetName="LabelDownloadStatus"
+                            />
+                    <Setter Property="Label.TextColor" 
+                            Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"
+                            TargetName="LabelDownloadError"
+                            />
+                </VisualState.Setters>
+            </VisualState>
+        </VisualStateGroup>
+    </VisualStateManager.VisualStateGroups>
 
     <ActivityIndicator
         WidthRequest="8"
@@ -20,11 +67,11 @@
         IsVisible="{Binding DownloadData.Status, Mode=OneWay, Converter={StaticResource DownloadDataStatusWaitingToVisibilityConverter}}"                >
     </ActivityIndicator>
 
-    <Label Text="{Binding DownloadData.DownloadSizeText, Mode=OneWay}"
-                            TextColor="{Binding IsListened, Mode=OneWay, Converter={StaticResource BoolToIsListenedColorConverter}}"
-                            IsVisible="{Binding DownloadData.Status, Mode=OneWay, Converter={StaticResource DownloadDataStatusDoneOrDownloadingToVisibilityConverter}}"
-                            FontSize="12"
-                            Margin="8,0,0,0" />
+    <Label  x:Name="LabelDownloadSize"
+            Text="{Binding DownloadData.DownloadSizeText, Mode=OneWay}"
+            IsVisible="{Binding DownloadData.Status, Mode=OneWay, Converter={StaticResource DownloadDataStatusDoneOrDownloadingToVisibilityConverter}}"
+            FontSize="12"
+            Margin="8,0,0,0" />
 
     <Grid      WidthRequest="12"
                HeightRequest="12"
@@ -62,15 +109,15 @@
         </ProgressBar>
         -->
     
-        <Label Text="{OnPlatform WinUI='&#xE118;', Default='&#xf019;'}"
-                TextColor="{Binding IsListened, Mode=OneWay, Converter={StaticResource BoolToIsListenedColorConverter}}"
+        <Label  x:Name="LabelDownloadStatus"
+                Text="{OnPlatform WinUI='&#xE118;', Default='&#xf019;'}"
                 IsVisible="{Binding DownloadData.Status, Mode=OneWay, Converter={StaticResource DownloadDataStatusDoneToVisibilityConverter}}"
                 FontSize="12"
                 Margin="4,2,0,0"
                 FontFamily="{OnPlatform WinUI='Segoe MDL2 Assets', Default='FontAwesome'}" />
 
-        <Label Text="{x:Static r:Strings.DownloadStatus_Error}"
-                TextColor="{Binding IsListened, Mode=OneWay, Converter={StaticResource BoolToIsListenedColorConverter}}"
+        <Label  x:Name="LabelDownloadError"
+                Text="{x:Static r:Strings.DownloadStatus_Error}"
                 IsVisible="{Binding DownloadData.Status, Mode=OneWay, Converter={StaticResource DownloadDataStatusErrorToVisibilityConverter}}"
                 FontSize="12"
                 Margin="8,0,4,0" />

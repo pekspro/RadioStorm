@@ -4,13 +4,14 @@ public class BoolToInvertedBoolConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if (value is bool)
+        if (value is bool b)
         {
-            var v = (bool)value;
-            return !v;
+            return !b;
         }
-
-        return false;
+        else
+        {
+            return false;
+        }
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

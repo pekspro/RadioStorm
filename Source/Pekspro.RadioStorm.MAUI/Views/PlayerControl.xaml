@@ -5,7 +5,7 @@
             x:Class="Pekspro.RadioStorm.MAUI.Views.PlayerControl"             
             x:DataType="player:PlayerViewModel"
             IsVisible="{Binding CurrentItem, Converter={StaticResource NullToIsVisibleConverter}}"
-            BackgroundColor="{StaticResource PanelBackground}"
+            BackgroundColor="{AppThemeBinding Dark={StaticResource PanelBackgroundDark}, Light={StaticResource PanelBackgroundLight}}"
             HeightRequest="{Binding IsCurrentItemLiveAudio, Converter={StaticResource LiveAudioToHeightConverter}}"
             >
     <Grid.RowDefinitions>

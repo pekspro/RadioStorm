@@ -13,12 +13,6 @@
             IsVisible="{Binding IsBusy}" 
             IsRunning="True" 
             HorizontalOptions="Center" />
-        
-        <!--<Label
-            Text="{Binding DownloadState}"
-            Style="{StaticResource DebugStyle}"
-            HorizontalTextAlignment="Center"
-        />-->
 
         <VerticalStackLayout 
                 HorizontalOptions="Center"

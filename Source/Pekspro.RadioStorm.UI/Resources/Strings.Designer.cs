@@ -2320,7 +2320,7 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Välj vilket tema som ska användas. Du behöver starta om RadioStorm för att aktivera ändringarna..
+        ///   Looks up a localized string similar to Välj vilket tema som ska användas..
         /// </summary>
         public static string Settings_Theme_Description {
             get {
