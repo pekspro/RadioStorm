@@ -8,7 +8,6 @@ using Android.Net.Wifi;
 using Android.OS;
 using Java.Net;
 using Microsoft.NetConf2021.Maui.Platforms.Android.Receivers;
-using Pekspro.RadioStorm.Audio.Models;
 using Pekspro.RadioStorm.MAUI;
 using AndroidNet = Android.Net;
 
@@ -229,16 +228,10 @@ public class MediaPlayerService : Service,
 
     public void OnCompletion(MediaPlayer mp)
     {
-        // await PlayNext();
-
         Logger.LogInformation("Audio playing is completed.");
-        
-        if (mediaPlayer.IsPlaying)
-        {
-            mediaPlayer.Pause();
-        }
 
-        UpdatePlaybackState(PlaybackStateCode.Paused);
+        PlayNext();
+
     }
 
     public bool OnError(MediaPlayer mp, MediaError what, int extra)
@@ -380,8 +373,9 @@ public class MediaPlayerService : Service,
     public async Task Play()
     {
         Logger.LogInformation($"{nameof(Play)}");
-        
-        if (mediaPlayer is not null && MediaPlayerState == PlaybackStateCode.Paused)
+      
+        // Has state SkippingToNext when playlist is completed.
+        if (mediaPlayer is not null && MediaPlayerState is PlaybackStateCode.Paused or PlaybackStateCode.SkippingToNext)
         {
             //We are simply paused so just start again
             mediaPlayer.Start();
@@ -514,55 +508,48 @@ public class MediaPlayerService : Service,
         return true;
     }
 
-    public async Task PlayNext()
+    public async Task Forward()
     {
-        Logger.LogInformation($"{nameof(PlayNext)}");
+        Logger.LogInformation($"{nameof(Forward)}");
 
         if (await TrySeek(TimeSpan.FromSeconds(15)))
         {
             return;
         }
-        
+
+        PlayNext();
+    }
+
+    public void PlayNext()
+    {
         if (mediaPlayer is not null)
         {
-            mediaPlayer.Reset();
-            mediaPlayer.Release();
-            mediaPlayer = null;
+            mediaPlayer.Pause();
         }
 
         UpdatePlaybackState(PlaybackStateCode.SkippingToNext);
-
-        await Play();
     }
 
-    public async Task PlayPrevious()
+    public async Task Backward()
     {
-        Logger.LogInformation($"{nameof(PlayPrevious)}");
+        Logger.LogInformation($"{nameof(Backward)}");
 
         if (await TrySeek(TimeSpan.FromSeconds(-15)))
         {
             return;
         }
 
+        PlayPrevious();
+    }
 
-        // Start current track from beginning if it's the first track or the track has played more than 3sec and you hit "playPrevious".
-        if (RawPosition > 3000)
+    public void PlayPrevious()
+    {
+        if (mediaPlayer is not null)
         {
-            await Seek(0);
+            mediaPlayer.Pause();
         }
-        else
-        {
-            if (mediaPlayer is not null)
-            {
-                mediaPlayer.Reset();
-                mediaPlayer.Release();
-                mediaPlayer = null;
-            }
 
-            UpdatePlaybackState(PlaybackStateCode.SkippingToPrevious);
-                        
-            await Play();
-        }
+        UpdatePlaybackState(PlaybackStateCode.SkippingToPrevious);
     }
 
     public async Task PlayPause()
@@ -665,10 +652,7 @@ public class MediaPlayerService : Service,
                 UpdateMediaMetadataCompat();
             }
 
-            if (state == PlaybackStateCode.Playing || state == PlaybackStateCode.Paused)
-            {
-                StartNotification();
-            }
+            StartNotification();
         }
         catch (Exception ex)
         {
@@ -926,13 +910,13 @@ public class MediaPlayerService : Service,
 
         public override async void OnSkipToNext()
         {
-            await mediaPlayerService.GetMediaPlayerService().PlayNext();
+            await mediaPlayerService.GetMediaPlayerService().Forward();
             base.OnSkipToNext();
         }
 
         public override async void OnSkipToPrevious()
         {
-            await mediaPlayerService.GetMediaPlayerService().PlayPrevious();
+            await mediaPlayerService.GetMediaPlayerService().Backward();
             base.OnSkipToPrevious();
         }
 
