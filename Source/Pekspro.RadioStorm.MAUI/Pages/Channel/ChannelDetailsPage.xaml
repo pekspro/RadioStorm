@@ -113,7 +113,7 @@
 
                         <Label FontAttributes="Bold"
                                Margin="0,8,0,0"
-                               TextColor="{StaticResource InactiveProgramColor}">
+                               TextColor="{StaticResource InactiveProgramColorDark}">
                             <Label.Text>
                                 <MultiBinding StringFormat="{}{0} {1}">
                                     <Binding Path="ChannelData.Status.NextTimePeriod.StartTimeString" />
@@ -123,7 +123,7 @@
                         </Label>
 
                         <Label Text="{Binding ChannelData.Status.NextProgramDescription}"
-                               TextColor="{StaticResource InactiveProgramColor}"
+                               TextColor="{StaticResource InactiveProgramColorDark}"
                                />
 
                         <Button x:Name="ButtonOpenNextProgram"
