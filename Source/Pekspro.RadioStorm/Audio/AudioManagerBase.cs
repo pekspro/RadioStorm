@@ -101,6 +101,43 @@ public abstract class AudioManagerBase : IAudioManager
                 OnDownloadUpdated(m);
             }
         });
+
+        messenger?.Register<ExternalMediaButtonPressed>(this, (r, m) =>
+        {
+            switch (m.Button)
+            {
+                case ExternalMediaButton.Play:
+                    Play();
+                    break;
+
+                case ExternalMediaButton.Pause:
+                    Pause();
+                    break;
+
+                case ExternalMediaButton.PlayPause:
+                    PlayPause();
+                    break;
+
+                case ExternalMediaButton.Backward:
+                    Backward();
+                    break;
+                    
+                case ExternalMediaButton.Forward:
+                    Forward();
+                    break;
+
+                case ExternalMediaButton.Next:
+                    GoToNext();
+                    break;
+
+                case ExternalMediaButton.Previous:
+                    GoToPrevious();
+                    break;
+
+                default:
+                    break;
+            }
+        });
     }
 
     #endregion
@@ -227,6 +264,57 @@ public abstract class AudioManagerBase : IAudioManager
         }
     }
 
+    public void Forward()
+    {
+        Logger.LogInformation($"{nameof(Forward)}");
+
+        if (TrySeek(TimeSpan.FromSeconds(15)))
+        {
+            return;
+        }
+
+        GoToNext();
+    }
+    
+    public void Backward()
+    {
+        Logger.LogInformation($"{nameof(Backward)}");
+
+        if (TrySeek(TimeSpan.FromSeconds(-15)))
+        {
+            return;
+        }
+
+        GoToPrevious();
+    }
+
+    private bool TrySeek(TimeSpan length)
+    {
+        var position = Position;
+        var duration = MediaLength;
+
+        if (position < TimeSpan.Zero || duration < TimeSpan.Zero)
+        {
+            return false;
+        }
+
+        var newPosition = position + length;
+
+        if (newPosition < TimeSpan.Zero)
+        {
+            newPosition = TimeSpan.Zero;
+        }
+
+        if (newPosition > duration)
+        {
+            return false;
+        }
+
+        SetPlaybackPosition(newPosition);
+
+        return true;
+    }
+    
     public bool GoToNext()
     {
         if (CurrentPlayList is null)

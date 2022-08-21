@@ -517,18 +517,6 @@ public class MediaPlayerService : Service,
         return true;
     }
 
-    public async Task Forward()
-    {
-        Logger.LogInformation($"{nameof(Forward)}");
-
-        if (await TrySeek(TimeSpan.FromSeconds(15)))
-        {
-            return;
-        }
-
-        PlayNext();
-    }
-
     public void PlayNext()
     {
         if (mediaPlayer is not null)
@@ -537,18 +525,6 @@ public class MediaPlayerService : Service,
         }
 
         UpdatePlaybackState(PlaybackStateCode.SkippingToNext);
-    }
-
-    public async Task Backward()
-    {
-        Logger.LogInformation($"{nameof(Backward)}");
-
-        if (await TrySeek(TimeSpan.FromSeconds(-15)))
-        {
-            return;
-        }
-
-        PlayPrevious();
     }
 
     public void PlayPrevious()
@@ -905,27 +881,27 @@ public class MediaPlayerService : Service,
             mediaPlayerService = service;
         }
 
-        public override async void OnPause()
+        public override void OnPause()
         {
-            await mediaPlayerService.GetMediaPlayerService().Pause();
+            WeakReferenceMessenger.Default.Send(new ExternalMediaButtonPressed(ExternalMediaButton.Pause));
             base.OnPause();
         }
 
-        public override async void OnPlay()
+        public override void OnPlay()
         {
-            await mediaPlayerService.GetMediaPlayerService().Play();
+            WeakReferenceMessenger.Default.Send(new ExternalMediaButtonPressed(ExternalMediaButton.Play));
             base.OnPlay();
         }
 
-        public override async void OnSkipToNext()
+        public override void OnSkipToNext()
         {
-            await mediaPlayerService.GetMediaPlayerService().Forward();
+            WeakReferenceMessenger.Default.Send(new ExternalMediaButtonPressed(ExternalMediaButton.Forward));
             base.OnSkipToNext();
         }
 
-        public override async void OnSkipToPrevious()
+        public override void OnSkipToPrevious()
         {
-            await mediaPlayerService.GetMediaPlayerService().Backward();
+            WeakReferenceMessenger.Default.Send(new ExternalMediaButtonPressed(ExternalMediaButton.Backward));
             base.OnSkipToPrevious();
         }
 

@@ -236,6 +236,18 @@ public partial class PlayerViewModel : ObservableObject
         }
     }
 
+    [RelayCommand]
+    protected void Backward()
+    {
+        AudioManager.Backward();
+    }
+
+    [RelayCommand]
+    protected void Forward()
+    {
+        AudioManager.Forward();
+    }
+
     [RelayCommand(CanExecute = nameof(CanGoToNext))]
     protected void GoToNext()
     {
