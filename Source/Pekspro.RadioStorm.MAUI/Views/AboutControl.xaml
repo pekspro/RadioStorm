@@ -13,7 +13,9 @@
             </Label.GestureRecognizers>
         </Label>
         <Label Text="{x:Static r:Strings.About_Description}" />
-        <Label Text="{Binding BuildDetails}" Style="{StaticResource DetailedTextStyle}" TextColor="{StaticResource InactiveProgramColor}" />
+        <Label Text="{Binding BuildDetails}" Style="{StaticResource DetailedTextStyle}" 
+               TextColor="{AppThemeBinding Dark={StaticResource InactiveProgramColorDark}, Light={StaticResource InactiveProgramColorLight}}" />
+
         <Label Text="{x:Static r:Strings.About_Credits_Title}" Style="{StaticResource Subtitle2TextBlockStyle}" />
         <Label Text="{x:Static r:Strings.About_Credits_Line1}" />
         <Label Text="{x:Static r:Strings.About_Credits_Line2}" />
