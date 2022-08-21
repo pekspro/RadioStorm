@@ -42,10 +42,8 @@ internal class AndroidAudioManager : AudioManagerBase
             SetupEvents(service);
 
             service.Item = playlistItem;
-            service.AudioUrl = playlistItem.PreferablePlayUrl;
 
-            await service.Play();
-            // await service.Seek(pos * 1000);
+            await service.Play(playlistItem.PreferablePlayUrl);
         }
         catch (Exception )
         {

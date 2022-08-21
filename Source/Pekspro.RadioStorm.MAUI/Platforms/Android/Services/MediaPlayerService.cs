@@ -50,7 +50,7 @@ public class MediaPlayerService : Service,
 
     public event BufferingEventHandler Buffering;
 
-    public string AudioUrl;
+    public string AudioUrl { get; private set; }
 
     public PlayListItem Item;
 
@@ -365,6 +365,15 @@ public class MediaPlayerService : Service,
             cover = value as Bitmap;
             OnCoverReloaded(EventArgs.Empty);
         }
+    }
+
+    public Task Play(string audioUrl)
+    {
+        AudioUrl = audioUrl;
+        _LatestValidDuration = -1;
+        _LatestValidPosition = -1;
+
+        return Play();
     }
 
     /// <summary>
