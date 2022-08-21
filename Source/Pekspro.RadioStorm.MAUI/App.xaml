@@ -127,8 +127,9 @@
 
             <Style x:Key="PlayerButton" TargetType="ImageButton">
                 <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="WidthRequest" Value="{OnPlatform Default=48, WinUI=28}" />
                 <Setter Property="Padding" Value="8" />
-                <Setter Property="Margin" Value="4" />
+                <Setter Property="Margin" Value="{OnPlatform Default=0, WinUI=8}" />
                 <Setter Property="BorderWidth" Value="0" />
             </Style>
 
