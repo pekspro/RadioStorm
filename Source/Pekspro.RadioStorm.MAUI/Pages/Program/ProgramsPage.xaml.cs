@@ -30,4 +30,14 @@ public partial class ProgramsPage : ContentPage
             });
         }
     }
+
+    private void SwipeView_SwipeStarted(object sender, SwipeStartedEventArgs e)
+    {
+        SwipeHelper.SwipeStarted(sender);
+    }
+
+    private void SwipeView_SwipeEnded(object sender, SwipeEndedEventArgs e)
+    {
+        SwipeHelper.SwipeEnded(sender);
+    }
 }

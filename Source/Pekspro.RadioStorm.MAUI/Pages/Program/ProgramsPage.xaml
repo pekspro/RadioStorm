@@ -3,6 +3,7 @@
              xmlns:vm="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Program;assembly=Pekspro.RadioStorm.UI"
              xmlns:m="clr-namespace:Pekspro.RadioStorm.UI.Model.Program;assembly=Pekspro.RadioStorm.UI"
              xmlns:v="clr-namespace:Pekspro.RadioStorm.MAUI.Pages.Program"
+             xmlns:t="clr-namespace:Pekspro.RadioStorm.MAUI.TemplateSelector"
              xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
              xmlns:controls="clr-namespace:Pekspro.RadioStorm.MAUI.Controls"
              xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
@@ -10,6 +11,39 @@
              x:DataType="vm:ProgramsViewModel"
              Title="{x:Static r:Strings.Programs_Title}"
              >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:DataType="m:ProgramModel" x:Key="ProgramTemplate">
+                <SwipeView Threshold="{StaticResource DefaultSwipeThreshold}" SwipeStarted="SwipeView_SwipeStarted" SwipeEnded="SwipeView_SwipeEnded">
+                    <SwipeView.LeftItems>
+                        <SwipeItems Mode="Execute">
+                            <SwipeItem Text="{Binding IsFavorite, Converter={StaticResource BoolToToggleIsFavoriteConverter}}"
+                                           Command="{Binding ToggleIsFavoriteCommand}"
+                                           BackgroundColor="{StaticResource SwipeControlBackgroundGeneral}" />
+                        </SwipeItems>
+                    </SwipeView.LeftItems>
+                    <v:ProgramControl>
+                        <v:ProgramControl.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ProgramTapped"/>
+                        </v:ProgramControl.GestureRecognizers>
+                    </v:ProgramControl>
+                </SwipeView>
+            </DataTemplate>
+
+            <DataTemplate x:DataType="m:ProgramModel" x:Key="ProgramTemplateWindows">
+                <v:ProgramControl>
+                    <v:ProgramControl.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ProgramTapped"/>
+                    </v:ProgramControl.GestureRecognizers>
+                </v:ProgramControl>
+            </DataTemplate>
+
+            <t:PlatformTemplateSelector x:Key="programTemplateSelector" 
+                                        DefaultTemplate="{StaticResource ProgramTemplate}" 
+                                        WindowsTemplate="{StaticResource ProgramTemplateWindows}" 
+                                        />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.ToolbarItems>
         <ToolbarItem 
                 Command="{Binding UpdateCommand}"
@@ -45,31 +79,13 @@
                 ItemsSource="{Binding GroupedItems}"
                 IsGrouped="True"
                 SelectionMode="{Binding SelectionModeHelper.InSelectionMode, Converter={StaticResource BoolToSelectionMode}}"
+                ItemTemplate="{StaticResource programTemplateSelector}" 
              >
                 <CollectionView.GroupHeaderTemplate>
                     <DataTemplate>
                         <views:GroupHeaderControl />
                     </DataTemplate>
                 </CollectionView.GroupHeaderTemplate>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="m:ProgramModel">
-                        <!--<SwipeView Threshold="150">
-                            <SwipeView.LeftItems>
-                                <SwipeItems Mode="Execute">
-                                    <SwipeItem Text="{Binding IsFavorite, Converter={StaticResource BoolToToggleIsFavoriteConverter}}"
-                                           IconImageSource="{StaticResource ToolBarIconFavorite}"
-                                           Command="{Binding ToggleIsFavoriteCommand}"
-                                           BackgroundColor="{StaticResource SwipeControlBackgroundGeneral}" />
-                                </SwipeItems>
-                            </SwipeView.LeftItems>-->
-                            <v:ProgramControl>
-                                <v:ProgramControl.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="ProgramTapped"/>
-                                </v:ProgramControl.GestureRecognizers>
-                            </v:ProgramControl>
-                        <!--</SwipeView>-->
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
             </CollectionView>
         </RefreshView>
 

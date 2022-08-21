@@ -4,6 +4,7 @@
              xmlns:vm="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Channel;assembly=Pekspro.RadioStorm.UI"
              xmlns:m="clr-namespace:Pekspro.RadioStorm.UI.Model.Channel;assembly=Pekspro.RadioStorm.UI"
              xmlns:v="clr-namespace:Pekspro.RadioStorm.MAUI.Pages.Channel"
+             xmlns:t="clr-namespace:Pekspro.RadioStorm.MAUI.TemplateSelector"
              xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
              xmlns:controls="clr-namespace:Pekspro.RadioStorm.MAUI.Controls"
              xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
@@ -12,6 +13,39 @@
              x:DataType="vm:ChannelsViewModel"
              Title="{x:Static r:Strings.Channels_Title}"
              >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:DataType="m:ChannelModel" x:Key="ChannelTemplate">
+                <SwipeView Threshold="{StaticResource DefaultSwipeThreshold}" SwipeStarted="SwipeView_SwipeStarted" SwipeEnded="SwipeView_SwipeEnded">
+                        <SwipeView.LeftItems>
+                            <SwipeItems Mode="Execute">
+                                <SwipeItem Text="{Binding IsFavorite, Converter={StaticResource BoolToToggleIsFavoriteConverter}}"
+                                           Command="{Binding ToggleIsFavoriteCommand}"
+                                           BackgroundColor="{StaticResource SwipeControlBackgroundGeneral}" />
+                            </SwipeItems>
+                        </SwipeView.LeftItems>
+                    <v:ChannelControl>
+                        <v:ChannelControl.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ChannelTapped"/>
+                        </v:ChannelControl.GestureRecognizers>
+                    </v:ChannelControl>
+                </SwipeView>
+            </DataTemplate>
+
+            <DataTemplate x:DataType="m:ChannelModel" x:Key="ChannelTemplateWindows">
+                <v:ChannelControl>
+                    <v:ChannelControl.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ChannelTapped"/>
+                    </v:ChannelControl.GestureRecognizers>
+                </v:ChannelControl>
+            </DataTemplate>
+
+            <t:PlatformTemplateSelector x:Key="channelTemplateSelector" 
+                                        DefaultTemplate="{StaticResource ChannelTemplate}" 
+                                        WindowsTemplate="{StaticResource ChannelTemplateWindows}" 
+                                        />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.ToolbarItems>
         <ToolbarItem 
                 Command="{Binding UpdateCommand}"
@@ -54,31 +88,13 @@
                 ItemsSource="{Binding GroupedItems}"
                 IsGrouped="True"
                 SelectionMode="{Binding SelectionModeHelper.InSelectionMode, Converter={StaticResource BoolToSelectionMode}}"
+                ItemTemplate="{StaticResource channelTemplateSelector}" 
                 >
                 <CollectionView.GroupHeaderTemplate>
                     <DataTemplate>
                         <views:GroupHeaderControl />
                     </DataTemplate>
                 </CollectionView.GroupHeaderTemplate>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="m:ChannelModel">
-                        <!--<SwipeView Threshold="150">
-                        <SwipeView.LeftItems>
-                            <SwipeItems Mode="Execute">
-                                <SwipeItem Text="{Binding IsFavorite, Converter={StaticResource BoolToToggleIsFavoriteConverter}}"
-                                           IconImageSource="{StaticResource ToolBarIconFavorite}"
-                                           Command="{Binding ToggleIsFavoriteCommand}"
-                                           BackgroundColor="{StaticResource SwipeControlBackgroundGeneral}" />
-                            </SwipeItems>
-                        </SwipeView.LeftItems>-->
-                        <v:ChannelControl>
-                            <v:ChannelControl.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="ChannelTapped"/>
-                            </v:ChannelControl.GestureRecognizers>
-                        </v:ChannelControl>
-                        <!--</SwipeView>-->
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
             </CollectionView>
         </RefreshView>
 
