@@ -68,4 +68,14 @@ public partial class ProgramDetailsPage : ContentPage
             EpisodesListView.ScrollTo(position.Value, position: ScrollToPosition.Center);
         }
     }
+
+    private void SwipeView_SwipeStarted(object sender, SwipeStartedEventArgs e)
+    {
+        SwipeHelper.SwipeStarted(sender);
+    }
+
+    private void SwipeView_SwipeEnded(object sender, SwipeEndedEventArgs e)
+    {
+        SwipeHelper.SwipeEnded(sender);
+    }
 }

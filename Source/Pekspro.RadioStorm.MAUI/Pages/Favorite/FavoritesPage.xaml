@@ -17,11 +17,10 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:DataType="cm:ChannelModel" x:Key="ChannelTemplate">
-                <SwipeView Threshold="{StaticResource DefaultSwipeThreshold}">
+                <SwipeView Threshold="{StaticResource DefaultSwipeThreshold}" SwipeStarted="SwipeView_SwipeStarted" SwipeEnded="SwipeView_SwipeEnded">
                     <SwipeView.LeftItems>
                         <SwipeItems Mode="Execute">
-                            <SwipeItem Text="{Binding IsFavorite, Converter={StaticResource BoolToToggleIsFavoriteConverter}}"
-                                           IconImageSource="{StaticResource ToolBarIconFavorite}"
+                            <SwipeItem Text="{x:Static r:Strings.General_RemoveAsFavorite}"
                                            Command="{Binding ToggleIsFavoriteCommand}"
                                            BackgroundColor="{StaticResource SwipeControlBackgroundGeneral}" />
                         </SwipeItems>
@@ -43,11 +42,10 @@
             </DataTemplate>
 
             <DataTemplate x:DataType="pm:ProgramModel" x:Key="ProgramTemplate">
-                <SwipeView Threshold="{StaticResource DefaultSwipeThreshold}">
+                <SwipeView Threshold="{StaticResource DefaultSwipeThreshold}" SwipeStarted="SwipeView_SwipeStarted" SwipeEnded="SwipeView_SwipeEnded">
                     <SwipeView.LeftItems>
                         <SwipeItems Mode="Execute">
-                            <SwipeItem Text="{Binding IsFavorite, Converter={StaticResource BoolToToggleIsFavoriteConverter}}"
-                                           IconImageSource="{StaticResource ToolBarIconFavorite}"
+                            <SwipeItem Text="{x:Static r:Strings.General_RemoveAsFavorite}"
                                            Command="{Binding ToggleIsFavoriteCommand}"
                                            BackgroundColor="{StaticResource SwipeControlBackgroundGeneral}" />
                         </SwipeItems>

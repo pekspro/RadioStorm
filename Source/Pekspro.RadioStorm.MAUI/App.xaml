@@ -42,7 +42,7 @@
             <x:Double x:Key="FontSizeDetails">12</x:Double>
             <x:Double x:Key="HeaderFavoriteStarSize">16</x:Double>
             <x:Double x:Key="ListItemImageSize">64</x:Double>
-            <x:Double x:Key="DefaultSwipeThreshold">120</x:Double>
+            <x:Double x:Key="DefaultSwipeThreshold">160</x:Double>
             
             <OnPlatform x:Key="NormalPageMargin" x:TypeArguments="Thickness" Default="20">
                 <On Platform="WinUI">8</On>

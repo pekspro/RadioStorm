@@ -15,16 +15,14 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:DataType="e:EpisodeModel" x:Key="EpisodeTemplate">
-                <SwipeView Threshold="{StaticResource DefaultSwipeThreshold}">
+                <SwipeView Threshold="{StaticResource DefaultSwipeThreshold}" SwipeStarted="SwipeView_SwipeStarted" SwipeEnded="SwipeView_SwipeEnded">
                     <SwipeView.LeftItems>
-                        <SwipeItems >
-                            <SwipeItem Text="{x:Static r:Strings.General_AddToPlayList}"
-                                               IconImageSource="{StaticResource PlayList}"
+                        <SwipeItems Mode="Execute">
+                            <!--<SwipeItem Text="{x:Static r:Strings.General_AddToPlayList}"
                                                Command="{Binding AddToPlayListCommand}"
                                                BackgroundColor="{AppThemeBinding Dark={StaticResource WarningColorDark}, Light={StaticResource WarningColorLight}}"
-                                    />
+                                    />-->
                             <SwipeItem Text="{Binding IsListened, Converter={StaticResource BoolToToggleIsListenedConverter}}"
-                                               IconImageSource="{StaticResource ToolBarIconIsNotListened}"
                                                Command="{Binding ToggleIsListenedCommand}"
                                                BackgroundColor="{StaticResource SwipeControlBackgroundGeneral}"
                                     />
@@ -34,13 +32,11 @@
                         <SwipeItems Mode="Execute">
                             <SwipeItem  Text="{x:Static r:Strings.General_RemoveDownload}"
                                         IsVisible="{Binding DownloadData, Converter={StaticResource NullToIsVisibleConverter}}"
-                                        IconImageSource="{StaticResource ToolBarIconDelete}"
                                         Command="{Binding DeleteDownloadCommand}"
                                         BackgroundColor="{StaticResource SwipeControlBackgroundRemove}" />
 
                             <SwipeItem  Text="{x:Static r:Strings.General_Download}"
                                         IsVisible="{Binding HasDownloadSupportAndNoDownload}"
-                                        IconImageSource="{StaticResource ToolBarIconDownload}"
                                         Command="{Binding DownloadCommand}"
                                         BackgroundColor="{StaticResource SwipeControlBackgroundDownload}" />
                         </SwipeItems>

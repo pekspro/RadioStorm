@@ -8,7 +8,15 @@ public class BoolToSelectionModeConverter : IValueConverter
 
     public SelectionMode TrueSelectionMode { get; set; } = SelectionMode.Multiple;
 
+#if WINDOWS
+
+    // This enables an hovering effect (at least in dark mode).
     public SelectionMode FalseSelectionMode { get; set; } = SelectionMode.Single;
+    
+#else
+    public SelectionMode FalseSelectionMode { get; set; } = SelectionMode.None;
+    
+#endif
 
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
