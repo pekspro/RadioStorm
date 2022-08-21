@@ -169,6 +169,7 @@
                     Grid.Row="1"
                 >
                 <Button Style="{StaticResource HyperlinkButton}"
+                                IsVisible="{Binding EpisodesViewModel.CanAutoCreatePlayList}"
                                 Text="{x:Static r:Strings.Episodes_AutoCreatePlayList}"
                                 Command="{Binding EpisodesViewModel.AutoCreatePlayListCommand}"
                                 />

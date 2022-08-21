@@ -66,6 +66,8 @@ public partial class EpisodesViewModel : ListViewModel<EpisodeModel>, ISearch
         messenger?.Register<ListenStateChangedMessage>(this, (r, m) =>
         {
             OnPropertyChanged(nameof(FirstNotListenedEpisodePosition));
+            OnPropertyChanged(nameof(CanAutoCreatePlayList));
+            AutoCreatePlayListCommand.NotifyCanExecuteChanged();
         }
         );
     }
@@ -80,7 +82,7 @@ public partial class EpisodesViewModel : ListViewModel<EpisodeModel>, ISearch
     [NotifyCanExecuteChangedFor(nameof(DownloadAllEpisodesCommand))]
     private bool _HasMoreEpisodes;
 
-    private bool CanAutoCreatePlayList
+    public bool CanAutoCreatePlayList
     {
         get
         {
