@@ -127,13 +127,22 @@ internal class AndroidAudioManager : AudioManagerBase
         }
         else
         {
-            var position = MediaPlayerService.Position;
-            var mediaLength = MediaPlayerService.Duration;
-
-            // Position are not valid is some situations (for instances, when stopped).
-            if (position >= 0 && mediaLength > 0)
+            // Only check position when playing or paused. Otherwise position
+            // could be wrong. Especially likely when switching to a new item
+            // in the play list.
+            if (MediaPlayerService.MediaPlayerState is
+                Android.Media.Session.PlaybackStateCode.Playing or
+                Android.Media.Session.PlaybackStateCode.Paused
+                )
             {
-                SetPositionAndLength(TimeSpan.FromMilliseconds(position), TimeSpan.FromMilliseconds(mediaLength));
+                var position = MediaPlayerService.Position;
+                var mediaLength = MediaPlayerService.Duration;
+
+                // Position are not valid is some situations (for instances, when stopped).
+                if (position >= 0 && mediaLength > 0)
+                {
+                    SetPositionAndLength(TimeSpan.FromMilliseconds(position), TimeSpan.FromMilliseconds(mediaLength));
+                }
             }
         }
     }
