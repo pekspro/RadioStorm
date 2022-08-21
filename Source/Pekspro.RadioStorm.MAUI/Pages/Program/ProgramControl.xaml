@@ -53,6 +53,7 @@
                 <FontImageSource
                     FontFamily="{StaticResource DefaultIconFont}"
                     Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.FavoriteStarFill}, Default={x:Static style:IconFont.Star}}"
+                    Color="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"
                     Size="{StaticResource HeaderFavoriteStarSize}"/>
             </Image.Source>
         </Image>
