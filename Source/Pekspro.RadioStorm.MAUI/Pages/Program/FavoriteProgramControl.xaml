@@ -24,7 +24,7 @@
             <VisualState Name="Listened">
                 <VisualState.StateTriggers>
                     <StateTrigger 
-                        IsActive="{Binding EpisodeStatus.TopEpisode.IsListened, Converter={StaticResource SafeBoolConverter}}"  
+                        IsActive="{Binding EpisodeStatus.TopEpisode.IsListened}"  
                         />
                 </VisualState.StateTriggers>
                 <VisualState.Setters>

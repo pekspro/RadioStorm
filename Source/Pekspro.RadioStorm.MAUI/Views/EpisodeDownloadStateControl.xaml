@@ -15,7 +15,7 @@
             <VisualState Name="Listened">
                 <VisualState.StateTriggers>
                     <StateTrigger 
-                            IsActive="{Binding IsListened, Converter={StaticResource SafeBoolConverter}}"  
+                            IsActive="{Binding IsListened}"  
                         />
                 </VisualState.StateTriggers>
                 <VisualState.Setters>
