@@ -213,14 +213,14 @@
             <FontImageSource
                 x:Key="Previous"
                 FontFamily="{StaticResource DefaultIconFont}"
-                Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.BackSolidBold}, Default={x:Static style:IconFont.Backward}}"
+                Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.BackSolidBold}, Default={x:Static style:IconFont.StepBackward}}"
                 Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
                 Size="16"/>
 
             <FontImageSource
                 x:Key="Next"
                 FontFamily="{StaticResource DefaultIconFont}"
-                Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.ForwardSolidBold}, Default={x:Static style:IconFont.Forward}}"
+                Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.ForwardSolidBold}, Default={x:Static style:IconFont.StepForward}}"
                 Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
                 Size="16"/>
 
