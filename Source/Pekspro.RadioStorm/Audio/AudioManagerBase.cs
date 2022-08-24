@@ -27,6 +27,8 @@ public abstract class AudioManagerBase : IAudioManager
     private int LatestOnLengthAndPositionUpdatedItemAudioId = -1;
 
     private bool LatestOnLengthAndPositionUpdatedTriedSetToTrue = false;
+
+    private SeekSizeProvider SeekSizeProvider = new SeekSizeProvider();
     
     #endregion
 
@@ -118,12 +120,12 @@ public abstract class AudioManagerBase : IAudioManager
                     PlayPause();
                     break;
 
-                case ExternalMediaButton.Backward:
-                    Backward();
+                case ExternalMediaButton.Rewind:
+                    Move(SeekSizeProvider.RewindSize);
                     break;
                     
                 case ExternalMediaButton.Forward:
-                    Forward();
+                    Move(SeekSizeProvider.ForwardSize);
                     break;
 
                 case ExternalMediaButton.Next:
@@ -263,29 +265,24 @@ public abstract class AudioManagerBase : IAudioManager
             Play();
         }
     }
-
-    public void Forward()
+        
+    public void Move(TimeSpan delta)
     {
-        Logger.LogInformation($"{nameof(Forward)}");
+        Logger.LogInformation($"{nameof(Move)} delta: {delta}");
 
-        if (TrySeek(TimeSpan.FromSeconds(15)))
+        if (TrySeek(delta))
         {
             return;
         }
 
-        GoToNext();
-    }
-    
-    public void Backward()
-    {
-        Logger.LogInformation($"{nameof(Backward)}");
-
-        if (TrySeek(TimeSpan.FromSeconds(-15)))
+        if (delta < TimeSpan.Zero)
         {
-            return;
+            GoToPrevious();
         }
-
-        GoToPrevious();
+        else
+        {
+            GoToNext();
+        }
     }
 
     private bool TrySeek(TimeSpan length)
@@ -300,14 +297,22 @@ public abstract class AudioManagerBase : IAudioManager
 
         var newPosition = position + length;
 
+        if (newPosition > duration)
+        {   
+            // Less than 5 seconds from the end?
+            if (position.Add(TimeSpan.FromSeconds(5)) >= duration)
+            {
+                // Don't do anything
+                return false;
+            }
+
+            // Move to 5 seconds from the send
+            newPosition = duration.Add(TimeSpan.FromSeconds(-5));
+        }
+
         if (newPosition < TimeSpan.Zero)
         {
             newPosition = TimeSpan.Zero;
-        }
-
-        if (newPosition > duration)
-        {
-            return false;
         }
 
         SetPlaybackPosition(newPosition);

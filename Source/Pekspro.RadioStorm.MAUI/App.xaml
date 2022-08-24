@@ -243,6 +243,7 @@
             <converters:StringToColorConverter x:Key="StringToHalfTransparentColorConverter" FallbackColor="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}" Alpha="{OnPlatform 0.1, Android=0.3}"/>
 
             <converters:StringToBoolConverter x:Key="StringToIsVisibleConverter" />
+            <converters:TimeSpanToSeekSizeStringConverter x:Key="TimeSpanToSeekSizeStringConverter" />
             <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
             <converters:NullToBoolConverter x:Key="NullToIsVisibleConverter" />
             <converters:NullToBoolConverter x:Key="InvertedNullToIsVisibleConverter" NullValue="True" />

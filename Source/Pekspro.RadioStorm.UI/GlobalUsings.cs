@@ -40,6 +40,7 @@ global using Pekspro.RadioStorm.UI.Model.FileSize;
 global using Pekspro.RadioStorm.UI.Model.ImageLink;
 global using Pekspro.RadioStorm.UI.Model.Program;
 global using Pekspro.RadioStorm.UI.Model.SchedulesEpisode;
+global using Pekspro.RadioStorm.UI.Model.SeekSize;
 global using Pekspro.RadioStorm.UI.Model.Song;
 global using Pekspro.RadioStorm.UI.Resources;
 global using Pekspro.RadioStorm.UI.Utilities;

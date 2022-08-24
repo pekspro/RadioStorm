@@ -80,6 +80,12 @@ public partial class PlayerViewModel : ObservableObject
 
     #region Properites
 
+    #region SeekSize
+
+    public SeekSizeViewModel SeekSizeViewModel { get; } = new SeekSizeViewModel();
+
+    #endregion
+
     #region Button properties
 
     [ObservableProperty]
@@ -237,15 +243,17 @@ public partial class PlayerViewModel : ObservableObject
     }
 
     [RelayCommand]
-    protected void Backward()
+    protected void Rewind()
     {
-        AudioManager.Backward();
+        AudioManager.Move(SeekSizeViewModel.RewindSize);
+        SeekSizeViewModel.Decrease();
     }
 
     [RelayCommand]
     protected void Forward()
     {
-        AudioManager.Forward();
+        AudioManager.Move(SeekSizeViewModel.ForwardSize);
+        SeekSizeViewModel.Increase();
     }
 
     [RelayCommand(CanExecute = nameof(CanGoToNext))]

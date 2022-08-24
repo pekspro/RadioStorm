@@ -6,7 +6,7 @@ public enum ExternalMediaButton
     Pause,
     PlayPause,
     Forward,
-    Backward,
+    Rewind,
     Next,
     Previous
 }

@@ -60,9 +60,7 @@ public interface IAudioManager
 
     void PlayPause();
 
-    void Backward();
-    
-    void Forward();
+    void Move(TimeSpan delta);
 
     bool GoToNext();
 
