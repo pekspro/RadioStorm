@@ -192,7 +192,7 @@ public class MediaPlayerService : Service,
 
         mediaPlayer.SetAudioAttributes(
             new AudioAttributes.Builder()
-            .SetContentType(AudioContentType.Music)
+            .SetContentType(AudioContentType.Speech)
             .SetUsage(AudioUsageKind.Media)
                 .Build());
 
