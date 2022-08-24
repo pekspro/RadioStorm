@@ -901,7 +901,7 @@ public class MediaPlayerService : Service,
 
         public override void OnSkipToPrevious()
         {
-            WeakReferenceMessenger.Default.Send(new ExternalMediaButtonPressed(ExternalMediaButton.Backward));
+            WeakReferenceMessenger.Default.Send(new ExternalMediaButtonPressed(ExternalMediaButton.Rewind));
             base.OnSkipToPrevious();
         }
 

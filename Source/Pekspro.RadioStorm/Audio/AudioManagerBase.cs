@@ -122,10 +122,12 @@ public abstract class AudioManagerBase : IAudioManager
 
                 case ExternalMediaButton.Rewind:
                     Move(SeekSizeProvider.RewindSize);
+                    SeekSizeProvider.Decrease();
                     break;
                     
                 case ExternalMediaButton.Forward:
                     Move(SeekSizeProvider.ForwardSize);
+                    SeekSizeProvider.Increase();
                     break;
 
                 case ExternalMediaButton.Next:
