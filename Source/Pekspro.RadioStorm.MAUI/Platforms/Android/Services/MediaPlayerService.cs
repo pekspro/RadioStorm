@@ -44,8 +44,6 @@ public class MediaPlayerService : Service,
 
     public event StatusChangedEventHandler StatusChanged;
 
-    public event CoverReloadedEventHandler CoverReloaded;
-
     public event PlayingEventHandler Playing;
 
     public event BufferingEventHandler Buffering;
@@ -111,16 +109,6 @@ public class MediaPlayerService : Service,
     protected virtual void OnStatusChanged(EventArgs e)
     {
         StatusChanged?.Invoke(this, e);
-    }
-
-    protected virtual void OnCoverReloaded(EventArgs e)
-    {
-        if (CoverReloaded is not null)
-        {
-            CoverReloaded(this, e);
-            StartNotification();
-            UpdateMediaMetadataCompat();
-        }
     }
 
     protected virtual void OnPlaying(EventArgs e)
@@ -349,21 +337,21 @@ public class MediaPlayerService : Service,
 
     private Bitmap cover;
 
-    public object Cover
+    private Bitmap Cover
     {
         get
         {
-            if (cover is null)
-            {
-                cover = BitmapFactory.DecodeResource(Resources, Pekspro.RadioStorm.MAUI.Resource.Drawable.player_play);
-            }
-            
             return cover;
         }
-        private set
+        set
         {
-            cover = value as Bitmap;
-            OnCoverReloaded(EventArgs.Empty);
+            cover = value;
+
+            if (cover is not null)
+            {
+                StartNotification();
+                UpdateMediaMetadataCompat();
+            }
         }
     }
 
@@ -687,7 +675,12 @@ public class MediaPlayerService : Service,
             .PutString(MediaMetadata.MetadataKeyArtist, Item.Episode ?? string.Empty)
             .PutString(MediaMetadata.MetadataKeyTitle, Item.Program ?? Item.Channel ?? string.Empty);
 
-        builder.PutBitmap(MediaMetadata.MetadataKeyAlbumArt, Cover as Bitmap);
+        var cover = Cover;
+
+        if (cover is not null)
+        {
+            builder.PutBitmap(MediaMetadata.MetadataKeyAlbumArt, cover);
+        }
 
         // Add duration
         if (!Item.IsLiveAudio)
