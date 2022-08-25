@@ -57,6 +57,12 @@ public class RemoteControlBroadcastReceiver : BroadcastReceiver
             case Keycode.MediaStop:
                 action = MediaPlayerService.ActionStop;
                 break;
+            case Keycode.MediaRewind:
+                action = MediaPlayerService.ActionRewind;
+                break;
+            case Keycode.MediaFastForward:
+                action = MediaPlayerService.ActionForward;
+                break;
             case Keycode.MediaNext:
                 action = MediaPlayerService.ActionNext;
                 break;

@@ -16,7 +16,7 @@ using AndroidNet = Android.Net;
 namespace Microsoft.NetConf2021.Maui.Platforms.Android.Services;
 
 [Service(Exported = true)]
-[IntentFilter(new[] { ActionPlay, ActionPause, ActionStop, ActionTogglePlayback, ActionNext, ActionPrevious })]
+[IntentFilter(new[] { ActionPlay, ActionPause, ActionStop, ActionTogglePlayback, ActionRewind, ActionForward, ActionNext, ActionPrevious })]
 public class MediaPlayerService : Service,
    AudioManager.IOnAudioFocusChangeListener,
    MediaPlayer.IOnBufferingUpdateListener,
@@ -26,12 +26,14 @@ public class MediaPlayerService : Service,
    MediaPlayer.IOnPreparedListener
 {
     //Actions
-    public const string ActionPlay = "com.xamarin.action.PLAY";
-    public const string ActionPause = "com.xamarin.action.PAUSE";
-    public const string ActionStop = "com.xamarin.action.STOP";
-    public const string ActionTogglePlayback = "com.xamarin.action.TOGGLEPLAYBACK";
-    public const string ActionNext = "com.xamarin.action.NEXT";
-    public const string ActionPrevious = "com.xamarin.action.PREVIOUS";
+    public const string ActionPlay = "com.pekspro.radiostorm.action.PLAY";
+    public const string ActionPause = "com.pekspro.radiostorm.action.PAUSE";
+    public const string ActionStop = "com.pekspro.radiostorm.action.STOP";
+    public const string ActionTogglePlayback = "com.pekspro.radiostorm.action.TOGGLEPLAYBACK";
+    public const string ActionRewind = "com.pekspro.radiostorm.action.REWIND";
+    public const string ActionForward = "com.pekspro.radiostorm.action.FORWARD";
+    public const string ActionNext = "com.pekspro.radiostorm.action.NEXT";
+    public const string ActionPrevious = "com.pekspro.radiostorm.action.PREVIOUS";
 
     public MediaPlayer mediaPlayer;
     private AudioManager audioManager;
@@ -716,6 +718,14 @@ public class MediaPlayerService : Service,
         {
             mediaController.GetTransportControls().Pause();
         }
+        else if (action.Equals(ActionRewind))
+        {
+            mediaController.GetTransportControls().Rewind();
+        }
+        else if (action.Equals(ActionForward))
+        {
+            mediaController.GetTransportControls().FastForward();
+        }
         else if (action.Equals(ActionPrevious))
         {
             mediaController.GetTransportControls().SkipToPrevious();
@@ -886,17 +896,30 @@ public class MediaPlayerService : Service,
             base.OnPlay();
         }
 
-        public override void OnSkipToNext()
+        public override void OnRewind()
+        {
+            WeakReferenceMessenger.Default.Send(new ExternalMediaButtonPressed(ExternalMediaButton.Rewind));
+            base.OnRewind();
+        }
+
+        public override void OnFastForward()
         {
             WeakReferenceMessenger.Default.Send(new ExternalMediaButtonPressed(ExternalMediaButton.Forward));
+            base.OnFastForward();
+        }
+        
+        public override void OnSkipToPrevious()
+        {
+            WeakReferenceMessenger.Default.Send(new ExternalMediaButtonPressed(ExternalMediaButton.Previous));
+            base.OnSkipToPrevious();
+        }
+
+        public override void OnSkipToNext()
+        {
+            WeakReferenceMessenger.Default.Send(new ExternalMediaButtonPressed(ExternalMediaButton.Next));
             base.OnSkipToNext();
         }
 
-        public override void OnSkipToPrevious()
-        {
-            WeakReferenceMessenger.Default.Send(new ExternalMediaButtonPressed(ExternalMediaButton.Rewind));
-            base.OnSkipToPrevious();
-        }
 
         public override async void OnStop()
         {
