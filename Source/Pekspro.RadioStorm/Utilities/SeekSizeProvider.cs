@@ -6,6 +6,9 @@ public class SeekSizeProvider
     public static List<TimeSpan> SeekSizes = new List<TimeSpan>()
     {
         TimeSpan.FromSeconds(5),
+        TimeSpan.FromSeconds(5),
+        TimeSpan.FromSeconds(5),
+        TimeSpan.FromSeconds(10),
         TimeSpan.FromSeconds(10),
         TimeSpan.FromSeconds(20),
         TimeSpan.FromSeconds(30),
