@@ -703,7 +703,7 @@ public class MediaPlayerService : Service,
 
     private void HandleIntent(Intent intent)
     {
-        if (intent is null || intent.Action is null)
+        if (intent is null || intent.Action is null || mediaController is null)
         {
             return;
         }

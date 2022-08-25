@@ -66,9 +66,9 @@ public static class NotificationHelper
 
     internal static void StartNotification(
         Context context,
-        MediaMetadata mediaMetadata,
+        MediaMetadata currentTrack,
         AndroidMedia.Session.MediaSession mediaSession,
-        Object largeIcon,
+        Bitmap largeIcon,
         bool isPlaying)
     {
         var pendingIntent = PendingIntent.GetActivity(
@@ -76,7 +76,11 @@ public static class NotificationHelper
             0,
             new Intent(context, typeof(MainActivity)),
             PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Mutable);
-        MediaMetadata currentTrack = mediaMetadata;
+        
+        if (currentTrack is null)
+        {
+            return;
+        }
 
         MediaStyle style = new MediaStyle();
         style.SetMediaSession(mediaSession.SessionToken);
@@ -89,7 +93,7 @@ public static class NotificationHelper
             .SetContentText(currentTrack.GetString(MediaMetadata.MetadataKeyArtist))
             .SetSubText(currentTrack.GetString(MediaMetadata.MetadataKeyAlbum))
             .SetColor(color)
-            .SetSmallIcon(Pekspro.RadioStorm.MAUI.Resource.Drawable.player_play) 
+            .SetSmallIcon(Pekspro.RadioStorm.MAUI.Resource.Drawable.player_play)
             .SetLargeIcon(largeIcon as Bitmap)
             .SetContentIntent(pendingIntent)
             .SetShowWhen(false)
