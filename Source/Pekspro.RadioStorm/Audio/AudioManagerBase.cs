@@ -413,6 +413,8 @@ public abstract class AudioManagerBase : IAudioManager
     public void SetPlaybackPosition(TimeSpan position)
     {
         MediaSetPlaybackPosition(position);
+
+        RefreshState();
     }
 
     private void OnDownloadUpdated(DownloadUpdated m)
