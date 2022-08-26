@@ -4,11 +4,67 @@
              xmlns:m="clr-namespace:Pekspro.RadioStorm.UI.Model.Episode;assembly=Pekspro.RadioStorm.UI"
              xmlns:v="clr-namespace:Pekspro.RadioStorm.MAUI.Pages.Episode"
              xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
+             xmlns:t="clr-namespace:Pekspro.RadioStorm.MAUI.TemplateSelector"
              xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
              x:Class="Pekspro.RadioStorm.MAUI.Pages.Episode.DownloadsPage"
              x:DataType="vm:DownloadsViewModel"
              Title="{x:Static r:Strings.Downloads_Title}"
              >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="EpisodeTemplate" x:DataType="m:EpisodeModel">
+                <SwipeView Threshold="{StaticResource DefaultSwipeThreshold}" SwipeStarted="SwipeView_SwipeStarted" SwipeEnded="SwipeView_SwipeEnded">
+                    <SwipeView.LeftItems>
+                        <SwipeItems Mode="Execute">
+                            <!--<SwipeItem Text="{x:Static r:Strings.General_AddToPlayList}"
+                                               Command="{Binding AddToPlayListCommand}"
+                                               BackgroundColor="{AppThemeBinding Dark={StaticResource WarningColorDark}, Light={StaticResource WarningColorLight}}"
+                                    />-->
+                            <SwipeItem Text="{Binding IsListened, Converter={StaticResource BoolToToggleIsListenedConverter}}"
+                                               Command="{Binding ToggleIsListenedCommand}"
+                                               BackgroundColor="{StaticResource SwipeControlBackgroundGeneral}"
+                                    />
+                        </SwipeItems>
+                    </SwipeView.LeftItems>
+                    <SwipeView.RightItems>
+                        <SwipeItems Mode="Execute">
+                            <SwipeItem  Text="{x:Static r:Strings.General_RemoveDownload}"
+                                        IsVisible="{Binding DownloadData, Converter={StaticResource NullToIsVisibleConverter}}"
+                                        Command="{Binding DeleteDownloadCommand}"
+                                        BackgroundColor="{StaticResource SwipeControlBackgroundRemove}" />
+
+                            <SwipeItem  Text="{x:Static r:Strings.General_Download}"
+                                        IsVisible="{Binding HasDownloadSupportAndNoDownload}"
+                                        Command="{Binding DownloadCommand}"
+                                        BackgroundColor="{StaticResource SwipeControlBackgroundDownload}" />
+                        </SwipeItems>
+                    </SwipeView.RightItems>
+                    <v:EpisodeControl>
+                        <v:EpisodeControl.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="EpisodeTapped"/>
+                        </v:EpisodeControl.GestureRecognizers>
+                    </v:EpisodeControl>
+                </SwipeView>
+            </DataTemplate>
+
+            <!-- TODO: Remove Grid when this issue is fixed: https://github.com/dotnet/maui/issues/9131 -->
+            <DataTemplate x:Key="EpisodeTemplateWindows" x:DataType="m:EpisodeModel">
+                <Grid>
+                    <v:EpisodeControl>
+                        <v:EpisodeControl.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="EpisodeTapped"/>
+                        </v:EpisodeControl.GestureRecognizers>
+                    </v:EpisodeControl>
+                </Grid>
+            </DataTemplate>
+
+            <t:PlatformTemplateSelector x:Key="episodeTemplateSelector" 
+                                        DefaultTemplate="{StaticResource EpisodeTemplate}" 
+                                        WindowsTemplate="{StaticResource EpisodeTemplateWindows}" 
+                                        />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
     <ContentPage.ToolbarItems>
         <ToolbarItem 
                 Command="{Binding UpdateCommand}"
@@ -32,21 +88,13 @@
                 ItemsSource="{Binding GroupedItems}"
                 IsGrouped="True"
                 SelectionMode="{Binding SelectionModeHelper.InSelectionMode, Converter={StaticResource BoolToSelectionMode}}"
+                ItemTemplate="{StaticResource episodeTemplateSelector}" 
                 >
                 <CollectionView.GroupHeaderTemplate>
                     <DataTemplate>
                         <views:GroupHeaderControl />
                     </DataTemplate>
                 </CollectionView.GroupHeaderTemplate>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="m:EpisodeModel">
-                        <v:EpisodeControl>
-                            <v:EpisodeControl.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="RecentTapped"/>
-                            </v:EpisodeControl.GestureRecognizers>
-                        </v:EpisodeControl>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
             </CollectionView>
         </RefreshView>
 
