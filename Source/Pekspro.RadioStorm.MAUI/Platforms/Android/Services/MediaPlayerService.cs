@@ -404,51 +404,58 @@ public class MediaPlayerService : Service,
         {
             if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
             {
+                await Task.Run(async() =>
+                {
+                    // I have not ide why a pause and then a delay is necessary
+                    // before reset. But if not, it will instead throw an 
+                    // IllegalStateException when running PrepareAsync.
+                    mediaPlayer.Pause();
 
-                // I have not ide why a pause and then a delay is necessary
-                // before reset. But if not, it will instead throw an 
-                // IllegalStateException when running PrepareAsync.
-                mediaPlayer.Pause();
-                await Task.Delay(350);
+                    // Make sure item hasn't been changed.
+                    if (Item != playlistItem)
+                    {
+                        return;
+                    }
+
+                    var focusResult = audioManager.RequestAudioFocus(new AudioFocusRequestClass
+                        .Builder(AudioFocus.Gain)
+                        .SetOnAudioFocusChangeListener(this)
+                        .Build());
+
+                    if (focusResult != AudioFocusRequest.Granted)
+                    {
+                        // Could not get audio focus
+                        Logger.LogWarning("Could not get audio focus.");
+                    }
+
+                    // Make sure item hasn't been changed.
+                    if (Item != playlistItem)
+                    {
+                        return;
+                    }
+
+                    mediaPlayer.Reset();
+
+                    _LatestValidDuration = -1;
+                    _LatestValidPosition = -1;
+
+                    AndroidNet.Uri uri = AndroidNet.Uri.Parse(playlistItem.PreferablePlayUrl);
+                    await mediaPlayer.SetDataSourceAsync(base.ApplicationContext, uri);
+
+                    // Make sure item hasn't been changed.
+                    if (Item != playlistItem)
+                    {
+                        return;
+                    }
+
+                    mediaPlayer.PrepareAsync();
+                });
 
                 // Make sure item hasn't been changed.
                 if (Item != playlistItem)
                 {
                     return;
                 }
-
-                var focusResult = audioManager.RequestAudioFocus(new AudioFocusRequestClass
-                    .Builder(AudioFocus.Gain)
-                    .SetOnAudioFocusChangeListener(this)
-                    .Build());
-
-                if (focusResult != AudioFocusRequest.Granted)
-                {
-                    // Could not get audio focus
-                    Logger.LogWarning("Could not get audio focus.");
-                }
-
-                // Make sure item hasn't been changed.
-                if (Item != playlistItem)
-                {
-                    return;
-                }
-
-                mediaPlayer.Reset();
-
-                _LatestValidDuration = -1;
-                _LatestValidPosition = -1;
-
-                AndroidNet.Uri uri = AndroidNet.Uri.Parse(playlistItem.PreferablePlayUrl);
-                await mediaPlayer.SetDataSourceAsync(base.ApplicationContext, uri);
-
-                // Make sure item hasn't been changed.
-                if (Item != playlistItem)
-                {
-                    return;
-                }
-
-                mediaPlayer.PrepareAsync();
 
                 UpdateSessionMetaDataAndLoadImage();
                 UpdatePlaybackState(PlaybackStateCode.Buffering);
@@ -628,21 +635,6 @@ public class MediaPlayerService : Service,
         }
     }
 
-    private void StartNotification()
-    {
-        if (mediaSession is null)
-        {
-            return;
-        }
-
-        NotificationHelper.StartNotification(
-            ApplicationContext,
-            mediaController.Metadata,
-            mediaSession,
-            ItemImage,
-            MediaPlayerState == PlaybackStateCode.Playing);
-    }
-
     internal void SetMuted(bool value)
     {
         mediaPlayer.SetVolume(0, 0);
@@ -696,6 +688,21 @@ public class MediaPlayerService : Service,
         }
     }
 
+    private void UpdateNotification()
+    {
+        if (mediaSession is null)
+        {
+            return;
+        }
+
+        NotificationHelper.StartNotification(
+            ApplicationContext,
+            mediaController.Metadata,
+            mediaSession,
+            ItemImage,
+            MediaPlayerState == PlaybackStateCode.Playing);
+    }
+
     /// <summary>
     /// Updates the metadata on the lock screen
     /// </summary>
@@ -729,7 +736,7 @@ public class MediaPlayerService : Service,
 
         mediaSession.SetMetadata(builder.Build());
 
-        StartNotification();
+        UpdateNotification();
     }
 
     public override StartCommandResult OnStartCommand(Intent intent, StartCommandFlags flags, int startId)
