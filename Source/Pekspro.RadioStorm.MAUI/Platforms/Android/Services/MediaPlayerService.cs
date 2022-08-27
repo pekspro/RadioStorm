@@ -461,7 +461,7 @@ public class MediaPlayerService : Service,
         {
             Logger.LogError(e, $"{nameof(PrepareAndPlayMediaPlayerAsync)}: {e.Message}");
 
-            UpdatePlaybackStateStopped();
+            await Stop();
         }
     }
 
@@ -578,23 +578,13 @@ public class MediaPlayerService : Service,
 
             UpdatePlaybackState(PlaybackStateCode.Stopped);
             mediaPlayer.Reset();
+            mediaPlayer.Release();
+            mediaPlayer = null;
             NotificationHelper.StopNotification(ApplicationContext);
             StopForeground(true);
             ReleaseWifiLock();
             UnregisterMediaSessionCompat();
         });
-    }
-
-    public void UpdatePlaybackStateStopped()
-    {
-        UpdatePlaybackState(PlaybackStateCode.Stopped);
-
-        if (mediaPlayer != null)
-        {
-            mediaPlayer.Reset();
-            mediaPlayer.Release();
-            mediaPlayer = null;
-        }
     }
 
     private void UpdatePlaybackState(PlaybackStateCode state)
