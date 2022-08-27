@@ -50,7 +50,8 @@ public class MediaPlayerService : Service,
 
     public event BufferingEventHandler Buffering;
 
-    public PlayListItem Item;
+    private PlayListItem Item;
+    private Bitmap ItemImage;
 
     private readonly Handler PlayingHandler;
     private readonly Java.Lang.Runnable PlayingHandlerRunnable;
@@ -335,34 +336,15 @@ public class MediaPlayerService : Service,
         }
     }
 
-    private Bitmap cover;
-
-    private Bitmap Cover
-    {
-        get
-        {
-            return cover;
-        }
-        set
-        {
-            cover = value;
-
-            if (cover is not null)
-            {
-                StartNotification();
-                UpdateMediaMetadataCompat();
-            }
-        }
-    }
 
     /// <summary>
     /// Intializes the player.
     /// </summary>
-    public Task Play(string audioUrl = null)
+    public Task Play(PlayListItem? playlistItem = null)
     {
-        if (audioUrl is not null)
+        if (playlistItem is not null)
         {
-            Logger.LogInformation($"{nameof(Play)} with url: {audioUrl}");
+            Logger.LogInformation($"{nameof(Play)} with url: {playlistItem.PreferablePlayUrl}");
 
             if (mediaPlayer is null)
             {
@@ -374,7 +356,14 @@ public class MediaPlayerService : Service,
                 InitMediaSession();
             }
 
-            return PrepareAndPlayMediaPlayerAsync(audioUrl);
+            if (Item != playlistItem)
+            {
+                ItemImage = null;
+            }
+
+            Item = playlistItem;
+
+            return PrepareAndPlayMediaPlayerAsync();
         }
         else
         {
@@ -394,18 +383,19 @@ public class MediaPlayerService : Service,
 
             mediaPlayer.Start();
             UpdatePlaybackState(PlaybackStateCode.Playing);
-            StartNotification();
 
             //Update the metadata now that we are playing
-            UpdateMediaMetadataCompat();
+            UpdateSessionMetaData();
 
             return Task.CompletedTask;
         }
     }
 
-    private async Task PrepareAndPlayMediaPlayerAsync(string audioUrl)
+    private async Task PrepareAndPlayMediaPlayerAsync()
     {
-        if (audioUrl is null)
+        PlayListItem? playlistItem = Item;
+        
+        if (playlistItem is null)
         {
             return;
         }
@@ -414,18 +404,19 @@ public class MediaPlayerService : Service,
         {
             if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
             {
-                // I have not ide why reset needs to be run as async.
-                await Task.Run(() =>
+
+                // I have not ide why a pause and then a delay is necessary
+                // before reset. But if not, it will instead throw an 
+                // IllegalStateException when running PrepareAsync.
+                mediaPlayer.Pause();
+                await Task.Delay(350);
+
+                // Make sure item hasn't been changed.
+                if (Item != playlistItem)
                 {
-                    mediaPlayer.Reset();
-                });
+                    return;
+                }
 
-                _LatestValidDuration = -1;
-                _LatestValidPosition = -1;
-
-                AndroidNet.Uri uri = AndroidNet.Uri.Parse(audioUrl);
-                await mediaPlayer.SetDataSourceAsync(base.ApplicationContext, uri);
-                
                 var focusResult = audioManager.RequestAudioFocus(new AudioFocusRequestClass
                     .Builder(AudioFocus.Gain)
                     .SetOnAudioFocusChangeListener(this)
@@ -437,36 +428,33 @@ public class MediaPlayerService : Service,
                     Logger.LogWarning("Could not get audio focus.");
                 }
 
-                UpdatePlaybackState(PlaybackStateCode.Buffering);
+                // Make sure item hasn't been changed.
+                if (Item != playlistItem)
+                {
+                    return;
+                }
+
+                mediaPlayer.Reset();
+
+                _LatestValidDuration = -1;
+                _LatestValidPosition = -1;
+
+                AndroidNet.Uri uri = AndroidNet.Uri.Parse(playlistItem.PreferablePlayUrl);
+                await mediaPlayer.SetDataSourceAsync(base.ApplicationContext, uri);
+
+                // Make sure item hasn't been changed.
+                if (Item != playlistItem)
+                {
+                    return;
+                }
+
                 mediaPlayer.PrepareAsync();
 
+                UpdateSessionMetaDataAndLoadImage();
+                UpdatePlaybackState(PlaybackStateCode.Buffering);
+
                 AquireWifiLock();
-                UpdateMediaMetadataCompat();
-                StartNotification();
 
-                try
-                {
-                    Bitmap bitmap = null;
-
-                    await Task.Run(async () =>
-                    {
-                        try
-                        {
-                            URL url = new URL(Item.IconUri);
-                            bitmap = await BitmapFactory.DecodeStreamAsync(url.OpenStream());
-                        }
-                        catch (Exception )
-                        {
-                                
-                        }
-                    });
-                        
-                    Cover = bitmap;
-                }
-                catch (Exception )
-                {
-                    Cover = null;
-                }
             }
         }
         catch (Exception e)
@@ -634,17 +622,19 @@ public class MediaPlayerService : Service,
 
             OnStatusChanged(EventArgs.Empty);
 
-            if (state == PlaybackStateCode.Playing)
+            UpdateSessionMetaData();
+
+            /* if (state == PlaybackStateCode.Playing)
             {
                 // Durtion may not be set in notificiation bar, this will set it.
                 UpdateMediaMetadataCompat();
             }
 
-            StartNotification();
+            StartNotification(); */
         }
         catch (Exception ex)
         {
-            Logger.LogError(ex, $"Error in {nameof(UpdateMediaMetadataCompat)}");
+            Logger.LogError(ex, $"Error in {nameof(UpdatePlaybackState)}");
         }
     }
 
@@ -659,7 +649,7 @@ public class MediaPlayerService : Service,
             ApplicationContext,
             mediaController.Metadata,
             mediaSession,
-            Cover,
+            ItemImage,
             MediaPlayerState == PlaybackStateCode.Playing);
     }
 
@@ -673,10 +663,53 @@ public class MediaPlayerService : Service,
         mediaPlayer.SetVolume(value, value);
     }
 
+    private async void UpdateSessionMetaDataAndLoadImage()
+    {
+        PlayListItem item = Item;
+
+        UpdateSessionMetaData();
+
+        if (!string.IsNullOrEmpty(Item.IconUri))
+        {
+            Bitmap bitmap = null;
+
+            Logger.LogInformation("Loading image from {0}", Item.IconUri);
+            
+            await Task.Run(async () =>
+            {
+                try
+                {
+                    URL url = new URL(Item.IconUri);
+                    bitmap = await BitmapFactory.DecodeStreamAsync(url.OpenStream());
+                }
+                catch (Exception e)
+                {
+                    Logger.LogWarning(e, "Failed to load image.");
+                }
+            });
+
+            // Make sure not another items has started.
+            if (bitmap is not null)
+            {
+                if (item == Item)
+                {
+                    Logger.LogInformation("Updating session data with new image.");
+                    
+                    ItemImage = bitmap;
+                    UpdateSessionMetaData();
+                }
+                else
+                {
+                    Logger.LogInformation("Will not update session data with new image. Playlist item has changed.");
+                }
+            }
+        }
+    }
+
     /// <summary>
     /// Updates the metadata on the lock screen
     /// </summary>
-    private void UpdateMediaMetadataCompat()
+    private void UpdateSessionMetaData()
     {
         if (mediaSession is null)
         {
@@ -686,11 +719,10 @@ public class MediaPlayerService : Service,
         MediaMetadata.Builder builder = new MediaMetadata.Builder();
 
         builder
-            // .PutString(MediaMetadata.MetadataKeyAlbum, "")
             .PutString(MediaMetadata.MetadataKeyArtist, Item.Episode ?? string.Empty)
             .PutString(MediaMetadata.MetadataKeyTitle, Item.Program ?? Item.Channel ?? string.Empty);
 
-        var cover = Cover;
+        var cover = ItemImage;
 
         if (cover is not null)
         {
@@ -706,6 +738,8 @@ public class MediaPlayerService : Service,
         }
 
         mediaSession.SetMetadata(builder.Build());
+
+        StartNotification();
     }
 
     public override StartCommandResult OnStartCommand(Intent intent, StartCommandFlags flags, int startId)
