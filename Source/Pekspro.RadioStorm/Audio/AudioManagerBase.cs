@@ -34,7 +34,7 @@ public abstract class AudioManagerBase : IAudioManager
 
     #region Abstract
 
-    protected abstract void MediaPlay(PlayListItem playlistItem);
+    protected abstract void MediaPlay(PlayList playlist);
     protected abstract void MediaPlay();
     protected abstract void MediaPause();
     protected abstract void MediaSetPlaybackPosition(TimeSpan position);
@@ -239,7 +239,7 @@ public abstract class AudioManagerBase : IAudioManager
         {
             // Switch url
             Logger.LogInformation($"Switches to audio url/path: {CurrentItem!.PreferablePlayUrl}");
-            MediaPlay(CurrentItem);
+            MediaPlay(CurrentPlayList!);
             RestorePosition = RestorePostionMode.RestoreAtAnyMargin;
         }
         else
@@ -403,7 +403,7 @@ public abstract class AudioManagerBase : IAudioManager
         TryUpdateCurrentItemDownloadedFile();
 
         Logger.LogInformation($"Will play audio url/path: {CurrentItem!.PreferablePlayUrl}");
-        MediaPlay(CurrentPlayList.CurrentItem!);
+        MediaPlay(CurrentPlayList);
 
         RecentPlayedManager.AddOrUpdate(!CurrentItem!.IsLiveAudio, CurrentItem.AudioId);
 

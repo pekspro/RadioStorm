@@ -38,9 +38,9 @@ class WindowsAudioManager : AudioManagerBase
         };
     }
 
-    protected override void MediaPlay(PlayListItem playlistItem)
+    protected override void MediaPlay(PlayList playlist)
     {
-        var playbackItem = CreateMediaPlaybackItem(playlistItem);
+        var playbackItem = CreateMediaPlaybackItem(playlist.CurrentItem!);
         mediaPlayer.Source = playbackItem;
 
         MediaPlay();

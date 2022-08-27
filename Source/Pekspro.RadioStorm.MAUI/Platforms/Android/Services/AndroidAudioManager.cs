@@ -24,7 +24,7 @@ internal class AndroidAudioManager : AudioManagerBase
 
     }
 
-    protected async override void MediaPlay(PlayListItem playlistItem)
+    protected async override void MediaPlay(PlayList playlist)
     {
         try
         {
@@ -37,7 +37,7 @@ internal class AndroidAudioManager : AudioManagerBase
 
             SetupEvents(service);
 
-            await service.Play(playlistItem);
+            await service.Play(playlist);
         }
         catch (Exception )
         {

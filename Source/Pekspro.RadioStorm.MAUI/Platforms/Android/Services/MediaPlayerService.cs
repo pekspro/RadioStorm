@@ -46,8 +46,9 @@ public class MediaPlayerService : Service,
 
     public event StatusChangedEventHandler StatusChanged;
 
-    private PlayListItem Item;
+    private PlayList PlayList;
     private Bitmap ItemImage;
+    private int AudioCounter;
 
     private ComponentName remoteComponentName;
 
@@ -296,11 +297,11 @@ public class MediaPlayerService : Service,
     /// <summary>
     /// Intializes the player.
     /// </summary>
-    public Task Play(PlayListItem playlistItem = null)
+    public Task Play(PlayList playlist = null)
     {
-        if (playlistItem is not null)
+        if (playlist is not null)
         {
-            Logger.LogInformation($"{nameof(Play)} with url: {playlistItem.PreferablePlayUrl}");
+            Logger.LogInformation($"{nameof(Play)} with url {0}", playlist.CurrentItem.PreferablePlayUrl);
 
             if (mediaPlayer is null)
             {
@@ -312,12 +313,12 @@ public class MediaPlayerService : Service,
                 InitMediaSession();
             }
 
-            if (Item != playlistItem)
+            if (PlayList != playlist)
             {
                 ItemImage = null;
             }
 
-            Item = playlistItem;
+            PlayList = playlist;
 
             return PrepareAndPlayMediaPlayerAsync();
         }
@@ -330,9 +331,9 @@ public class MediaPlayerService : Service,
             {
                 Logger.LogInformation($"Player is stopped, maybe something went wrong. Restarting.");
 
-                if (Item is not null)
+                if (PlayList is not null)
                 {
-                    return Play(Item);
+                    return Play(PlayList);
                 }
                 else
                 {
@@ -364,9 +365,12 @@ public class MediaPlayerService : Service,
 
     private async Task PrepareAndPlayMediaPlayerAsync()
     {
-        PlayListItem playlistItem = Item;
-        
-        if (playlistItem is null)
+        AudioCounter++;
+        int audioCounter = AudioCounter;
+
+        var item = PlayList?.CurrentItem;
+
+        if (item is null)
         {
             return;
         }
@@ -375,7 +379,7 @@ public class MediaPlayerService : Service,
         {
             if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
             {
-                Logger.LogInformation("Starts playing from {0}", playlistItem.PreferablePlayUrl);
+                Logger.LogInformation("Starts playing from {0}", item.PreferablePlayUrl);
 
                 UpdatePlaybackState(PlaybackStateCode.Buffering);
 
@@ -387,7 +391,7 @@ public class MediaPlayerService : Service,
                     mediaPlayer.Pause();
 
                     // Make sure item hasn't been changed.
-                    if (Item != playlistItem)
+                    if (audioCounter != AudioCounter)
                     {
                         return;
                     }
@@ -404,7 +408,7 @@ public class MediaPlayerService : Service,
                     }
 
                     // Make sure item hasn't been changed.
-                    if (Item != playlistItem)
+                    if (audioCounter != AudioCounter)
                     {
                         return;
                     }
@@ -414,11 +418,11 @@ public class MediaPlayerService : Service,
                     _LatestValidDuration = -1;
                     _LatestValidPosition = -1;
 
-                    AndroidNet.Uri uri = AndroidNet.Uri.Parse(playlistItem.PreferablePlayUrl);
+                    AndroidNet.Uri uri = AndroidNet.Uri.Parse(item.PreferablePlayUrl);
                     await mediaPlayer.SetDataSourceAsync(base.ApplicationContext, uri);
 
                     // Make sure item hasn't been changed.
-                    if (Item != playlistItem)
+                    if (audioCounter != AudioCounter)
                     {
                         return;
                     }
@@ -427,7 +431,7 @@ public class MediaPlayerService : Service,
                 });
 
                 // Make sure item hasn't been changed.
-                if (Item != playlistItem)
+                if (audioCounter != AudioCounter)
                 {
                     return;
                 }
@@ -613,21 +617,21 @@ public class MediaPlayerService : Service,
 
     private async void UpdateSessionMetaDataAndLoadImage()
     {
-        PlayListItem item = Item;
+        PlayListItem item = PlayList.CurrentItem!;
 
         UpdateSessionMetaData();
 
-        if (!string.IsNullOrEmpty(Item.IconUri))
+        if (!string.IsNullOrEmpty(item.IconUri))
         {
             Bitmap bitmap = null;
 
-            Logger.LogInformation("Loading image from {0}", Item.IconUri);
+            Logger.LogInformation("Loading image from {0}", item.IconUri);
             
             await Task.Run(async () =>
             {
                 try
                 {
-                    URL url = new URL(Item.IconUri);
+                    URL url = new URL(item.IconUri);
                     bitmap = await BitmapFactory.DecodeStreamAsync(url.OpenStream());
                 }
                 catch (Exception e)
@@ -639,7 +643,7 @@ public class MediaPlayerService : Service,
             // Make sure not another items has started.
             if (bitmap is not null)
             {
-                if (item == Item)
+                if (item == PlayList.CurrentItem)
                 {
                     Logger.LogInformation("Updating session data with new image.");
                     
@@ -679,11 +683,13 @@ public class MediaPlayerService : Service,
             return;
         }
 
+        var item = PlayList.CurrentItem!;
+
         MediaMetadata.Builder builder = new MediaMetadata.Builder();
 
         builder
-            .PutString(MediaMetadata.MetadataKeyArtist, Item.Episode ?? string.Empty)
-            .PutString(MediaMetadata.MetadataKeyTitle, Item.Program ?? Item.Channel ?? string.Empty);
+            .PutString(MediaMetadata.MetadataKeyArtist, item.Episode ?? string.Empty)
+            .PutString(MediaMetadata.MetadataKeyTitle, item.Program ?? item.Channel ?? string.Empty);
 
         var cover = ItemImage;
 
@@ -693,7 +699,7 @@ public class MediaPlayerService : Service,
         }
 
         // Add duration
-        if (!Item.IsLiveAudio)
+        if (!item.IsLiveAudio)
         {
             long duration = Duration;
 
