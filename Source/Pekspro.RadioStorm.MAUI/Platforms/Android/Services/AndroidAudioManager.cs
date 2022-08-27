@@ -32,10 +32,6 @@ internal class AndroidAudioManager : AudioManagerBase
             {
                 this.instance = MainActivity.instance;
             }
-            else
-            {
-                await MediaPlayerService.Stop();
-            }
 
             var service = MediaPlayerService;
 

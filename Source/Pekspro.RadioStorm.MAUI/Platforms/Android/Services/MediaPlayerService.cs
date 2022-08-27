@@ -50,8 +50,6 @@ public class MediaPlayerService : Service,
 
     public event BufferingEventHandler Buffering;
 
-    public string AudioUrl { get; private set; }
-
     public PlayListItem Item;
 
     private readonly Handler PlayingHandler;
@@ -357,62 +355,75 @@ public class MediaPlayerService : Service,
         }
     }
 
-    public Task Play(string audioUrl)
-    {
-        AudioUrl = audioUrl;
-        _LatestValidDuration = -1;
-        _LatestValidPosition = -1;
-
-        return Play();
-    }
-
     /// <summary>
     /// Intializes the player.
     /// </summary>
-    public async Task Play()
+    public Task Play(string audioUrl = null)
     {
-        Logger.LogInformation($"{nameof(Play)}");
-      
-        // Has state SkippingToNext when playlist is completed.
-        if (mediaPlayer is not null && MediaPlayerState is PlaybackStateCode.Paused or PlaybackStateCode.SkippingToNext)
+        if (audioUrl is not null)
         {
-            //We are simply paused so just start again
+            Logger.LogInformation($"{nameof(Play)} with url: {audioUrl}");
+
+            if (mediaPlayer is null)
+            {
+                InitializePlayer();
+            }
+
+            if (mediaSession is null)
+            {
+                InitMediaSession();
+            }
+
+            return PrepareAndPlayMediaPlayerAsync(audioUrl);
+        }
+        else
+        {
+            Logger.LogInformation($"{nameof(Play)} with existing source.");
+
+            if (mediaPlayer is null)
+            {
+                return Task.CompletedTask;
+            }
+
+            if (mediaPlayer.IsPlaying)
+            {
+                UpdatePlaybackState(PlaybackStateCode.Playing);
+
+                return Task.CompletedTask;
+            }
+
             mediaPlayer.Start();
             UpdatePlaybackState(PlaybackStateCode.Playing);
             StartNotification();
 
             //Update the metadata now that we are playing
             UpdateMediaMetadataCompat();
-            return;
-        }
 
-        if (mediaPlayer is null)
-        {
-            InitializePlayer();
+            return Task.CompletedTask;
         }
-
-        if (mediaSession is null)
-        {
-            InitMediaSession();
-        }
-
-        if (mediaPlayer.IsPlaying)
-        {
-            UpdatePlaybackState(PlaybackStateCode.Playing);
-            return;
-        }
-
-        await PrepareAndPlayMediaPlayerAsync();
     }
 
-    private async Task PrepareAndPlayMediaPlayerAsync()
+    private async Task PrepareAndPlayMediaPlayerAsync(string audioUrl)
     {
+        if (audioUrl is null)
+        {
+            return;
+        }
+            
         try
         {
             if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
             {
+                // I have not ide why reset needs to be run as async.
+                await Task.Run(() =>
+                {
+                    mediaPlayer.Reset();
+                });
 
-                AndroidNet.Uri uri = AndroidNet.Uri.Parse(AudioUrl);
+                _LatestValidDuration = -1;
+                _LatestValidPosition = -1;
+
+                AndroidNet.Uri uri = AndroidNet.Uri.Parse(audioUrl);
                 await mediaPlayer.SetDataSourceAsync(base.ApplicationContext, uri);
                 
                 var focusResult = audioManager.RequestAudioFocus(new AudioFocusRequestClass
@@ -458,8 +469,10 @@ public class MediaPlayerService : Service,
                 }
             }
         }
-        catch (Exception)
+        catch (Exception e)
         {
+            Logger.LogError(e, $"{nameof(PrepareAndPlayMediaPlayerAsync)}: {e.Message}");
+
             UpdatePlaybackStateStopped();
         }
     }
