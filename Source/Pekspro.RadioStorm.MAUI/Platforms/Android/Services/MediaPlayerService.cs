@@ -437,9 +437,6 @@ public class MediaPlayerService : Service,
                 }
 
                 UpdateSessionMetaDataAndLoadImage();
-
-                AquireWifiLock();
-
             }
         }
         catch (Exception e)
@@ -598,6 +595,8 @@ public class MediaPlayerService : Service,
             OnStatusChanged(EventArgs.Empty);
 
             UpdateSessionMetaData();
+
+            UpdateWifiLock();
         }
         catch (Exception ex)
         {
@@ -756,15 +755,39 @@ public class MediaPlayerService : Service,
         }
     }
 
+    private void UpdateWifiLock()
+    {
+        if (MediaPlayerState is PlaybackStateCode.None or PlaybackStateCode.Stopped or PlaybackStateCode.Error)
+        {
+            Logger.LogInformation("State is {0}, wifi not needed.", MediaPlayerState);
+            ReleaseWifiLock();
+        }
+        else if (PlayList?.CurrentItem is null || PlayList.RequiresInternet == false)
+        {
+            Logger.LogInformation("Play list doesn't need Internet, wifi not needed.", MediaPlayerState);
+            ReleaseWifiLock();
+        }
+        else
+        {
+            Logger.LogInformation("State is {0} and play list requires Internet, will try lock wifi.", MediaPlayerState);
+            AquireWifiLock();
+        }
+    }
+
     /// <summary>
     /// Lock the wifi so we can still stream under lock screen
     /// </summary>
     private void AquireWifiLock()
     {
-        if (wifiLock is null)
+        if (wifiLock is not null)
         {
-            wifiLock = wifiManager.CreateWifiLock(WifiMode.Full, "xamarin_wifi_lock");
+            Logger.LogInformation("Wifi lock already aquired.");
+            return;
         }
+
+        Logger.LogInformation("Aquire wifi lock.");
+        
+        wifiLock = wifiManager.CreateWifiLock(WifiMode.Full, "xamarin_wifi_lock");
 
         wifiLock.Acquire();
     }
@@ -776,9 +799,12 @@ public class MediaPlayerService : Service,
     {
         if (wifiLock is null)
         {
+            Logger.LogInformation("No wifi lock aquired.");
             return;
         }
 
+        Logger.LogInformation("Releasing wifi lock.");
+        
         wifiLock.Release();
         wifiLock = null;
     }
