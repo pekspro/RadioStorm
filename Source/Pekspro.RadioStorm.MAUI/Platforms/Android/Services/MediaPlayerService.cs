@@ -325,6 +325,21 @@ public class MediaPlayerService : Service,
         {
             Logger.LogInformation($"{nameof(Play)} with existing source.");
 
+            // Restart if stopped
+            if (MediaPlayerState == PlaybackStateCode.Stopped)
+            {
+                Logger.LogInformation($"Player is stopped, maybe something went wrong. Restarting.");
+
+                if (Item is not null)
+                {
+                    return Play(Item);
+                }
+                else
+                {
+                    return Task.CompletedTask;
+                }
+            }
+
             if (mediaPlayer is null)
             {
                 return Task.CompletedTask;
@@ -360,6 +375,8 @@ public class MediaPlayerService : Service,
         {
             if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
             {
+                Logger.LogInformation("Starts playing from {0}", playlistItem.PreferablePlayUrl);
+
                 UpdatePlaybackState(PlaybackStateCode.Buffering);
 
                 await Task.Run(async() =>
@@ -416,7 +433,6 @@ public class MediaPlayerService : Service,
                 }
 
                 UpdateSessionMetaDataAndLoadImage();
-                UpdatePlaybackState(PlaybackStateCode.Buffering);
 
                 AquireWifiLock();
 
