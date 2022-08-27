@@ -360,6 +360,8 @@ public class MediaPlayerService : Service,
         {
             if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
             {
+                UpdatePlaybackState(PlaybackStateCode.Buffering);
+
                 await Task.Run(async() =>
                 {
                     // I have not ide why a pause and then a delay is necessary
@@ -677,7 +679,7 @@ public class MediaPlayerService : Service,
         // Add duration
         if (!Item.IsLiveAudio)
         {
-            long duration = mediaPlayer?.Duration ?? 0;
+            long duration = Duration;
 
             builder.PutLong(MediaMetadata.MetadataKeyDuration, Math.Max(0, duration));
         }
