@@ -36,4 +36,6 @@ sealed public class PlayList
             return Items[CurrentPosition].IsLiveAudio;
         }
     }
+
+    public bool RequiresInternet => Items?.Any(a => a.RequiresInternet) == true;
 }

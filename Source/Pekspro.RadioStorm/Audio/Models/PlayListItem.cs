@@ -22,6 +22,24 @@ sealed public class PlayListItem
         }
     }
 
+    public bool RequiresInternet
+    {
+        get
+        {
+            if (IsLiveAudio)
+            {
+                return true;
+            }
+
+            if (PreferablePlayUrl?.StartsWith("http", StringComparison.InvariantCultureIgnoreCase) == true)
+            {
+                return true;
+            }
+
+            return false;
+        }
+    }
+
     public override string ToString()
         => $"Channel: {Channel} Program: {Program} Episode: {Episode} Play-URL: {PreferablePlayUrl}";
 }
