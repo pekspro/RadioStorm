@@ -5,7 +5,7 @@
 internal class AndroidAudioManager : AudioManagerBase
 {
     MainActivity instance;
-    private Microsoft.NetConf2021.Maui.Platforms.Android.Services.MediaPlayerService MediaPlayerService
+    private Pekspro.RadioStorm.MAUI.Platforms.Android.Services.MediaPlayerService MediaPlayerService
         => this.instance.binder.GetMediaPlayerService();
 
     bool EventsAreSetup = false;
@@ -148,7 +148,7 @@ internal class AndroidAudioManager : AudioManagerBase
 
     public override bool HasVolumeSupport => false;
 
-    private void SetupEvents(Microsoft.NetConf2021.Maui.Platforms.Android.Services.MediaPlayerService service)
+    private void SetupEvents(Pekspro.RadioStorm.MAUI.Platforms.Android.Services.MediaPlayerService service)
     {
         if (!EventsAreSetup)
         {

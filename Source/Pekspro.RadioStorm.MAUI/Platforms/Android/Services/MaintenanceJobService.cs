@@ -3,7 +3,7 @@ using Android.App.Job;
 using Android.Content;
 using Pekspro.RadioStorm.CacheDatabase;
 
-namespace Microsoft.NetConf2021.Maui.Platforms.Android.Services;
+namespace Pekspro.RadioStorm.MAUI.Platforms.Android.Services;
 
 [Service(Permission = "android.permission.BIND_JOB_SERVICE")]
 public class MaintenanceJobService : JobService

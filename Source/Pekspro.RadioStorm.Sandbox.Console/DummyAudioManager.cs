@@ -27,7 +27,7 @@ class DummyAudioManager : AudioManagerBase
 
     }
 
-    protected override void MediaPlay(PlayListItem playlistItem)
+    protected override void MediaPlay(PlayList playlistItem)
     {
         throw new NotImplementedException();
     }

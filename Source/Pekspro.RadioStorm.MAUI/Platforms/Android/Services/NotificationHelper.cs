@@ -4,13 +4,11 @@ using Android.Graphics;
 using Android.Media;
 using Android.OS;
 using AndroidX.Core.App;
-using Pekspro.RadioStorm.MAUI;
 using Pekspro.RadioStorm.UI.Resources;
 using static Android.App.Notification;
-using static Android.Resource;
 using AndroidMedia = Android.Media;
 
-namespace Microsoft.NetConf2021.Maui.Platforms.Android.Services;
+namespace Pekspro.RadioStorm.MAUI.Platforms.Android.Services;
 
 #nullable disable
 

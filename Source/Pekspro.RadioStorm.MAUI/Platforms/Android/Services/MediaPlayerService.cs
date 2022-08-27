@@ -7,13 +7,13 @@ using Android.Net;
 using Android.Net.Wifi;
 using Android.OS;
 using Java.Net;
-using Microsoft.NetConf2021.Maui.Platforms.Android.Receivers;
+using Pekspro.RadioStorm.MAUI.Platforms.Android.Receivers;
 using Pekspro.RadioStorm.MAUI;
 using AndroidNet = Android.Net;
 
 #nullable disable
 
-namespace Microsoft.NetConf2021.Maui.Platforms.Android.Services;
+namespace Pekspro.RadioStorm.MAUI.Platforms.Android.Services;
 
 [Service(Exported = true)]
 [IntentFilter(new[] { ActionPlay, ActionPause, ActionStop, ActionTogglePlayback, ActionRewind, ActionForward, ActionNext, ActionPrevious })]
@@ -492,20 +492,28 @@ public class MediaPlayerService : Service,
 
     public void PlayNext()
     {
+        Logger.LogInformation($"{nameof(PlayNext)}.");
+
         if (mediaPlayer is not null)
         {
             mediaPlayer.Pause();
         }
+
+        Logger.LogInformation("Requesting skipping to next.");
 
         UpdatePlaybackState(PlaybackStateCode.SkippingToNext);
     }
 
     public void PlayPrevious()
     {
+        Logger.LogInformation($"{nameof(PlayPrevious)}.");
+
         if (mediaPlayer is not null)
         {
             mediaPlayer.Pause();
         }
+
+        Logger.LogInformation("Requesting skipping to previous.");
 
         UpdatePlaybackState(PlaybackStateCode.SkippingToPrevious);
     }

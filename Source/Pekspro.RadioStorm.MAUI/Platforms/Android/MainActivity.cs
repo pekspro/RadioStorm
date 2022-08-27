@@ -4,7 +4,7 @@ using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Microsoft.Identity.Client;
-using Microsoft.NetConf2021.Maui.Platforms.Android.Services;
+using Pekspro.RadioStorm.MAUI.Platforms.Android.Services;
 
 #nullable disable
 

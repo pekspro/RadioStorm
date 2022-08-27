@@ -1,9 +1,9 @@
 ﻿using Android.App;
 using Android.Content;
 using Android.Views;
-using Microsoft.NetConf2021.Maui.Platforms.Android.Services;
+using Pekspro.RadioStorm.MAUI.Platforms.Android.Services;
 
-namespace Microsoft.NetConf2021.Maui.Platforms.Android.Receivers;
+namespace Pekspro.RadioStorm.MAUI.Platforms.Android.Receivers;
 
 #nullable disable
 

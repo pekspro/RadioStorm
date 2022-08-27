@@ -25,9 +25,9 @@ class WpfAudioManager : AudioManagerBase
         MediaPlayer.MediaOpened += MediaPlayer_MediaOpened;
     }
 
-    protected async override void MediaPlay(PlayListItem playlistItem)
+    protected async override void MediaPlay(PlayList playlistItem)
     {
-        MediaPlayer.Open(new Uri(playlistItem.PreferablePlayUrl));
+        MediaPlayer.Open(new Uri(playlistItem.CurrentItem.PreferablePlayUrl));
         MediaPlay();
 
         for (int i = 0; i < 20; i++)
