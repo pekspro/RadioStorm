@@ -81,12 +81,25 @@ public static class MauiProgram
              .AddFilter("Microsoft", LogLevel.Warning)
              .AddFilter("Pekspro.RadioStorm", LogLevel.Debug)
              .AddFileIfEnabled();
+
+#if ANDROID
+            a.AddProvider(new AndroidLoggerProvider())
+             .AddFilter("Microsoft", LogLevel.Warning)
+             .AddFilter("Pekspro.RadioStorm", LogLevel.Debug);
+#endif
         });
 #else
         builder.Services.AddLogging(a =>
         {
             a.AddFileIfEnabled()
              .AddFilter("Microsoft", LogLevel.Warning);
+
+#if ANDROID
+            a.AddProvider(new AndroidLoggerProvider())
+             .AddFilter("Microsoft", LogLevel.Warning)
+             .AddFilter("Pekspro.RadioStorm", LogLevel.Information);
+#endif
+
         });
 #endif
 
