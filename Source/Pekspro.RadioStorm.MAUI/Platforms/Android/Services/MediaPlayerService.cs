@@ -46,15 +46,10 @@ public class MediaPlayerService : Service,
 
     public event StatusChangedEventHandler StatusChanged;
 
-    public event PlayingEventHandler Playing;
-
     public event BufferingEventHandler Buffering;
 
     private PlayListItem Item;
     private Bitmap ItemImage;
-
-    private readonly Handler PlayingHandler;
-    private readonly Java.Lang.Runnable PlayingHandlerRunnable;
 
     private ComponentName remoteComponentName;
 
@@ -70,31 +65,6 @@ public class MediaPlayerService : Service,
 
     public MediaPlayerService()
     {
-        PlayingHandler = new Handler(Looper.MainLooper);
-
-        // Create a runnable, restarting itself if the status still is "playing"
-        PlayingHandlerRunnable = new Java.Lang.Runnable(() => 
-        {
-            OnPlaying(EventArgs.Empty);
-
-            if (MediaPlayerState == PlaybackStateCode.Playing)
-            {
-                PlayingHandler.PostDelayed(PlayingHandlerRunnable, 250);
-            }
-        });
-
-        // On Status changed to PLAYING, start raising the Playing event
-        StatusChanged += (sender, e) => 
-        {
-            var state = MediaPlayerState;
-
-            Logger.LogInformation($"StatusChanged: {state}");
-
-            if (state == PlaybackStateCode.Playing)
-            {
-                PlayingHandler.PostDelayed(PlayingHandlerRunnable, 0);
-            }
-        };
     }
 
     private ILogger _Logger;
@@ -110,11 +80,6 @@ public class MediaPlayerService : Service,
     protected virtual void OnStatusChanged(EventArgs e)
     {
         StatusChanged?.Invoke(this, e);
-    }
-
-    protected virtual void OnPlaying(EventArgs e)
-    {
-        Playing?.Invoke(this, e);
     }
 
     protected virtual void OnBuffering(EventArgs e)
@@ -620,14 +585,6 @@ public class MediaPlayerService : Service,
             OnStatusChanged(EventArgs.Empty);
 
             UpdateSessionMetaData();
-
-            /* if (state == PlaybackStateCode.Playing)
-            {
-                // Durtion may not be set in notificiation bar, this will set it.
-                UpdateMediaMetadataCompat();
-            }
-
-            StartNotification(); */
         }
         catch (Exception ex)
         {
@@ -793,6 +750,7 @@ public class MediaPlayerService : Service,
         {
             wifiLock = wifiManager.CreateWifiLock(WifiMode.Full, "xamarin_wifi_lock");
         }
+
         wifiLock.Acquire();
     }
 

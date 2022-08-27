@@ -19,8 +19,6 @@ public class MainActivity : MauiAppCompatActivity
 
     public event StatusChangedEventHandler StatusChanged;
 
-    public event PlayingEventHandler Playing;
-
     public event BufferingEventHandler Buffering;
 
 
@@ -127,7 +125,6 @@ public class MainActivity : MauiAppCompatActivity
                 instance.binder = binder;
 
                 binder.GetMediaPlayerService().StatusChanged += (object sender, EventArgs e) => { instance.StatusChanged?.Invoke(sender, e); };
-                binder.GetMediaPlayerService().Playing += (object sender, EventArgs e) => { instance.Playing?.Invoke(sender, e); };
                 binder.GetMediaPlayerService().Buffering += (object sender, EventArgs e) => { instance.Buffering?.Invoke(sender, e); };
             }
         }
