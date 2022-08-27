@@ -46,8 +46,6 @@ public class MediaPlayerService : Service,
 
     public event StatusChangedEventHandler StatusChanged;
 
-    public event BufferingEventHandler Buffering;
-
     private PlayListItem Item;
     private Bitmap ItemImage;
 
@@ -80,11 +78,6 @@ public class MediaPlayerService : Service,
     protected virtual void OnStatusChanged(EventArgs e)
     {
         StatusChanged?.Invoke(this, e);
-    }
-
-    protected virtual void OnBuffering(EventArgs e)
-    {
-        Buffering?.Invoke(this, e);
     }
 
     /// <summary>
@@ -297,15 +290,13 @@ public class MediaPlayerService : Service,
         private set
         {
             buffered = value;
-            OnBuffering(EventArgs.Empty);
         }
     }
-
 
     /// <summary>
     /// Intializes the player.
     /// </summary>
-    public Task Play(PlayListItem? playlistItem = null)
+    public Task Play(PlayListItem playlistItem = null)
     {
         if (playlistItem is not null)
         {
@@ -358,7 +349,7 @@ public class MediaPlayerService : Service,
 
     private async Task PrepareAndPlayMediaPlayerAsync()
     {
-        PlayListItem? playlistItem = Item;
+        PlayListItem playlistItem = Item;
         
         if (playlistItem is null)
         {

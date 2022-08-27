@@ -19,8 +19,6 @@ public class MainActivity : MauiAppCompatActivity
 
     public event StatusChangedEventHandler StatusChanged;
 
-    public event BufferingEventHandler Buffering;
-
 
     protected override async void OnCreate(Bundle savedInstanceState)
     {
@@ -125,7 +123,6 @@ public class MainActivity : MauiAppCompatActivity
                 instance.binder = binder;
 
                 binder.GetMediaPlayerService().StatusChanged += (object sender, EventArgs e) => { instance.StatusChanged?.Invoke(sender, e); };
-                binder.GetMediaPlayerService().Buffering += (object sender, EventArgs e) => { instance.Buffering?.Invoke(sender, e); };
             }
         }
 
