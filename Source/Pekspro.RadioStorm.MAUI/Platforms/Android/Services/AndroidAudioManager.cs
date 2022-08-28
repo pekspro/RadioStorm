@@ -182,6 +182,11 @@ internal class AndroidAudioManager : AudioManagerBase
                         Pause();
                     }
                 }
+                else if (currentState == Android.Media.Session.PlaybackStateCode.Stopped)
+                {
+                    Logger.LogInformation("Player stopped. Will restore position on next play.");
+                    RestorePositionOnNextPlay();
+                }
             };
         }
     }

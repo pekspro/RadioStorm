@@ -437,7 +437,7 @@ public class MediaPlayerService : Service,
         {
             Logger.LogError(e, $"{nameof(PrepareAndPlayMediaPlayerAsync)}: {e.Message}");
 
-            await Stop();
+            await Stop(false);
         }
     }
 
@@ -498,7 +498,7 @@ public class MediaPlayerService : Service,
         });
     }
 
-    public async Task Stop()
+    public async Task Stop(bool allowRestart)
     {
         Logger.LogInformation($"{nameof(Stop)}");
 
@@ -517,10 +517,15 @@ public class MediaPlayerService : Service,
             mediaPlayer.Reset();
             mediaPlayer.Release();
             mediaPlayer = null;
-            NotificationHelper.StopNotification(ApplicationContext);
-            StopForeground(true);
+
+            if (!allowRestart)
+            {
+                NotificationHelper.StopNotification(ApplicationContext);
+                StopForeground(true);
+                UnregisterMediaSessionCompat();
+            }
+
             ReleaseWifiLock();
-            UnregisterMediaSessionCompat();
         });
     }
 
@@ -842,7 +847,7 @@ public class MediaPlayerService : Service,
                 RestartAudioOnGainAudioFocus = false;
 
                 //We have lost focus stop!
-                await Stop();
+                await Stop(true);
                 break;
             case AudioFocus.LossTransient:
                 Logger.LogInformation("Transient lost audio focus.");
@@ -922,7 +927,7 @@ public class MediaPlayerService : Service,
 
         public override async void OnStop()
         {
-            await mediaPlayerService.GetMediaPlayerService().Stop();
+            await mediaPlayerService.GetMediaPlayerService().Stop(true);
             base.OnStop();
         }
 

@@ -228,6 +228,11 @@ public abstract class AudioManagerBase : IAudioManager
 
     #region Methods
 
+    protected void RestorePositionOnNextPlay()
+    {
+        RestorePosition = RestorePostionMode.RestoreAtAnyMargin;
+    }
+
     public void Play()
     {
         // File just downloaded?
