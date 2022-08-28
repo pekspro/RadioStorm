@@ -322,13 +322,17 @@ public abstract class AudioManagerBase : IAudioManager
     {
         if (CurrentPlayList is null)
         {
+            Logger.LogWarning("No playlist, cannot go to next.");
             return false;
         }
 
         if (CurrentPlayList.CurrentPosition + 1 >= CurrentPlayList.Items.Count)
         {
+            Logger.LogWarning("This is last item on list. Cannot go to next.");
             return false;
         }
+
+        Logger.LogInformation("Go to next playlist item.");
 
         CurrentPlayList.CurrentPosition++;
         SendCurrentItemChanged();
@@ -342,13 +346,23 @@ public abstract class AudioManagerBase : IAudioManager
     {
         if (CurrentPlayList is null)
         {
+            Logger.LogWarning("No playlist, cannot go to previous.");
             return false;
+        }
+
+        if (Position < TimeSpan.FromSeconds(5))
+        {
+            Logger.LogInformation("Moves to start instead of go to previous.");
+            SetPlaybackPosition(TimeSpan.Zero);
         }
 
         if (CurrentPlayList.CurrentPosition <= 0)
         {
+            Logger.LogWarning("This is first item on list. Cannot go to previous.");
             return false;
         }
+
+        Logger.LogInformation("Moves to previous playlist item.");
 
         CurrentPlayList.CurrentPosition--;
         SendCurrentItemChanged();
