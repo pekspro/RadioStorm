@@ -63,8 +63,7 @@ internal class FileLogger : ILogger
             }
         }
 
-        byte[] bytes = Encoding.UTF8.GetBytes(logBuilder.ToString());
-        FileLoggerProvider.Write(bytes, logLevel >= LogLevel.Warning || exception is not null);
+        FileLoggerProvider.Write(logBuilder.ToString(), logLevel >= LogLevel.Warning || exception is not null);
     }
 }
 
