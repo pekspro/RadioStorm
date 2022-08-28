@@ -156,11 +156,9 @@ public class MediaPlayerService : Service,
 
     public void OnBufferingUpdate(MediaPlayer mp, int percent)
     {
-        int duration = 0;
-        if (MediaPlayerState == PlaybackStateCode.Playing || MediaPlayerState == PlaybackStateCode.Paused)
-        {
-            duration = mp.Duration;
-        }
+        Logger.LogInformation("Buffering updated. Percent: {0}", percent);
+        
+        int duration = Duration;
 
         int newBufferedTime = duration * percent / 100;
         if (newBufferedTime != Buffered)
@@ -192,8 +190,12 @@ public class MediaPlayerService : Service,
 
     public void OnPrepared(MediaPlayer mp)
     {
+        Logger.LogInformation("Media prepared.");
+        
         mp.Start();
         UpdatePlaybackState(PlaybackStateCode.Playing);
+
+        UpdateSessionMetaDataAndLoadImage();
     }
 
     private int _LatestValidPosition = -1;
@@ -429,14 +431,6 @@ public class MediaPlayerService : Service,
 
                     mediaPlayer.PrepareAsync();
                 });
-
-                // Make sure item hasn't been changed.
-                if (audioCounter != AudioCounter)
-                {
-                    return;
-                }
-
-                UpdateSessionMetaDataAndLoadImage();
             }
         }
         catch (Exception e)
@@ -461,33 +455,6 @@ public class MediaPlayerService : Service,
                 mediaPlayer.SeekTo(position);
             }
         });
-    }
-
-    private async Task<bool> TrySeek(TimeSpan length)
-    {
-        var position = Position;
-        var duration = Duration;
-
-        if (position < 0 || duration <= 0)
-        {
-            return false;
-        }
-
-        int newPosition = position + (int) length.TotalMilliseconds;
-
-        if (newPosition < 0)
-        {
-            newPosition = 0;
-        }
-
-        if (newPosition > duration)
-        {
-            return false;
-        }
-
-        await Seek(newPosition);
-
-        return true;
     }
 
     public void PlayNext()
