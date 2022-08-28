@@ -5,8 +5,10 @@ internal class LogFileHelper : ILogFileHelper
     private string TemporaryPath { get; }
 
     private IDateTimeProvider DateTimeProvider { get; }
+    
+    private IServiceProvider ServiceProvider { get; }
 
-    public LogFileHelper(IOptions<StorageLocations> options, IDateTimeProvider dateTimeProvider)
+    public LogFileHelper(IOptions<StorageLocations> options, IDateTimeProvider dateTimeProvider, IServiceProvider serviceProvider)
     {
         TemporaryPath = options.Value.TemporaryPath;
 
@@ -15,6 +17,7 @@ internal class LogFileHelper : ILogFileHelper
             Directory.CreateDirectory(TemporaryPath);
         }
         DateTimeProvider = dateTimeProvider;
+        ServiceProvider = serviceProvider;
     }
 
     public Task RemoveOldLogFilesAsync(TimeSpan minAge)
@@ -63,6 +66,9 @@ internal class LogFileHelper : ILogFileHelper
 
     public async Task<string> ZipAllLogFilesAsync()
     {
+        var fileLoggerProvider = ServiceProvider.GetService<FileLoggerProvider>();
+        fileLoggerProvider?.Flush();
+
         string zipFileName = Path.Combine(TemporaryPath, $"radiostorm-logs.zip");
 
         // TODO: Proper async support in .NET 7?

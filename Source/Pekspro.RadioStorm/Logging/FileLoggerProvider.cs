@@ -36,6 +36,9 @@ public class FileLoggerProvider : ILoggerProvider
                 fileStream
             );
 
+        // Write header
+        fileLogger.Write("Time\tCategory\tLevel\tMessage" + Environment.NewLine, false);
+
         return fileLogger;
     }
 
@@ -57,6 +60,12 @@ public class FileLoggerProvider : ILoggerProvider
         FileStream = null;
     }
 
+    internal void Write(string text, bool flush)
+    {
+        byte[] bytes = Encoding.UTF8.GetBytes(text);
+        Write(bytes, false);
+    }
+
     internal void Write(byte[] bytes, bool flush)
     {
         lock (this)
@@ -71,12 +80,22 @@ public class FileLoggerProvider : ILoggerProvider
         }
     }
 
+    public void Flush()
+    {
+        lock (this)
+        {
+            FileStream?.Flush();
+        }
+    }
+
     protected virtual void Dispose(bool disposing)
     {
         if (!disposedValue)
         {
             if (disposing)
             {
+                Write($"Disposing {nameof(FileLoggerProvider)}", true);
+
                 Close();
             }
 
