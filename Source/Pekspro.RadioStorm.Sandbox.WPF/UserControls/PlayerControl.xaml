@@ -32,6 +32,8 @@
             <Button Command="{Binding PauseCommand, Mode=OneWay}" Content="Pause" />
             <Button Command="{Binding PlayPauseCommand, Mode=OneWay}" Content="Play/Pause" />
             <Button Command="{Binding GoToPreviousCommand, Mode=OneWay}" Content="Previous" />
+            <Button Command="{Binding RewindCommand, Mode=OneWay}" Content="{Binding SeekSizeViewModel.RewindSize, Converter={StaticResource TimeSpanToSeekSizeStringConverter}}" />
+            <Button Command="{Binding ForwardCommand, Mode=OneWay}" Content="{Binding SeekSizeViewModel.ForwardSize, Converter={StaticResource TimeSpanToSeekSizeStringConverter}}" />
             <Button Command="{Binding GoToNextCommand, Mode=OneWay}" Content="Next" />
             <Button IsEnabled="{Binding HasPlayList, Mode=OneWay}" Click="ButtonOpenPlaylist_Click" Content="Playlist" />
             <Slider x:Name="SliderVolume" Minimum="0" Maximum="100" Width="150" Value="{Binding Volume}" />

@@ -9,6 +9,7 @@
             <converters:BoolToSelectionModeConverter x:Key="BoolToSelectionMode" />
             <converters:BoolToVisibilityConverter x:Key="InvertedBoolToVisibilityConverter" VisibleValue="False" />
             <converters:MediaStateConverter x:Key="MediaStateConverter" />
+            <converters:TimeSpanToSeekSizeStringConverter x:Key="TimeSpanToSeekSizeStringConverter" />
             <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
             <converters:NullImageConverter x:Key="NullImageConverter" />
             <converters:BoolToBrushConverter x:Key="BoolToIsListenedColorConverter" 

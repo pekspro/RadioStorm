@@ -12,8 +12,6 @@ class TimeSliderToolTipConverter : IValueConverter
         }
 
         return string.Format("{0:00}:{1:00}", seconds / 60 % 60, seconds % 60);
-
-        //return string.Format("{0} {1}", (seconds / 60) % 60 + " minutes", seconds % 60 + " seconds");
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
