@@ -169,7 +169,16 @@ public class MediaPlayerService : Service,
 
     public void OnSeekComplete(MediaPlayer mp)
     {
-        UpdatePlaybackState(PlaybackStateCode.Playing);
+        Logger.LogInformation("Seek completed. Is playing: {0}", mp.IsPlaying);
+
+        if (mp.IsPlaying)
+        {
+            UpdatePlaybackState(PlaybackStateCode.Playing);
+        }
+        else
+        {
+            UpdatePlaybackState(PlaybackStateCode.Paused);
+        }
     }
 
     public void OnCompletion(MediaPlayer mp)
