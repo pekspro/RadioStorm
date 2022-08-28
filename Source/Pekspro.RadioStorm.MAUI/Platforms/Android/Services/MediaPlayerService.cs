@@ -612,7 +612,7 @@ public class MediaPlayerService : Service,
         }
     }
 
-    private void UpdateNotification()
+    public void UpdateNotification()
     {
         if (mediaSession is null)
         {
@@ -624,7 +624,8 @@ public class MediaPlayerService : Service,
             mediaController.Metadata,
             mediaSession,
             ItemImage,
-            MediaPlayerState == PlaybackStateCode.Playing);
+            MediaPlayerState == PlaybackStateCode.Playing,
+            PlayList);
     }
 
     /// <summary>

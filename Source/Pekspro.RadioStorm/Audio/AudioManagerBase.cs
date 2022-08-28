@@ -485,6 +485,8 @@ public abstract class AudioManagerBase : IAudioManager
         CurrentPlayList.Items.AddRange(itemsToAdd);
 
         SendPlaylistChanged();
+
+        OnPlayListChanged();
     }
 
     private void SendPlaylistChanged(bool itemsMoved = false)
@@ -493,6 +495,11 @@ public abstract class AudioManagerBase : IAudioManager
         {
             Messenger.Send(new PlaylistChanged(CurrentPlayList, itemsMoved));
         }
+    }
+
+    protected virtual void OnPlayListChanged()
+    {
+        
     }
 
     private void SendCurrentItemChanged()

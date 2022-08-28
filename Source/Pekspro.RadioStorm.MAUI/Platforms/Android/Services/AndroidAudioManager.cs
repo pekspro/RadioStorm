@@ -148,6 +148,11 @@ internal class AndroidAudioManager : AudioManagerBase
 
     public override bool HasVolumeSupport => false;
 
+    protected override void OnPlayListChanged()
+    {
+        MediaPlayerService?.UpdateNotification();
+    }
+
     private void SetupEvents(Pekspro.RadioStorm.MAUI.Platforms.Android.Services.MediaPlayerService service)
     {
         if (!EventsAreSetup)
