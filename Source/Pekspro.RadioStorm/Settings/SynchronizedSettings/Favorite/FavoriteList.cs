@@ -142,15 +142,14 @@ public abstract class FavoriteList : SharedSettingsListBase<FavoriteItem>, IFavo
     {
         if (IsDirty)
         {
-            Debug.WriteLine("It's time to save " + FileName);
+            Logger.LogInformation("It's time to save {0}", FileName);
             Stopwatch watch = new Stopwatch();
 
             await SaveAsync(0);
 
-            // _ = SharedSettingsManager.UpdateRemoteFileIfNewerAsync(FileName);
             Messenger.Send(new LocalSharedFileUpdated(FileName));
 
-            Debug.WriteLine($"Saved {FileName} in {watch.ElapsedMilliseconds} ms.");
+            Logger.LogInformation("Saved {0} in {1} ms.", FileName, watch.ElapsedMilliseconds);
         }
     }
 
@@ -255,7 +254,7 @@ public abstract class FavoriteList : SharedSettingsListBase<FavoriteItem>, IFavo
                 //If roaming value is changed after local value, use that one instead.
                 if (roamingValue.LastChangedTimestamp > localValue.LastChangedTimestamp)
                 {
-                    Debug.WriteLine($"Favorite item {roamingValue.Id} updated from roaming settings.");
+                    Logger.LogInformation("Favorite item {0} updated from roaming settings.", roamingValue.Id);
                     localList[key] = roamingValue;
 
                     changeDetected = true;
@@ -267,7 +266,7 @@ public abstract class FavoriteList : SharedSettingsListBase<FavoriteItem>, IFavo
 
         foreach (var roamingValue in roamingList)
         {
-            Debug.WriteLine($"Adding favorite item {roamingValue.Value.Id} added from roaming settings.");
+            Logger.LogInformation("Adding favorite item {0} from roaming settings.", roamingValue.Value.Id);
             localList[roamingValue.Key] = roamingValue.Value;
 
             changeDetected = true;

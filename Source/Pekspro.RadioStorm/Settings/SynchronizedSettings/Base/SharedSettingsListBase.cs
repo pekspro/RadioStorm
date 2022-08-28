@@ -231,7 +231,7 @@ public abstract class SharedSettingsListBase<T> : ISharedSettingsListBase<T>
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Failed to read {FileName}:{ex.Message}");
+                Logger.LogError(ex, "Failed to read {0}", FileName);
             }
         }
 
@@ -272,7 +272,7 @@ public abstract class SharedSettingsListBase<T> : ISharedSettingsListBase<T>
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"Failed to write {filename}:{ex.Message}");
+            Logger.LogError(ex, "Failed to write {0}", filename);
         }
     }
 

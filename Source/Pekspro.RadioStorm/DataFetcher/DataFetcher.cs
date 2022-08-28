@@ -1,4 +1,6 @@
-﻿namespace Pekspro.RadioStorm.DataFetcher;
+﻿using Microsoft.Extensions.Logging;
+
+namespace Pekspro.RadioStorm.DataFetcher;
 
 public class DataFetcher : IDataFetcher
 {
@@ -87,7 +89,7 @@ public class DataFetcher : IDataFetcher
         }
         catch (Exception ex)
         {
-            Debug.WriteLine("Error when downloading: " + ex.Message);
+            Logger.LogWarning(ex, "Error when downloading.");
 
             return false;
         }
@@ -838,15 +840,15 @@ public class DataFetcher : IDataFetcher
 
         foreach (var program in allPrograms)
         {
-            Debug.WriteLine("Fetching episodes from: " + program.ProgramId + " " + program.Name);
+            Logger.LogInformation("Fetching episodes from: " + program.ProgramId + " " + program.Name);
             var allEpisodes = await GetEpisodesAsync(program.ProgramId, true, true, cancellationToken).ConfigureAwait(false);
             if (allEpisodes is null)
             {
-                Debug.WriteLine("Got no episodes :-(");
+                Logger.LogInformation("Got no episodes :-(");
             }
             else
             {
-                Debug.WriteLine($"Got {allEpisodes.Episodes?.Length} episodes.");
+                Logger.LogInformation($"Got {allEpisodes.Episodes?.Length} episodes.");
             }
         }
     }
