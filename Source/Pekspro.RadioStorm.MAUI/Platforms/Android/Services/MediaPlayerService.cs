@@ -459,31 +459,11 @@ public class MediaPlayerService : Service,
 
     public void PlayNext()
     {
-        Logger.LogInformation($"{nameof(PlayNext)}.");
-
-        if (mediaPlayer is not null)
-        {
-            mediaPlayer.Pause();
-        }
-
         Logger.LogInformation("Requesting skipping to next.");
 
         UpdatePlaybackState(PlaybackStateCode.SkippingToNext);
     }
 
-    public void PlayPrevious()
-    {
-        Logger.LogInformation($"{nameof(PlayPrevious)}.");
-
-        if (mediaPlayer is not null)
-        {
-            mediaPlayer.Pause();
-        }
-
-        Logger.LogInformation("Requesting skipping to previous.");
-
-        UpdatePlaybackState(PlaybackStateCode.SkippingToPrevious);
-    }
 
     public async Task PlayPause()
     {
