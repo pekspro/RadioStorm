@@ -99,9 +99,9 @@ public static class NotificationHelper
             .SetVisibility(NotificationVisibility.Public);
 
         // builder.AddAction(NotificationHelper.GenerateActionCompat(context, Pekspro.RadioStorm.MAUI.Resource.Drawable.ic_notification_skip_previous, Strings.Player_Previous, MediaPlayerService.ActionPrevious));
-        builder.AddAction(GenerateActionCompat(context, Pekspro.RadioStorm.MAUI.Resource.Drawable.ic_notification_fast_rewind, Strings.Player_Previous, MediaPlayerService.ActionRewind));
+        builder.AddAction(GenerateActionCompat(context, Pekspro.RadioStorm.MAUI.Resource.Drawable.ic_notification_fast_rewind, Strings.Player_Backward, MediaPlayerService.ActionRewind));
         AddPlayPauseActionCompat(builder, context, isPlaying);
-        builder.AddAction(GenerateActionCompat(context, Pekspro.RadioStorm.MAUI.Resource.Drawable.ic_notification_fast_forward, Strings.Player_Next, MediaPlayerService.ActionForward));
+        builder.AddAction(GenerateActionCompat(context, Pekspro.RadioStorm.MAUI.Resource.Drawable.ic_notification_fast_forward, Strings.Player_Forward, MediaPlayerService.ActionForward));
         // builder.AddAction(NotificationHelper.GenerateActionCompat(context, Pekspro.RadioStorm.MAUI.Resource.Drawable.ic_notification_skip_next, Strings.Player_Next, MediaPlayerService.ActionNext));
         style.SetShowActionsInCompactView(0, 1, 2);
 

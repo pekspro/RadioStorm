@@ -1375,6 +1375,24 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bakåt.
+        /// </summary>
+        public static string Player_Backward {
+            get {
+                return ResourceManager.GetString("Player_Backward", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Framåt.
+        /// </summary>
+        public static string Player_Forward {
+            get {
+                return ResourceManager.GetString("Player_Forward", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fortsätt från där du senast lyssnade.
         /// </summary>
         public static string Player_MenuContinueFromLatestPlayedPosition {

@@ -555,6 +555,12 @@
   <data name="General_Yes" xml:space="preserve">
     <value>Ja</value>
   </data>
+  <data name="Player_Backward" xml:space="preserve">
+    <value>Bakåt</value>
+  </data>
+  <data name="Player_Forward" xml:space="preserve">
+    <value>Framåt</value>
+  </data>
   <data name="Player_MenuContinueFromLatestPlayedPosition" xml:space="preserve">
     <value>Fortsätt från där du senast lyssnade</value>
   </data>
