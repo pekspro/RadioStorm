@@ -9,7 +9,7 @@ public partial class PlaylistPage : ContentPage
         BindingContext = viewModel;
     }
 
-    protected PlaylistViewModel ViewModel => (PlaylistViewModel) BindingContext;
+    protected PlaylistViewModel ViewModel => (PlaylistViewModel)BindingContext;
 
     protected override void OnAppearing()
     {
@@ -18,7 +18,7 @@ public partial class PlaylistPage : ContentPage
         ViewModel.OnNavigatedTo();
     }
 
-    async private void RecentTapped(object sender, EventArgs e)
+    async private void EpisodeTapped(object sender, EventArgs e)
     {
         if ((sender as EpisodeControl)?.BindingContext is EpisodeModel episode)
         {
@@ -30,4 +30,26 @@ public partial class PlaylistPage : ContentPage
             });
         }
     }
+
+    private void SwipeView_SwipeStarted(object sender, SwipeStartedEventArgs e)
+    {
+        SwipeHelper.SwipeStarted(sender);
+    }
+
+    private void SwipeView_SwipeEnded(object sender, SwipeEndedEventArgs e)
+    {
+        SwipeHelper.SwipeEnded(sender);
+    }
+
+    private void SwipeItemRemoveFromPlayList_Clicked(object sender, EventArgs e)
+    {
+        if (sender is SwipeItem swipeView)
+        {
+            if (swipeView.BindingContext is EpisodeModel episodeModel)
+            {
+                ViewModel.RemoveFromPlaylist(episodeModel);
+            }
+        }
+    }
 }
+
