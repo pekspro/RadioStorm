@@ -1,4 +1,5 @@
 ﻿using Android.App;
+using Android.Net;
 using Android.Runtime;
 using Pekspro.RadioStorm.MAUI.Platforms.Android.Services;
 
@@ -9,14 +10,23 @@ namespace Pekspro.RadioStorm.MAUI;
 [Application]
 public class MainApplication : MauiApplication
 {
+    private ConnectivityManager? connectivityManager;
+
     public MainApplication(IntPtr handle, JniHandleOwnership ownership)
         : base(handle, ownership)
     {
         AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
         TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
         AndroidEnvironment.UnhandledExceptionRaiser += AndroidEnvironment_UnhandledExceptionRaiser;
-        
-        // NotificationHelper.StopNotification(this);
+    }
+
+    public override void OnCreate()
+    {
+        base.OnCreate();
+
+        connectivityManager = (ConnectivityManager?)GetSystemService(ConnectivityService);
+
+        connectivityManager?.RegisterDefaultNetworkCallback(new ConnectivityMonitor());
     }
 
     private ILogger? _Logger;
