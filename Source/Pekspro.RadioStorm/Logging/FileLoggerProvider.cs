@@ -80,6 +80,14 @@ public class FileLoggerProvider : ILoggerProvider
         }
     }
 
+    public void Flush()
+    {
+        lock (this)
+        {
+            FileStream?.Flush();
+        }
+    }
+
     protected virtual void Dispose(bool disposing)
     {
         if (!disposedValue)

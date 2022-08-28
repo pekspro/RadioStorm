@@ -1,3 +1,5 @@
+using Microsoft.Extensions.DependencyInjection;
+
 namespace Pekspro.RadioStorm.UI.ViewModel.Logging;
 
 public partial class LogFileDetailsViewModel : DownloadViewModel
@@ -39,18 +41,23 @@ public partial class LogFileDetailsViewModel : DownloadViewModel
         LogFilePath = "c:\\temp\\mylog.txt";
         LogFileContent = @"Hello world
 Second line";
+        ServiceProvider = null!;
     }
 
     public LogFileDetailsViewModel(
         IMainThreadRunner mainThreadRunner,
-        ILogger<LogFileDetailsViewModel> logger)
+        ILogger<LogFileDetailsViewModel> logger,
+        IServiceProvider serviceProvider)
         : base(logger, mainThreadRunner)
     {
+        ServiceProvider = serviceProvider;
     }
 
     #endregion
 
     #region Properties
+
+    private IServiceProvider ServiceProvider { get; }
 
     public string Title => Path.GetFileName(LogFilePath);
 
@@ -73,6 +80,9 @@ Second line";
 
             try
             {
+                var fileLoggerProvider = ServiceProvider.GetService<FileLoggerProvider>();
+                fileLoggerProvider?.Flush();
+
                 // Open file and allow share with other processes
                 using var stream = File.Open(LogFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
                 using var reader = new StreamReader(stream);
