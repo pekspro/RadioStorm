@@ -190,10 +190,6 @@ public abstract class AudioManagerBase : IAudioManager
 
     public bool CanPlayPause => CanPause || CanPlay;
 
-    public bool CanGoToNext { get; set; }
-
-    public bool CanGoToPrevious { get; set; }
-
     public bool IsBuffering { get; set; }
 
     public TimeSpan Position { get; set; }

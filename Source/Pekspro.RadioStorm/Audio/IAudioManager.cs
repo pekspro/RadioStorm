@@ -10,10 +10,6 @@ public interface IAudioManager
 
     bool CanPlayPause { get; }
 
-    bool CanGoToNext { get; }
-
-    bool CanGoToPrevious { get; }
-
     PlayListItem? CurrentItem { get; }
 
     PlayList? CurrentPlayList { get; }

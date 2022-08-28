@@ -102,13 +102,9 @@ public partial class PlayerViewModel : ObservableObject
 
     public bool CanPlayPause => CanPause || CanPlay;
 
-    public bool CanGoToNext =>
-        CurrentPlayList?.Items.Count > 1 &&
-        CurrentPlayList.CurrentPosition + 1 < CurrentPlayList.Items.Count;
+    public bool CanGoToNext => CurrentPlayList?.CanGoToNext == true;
 
-    public bool CanGoToPrevious =>
-        CurrentPlayList?.Items.Count > 1 &&
-        CurrentPlayList.CurrentPosition > 0;
+    public bool CanGoToPrevious => CurrentPlayList?.CanGoToPrevious == true;
 
     #endregion
 

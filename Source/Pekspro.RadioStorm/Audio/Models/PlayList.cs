@@ -38,4 +38,8 @@ sealed public class PlayList
     }
 
     public bool RequiresInternet => Items?.Any(a => a.RequiresInternet) == true;
+
+    public bool CanGoToNext => Items.Count > 1 && CurrentPosition + 1 < Items.Count;
+
+    public bool CanGoToPrevious => Items.Count > 1 && CurrentPosition > 0;
 }
