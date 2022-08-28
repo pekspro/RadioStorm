@@ -206,15 +206,14 @@ public class RecentPlayedManager : SharedSettingsListBase<RecentPlayedItem>, IRe
     {
         if (IsDirty)
         {
-            Debug.WriteLine("It's time to save " + FileName);
+            Logger.LogInformation("It's time to save {0}", FileName);
             Stopwatch watch = new Stopwatch();
-            // Timer?.Stop();
+
             await SaveAsync(0);
 
-            // _ = SharedSettingsManager.UpdateRemoteFileIfNewerAsync(FileName);
             Messenger.Send(new LocalSharedFileUpdated(FileName));
 
-            Debug.WriteLine($"Saved {FileName} in {watch.ElapsedMilliseconds} ms.");
+            Logger.LogInformation("Saved {0} in {1} ms.", FileName, watch.ElapsedMilliseconds);
         }
     }
 
@@ -327,7 +326,7 @@ public class RecentPlayedManager : SharedSettingsListBase<RecentPlayedItem>, IRe
                 //If roaming value is changed after local value, use that one instead.
                 if (roamingValue.Timestamp > localValue.Timestamp)
                 {
-                    Debug.WriteLine($"Recent played item {roamingValue.Id} updated from roaming settings.");
+                    Logger.LogInformation("Recent played item {0} updated from roaming settings.", roamingValue.Id);
                     localList[key] = roamingValue;
 
                     changeDetected = true;
@@ -339,7 +338,7 @@ public class RecentPlayedManager : SharedSettingsListBase<RecentPlayedItem>, IRe
 
         foreach (var roamingValue in roamingList)
         {
-            Debug.WriteLine($"Adding recent played item {roamingValue.Value.Id} added from roaming settings.");
+            Logger.LogInformation("Adding recent played item {0} added from roaming settings.", roamingValue.Value.Id);
             localList[roamingValue.Key] = roamingValue.Value;
 
             changeDetected = true;

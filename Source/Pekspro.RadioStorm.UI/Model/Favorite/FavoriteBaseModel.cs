@@ -6,7 +6,7 @@ public partial class FavoriteBaseModel : ObservableObject
     
     private IFavoriteList FavoriteList { get; }
     
-    private ILogger Logger { get; }
+    protected ILogger Logger { get; }
 
     #endregion
 
@@ -35,7 +35,7 @@ public partial class FavoriteBaseModel : ObservableObject
         }
         set
         {
-            Logger.LogInformation($"Setting item {Id} to favorite: {value}");
+            Logger.LogInformation($"Setting item {0} to favorite: {1}", Id, value);
             FavoriteList.SetFavorite(Id, value);
             OnPropertyChanged(nameof(IsFavorite));
         }

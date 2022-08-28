@@ -1,4 +1,6 @@
-﻿namespace Pekspro.RadioStorm.UI.Model.Channel;
+﻿using Microsoft.Extensions.Logging;
+
+namespace Pekspro.RadioStorm.UI.Model.Channel;
 
 public partial class ChannelModel : FavoriteBaseModel
 {
@@ -95,7 +97,7 @@ public partial class ChannelModel : FavoriteBaseModel
 
         if (c.ChannelColor is null)
         {
-            Debug.WriteLine($"Will ignore bad channel color: {c.ChannelColor}");
+            Logger.LogInformation("Will ignore bad channel color: {0}", c.ChannelColor);
         }
         else if (c.ChannelColor.Length == 6 && int.TryParse(c.ChannelColor, System.Globalization.NumberStyles.HexNumber, null, out int _))
         {
@@ -103,7 +105,7 @@ public partial class ChannelModel : FavoriteBaseModel
         }
         else
         {
-            Debug.WriteLine($"Will ignore bad channel color: {c.ChannelColor}");
+            Logger.LogInformation("Will ignore bad channel color: {0}", c.ChannelColor);
         }
 
         ChannelGroupPriority = GetChannelGroupPriority(ChannelGroupName);

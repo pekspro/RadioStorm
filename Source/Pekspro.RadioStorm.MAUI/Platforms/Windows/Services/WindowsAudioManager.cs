@@ -120,17 +120,6 @@ class WindowsAudioManager : AudioManagerBase
 
         }
 
-        //if (UpdatingLengthAndPositionHitCount < DelayUntilAddedToHistory && Player.PlaybackSession.PlaybackState == MediaPlaybackState.Playing)
-        //{
-        //    UpdatingLengthAndPositionHitCount++;
-
-        //    if (UpdatingLengthAndPositionHitCount >= DelayUntilAddedToHistory)
-        //    {
-        //        Debug.WriteLine($"Time to to add {CurrentItem.AudioId} to history.");
-        //        ServiceLocator.Current.GetInstance<RecentPlayedManager>().AddOrUpdate(!CurrentItem.IsLiveAudio, CurrentItem.AudioId);
-        //    }
-        //}
-
         if (CurrentItem.IsLiveAudio)
         {
             SetLiveAudioPositionAndLength();
