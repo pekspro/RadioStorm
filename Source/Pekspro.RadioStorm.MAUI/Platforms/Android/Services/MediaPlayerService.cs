@@ -838,6 +838,7 @@ public class MediaPlayerService : Service,
         {
             case AudioFocus.Gain:
                 Logger.LogInformation("Gaining audio focus.");
+                mediaPlayer.SetVolume(1f, 1f);
 
                 if (RestartAudioOnGainAudioFocus)
                 {
