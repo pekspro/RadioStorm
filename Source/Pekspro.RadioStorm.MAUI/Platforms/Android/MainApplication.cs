@@ -18,6 +18,8 @@ public class MainApplication : MauiApplication
         AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
         TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
         AndroidEnvironment.UnhandledExceptionRaiser += AndroidEnvironment_UnhandledExceptionRaiser;
+
+        NotificationHelper.StopNotification(this);
     }
 
     public override void OnCreate()
