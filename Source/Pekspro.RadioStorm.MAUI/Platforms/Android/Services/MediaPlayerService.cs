@@ -116,6 +116,9 @@ public class MediaPlayerService : Service,
                 mediaSession = new MediaSession(ApplicationContext, "MauiStreamingAudio");
                 mediaSession.SetSessionActivity(PendingIntent.GetActivity(ApplicationContext, 0, nIntent, PendingIntentFlags.Mutable));
                 mediaController = new MediaController(ApplicationContext, mediaSession.SessionToken);
+
+                // Setup callback when playback state changes
+                
             }
 
             mediaSession.Active = true;
@@ -234,7 +237,7 @@ public class MediaPlayerService : Service,
         {
             // Note: On buffering, position and duration is probably not valid.
             if (mediaPlayer is null ||
-                (MediaPlayerState != PlaybackStateCode.Playing && MediaPlayerState != PlaybackStateCode.Paused && MediaPlayerState != PlaybackStateCode.Buffering)
+                !(MediaPlayerState is PlaybackStateCode.Playing or PlaybackStateCode.Paused or PlaybackStateCode.Buffering)
                 )
             {
                 return -1;
