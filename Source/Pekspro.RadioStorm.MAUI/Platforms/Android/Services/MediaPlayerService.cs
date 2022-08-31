@@ -10,6 +10,7 @@ using Java.Net;
 using Pekspro.RadioStorm.MAUI.Platforms.Android.Receivers;
 using Pekspro.RadioStorm.MAUI;
 using AndroidNet = Android.Net;
+using Android.Runtime;
 
 #nullable disable
 
@@ -20,6 +21,7 @@ namespace Pekspro.RadioStorm.MAUI.Platforms.Android.Services;
 public class MediaPlayerService : Service,
    AudioManager.IOnAudioFocusChangeListener,
    MediaPlayer.IOnBufferingUpdateListener,
+   MediaPlayer.IOnInfoListener,
    MediaPlayer.IOnSeekCompleteListener,
    MediaPlayer.IOnCompletionListener,
    MediaPlayer.IOnErrorListener,
@@ -150,6 +152,7 @@ public class MediaPlayerService : Service,
         mediaPlayer.SetWakeMode(ApplicationContext, WakeLockFlags.Partial);
 
         mediaPlayer.SetOnBufferingUpdateListener(this);
+        mediaPlayer.SetOnInfoListener(this);
         mediaPlayer.SetOnSeekCompleteListener(this);
         mediaPlayer.SetOnCompletionListener(this);
         mediaPlayer.SetOnErrorListener(this);
@@ -159,7 +162,7 @@ public class MediaPlayerService : Service,
 
     public void OnBufferingUpdate(MediaPlayer mp, int percent)
     {
-        Logger.LogInformation("Buffering updated. Percent: {0}", percent);
+        // Logger.LogInformation("Buffering updated. Percent: {0}", percent);
         
         int duration = Duration;
 
@@ -169,6 +172,21 @@ public class MediaPlayerService : Service,
             Buffered = newBufferedTime;
         }
     }
+
+    public bool OnInfo(MediaPlayer mp, [GeneratedEnum] MediaInfo what, int extra)
+    {
+        Logger.LogInformation("Info updated. What: {what} Extra: {extra} State: {state}", what, extra, MediaPlayerState);
+
+        //if (what == MediaInfo.BufferingStart)
+        //{
+        //    UpdatePlaybackState(PlaybackStateCode.Buffering);
+        //}
+        
+        UpdatePlaybackState(MediaPlayerState);
+
+        return true;
+    }
+
 
     public void OnSeekComplete(MediaPlayer mp)
     {
@@ -641,7 +659,10 @@ public class MediaPlayerService : Service,
             mediaController.Metadata,
             mediaSession,
             ItemImage,
-            MediaPlayerState == PlaybackStateCode.Playing,
+            MediaPlayerState is 
+                PlaybackStateCode.Playing or 
+                PlaybackStateCode.Buffering or
+                PlaybackStateCode.Stopped,
             PlayList);
     }
 
