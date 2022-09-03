@@ -24,6 +24,8 @@
             <Color x:Key="PanelBackgroundLight">#E1E1E1</Color>
             <Color x:Key="WarningColorDark">#FF9900</Color>
             <Color x:Key="WarningColorLight">#C05A00</Color>
+            <Color x:Key="ErrorColorDark">#FF3D43</Color>
+            <Color x:Key="ErrorColorLight">DarkRed</Color>
 
             <Color x:Key="SwipeControlForegroundGeneral">White</Color>
             <Color x:Key="SwipeControlBackgroundGeneral">DarkBlue</Color>

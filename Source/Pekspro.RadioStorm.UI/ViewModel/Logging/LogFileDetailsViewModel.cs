@@ -1,3 +1,5 @@
+using System.Text.RegularExpressions;
+
 namespace Pekspro.RadioStorm.UI.ViewModel.Logging;
 
 public partial class LogFileDetailsViewModel : DownloadViewModel
@@ -37,8 +39,6 @@ public partial class LogFileDetailsViewModel : DownloadViewModel
         DownloadState = DownloadStates.Done;
 
         LogFilePath = "c:\\temp\\mylog.txt";
-        LogFileContent = @"Hello world
-Second line";
     }
 
     public LogFileDetailsViewModel(
@@ -59,7 +59,7 @@ Second line";
     private string _LogFilePath = string.Empty;
 
     [ObservableProperty]
-    private string _LogFileContent = string.Empty;
+    private List<LogLine> _LogLines = new List<LogLine>();
     
     #endregion
 
@@ -67,7 +67,7 @@ Second line";
 
     internal override async Task RefreshAsync(RefreshSettings refreshSettings, CancellationToken cancellationToken)
     {
-        if (refreshSettings.FullRefresh || string.IsNullOrEmpty(LogFileContent))
+        if (refreshSettings.FullRefresh || LogLines.Count <= 0)
         {
             DownloadState = DownloadStates.Downloading;
 
@@ -76,11 +76,41 @@ Second line";
                 // Open file and allow share with other processes
                 using var stream = File.Open(LogFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
                 using var reader = new StreamReader(stream);
-                LogFileContent = (await reader.ReadToEndAsync()).ReplaceLineEndings();
+
+                List<LogLine> logLines = new List<LogLine>();
+
+                // Read one line at the time
+                while (!reader.EndOfStream)
+                {
+                    if (cancellationToken.IsCancellationRequested)
+                    {
+                        break;
+                    }
+
+                    string? line = await reader.ReadLineAsync();
+
+                    if (line != null)
+                    {
+                        //LogFileContent += line.ReplaceLineEndings();
+                        // Split line by tabs, max 4 parts
+                        string[] parts = line.Split('\t', 4);
+
+                        // If line contains 4 parts, then it is a log line
+                        if (parts.Length == 4)
+                        {
+                            // Check first part match the patten 2022-09-02 12:34:56
+                            if (Regex.IsMatch(parts[0], @"\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d"))
+                            {
+                                logLines.Add(new LogLine(parts[0], parts[1], parts[2], parts[3]));
+                            }
+                        }
+                    }
+                }
+
+                LogLines = logLines;
             }
-            catch (Exception e)
+            catch (Exception )
             {
-                LogFileContent = e.Message;
             }
 
             DownloadState = DownloadStates.Done;
@@ -94,7 +124,6 @@ Second line";
         if (startParameter.LogFilePath != _LogFilePath)
         {
             LogFilePath = startParameter.LogFilePath;
-            LogFileContent = string.Empty;
         }
 
         base.OnNavigatedTo();
