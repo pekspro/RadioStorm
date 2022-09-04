@@ -12,131 +12,255 @@
     xmlns:episode="clr-namespace:Pekspro.RadioStorm.MAUI.Pages.Episode"
     xmlns:recent="clr-namespace:Pekspro.RadioStorm.MAUI.Pages.Recent"
     xmlns:player="clr-namespace:Pekspro.RadioStorm.MAUI.Pages.Player"
+    xmlns:setting="clr-namespace:Pekspro.RadioStorm.MAUI.Pages.Settings"
     FlyoutWidth="178"
     FlyoutBackgroundColor="{AppThemeBinding Dark={StaticResource PanelBackgroundDark}, Light={StaticResource PanelBackgroundLight}}"
     FlyoutBehavior="{OnIdiom Phone=Flyout, Default=Locked}"
     >
+    <Shell.Resources>
+        <ControlTemplate x:Key="MenuItemTemplate">
+            <Grid RowDefinitions="Auto">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CheckedStates">
+                            <VisualState x:Name="Checked">
+                                <VisualState.Setters>
+                                    <Setter TargetName="ActiveMenuIndicator" Property="Background" Value="{AppThemeBinding Dark={StaticResource PanelSelectedBackgroundDark}, Light={StaticResource PanelSelectedBackgroundLight}}" />
+                                </VisualState.Setters>
+                            </VisualState>
+
+                            <VisualState x:Name="Unchecked">
+                                <VisualState.Setters>
+                                    <Setter TargetName="ActiveMenuIndicator" Property="Background" Value="Transparent" />
+                                </VisualState.Setters>
+                            </VisualState>
+
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+
+                <Border x:Name="ActiveMenuIndicator" 
+                        Background="Transparent"
+                        StrokeThickness="0"
+                        HorizontalOptions="Fill"
+                        HeightRequest="{OnPlatform WinUI=48, Default=56}"
+                        Margin="0,0,0,0" />
+
+                <ContentPresenter x:Name="CP"/>
+            </Grid>
+        </ControlTemplate>
+    </Shell.Resources>
+    
     <!--FlyoutBackgroundColor="#1E1E1E" -->
 
-    <!--<ShellContent
-        Title="Hello, World!"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />-->
-
-    <!--<Shell.FlyoutHeaderTemplate>
+    <Shell.FlyoutContentTemplate>
         <DataTemplate>
-            <BoxView HeightRequest="32"/>
-        </DataTemplate>
-    </Shell.FlyoutHeaderTemplate>-->
-    
-    <!-- Desktop/Tablet-->
-    <FlyoutItem Title="{x:Static r:Strings.GeneralButtonFavorites}">
-        <FlyoutItem.Icon>
-            <FontImageSource
-                            FontFamily="{StaticResource DefaultIconFont}"
-                            Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.FavoriteStarFill}, Default={x:Static style:IconFont.Star}}"
-                            Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
-                            Size="64"/>
-        </FlyoutItem.Icon>
-        <ShellContent ContentTemplate="{DataTemplate favorite:FavoritesPage}"/>
-    </FlyoutItem>
-    <FlyoutItem Title="{x:Static r:Strings.GeneralButtonChannels}">
-        <FlyoutItem.Icon>
-            <FontImageSource
-                            FontFamily="{StaticResource DefaultIconFont}"
-                            Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.Microphone}, Default={x:Static style:IconFont.Microphone}}"
-                            Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
-                            Size="64" />
-        </FlyoutItem.Icon>
-        <ShellContent ContentTemplate="{DataTemplate channel:ChannelsPage}"/>
-    </FlyoutItem>
-    <FlyoutItem Title="{x:Static r:Strings.GeneralButtonProgram}">
-        <FlyoutItem.Icon>
-            <FontImageSource
-                            FontFamily="{StaticResource DefaultIconFont}"
-                            Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.Library}, Default={x:Static style:IconFont.Book}}"
-                            Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
-                            Size="64"/>
-        </FlyoutItem.Icon>
-        <ShellContent ContentTemplate="{DataTemplate program:ProgramsPage}"/>
-    </FlyoutItem>
-    <FlyoutItem Title="{x:Static r:Strings.GeneralButtonRecent}">
-        <FlyoutItem.Icon>
-            <FontImageSource
-                            FontFamily="{StaticResource DefaultIconFont}"
-                            Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.History}, Default={x:Static style:IconFont.History}}"
-                            Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
-                            Size="64"/>
-        </FlyoutItem.Icon>
-        <ShellContent ContentTemplate="{DataTemplate recent:RecentEpisodesPage}"/>
-    </FlyoutItem>
-    <FlyoutItem Title="{x:Static r:Strings.GeneralButtonDownloads}">
-        <FlyoutItem.Icon>
-            <FontImageSource
-                            FontFamily="{StaticResource DefaultIconFont}"
-                            Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.Download}, Default={x:Static style:IconFont.Download}}"
-                            Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
-                            Size="64"/>
-        </FlyoutItem.Icon>
-        <ShellContent ContentTemplate="{DataTemplate episode:DownloadsPage}"/>
-    </FlyoutItem>
+            <Grid RowDefinitions="{OnPlatform WinUI='48,48,48,48,48,*,48', Default='56,56,56,56,56,*,56'}"
+                  RadioButtonGroup.GroupName="Menu"
+                  RadioButtonGroup.SelectedValue="{Binding SelectedRoute}">
+                <Grid.Resources>
+                    <Style TargetType="RadioButton">
+                        <Setter Property="ControlTemplate" Value="{StaticResource MenuItemTemplate}"/>
+                    </Style>
+                </Grid.Resources>
+                
+                <RadioButton Value="favorites" 
+                             IsChecked="True" 
+                             Grid.Row="0"
+                             CheckedChanged="OnMenuItemChanged">
+                    <RadioButton.Content>
+                        <Grid RowDefinitions="{OnPlatform WinUI='48', Default='56'}" ColumnDefinitions="56,*">
+                            <Image  
+                                VerticalOptions="Center"
+                                HorizontalOptions="End"
+                                WidthRequest="16"
+                                HeightRequest="16"
+                                Margin="0,0,12,0"
+                                >
+                                <Image.Source>
+                                    <FontImageSource
+                                    FontFamily="{StaticResource DefaultIconFont}"
+                                    Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.FavoriteStarFill}, Default={x:Static style:IconFont.Star}}"
+                                    Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
+                                    Size="64"/>
+                                </Image.Source>
+                            </Image>
 
-    <!-- Phone -->
-    <!--<TabBar x:Name="PhoneTabs">
-                <Tab Title="Home" Icon="tab_home.png">
-                    <ShellContent ContentTemplate="{DataTemplate page:HomePage}"/>
-                </Tab>
-                <Tab Title="Favorites" Icon="tab_favorites.png">
-                    <ShellContent ContentTemplate="{DataTemplate page:FavoritesPage}"/>
-                </Tab>
-                <Tab Title="Map" Icon="tab_map.png">
-                    <ShellContent ContentTemplate="{DataTemplate page:MapPage}"/>
-                </Tab>
-                <Tab Title="Settings" Icon="tab_settings.png">
-                    <ShellContent ContentTemplate="{DataTemplate page:SettingsPage}"/>
-                </Tab>
-                <Tab Title="Settings" Icon="tab_settings.png">
-                    <ShellContent ContentTemplate="{DataTemplate page:SettingsPage}"/>
-                </Tab>
-            </TabBar>-->
+                            <Label Grid.Column="1" 
+                                   Text="{x:Static r:Strings.GeneralButtonFavorites}" 
+                                   Margin="0,0"
+                                   VerticalOptions="Center" />
+                        </Grid>
+                    </RadioButton.Content>
+                </RadioButton>
 
-    <!--<Shell.ItemTemplate>
-        <DataTemplate>
-            <Grid RowDefinitions="50" HeightRequest="50">
-                <Image Source="{Binding FlyoutIcon}"
-                               HeightRequest="20"
-                               VerticalOptions="Center"
-                               HorizontalOptions="Center"
-                               />
-            </Grid>
-        </DataTemplate>
-    </Shell.ItemTemplate>-->
+                <RadioButton Value="channels" 
+                             Grid.Row="1"
+                             CheckedChanged="OnMenuItemChanged">
+                    <RadioButton.Content>
+                        <Grid RowDefinitions="{OnPlatform WinUI='48', Default='56'}" ColumnDefinitions="56,*">
+                            <Image  
+                                VerticalOptions="Center"
+                                HorizontalOptions="End"
+                                WidthRequest="16"
+                                HeightRequest="16"
+                                Margin="0,0,12,0"
+                                >
+                                <Image.Source>
+                                    <FontImageSource
+                                    FontFamily="{StaticResource DefaultIconFont}"
+                                    Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.Microphone}, Default={x:Static style:IconFont.Microphone}}"
+                                    Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
+                                    Size="64"/>
+                                </Image.Source>
+                            </Image>
 
-    <Shell.FlyoutFooterTemplate>
-        <DataTemplate>
-            <Grid RowDefinitions="44" ColumnDefinitions="56,*">
-                <Grid.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
-                </Grid.GestureRecognizers>
-                <Image  VerticalOptions="Center"
-                        HorizontalOptions="End"
-                        WidthRequest="16"
-                        HeightRequest="16"
-                        Margin="0,0,12,0"
-                        >
-                    <Image.Source>
-                        <FontImageSource
+                            <Label Grid.Column="1" 
+                                   Text="{x:Static r:Strings.GeneralButtonChannels}" 
+                                   Margin="0,0"
+                                   VerticalOptions="Center" />
+                        </Grid>
+                    </RadioButton.Content>
+                </RadioButton>
+
+                <RadioButton Value="programs" 
+                             Grid.Row="2"
+                             CheckedChanged="OnMenuItemChanged">
+                    <RadioButton.Content>
+                        <Grid RowDefinitions="{OnPlatform WinUI='48', Default='56'}" ColumnDefinitions="56,*">
+                            <Image  
+                                VerticalOptions="Center"
+                                HorizontalOptions="End"
+                                WidthRequest="16"
+                                HeightRequest="16"
+                                Margin="0,0,12,0"
+                                >
+                                <Image.Source>
+                                    <FontImageSource
+                                    FontFamily="{StaticResource DefaultIconFont}"
+                                    Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.Library}, Default={x:Static style:IconFont.Book}}"
+                                    Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
+                                    Size="64"/>
+                                </Image.Source>
+                            </Image>
+
+                            <Label Grid.Column="1" 
+                                   Text="{x:Static r:Strings.GeneralButtonProgram}" 
+                                   Margin="0,0"
+                                   VerticalOptions="Center" />
+                        </Grid>
+                    </RadioButton.Content>
+                </RadioButton>
+
+
+                <RadioButton Value="recent" 
+                             Grid.Row="3"
+                             CheckedChanged="OnMenuItemChanged">
+                    <RadioButton.Content>
+                        <Grid RowDefinitions="{OnPlatform WinUI='48', Default='56'}" ColumnDefinitions="56,*">
+                            <Image  
+                                VerticalOptions="Center"
+                                HorizontalOptions="End"
+                                WidthRequest="16"
+                                HeightRequest="16"
+                                Margin="0,0,12,0"
+                                >
+                                <Image.Source>
+                                    <FontImageSource
+                                    FontFamily="{StaticResource DefaultIconFont}"
+                                    Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.History}, Default={x:Static style:IconFont.History}}"
+                                    Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
+                                    Size="64"/>
+                                </Image.Source>
+                            </Image>
+
+                            <Label Grid.Column="1" 
+                                   Text="{x:Static r:Strings.GeneralButtonRecent}" 
+                                   Margin="0,0"
+                                   VerticalOptions="Center" />
+                        </Grid>
+                    </RadioButton.Content>
+                </RadioButton>
+
+                <RadioButton Value="downloads" 
+                             Grid.Row="4"
+                             CheckedChanged="OnMenuItemChanged">
+                    <RadioButton.Content>
+                        <Grid RowDefinitions="{OnPlatform WinUI='48', Default='56'}" ColumnDefinitions="56,*">
+                            <Image  
+                                VerticalOptions="Center"
+                                HorizontalOptions="End"
+                                WidthRequest="16"
+                                HeightRequest="16"
+                                Margin="0,0,12,0"
+                                >
+                                <Image.Source>
+                                    <FontImageSource
+                                    FontFamily="{StaticResource DefaultIconFont}"
+                                    Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.Download}, Default={x:Static style:IconFont.Download}}"
+                                    Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
+                                    Size="64"/>
+                                </Image.Source>
+                            </Image>
+
+                            <Label Grid.Column="1" 
+                                   Text="{x:Static r:Strings.GeneralButtonDownloads}" 
+                                   Margin="0,0"
+                                   VerticalOptions="Center" />
+                        </Grid>
+                    </RadioButton.Content>
+                </RadioButton>
+
+                <RadioButton Value="settings" 
+                             Grid.Row="6"
+                             CheckedChanged="OnMenuItemChanged">
+                    <RadioButton.Content>
+                        <Grid RowDefinitions="{OnPlatform WinUI='48', Default='56'}" ColumnDefinitions="56,*">
+                            <Image  
+                                VerticalOptions="Center"
+                                HorizontalOptions="End"
+                                WidthRequest="16"
+                                HeightRequest="16"
+                                Margin="0,0,12,0"
+                                >
+                                <Image.Source>
+                                    <FontImageSource
                                     FontFamily="{StaticResource DefaultIconFont}"
                                     Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.Setting}, Default={x:Static style:IconFont.Cog}}"
                                     Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
                                     Size="64"/>
-                    </Image.Source>
-                </Image>
+                                </Image.Source>
+                            </Image>
 
-                <Label Grid.Column="1" Text="{x:Static r:Strings.GeneralButtonSettings}" Margin="0,0"
-                       VerticalOptions="Center"
-                       ></Label>
+                            <Label Grid.Column="1" 
+                                   Text="{x:Static r:Strings.GeneralButtonSettings}" 
+                                   Margin="0,0"
+                                   VerticalOptions="Center" />
+                        </Grid>
+                    </RadioButton.Content>
+                </RadioButton>
             </Grid>
         </DataTemplate>
-    </Shell.FlyoutFooterTemplate>
+    </Shell.FlyoutContentTemplate>
+
+
+    <!-- Desktop/Tablet-->
+    <FlyoutItem Title="{x:Static r:Strings.GeneralButtonFavorites}" Route="favorites">
+        <ShellContent ContentTemplate="{DataTemplate favorite:FavoritesPage}"/>
+    </FlyoutItem>
+    <FlyoutItem Title="{x:Static r:Strings.GeneralButtonChannels}" Route="channels">
+        <ShellContent ContentTemplate="{DataTemplate channel:ChannelsPage}"/>
+    </FlyoutItem>
+    <FlyoutItem Title="{x:Static r:Strings.GeneralButtonProgram}" Route="programs">
+        <ShellContent ContentTemplate="{DataTemplate program:ProgramsPage}"/>
+    </FlyoutItem>
+    <FlyoutItem Title="{x:Static r:Strings.GeneralButtonRecent}" Route="recent">
+        <ShellContent ContentTemplate="{DataTemplate recent:RecentEpisodesPage}"/>
+    </FlyoutItem>
+    <FlyoutItem Title="{x:Static r:Strings.GeneralButtonDownloads}" Route="downloads">
+        <ShellContent ContentTemplate="{DataTemplate episode:DownloadsPage}"/>
+    </FlyoutItem>
+    <FlyoutItem Title="{x:Static r:Strings.GeneralButtonSettings}" Route="settings">
+        <ShellContent ContentTemplate="{DataTemplate setting:SettingsPage}"/>
+    </FlyoutItem>
 </Shell>

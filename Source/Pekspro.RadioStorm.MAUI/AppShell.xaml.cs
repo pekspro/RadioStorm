@@ -5,15 +5,26 @@ public partial class AppShell : Shell
     public AppShell()
     {
         InitializeComponent();
+
+        BindingContext = this;
     }
 
-    async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+    private string? selectedRoute;
+    public string? SelectedRoute
     {
-        await Current.GoToAsync(nameof(SettingsPage));
-
-        if (Current.FlyoutBehavior == FlyoutBehavior.Flyout)
+        get { return selectedRoute; }
+        set
         {
-            Current.FlyoutIsPresented = false;
+            selectedRoute = value;
+            OnPropertyChanged();
+        }
+    }
+
+    async void OnMenuItemChanged(object sender, CheckedChangedEventArgs e)
+    {
+        if (!string.IsNullOrEmpty(selectedRoute))
+        {
+            await Current.GoToAsync($"//{selectedRoute}");
         }
     }
 }
