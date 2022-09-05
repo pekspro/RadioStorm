@@ -22,8 +22,12 @@
             <Color x:Key="HyperlinkColorLight">#00508E</Color>
             <Color x:Key="PanelBackgroundDark">#1E1E1E</Color>
             <Color x:Key="PanelBackgroundLight">#E1E1E1</Color>
+            <Color x:Key="PanelSelectedBackgroundDark">#3E3E3E</Color>
+            <Color x:Key="PanelSelectedBackgroundLight">#C1C1C1</Color>
             <Color x:Key="WarningColorDark">#FF9900</Color>
             <Color x:Key="WarningColorLight">#C05A00</Color>
+            <Color x:Key="ErrorColorDark">#FF3D43</Color>
+            <Color x:Key="ErrorColorLight">DarkRed</Color>
 
             <Color x:Key="SwipeControlForegroundGeneral">White</Color>
             <Color x:Key="SwipeControlBackgroundGeneral">DarkBlue</Color>
