@@ -49,7 +49,22 @@
                 <ContentPresenter x:Name="CP"/>
             </Grid>
         </ControlTemplate>
+
+        <Style x:Key="MenuImage" TargetType="Image">
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="HorizontalOptions" Value="Start" />
+            <Setter Property="WidthRequest" Value="{OnPlatform Default=24, WinUI=16}" />
+            <Setter Property="HeightRequest" Value="{OnPlatform Default=24, WinUI=16}" />
+            <Setter Property="Margin" Value="16,0,0,0" />
+        </Style>
+
+        <Style x:Key="MenuLabel" TargetType="Label">
+            <Setter Property="Margin" Value="0,0,12,0" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="FontSize" Value="{OnPlatform Default=16, WinUI=16}" />
+        </Style>
     </Shell.Resources>
+    
     
     <!--FlyoutBackgroundColor="#1E1E1E" -->
 
@@ -69,14 +84,8 @@
                              Grid.Row="0"
                              CheckedChanged="OnMenuItemChanged">
                     <RadioButton.Content>
-                        <Grid RowDefinitions="{OnPlatform WinUI='48', Default='56'}" ColumnDefinitions="56,*">
-                            <Image  
-                                VerticalOptions="Center"
-                                HorizontalOptions="End"
-                                WidthRequest="16"
-                                HeightRequest="16"
-                                Margin="0,0,12,0"
-                                >
+                        <Grid RowDefinitions="{OnPlatform WinUI='48', Default='56'}" ColumnDefinitions="{OnPlatform WinUI='48,*', Default='56,*'}">
+                            <Image Style="{StaticResource MenuImage}">
                                 <Image.Source>
                                     <FontImageSource
                                     FontFamily="{StaticResource DefaultIconFont}"
@@ -88,8 +97,7 @@
 
                             <Label Grid.Column="1" 
                                    Text="{x:Static r:Strings.GeneralButtonFavorites}" 
-                                   Margin="0,0"
-                                   VerticalOptions="Center" />
+                                   Style="{StaticResource MenuLabel}" />
                         </Grid>
                     </RadioButton.Content>
                 </RadioButton>
@@ -98,14 +106,8 @@
                              Grid.Row="1"
                              CheckedChanged="OnMenuItemChanged">
                     <RadioButton.Content>
-                        <Grid RowDefinitions="{OnPlatform WinUI='48', Default='56'}" ColumnDefinitions="56,*">
-                            <Image  
-                                VerticalOptions="Center"
-                                HorizontalOptions="End"
-                                WidthRequest="16"
-                                HeightRequest="16"
-                                Margin="0,0,12,0"
-                                >
+                        <Grid RowDefinitions="{OnPlatform WinUI='48', Default='56'}" ColumnDefinitions="{OnPlatform WinUI='48,*', Default='56,*'}">
+                            <Image Style="{StaticResource MenuImage}">
                                 <Image.Source>
                                     <FontImageSource
                                     FontFamily="{StaticResource DefaultIconFont}"
@@ -117,8 +119,7 @@
 
                             <Label Grid.Column="1" 
                                    Text="{x:Static r:Strings.GeneralButtonChannels}" 
-                                   Margin="0,0"
-                                   VerticalOptions="Center" />
+                                   Style="{StaticResource MenuLabel}" />
                         </Grid>
                     </RadioButton.Content>
                 </RadioButton>
@@ -127,14 +128,8 @@
                              Grid.Row="2"
                              CheckedChanged="OnMenuItemChanged">
                     <RadioButton.Content>
-                        <Grid RowDefinitions="{OnPlatform WinUI='48', Default='56'}" ColumnDefinitions="56,*">
-                            <Image  
-                                VerticalOptions="Center"
-                                HorizontalOptions="End"
-                                WidthRequest="16"
-                                HeightRequest="16"
-                                Margin="0,0,12,0"
-                                >
+                        <Grid RowDefinitions="{OnPlatform WinUI='48', Default='56'}" ColumnDefinitions="{OnPlatform WinUI='48,*', Default='56,*'}">
+                            <Image Style="{StaticResource MenuImage}">
                                 <Image.Source>
                                     <FontImageSource
                                     FontFamily="{StaticResource DefaultIconFont}"
@@ -146,8 +141,7 @@
 
                             <Label Grid.Column="1" 
                                    Text="{x:Static r:Strings.GeneralButtonProgram}" 
-                                   Margin="0,0"
-                                   VerticalOptions="Center" />
+                                   Style="{StaticResource MenuLabel}" />
                         </Grid>
                     </RadioButton.Content>
                 </RadioButton>
@@ -157,14 +151,8 @@
                              Grid.Row="3"
                              CheckedChanged="OnMenuItemChanged">
                     <RadioButton.Content>
-                        <Grid RowDefinitions="{OnPlatform WinUI='48', Default='56'}" ColumnDefinitions="56,*">
-                            <Image  
-                                VerticalOptions="Center"
-                                HorizontalOptions="End"
-                                WidthRequest="16"
-                                HeightRequest="16"
-                                Margin="0,0,12,0"
-                                >
+                        <Grid RowDefinitions="{OnPlatform WinUI='48', Default='56'}" ColumnDefinitions="{OnPlatform WinUI='48,*', Default='56,*'}">
+                            <Image Style="{StaticResource MenuImage}">
                                 <Image.Source>
                                     <FontImageSource
                                     FontFamily="{StaticResource DefaultIconFont}"
@@ -176,8 +164,7 @@
 
                             <Label Grid.Column="1" 
                                    Text="{x:Static r:Strings.GeneralButtonRecent}" 
-                                   Margin="0,0"
-                                   VerticalOptions="Center" />
+                                   Style="{StaticResource MenuLabel}" />
                         </Grid>
                     </RadioButton.Content>
                 </RadioButton>
@@ -186,14 +173,8 @@
                              Grid.Row="4"
                              CheckedChanged="OnMenuItemChanged">
                     <RadioButton.Content>
-                        <Grid RowDefinitions="{OnPlatform WinUI='48', Default='56'}" ColumnDefinitions="56,*">
-                            <Image  
-                                VerticalOptions="Center"
-                                HorizontalOptions="End"
-                                WidthRequest="16"
-                                HeightRequest="16"
-                                Margin="0,0,12,0"
-                                >
+                        <Grid RowDefinitions="{OnPlatform WinUI='48', Default='56'}" ColumnDefinitions="{OnPlatform WinUI='48,*', Default='56,*'}">
+                            <Image Style="{StaticResource MenuImage}">
                                 <Image.Source>
                                     <FontImageSource
                                     FontFamily="{StaticResource DefaultIconFont}"
@@ -205,8 +186,7 @@
 
                             <Label Grid.Column="1" 
                                    Text="{x:Static r:Strings.GeneralButtonDownloads}" 
-                                   Margin="0,0"
-                                   VerticalOptions="Center" />
+                                   Style="{StaticResource MenuLabel}" />
                         </Grid>
                     </RadioButton.Content>
                 </RadioButton>
@@ -215,14 +195,8 @@
                              Grid.Row="6"
                              CheckedChanged="OnMenuItemChanged">
                     <RadioButton.Content>
-                        <Grid RowDefinitions="{OnPlatform WinUI='48', Default='56'}" ColumnDefinitions="56,*">
-                            <Image  
-                                VerticalOptions="Center"
-                                HorizontalOptions="End"
-                                WidthRequest="16"
-                                HeightRequest="16"
-                                Margin="0,0,12,0"
-                                >
+                        <Grid RowDefinitions="{OnPlatform WinUI='48', Default='56'}" ColumnDefinitions="{OnPlatform WinUI='48,*', Default='56,*'}">
+                            <Image Style="{StaticResource MenuImage}">
                                 <Image.Source>
                                     <FontImageSource
                                     FontFamily="{StaticResource DefaultIconFont}"
@@ -234,8 +208,7 @@
 
                             <Label Grid.Column="1" 
                                    Text="{x:Static r:Strings.GeneralButtonSettings}" 
-                                   Margin="0,0"
-                                   VerticalOptions="Center" />
+                                   Style="{StaticResource MenuLabel}" />
                         </Grid>
                     </RadioButton.Content>
                 </RadioButton>
