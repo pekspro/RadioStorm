@@ -220,7 +220,7 @@ public class Worker : BackgroundService
             var songs = await dataFetcher.GetChannelSongListAsync(channel.ChannelId, allowCache, stoppingToken);
             var scheduledEpisodes = await dataFetcher.GetScheduledEpisodeListAsync(channel.ChannelId, DateOnly.FromDateTime(dateTimeProvider.SwedishNow), allowCache, stoppingToken);
 
-            Log($"{channel.Title} har {songs.Count} songs and {scheduledEpisodes.Count} scheduled episodes today.");
+            Log($"{channel.Title} har {songs?.Count ?? 0} songs and {scheduledEpisodes?.Count ?? 00} scheduled episodes today.");
         }
     }
 

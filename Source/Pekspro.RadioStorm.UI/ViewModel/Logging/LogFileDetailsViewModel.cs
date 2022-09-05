@@ -35,6 +35,7 @@ public partial class LogFileDetailsViewModel : DownloadViewModel
         : base(null!, null!)
     {
         DownloadState = DownloadStates.Done;
+        ServiceProvider = null!;
 
         LogFilePath = "c:\\temp\\mylog.txt";
     }

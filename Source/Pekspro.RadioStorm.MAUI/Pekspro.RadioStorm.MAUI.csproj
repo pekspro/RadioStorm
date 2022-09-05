@@ -12,8 +12,9 @@
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
+        <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
 
-		<!-- Display name -->
+        <!-- Display name -->
 		<ApplicationTitle>RadioStorm</ApplicationTitle>
 
 		<!-- App Identifier -->
