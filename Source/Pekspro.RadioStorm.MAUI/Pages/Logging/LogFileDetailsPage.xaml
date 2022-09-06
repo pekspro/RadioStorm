@@ -23,7 +23,7 @@
         <CollectionView ItemsSource="{Binding LogLines}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="vm:LogLine">
-                    <VerticalStackLayout HeightRequest="42" Padding="{OnPlatform 0, WinUI='8,6,16,6', Android='16,6,16,6'}">
+                    <VerticalStackLayout HeightRequest="{OnPlatform Default=48, WinUI=42}" Padding="{OnPlatform Default=0, WinUI='8,6,16,6', Android='16,6,16,6'}">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup Name="xListenState">
                                 <VisualState Name="Warning">
