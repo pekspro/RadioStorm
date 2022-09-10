@@ -61,7 +61,7 @@
         <Style x:Key="MenuLabel" TargetType="Label">
             <Setter Property="Margin" Value="0,0,12,0" />
             <Setter Property="VerticalOptions" Value="Center" />
-            <Setter Property="FontSize" Value="{OnPlatform Default=16, WinUI=16}" />
+            <Setter Property="FontSize" Value="{OnPlatform Default=14, WinUI=16}" />
         </Style>
     </Shell.Resources>
     
