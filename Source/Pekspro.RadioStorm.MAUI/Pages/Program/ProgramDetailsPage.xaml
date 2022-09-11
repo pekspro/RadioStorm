@@ -158,7 +158,7 @@
                         >
                 <VerticalStackLayout>
                     <Label Text="{Binding ProgramData.Description, Mode=OneWay}"
-                           Margin="{OnPlatform WinUI='8,0,8,0', Default='20,0,20,0'}"
+                           Margin="{OnPlatform WinUI='8,0,8,0', Default='8,8,8,0'}"
                         />
                 </VerticalStackLayout>
             </ScrollView>
