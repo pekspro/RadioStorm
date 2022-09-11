@@ -395,7 +395,7 @@ public partial class EpisodeModel : ObservableObject, IComparable<EpisodeModel>
 
         if (!string.IsNullOrEmpty(url) && HasDownloadSupport)
         {
-            DownloadManager.StartDownload(ProgramId ?? 0, Id, url);
+            DownloadManager.StartDownload(ProgramId ?? 0, Id, url, true);
         }
     }
 

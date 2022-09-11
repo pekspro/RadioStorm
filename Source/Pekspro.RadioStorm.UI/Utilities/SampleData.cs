@@ -318,7 +318,7 @@ internal sealed class SampleData
     {
         if (sampleType % 4 == 0)
         {
-            return new Download("49771.mp3", 4131, 49771)
+            return new Download("49771.mp3", 4131, 49771, true)
             {
                 BytesToDownload = 5 * 1024 * 1024,
                 BytesDownloaded = 7 * 1024 * 1024 * 3 / 7,
@@ -327,7 +327,7 @@ internal sealed class SampleData
         }
         else if (sampleType % 4 == 1)
         {
-            return new Download("49265.mp3", 4131, 49265)
+            return new Download("49265.mp3", 4131, 49265, false)
             {
                 BytesToDownload = 5 * 1024 * 1024,
                 BytesDownloaded = 5 * 1024 * 1024,
@@ -336,7 +336,7 @@ internal sealed class SampleData
         }
         else if (sampleType % 4 == 2)
         {
-            return new Download("49771.mp3", 4131, 49771)
+            return new Download("49771.mp3", 4131, 49771, true)
             {
                 BytesToDownload = 5 * 1024 * 1024,
                 BytesDownloaded = 7 * 1024 * 1024 * 7 / 3,
@@ -345,7 +345,7 @@ internal sealed class SampleData
         }
         else
         {
-            return new Download("50012.mp3", 4131, 50012)
+            return new Download("50012.mp3", 4131, 50012, false)
             {
                 BytesToDownload = 5 * 1024 * 1024,
                 BytesDownloaded = 7 * 1024 * 1024 * 7 / 3,

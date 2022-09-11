@@ -6,6 +6,6 @@ public interface IDownloadManager
     Download? GetDownloadData(int programId, int episodeId);
     List<Download> GetDownloads();
     Task InitAsync();
-    void StartDownload(int programId, int episodeId, string url);
+    void StartDownload(int programId, int episodeId, string url, bool startedByUser);
     Task ShutDownAsync();
 }
