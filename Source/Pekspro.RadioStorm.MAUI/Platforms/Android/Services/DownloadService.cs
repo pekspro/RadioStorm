@@ -134,7 +134,7 @@ public class DownloadService : Service
         Notification notification = new Notification.Builder(this, CHANNEL_ID)
             .SetContentTitle(Strings.DownloadsNotification_Title)
             .SetContentText(shortDescription)
-            .SetSmallIcon(Resource.Drawable.notification_template_icon_bg)
+            .SetSmallIcon(Resource.Drawable.ic_statusbar_download)
             .SetStyle(new BigTextStyle().BigText(longDescription))
             .Build();
 

@@ -94,7 +94,7 @@ public static class NotificationHelper
             .SetContentText(currentTrack.GetString(MediaMetadata.MetadataKeyArtist))
             .SetSubText(currentTrack.GetString(MediaMetadata.MetadataKeyAlbum))
             .SetColor(color)
-            .SetSmallIcon(Resource.Drawable.player_play)
+            .SetSmallIcon(Resource.Drawable.ic_statusbar_play)
             .SetLargeIcon(largeIcon)
             .SetContentIntent(pendingIntent)
             .SetShowWhen(false)
