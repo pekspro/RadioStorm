@@ -1,4 +1,7 @@
-﻿using Android.App;
+﻿// #define USE_CONNECTION_ALIVE_CHECKER
+// #define USE_WIFI_LOCK
+
+using Android.App;
 using Android.Content;
 using Android.Graphics;
 using Android.Media;
@@ -6,17 +9,17 @@ using Android.Media.Session;
 using Android.Net;
 using Android.Net.Wifi;
 using Android.OS;
+using Android.Runtime;
 using Java.Net;
 using Pekspro.RadioStorm.MAUI.Platforms.Android.Receivers;
-using Pekspro.RadioStorm.MAUI;
 using AndroidNet = Android.Net;
-using Android.Runtime;
+using Binder = Android.OS.Binder;
 
 #nullable disable
 
 namespace Pekspro.RadioStorm.MAUI.Platforms.Android.Services;
 
-[Service(Exported = true)]
+[Service(Exported = true, ForegroundServiceType = global::Android.Content.PM.ForegroundService.TypeMediaPlayback)]
 [IntentFilter(new[] { ActionPlay, ActionPause, ActionStop, ActionTogglePlayback, ActionRewind, ActionForward, ActionNext, ActionPrevious })]
 public class MediaPlayerService : Service,
    AudioManager.IOnAudioFocusChangeListener,
@@ -43,14 +46,20 @@ public class MediaPlayerService : Service,
     private MediaSession mediaSession;
     public MediaController mediaController;
 
+#if USE_WIFI_LOCK
     private WifiManager wifiManager;
     private WifiManager.WifiLock wifiLock;
+#endif
 
     public event StatusChangedEventHandler StatusChanged;
 
     private PlayList PlayList;
     private Bitmap ItemImage;
     private int AudioCounter;
+
+#if USE_CONNECTION_ALIVE_CHECKER
+    private ConnectionAliveChecker connectionAliveChecker;
+#endif
 
     private ComponentName remoteComponentName;
 
@@ -66,6 +75,11 @@ public class MediaPlayerService : Service,
 
     public MediaPlayerService()
     {
+#if USE_CONNECTION_ALIVE_CHECKER
+        connectionAliveChecker = new ConnectionAliveChecker(MAUI.Services.ServiceProvider.Current);
+
+        connectionAliveChecker.RunCheck();
+#endif
     }
 
     private ILogger _Logger;
@@ -94,7 +108,10 @@ public class MediaPlayerService : Service,
 
         //Find our audio and notificaton managers
         audioManager = (AudioManager)GetSystemService(AudioService);
+
+#if USE_WIFI_LOCK
         wifiManager = (WifiManager)GetSystemService(WifiService);
+#endif
 
         remoteComponentName = new ComponentName(PackageName, new RemoteControlBroadcastReceiver().ComponentName);
     }
@@ -107,7 +124,7 @@ public class MediaPlayerService : Service,
         try
         {
             Logger.LogInformation(nameof(InitMediaSession));
-            
+
             if (mediaSession is null)
             {
                 Logger.LogInformation($"{nameof(InitMediaSession)} - Creating new session");
@@ -120,7 +137,7 @@ public class MediaPlayerService : Service,
                 mediaController = new MediaController(ApplicationContext, mediaSession.SessionToken);
 
                 // Setup callback when playback state changes
-                
+
             }
 
             mediaSession.Active = true;
@@ -140,7 +157,7 @@ public class MediaPlayerService : Service,
     private void InitializePlayer()
     {
         Logger.LogInformation(nameof(InitializePlayer));
-        
+
         mediaPlayer = new MediaPlayer();
 
         mediaPlayer.SetAudioAttributes(
@@ -163,7 +180,7 @@ public class MediaPlayerService : Service,
     public void OnBufferingUpdate(MediaPlayer mp, int percent)
     {
         // Logger.LogInformation("Buffering updated. Percent: {0}", percent);
-        
+
         int duration = Duration;
 
         int newBufferedTime = duration * percent / 100;
@@ -181,7 +198,7 @@ public class MediaPlayerService : Service,
         //{
         //    UpdatePlaybackState(PlaybackStateCode.Buffering);
         //}
-        
+
         UpdatePlaybackState(MediaPlayerState);
 
         return true;
@@ -221,7 +238,7 @@ public class MediaPlayerService : Service,
     public void OnPrepared(MediaPlayer mp)
     {
         Logger.LogInformation("Media prepared.");
-        
+
         mp.Start();
         UpdatePlaybackState(PlaybackStateCode.Playing);
 
@@ -292,9 +309,8 @@ public class MediaPlayerService : Service,
     {
         get
         {
-            if (mediaPlayer is null
-                || (MediaPlayerState != PlaybackStateCode.Playing
-                    && MediaPlayerState != PlaybackStateCode.Paused))
+            if (mediaPlayer is null ||
+                !(MediaPlayerState is PlaybackStateCode.Playing or PlaybackStateCode.Paused or PlaybackStateCode.Buffering))
             {
                 return 0;
             }
@@ -406,7 +422,7 @@ public class MediaPlayerService : Service,
         {
             return;
         }
-            
+
         try
         {
             if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
@@ -415,7 +431,7 @@ public class MediaPlayerService : Service,
 
                 UpdatePlaybackState(PlaybackStateCode.Buffering);
 
-                await Task.Run(async() =>
+                await Task.Run(async () =>
                 {
                     // I have not ide why a pause and then a delay is necessary
                     // before reset. But if not, it will instead throw an 
@@ -474,10 +490,10 @@ public class MediaPlayerService : Service,
     public async Task Seek(int position)
     {
         Logger.LogInformation($"{nameof(Seek)} - position {position}");
-        
+
         UpdatePlaybackState(PlaybackStateCode.Buffering);
-        
-        await Task.Run(() => 
+
+        await Task.Run(() =>
         {
             if (mediaPlayer is not null)
             {
@@ -498,7 +514,7 @@ public class MediaPlayerService : Service,
     public async Task PlayPause()
     {
         Logger.LogInformation($"{nameof(PlayPause)}");
-        
+
         if (mediaPlayer is null || (mediaPlayer is not null && MediaPlayerState == PlaybackStateCode.Paused))
         {
             await Play();
@@ -512,7 +528,7 @@ public class MediaPlayerService : Service,
     public async Task Pause()
     {
         Logger.LogInformation($"{nameof(Pause)}");
-        
+
         await Task.Run(() => {
             if (mediaPlayer is null)
             {
@@ -615,7 +631,7 @@ public class MediaPlayerService : Service,
             Bitmap bitmap = null;
 
             Logger.LogInformation("Loading image from {0}", item.IconUri);
-            
+
             await Task.Run(async () =>
             {
                 try
@@ -635,7 +651,7 @@ public class MediaPlayerService : Service,
                 if (item == PlayList.CurrentItem)
                 {
                     Logger.LogInformation("Updating session data with new image.");
-                    
+
                     ItemImage = bitmap;
                     UpdateSessionMetaData();
                 }
@@ -659,11 +675,12 @@ public class MediaPlayerService : Service,
             mediaController.Metadata,
             mediaSession,
             ItemImage,
-            MediaPlayerState is 
-                PlaybackStateCode.Playing or 
+            MediaPlayerState is
+                PlaybackStateCode.Playing or
                 PlaybackStateCode.Buffering or
                 PlaybackStateCode.Stopped,
-            PlayList);
+            PlayList,
+            this);
     }
 
     /// <summary>
@@ -751,6 +768,8 @@ public class MediaPlayerService : Service,
 
     private void UpdateWifiLock()
     {
+#if USE_WIFI_LOCK
+        
         if (MediaPlayerState is PlaybackStateCode.None or PlaybackStateCode.Stopped or PlaybackStateCode.Error)
         {
             Logger.LogInformation("State is {0}, wifi not needed.", MediaPlayerState);
@@ -766,13 +785,14 @@ public class MediaPlayerService : Service,
             Logger.LogInformation("State is {0} and play list requires Internet, will try lock wifi.", MediaPlayerState);
             AquireWifiLock();
         }
+        
+#endif
     }
 
-    /// <summary>
-    /// Lock the wifi so we can still stream under lock screen
-    /// </summary>
     private void AquireWifiLock()
     {
+#if USE_WIFI_LOCK
+        
         if (wifiLock is not null)
         {
             Logger.LogInformation("Wifi lock already aquired.");
@@ -780,17 +800,18 @@ public class MediaPlayerService : Service,
         }
 
         Logger.LogInformation("Aquire wifi lock.");
-        
+
         wifiLock = wifiManager.CreateWifiLock(WifiMode.Full, "xamarin_wifi_lock");
 
         wifiLock.Acquire();
+        
+#endif
     }
 
-    /// <summary>
-    /// This will release the wifi lock if it is no longer needed
-    /// </summary>
     private void ReleaseWifiLock()
     {
+#if USE_WIFI_LOCK
+        
         if (wifiLock is null)
         {
             Logger.LogInformation("No wifi lock aquired.");
@@ -798,9 +819,11 @@ public class MediaPlayerService : Service,
         }
 
         Logger.LogInformation("Releasing wifi lock.");
-        
+
         wifiLock.Release();
         wifiLock = null;
+        
+#endif
     }
 
     private void UnregisterMediaSessionCompat()
@@ -839,7 +862,7 @@ public class MediaPlayerService : Service,
     public override void OnDestroy()
     {
         base.OnDestroy();
-        
+
         if (mediaPlayer is not null)
         {
             mediaPlayer.Release();
@@ -885,7 +908,7 @@ public class MediaPlayerService : Service,
                 break;
             case AudioFocus.LossTransient:
                 Logger.LogInformation("Transient lost audio focus.");
-                
+
                 //We have lost focus for a short time
 
                 // Restart if playing
@@ -945,7 +968,7 @@ public class MediaPlayerService : Service,
             WeakReferenceMessenger.Default.Send(new ExternalMediaButtonPressed(ExternalMediaButton.Forward));
             base.OnFastForward();
         }
-        
+
         public override void OnSkipToPrevious()
         {
             WeakReferenceMessenger.Default.Send(new ExternalMediaButtonPressed(ExternalMediaButton.Previous));
@@ -987,3 +1010,44 @@ public class MediaPlayerServiceBinder : Binder
         return service;
     }
 }
+
+#if USE_CONNECTION_ALIVE_CHECKER
+
+class ConnectionAliveChecker
+{
+    private ILogger Logger { get; }
+    public ConnectionAliveChecker(IServiceProvider serviceProvider)
+    {
+        Logger = serviceProvider.GetRequiredService<ILogger<ConnectionAliveChecker>>();
+    }
+
+    public async void RunCheck()
+    {
+        // Infinite loop. Check if vecka.nu is accessible every 10 second
+        while (true)
+        {
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    var response = await client.GetAsync("https://vecka.nu");
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Logger.LogWarning("ConnectionAliveChecker is alive");
+                    }
+                    else
+                    {
+                        Logger.LogError("ConnectionAliveChecker is not alive");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex, "ConnectionAliveChecker is not alive");
+            }
+            await Task.Delay(10000);
+        }
+    }
+}
+
+#endif

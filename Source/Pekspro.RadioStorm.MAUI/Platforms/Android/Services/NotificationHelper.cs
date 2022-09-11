@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Android.Graphics;
 using Android.Media;
 using Android.OS;
@@ -68,7 +69,8 @@ public static class NotificationHelper
         AndroidMedia.Session.MediaSession mediaSession,
         Bitmap largeIcon,
         bool isPlaying,
-        PlayList playList)
+        PlayList playList,
+        Service service)
     {
         var pendingIntent = PendingIntent.GetActivity(
             context,
@@ -125,9 +127,17 @@ public static class NotificationHelper
             
             style.SetShowActionsInCompactView(showOffset + 0, showOffset + 1, showOffset + 2);
         }
-        
 
-        NotificationManagerCompat.From(context).Notify(NotificationId, builder.Build());
+        if (Build.VERSION.SdkInt >= BuildVersionCodes.Q)
+        {
+            service.StartForeground(NotificationId, builder.Build(), ForegroundService.TypeMediaPlayback);
+        }
+        else
+        {
+            service.StartForeground(NotificationId, builder.Build());
+        }
+        
+        //NotificationManagerCompat.From(context).Notify(NotificationId, builder.Build());
     }
 
     private static void AddPlayPauseActionCompat(
