@@ -40,4 +40,11 @@ public partial class ProgramsPage : ContentPage
     {
         SwipeHelper.SwipeEnded(sender);
     }
+
+    protected override bool OnBackButtonPressed()
+    {
+        ((AppShell)Shell.Current).GoToFavorites();
+
+        return true;
+    }
 }

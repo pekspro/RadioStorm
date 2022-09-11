@@ -23,9 +23,23 @@
         <CollectionView ItemsSource="{Binding LogLines}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="vm:LogLine">
-                    <VerticalStackLayout HeightRequest="42" Padding="{OnPlatform 0, WinUI='8,6,16,6', Android='16,6,16,6'}">
+                    <VerticalStackLayout Padding="{OnPlatform Default=0, WinUI='8,6,16,6', Android='16,2,16,2'}">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup Name="xListenState">
+                                <VisualState Name="Information">
+                                    <VisualState.StateTriggers>
+                                        <CompareStateTrigger Property="{Binding Level}" Value="Information" />
+                                    </VisualState.StateTriggers>
+                                    <VisualState.Setters>
+                                        <Setter Property="Label.TextColor" 
+                                                Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"
+                                                TargetName="LabelDateTimeCategoryLevel" />
+
+                                        <Setter Property="Label.TextColor" 
+                                                Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"
+                                                TargetName="LabelMessage" />
+                                    </VisualState.Setters>
+                                </VisualState>
                                 <VisualState Name="Warning">
                                     <VisualState.StateTriggers>
                                         <CompareStateTrigger Property="{Binding Level}" Value="Warning" />
@@ -33,11 +47,11 @@
                                     <VisualState.Setters>
                                         <Setter Property="Label.TextColor" 
                                                 Value="{AppThemeBinding Light={StaticResource WarningColorLight}, Dark={StaticResource WarningColorDark}}"
-                                                TargetName="LabelCategoryLevel" />
+                                                TargetName="LabelDateTimeCategoryLevel" />
 
                                         <Setter Property="Label.TextColor" 
                                                 Value="{AppThemeBinding Light={StaticResource WarningColorLight}, Dark={StaticResource WarningColorDark}}"
-                                                TargetName="LabelDateTimeMessage" />
+                                                TargetName="LabelMessage" />
                                     </VisualState.Setters>
                                 </VisualState>
                                 <VisualState Name="Eror">
@@ -47,11 +61,11 @@
                                     <VisualState.Setters>
                                         <Setter Property="Label.TextColor" 
                                                 Value="{AppThemeBinding Light={StaticResource ErrorColorLight}, Dark={StaticResource ErrorColorDark}}"
-                                                TargetName="LabelCategoryLevel" />
+                                                TargetName="LabelDateTimeCategoryLevel" />
 
                                         <Setter Property="Label.TextColor" 
                                                 Value="{AppThemeBinding Light={StaticResource ErrorColorLight}, Dark={StaticResource ErrorColorDark}}"
-                                                TargetName="LabelDateTimeMessage" />                                    </VisualState.Setters>
+                                                TargetName="LabelMessage" />                                    </VisualState.Setters>
                                 </VisualState>
                                 <VisualState Name="Critical">
                                     <VisualState.StateTriggers>
@@ -60,37 +74,36 @@
                                     <VisualState.Setters>
                                         <Setter Property="Label.TextColor" 
                                                 Value="{AppThemeBinding Light={StaticResource ErrorColorLight}, Dark={StaticResource ErrorColorDark}}"
-                                                TargetName="LabelCategoryLevel" />
+                                                TargetName="LabelDateTimeCategoryLevel" />
 
                                         <Setter Property="Label.TextColor" 
                                                 Value="{AppThemeBinding Light={StaticResource ErrorColorLight}, Dark={StaticResource ErrorColorDark}}"
-                                                TargetName="LabelDateTimeMessage" />
+                                                TargetName="LabelMessage" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
 
-                        <Label x:Name="LabelCategoryLevel"
+                        <Label x:Name="LabelDateTimeCategoryLevel"
                                Style="{StaticResource DetailedTextStyle}"
 		                       LineBreakMode="TailTruncation"
                                MaxLines="1"
                                >
                             <Label.Text>
-                                <MultiBinding StringFormat="{}{0}, {1}">
+                                <MultiBinding StringFormat="{}{0} {1}, {2}">
+                                    <Binding Path="DateTime" />
                                     <Binding Path="Category" />
                                     <Binding Path="Level" />
                                 </MultiBinding>
                             </Label.Text>
                         </Label>
 
-                        <Label x:Name="LabelDateTimeMessage"
+                        <Label x:Name="LabelMessage"
                                Style="{StaticResource ListNormalTextStyle}"
-		                       LineBreakMode="TailTruncation"
-                               MaxLines="1"
+		                       MaxLines="2"
                                >
                             <Label.Text>
-                                <MultiBinding StringFormat="{}{0} {1}">
-                                    <Binding Path="DateTime" />
+                                <MultiBinding StringFormat="{}{0}">
                                     <Binding Path="Message" />
                                 </MultiBinding>
                             </Label.Text>

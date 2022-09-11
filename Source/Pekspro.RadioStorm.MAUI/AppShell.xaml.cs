@@ -27,4 +27,10 @@ public partial class AppShell : Shell
             await Current.GoToAsync($"//{selectedRoute}");
         }
     }
+
+    public void GoToFavorites()
+    {
+        SelectedRoute = "favorites";
+        _ = Current.GoToAsync($"//favorites");
+    }
 }

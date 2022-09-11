@@ -47,4 +47,11 @@ public partial class ChannelsPage : ContentPage
     {
         SwipeHelper.SwipeEnded(sender);
     }
+
+    protected override bool OnBackButtonPressed()
+    {
+        ((AppShell)Shell.Current).GoToFavorites();
+
+        return true;
+    }
 }

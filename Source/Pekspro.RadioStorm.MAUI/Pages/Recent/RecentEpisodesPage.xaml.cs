@@ -30,4 +30,11 @@ public partial class RecentEpisodesPage : ContentPage
             });
         }
     }
+
+    protected override bool OnBackButtonPressed()
+    {
+        ((AppShell)Shell.Current).GoToFavorites();
+
+        return true;
+    }
 }
