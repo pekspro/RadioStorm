@@ -185,8 +185,11 @@ internal class DownloadFetcher : IDownloadFetcher
 
                 }
 
-                activeDownload.Download.Status = DownloadDataStatus.Error;
-                Messenger.Send(new DownloadUpdated(activeDownload.Download));
+                if (!activeDownload.CancellationTokenSource.IsCancellationRequested)
+                {
+                    activeDownload.Download.Status = DownloadDataStatus.Error;
+                    Messenger.Send(new DownloadUpdated(activeDownload.Download));
+                }
             }
         
             CompletedDownload(activeDownload);

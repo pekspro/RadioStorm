@@ -194,13 +194,15 @@ internal class DownloadManager : IDownloadManager
                     {
                         Logger.LogError(e, "Could not delete file.");
                     }
+                
+                    Messenger.Send(new DownloadDeleted(downloadData));
                 }
                 else
                 {
+                    // Stop download. Fetcher will send DownloadDeleted message.
                     DownloadFetcher.StopDownload(downloadData);
                 }
 
-                Messenger.Send(new DownloadDeleted(downloadData));
             }
         }
         finally
