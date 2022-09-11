@@ -75,14 +75,14 @@
                 </Grid.RowDefinitions>
 
                 <Label Text="{x:Static r:Strings.Settings_Debug_LogFiles_Title}" 
-                               Margin="{OnPlatform 0, WinUI='0,7,8,7', Android='0,10,8,0'}"
+                               Margin="{OnPlatform WinUI='0,7,8,7', Default='0,10,8,0'}"
                                Grid.Column="0" />
 
                 <Picker 
                             Grid.Column="1"
                             ItemsSource="{Binding LogFilesNameOnly}"
                             SelectedIndex="{Binding SelectedLogFileIndex, Mode=TwoWay}"
-                            Margin="{OnPlatform 0, WinUI='0,0,0,12'}"
+                            Margin="{OnPlatform Default='0', WinUI='0,0,0,12'}"
                             />
 
                 <Button Text="{x:Static r:Strings.Settings_Debug_LogFiles_Open}"

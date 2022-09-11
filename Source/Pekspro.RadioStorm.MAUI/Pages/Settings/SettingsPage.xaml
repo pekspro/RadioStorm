@@ -29,7 +29,7 @@
 
             <Picker ItemsSource="{Binding ThemeTypes}"
                     SelectedIndex="{Binding ThemeIndex, Mode=TwoWay}"
-                    Margin="{OnPlatform 0, WinUI='0,0,0,12'}"
+                    Margin="{OnPlatform Default='0', WinUI='0,0,0,12'}"
                     />
 
             <Rectangle Style="{StaticResource Separator}" />

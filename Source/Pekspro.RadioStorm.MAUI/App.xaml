@@ -54,7 +54,7 @@
 
             <Style x:Key="ListItem" TargetType="Grid">
                 <Setter Property="HeightRequest" Value="84" />
-                <Setter Property="Padding" Value="{OnPlatform 0, WinUI='8,6,16,6', Android='16,6,16,6'}" />
+                <Setter Property="Padding" Value="{OnPlatform WinUI='8,6,16,6', Default='16,6,16,6'}" />
                 <Setter Property="Margin" Value="0,0" />
                 <Setter Property="ColumnDefinitions" Value="Auto, *, Auto" />
                 <Setter Property="RowDefinitions" Value="28, 44" />

@@ -108,7 +108,7 @@
               x:Name="GridLayout" 
               BackgroundColor="{AppThemeBinding Dark={StaticResource PanelBackgroundDark}, Light={StaticResource PanelBackgroundLight}}"
               IsVisible="{Binding HasData}"
-              Padding="{StaticResource NormalPageMargin}"
+              Margin="{OnPlatform WinUI='8,8,0,8', Default='20,20,0,20'}"
               RowDefinitions="68,32,Auto" 
               ColumnDefinitions="Auto,*" 
               HorizontalOptions="FillAndExpand"
@@ -151,14 +151,15 @@
             </Image>
 
             <ScrollView x:Name="DescriptionPanel"
-                        Margin="8,0,0,0"
                         Grid.Column="1"
                         Grid.Row="0"
                         Grid.RowSpan="1"
                         MaximumHeightRequest="100"
                         >
                 <VerticalStackLayout>
-                    <Label Text="{Binding ProgramData.Description, Mode=OneWay}" />
+                    <Label Text="{Binding ProgramData.Description, Mode=OneWay}"
+                           Margin="{OnPlatform WinUI='8,0,8,0', Default='20,0,20,0'}"
+                        />
                 </VerticalStackLayout>
             </ScrollView>
 
