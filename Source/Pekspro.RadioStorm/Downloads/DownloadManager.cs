@@ -64,7 +64,7 @@ internal class DownloadManager : IDownloadManager
                     // Get file size
                     var fileInfo = new FileInfo(filename);
 
-                    DownloadDatas.Add(new Download(filename, programId, episodeId, false)
+                    DownloadDatas.Add(new Download(filename, programId, episodeId, false, null, null)
                     {
                         Status = DownloadDataStatus.Done,
                         BytesDownloaded = (ulong) fileInfo.Length,
@@ -117,7 +117,15 @@ internal class DownloadManager : IDownloadManager
         return DownloadDatas.ToList();
     }
 
-    public async void StartDownload(int programId, int episodeId, string url, bool startedByUser)
+    public List<Download> GetActiveUserDownloads()
+    {
+        return DownloadDatas
+                    .Where(a => a.StartedByUser == true)
+                    .Where(a => a.Status is DownloadDataStatus.Starting or DownloadDataStatus.Downloading or DownloadDataStatus.Paused)
+                    .ToList();
+    }
+
+    public async void StartDownload(int programId, int episodeId, string url, bool startedByUser, string? programName, string? episodeTitle)
     {
         if (!await Semaphore.WaitAsync(TimeSpan.FromSeconds(SemaphoreTimeout)).ConfigureAwait(false))
         {
@@ -139,7 +147,7 @@ internal class DownloadManager : IDownloadManager
             {
                 newDownload = true;
                 string filename = Path.Combine(DownloadsFolderPath, GetFileName(programId, episodeId));
-                downloadData = new Download(filename, programId, episodeId, startedByUser);
+                downloadData = new Download(filename, programId, episodeId, startedByUser, programName, episodeTitle);
                 DownloadDatas.Add(downloadData);
             }
 

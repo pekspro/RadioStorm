@@ -2,12 +2,14 @@
 
 public class Download
 {
-    public Download(string filename, int programId, int episodeId, bool startedByUser)
+    public Download(string filename, int programId, int episodeId, bool startedByUser, string? programName, string? episodeTitle)
     {
         Filename = filename;
         ProgramId = programId;
         EpisodeId = episodeId;
         StartedByUser = startedByUser;
+        ProgramName = programName;
+        EpisodeTitle = episodeTitle;
     }
 
     public int ProgramId { get; }
@@ -15,6 +17,10 @@ public class Download
     public int EpisodeId { get; }
     
     public bool StartedByUser { get; }
+    
+    public string? ProgramName { get; }
+    
+    public string? EpisodeTitle { get; }
     
     public string Filename { get; }
 

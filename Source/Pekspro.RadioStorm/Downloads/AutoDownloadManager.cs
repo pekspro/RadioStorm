@@ -120,7 +120,7 @@ internal class AutoDownloadManager : IAutoDownloadManager
                 {
                     Logger.LogInformation($"Will request to download: {episode.ProgramId} {episode.PublishDate.ToLocalTime().ToString("yyyy-MM-dd")} {episode.Title} ({episode.ProgramName}) {urlToDownload}");
 
-                    DownloadManager.StartDownload(programId, episode.EpisodeId, urlToDownload, false);
+                    DownloadManager.StartDownload(programId, episode.EpisodeId, urlToDownload, false, null, null);
 
                     if (latestDownloadState is not null)
                     {

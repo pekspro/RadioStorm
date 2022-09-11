@@ -189,6 +189,18 @@
   <data name="DownloadControl_SomethingWentWrong" xml:space="preserve">
     <value>Hoppsan! Något gick fel :-(</value>
   </data>
+  <data name="DownloadsNotification_Description_InQueue" xml:space="preserve">
+    <value>i kö</value>
+  </data>
+  <data name="DownloadsNotification_Description_MultipleLeft" xml:space="preserve">
+    <value>{0} nedladdning kvar...</value>
+  </data>
+  <data name="DownloadsNotification_Description_SingleLeft" xml:space="preserve">
+    <value>En nedladdning kvar...</value>
+  </data>
+  <data name="DownloadsNotification_Title" xml:space="preserve">
+    <value>Laddar ned avsnitt</value>
+  </data>
   <data name="DownloadStatus_Completed" xml:space="preserve">
     <value>Hämtad ({0:F1} MB)</value>
   </data>

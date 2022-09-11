@@ -331,6 +331,42 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to i kö.
+        /// </summary>
+        public static string DownloadsNotification_Description_InQueue {
+            get {
+                return ResourceManager.GetString("DownloadsNotification_Description_InQueue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} nedladdning kvar....
+        /// </summary>
+        public static string DownloadsNotification_Description_MultipleLeft {
+            get {
+                return ResourceManager.GetString("DownloadsNotification_Description_MultipleLeft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to En nedladdning kvar....
+        /// </summary>
+        public static string DownloadsNotification_Description_SingleLeft {
+            get {
+                return ResourceManager.GetString("DownloadsNotification_Description_SingleLeft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Laddar ned avsnitt.
+        /// </summary>
+        public static string DownloadsNotification_Title {
+            get {
+                return ResourceManager.GetString("DownloadsNotification_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hämtad ({0:F1} MB).
         /// </summary>
         public static string DownloadStatus_Completed {
