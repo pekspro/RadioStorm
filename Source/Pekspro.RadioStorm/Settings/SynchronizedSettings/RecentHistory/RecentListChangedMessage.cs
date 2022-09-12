@@ -1,3 +1,3 @@
 ﻿namespace Pekspro.RadioStorm.Settings.SynchronizedSettings.RecentHistory;
 
-public record RecentListChangedMessage(int? Id, bool IsAdded);
+public sealed record RecentListChangedMessage(int? Id, bool IsAdded);

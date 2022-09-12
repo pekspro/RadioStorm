@@ -1,3 +1,3 @@
 ﻿namespace Pekspro.RadioStorm.Downloads;
 
-public record DownloadDeleted(Download Download);
+public sealed record DownloadDeleted(Download Download);

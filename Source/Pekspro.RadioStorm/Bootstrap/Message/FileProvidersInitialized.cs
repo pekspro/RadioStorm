@@ -1,3 +1,3 @@
 ﻿namespace Pekspro.RadioStorm.Bootstrap.Message;
 
-public record FileProvidersInitialized();
+public sealed record FileProvidersInitialized();

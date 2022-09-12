@@ -1,3 +1,3 @@
 ﻿namespace Pekspro.RadioStorm.Settings.SynchronizedSettings;
 
-public record ProviderStateChangedEventArgs(ProviderState OldState, ProviderState NewState);
+public sealed record ProviderStateChangedEventArgs(ProviderState OldState, ProviderState NewState);

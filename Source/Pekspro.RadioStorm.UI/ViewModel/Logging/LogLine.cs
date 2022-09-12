@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.UI.ViewModel.Logging;
 
-public record LogLine
+public sealed record LogLine
     (
         string DateTime,
         string Category,

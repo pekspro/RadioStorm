@@ -6,7 +6,7 @@ internal class DownloadFetcher : IDownloadFetcher
     public IDateTimeProvider DateTimeProvider { get; }
     public ILogger Logger { get; }
 
-    private record ActiveDownload(string Url, Download Download, CancellationTokenSource CancellationTokenSource);
+    private sealed record ActiveDownload(string Url, Download Download, CancellationTokenSource CancellationTokenSource);
 
     private List<ActiveDownload> ActiveDownloads { get; } = new();
 

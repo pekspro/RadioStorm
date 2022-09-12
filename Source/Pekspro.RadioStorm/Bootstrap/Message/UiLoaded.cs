@@ -1,4 +1,4 @@
 ﻿namespace Pekspro.RadioStorm.Bootstrap.Message;
 
-public record UiLoaded();
+public sealed record UiLoaded();
 

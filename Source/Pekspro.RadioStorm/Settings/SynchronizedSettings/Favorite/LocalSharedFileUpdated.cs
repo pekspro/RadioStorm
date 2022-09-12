@@ -1,3 +1,3 @@
 ﻿namespace Pekspro.RadioStorm.Settings.SynchronizedSettings.Favorite;
 
-record LocalSharedFileUpdated(string Filename);
+sealed record LocalSharedFileUpdated(string Filename);

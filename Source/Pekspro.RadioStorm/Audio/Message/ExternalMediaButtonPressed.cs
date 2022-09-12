@@ -11,4 +11,4 @@ public enum ExternalMediaButton
     Previous
 }
 
-public record ExternalMediaButtonPressed(ExternalMediaButton Button);
+public sealed record ExternalMediaButtonPressed(ExternalMediaButton Button);

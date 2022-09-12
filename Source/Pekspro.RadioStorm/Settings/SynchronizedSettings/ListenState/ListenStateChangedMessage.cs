@@ -1,4 +1,4 @@
 ﻿namespace Pekspro.RadioStorm.Settings.SynchronizedSettings.ListenState;
 
-public record ListenStateChangedMessage(int? EpisodeId, bool IsListened);
+public sealed record ListenStateChangedMessage(int? EpisodeId, bool IsListened);
 

@@ -1,3 +1,3 @@
 ﻿namespace Pekspro.RadioStorm.Settings.SynchronizedSettings;
 
-public record SynchronizingStateChanged(bool IsSynchronizing);
+public sealed record SynchronizingStateChanged(bool IsSynchronizing);

@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.UI.ViewModel.Settings;
 
-public record AutoRemovedDownloadFileDescription(int DayCount)
+public sealed record AutoRemovedDownloadFileDescription(int DayCount)
 {
     public override string ToString()
     {

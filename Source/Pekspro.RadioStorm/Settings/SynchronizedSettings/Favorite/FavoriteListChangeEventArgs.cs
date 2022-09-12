@@ -1,7 +1,7 @@
 ﻿namespace Pekspro.RadioStorm.Settings.SynchronizedSettings.Favorite;
 
-public record ChannelFavoriteChangedMessage(int? Id = null, bool IsAdded = false);
+public sealed record ChannelFavoriteChangedMessage(int? Id = null, bool IsAdded = false);
 
-public record ProgramFavoriteChangedMessage(int? Id = null, bool IsAdded = false);
+public sealed record ProgramFavoriteChangedMessage(int? Id = null, bool IsAdded = false);
 
-public record EpisodeSortOrderChangedMessage(int? Id = null, bool IsAdded = false);
+public sealed record EpisodeSortOrderChangedMessage(int? Id = null, bool IsAdded = false);
