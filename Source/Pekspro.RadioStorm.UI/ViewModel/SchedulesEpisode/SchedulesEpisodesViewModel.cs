@@ -132,7 +132,7 @@ public partial class SchedulesEpisodesViewModel : DownloadViewModel, IDisposable
 
     private bool disposedValue;
 
-    protected virtual void Dispose(bool disposing)
+    private void Dispose(bool disposing)
     {
         if (!disposedValue)
         {

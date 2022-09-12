@@ -90,7 +90,7 @@ public class MainThreadTimer : IMainThreadTimer
         Timer.Stop();
     }
 
-    protected virtual void Dispose(bool disposing)
+    private void Dispose(bool disposing)
     {
         if (!disposedValue)
         {

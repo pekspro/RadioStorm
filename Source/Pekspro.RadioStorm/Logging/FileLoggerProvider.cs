@@ -88,7 +88,7 @@ public class FileLoggerProvider : ILoggerProvider
         }
     }
 
-    protected virtual void Dispose(bool disposing)
+    private void Dispose(bool disposing)
     {
         if (!disposedValue)
         {

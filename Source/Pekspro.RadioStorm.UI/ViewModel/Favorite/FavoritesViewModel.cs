@@ -765,7 +765,7 @@ public partial class FavoritesViewModel : ListViewModel<FavoriteBaseModel>, IDis
 
     private bool disposedValue;
 
-    protected virtual void Dispose(bool disposing)
+    private void Dispose(bool disposing)
     {
         if (!disposedValue)
         {

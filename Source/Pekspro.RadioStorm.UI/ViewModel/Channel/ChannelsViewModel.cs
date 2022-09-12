@@ -294,7 +294,7 @@ public class ChannelsViewModel : ListViewModel<ChannelModel>, ISearch, IDisposab
 
     private bool disposedValue;
 
-    protected virtual void Dispose(bool disposing)
+    private void Dispose(bool disposing)
     {
         if (!disposedValue)
         {
