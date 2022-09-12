@@ -32,7 +32,7 @@ public class MainActivity : MauiAppCompatActivity
 
         GraphHelper.AuthUIParent = this;
 
-        await MauiProgram.SetupAsync();
+        // await MauiProgram.SetupAsync();
 
         #region Scheduler
 

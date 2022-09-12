@@ -35,7 +35,7 @@ internal class BootstrapState : IBootstrapState
         {
             if (!value || _BootstrapCompleted)
             {
-                Logger.LogError($"Connot set {nameof(BootstrapCompleted)} to {value}.");
+                Logger.LogError($"Cannot set {nameof(BootstrapCompleted)} to {value}. Current value: {_BootstrapCompleted}.");
                 return;
             }
             else
@@ -62,7 +62,7 @@ internal class BootstrapState : IBootstrapState
         {
             if (!value || _FileProvidersInitialized)
             {
-                Logger.LogError($"Connot set {nameof(FileProvidersInitialized)} to {value}.");
+                Logger.LogError($"Cannot set {nameof(FileProvidersInitialized)} to {value}.");
                 return;
             }
             else
