@@ -14,5 +14,5 @@ public partial class DownloadSettingsControl
         }
     }
     
-    protected DownloadSettingsViewModel ViewModel => (DownloadSettingsViewModel)BindingContext;
+    private DownloadSettingsViewModel ViewModel => (DownloadSettingsViewModel)BindingContext;
 }

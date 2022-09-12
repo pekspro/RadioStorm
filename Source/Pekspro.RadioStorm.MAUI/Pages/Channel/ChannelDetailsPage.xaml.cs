@@ -14,7 +14,7 @@ public partial class ChannelDetailsPage : ContentPage
         BindingContext = viewModel;
     }
 
-    protected ChannelDetailsViewModel ViewModel => (ChannelDetailsViewModel) BindingContext;
+    private ChannelDetailsViewModel ViewModel => (ChannelDetailsViewModel) BindingContext;
 
     protected override void OnAppearing()
     {

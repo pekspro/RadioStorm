@@ -18,5 +18,5 @@ public partial class CurrentPlayingControl
         }
     }
 
-    protected CurrentPlayingViewModel ViewModel => (CurrentPlayingViewModel) BindingContext;
+    private CurrentPlayingViewModel ViewModel => (CurrentPlayingViewModel) BindingContext;
 }

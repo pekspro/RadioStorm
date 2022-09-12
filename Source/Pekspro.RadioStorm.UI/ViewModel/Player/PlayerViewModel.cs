@@ -214,19 +214,19 @@ public partial class PlayerViewModel : ObservableObject
     #region Commands
 
     [RelayCommand(CanExecute = nameof(CanPlay))]
-    protected void Play()
+    public void Play()
     {
         AudioManager.Play();
     }
 
     [RelayCommand(CanExecute = nameof(CanPause))]
-    protected void Pause()
+    public void Pause()
     {
         AudioManager.Pause();
     }
 
     [RelayCommand(CanExecute = nameof(CanPlayPause))]
-    private void PlayPause()
+    public void PlayPause()
     {
         if (CanPause)
         {
@@ -239,27 +239,27 @@ public partial class PlayerViewModel : ObservableObject
     }
 
     [RelayCommand]
-    protected void Rewind()
+    public void Rewind()
     {
         AudioManager.Move(SeekSizeViewModel.RewindSize);
         SeekSizeViewModel.Decrease();
     }
 
     [RelayCommand]
-    protected void Forward()
+    public void Forward()
     {
         AudioManager.Move(SeekSizeViewModel.ForwardSize);
         SeekSizeViewModel.Increase();
     }
 
     [RelayCommand(CanExecute = nameof(CanGoToNext))]
-    protected void GoToNext()
+    public void GoToNext()
     {
         AudioManager.GoToNext();
     }
 
     [RelayCommand(CanExecute = nameof(CanGoToPrevious))]
-    protected virtual void GoToPrevious()
+    public void GoToPrevious()
     {
         AudioManager.GoToPrevious();
     }

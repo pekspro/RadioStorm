@@ -33,7 +33,7 @@ public partial class DebugSettingsControl : ContentView
         }
     }
 
-    protected DebugSettingsViewModel ViewModel => (DebugSettingsViewModel)BindingContext;
+    private DebugSettingsViewModel ViewModel => (DebugSettingsViewModel)BindingContext;
 
     public void OnNavigatedTo()
     {

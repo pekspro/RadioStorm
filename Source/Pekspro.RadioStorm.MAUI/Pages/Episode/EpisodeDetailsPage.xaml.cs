@@ -14,7 +14,7 @@ public partial class EpisodeDetailsPage : ContentPage
         BindingContext = viewModel;
     }
 
-    protected EpisodeDetailsViewModel ViewModel => (EpisodeDetailsViewModel) BindingContext;
+    private EpisodeDetailsViewModel ViewModel => (EpisodeDetailsViewModel) BindingContext;
 
     protected override void OnAppearing()
     {
@@ -35,7 +35,7 @@ public partial class EpisodeDetailsPage : ContentPage
         await Shell.Current.GoToAsync(nameof(PlaylistPage));
     }
 
-    protected async void ButtonShowNextEpisode_Click(object sender, EventArgs args)
+    private async void ButtonShowNextEpisode_Click(object sender, EventArgs args)
     {
         if (ViewModel.NextEpisodeData is not null)
         {
@@ -53,7 +53,7 @@ public partial class EpisodeDetailsPage : ContentPage
         }
     }
 
-    protected async void ButtonShowPreviousEpisode_Click(object sender, EventArgs args)
+    private async void ButtonShowPreviousEpisode_Click(object sender, EventArgs args)
     {
         if (ViewModel.PreviousEpisodeData is not null)
         {
@@ -71,7 +71,7 @@ public partial class EpisodeDetailsPage : ContentPage
         }
     }
 
-    protected async void ButtonShowMoreEpisodes_Click(object sender, EventArgs args)
+    private async void ButtonShowMoreEpisodes_Click(object sender, EventArgs args)
     {
         if (ViewModel.EpisodeData?.ProgramId is not null)
         {
