@@ -109,7 +109,7 @@
               BackgroundColor="{AppThemeBinding Dark={StaticResource PanelBackgroundDark}, Light={StaticResource PanelBackgroundLight}}"
               IsVisible="{Binding HasData}"
               Margin="{OnPlatform WinUI='8,8,0,8', Default='20,20,0,20'}"
-              RowDefinitions="68,32,Auto" 
+              RowDefinitions="64,36,Auto" 
               ColumnDefinitions="Auto,*" 
               HorizontalOptions="FillAndExpand"
               >
