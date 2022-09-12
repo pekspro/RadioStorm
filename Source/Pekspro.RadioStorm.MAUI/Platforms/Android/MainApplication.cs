@@ -113,7 +113,7 @@ public class MainApplication : MauiApplication
     {
         if (DownloadServiceBinder is not null)
         {
-            Logger.LogInformation("Download service allready started");
+            Logger.LogDebug("Download service already started.");
             return;
         }
         
@@ -134,7 +134,7 @@ public class MainApplication : MauiApplication
     {
         if (DownloadServiceBinder is null)
         {
-            Logger.LogInformation("Download service is not running");
+            Logger.LogDebug("Download service is not running.");
             return;
         }
 
