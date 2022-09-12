@@ -46,7 +46,7 @@
 
         <Image WidthRequest="{StaticResource HeaderFavoriteStarSize}"
                HeightRequest="{StaticResource HeaderFavoriteStarSize}"
-               Margin="{OnPlatform WinUI='0,0,4,8', Default='0,0,4,10'}" 
+               Margin="{OnPlatform WinUI='0,8,4,8', Default='0,10,4,10'}" 
                IsVisible="{Binding IsFavorite, Mode=OneWay}"
                >
             <Image.Source>
