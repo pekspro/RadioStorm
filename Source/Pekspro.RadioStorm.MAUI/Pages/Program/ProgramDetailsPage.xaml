@@ -108,7 +108,7 @@
               x:Name="GridLayout" 
               BackgroundColor="{AppThemeBinding Dark={StaticResource PanelBackgroundDark}, Light={StaticResource PanelBackgroundLight}}"
               IsVisible="{Binding HasData}"
-              Margin="{OnPlatform WinUI='8,8,0,8', Default='20,20,0,20'}"
+              Padding="{OnPlatform WinUI='8,8,0,8', Default='20,10,0,10'}"
               RowDefinitions="64,36,Auto" 
               ColumnDefinitions="Auto,*" 
               HorizontalOptions="FillAndExpand"
@@ -175,12 +175,15 @@
                                 Command="{Binding EpisodesViewModel.AutoCreatePlayListCommand}"
                                 />
 
-                <Button Style="{StaticResource HyperlinkButton}"
-                                IsVisible="{Binding EpisodesViewModel.FirstNotListenedEpisodePosition, Converter={StaticResource NullToIsVisibleConverter}}"
-                                Text="{x:Static r:Strings.Episodes_ShowNotPlayedEpisode}"
-                                x:Name="ButtonScrollToFirstNotListened"
-                                Clicked="ButtonScrollToFirstNotListened_Clicked"
-                                />
+                <HorizontalStackLayout IsVisible="{OnPlatform Default=true, Android=false}">
+                    <!-- This feature doesn't work well on Android. -->
+                    <Button Style="{StaticResource HyperlinkButton}"
+                                    IsVisible="{Binding EpisodesViewModel.FirstNotListenedEpisodePosition, Converter={StaticResource NullToIsVisibleConverter}}"
+                                    Text="{x:Static r:Strings.Episodes_ShowNotPlayedEpisode}"
+                                    x:Name="ButtonScrollToFirstNotListened"
+                                    Clicked="ButtonScrollToFirstNotListened_Clicked"
+                                    />
+                </HorizontalStackLayout>
             </HorizontalStackLayout>
 
             <!--<HorizontalStackLayout 
