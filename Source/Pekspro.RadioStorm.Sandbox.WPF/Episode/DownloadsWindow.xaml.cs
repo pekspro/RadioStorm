@@ -12,7 +12,7 @@ public partial class DownloadsWindow : Window
         ServiceProvider = serviceProvider;
     }
 
-    protected DownloadsViewModel ViewModel => (DownloadsViewModel)DataContext;
+    private DownloadsViewModel ViewModel => (DownloadsViewModel)DataContext;
 
     public IServiceProvider ServiceProvider { get; }
 

@@ -9,7 +9,7 @@ public partial class PlaylistPage : ContentPage
         BindingContext = viewModel;
     }
 
-    protected PlaylistViewModel ViewModel => (PlaylistViewModel)BindingContext;
+    private PlaylistViewModel ViewModel => (PlaylistViewModel)BindingContext;
 
     protected override void OnAppearing()
     {

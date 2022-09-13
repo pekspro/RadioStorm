@@ -18,7 +18,7 @@ public partial class FavoritesWindow : Window
 
     public IServiceProvider ServiceProvider { get; }
 
-    protected FavoritesViewModel ViewModel => (FavoritesViewModel) DataContext;
+    private FavoritesViewModel ViewModel => (FavoritesViewModel) DataContext;
 
     protected override void OnActivated(EventArgs e)
     {

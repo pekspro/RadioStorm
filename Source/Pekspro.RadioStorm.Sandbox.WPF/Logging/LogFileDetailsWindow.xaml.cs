@@ -12,7 +12,7 @@ public partial class LogFileDetailsWindow : Window
         ServiceProvider = serviceProvider;
     }
 
-    protected LogFileDetailsViewModel ViewModel => (LogFileDetailsViewModel)DataContext;
+    private LogFileDetailsViewModel ViewModel => (LogFileDetailsViewModel)DataContext;
 
     public string StartParameter { get; set; }
     public IServiceProvider ServiceProvider { get; }

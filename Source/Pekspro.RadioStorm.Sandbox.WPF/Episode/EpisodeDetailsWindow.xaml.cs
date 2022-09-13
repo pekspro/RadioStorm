@@ -12,7 +12,7 @@ public partial class EpisodeDetailsWindow : Window
         ServiceProvider = serviceProvider;
     }
 
-    protected EpisodeDetailsViewModel ViewModel => (EpisodeDetailsViewModel)DataContext;
+    private EpisodeDetailsViewModel ViewModel => (EpisodeDetailsViewModel)DataContext;
 
     public string StartParameter { get; set; }
     public IServiceProvider ServiceProvider { get; }

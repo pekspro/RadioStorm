@@ -14,7 +14,7 @@ public partial class LoggingWindow : Window
 
     public IServiceProvider ServiceProvider { get; }
 
-    protected LoggingViewModel ViewModel => (LoggingViewModel)DataContext;
+    private LoggingViewModel ViewModel => (LoggingViewModel)DataContext;
 
     protected override void OnActivated(EventArgs e)
     {

@@ -14,7 +14,7 @@ public partial class ProgramDetailsWindow : Window
         ServiceProvider = serviceProvider;
     }
 
-    protected ProgramDetailsViewModel ViewModel => (ProgramDetailsViewModel)DataContext;
+    private ProgramDetailsViewModel ViewModel => (ProgramDetailsViewModel)DataContext;
 
     public string StartParameter { get; set; }
     public IServiceProvider ServiceProvider { get; }

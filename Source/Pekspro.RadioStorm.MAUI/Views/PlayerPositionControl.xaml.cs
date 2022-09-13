@@ -28,7 +28,7 @@ public partial class PlayerPositionControl
         }
     }
 
-    protected PlayerViewModel ViewModel => (PlayerViewModel) BindingContext;
+    private PlayerViewModel ViewModel => (PlayerViewModel) BindingContext;
 
     private void SetSliderPosition(TimeSpan position, TimeSpan length)
     {

@@ -14,7 +14,7 @@ public partial class AboutControl : ContentView
         }
     }
 
-    protected AboutViewModel ViewModel => (AboutViewModel) BindingContext;
+    private AboutViewModel ViewModel => (AboutViewModel) BindingContext;
 
     private readonly List<DateTime> TapTimestamps = new();
 

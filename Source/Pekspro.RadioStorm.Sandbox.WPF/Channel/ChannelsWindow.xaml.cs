@@ -12,7 +12,7 @@ public partial class ChannelsWindow : Window
 
     public IServiceProvider ServiceProvider { get; }
 
-    protected ChannelsViewModel ViewModel => (ChannelsViewModel) DataContext;
+    private ChannelsViewModel ViewModel => (ChannelsViewModel) DataContext;
 
     protected override void OnActivated(EventArgs e)
     {

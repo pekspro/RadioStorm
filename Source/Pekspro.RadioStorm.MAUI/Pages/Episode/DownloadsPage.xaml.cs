@@ -9,7 +9,7 @@ public partial class DownloadsPage : ContentPage
         BindingContext = viewModel;
     }
 
-    protected DownloadsViewModel ViewModel => (DownloadsViewModel) BindingContext;
+    private DownloadsViewModel ViewModel => (DownloadsViewModel) BindingContext;
 
     protected override void OnAppearing()
     {

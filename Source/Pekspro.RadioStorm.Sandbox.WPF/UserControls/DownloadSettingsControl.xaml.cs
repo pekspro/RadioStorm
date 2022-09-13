@@ -15,5 +15,5 @@ public partial class DownloadSettingsControl : UserControl
         }
     }
 
-    protected DownloadSettingsViewModel ViewModel => (DownloadSettingsViewModel) DataContext;
+    private DownloadSettingsViewModel ViewModel => (DownloadSettingsViewModel) DataContext;
 }

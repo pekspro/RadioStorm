@@ -12,7 +12,7 @@ public partial class ProgramSettingsPage : ContentPage
         BindingContext = viewModel;
     }
 
-    protected ProgramSettingsViewModel ViewModel => (ProgramSettingsViewModel) BindingContext;
+    private ProgramSettingsViewModel ViewModel => (ProgramSettingsViewModel) BindingContext;
 
     protected override void OnAppearing()
     {

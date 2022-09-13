@@ -9,7 +9,7 @@ public partial class ChannelsPage : ContentPage
         BindingContext = viewModel;
     }
 
-    protected ChannelsViewModel ViewModel => (ChannelsViewModel) BindingContext;
+    private ChannelsViewModel ViewModel => (ChannelsViewModel) BindingContext;
 
     protected override void OnAppearing()
     {

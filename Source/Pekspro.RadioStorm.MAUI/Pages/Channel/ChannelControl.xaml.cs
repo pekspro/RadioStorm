@@ -9,5 +9,5 @@ public partial class ChannelControl
         WidthStateHelper.ConfigureWidthState(this);
     }
 
-    protected ChannelModel ViewModel => (ChannelModel) BindingContext;
+    private ChannelModel ViewModel => (ChannelModel) BindingContext;
 }

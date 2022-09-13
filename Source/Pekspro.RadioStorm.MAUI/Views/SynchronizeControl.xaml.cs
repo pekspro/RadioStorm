@@ -14,5 +14,5 @@ public partial class SynchronizeControl
         }
     }
 
-    protected SynchronizingViewModel ViewModel => (SynchronizingViewModel)BindingContext;
+    private SynchronizingViewModel ViewModel => (SynchronizingViewModel)BindingContext;
 }

@@ -11,7 +11,7 @@ public partial class ChannelDetailsWindow : Window
         DataContext = channelInfoViewModel;
     }
 
-    protected ChannelDetailsViewModel ViewModel => (ChannelDetailsViewModel) DataContext;
+    private ChannelDetailsViewModel ViewModel => (ChannelDetailsViewModel) DataContext;
 
     public string StartParameter { get; set; }
 

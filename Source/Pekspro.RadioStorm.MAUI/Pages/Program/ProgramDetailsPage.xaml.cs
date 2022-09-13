@@ -14,7 +14,7 @@ public partial class ProgramDetailsPage : ContentPage
         BindingContext = viewModel;
     }
 
-    protected ProgramDetailsViewModel ViewModel => (ProgramDetailsViewModel) BindingContext;
+    private ProgramDetailsViewModel ViewModel => (ProgramDetailsViewModel) BindingContext;
 
     protected override void OnAppearing()
     {
