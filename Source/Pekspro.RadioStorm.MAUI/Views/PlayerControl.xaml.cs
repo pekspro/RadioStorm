@@ -14,7 +14,7 @@ public partial class PlayerControl
         }
     }
 
-    protected PlayerViewModel ViewModel => (PlayerViewModel) BindingContext;
+    private PlayerViewModel ViewModel => (PlayerViewModel) BindingContext;
 
     private async void ButtonPlaylist_Clicked(object sender, EventArgs e)
     {

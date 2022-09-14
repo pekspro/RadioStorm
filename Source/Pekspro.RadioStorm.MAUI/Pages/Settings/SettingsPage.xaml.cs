@@ -9,7 +9,7 @@ public partial class SettingsPage : ContentPage
         BindingContext = viewModel;
     }
 
-    protected SettingsViewModel ViewModel => (SettingsViewModel) BindingContext;
+    private SettingsViewModel ViewModel => (SettingsViewModel) BindingContext;
 
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
     {

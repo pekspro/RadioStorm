@@ -6,7 +6,7 @@
              x:DataType="search:SearchItem"
              >
 
-    <Grid Margin="4,0" ColumnDefinitions="Auto, *" RowDefinitions="Auto, *" HeightRequest="56">
+    <Grid Margin="8,4" ColumnDefinitions="Auto, *" RowDefinitions="Auto, *" HeightRequest="60">
         <!--<Image Source="{Binding ImageLink.LowResolution}"
                Grid.RowSpan="2"
                Aspect="AspectFill"
@@ -20,7 +20,7 @@
                Margin="0,2,0,0"
                Text="{Binding Title}"
                Style="{StaticResource ListHeaderTextStyle}"
-               FontSize="{StaticResource FontSizeDetails}"
+               FontSize="14"
                />
         
         <Label Grid.Column="1"
@@ -30,7 +30,7 @@
                Margin="0,2,0,0"
                Text="{Binding Details}"
                Style="{StaticResource ListNormalTextStyle}"
-               FontSize="{StaticResource FontSizeDetails}"
+               FontSize="14"
                />
     </Grid>
 </ContentView>

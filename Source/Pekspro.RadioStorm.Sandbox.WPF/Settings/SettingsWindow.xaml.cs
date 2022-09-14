@@ -19,11 +19,11 @@ public partial class SettingsWindow : Window
         ServiceProvider = serviceProvider;
     }
     
-    protected IServiceProvider ServiceProvider { get; }
+    private IServiceProvider ServiceProvider { get; }
 
-    protected SettingsViewModel ViewModel => (SettingsViewModel)DataContext;
-    
-    protected DebugSettingsViewModel DebugSettingsViewModel => (DebugSettingsViewModel) DebugSettingsPanel.DataContext;
+    private SettingsViewModel ViewModel => (SettingsViewModel)DataContext;
+
+    private DebugSettingsViewModel DebugSettingsViewModel => (DebugSettingsViewModel) DebugSettingsPanel.DataContext;
 
     protected override void OnActivated(EventArgs e)
     {

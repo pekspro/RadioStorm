@@ -14,5 +14,5 @@ public partial class GraphControl
         }
     }
 
-    protected GraphViewModel ViewModel => (GraphViewModel)BindingContext;
+    private GraphViewModel ViewModel => (GraphViewModel)BindingContext;
 }

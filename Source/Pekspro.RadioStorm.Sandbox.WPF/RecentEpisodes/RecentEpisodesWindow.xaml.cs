@@ -12,7 +12,7 @@ public partial class RecentEpisodesWindow : Window
         ServiceProvider = serviceProvider;
     }
 
-    protected RecentEpisodesViewModel ViewModel => (RecentEpisodesViewModel)DataContext;
+    private RecentEpisodesViewModel ViewModel => (RecentEpisodesViewModel)DataContext;
 
     public IServiceProvider ServiceProvider { get; }
 

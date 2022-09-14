@@ -15,5 +15,5 @@ public partial class GraphStateControl : UserControl
         }
     }
 
-    protected GraphViewModel ViewModel => (GraphViewModel)DataContext;
+    private GraphViewModel ViewModel => (GraphViewModel)DataContext;
 }

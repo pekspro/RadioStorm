@@ -9,7 +9,7 @@ public partial class RecentEpisodesPage : ContentPage
         BindingContext = viewModel;
     }
 
-    protected RecentEpisodesViewModel ViewModel => (RecentEpisodesViewModel) BindingContext;
+    private RecentEpisodesViewModel ViewModel => (RecentEpisodesViewModel) BindingContext;
 
     protected override void OnAppearing()
     {

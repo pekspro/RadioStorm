@@ -13,7 +13,7 @@ public partial class FavoritesPage : ContentPage
         ProgressSynchronize.BindingContext = synchronizingViewModel;
     }
 
-    protected FavoritesViewModel ViewModel => (FavoritesViewModel) BindingContext;
+    private FavoritesViewModel ViewModel => (FavoritesViewModel) BindingContext;
 
     public SynchronizingViewModel SynchronizingViewModel { get; }
 

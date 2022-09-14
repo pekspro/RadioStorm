@@ -43,13 +43,13 @@
 					 Margin="8,-4,0,0"
 					 >
             <Label Text="{Binding ChannelData.Title, Mode=OneWay}"
-                   LineBreakMode="HeadTruncation"
+                   LineBreakMode="TailTruncation"
 				   MaxLines="1"
 				   />
 
             <Label Text="{Binding ChannelData.Status.CurrentProgram, Mode=OneWay}"
                    Style="{StaticResource DetailedTextStyle}"
-                   LineBreakMode="HeadTruncation"
+                   LineBreakMode="TailTruncation"
 				   MaxLines="1"
 				   Margin="0"
 				   Opacity="0.8"
@@ -87,13 +87,13 @@
 					Margin="8,-4,0,0"
 					>
             <Label Text="{Binding EpisodeData.Title, Mode=OneWay}"
-                   LineBreakMode="HeadTruncation"
+                   LineBreakMode="TailTruncation"
 				   MaxLines="1"
 				   />
 
             <Label Text="{Binding EpisodeData.ProgramName, Mode=OneWay}"
                    Style="{StaticResource DetailedTextStyle}"
-                   LineBreakMode="HeadTruncation"
+                   LineBreakMode="TailTruncation"
 				   MaxLines="1"
 				   Margin="0"
 				   Opacity="0.8"

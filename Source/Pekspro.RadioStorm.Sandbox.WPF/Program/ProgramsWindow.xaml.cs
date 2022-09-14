@@ -12,7 +12,7 @@ public partial class ProgramsWindow : Window
 
     public IServiceProvider ServiceProvider { get; }
 
-    protected ProgramsViewModel ViewModel => (ProgramsViewModel)DataContext;
+    private ProgramsViewModel ViewModel => (ProgramsViewModel)DataContext;
 
     protected override void OnActivated(EventArgs e)
     {

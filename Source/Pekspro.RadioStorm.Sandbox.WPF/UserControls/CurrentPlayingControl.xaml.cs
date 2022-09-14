@@ -14,5 +14,5 @@ public partial class CurrentPlayingControl : UserControl
         }
     }
 
-    protected CurrentPlayingViewModel ViewModel => (CurrentPlayingViewModel)DataContext;
+    private CurrentPlayingViewModel ViewModel => (CurrentPlayingViewModel)DataContext;
 }

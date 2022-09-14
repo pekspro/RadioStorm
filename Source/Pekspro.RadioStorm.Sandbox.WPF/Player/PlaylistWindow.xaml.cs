@@ -12,7 +12,7 @@ public partial class PlaylistWindow : Window
         ServiceProvider = serviceProvider;
     }
 
-    protected PlaylistViewModel ViewModel => (PlaylistViewModel)DataContext;
+    private PlaylistViewModel ViewModel => (PlaylistViewModel)DataContext;
 
     public IServiceProvider ServiceProvider { get; }
 

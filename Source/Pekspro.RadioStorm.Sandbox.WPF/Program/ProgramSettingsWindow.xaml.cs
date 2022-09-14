@@ -14,7 +14,7 @@ public partial class ProgramSettingsWindow : Window
         DataContext = programSettingsViewModel;
     }
 
-    protected ProgramSettingsViewModel ViewModel => (ProgramSettingsViewModel)DataContext;
+    private ProgramSettingsViewModel ViewModel => (ProgramSettingsViewModel)DataContext;
 
     public string StartParameter { get; set; }
 

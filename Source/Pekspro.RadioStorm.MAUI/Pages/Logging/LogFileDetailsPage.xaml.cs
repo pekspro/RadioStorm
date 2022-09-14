@@ -12,7 +12,7 @@ public partial class LogFileDetailsPage : ContentPage
         BindingContext = viewModel;
 	}
 
-    protected LogFileDetailsViewModel ViewModel => (LogFileDetailsViewModel) BindingContext;
+    private LogFileDetailsViewModel ViewModel => (LogFileDetailsViewModel) BindingContext;
 
     protected override void OnAppearing()
     {
