@@ -29,7 +29,7 @@ public class AndroidLogger : ILogger
 {
     private readonly string Category;
 
-    public IDisposable BeginScope<TState>(TState state) => null!;
+    public IDisposable BeginScope<TState>(TState state) /* Add in .NET7: where TState : notnull */ => null!;
 
     public bool IsEnabled(LogLevel logLevel) => true;
 
