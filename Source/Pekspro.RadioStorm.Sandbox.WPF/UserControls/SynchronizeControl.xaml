@@ -12,7 +12,7 @@
         <StackPanel>
             <Button x:Name="ButtonSynchronizeFast" Command="{Binding StartSynchronizingCommand}">Synchronize (Fast)</Button>
             <Button x:Name="ButtonSynchronizeFull" Command="{Binding StartFullSynchronizingCommand}">Synchronize (Full)</Button>
-            <TextBlock Text="{Binding LatestSynchronizingTime}"></TextBlock>
+            <TextBlock Text="{Binding LatestSynchronizingResult.SynchronizingTime}"></TextBlock>
         </StackPanel>
 
     </Grid>

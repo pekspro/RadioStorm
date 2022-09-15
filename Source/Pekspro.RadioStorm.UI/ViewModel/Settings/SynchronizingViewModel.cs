@@ -17,7 +17,7 @@ public partial class SynchronizingViewModel : ObservableObject
     {
         SharedSettingsManager = null!;
         IsSynchronizing = false;
-        LatestSynchronizingTime = SampleData.SampleTime;
+        LatestSynchronizingResult = new SynchronizingResult(SampleData.SampleTime, true, true, new HashSet<string>());
     }
 
     public SynchronizingViewModel(
@@ -33,7 +33,7 @@ public partial class SynchronizingViewModel : ObservableObject
         {
             mainThreadRunner.RunInMainThread(() =>
             {
-                LatestSynchronizingTime = SharedSettingsManager.LatestSynchronizingTime;
+                LatestSynchronizingResult = SharedSettingsManager.LatestSynchronizingResult;
                 IsSynchronizing = SharedSettingsManager.IsSynchronizing;
             });
         });
@@ -58,7 +58,7 @@ public partial class SynchronizingViewModel : ObservableObject
         });
 
         IsSynchronizing = SharedSettingsManager.IsSynchronizing;
-        LatestSynchronizingTime = SharedSettingsManager.LatestSynchronizingTime;
+        LatestSynchronizingResult = SharedSettingsManager.LatestSynchronizingResult;
         IsInitialized = bootstrapState.FileProvidersInitialized;
     }
 
@@ -81,11 +81,12 @@ public partial class SynchronizingViewModel : ObservableObject
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(CurrentSynchronizingText))]
-    private DateTimeOffset? _LatestSynchronizingTime;
+    private SynchronizingResult? _LatestSynchronizingResult;
+
 
     private bool CanStartSynchronizing => !IsSynchronizing && IsInitialized && HasAnyRemoteSignedInProvider;
 
-    public string CurrentSynchronizingText => GetLatestSynchronizingText(LatestSynchronizingTime, IsSynchronizing);
+    public string CurrentSynchronizingText => GetLatestSynchronizingText(LatestSynchronizingResult?.SynchronizingTime, IsSynchronizing);
 
     #endregion
 

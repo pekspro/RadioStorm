@@ -95,7 +95,7 @@ public abstract class SharedSettingsListBase<T> : ISharedSettingsListBase<T>
         }
     }
 
-    public async Task SynchronizeSettingsAsync(SynchronizeSettings synchronizeSettings, List<FileBaseProviderAndFiles> fileBaseProviderAndFiles)
+    public async Task SynchronizeSettingsAsync(SynchronizeSettings synchronizeSettings, List<FileBaseProviderAndFiles> fileBaseProviderAndFiles, HashSet<string> failedProviderNames)
     {
         foreach (var fileBaseProvider in fileBaseProviderAndFiles)
         {
@@ -142,6 +142,7 @@ public abstract class SharedSettingsListBase<T> : ISharedSettingsListBase<T>
                         catch (Exception ex)
                         {
                             Logger.LogError($"Error when reading {fileName} from provider {fileBaseProvider.Provider.Name}.", ex);
+                            failedProviderNames.Add(fileBaseProvider.Provider.Name);
                         }
                     }
                 }
@@ -175,6 +176,7 @@ public abstract class SharedSettingsListBase<T> : ISharedSettingsListBase<T>
                 catch (Exception ex)
                 {
                     Logger.LogError($"Synchronizing file {fileName} failed with file provider {fileBaseProvider.Provider.Name}.", ex);
+                    failedProviderNames.Add(fileBaseProvider.Provider.Name);
                 }
             }
         }

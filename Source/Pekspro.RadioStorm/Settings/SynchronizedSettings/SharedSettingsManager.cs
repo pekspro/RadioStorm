@@ -50,7 +50,7 @@ public class SharedSettingsManager : ISharedSettingsManager
 
     #endregion
 
-    public DateTimeOffset? LatestSynchronizingTime { get; set; }
+    public SynchronizingResult? LatestSynchronizingResult { get; private set; }
 
     public SharedSettingsManager(
         IMessenger messenger,
@@ -201,6 +201,9 @@ public class SharedSettingsManager : ISharedSettingsManager
 
         IsSynchronizing = true;
 
+        bool hasInternet = true;
+        HashSet<string> failedProviderNames = new HashSet<string>();
+
         try
         {
             if (ConnectivityProvider.HasInternetAccess)
@@ -246,20 +249,22 @@ public class SharedSettingsManager : ISharedSettingsManager
                     else
                     {
                         Logger.LogWarning($"Failed to get files from {providerTask.Provider.Name}.");
+                        failedProviderNames.Add(providerTask.Provider.Name);
                     }
                 }
 
-                await ChannelFavorites.SynchronizeSettingsAsync(synchronizeSettings, fileBaseProviderAndFiles).ConfigureAwait(false);
-                await ProgramFavorites.SynchronizeSettingsAsync(synchronizeSettings, fileBaseProviderAndFiles).ConfigureAwait(false);
-                await EpisodesSortOrderManager.SynchronizeSettingsAsync(synchronizeSettings, fileBaseProviderAndFiles).ConfigureAwait(false);
-                await ListenStateManager.SynchronizeSettingsAsync(synchronizeSettings, fileBaseProviderAndFiles).ConfigureAwait(false);
-                await RecentPlayedManager.SynchronizeSettingsAsync(synchronizeSettings, fileBaseProviderAndFiles).ConfigureAwait(false);
+                await ChannelFavorites.SynchronizeSettingsAsync(synchronizeSettings, fileBaseProviderAndFiles, failedProviderNames).ConfigureAwait(false);
+                await ProgramFavorites.SynchronizeSettingsAsync(synchronizeSettings, fileBaseProviderAndFiles, failedProviderNames).ConfigureAwait(false);
+                await EpisodesSortOrderManager.SynchronizeSettingsAsync(synchronizeSettings, fileBaseProviderAndFiles, failedProviderNames).ConfigureAwait(false);
+                await ListenStateManager.SynchronizeSettingsAsync(synchronizeSettings, fileBaseProviderAndFiles, failedProviderNames).ConfigureAwait(false);
+                await RecentPlayedManager.SynchronizeSettingsAsync(synchronizeSettings, fileBaseProviderAndFiles, failedProviderNames).ConfigureAwait(false);
 
                 Logger.LogInformation($"Synchronizing settings completed in {stopwatch.ElapsedMilliseconds} ms.");
             }
             else
             {
                 Logger.LogWarning($"Internet not available. Will not synchronize.");
+                hasInternet = false;
             }
         }
         finally
@@ -267,7 +272,14 @@ public class SharedSettingsManager : ISharedSettingsManager
             Semaphore.Release();
         }
 
-        LatestSynchronizingTime = DateTimeProvider.OffsetNow;
+        LatestSynchronizingResult = new SynchronizingResult
+        (
+            DateTimeProvider.OffsetNow,
+            hasInternet && !failedProviderNames.Any(),
+            hasInternet,
+            failedProviderNames
+        );
+
         IsSynchronizing = false;
     }
 

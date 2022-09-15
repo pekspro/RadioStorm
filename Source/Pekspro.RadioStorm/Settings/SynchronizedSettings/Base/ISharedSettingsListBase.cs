@@ -8,5 +8,5 @@ public interface ISharedSettingsListBase<T>
 
     string GetFileName(int slotId);
     Task ReadLocalSettingsAsync();
-    Task SynchronizeSettingsAsync(SynchronizeSettings synchronizeSettings, List<FileBaseProviderAndFiles> fileBaseProviderAndFiles);
+    Task SynchronizeSettingsAsync(SynchronizeSettings synchronizeSettings, List<FileBaseProviderAndFiles> fileBaseProviderAndFiles, HashSet<string> failedProviderNames);
 }

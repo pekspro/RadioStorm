@@ -3,8 +3,8 @@
 public interface ISharedSettingsManager
 {
     bool IsSynchronizing { get; }
-    DateTimeOffset? LatestSynchronizingTime { get; }
     bool HasAnyRemoteSignedInProvider { get; }
+    SynchronizingResult? LatestSynchronizingResult { get; }
 
     Task ForceSaveNowAsync();
     void Init(bool allowBackgroundSaving);
