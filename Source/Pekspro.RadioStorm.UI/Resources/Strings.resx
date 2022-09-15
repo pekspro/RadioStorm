@@ -873,6 +873,18 @@
   <data name="Settings_Synchronize_SyncState_Done" xml:space="preserve">
     <value>Senaste synkroniseringen gjordes {0}.</value>
   </data>
+  <data name="Settings_Synchronize_SyncState_Failed_Short" xml:space="preserve">
+    <value>Synkroniseringen misslyckades. </value>
+  </data>
+  <data name="Settings_Synchronize_SyncState_Failed" xml:space="preserve">
+    <value>Synkroniseringen misslyckades ({0}). </value>
+  </data>
+  <data name="Settings_Synchronize_SyncState_Failed_NoInternet" xml:space="preserve">
+    <value>Internet var inte tillgängligt.</value>
+  </data>
+  <data name="Settings_Synchronize_SyncState_Failed_ProviderError" xml:space="preserve">
+    <value>Något gick i kommunikationen ({0}).</value>
+  </data>
   <data name="Settings_Synchronize_SyncState_None" xml:space="preserve">
     <value>Ingen synkronisering har gjorts.</value>
   </data>

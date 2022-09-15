@@ -2329,6 +2329,42 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Synkroniseringen misslyckades ({0}). .
+        /// </summary>
+        public static string Settings_Synchronize_SyncState_Failed {
+            get {
+                return ResourceManager.GetString("Settings_Synchronize_SyncState_Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Internet var inte tillgängligt..
+        /// </summary>
+        public static string Settings_Synchronize_SyncState_Failed_NoInternet {
+            get {
+                return ResourceManager.GetString("Settings_Synchronize_SyncState_Failed_NoInternet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Något gick i kommunikationen ({0})..
+        /// </summary>
+        public static string Settings_Synchronize_SyncState_Failed_ProviderError {
+            get {
+                return ResourceManager.GetString("Settings_Synchronize_SyncState_Failed_ProviderError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Synkroniseringen misslyckades. .
+        /// </summary>
+        public static string Settings_Synchronize_SyncState_Failed_Short {
+            get {
+                return ResourceManager.GetString("Settings_Synchronize_SyncState_Failed_Short", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ingen synkronisering har gjorts..
         /// </summary>
         public static string Settings_Synchronize_SyncState_None {

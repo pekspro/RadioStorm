@@ -198,20 +198,46 @@
             x:DataType="{x:Type settingsvm:SynchronizingViewModel}"                
             Grid.Row="1"
             Padding="4"
-            IsVisible="{Binding IsSynchronizing}"
-            Opacity="0.8"
+            IsVisible="{Binding IsSynchronizingOrHasError}"
+            Opacity="0.9"
             BackgroundColor="{AppThemeBinding Dark={StaticResource PanelBackgroundDark}, Light={StaticResource PanelBackgroundLight}}"
             VerticalOptions="End"
             HorizontalOptions="Start"
             >
             <ActivityIndicator 
-                IsRunning="True"
+                IsRunning="{Binding IsSynchronizing}"
+                IsVisible="{Binding IsSynchronizing}"
                 HeightRequest="14"
                 WidthRequest="14"
                 />
-            <Label Text="{x:Static r:Strings.Settings_Synchronize_SyncState_Running}"
+            <Label Text="{Binding CurrentSynchronizingTextShort}"
                    Margin="8,0,0,0"
-                   />
+                   >
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup Name="ErrorState">
+                        <VisualState Name="HasError">
+                            <VisualState.StateTriggers>
+                                <StateTrigger IsActive="{Binding HasError}" />
+                            </VisualState.StateTriggers>
+                            <VisualState.Setters>
+                                <Setter Property="Label.TextColor" 
+                                    Value="{AppThemeBinding Light={StaticResource ErrorColorLight}, Dark={StaticResource ErrorColorDark}}"
+                                />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState Name="NoError">
+                            <VisualState.StateTriggers>
+                                <StateTrigger IsActive="{Binding HasError, Converter={StaticResource InvertedBoolConverter}}" />
+                            </VisualState.StateTriggers>
+                            <VisualState.Setters>
+                                <Setter Property="Label.TextColor" 
+                                  Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"
+                                 />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+            </Label>
         </HorizontalStackLayout>
         
     </Grid>

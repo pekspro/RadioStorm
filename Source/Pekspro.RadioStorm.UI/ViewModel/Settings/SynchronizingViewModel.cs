@@ -77,16 +77,31 @@ public partial class SynchronizingViewModel : ObservableObject
     [NotifyCanExecuteChangedFor(nameof(StartSynchronizingCommand))]
     [NotifyCanExecuteChangedFor(nameof(StartFullSynchronizingCommand))]
     [NotifyPropertyChangedFor(nameof(CurrentSynchronizingText))]
+    [NotifyPropertyChangedFor(nameof(CurrentSynchronizingTextShort))]
+    [NotifyPropertyChangedFor(nameof(HasError))]
+    [NotifyPropertyChangedFor(nameof(IsSynchronizingOrHasError))]
     private bool _IsSynchronizing;
+
+    public bool IsSynchronizingOrHasError => IsSynchronizing || HasError;
+    
+    public bool HasError => !IsSynchronizing && LatestSynchronizingResult?.Successful == false;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(CurrentSynchronizingText))]
+    [NotifyPropertyChangedFor(nameof(CurrentSynchronizingTextShort))]
+    [NotifyPropertyChangedFor(nameof(HasError))]
+    [NotifyPropertyChangedFor(nameof(IsSynchronizingOrHasError))]
     private SynchronizingResult? _LatestSynchronizingResult;
 
 
     private bool CanStartSynchronizing => !IsSynchronizing && IsInitialized && HasAnyRemoteSignedInProvider;
 
-    public string CurrentSynchronizingText => GetLatestSynchronizingText(LatestSynchronizingResult?.SynchronizingTime, IsSynchronizing);
+    public string CurrentSynchronizingText => GetLatestSynchronizingText(LatestSynchronizingResult, IsSynchronizing);
+
+    public string CurrentSynchronizingTextShort =>
+        IsSynchronizing ? Strings.Settings_Synchronize_SyncState_Running :
+        HasError ? Strings.Settings_Synchronize_SyncState_Failed_Short :
+        Strings.Settings_Synchronize_SyncState_None;
 
     #endregion
 
@@ -109,19 +124,38 @@ public partial class SynchronizingViewModel : ObservableObject
 
     #region Methods
     
-    private string GetLatestSynchronizingText(DateTimeOffset? dateTime, bool isSynchronizing)
+    private string GetLatestSynchronizingText(SynchronizingResult? synchronizingResult, bool isSynchronizing)
     {
         if (isSynchronizing)
         {
             return Strings.Settings_Synchronize_SyncState_Running;
         }
 
-        if (!dateTime.HasValue)
+        if (synchronizingResult is null)
         {
             return Strings.Settings_Synchronize_SyncState_None;
         }
 
-        return string.Format(Strings.Settings_Synchronize_SyncState_Done, dateTime.Value.ToString("HH:mm:ss"));
+        if (synchronizingResult.Successful)
+        {
+            return string.Format(Strings.Settings_Synchronize_SyncState_Done, synchronizingResult.SynchronizingTime.ToString("HH:mm:ss"));
+        }
+        else
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(string.Format(Strings.Settings_Synchronize_SyncState_Failed, synchronizingResult.SynchronizingTime.ToString("HH:mm:ss")));
+
+            if (!synchronizingResult.HadInternetAccess)
+            {
+                sb.Append(Strings.Settings_Synchronize_SyncState_Failed_NoInternet);
+            }
+            else
+            {
+                sb.Append(string.Format(Strings.Settings_Synchronize_SyncState_Failed_ProviderError, String.Join(", ", synchronizingResult.FailedProviders)));
+            }
+
+            return sb.ToString();
+        }
     }
 
     #endregion

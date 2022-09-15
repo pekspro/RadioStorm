@@ -32,6 +32,32 @@
         <Label Text="{Binding CurrentSynchronizingText}"
                Grid.Column="1"
                VerticalOptions="Center"
-                />
+               >
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup Name="ErrorState">
+                    <VisualState Name="HasError">
+                        <VisualState.StateTriggers>
+                            <StateTrigger IsActive="{Binding HasError}" />
+                        </VisualState.StateTriggers>
+                        <VisualState.Setters>
+                            <Setter Property="Label.TextColor" 
+                                Value="{AppThemeBinding Light={StaticResource ErrorColorLight}, Dark={StaticResource ErrorColorDark}}"
+                            />
+
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState Name="NoError">
+                        <VisualState.StateTriggers>
+                            <StateTrigger IsActive="{Binding HasError, Converter={StaticResource InvertedBoolConverter}}" />
+                        </VisualState.StateTriggers>
+                        <VisualState.Setters>
+                            <Setter Property="Label.TextColor" 
+                                Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"
+                            />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+        </Label>
     </Grid>
 </VerticalStackLayout>
