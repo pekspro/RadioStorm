@@ -127,7 +127,7 @@ public class Worker : BackgroundService
         {
             Log("Your are signed in.");
 
-            var client = graphSignInHelper.GetClient();
+            var client = await graphSignInHelper.GetClientAsync();
 
             var me = await client.Me.Request().GetAsync(stoppingToken);
 

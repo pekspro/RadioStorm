@@ -32,10 +32,11 @@ public class GraphFileProvider : FileBaseProvider
 
     public override async Task<Dictionary<string, FileOverview>> GetFilesAsync(HashSet<string> allowedLowerCaseFilename)
     {
-        var client = GraphHelper.GetClient();
 
         try
         {
+            var client = await GraphHelper.GetClientAsync().ConfigureAwait(false);
+
 #if NO_ANDROID_FIX
             var childrenPage = await client.Me.Drive.Special.AppRoot.ItemWithPath(SyncPath).Children
                 .Request()
@@ -108,7 +109,7 @@ public class GraphFileProvider : FileBaseProvider
 
     public override async Task<FileOverview> FetchFileOverviewAsync(string filename)
     {
-        var client = GraphHelper.GetClient();
+        var client = await GraphHelper.GetClientAsync().ConfigureAwait(false);
 
         try
         {
@@ -148,7 +149,7 @@ public class GraphFileProvider : FileBaseProvider
 
     public override async Task<Stream> GetFileContentAsync(string fileName)
     {
-        var client = GraphHelper.GetClient();
+        var client = await GraphHelper.GetClientAsync();
 
         var driveItem = await client.Me.Drive.Special.AppRoot.ItemWithPath(Path.Combine(SyncPath, fileName)).Content
             .Request()
@@ -160,7 +161,7 @@ public class GraphFileProvider : FileBaseProvider
 
     protected override async Task<(DateTimeOffset DateModified, long Size)> UploadFileAsync(string fileName, Stream stream)
     {
-        var client = GraphHelper.GetClient();
+        var client = await GraphHelper.GetClientAsync();
 
 #if NO_ANDROID_FIX
         var driveItem = await client.Me.Drive.Special.AppRoot.ItemWithPath(Path.Combine(SyncPath, fileName)).Content

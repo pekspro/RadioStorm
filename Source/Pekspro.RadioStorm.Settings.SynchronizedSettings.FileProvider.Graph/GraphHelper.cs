@@ -162,14 +162,40 @@ public class GraphHelper : IGraphHelper
         State = ProviderState.SignedOut;
     }
 
-    public GraphServiceClient GetClient()
+    public async Task<GraphServiceClient> GetClientAsync()
     {
         if (app is null || AuthResult is null)
         {
             throw new RadioStormException("Not signed in into Graph/OneDrive.");
         }
 
+        await RefreshTokenAsync().ConfigureAwait(false);
+
         return GetGraphServiceClient(AuthResult.AccessToken, graphApiUrl);
+    }
+
+    private async Task RefreshTokenAsync()
+    {
+        if (app is null || AuthResult is null)
+        {
+            return;
+        }
+
+        if (AuthResult.ExpiresOn < DateTimeOffset.UtcNow)
+        {
+            Logger.LogInformation($"Authentication has expired. Requesting new token...");
+            
+            var newAuth = await AcquireTokenFromCache(app, Scopes).ConfigureAwait(false);
+
+            if (newAuth is null)
+            {
+                Logger.LogInformation($"Getting new authentication failed.");
+
+                throw new RadioStormException($"Getting new authentication failed.");
+            }
+
+            AuthResult = newAuth;
+        }
     }
 
     #region Helpers from sample app
@@ -230,7 +256,7 @@ public class GraphHelper : IGraphHelper
                 }
             }
 
-            Logger.LogInformation(ex, "Signing in into Graph via user successfully.");
+            Logger.LogInformation("Signing in into Graph via user successfully. Is valid until {expireTime}", result.ExpiresOn);
         }
 
         return result;
@@ -241,7 +267,7 @@ public class GraphHelper : IGraphHelper
         AuthenticationResult? result = null;
         try
         {
-            Logger.LogInformation("Signing in into Graph from token in cache. Getting accounts..");
+            Logger.LogInformation("Signing in into Graph from token in cache. Getting accounts...");
 
             var accounts = await app.GetAccountsAsync();
 
@@ -252,7 +278,7 @@ public class GraphHelper : IGraphHelper
             result = await app.AcquireTokenSilent(scopes, accounts.FirstOrDefault())
                         .ExecuteAsync();
 
-            Logger.LogInformation("Signing in into Graph from token in cache successfully.");
+            Logger.LogInformation("Signing in into Graph from token in cache successfully. Is valid until {expireTime}", result.ExpiresOn);
         }
         catch (MsalUiRequiredException ex)
         {

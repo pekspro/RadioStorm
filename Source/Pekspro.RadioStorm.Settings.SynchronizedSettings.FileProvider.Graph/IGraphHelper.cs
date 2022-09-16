@@ -7,7 +7,7 @@ public interface IGraphHelper
     string? UserName { get; }
     bool IsConfigured { get; }
 
-    GraphServiceClient GetClient();
+    Task<GraphServiceClient> GetClientAsync();
     Task InitAsync();
     Task SignIn();
     Task SignInViaCacheAsync();
