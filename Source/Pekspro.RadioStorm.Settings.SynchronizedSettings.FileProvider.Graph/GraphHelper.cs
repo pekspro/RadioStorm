@@ -124,9 +124,20 @@ public class GraphHelper : IGraphHelper
             return;
         }
 
-        State = ProviderState.Loading;
-        AuthResult = await AcquireTokenFromCache(app, Scopes).ConfigureAwait(false);
-        State = AuthResult is not null ? ProviderState.SignedIn : ProviderState.SignedOut;
+        try
+        {
+            State = ProviderState.Loading;
+            AuthResult = await AcquireTokenFromCache(app, Scopes).ConfigureAwait(false);
+            State = AuthResult is not null ? ProviderState.SignedIn : ProviderState.SignedOut;
+        }
+        catch(Exception e)
+        {
+            Logger.LogError(e, "Failed to sign in via cache.");
+
+            State = ProviderState.SignedOut;
+
+            throw;
+        }
     }
 
     public async Task SignIn()
