@@ -26,7 +26,7 @@ public sealed class GraphHelper : IGraphHelper
     public ProviderState State
     {
         get => _state;
-        protected set
+        private set
         {
             var oldState = _state;
             var newState = value;
