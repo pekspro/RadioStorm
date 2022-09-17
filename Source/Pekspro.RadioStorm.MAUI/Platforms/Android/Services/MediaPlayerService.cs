@@ -636,14 +636,9 @@ public class MediaPlayerService : Service,
         }
     }
 
-    internal void SetMuted(bool value)
-    {
-        mediaPlayer.SetVolume(0, 0);
-    }
-
     internal void SetVolume(float value)
     {
-        mediaPlayer.SetVolume(value, value);
+        mediaPlayer?.SetVolume(value, value);
     }
 
     private async void UpdateSessionMetaDataAndLoadImage()

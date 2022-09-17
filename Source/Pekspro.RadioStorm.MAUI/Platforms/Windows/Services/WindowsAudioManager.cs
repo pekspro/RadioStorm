@@ -16,8 +16,9 @@ class WindowsAudioManager : AudioManagerBase
         IDownloadManager downloadManager,
         ILocalSettings localSettings,
         IMessenger messenger,
+        IDateTimeProvider dateTimeProvider,
         ILogger<WindowsAudioManager> logger)
-        : base(mainThreadTimerFactory, mainThreadRunner, listenStateManager, recentPlayedManager, downloadManager, localSettings, messenger, logger, false)
+        : base(mainThreadTimerFactory, mainThreadRunner, listenStateManager, recentPlayedManager, downloadManager, localSettings, messenger, dateTimeProvider, logger, false)
     {
         mediaPlayer.AudioCategory = MediaPlayerAudioCategory.Media;
         mediaPlayer.PlaybackSession.PlaybackStateChanged += (a, b) =>
@@ -140,9 +141,9 @@ class WindowsAudioManager : AudioManagerBase
         }
     }
 
-    protected override void MediaSetVolume(int volume)
+    protected override void MediaSetVolume(double volume)
     {
-        mediaPlayer.Volume = volume * 0.01;
+        mediaPlayer.Volume = volume;
     }
 
     public override bool HasVolumeSupport => true;

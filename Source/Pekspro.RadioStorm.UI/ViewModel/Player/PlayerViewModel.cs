@@ -93,6 +93,22 @@ public partial class PlayerViewModel : ObservableObject
                 PlaybackRateIndex = message.PlaybackRateIndex;
             });
         });
+
+        messenger.Register<SleepStateChanged>(this, (sender, message) =>
+        {
+            MainThreadRunner.RunInMainThread(() =>
+            {
+                bool wasSleepModeRunning = IsSleepTimerRunning;
+
+                IsSleepTimerRunning = message.IsSleepModeActivated;
+                TimeLeftToSleepActivation = message.TimeLeftToSleepActivation;
+
+                if (wasSleepModeRunning != IsSleepTimerRunning && !IsSleepTimerRunning)
+                {
+                    SleepTimeIndex = 0;
+                }
+            });
+        });
     }
 
     #endregion
@@ -212,7 +228,7 @@ public partial class PlayerViewModel : ObservableObject
 
     #region Volume
 
-    public int Volume
+    public double Volume
     {
         get
         {
@@ -251,7 +267,7 @@ public partial class PlayerViewModel : ObservableObject
     [ObservableProperty]
     private int _SleepTimeIndex;
 
-    async partial void OnSleepTimeIndexChanged(int value)
+    partial void OnSleepTimeIndexChanged(int value)
     {
         if (value == 0 || value >= SleepTimesInMinutes.Length)
         {
@@ -259,18 +275,8 @@ public partial class PlayerViewModel : ObservableObject
         }
         else
         {
-            IsSleepTimerRunning = true;
-
-            SleepTimeLeftInSeconds = SleepTimesInMinutes[value - 1] * 10;
-
-            while (SleepTimeLeftInSeconds > 0)
-            {
-                await Task.Delay(50);
-                SleepTimeLeftInSeconds--;
-            }
-
-            IsSleepTimerRunning = false;
-            SleepTimeIndex = 0;
+            //AudioManager.StartSleepMode(TimeSpan.FromMinutes(SleepTimesInMinutes[value - 1]));
+            AudioManager.StartSleepMode(TimeSpan.FromSeconds(SleepTimesInMinutes[value - 1]));
         }
     }
 
@@ -283,10 +289,10 @@ public partial class PlayerViewModel : ObservableObject
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(StopSleepTimerText))]
-    private int _SleepTimeLeftInSeconds;
+    private TimeSpan _TimeLeftToSleepActivation;
 
     public string StopSleepTimerText =>
-        string.Format(Strings.Player_MenuSleepTimer_Disable, SleepTimeLeftInSeconds / 60, SleepTimeLeftInSeconds % 60);
+        string.Format(Strings.Player_MenuSleepTimer_Disable, TimeLeftToSleepActivation.Minutes, TimeLeftToSleepActivation.Seconds);
 
     #endregion
 
@@ -380,9 +386,7 @@ public partial class PlayerViewModel : ObservableObject
     [RelayCommand]
     public void StopSleepTimer()
     {
-        SleepTimeIndex = 0;
-        SleepTimeLeftInSeconds = 0;
-        IsSleepTimerRunning = false;
+        AudioManager.StopSleepMode();
     }
 
     [RelayCommand]

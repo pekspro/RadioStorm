@@ -21,8 +21,9 @@ class DummyAudioManager : AudioManagerBase
         IDownloadManager downloadManager,
         ILocalSettings localSettings,
         IMessenger messenger,
+        IDateTimeProvider dateTimeProvider,
         ILogger<DummyAudioManager> logger)
-        : base(mainThreadTimerFactory, mainThreadRunner, listenStateManager, recentPlayedManager, downloadManager, localSettings, messenger, logger, false)
+        : base(mainThreadTimerFactory, mainThreadRunner, listenStateManager, recentPlayedManager, downloadManager, localSettings, messenger, dateTimeProvider, logger, false)
     {
 
     }
@@ -57,7 +58,7 @@ class DummyAudioManager : AudioManagerBase
         throw new NotImplementedException();
     }
     
-    protected override void MediaSetVolume(int volume)
+    protected override void MediaSetVolume(double volume)
     {
         throw new NotImplementedException();
     }

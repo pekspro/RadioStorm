@@ -24,9 +24,17 @@ public interface IAudioManager
 
     bool HasVolumeSupport { get; }
 
-    int Volume { get; set; }
+    double Volume { get; set; }
     
     int PlaybackRateIndex { get; set; }
+
+    bool IsSleepTimerEnabled { get; }
+
+    DateTime SleepActivationTime { get; }
+
+    TimeSpan TimeLeftToSleepActivation { get; }
+
+    double SleepModeVolumeMultiplier { get; }
 
     void Play(PlayListItem item);
     
@@ -63,4 +71,8 @@ public interface IAudioManager
     bool GoToNext();
 
     bool GoToPrevious();
+
+    void StartSleepMode(TimeSpan timeLeftToSleepActivation);
+
+    void StopSleepMode();
 }

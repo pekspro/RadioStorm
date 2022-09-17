@@ -18,8 +18,9 @@ internal class AndroidAudioManager : AudioManagerBase
         IDownloadManager downloadManager,
         ILocalSettings localSettings,
         IMessenger messenger,
+        IDateTimeProvider dateTimeProvider,
         ILogger<AndroidAudioManager> logger)
-        : base(mainThreadTimerFactory, mainThreadRunner, listenStateManager, recentPlayedManager, downloadManager, localSettings, messenger, logger, false)
+        : base(mainThreadTimerFactory, mainThreadRunner, listenStateManager, recentPlayedManager, downloadManager, localSettings, messenger, dateTimeProvider, logger, false)
     {
 
     }
@@ -141,9 +142,9 @@ internal class AndroidAudioManager : AudioManagerBase
         }
     }
 
-    protected override void MediaSetVolume(int volume)
+    protected override void MediaSetVolume(double volume)
     {
-        // mediaPlayer .Volume = volume * 0.01;
+        MediaPlayerService?.SetVolume((float)volume);
     }
 
     public override bool HasVolumeSupport => false;

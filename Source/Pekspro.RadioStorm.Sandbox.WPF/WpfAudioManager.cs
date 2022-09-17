@@ -19,8 +19,9 @@ class WpfAudioManager : AudioManagerBase
         IDownloadManager downloadManager,
         ILocalSettings localSettings,
         IMessenger messenger,
+        IDateTimeProvider dateTimeProvider,
         ILogger<WpfAudioManager> logger)
-        : base(mainThreadTimerFactory, mainThreadRunner, listenStateManager, recentPlayedManager, downloadManager, localSettings, messenger, logger, true)
+        : base(mainThreadTimerFactory, mainThreadRunner, listenStateManager, recentPlayedManager, downloadManager, localSettings, messenger, dateTimeProvider, logger, true)
     {
         MediaPlayer.MediaOpened += MediaPlayer_MediaOpened;
     }
@@ -101,9 +102,9 @@ class WpfAudioManager : AudioManagerBase
         NextPositionToReport = null;
     }
 
-    protected override void MediaSetVolume(int volume)
+    protected override void MediaSetVolume(double volume)
     {
-        MediaPlayer.Volume = volume * 0.01;
+        MediaPlayer.Volume = volume;
     }
 
     public override bool HasVolumeSupport => true;
