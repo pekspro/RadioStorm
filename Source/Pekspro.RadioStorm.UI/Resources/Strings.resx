@@ -954,4 +954,16 @@
   <data name="Weekday_Yesterday" xml:space="preserve">
     <value>Igår</value>
   </data>
+  <data name="Notification_SleepTimer_Action_Cancel" xml:space="preserve">
+    <value>Stoppa timer</value>
+  </data>
+  <data name="Notification_SleepTimer_Action_CancelAndPause" xml:space="preserve">
+    <value>Stoppa timer och uppspelning</value>
+  </data>
+  <data name="Notification_SleepTimer_Description" xml:space="preserve">
+    <value>Uppspelningen avslutas när tiden har gått ut. ({0:00}:{1:00})</value>
+  </data>
+  <data name="Notification_SleepTimer_Title" xml:space="preserve">
+    <value>Sovtimer</value>
+  </data>
 </root>

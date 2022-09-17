@@ -1411,6 +1411,42 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stoppa timer.
+        /// </summary>
+        public static string Notification_SleepTimer_Action_Cancel {
+            get {
+                return ResourceManager.GetString("Notification_SleepTimer_Action_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stoppa timer och uppspelning.
+        /// </summary>
+        public static string Notification_SleepTimer_Action_CancelAndPause {
+            get {
+                return ResourceManager.GetString("Notification_SleepTimer_Action_CancelAndPause", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uppspelningen avslutas när tiden har gått ut. ({0:00}:{1:00}).
+        /// </summary>
+        public static string Notification_SleepTimer_Description {
+            get {
+                return ResourceManager.GetString("Notification_SleepTimer_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sovtimer.
+        /// </summary>
+        public static string Notification_SleepTimer_Title {
+            get {
+                return ResourceManager.GetString("Notification_SleepTimer_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bakåt.
         /// </summary>
         public static string Player_Backward {

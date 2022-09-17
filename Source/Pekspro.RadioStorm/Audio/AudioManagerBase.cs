@@ -8,7 +8,7 @@ public abstract class AudioManagerBase : IAudioManager
 
     private const int DefaultPlaybackRate = 2;
 
-    private readonly TimeSpan SleepVolumeFadeStartTime = TimeSpan.FromSeconds(5);
+    private readonly TimeSpan SleepVolumeFadeStartTime = TimeSpan.FromSeconds(60);
 
     private IRecentPlayedManager RecentPlayedManager { get; }
 

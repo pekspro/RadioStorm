@@ -15,7 +15,7 @@ namespace Pekspro.RadioStorm.MAUI.Platforms.Android.Services;
 
 public static class NotificationHelper
 {
-    public static readonly string CHANNEL_ID = "location_notification";
+    public static readonly string CHANNEL_ID = "radiostorm_player_notification";
     private const int NotificationId = 1000;
 
     internal static Notification.Action GenerateActionCompat(Context context, int icon, string title, string intentAction)
@@ -52,8 +52,8 @@ public static class NotificationHelper
             return;
         }
 
-        var name = "Local Notifications";
-        var description = "The count from MainActivity.";
+        var name = "RadioStorm Player";
+        var description = "The player.";
         var channel = new NotificationChannel(CHANNEL_ID, name, NotificationImportance.Low)
         {
             Description = description

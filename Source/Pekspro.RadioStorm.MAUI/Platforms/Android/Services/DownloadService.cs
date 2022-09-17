@@ -17,14 +17,7 @@ namespace Pekspro.RadioStorm.MAUI.Platforms.Android.Services;
 [Service(Exported = true, ForegroundServiceType = global::Android.Content.PM.ForegroundService.TypeDataSync)]
 public class DownloadService : Service
 {
-    public static Intent CreateStartIntent(Context context)
-    {
-        Intent intent = new Intent(context, typeof(DownloadService));
-        
-        return intent;
-    }
-
-    public const String CHANNEL_ID = "DownloadServiceChannel";
+    public const string CHANNEL_ID = "DownloadServiceChannel";
 
     private IBinder mBinder;
 

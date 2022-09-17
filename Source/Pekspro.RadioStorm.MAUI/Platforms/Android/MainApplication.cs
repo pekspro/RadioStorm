@@ -4,7 +4,6 @@ using Android.Net;
 using Android.OS;
 using Android.Runtime;
 using Pekspro.RadioStorm.MAUI.Platforms.Android.Services;
-using static Microsoft.Maui.ApplicationModel.Platform;
 using Intent = Android.Content.Intent;
 
 [assembly: UsesPermission(Android.Manifest.Permission.AccessNetworkState)]
@@ -37,8 +36,34 @@ public class MainApplication : MauiApplication
         }
     }
 
+    class SleepTimerServiceConnection : Java.Lang.Object, IServiceConnection
+    {
+        readonly MainApplication TheApplication;
+
+        public SleepTimerServiceConnection(MainApplication mainApplication)
+        {
+            TheApplication = mainApplication;
+        }
+
+        public void OnServiceConnected(ComponentName? name, IBinder? service)
+        {
+            if (service is SleepTimerServiceBinder sleepTimerServiceBinder)
+            {
+                TheApplication.SleepTimerServiceBinder = sleepTimerServiceBinder;
+            }
+        }
+
+        public void OnServiceDisconnected(ComponentName? name)
+        {
+            TheApplication.SleepTimerServiceBinder = null;
+        }
+    }
+
     private DownloadServiceConnection DownloadServiceConnectionObject { get; }
     private DownloadServiceBinder? DownloadServiceBinder;
+
+    private SleepTimerServiceConnection SleepTimerServiceConnectionObject { get; }
+    private SleepTimerServiceBinder? SleepTimerServiceBinder;
 
     private ConnectivityManager? connectivityManager;
 
@@ -52,6 +77,7 @@ public class MainApplication : MauiApplication
         NotificationHelper.StopNotification(this);
 
         DownloadServiceConnectionObject = new DownloadServiceConnection(this);
+        SleepTimerServiceConnectionObject = new SleepTimerServiceConnection(this);
     }
 
     public override void OnCreate()
@@ -78,6 +104,11 @@ public class MainApplication : MauiApplication
             messenger?.Register<DownloadDeleted>(this, (r, m) =>
             {
                 UpdateDownloadServiceExpectedStatus();
+            });
+
+            messenger?.Register<SleepStateChanged>(this, (r, m) =>
+            {
+                UpdateSleepTimerServiceExpectedStatus(m);
             });
         }
     }
@@ -126,7 +157,7 @@ public class MainApplication : MauiApplication
         }
         else
         {
-            Logger.LogError("Failed to start download service start.");
+            Logger.LogError("Failed to start download service.");
         }
     }
 
@@ -142,6 +173,64 @@ public class MainApplication : MauiApplication
         
         UnbindService(DownloadServiceConnectionObject);
         DownloadServiceBinder = null;
+    }
+
+
+    protected void UpdateSleepTimerServiceExpectedStatus(SleepStateChanged message)
+    {
+        IMainThreadRunner? mainThreadRunner = Services.GetService<IMainThreadRunner>();
+        
+        if (mainThreadRunner is not null)
+        {
+            mainThreadRunner.RunInMainThread(() =>
+            {
+                if (message.IsSleepModeActivated)
+                {
+                    StartSleepTimerService();
+
+                    SleepTimerServiceBinder?.GetSleepTimerService()?.UpdateNotification(message.TimeLeftToSleepActivation);
+                }
+                else
+                {
+                    StopSleepTimerService();
+                }
+            });
+        }
+    }
+
+    protected void StartSleepTimerService()
+    {
+        if (SleepTimerServiceBinder is not null)
+        {
+            Logger.LogDebug("SleepTimer service already started.");
+            return;
+        }
+
+        Intent intent = new Intent(this, typeof(SleepTimerService));
+        bool ret = BindService(intent, SleepTimerServiceConnectionObject, Bind.AutoCreate);
+
+        if (ret)
+        {
+            Logger.LogInformation("SleepTimer service start request.");
+        }
+        else
+        {
+            Logger.LogError("Failed to start SleepTimer service.");
+        }
+    }
+
+    protected void StopSleepTimerService()
+    {
+        if (SleepTimerServiceBinder is null)
+        {
+            Logger.LogDebug("SleepTimer service is not running.");
+            return;
+        }
+
+        Logger.LogInformation("Stopping SleepTimer service.");
+
+        UnbindService(SleepTimerServiceConnectionObject);
+        SleepTimerServiceBinder = null;
     }
 
     private ILogger? _Logger;
