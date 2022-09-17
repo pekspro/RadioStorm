@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Song;
 
-public partial class SongsControl : UserControl
+public sealed partial class SongsControl : UserControl
 {
     public SongsControl()
     {

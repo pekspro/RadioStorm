@@ -15,7 +15,7 @@ using Binder = Android.OS.Binder;
 namespace Pekspro.RadioStorm.MAUI.Platforms.Android.Services;
 
 [Service(Exported = true, ForegroundServiceType = global::Android.Content.PM.ForegroundService.TypeDataSync)]
-public class DownloadService : Service
+public sealed class DownloadService : Service
 {
     public const string CHANNEL_ID = "DownloadServiceChannel";
 
@@ -79,7 +79,7 @@ public class DownloadService : Service
         }
     }
 
-    protected (string shortDescription, string longDescription) CreateNotificationContextText()
+    private (string shortDescription, string longDescription) CreateNotificationContextText()
     {
         string shortDescription = Strings.DownloadsNotification_Description_SingleLeft;
         
@@ -122,7 +122,7 @@ public class DownloadService : Service
         return (shortDescription, sb.ToString());
     }
     
-    protected Notification CreateNotification(string shortDescription, string longDescription)
+    private Notification CreateNotification(string shortDescription, string longDescription)
     {
         Notification notification = new Notification.Builder(this, CHANNEL_ID)
             .SetContentTitle(Strings.DownloadsNotification_Title)
@@ -210,7 +210,7 @@ public class DownloadService : Service
     }
 }
 
-public class DownloadServiceBinder : Binder
+public sealed class DownloadServiceBinder : Binder
 {
     private readonly DownloadService service;
 

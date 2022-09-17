@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.UI.Model.PublishLength;
 
-public partial class PublishLength : ObservableObject
+public sealed partial class PublishLength : ObservableObject
 {
     #region Constructor
 

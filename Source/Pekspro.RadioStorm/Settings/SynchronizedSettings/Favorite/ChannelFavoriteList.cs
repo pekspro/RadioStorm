@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Settings.SynchronizedSettings.Favorite;
 
-public class ChannelFavoriteList : FavoriteList, IChannelFavoriteList
+public sealed class ChannelFavoriteList : FavoriteList, IChannelFavoriteList
 {
     private const string FileNameSortOrder = "channelfavorites.dat";
 

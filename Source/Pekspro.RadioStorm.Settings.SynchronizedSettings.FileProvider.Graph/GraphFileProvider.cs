@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Settings.SynchronizedSettings.FileProvider.Graph;
 
-public class GraphFileProvider : FileBaseProvider
+public sealed class GraphFileProvider : FileBaseProvider
 {
     protected override string SyncType => "Graph";
 
@@ -23,7 +23,7 @@ public class GraphFileProvider : FileBaseProvider
 
 #if NO_ANDROID_FIX
 #else
-    class Response<T>
+    sealed class Response<T>
     {
         [JsonPropertyName("value")]
         public T Value { get; set; } = default!;

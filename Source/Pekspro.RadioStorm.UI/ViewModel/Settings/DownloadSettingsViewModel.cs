@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.UI.ViewModel.Settings;
 
-public partial class DownloadSettingsViewModel : ObservableObject
+public sealed partial class DownloadSettingsViewModel : ObservableObject
 {
     #region Private properties
 

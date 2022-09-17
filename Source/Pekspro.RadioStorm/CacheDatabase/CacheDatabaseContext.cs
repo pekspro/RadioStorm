@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.CacheDatabase;
 
-public class CacheDatabaseContext : DbContext
+public sealed class CacheDatabaseContext : DbContext
 {
     private ILoggerFactory LoggerFactory;
 

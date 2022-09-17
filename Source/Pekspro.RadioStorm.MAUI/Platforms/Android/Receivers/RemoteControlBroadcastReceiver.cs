@@ -9,11 +9,11 @@ namespace Pekspro.RadioStorm.MAUI.Platforms.Android.Receivers;
 
 [BroadcastReceiver(Exported = true)]
 [IntentFilter(new[] { Intent.ActionMediaButton })]
-public class RemoteControlBroadcastReceiver : BroadcastReceiver
+public sealed class RemoteControlBroadcastReceiver : BroadcastReceiver
 {
 
     /// <summary>
-    /// gets the class name for the component
+    /// gets the sealed class name for the component
     /// </summary>
     /// <value>The name of the component.</value>
     public string ComponentName { get { return this.Class.Name; } }

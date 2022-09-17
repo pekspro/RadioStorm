@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Converters;
 
-public class BoolToColorConverter : BindableObject, IValueConverter
+public sealed class BoolToColorConverter : BindableObject, IValueConverter
 {
     public BoolToColorConverter()
     {

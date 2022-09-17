@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Views;
 
-public partial class SynchronizeControl
+public sealed partial class SynchronizeControl
 {
     public SynchronizeControl()
     {

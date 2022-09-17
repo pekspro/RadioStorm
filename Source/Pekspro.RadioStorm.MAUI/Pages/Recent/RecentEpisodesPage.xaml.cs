@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Pages.Recent;
 
-public partial class RecentEpisodesPage : ContentPage
+public sealed partial class RecentEpisodesPage : ContentPage
 {
     public RecentEpisodesPage(RecentEpisodesViewModel viewModel)
     {

@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Views;
 
-public partial class PlayerControl
+public sealed partial class PlayerControl
 {
     public PlayerControl()
     {

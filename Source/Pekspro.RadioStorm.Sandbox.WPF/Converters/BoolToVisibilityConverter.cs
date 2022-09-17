@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Converters;
 
-public class BoolToVisibilityConverter : IValueConverter
+public sealed class BoolToVisibilityConverter : IValueConverter
 {
     public BoolToVisibilityConverter()
     {

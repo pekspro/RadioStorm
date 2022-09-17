@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Utilities;
 
-public class VersionProvider : IVersionProvider
+public sealed class VersionProvider : IVersionProvider
 {
     static VersionProvider()
     {

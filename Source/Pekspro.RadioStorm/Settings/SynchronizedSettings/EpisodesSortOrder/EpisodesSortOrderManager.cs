@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Settings.SynchronizedSettings.EpisodesSortOrder;
 
-public class EpisodesSortOrderManager : FavoriteList, IEpisodesSortOrderManager
+public sealed class EpisodesSortOrderManager : FavoriteList, IEpisodesSortOrderManager
 {
     private const string FileNameSortOrder = "episodessortorder.dat";
 

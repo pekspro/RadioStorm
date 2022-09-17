@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Converters;
 
-public class DownloadDataStatusToVisibilityConverter : IValueConverter
+public sealed class DownloadDataStatusToVisibilityConverter : IValueConverter
 {
     public DownloadDataStatusToVisibilityConverter()
     {

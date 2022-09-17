@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Views;
 
-public partial class DownloadState
+public sealed partial class DownloadState
 {
     public DownloadState()
     {

@@ -3,7 +3,7 @@
 /// <summary>
 /// Interaction logic for DebugSettingsControl.xaml
 /// </summary>
-public partial class DebugSettingsControl : UserControl
+public sealed partial class DebugSettingsControl : UserControl
 {
     FakeConnectivityProvider ConnectivityProvider;
     

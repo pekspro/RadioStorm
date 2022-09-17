@@ -1,7 +1,7 @@
 ﻿namespace Pekspro.RadioStorm.UI.ViewModel.Base;
 
 [DebuggerDisplay("Header: {Header} Item count: {Count}")]
-public class Group<T> : ObservableCollection<T> where T : class
+public sealed class Group<T> : ObservableCollection<T> where T : class
 {
     public Group(string header, int priority, IEnumerable<T> items)
     {

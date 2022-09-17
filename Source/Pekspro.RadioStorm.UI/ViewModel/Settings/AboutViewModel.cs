@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.UI.ViewModel.Settings;
 
-public partial class AboutViewModel
+public sealed partial class AboutViewModel
 {
     #region Private properties
 

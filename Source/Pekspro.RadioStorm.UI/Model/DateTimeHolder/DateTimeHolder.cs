@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.UI.Model.DateTimeHolder;
 
-public class DateTimeHolder
+public sealed class DateTimeHolder
 {
     #region Private properties
     

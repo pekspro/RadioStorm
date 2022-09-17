@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Converters;
 
-public class NullImageConverter : IValueConverter
+public sealed class NullImageConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {

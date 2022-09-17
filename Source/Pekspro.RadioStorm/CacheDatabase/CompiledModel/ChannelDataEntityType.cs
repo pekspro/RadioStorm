@@ -9,7 +9,7 @@ using Pekspro.RadioStorm.CacheDatabase.Models;
 
 namespace Pekspro.RadioStorm.CacheDatabase.CompiledModel
 {
-    internal partial class ChannelDataEntityType
+    internal sealed partial class ChannelDataEntityType
     {
         public static RuntimeEntityType Create(RuntimeModel model, RuntimeEntityType? baseEntityType = null)
         {

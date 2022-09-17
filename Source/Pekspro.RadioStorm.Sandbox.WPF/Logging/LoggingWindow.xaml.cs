@@ -2,7 +2,7 @@
 
 namespace Pekspro.RadioStorm.Sandbox.WPF.Logging;
 
-public partial class LoggingWindow : Window
+public sealed partial class LoggingWindow : Window
 {
     public LoggingWindow(LoggingViewModel loggingViewModel, IServiceProvider serviceProvider)
     {

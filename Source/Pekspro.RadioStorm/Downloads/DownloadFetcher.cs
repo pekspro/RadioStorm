@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Downloads;
 
-internal class DownloadFetcher : IDownloadFetcher
+internal sealed class DownloadFetcher : IDownloadFetcher
 {
     public IMessenger Messenger { get; }
     public IDateTimeProvider DateTimeProvider { get; }

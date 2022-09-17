@@ -6,7 +6,7 @@ namespace Pekspro.RadioStorm.Sandbox.WPF.Favorite;
 /// <summary>
 /// Interaction logic for FavoritesWindow.xaml
 /// </summary>
-public partial class FavoritesWindow : Window
+public sealed partial class FavoritesWindow : Window
 {
     public FavoritesWindow(FavoritesViewModel favoritesViewModel, IServiceProvider serviceProvider)
     {

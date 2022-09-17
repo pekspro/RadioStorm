@@ -11,9 +11,9 @@ using Intent = Android.Content.Intent;
 namespace Pekspro.RadioStorm.MAUI;
 
 [Application]
-public class MainApplication : MauiApplication
+public sealed class MainApplication : MauiApplication
 {
-    class DownloadServiceConnection : Java.Lang.Object, IServiceConnection
+    sealed class DownloadServiceConnection : Java.Lang.Object, IServiceConnection
     {
         readonly MainApplication TheApplication;
 
@@ -36,7 +36,7 @@ public class MainApplication : MauiApplication
         }
     }
 
-    class SleepTimerServiceConnection : Java.Lang.Object, IServiceConnection
+    sealed class SleepTimerServiceConnection : Java.Lang.Object, IServiceConnection
     {
         readonly MainApplication TheApplication;
 
@@ -113,7 +113,7 @@ public class MainApplication : MauiApplication
         }
     }
 
-    protected void UpdateDownloadServiceExpectedStatus()
+    private void UpdateDownloadServiceExpectedStatus()
     {
         IMainThreadRunner? mainThreadRunner = Services.GetService<IMainThreadRunner>();
         IDownloadManager? downloadManager = Services.GetService<IDownloadManager>();
@@ -140,7 +140,7 @@ public class MainApplication : MauiApplication
 
     }
 
-    protected void StartDownloadService()
+    private void StartDownloadService()
     {
         if (DownloadServiceBinder is not null)
         {
@@ -161,7 +161,7 @@ public class MainApplication : MauiApplication
         }
     }
 
-    protected void StopDownloadService()
+    private void StopDownloadService()
     {
         if (DownloadServiceBinder is null)
         {
@@ -176,7 +176,7 @@ public class MainApplication : MauiApplication
     }
 
 
-    protected void UpdateSleepTimerServiceExpectedStatus(SleepStateChanged message)
+    private void UpdateSleepTimerServiceExpectedStatus(SleepStateChanged message)
     {
         IMainThreadRunner? mainThreadRunner = Services.GetService<IMainThreadRunner>();
         
@@ -198,7 +198,7 @@ public class MainApplication : MauiApplication
         }
     }
 
-    protected void StartSleepTimerService()
+    private void StartSleepTimerService()
     {
         if (SleepTimerServiceBinder is not null)
         {
@@ -219,7 +219,7 @@ public class MainApplication : MauiApplication
         }
     }
 
-    protected void StopSleepTimerService()
+    private void StopSleepTimerService()
     {
         if (SleepTimerServiceBinder is null)
         {

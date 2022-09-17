@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Converters;
 
-public class BoolToPinnedTextConverter : IValueConverter
+public sealed class BoolToPinnedTextConverter : IValueConverter
 {
     public BoolToPinnedTextConverter()
     {

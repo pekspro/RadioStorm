@@ -11,7 +11,7 @@ using Pekspro.RadioStorm.Utilities;
 
 namespace Pekspro.RadioStorm.Sandbox.Console;
 
-class DummyAudioManager : AudioManagerBase
+sealed class DummyAudioManager : AudioManagerBase
 {
     public DummyAudioManager(
         IMainThreadTimerFactory mainThreadTimerFactory,

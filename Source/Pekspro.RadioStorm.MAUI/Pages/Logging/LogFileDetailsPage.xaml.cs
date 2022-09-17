@@ -1,7 +1,7 @@
 namespace Pekspro.RadioStorm.MAUI.Pages.Logging;
 
 [QueryProperty(nameof(Data), nameof(Data))]
-public partial class LogFileDetailsPage : ContentPage
+public sealed partial class LogFileDetailsPage : ContentPage
 {
     public string Data { get; set; } = null!;
 

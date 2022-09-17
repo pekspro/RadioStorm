@@ -1,9 +1,8 @@
-﻿using Newtonsoft.Json.Linq;
-using System.Text.Json.Serialization.Metadata;
+﻿using System.Text.Json.Serialization.Metadata;
 
 namespace Pekspro.RadioStorm.UI.Utilities;
 
-public class StartParameterHelper
+public sealed class StartParameterHelper
 {
     #region Methods
 

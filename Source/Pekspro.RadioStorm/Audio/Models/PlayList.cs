@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Audio.Models;
 
-sealed public class PlayList
+public sealed class PlayList
 {
     public Guid PlayListId { get; set; }
     public List<PlayListItem> Items { get; set; } = new List<PlayListItem>();

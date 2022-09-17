@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace Pekspro.RadioStorm.MAUI.Views;
 
-public partial class LargeMediaButtonUserControl : ContentView
+public sealed partial class LargeMediaButtonUserControl : ContentView
 {
     public LargeMediaButtonUserControl()
     {

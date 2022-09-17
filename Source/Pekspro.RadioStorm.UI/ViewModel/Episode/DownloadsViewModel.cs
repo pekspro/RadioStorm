@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.UI.ViewModel.Episode;
 
-public partial class DownloadsViewModel : ListViewModel<EpisodeModel>
+public sealed partial class DownloadsViewModel : ListViewModel<EpisodeModel>
 {
     #region Private properties
 

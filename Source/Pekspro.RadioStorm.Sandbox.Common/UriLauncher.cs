@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace Pekspro.RadioStorm.Sandbox.Common;
 
-public class UriLauncher : IUriLauncher
+public sealed class UriLauncher : IUriLauncher
 {
     public ILogger<UriLauncher> Logger { get; }
 

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Pekspro.RadioStorm.GeneralDatabase.CompiledModel
 {
-    public partial class GeneralDatabaseContextModel
+    public sealed partial class GeneralDatabaseContextModel
     {
         partial void Initialize()
         {

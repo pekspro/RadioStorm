@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.UI.ViewModel.Channel;
 
-public class ChannelsViewModel : ListViewModel<ChannelModel>, ISearch, IDisposable
+public sealed class ChannelsViewModel : ListViewModel<ChannelModel>, ISearch, IDisposable
 {
     #region Private properties
 

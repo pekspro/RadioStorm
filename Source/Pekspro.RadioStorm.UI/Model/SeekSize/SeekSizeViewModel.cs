@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.UI.Model.SeekSize;
 
-public class SeekSizeViewModel : ObservableObject
+public sealed class SeekSizeViewModel : ObservableObject
 {
     #region Private properties
 

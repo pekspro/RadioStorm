@@ -1,10 +1,10 @@
 ﻿namespace Pekspro.RadioStorm.UI.ViewModel.Channel;
 
-public partial class ChannelDetailsViewModel : DownloadViewModel, IDisposable
+public sealed partial class ChannelDetailsViewModel : DownloadViewModel, IDisposable
 {
     #region Start parameter
 
-    class StartParameter
+    sealed class StartParameter
     {
         public int ChannelId { get; set; }
         public string? ChannelName { get; set; }
@@ -14,7 +14,7 @@ public partial class ChannelDetailsViewModel : DownloadViewModel, IDisposable
 
     [JsonSourceGenerationOptions()]
     [JsonSerializable(typeof(StartParameter))]
-    partial class ChannelDetailsStartParameterJsonContext : JsonSerializerContext
+    sealed partial class ChannelDetailsStartParameterJsonContext : JsonSerializerContext
     {
     }
 

@@ -18,7 +18,7 @@ public static partial class BuildTimeProvider
 /*
  * When building in GitHub, a file like this is generated setting the build time:
  
-public static partial class BuildTimeProvider
+public static sealed partial class BuildTimeProvider
 {
     static partial void Initialize()
     {

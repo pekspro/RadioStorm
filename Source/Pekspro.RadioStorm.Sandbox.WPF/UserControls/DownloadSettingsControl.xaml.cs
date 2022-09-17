@@ -3,7 +3,7 @@
 /// <summary>
 /// Interaction logic for DownloadSettingsControl.xaml
 /// </summary>
-public partial class DownloadSettingsControl : UserControl
+public sealed partial class DownloadSettingsControl : UserControl
 {
     public DownloadSettingsControl()
     {

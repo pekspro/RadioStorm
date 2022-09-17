@@ -2,7 +2,7 @@
 
 namespace Pekspro.RadioStorm.MAUI.Platforms.Windows.Services;
 
-public class WindowsVersionProvider : IVersionProvider
+public sealed class WindowsVersionProvider : IVersionProvider
 {
     static WindowsVersionProvider()
     {

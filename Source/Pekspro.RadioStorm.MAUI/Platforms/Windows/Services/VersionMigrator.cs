@@ -1,7 +1,7 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Platforms.Windows.Services;
 using global::Windows.Storage;
 
-internal class VersionMigrator : IVersionMigrator
+internal sealed class VersionMigrator : IVersionMigrator
 {
     public VersionMigrator(ILogger<VersionMigrator> logger)
     {

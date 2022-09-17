@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Options;
 
-public class StorageLocations
+public sealed class StorageLocations
 {
     public string BaseStoragePath { get; internal set; } = null!;
     

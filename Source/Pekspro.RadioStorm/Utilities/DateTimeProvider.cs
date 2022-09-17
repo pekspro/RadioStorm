@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Utilities;
 
-public class DateTimeProvider : IDateTimeProvider
+public sealed class DateTimeProvider : IDateTimeProvider
 {
     private TimeZoneInfo? _SwedishTimeZone;
 

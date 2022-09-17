@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.UI.Model.Song;
 
-public class SongModelFactory : ISongModelFactory
+public sealed class SongModelFactory : ISongModelFactory
 {
     #region Private properties
     

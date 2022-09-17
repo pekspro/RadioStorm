@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.DataFetcher;
 
-internal class DtoConverter : IDtoConverter
+internal sealed class DtoConverter : IDtoConverter
 {
     public ChannelData Convert(Channel c) => new ChannelData
     {

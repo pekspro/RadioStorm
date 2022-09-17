@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Logging;
 
-public class InMemoryLogger : ILogger
+public sealed class InMemoryLogger : ILogger
 {
     private int MaxLinesCount { get; set; } = 1000;
 

@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Sandbox.WPF;
 
-public partial class ChannelDetailsWindow : Window
+public sealed partial class ChannelDetailsWindow : Window
 {
     public ChannelDetailsWindow(ChannelDetailsViewModel channelInfoViewModel)
     {

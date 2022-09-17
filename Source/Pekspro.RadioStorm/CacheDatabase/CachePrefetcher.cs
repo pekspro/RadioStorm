@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.CacheDatabase;
 
-internal class CachePrefetcher : ICachePrefetcher
+internal sealed class CachePrefetcher : ICachePrefetcher
 {
     #region Private properties
 

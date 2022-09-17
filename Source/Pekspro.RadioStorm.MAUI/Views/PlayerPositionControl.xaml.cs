@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Views;
 
-public partial class PlayerPositionControl
+public sealed partial class PlayerPositionControl
 {
     public bool IsDragging { get; set; }
 

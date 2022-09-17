@@ -1,7 +1,7 @@
 ﻿namespace Pekspro.RadioStorm.CacheDatabase.Models;
 
 [DebuggerDisplay("{ProgramId} {Status} ({IncrementallyUpdateCount}) {LatestUpdateTime}")]
-public class EpisodeListSyncStatusData
+public sealed class EpisodeListSyncStatusData
 {
     public enum SyncStatus { FullySynchronized, IncrementallyUpdated, HasSomeData }
 

@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Converters;
 
-public class BoolToBrushConverter : IValueConverter
+public sealed class BoolToBrushConverter : IValueConverter
 {
     public BoolToBrushConverter()
     {

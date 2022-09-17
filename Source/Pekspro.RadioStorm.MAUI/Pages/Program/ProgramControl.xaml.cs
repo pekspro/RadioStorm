@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Pages.Program;
 
-public partial class ProgramControl
+public sealed partial class ProgramControl
 {
     public ProgramControl()
     {

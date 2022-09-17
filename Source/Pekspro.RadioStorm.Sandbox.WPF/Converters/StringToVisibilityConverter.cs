@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Converters;
 
-public class StringToVisibilityConverter : IValueConverter
+public sealed class StringToVisibilityConverter : IValueConverter
 {
     public StringToVisibilityConverter()
     {

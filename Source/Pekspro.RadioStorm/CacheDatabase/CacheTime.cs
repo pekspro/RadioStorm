@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.CacheDatabase;
 
-public class CacheTime
+public sealed class CacheTime
 {
     public static TimeSpan ChannelDataCacheTime = new TimeSpan(7, 0, 0, 0);
     public static TimeSpan ChannelStatusCacheTime = new TimeSpan(0, 0, 0, 15);

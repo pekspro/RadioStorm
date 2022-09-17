@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Converters;
 
-public class BoolToIntConverter : IValueConverter
+public sealed class BoolToIntConverter : IValueConverter
 {
     public BoolToIntConverter()
     {

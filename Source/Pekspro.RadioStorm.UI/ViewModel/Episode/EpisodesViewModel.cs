@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.UI.ViewModel.Episode;
 
-public partial class EpisodesViewModel : ListViewModel<EpisodeModel>, ISearch
+public sealed partial class EpisodesViewModel : ListViewModel<EpisodeModel>, ISearch
 {
     #region Private properties
 

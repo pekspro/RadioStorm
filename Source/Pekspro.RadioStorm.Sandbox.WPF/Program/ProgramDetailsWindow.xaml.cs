@@ -2,7 +2,7 @@
 
 namespace Pekspro.RadioStorm.Sandbox.WPF.Program;
 
-public partial class ProgramDetailsWindow : Window
+public sealed partial class ProgramDetailsWindow : Window
 {
     public ProgramDetailsWindow(ProgramDetailsViewModel programDetailsViewModel, IServiceProvider serviceProvider)
     {

@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Settings.SynchronizedSettings.ListenState;
 
-public class ListenStateManager : SharedSettingsListBase<ListenStateItem>, IListenStateManager
+public sealed class ListenStateManager : SharedSettingsListBase<ListenStateItem>, IListenStateManager
 {
     const ulong FileHeader = 0x7789512414351a1e;
     const int FileSlotCount = 8;

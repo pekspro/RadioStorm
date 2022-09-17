@@ -3,7 +3,7 @@ using Pekspro.RadioStorm.Settings;
 
 namespace Pekspro.RadioStorm.Sandbox.WPF;
 
-class WpfAudioManager : AudioManagerBase
+sealed class WpfAudioManager : AudioManagerBase
 {
     public readonly MediaPlayer MediaPlayer = new MediaPlayer();
 

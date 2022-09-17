@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Settings.SynchronizedSettings.Base;
 
-public class FileOverview
+public sealed class FileOverview
 {
     public FileOverview
         (

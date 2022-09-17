@@ -1,10 +1,10 @@
 ﻿namespace Pekspro.RadioStorm.UI.ViewModel.Program;
 
-public partial class ProgramDetailsViewModel : DownloadViewModel
+public sealed partial class ProgramDetailsViewModel : DownloadViewModel
 {
     #region Start parameter
 
-    class StartParameter
+    sealed class StartParameter
     {
         public int ProgramId { get; set; }
 
@@ -16,7 +16,7 @@ public partial class ProgramDetailsViewModel : DownloadViewModel
 
     [JsonSourceGenerationOptions()]
     [JsonSerializable(typeof(StartParameter))]
-    partial class ProgramDetailsStartParameterJsonContext : JsonSerializerContext
+    sealed partial class ProgramDetailsStartParameterJsonContext : JsonSerializerContext
     {
     }
 

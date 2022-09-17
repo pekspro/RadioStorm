@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.UI.Model.Program;
 
-public class ProgramModelFactory : IProgramModelFactory
+public sealed class ProgramModelFactory : IProgramModelFactory
 {
     #region Private properites
     

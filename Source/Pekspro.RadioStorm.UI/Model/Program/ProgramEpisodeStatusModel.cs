@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.UI.Model.Program;
 
-public partial class ProgramEpisodeStatusModel : ObservableObject
+public sealed partial class ProgramEpisodeStatusModel : ObservableObject
 {
     #region Constructor
     

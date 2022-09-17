@@ -2,7 +2,7 @@
 
 #nullable enable
 
-public class BoolToImageConverter : IValueConverter
+public sealed class BoolToImageConverter : IValueConverter
 {
     public BoolToImageConverter()
     {

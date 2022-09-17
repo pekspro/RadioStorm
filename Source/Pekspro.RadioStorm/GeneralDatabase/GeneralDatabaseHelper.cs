@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.GeneralDatabase;
 
-public class GeneralDatabaseHelper
+public sealed class GeneralDatabaseHelper
 {
     public IGeneralDatabaseContextFactory GeneralDatabaseContextFactory { get; }
 

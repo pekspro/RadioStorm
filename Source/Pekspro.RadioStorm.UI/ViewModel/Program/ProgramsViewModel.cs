@@ -2,7 +2,7 @@
 
 namespace Pekspro.RadioStorm.UI.ViewModel.Program;
 
-public partial class ProgramsViewModel : ListViewModel<ProgramModel>, ISearch
+public sealed partial class ProgramsViewModel : ListViewModel<ProgramModel>, ISearch
 {
     #region Private properties
 

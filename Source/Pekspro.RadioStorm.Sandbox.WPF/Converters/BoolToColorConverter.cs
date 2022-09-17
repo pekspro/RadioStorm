@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Converters;
 
-public class BoolToColorConverter : IValueConverter
+public sealed class BoolToColorConverter : IValueConverter
 {
     public BoolToColorConverter()
     {

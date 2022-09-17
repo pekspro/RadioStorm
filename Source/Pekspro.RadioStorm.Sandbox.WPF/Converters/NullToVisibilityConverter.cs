@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Converters;
 
-public class NullToVisibilityConverter : IValueConverter
+public sealed class NullToVisibilityConverter : IValueConverter
 {
     public NullToVisibilityConverter()
     {

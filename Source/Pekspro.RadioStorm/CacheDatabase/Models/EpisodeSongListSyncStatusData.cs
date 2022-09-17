@@ -1,7 +1,7 @@
 ﻿namespace Pekspro.RadioStorm.CacheDatabase.Models;
 
 [DebuggerDisplay("{EpisodeId} ({LatestUpdateTime})")]
-public class EpisodeSongListSyncStatusData
+public sealed class EpisodeSongListSyncStatusData
 {
     public int EpisodeId { get; set; }
 

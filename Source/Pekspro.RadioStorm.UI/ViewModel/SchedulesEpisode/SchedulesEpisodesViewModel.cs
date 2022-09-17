@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.UI.ViewModel.SchedulesEpisode;
 
-public partial class SchedulesEpisodesViewModel : DownloadViewModel, IDisposable
+public sealed partial class SchedulesEpisodesViewModel : DownloadViewModel, IDisposable
 {
     #region Private properties
 

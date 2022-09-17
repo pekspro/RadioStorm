@@ -24,7 +24,7 @@ using Pekspro.RadioStorm.Utilities;
 
 namespace Pekspro.RadioStorm.Sandbox.Console;
 
-public class Worker : BackgroundService
+public sealed class Worker : BackgroundService
 {
     public Worker(IServiceProvider serviceProvider, IHostApplicationLifetime hostApplicationLifetime)
     {
@@ -850,7 +850,7 @@ public class Worker : BackgroundService
         }
     }
 
-    public class EscapeException : Exception
+    public sealed class EscapeException : Exception
     {
         public EscapeException()
         {

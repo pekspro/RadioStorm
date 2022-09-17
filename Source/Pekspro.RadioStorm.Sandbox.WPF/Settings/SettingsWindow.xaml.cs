@@ -3,7 +3,7 @@ using Pekspro.RadioStorm.Sandbox.WPF.LogFile;
 
 namespace Pekspro.RadioStorm.Sandbox.WPF.Settings;
 
-public partial class SettingsWindow : Window
+public sealed partial class SettingsWindow : Window
 {
     public SettingsWindow(SettingsViewModel settingsViewModel, DebugSettingsViewModel debugSettingsViewModel, 
         IServiceProvider serviceProvider)

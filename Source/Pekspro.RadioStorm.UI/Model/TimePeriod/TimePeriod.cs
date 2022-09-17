@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.UI.Model.TimePeriod;
 
-public class TimePeriod
+public sealed class TimePeriod
 {
     #region Constructor
 

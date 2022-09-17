@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Converters;
 
-public class BoolToSelectionModeConverter : IValueConverter
+public sealed class BoolToSelectionModeConverter : IValueConverter
 {
     public BoolToSelectionModeConverter()
     {

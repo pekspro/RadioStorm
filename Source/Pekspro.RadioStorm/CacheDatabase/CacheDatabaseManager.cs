@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.CacheDatabase;
 
-public class CacheDatabaseManager
+public sealed class CacheDatabaseManager
 {
     #region Private properties
 

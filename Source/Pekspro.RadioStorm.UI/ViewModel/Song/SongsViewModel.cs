@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.UI.ViewModel.Song;
 
-public partial class SongsViewModel : DownloadViewModel, IDisposable
+public sealed partial class SongsViewModel : DownloadViewModel, IDisposable
 {
     #region Private properties
 

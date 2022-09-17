@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.UI.Utilities;
 
-public class RefreshTimerHelper : IRefreshTimerHelper
+public sealed class RefreshTimerHelper : IRefreshTimerHelper
 {
     #region Private properties
 

@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Audio.Models;
 
-sealed public class PlayListItem
+public sealed class PlayListItem
 {
     public string? StreamUrl { get; set; }
     internal string? LocalUrl { get; set; }

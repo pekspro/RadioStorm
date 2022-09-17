@@ -19,7 +19,7 @@ public static partial class Secrets
 // This file is ignored in git.
 // The content of the file should be like this:
 
-// public static partial class Secrets
+// public static sealed partial class Secrets
 // {
 //    static partial void Initialize()
 //    {

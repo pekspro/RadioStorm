@@ -2,7 +2,7 @@
 
 namespace Pekspro.RadioStorm.MAUI.Platforms.Android.Services;
 
-class ConnectivityMonitor : ConnectivityManager.NetworkCallback
+sealed class ConnectivityMonitor : ConnectivityManager.NetworkCallback
 {
     private ILogger? _Logger;
 

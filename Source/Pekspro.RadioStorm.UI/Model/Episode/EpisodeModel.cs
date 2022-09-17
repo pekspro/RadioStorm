@@ -1,7 +1,7 @@
 ﻿namespace Pekspro.RadioStorm.UI.Model.Episode;
 
 [DebuggerDisplay("{PublishLength.PublishDate} {Title}")]
-public partial class EpisodeModel : ObservableObject, IComparable<EpisodeModel>
+public sealed partial class EpisodeModel : ObservableObject, IComparable<EpisodeModel>
 {
     #region Private properties
 

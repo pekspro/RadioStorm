@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Settings.SynchronizedSettings;
 
-public class SharedSettingsManager : ISharedSettingsManager
+public sealed class SharedSettingsManager : ISharedSettingsManager
 {
     private IListenStateManager ListenStateManager { get; }
     public IMessenger Messenger { get; }

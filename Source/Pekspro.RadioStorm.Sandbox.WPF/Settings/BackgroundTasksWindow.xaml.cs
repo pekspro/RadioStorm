@@ -5,7 +5,7 @@ namespace Pekspro.RadioStorm.Sandbox.WPF.Settings;
 /// <summary>
 /// Interaction logic for BackgroundTasksWindow.xaml
 /// </summary>
-public partial class BackgroundTasksWindow : Window
+public sealed partial class BackgroundTasksWindow : Window
 {
     public BackgroundTasksWindow(IServiceProvider serviceProvider)
     {

@@ -2,7 +2,7 @@
 
 namespace Pekspro.RadioStorm.MAUI.Converters;
 
-public class MediaStateConverter : IValueConverter
+public sealed class MediaStateConverter : IValueConverter
 {
     public MediaStateConverter()
     {

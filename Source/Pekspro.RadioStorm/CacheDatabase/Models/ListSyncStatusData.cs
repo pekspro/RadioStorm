@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.CacheDatabase.Models;
 
-public class ListSyncStatusData
+public sealed class ListSyncStatusData
 {
     public enum ListType { Channels = 1, Programs = 2 }
 

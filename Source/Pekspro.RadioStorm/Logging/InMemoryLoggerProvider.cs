@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Logging;
 
-public class InMemLoggerProvider : ILoggerProvider
+public sealed class InMemLoggerProvider : ILoggerProvider
 {
     private readonly List<LogRecord> _LogRecords = new List<LogRecord>();
 

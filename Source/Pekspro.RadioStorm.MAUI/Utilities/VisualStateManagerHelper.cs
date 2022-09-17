@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Utilities;
 
-internal class WidthStateHelper
+internal sealed class WidthStateHelper
 {
     public const int MinWideWidth = 672;
 

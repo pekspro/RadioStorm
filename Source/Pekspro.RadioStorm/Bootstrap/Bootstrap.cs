@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Bootstrap;
 
-public class Bootstrap
+public sealed class Bootstrap
 {
     #region Private properties
     

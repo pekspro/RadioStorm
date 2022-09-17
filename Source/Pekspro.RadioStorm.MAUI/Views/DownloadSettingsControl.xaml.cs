@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Views;
 
-public partial class DownloadSettingsControl
+public sealed partial class DownloadSettingsControl
 {
     public DownloadSettingsControl()
     {

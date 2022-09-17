@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Converters;
 
-public class SafeStringToBrushConverter : IValueConverter
+public sealed class SafeStringToBrushConverter : IValueConverter
 {
 
     public SafeStringToBrushConverter()

@@ -9,7 +9,7 @@ using Pekspro.RadioStorm.CacheDatabase.Models;
 
 namespace Pekspro.RadioStorm.CacheDatabase.CompiledModel
 {
-    internal partial class EpisodeListSyncStatusDataEntityType
+    internal sealed partial class EpisodeListSyncStatusDataEntityType
     {
         public static RuntimeEntityType Create(RuntimeModel model, RuntimeEntityType? baseEntityType = null)
         {

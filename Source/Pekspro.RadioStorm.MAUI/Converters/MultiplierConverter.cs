@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Converters;
 
-public class MultiplierConverter : IMultiValueConverter
+public sealed class MultiplierConverter : IMultiValueConverter
 {
     public double MinValue { get; set; } = 0.01;
 

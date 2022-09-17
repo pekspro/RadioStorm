@@ -1,7 +1,7 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Pages.Episode;
 
 [QueryProperty(nameof(Data), nameof(Data))]
-public partial class EpisodeDetailsPage : ContentPage
+public sealed partial class EpisodeDetailsPage : ContentPage
 {
     public string Data { get; set; } = null!;
 

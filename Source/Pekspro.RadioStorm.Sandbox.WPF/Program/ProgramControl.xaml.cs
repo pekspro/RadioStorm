@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Program;
 
-public partial class ProgramControl : UserControl
+public sealed partial class ProgramControl : UserControl
 {
     public ProgramControl()
     {

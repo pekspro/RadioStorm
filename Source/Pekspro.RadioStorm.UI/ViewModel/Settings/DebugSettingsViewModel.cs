@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.UI.ViewModel.Settings;
 
-public partial class DebugSettingsViewModel : ObservableObject
+public sealed partial class DebugSettingsViewModel : ObservableObject
 {
     #region Private properties
 

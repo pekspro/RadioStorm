@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.UI.ViewModel.Logging;
 
-public partial class LoggingViewModel : DownloadViewModel, IDisposable
+public sealed partial class LoggingViewModel : DownloadViewModel, IDisposable
 {
     #region Private properties
 

@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Pages.Episode;
 
-public partial class DownloadsPage : ContentPage
+public sealed partial class DownloadsPage : ContentPage
 {
     public DownloadsPage(DownloadsViewModel viewModel)
     {

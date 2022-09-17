@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.UI.Model.Channel;
 
-public class ChannelStatusModel : ObservableObject
+public sealed class ChannelStatusModel : ObservableObject
 {
     #region Private properties
     public IDateTimeProvider DateTimeProvider { get; }

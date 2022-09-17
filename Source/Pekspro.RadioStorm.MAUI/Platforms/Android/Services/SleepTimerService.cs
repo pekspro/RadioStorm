@@ -13,7 +13,7 @@ namespace Pekspro.RadioStorm.MAUI.Platforms.Android.Services;
 
 [Service(Exported = true, ForegroundServiceType = global::Android.Content.PM.ForegroundService.TypeNone)]
 [IntentFilter(new[] { ActionStopSleepTimer, ActionStopSleepTimerAndPause })]
-public class SleepTimerService : Service
+public sealed class SleepTimerService : Service
 {
     // Actions
     public const string ActionStopSleepTimer = "com.pekspro.radiostorm.action.STOP_SLEEP_TIMER";
@@ -99,7 +99,7 @@ public class SleepTimerService : Service
         }
     }
 
-    protected (string shortDescription, string longDescription) CreateNotificationContextText(TimeSpan timeLeftToSleepActivation)
+    private (string shortDescription, string longDescription) CreateNotificationContextText(TimeSpan timeLeftToSleepActivation)
     {
         return 
             (
@@ -121,7 +121,7 @@ public class SleepTimerService : Service
         return new Notification.Action.Builder(icon, title, pendingIntent).Build();
     }
 
-    protected Notification CreateNotification(Context context, string shortDescription, string longDescription)
+    private Notification CreateNotification(Context context, string shortDescription, string longDescription)
     {
         var cancelAction = GenerateActionCompat(context, Resource.Drawable.ic_notification_skip_next, Strings.Notification_SleepTimer_Action_Cancel, ActionStopSleepTimer);
         var cancelAndPauseAction = GenerateActionCompat(context, Resource.Drawable.ic_notification_pause, Strings.Notification_SleepTimer_Action_CancelAndPause, ActionStopSleepTimerAndPause);
@@ -147,7 +147,7 @@ public class SleepTimerService : Service
     }
 }
 
-public class SleepTimerServiceBinder : Binder
+public sealed class SleepTimerServiceBinder : Binder
 {
     private readonly SleepTimerService service;
 

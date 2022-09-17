@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Utilities;
 
-public class ReverseBinaryReader
+public sealed class ReverseBinaryReader
 {
     public BinaryReader BinaryReader { get; }
 

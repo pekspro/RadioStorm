@@ -1,7 +1,7 @@
 ﻿namespace Pekspro.RadioStorm.Settings.SynchronizedSettings.FileProvider.Graph;
 
 // Based on code from this repository: https://github.com/AzureAD/microsoft-authentication-extensions-for-dotnet
-public class GraphHelper : IGraphHelper
+public sealed class GraphHelper : IGraphHelper
 {
     // UIParent used by Android version of the app
     public static object? AuthUIParent = null;
@@ -316,7 +316,7 @@ public class GraphHelper : IGraphHelper
 
     /// <summary>
     /// Returns a custom HTML for the authorization success or failure, and redirect url. 
-    /// For more available options, please inspect the SystemWebViewOptions class.
+    /// For more available options, please inspect the SystemWebViewOptions sealed class.
     /// </summary>
     /// <returns></returns>
 

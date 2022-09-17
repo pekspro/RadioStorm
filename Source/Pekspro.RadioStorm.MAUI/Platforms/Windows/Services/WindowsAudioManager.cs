@@ -4,7 +4,7 @@ using Windows.Storage.Streams;
 
 namespace Pekspro.RadioStorm.MAUI.Services;
 
-class WindowsAudioManager : AudioManagerBase
+sealed class WindowsAudioManager : AudioManagerBase
 {
     MediaPlayer mediaPlayer = new MediaPlayer();
     

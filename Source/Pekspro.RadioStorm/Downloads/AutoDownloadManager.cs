@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Downloads;
 
-internal class AutoDownloadManager : IAutoDownloadManager
+internal sealed class AutoDownloadManager : IAutoDownloadManager
 {
     private IDownloadManager DownloadManager { get; }
     public IGeneralDatabaseContextFactory GeneralDatabaseContextFactory { get; }

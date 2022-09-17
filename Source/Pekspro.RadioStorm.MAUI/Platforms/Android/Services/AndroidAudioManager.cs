@@ -2,7 +2,7 @@
 
 #nullable disable
 
-internal class AndroidAudioManager : AudioManagerBase
+internal sealed class AndroidAudioManager : AudioManagerBase
 {
     MainActivity instance;
     private Pekspro.RadioStorm.MAUI.Platforms.Android.Services.MediaPlayerService MediaPlayerService

@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.UI.Model.Channel;
 
-public class ChannelModelFactory : IChannelModelFactory
+public sealed class ChannelModelFactory : IChannelModelFactory
 {
     #region Private properties
     

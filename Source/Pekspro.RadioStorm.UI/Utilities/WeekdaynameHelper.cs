@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.UI.Utilities;
 
-public class WeekdaynameHelper : IWeekdaynameHelper
+public sealed class WeekdaynameHelper : IWeekdaynameHelper
 {
     #region Private properties
 

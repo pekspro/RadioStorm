@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.UI.ViewModel.RecentEpisodes;
 
-public partial class RecentEpisodesViewModel : ListViewModel<RecentEpisodeModel>
+public sealed partial class RecentEpisodesViewModel : ListViewModel<RecentEpisodeModel>
 {
     #region Private properties
 

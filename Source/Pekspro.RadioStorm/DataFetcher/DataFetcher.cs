@@ -2,7 +2,7 @@
 
 namespace Pekspro.RadioStorm.DataFetcher;
 
-public class DataFetcher : IDataFetcher
+public sealed class DataFetcher : IDataFetcher
 {
     #region Private properties
 
@@ -357,7 +357,7 @@ public class DataFetcher : IDataFetcher
 
     public enum GetListResultEnum { Full, IncrementalUpdate, GotSomePart, Error }
 
-    public class GetListResult
+    public sealed class GetListResult
     {
         public GetListResultEnum Result { get; set; }
         public EpisodeData[]? Episodes { get; set; }
@@ -738,7 +738,7 @@ public class DataFetcher : IDataFetcher
 
     private const int SearchEpisodesResultCacheSize = 25;
 
-    public class SearchEpisodesResult
+    public sealed class SearchEpisodesResult
     {
         public SearchEpisodesResult(string searchString)
         {

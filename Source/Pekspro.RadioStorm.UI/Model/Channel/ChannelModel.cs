@@ -1,8 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿namespace Pekspro.RadioStorm.UI.Model.Channel;
 
-namespace Pekspro.RadioStorm.UI.Model.Channel;
-
-public partial class ChannelModel : FavoriteBaseModel
+public sealed partial class ChannelModel : FavoriteBaseModel
 {
     #region Private properties
 

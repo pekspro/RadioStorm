@@ -1,7 +1,7 @@
 ﻿namespace Pekspro.RadioStorm.CacheDatabase.Models;
 
 [DebuggerDisplay("{ProgramId} {Name}")]
-public class ProgramData
+public sealed class ProgramData
 {
     public int ProgramId { get; set; }
     public string Name { get; set; } = null!;

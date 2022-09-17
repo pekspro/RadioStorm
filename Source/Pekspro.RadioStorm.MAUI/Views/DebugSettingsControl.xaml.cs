@@ -1,6 +1,6 @@
 namespace Pekspro.RadioStorm.MAUI.Views;
 
-public partial class DebugSettingsControl : ContentView
+public sealed partial class DebugSettingsControl : ContentView
 {
 	public DebugSettingsControl()
 	{

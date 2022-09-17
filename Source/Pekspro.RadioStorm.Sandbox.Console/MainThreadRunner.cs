@@ -3,7 +3,7 @@ using System;
 
 namespace Pekspro.RadioStorm.Sandbox.Console;
 
-public class MainThreadRunner : IMainThreadRunner
+public sealed class MainThreadRunner : IMainThreadRunner
 {
     public void RunInMainThread(Action action)
     {

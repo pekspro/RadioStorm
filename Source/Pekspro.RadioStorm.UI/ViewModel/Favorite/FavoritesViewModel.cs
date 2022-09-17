@@ -3,7 +3,7 @@ using Pekspro.SwedRadio;
 
 namespace Pekspro.RadioStorm.UI.ViewModel.Favorite;
 
-public partial class FavoritesViewModel : ListViewModel<FavoriteBaseModel>, IDisposable
+public sealed partial class FavoritesViewModel : ListViewModel<FavoriteBaseModel>, IDisposable
 {
     #region Private properties
 

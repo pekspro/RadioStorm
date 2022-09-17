@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.UI.Model.ImageLink;
 
-public class ImageLink : ObservableObject
+public sealed class ImageLink : ObservableObject
 {
     #region Private properites
 

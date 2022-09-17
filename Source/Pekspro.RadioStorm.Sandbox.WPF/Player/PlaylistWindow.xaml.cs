@@ -2,7 +2,7 @@
 
 namespace Pekspro.RadioStorm.Sandbox.WPF.Player;
 
-public partial class PlaylistWindow : Window
+public sealed partial class PlaylistWindow : Window
 {
     public PlaylistWindow(PlaylistViewModel playlistViewModel, IServiceProvider serviceProvider)
     {

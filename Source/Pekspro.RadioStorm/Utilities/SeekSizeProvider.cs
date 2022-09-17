@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Utilities;
 
-public class SeekSizeProvider
+public sealed class SeekSizeProvider
 {
 
     public static List<TimeSpan> SeekSizes = new List<TimeSpan>()

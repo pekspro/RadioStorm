@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Converters;
 
-public class LogLevelToBrushConverter : IValueConverter
+public sealed class LogLevelToBrushConverter : IValueConverter
 {
     public LogLevelToBrushConverter()
     {

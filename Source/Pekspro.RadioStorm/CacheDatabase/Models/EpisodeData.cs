@@ -1,7 +1,7 @@
 ﻿namespace Pekspro.RadioStorm.CacheDatabase.Models;
 
 [DebuggerDisplay("{EpisodeId} {Title}")]
-public class EpisodeData
+public sealed class EpisodeData
 {
     public int EpisodeId { get; set; }
 

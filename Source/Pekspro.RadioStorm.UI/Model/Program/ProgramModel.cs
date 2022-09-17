@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.UI.Model.Program;
 
-public partial class ProgramModel : FavoriteBaseModel
+public sealed partial class ProgramModel : FavoriteBaseModel
 {
     #region Private properties
 

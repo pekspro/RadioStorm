@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Pages.Channel;
 
-public partial class ChannelControl
+public sealed partial class ChannelControl
 {
     public ChannelControl()
     {

@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Episode;
 
-public partial class EpisodeDetailsWindow : Window
+public sealed partial class EpisodeDetailsWindow : Window
 {
     public EpisodeDetailsWindow(EpisodeDetailsViewModel episodeDetailsViewModel, IServiceProvider serviceProvider)
     {

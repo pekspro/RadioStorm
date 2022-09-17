@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Sandbox.WPF.TemplateSelector;
 
-public class FavoriteTemplateSelector : DataTemplateSelector
+public sealed class FavoriteTemplateSelector : DataTemplateSelector
 {
     public override DataTemplate SelectTemplate(object item, DependencyObject container)
     {

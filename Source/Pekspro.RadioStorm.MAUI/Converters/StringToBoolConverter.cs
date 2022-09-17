@@ -2,7 +2,7 @@
 
 #nullable enable
 
-public class StringToBoolConverter : IValueConverter
+public sealed class StringToBoolConverter : IValueConverter
 {
     public StringToBoolConverter()
     {

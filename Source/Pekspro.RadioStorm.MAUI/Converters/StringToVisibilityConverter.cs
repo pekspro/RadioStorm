@@ -2,7 +2,7 @@
 
 #nullable enable
 
-public class StringToVisibilityConverter : IValueConverter
+public sealed class StringToVisibilityConverter : IValueConverter
 {
     public StringToVisibilityConverter()
     {

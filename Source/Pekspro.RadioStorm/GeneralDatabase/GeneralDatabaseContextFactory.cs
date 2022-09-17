@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.GeneralDatabase;
 
-public class GeneralDatabaseContextFactory : IGeneralDatabaseContextFactory
+public sealed class GeneralDatabaseContextFactory : IGeneralDatabaseContextFactory
 {
     public IOptions<StorageLocations> StorageLocationOptions { get; }
     

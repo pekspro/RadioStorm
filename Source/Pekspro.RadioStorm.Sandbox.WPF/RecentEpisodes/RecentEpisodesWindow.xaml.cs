@@ -2,7 +2,7 @@
 
 namespace Pekspro.RadioStorm.Sandbox.WPF.RecentEpisodes;
 
-public partial class RecentEpisodesWindow : Window
+public sealed partial class RecentEpisodesWindow : Window
 {
     public RecentEpisodesWindow(RecentEpisodesViewModel programInfoViewModel, IServiceProvider serviceProvider)
     {

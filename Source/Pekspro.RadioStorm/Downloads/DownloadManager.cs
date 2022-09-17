@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Downloads;
 
-internal class DownloadManager : IDownloadManager
+internal sealed class DownloadManager : IDownloadManager
 {
     public string DownloadsFolderPath { get; }
     public IDownloadFetcher DownloadFetcher { get; }

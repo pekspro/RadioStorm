@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.GeneralDatabase;
 
-public class GeneralDatabaseContext : DbContext
+public sealed class GeneralDatabaseContext : DbContext
 {
     private ILoggerFactory LoggerFactory { get; }
 

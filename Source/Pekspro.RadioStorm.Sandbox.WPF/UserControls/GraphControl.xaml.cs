@@ -3,7 +3,7 @@
 /// <summary>
 /// Interaction logic for GraphControl.xaml
 /// </summary>
-public partial class GraphControl : UserControl
+public sealed partial class GraphControl : UserControl
 {
     public GraphControl()
     {

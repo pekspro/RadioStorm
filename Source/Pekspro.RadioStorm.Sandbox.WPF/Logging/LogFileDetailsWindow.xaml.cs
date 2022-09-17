@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Sandbox.WPF.LogFile;
 
-public partial class LogFileDetailsWindow : Window
+public sealed partial class LogFileDetailsWindow : Window
 {
     public LogFileDetailsWindow(LogFileDetailsViewModel LogFileDetailsViewModel, IServiceProvider serviceProvider)
     {

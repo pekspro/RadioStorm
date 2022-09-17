@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Settings.SynchronizedSettings.Base;
 
-public class SharedSettingsState //: DependencyObject
+public sealed class SharedSettingsState //: DependencyObject
 {
     public bool IsSynchronizing { get; set; }
 

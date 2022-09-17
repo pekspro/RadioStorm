@@ -2,7 +2,7 @@
 
 namespace Pekspro.RadioStorm.MAUI.Views;
 
-public partial class CurrentPlayingControl
+public sealed partial class CurrentPlayingControl
 {
     public CurrentPlayingControl()
     {

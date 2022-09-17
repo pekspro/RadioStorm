@@ -1,17 +1,17 @@
 namespace Pekspro.RadioStorm.UI.ViewModel.Logging;
 
-public partial class LogFileDetailsViewModel : DownloadViewModel
+public sealed partial class LogFileDetailsViewModel : DownloadViewModel
 {
     #region Start parameter
 
-    class StartParameter
+    sealed class StartParameter
     {
         public string LogFilePath { get; set; } = null!;
     }
 
     [JsonSourceGenerationOptions()]
     [JsonSerializable(typeof(StartParameter))]
-    partial class LogFileDetailsStartParameterJsonContext : JsonSerializerContext
+    sealed partial class LogFileDetailsStartParameterJsonContext : JsonSerializerContext
     {
     }
 

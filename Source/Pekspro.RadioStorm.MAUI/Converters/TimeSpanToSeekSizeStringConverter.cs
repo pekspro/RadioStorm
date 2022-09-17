@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Converters;
 
-public class TimeSpanToSeekSizeStringConverter : IValueConverter
+public sealed class TimeSpanToSeekSizeStringConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {

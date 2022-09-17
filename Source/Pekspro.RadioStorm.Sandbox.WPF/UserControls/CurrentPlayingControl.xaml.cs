@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Sandbox.WPF.UserControls;
 
-public partial class CurrentPlayingControl : UserControl
+public sealed partial class CurrentPlayingControl : UserControl
 {
     public CurrentPlayingControl()
     {

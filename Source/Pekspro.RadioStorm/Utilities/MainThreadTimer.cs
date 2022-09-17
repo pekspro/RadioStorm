@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Utilities;
 
-public class MainThreadTimer : IMainThreadTimer
+public sealed class MainThreadTimer : IMainThreadTimer
 {
     private bool disposedValue;
 

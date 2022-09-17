@@ -3,7 +3,7 @@ using Pekspro.RadioStorm.UI.ViewModel.Episode;
 
 namespace Pekspro.RadioStorm.MAUI.Pages.Episode;
 
-public partial class EpisodeControl
+public sealed partial class EpisodeControl
 {
     public EpisodeControl()
     {

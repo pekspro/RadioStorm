@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Pages.Settings;
 
-public partial class SettingsPage : ContentPage
+public sealed partial class SettingsPage : ContentPage
 {
     public SettingsPage(SettingsViewModel viewModel)
     {

@@ -2,7 +2,7 @@
 
 namespace Pekspro.RadioStorm.MAUI;
 
-public partial class App : Application
+public sealed partial class App : Application
 {
     private ILogger Logger { get; }
 

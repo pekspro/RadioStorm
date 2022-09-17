@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Converters;
 
-public class NullToVisibilityConverter : IValueConverter
+public sealed class NullToVisibilityConverter : IValueConverter
 {
     public NullToVisibilityConverter()
     {

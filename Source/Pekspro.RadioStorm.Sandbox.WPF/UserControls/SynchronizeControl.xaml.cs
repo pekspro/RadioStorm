@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Sandbox.WPF.UserControls;
 
-public partial class SynchronizeControl : UserControl
+public sealed partial class SynchronizeControl : UserControl
 {
     public SynchronizeControl()
     {
@@ -12,5 +12,5 @@ public partial class SynchronizeControl : UserControl
         }
     }
 
-    protected SynchronizingViewModel ViewModel => (SynchronizingViewModel)DataContext;
+    private SynchronizingViewModel ViewModel => (SynchronizingViewModel)DataContext;
 }

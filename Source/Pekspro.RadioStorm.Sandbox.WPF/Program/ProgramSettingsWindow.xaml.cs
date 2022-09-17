@@ -3,7 +3,7 @@
 /// <summary>
 /// Interaction logic for ProgramSettingsWindow.xaml
 /// </summary>
-public partial class ProgramSettingsWindow : Window
+public sealed partial class ProgramSettingsWindow : Window
 {
     public ProgramSettingsWindow(ProgramSettingsViewModel programSettingsViewModel)
     {

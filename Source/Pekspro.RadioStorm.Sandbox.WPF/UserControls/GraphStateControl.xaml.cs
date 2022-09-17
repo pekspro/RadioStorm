@@ -3,7 +3,7 @@
 /// <summary>
 /// Interaction logic for GraphStateControl.xaml
 /// </summary>
-public partial class GraphStateControl : UserControl
+public sealed partial class GraphStateControl : UserControl
 {
     public GraphStateControl()
     {

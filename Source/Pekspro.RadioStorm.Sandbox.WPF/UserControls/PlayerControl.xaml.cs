@@ -2,7 +2,7 @@
 
 namespace Pekspro.RadioStorm.Sandbox.WPF.UserControls;
 
-public partial class PlayerControl : UserControl
+public sealed partial class PlayerControl : UserControl
 {
     public PlayerControl()
     {

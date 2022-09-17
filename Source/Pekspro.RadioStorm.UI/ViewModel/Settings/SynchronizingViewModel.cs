@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.UI.ViewModel.Settings;
 
-public partial class SynchronizingViewModel : ObservableObject
+public sealed partial class SynchronizingViewModel : ObservableObject
 {
     #region Private properties
 

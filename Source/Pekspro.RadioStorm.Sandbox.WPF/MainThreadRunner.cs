@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Sandbox.WPF;
 
-public class MainThreadRunner : IMainThreadRunner
+public sealed class MainThreadRunner : IMainThreadRunner
 {
     public void RunInMainThread(Action action)
     {

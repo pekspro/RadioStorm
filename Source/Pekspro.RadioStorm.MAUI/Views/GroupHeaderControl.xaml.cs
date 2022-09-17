@@ -1,6 +1,6 @@
 namespace Pekspro.RadioStorm.MAUI.Views;
 
-public partial class GroupHeaderControl : ContentView
+public sealed partial class GroupHeaderControl : ContentView
 {
 	public GroupHeaderControl()
 	{

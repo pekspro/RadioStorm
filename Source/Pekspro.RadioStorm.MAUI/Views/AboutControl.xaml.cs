@@ -1,6 +1,6 @@
 namespace Pekspro.RadioStorm.MAUI.Views;
 
-public partial class AboutControl : ContentView
+public sealed partial class AboutControl : ContentView
 {
 	public AboutControl()
 	{

@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.UI.Model.Episode;
 
-public class EpisodeModelFactory : IEpisodeModelFactory
+public sealed class EpisodeModelFactory : IEpisodeModelFactory
 {
     #region Private properties
     

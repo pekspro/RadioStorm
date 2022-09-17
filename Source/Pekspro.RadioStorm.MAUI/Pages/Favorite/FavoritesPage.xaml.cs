@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Pages.Favorite;
 
-public partial class FavoritesPage : ContentPage
+public sealed partial class FavoritesPage : ContentPage
 {
     public FavoritesPage(FavoritesViewModel viewModel, SynchronizingViewModel synchronizingViewModel)
     { 

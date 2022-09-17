@@ -2,7 +2,7 @@
 
 namespace Pekspro.RadioStorm.Logging;
 
-internal class FileLogger : ILogger
+internal sealed class FileLogger : ILogger
 {
     public FileLoggerProvider FileLoggerProvider { get; }
 

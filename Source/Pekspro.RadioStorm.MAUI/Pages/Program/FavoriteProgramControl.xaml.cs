@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Pages.Program;
 
-public partial class FavoriteProgramControl
+public sealed partial class FavoriteProgramControl
 {
     public FavoriteProgramControl()
     {

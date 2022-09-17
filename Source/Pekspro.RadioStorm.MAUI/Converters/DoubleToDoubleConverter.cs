@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Converters;
 
-public class DoubleToDoubleConverter : IValueConverter
+public sealed class DoubleToDoubleConverter : IValueConverter
 {
     public DoubleToDoubleConverter()
     {

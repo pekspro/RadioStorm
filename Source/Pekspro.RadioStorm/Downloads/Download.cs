@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Downloads;
 
-public class Download
+public sealed class Download
 {
     public Download(string filename, int programId, int episodeId, bool startedByUser, string? programName, string? episodeTitle)
     {

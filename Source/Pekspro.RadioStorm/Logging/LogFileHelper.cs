@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Logging;
 
-internal class LogFileHelper : ILogFileHelper
+internal sealed class LogFileHelper : ILogFileHelper
 {
     private string TemporaryPath { get; }
 

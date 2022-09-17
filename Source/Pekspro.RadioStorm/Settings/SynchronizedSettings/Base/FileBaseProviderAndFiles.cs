@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Settings.SynchronizedSettings.Base;
 
-public class FileBaseProviderAndFiles
+public sealed class FileBaseProviderAndFiles
 {
     public FileBaseProviderAndFiles(IFileProvider provider, Dictionary<string, FileOverview> files)
     {

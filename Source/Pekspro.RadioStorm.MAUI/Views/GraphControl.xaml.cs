@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Views;
 
-public partial class GraphControl
+public sealed partial class GraphControl
 {
     public GraphControl()
     {

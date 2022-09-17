@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Utilities;
 
-public class MainThreadTimerFactory : IMainThreadTimerFactory
+public sealed class MainThreadTimerFactory : IMainThreadTimerFactory
 {
     private IMainThreadRunner MainThreadRunner { get; }
     public ILoggerFactory LoggerFactory { get; }

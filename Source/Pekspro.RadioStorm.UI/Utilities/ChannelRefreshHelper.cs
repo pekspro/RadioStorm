@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.UI.Utilities;
 
-public class ChannelRefreshHelper : IChannelRefreshHelper
+public sealed class ChannelRefreshHelper : IChannelRefreshHelper
 {
     #region private properties
 

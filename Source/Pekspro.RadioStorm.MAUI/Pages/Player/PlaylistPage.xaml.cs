@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Pages.Player;
 
-public partial class PlaylistPage : ContentPage
+public sealed partial class PlaylistPage : ContentPage
 {
     public PlaylistPage(PlaylistViewModel viewModel)
     {

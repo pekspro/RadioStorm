@@ -2,7 +2,7 @@
 
 namespace Pekspro.RadioStorm.UI.Model.Song;
 
-public partial class SongModel : ObservableObject, IEquatable<SongModel>
+public sealed partial class SongModel : ObservableObject, IEquatable<SongModel>
 {
     #region Private properties
     

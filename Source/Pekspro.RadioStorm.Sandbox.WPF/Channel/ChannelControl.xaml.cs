@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Channel;
 
-public partial class ChannelControl : UserControl
+public sealed partial class ChannelControl : UserControl
 {
     public ChannelControl()
     {

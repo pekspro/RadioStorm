@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Pages.Channel;
 
-public partial class ChannelsPage : ContentPage
+public sealed partial class ChannelsPage : ContentPage
 {
     public ChannelsPage(ChannelsViewModel viewModel)
     {

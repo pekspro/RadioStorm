@@ -20,7 +20,7 @@ public sealed class RecentPlayedItem : IComparable<RecentPlayedItem>
 }
 
 
-public class RecentPlayedManager : SharedSettingsListBase<RecentPlayedItem>, IRecentPlayedManager
+public sealed class RecentPlayedManager : SharedSettingsListBase<RecentPlayedItem>, IRecentPlayedManager
 {
     const ulong FileHeader = 0x139d512414351a1e;
     const string FileName = "recenthistory.dat";

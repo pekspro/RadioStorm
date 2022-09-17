@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.TemplateSelector;
 
-public class PlatformTemplateSelector : DataTemplateSelector
+public sealed class PlatformTemplateSelector : DataTemplateSelector
 {
     public DataTemplate DefaultTemplate { get; set; } = null!;
 

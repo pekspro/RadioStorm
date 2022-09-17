@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.GeneralDatabase.Models;
 
-public class DownloadState
+public sealed class DownloadState
 {
     public enum DownloadStatusEnum { NoDownloadAvailable, Downloaded }
 

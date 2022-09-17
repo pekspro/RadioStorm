@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Converters;
 
-public class BoolToSelectionModeConverter : IValueConverter
+public sealed class BoolToSelectionModeConverter : IValueConverter
 {
     public BoolToSelectionModeConverter()
     {

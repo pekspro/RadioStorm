@@ -2,7 +2,7 @@
 
 namespace Pekspro.RadioStorm.UI.Model.SchedulesEpisode;
 
-public partial class SchedulesEpisodeModel : ObservableObject
+public sealed partial class SchedulesEpisodeModel : ObservableObject
 {
     #region Private properties
 

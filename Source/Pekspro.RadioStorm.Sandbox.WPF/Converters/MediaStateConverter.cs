@@ -2,7 +2,7 @@
 
 namespace Pekspro.RadioStorm.Sandbox.WPF.Converters;
 
-public class MediaStateConverter : IValueConverter
+public sealed class MediaStateConverter : IValueConverter
 {
     public MediaStateConverter()
     {

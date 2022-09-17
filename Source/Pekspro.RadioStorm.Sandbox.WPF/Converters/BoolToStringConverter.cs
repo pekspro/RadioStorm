@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Converters;
 
-public class BoolToStringConverter : IValueConverter
+public sealed class BoolToStringConverter : IValueConverter
 {
     public BoolToStringConverter()
     {

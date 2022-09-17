@@ -5,7 +5,7 @@ namespace Pekspro.RadioStorm.Sandbox.WPF.UserControls;
 /// <summary>
 /// Interaction logic for PlayerPositionControl.xaml
 /// </summary>
-public partial class PlayerPositionControl : UserControl
+public sealed partial class PlayerPositionControl : UserControl
 {
     public bool IsDragging { get; set; }
 
@@ -34,7 +34,7 @@ public partial class PlayerPositionControl : UserControl
         }
     }
 
-    protected PlayerViewModel ViewModel => (PlayerViewModel)DataContext;
+    private PlayerViewModel ViewModel => (PlayerViewModel)DataContext;
 
     private void SetSliderPosition(TimeSpan position, TimeSpan length)
     {

@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Downloads;
 
-internal class AutoDownloadDeleteManager : IAutoDownloadDeleteManager
+internal sealed class AutoDownloadDeleteManager : IAutoDownloadDeleteManager
 {
     private IDownloadManager DownloadManager { get; }
 

@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Converters;
 
-class SafeStringToColorConverter : IValueConverter
+sealed class SafeStringToColorConverter : IValueConverter
 {
 
     public SafeStringToColorConverter()

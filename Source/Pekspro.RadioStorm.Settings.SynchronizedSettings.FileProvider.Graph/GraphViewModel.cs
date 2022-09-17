@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Settings.SynchronizedSettings.FileProvider.Graph;
 
-public partial class GraphViewModel : ObservableObject
+public sealed partial class GraphViewModel : ObservableObject
 {
     #region Private properties
 

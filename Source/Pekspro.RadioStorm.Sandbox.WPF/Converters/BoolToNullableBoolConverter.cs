@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Converters;
 
-public class BoolToNullableBoolConverter : IValueConverter
+public sealed class BoolToNullableBoolConverter : IValueConverter
 {
     public BoolToNullableBoolConverter()
     {

@@ -6,7 +6,7 @@ using Pekspro.RadioStorm.Settings.SynchronizedSettings.Base;
 
 namespace Pekspro.RadioStorm.Sandbox.Common;
 
-public class FakeRoamingFileProvider2 : FakeRoamingFileProviderBase
+public sealed class FakeRoamingFileProvider2 : FakeRoamingFileProviderBase
 {
     protected override string SyncType => "FakeRoaming2";
 
@@ -20,7 +20,7 @@ public class FakeRoamingFileProvider2 : FakeRoamingFileProviderBase
     }
 }
 
-public class FakeRoamingFileProvider1 : FakeRoamingFileProviderBase
+public sealed class FakeRoamingFileProvider1 : FakeRoamingFileProviderBase
 {
     protected override string SyncType => "FakeRoaming1";
 

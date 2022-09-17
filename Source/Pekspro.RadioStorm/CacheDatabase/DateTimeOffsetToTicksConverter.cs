@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.CacheDatabase;
 
-public class DateTimeOffsetToTicksConverter : ValueConverter<DateTimeOffset, long>
+public sealed class DateTimeOffsetToTicksConverter : ValueConverter<DateTimeOffset, long>
 {
     public DateTimeOffsetToTicksConverter()
         : base(

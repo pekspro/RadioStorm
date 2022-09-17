@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.UI.Utilities;
 
-public partial class SelectionModeHelper : ObservableObject
+public sealed partial class SelectionModeHelper : ObservableObject
 {
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(StartSelectionModeCommand))]

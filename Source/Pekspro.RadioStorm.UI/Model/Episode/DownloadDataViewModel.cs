@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.UI.Model.Episode;
 
-public partial class DownloadDataViewModel : ObservableObject
+public sealed partial class DownloadDataViewModel : ObservableObject
 {
     #region Constructor
 

@@ -10,7 +10,7 @@ using Pekspro.RadioStorm.MAUI.Platforms.Android.Services;
 
 namespace Pekspro.RadioStorm.MAUI;
 [Activity(Theme = "@style/Maui.SplashTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize)]
-public class MainActivity : MauiAppCompatActivity
+public sealed class MainActivity : MauiAppCompatActivity
 {
     internal static MainActivity instance;
     public MediaPlayerServiceBinder binder;
@@ -106,7 +106,7 @@ public class MainActivity : MauiAppCompatActivity
 
 
 
-    class MediaPlayerServiceConnection : Java.Lang.Object, IServiceConnection
+    sealed class MediaPlayerServiceConnection : Java.Lang.Object, IServiceConnection
     {
         readonly MainActivity instance;
 

@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Controls;
 
-internal class BindableToolbarItem : ToolbarItem
+internal sealed class BindableToolbarItem : ToolbarItem
 {
     public static readonly BindableProperty IsVisibleProperty = 
         BindableProperty.Create(nameof(IsVisible), typeof(bool), typeof(BindableToolbarItem), true, BindingMode.OneWay, propertyChanged: OnIsVisibleChanged);

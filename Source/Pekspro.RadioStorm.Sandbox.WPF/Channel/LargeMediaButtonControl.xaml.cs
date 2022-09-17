@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Channel;
 
-public partial class LargeMediaButtonControl : UserControl
+public sealed partial class LargeMediaButtonControl : UserControl
 {
     public LargeMediaButtonControl()
     {

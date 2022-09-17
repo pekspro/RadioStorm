@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.UI.ViewModel.Player;
 
-public partial class PlayerViewModel : ObservableObject
+public sealed partial class PlayerViewModel : ObservableObject
 {
     #region Private properties
 

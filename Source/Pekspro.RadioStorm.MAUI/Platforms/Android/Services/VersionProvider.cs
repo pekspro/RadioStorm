@@ -2,7 +2,7 @@
 
 namespace Pekspro.RadioStorm.MAUI.Platforms.Android.Services;
 
-public class AndroidVersionProvider : IVersionProvider
+public sealed class AndroidVersionProvider : IVersionProvider
 {
     static AndroidVersionProvider()
     {

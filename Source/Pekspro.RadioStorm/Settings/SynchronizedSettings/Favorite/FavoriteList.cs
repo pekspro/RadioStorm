@@ -5,7 +5,7 @@ namespace Pekspro.RadioStorm.Settings.SynchronizedSettings.Favorite;
 public abstract class FavoriteList : SharedSettingsListBase<FavoriteItem>, IFavoriteList
 {
     [DebuggerDisplay("Id: {Id} Active: {IsActive} LastChanged: {LastChangedTimestamp}")]
-    public class FavoriteItem
+    public sealed class FavoriteItem
     {
         public int Id { get; set; }
         public bool IsActive { get; set; }

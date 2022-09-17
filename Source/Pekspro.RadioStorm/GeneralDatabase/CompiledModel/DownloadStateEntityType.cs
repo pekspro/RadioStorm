@@ -9,7 +9,7 @@ using Pekspro.RadioStorm.GeneralDatabase.Models;
 
 namespace Pekspro.RadioStorm.GeneralDatabase.CompiledModel
 {
-    internal partial class DownloadStateEntityType
+    internal sealed partial class DownloadStateEntityType
     {
         public static RuntimeEntityType Create(RuntimeModel model, RuntimeEntityType? baseEntityType = null)
         {

@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Bootstrap;
 
-internal class ShutDownManager : IShutDownManager
+internal sealed class ShutDownManager : IShutDownManager
 {
     #region Private properties
     

@@ -2,7 +2,7 @@
 
 namespace Pekspro.RadioStorm.Sandbox.WPF.Episode;
 
-public partial class DownloadsWindow : Window
+public sealed partial class DownloadsWindow : Window
 {
     public DownloadsWindow(DownloadsViewModel programInfoViewModel, IServiceProvider serviceProvider)
     {

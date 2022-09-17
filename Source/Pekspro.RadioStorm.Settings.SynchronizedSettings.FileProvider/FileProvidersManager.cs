@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Settings.SynchronizedSettings.FileProvider;
 
-public class FileProvidersManager : IFileProvidersManager
+public sealed class FileProvidersManager : IFileProvidersManager
 {
     public FileProvidersManager(
                 IGraphHelper graphHelper,

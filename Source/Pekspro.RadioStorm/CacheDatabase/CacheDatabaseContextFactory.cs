@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.CacheDatabase;
 
-public class CacheDatabaseContextFactory : ICacheDatabaseContextFactory
+public sealed class CacheDatabaseContextFactory : ICacheDatabaseContextFactory
 {
     public IOptions<StorageLocations> Options { get; }
 

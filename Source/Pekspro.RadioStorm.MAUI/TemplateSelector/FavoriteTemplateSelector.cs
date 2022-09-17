@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.TemplateSelector;
 
-public class FavoriteTemplateSelector : DataTemplateSelector
+public sealed class FavoriteTemplateSelector : DataTemplateSelector
 {
     public DataTemplate ChannelTemplate { get; set; } = null!;
 

@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.UI.Model.SchedulesEpisode;
 
-public class SchedulesEpisodeFactory : ISchedulesEpisodeFactory
+public sealed class SchedulesEpisodeFactory : ISchedulesEpisodeFactory
 {
     #region Private properites
     

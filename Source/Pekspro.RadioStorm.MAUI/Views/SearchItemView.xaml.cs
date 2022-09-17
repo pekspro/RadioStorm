@@ -1,6 +1,6 @@
 namespace Pekspro.RadioStorm.MAUI.Views;
 
-public partial class SearchItemView : ContentView
+public sealed partial class SearchItemView : ContentView
 {
 	public SearchItemView()
 	{

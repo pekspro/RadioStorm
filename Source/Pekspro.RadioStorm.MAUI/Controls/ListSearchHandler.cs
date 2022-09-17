@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Controls;
 
-internal class ListSearchHandler : SearchHandler
+internal sealed class ListSearchHandler : SearchHandler
 {
     protected override void OnQueryChanged(string oldValue, string newValue)
     {

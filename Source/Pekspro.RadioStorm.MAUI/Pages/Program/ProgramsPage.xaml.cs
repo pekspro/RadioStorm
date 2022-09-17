@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Pages.Program;
 
-public partial class ProgramsPage : ContentPage
+public sealed partial class ProgramsPage : ContentPage
 {
     public ProgramsPage(ProgramsViewModel viewModel)
     {

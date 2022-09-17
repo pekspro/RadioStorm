@@ -2,7 +2,7 @@
 
 using Microsoft.Extensions.Logging;
 
-public class AndroidLoggerProvider : ILoggerProvider
+public sealed class AndroidLoggerProvider : ILoggerProvider
 {
     public AndroidLoggerProvider()
     {
@@ -10,7 +10,7 @@ public class AndroidLoggerProvider : ILoggerProvider
 
     public ILogger CreateLogger(string categoryName)
     {
-        // Category name is often the full class name, like
+        // Category name is often the full sealed class name, like
         // MyApp.ViewModel.MyViewModel
         // This removes the namespace:
         int lastDotPos = categoryName.LastIndexOf('.');
@@ -25,7 +25,7 @@ public class AndroidLoggerProvider : ILoggerProvider
     public void Dispose() { }
 }
 
-public class AndroidLogger : ILogger
+public sealed class AndroidLogger : ILogger
 {
     private readonly string Category;
 

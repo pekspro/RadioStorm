@@ -21,7 +21,7 @@ namespace Pekspro.RadioStorm.MAUI.Platforms.Android.Services;
 
 [Service(Exported = true, ForegroundServiceType = global::Android.Content.PM.ForegroundService.TypeMediaPlayback)]
 [IntentFilter(new[] { ActionPlay, ActionPause, ActionStop, ActionTogglePlayback, ActionRewind, ActionForward, ActionNext, ActionPrevious })]
-public class MediaPlayerService : Service,
+public sealed class MediaPlayerService : Service,
    AudioManager.IOnAudioFocusChangeListener,
    MediaPlayer.IOnBufferingUpdateListener,
    MediaPlayer.IOnInfoListener,
@@ -96,7 +96,7 @@ public class MediaPlayerService : Service,
         }
     }
 
-    protected virtual void OnStatusChanged(EventArgs e)
+    private void OnStatusChanged(EventArgs e)
     {
         StatusChanged?.Invoke(this, e);
     }
@@ -981,7 +981,7 @@ public class MediaPlayerService : Service,
         }
     }
 
-    public class MediaSessionCallback : MediaSession.Callback
+    public sealed class MediaSessionCallback : MediaSession.Callback
     {
         private readonly MediaPlayerServiceBinder mediaPlayerService;
         public MediaSessionCallback(MediaPlayerServiceBinder service)
@@ -1040,7 +1040,7 @@ public class MediaPlayerService : Service,
     }
 }
 
-public class MediaPlayerServiceBinder : Binder
+public sealed class MediaPlayerServiceBinder : Binder
 {
     private readonly MediaPlayerService service;
 
@@ -1057,7 +1057,7 @@ public class MediaPlayerServiceBinder : Binder
 
 #if USE_CONNECTION_ALIVE_CHECKER
 
-class ConnectionAliveChecker
+sealed class ConnectionAliveChecker
 {
     private ILogger Logger { get; }
     public ConnectionAliveChecker(IServiceProvider serviceProvider)

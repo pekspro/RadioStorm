@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Converters;
 
-public class DownloadDataStatusToVisibilityConverter : IValueConverter
+public sealed class DownloadDataStatusToVisibilityConverter : IValueConverter
 {
     public DownloadDataStatusToVisibilityConverter()
     {

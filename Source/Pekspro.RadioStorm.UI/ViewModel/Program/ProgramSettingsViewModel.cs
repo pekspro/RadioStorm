@@ -1,10 +1,10 @@
 ﻿namespace Pekspro.RadioStorm.UI.ViewModel.Program;
 
-public partial class ProgramSettingsViewModel : ObservableObject
+public sealed partial class ProgramSettingsViewModel : ObservableObject
 {
     #region Start parameter
 
-    class StartParameter
+    sealed class StartParameter
     {
         public int ProgramId { get; set; }
 
@@ -13,7 +13,7 @@ public partial class ProgramSettingsViewModel : ObservableObject
 
     [JsonSourceGenerationOptions()]
     [JsonSerializable(typeof(StartParameter))]
-    partial class ProgramSettingsStartParameterJsonContext : JsonSerializerContext
+    sealed partial class ProgramSettingsStartParameterJsonContext : JsonSerializerContext
     {
     }
 

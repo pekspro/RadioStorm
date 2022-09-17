@@ -2,7 +2,7 @@
 
 namespace Pekspro.RadioStorm.MAUI.Services;
 
-public class UriLauncher : IUriLauncher
+public sealed class UriLauncher : IUriLauncher
 {
     public ILogger<UriLauncher> Logger { get; }
 

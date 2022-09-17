@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.UI.Model.FileSize;
 
-public partial class FileSize : ObservableObject
+public sealed partial class FileSize : ObservableObject
 {
     #region Constructor
 

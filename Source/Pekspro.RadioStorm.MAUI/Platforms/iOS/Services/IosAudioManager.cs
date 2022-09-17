@@ -9,7 +9,7 @@ using System;
 
 namespace Pekspro.RadioStorm.MAUI.Services;
 
-class IosAudioManager : AudioManagerBase
+sealed class IosAudioManager : AudioManagerBase
 {
     public IosAudioManager(
         IMainThreadTimerFactory mainThreadTimerFactory,

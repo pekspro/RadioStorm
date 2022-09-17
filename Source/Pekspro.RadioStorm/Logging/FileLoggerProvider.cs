@@ -1,6 +1,6 @@
 ﻿namespace Pekspro.RadioStorm.Logging;
 
-public class FileLoggerProvider : ILoggerProvider
+public sealed class FileLoggerProvider : ILoggerProvider
 {
     private bool disposedValue;
 
