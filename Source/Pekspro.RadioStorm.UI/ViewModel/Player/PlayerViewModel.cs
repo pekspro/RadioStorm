@@ -240,8 +240,6 @@ public partial class PlayerViewModel : ObservableObject
         }
     }
 
-    public bool HasVolmeSupport => AudioManager.HasVolumeSupport;
-
     #endregion
 
     #region Sleep time properties

@@ -50,7 +50,6 @@ public abstract class AudioManagerBase : IAudioManager
     protected abstract void MediaRefreshLengthAndPosition();
     abstract protected void MediaSetVolume(double volume);
     abstract protected void SetPlaybackRate(double speedRatio);
-    abstract public bool HasVolumeSupport { get; }
 
     #endregion
 
@@ -77,10 +76,7 @@ public abstract class AudioManagerBase : IAudioManager
         DateTimeProvider = dateTimeProvider;
         Logger = logger;
         
-        // if (HasVolumeSupport)
-        {
-            Volume = localSettings.Volume * 0.01;
-        }
+        Volume = localSettings.Volume * 0.01;
 
         if (useMainThreadTimer)
         {

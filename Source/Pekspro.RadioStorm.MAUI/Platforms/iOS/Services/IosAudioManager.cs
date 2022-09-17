@@ -5,6 +5,7 @@ using Pekspro.RadioStorm.Settings;
 using Pekspro.RadioStorm.Settings.SynchronizedSettings.ListenState;
 using Pekspro.RadioStorm.Settings.SynchronizedSettings.RecentHistory;
 using Pekspro.RadioStorm.Utilities;
+using System;
 
 namespace Pekspro.RadioStorm.MAUI.Services;
 
@@ -54,16 +55,13 @@ class IosAudioManager : AudioManagerBase
         throw new NotImplementedException();
     }
 
-    protected override void MediaSetVolume(int volume)
+    protected override void MediaSetVolume(double volume)
     {
         throw new NotImplementedException();
     }
 
-    public override bool HasVolumeSupport
+    protected override void SetPlaybackRate(double speedRatio)
     {
-        get
-        {
-            return false;
-        }
+        throw new NotImplementedException();
     }
 }

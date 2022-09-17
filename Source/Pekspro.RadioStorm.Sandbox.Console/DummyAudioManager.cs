@@ -67,6 +67,4 @@ class DummyAudioManager : AudioManagerBase
     {
         throw new NotImplementedException();
     }
-
-    public override bool HasVolumeSupport => false;
 }

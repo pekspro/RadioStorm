@@ -22,8 +22,6 @@ public interface IAudioManager
 
     int ProgressMaxValue { get; }
 
-    bool HasVolumeSupport { get; }
-
     double Volume { get; set; }
     
     int PlaybackRateIndex { get; set; }

@@ -107,8 +107,6 @@ class WpfAudioManager : AudioManagerBase
         MediaPlayer.Volume = volume;
     }
 
-    public override bool HasVolumeSupport => true;
-
     private void MediaPlayer_MediaOpened(object sender, EventArgs e)
     {
         if (MediaPlayer.IsBuffering)

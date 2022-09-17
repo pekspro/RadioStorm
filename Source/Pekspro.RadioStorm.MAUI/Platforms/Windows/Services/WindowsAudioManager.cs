@@ -146,8 +146,6 @@ class WindowsAudioManager : AudioManagerBase
         mediaPlayer.Volume = volume;
     }
 
-    public override bool HasVolumeSupport => true;
-
     private static MediaPlaybackItem CreateMediaPlaybackItem(PlayListItem song)
     {
         if (song.PreferablePlayUrl is null)

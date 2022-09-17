@@ -150,8 +150,6 @@ internal class AndroidAudioManager : AudioManagerBase
         }
     }
 
-    public override bool HasVolumeSupport => false;
-
     protected override void OnPlayListChanged()
     {
         MediaPlayerService?.UpdateNotification();
