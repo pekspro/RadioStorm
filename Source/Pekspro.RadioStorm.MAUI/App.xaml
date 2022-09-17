@@ -240,6 +240,13 @@
                 Size="16"/>
 
             <FontImageSource
+                x:Key="Menu"
+                FontFamily="{StaticResource DefaultIconFont}"
+                Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.CaretUpSolid8}, Default={x:Static style:IconFont.Bars}}"
+                Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
+                Size="16"/>
+
+            <FontImageSource
                 x:Key="LargeImageButtonDisabledImage"
                 FontFamily="{StaticResource DefaultIconFont}"
                 Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.StatusCircleBlock}, Default={x:Static style:IconFont.Ban}}"

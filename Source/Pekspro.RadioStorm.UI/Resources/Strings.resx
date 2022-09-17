@@ -580,13 +580,13 @@
     <value>Sovtimer</value>
   </data>
   <data name="Player_MenuSleepTimer_Disable" xml:space="preserve">
-    <value>Stäng av sovtimer ({0}:{1})</value>
+    <value>Stäng av sovtimer ({0:00}:{1:00})</value>
   </data>
   <data name="Player_MenuSleepTimer_Set" xml:space="preserve">
     <value>{0} minuter</value>
   </data>
   <data name="Player_MenuSpeed" xml:space="preserve">
-    <value>Hastighet</value>
+    <value>Hastighet:</value>
   </data>
   <data name="Player_MenuSpeed_Fast" xml:space="preserve">
     <value>Snabbt</value>

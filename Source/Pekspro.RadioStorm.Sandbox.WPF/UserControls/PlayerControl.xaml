@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:usercontrols="clr-namespace:Pekspro.RadioStorm.Sandbox.WPF.UserControls" 
              xmlns:player="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Player;assembly=Pekspro.RadioStorm.UI"
+             xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance player:PlayerViewModel, IsDesignTimeCreatable=True}"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -35,9 +36,42 @@
             <Button Command="{Binding RewindCommand, Mode=OneWay}" Content="{Binding SeekSizeViewModel.RewindSize, Converter={StaticResource TimeSpanToSeekSizeStringConverter}}" />
             <Button Command="{Binding ForwardCommand, Mode=OneWay}" Content="{Binding SeekSizeViewModel.ForwardSize, Converter={StaticResource TimeSpanToSeekSizeStringConverter}}" />
             <Button Command="{Binding GoToNextCommand, Mode=OneWay}" Content="Next" />
+            <Button Command="{Binding ToogleMenuCommand, Mode=OneWay}" Content="..." />
             <Button IsEnabled="{Binding HasPlayList, Mode=OneWay}" Click="ButtonOpenPlaylist_Click" Content="Playlist" />
             <Slider x:Name="SliderVolume" Minimum="0" Maximum="100" Width="150" Value="{Binding Volume}" />
         </StackPanel>
+
+        <Grid Grid.Row="2" Grid.ColumnSpan="3" Visibility="{Binding IsMenuOpen, Converter={StaticResource BoolToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            
+            <ComboBox 
+                Grid.Column="0"
+                ItemsSource="{Binding SleepTimes}"
+                SelectedIndex="{Binding SleepTimeIndex, Mode=TwoWay}"
+                Visibility="{Binding IsSleepTimerNotRunning, Converter={StaticResource BoolToVisibilityConverter}}"
+                />
+
+            <Button Grid.Column="0" 
+                Content="{Binding StopSleepTimerText}" 
+                Command="{Binding StopSleepTimerCommand}"
+                Visibility="{Binding IsSleepTimerRunning, Converter={StaticResource BoolToVisibilityConverter}}"
+                />
+
+            <Label Grid.Column="2" 
+               Content="{x:Static r:Strings.Player_MenuSpeed}"
+               />
+
+            <ComboBox Grid.Column="3"
+                IsEnabled="{Binding IsCurrentItemLiveAudio, Converter={StaticResource InvertedBoolToVisibilityConverter}}"
+                ItemsSource="{Binding PlaybackRateOptions}"
+                SelectedIndex="{Binding PlaybackRateIndex, Mode=TwoWay}"
+                />
+        </Grid>
 
         <!--<StackPanel Orientation="Horizontal" Grid.Row="2">
             <TextBlock>

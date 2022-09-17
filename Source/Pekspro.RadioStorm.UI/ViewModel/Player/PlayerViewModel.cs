@@ -3,7 +3,17 @@
 public partial class PlayerViewModel : ObservableObject
 {
     #region Private properties
-    
+
+    private static readonly int[] SleepTimesInMinutes = new[]
+    {
+        5,
+        10,
+        15,
+        30,
+        60,
+        120
+    };
+
     private IAudioManager AudioManager { get; }
     private IMainThreadRunner MainThreadRunner { get; }
 
@@ -34,6 +44,7 @@ public partial class PlayerViewModel : ObservableObject
         CanPlay = audioManager.CanPlay;
         IsBuffering = audioManager.IsBuffering;
 
+        _PlaybackRateIndex = audioManager.PlaybackRateIndex;
         AudioPosition = audioManager.Position;
         MediaLength = audioManager.MediaLength;
 
@@ -62,7 +73,7 @@ public partial class PlayerViewModel : ObservableObject
             MainThreadRunner.RunInMainThread(() =>
             {
                 CurrentPlayList = message.PlayList;
-                PlaylistChanged();                
+                PlaylistChanged();
             });
         });
 
@@ -140,7 +151,7 @@ public partial class PlayerViewModel : ObservableObject
             {
                 LatestDraggingPosition = value;
             }
-            
+
             if (SetProperty(ref _DraggingPosition, value))
             {
                 OnPropertyChanged(nameof(PositionString));
@@ -153,7 +164,7 @@ public partial class PlayerViewModel : ObservableObject
     public TimeSpan Position => DraggingPosition ?? LatestDraggingPosition ?? AudioPosition;
 
     public string PositionString => CreatePositionString(Position);
-    
+
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(MediaLengthString))]
     [NotifyPropertyChangedFor(nameof(IsMediaLengthKnown))]
@@ -206,6 +217,104 @@ public partial class PlayerViewModel : ObservableObject
     }
 
     public bool HasVolmeSupport => AudioManager.HasVolumeSupport;
+
+    #endregion
+
+    #region Sleep time properties
+
+    private List<string>? _SleepTimes;
+
+    public IReadOnlyList<string> SleepTimes
+    {
+        get
+        {
+            if (_SleepTimes is null)
+	        {       
+                _SleepTimes = SleepTimesInMinutes.Select(time => string.Format(Strings.Player_MenuSleepTimer_Set, time)).ToList();
+
+                _SleepTimes.Insert(0, Strings.Player_MenuSleepTimer);
+
+            }
+
+            return _SleepTimes;
+        }
+    }
+
+    [ObservableProperty]
+    private int _SleepTimeIndex;
+
+    async partial void OnSleepTimeIndexChanged(int value)
+    {
+        if (value == 0 || value >= SleepTimesInMinutes.Length)
+        {
+            return;
+        }
+        else
+        {
+            IsSleepTimerRunning = true;
+
+            SleepTimeLeftInSeconds = SleepTimesInMinutes[value - 1] * 10;
+
+            while (SleepTimeLeftInSeconds > 0)
+            {
+                await Task.Delay(50);
+                SleepTimeLeftInSeconds--;
+            }
+
+            IsSleepTimerRunning = false;
+            SleepTimeIndex = 0;
+        }
+    }
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsSleepTimerNotRunning))]
+    [NotifyCanExecuteChangedFor(nameof(StopSleepTimerCommand))]
+    private bool _IsSleepTimerRunning;
+
+    public bool IsSleepTimerNotRunning => !IsSleepTimerRunning;
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(StopSleepTimerText))]
+    private int _SleepTimeLeftInSeconds;
+
+    public string StopSleepTimerText =>
+        string.Format(Strings.Player_MenuSleepTimer_Disable, SleepTimeLeftInSeconds / 60, SleepTimeLeftInSeconds % 60);
+
+    #endregion
+
+    #region Speed
+
+    private List<string>? _PlaybackRateOptions;
+
+    public IReadOnlyList<string> PlaybackRateOptions =>
+        _PlaybackRateOptions ??
+            (_PlaybackRateOptions = new List<string>()
+            {
+                Strings.Player_MenuSpeed_VerySlow,
+                Strings.Player_MenuSpeed_Slow,
+                Strings.Player_MenuSpeed_Normal,
+                Strings.Player_MenuSpeed_Fast,
+                Strings.Player_MenuSpeed_VeryFast,
+                Strings.Player_MenuSpeed_Fast,
+                Strings.Player_MenuSpeed_Normal,
+                Strings.Player_MenuSpeed_Slow,
+                Strings.Player_MenuSpeed_VerySlow,
+            });
+
+    [ObservableProperty]
+    private int _PlaybackRateIndex;
+
+    partial void OnPlaybackRateIndexChanged(int value)
+    {
+        AudioManager.PlaybackRateIndex = value;
+    }
+
+    #endregion
+
+    #region Menu
+
+    [ObservableProperty]
+    private bool _IsMenuOpen;
 
     #endregion
 
@@ -262,6 +371,20 @@ public partial class PlayerViewModel : ObservableObject
     public void GoToPrevious()
     {
         AudioManager.GoToPrevious();
+    }
+
+    [RelayCommand]
+    public void StopSleepTimer()
+    {
+        SleepTimeIndex = 0;
+        SleepTimeLeftInSeconds = 0;
+        IsSleepTimerRunning = false;
+    }
+
+    [RelayCommand]
+    public void ToogleMenu()
+    {
+        IsMenuOpen = !IsMenuOpen;
     }
 
     #endregion
