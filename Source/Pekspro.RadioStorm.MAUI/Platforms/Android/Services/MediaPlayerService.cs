@@ -58,6 +58,8 @@ public class MediaPlayerService : Service,
     private int AudioCounter;
 
     private double PlaybackRate = 1;
+    
+    private double Volume = 1;
 
 #if USE_CONNECTION_ALIVE_CHECKER
     private ConnectionAliveChecker connectionAliveChecker;
@@ -636,9 +638,29 @@ public class MediaPlayerService : Service,
         }
     }
 
-    internal void SetVolume(float value)
+    internal void SetVolume(double value)
     {
-        mediaPlayer?.SetVolume(value, value);
+        Volume = value;
+
+        //value *= 100;
+
+        //int MAX_VOLUME = 100;
+        //float volume;
+        
+        //if (value >= MAX_VOLUME)
+        //{
+        //    volume = 1;
+        //}
+        //else
+        //{
+        //    volume = (float)(1 - (Math.Log(MAX_VOLUME - value) / Math.Log(MAX_VOLUME)));
+        //}
+
+        //Logger.LogError($"Setting {Volume} {value}");
+
+        ////mediaPlayer?.SetVolume((float)volume, (float)volume);
+        
+        mediaPlayer?.SetVolume((float)Volume, (float)Volume);
     }
 
     private async void UpdateSessionMetaDataAndLoadImage()
@@ -906,7 +928,8 @@ public class MediaPlayerService : Service,
         {
             case AudioFocus.Gain:
                 Logger.LogInformation("Gaining audio focus.");
-                mediaPlayer.SetVolume(1f, 1f);
+                
+                mediaPlayer?.SetVolume((float)Volume, (float)Volume);
 
                 if (RestartAudioOnGainAudioFocus)
                 {
@@ -951,7 +974,7 @@ public class MediaPlayerService : Service,
                 //We have lost focus but should till play at a muted 10% volume
                 if (mediaPlayer.IsPlaying)
                 {
-                    mediaPlayer.SetVolume(.1f, .1f);
+                    mediaPlayer?.SetVolume((float)Volume * 0.1f, (float)Volume * 0.1f);
                 }
 
                 break;

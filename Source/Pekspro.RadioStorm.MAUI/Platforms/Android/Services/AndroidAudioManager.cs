@@ -144,7 +144,10 @@ internal class AndroidAudioManager : AudioManagerBase
 
     protected override void MediaSetVolume(double volume)
     {
-        MediaPlayerService?.SetVolume((float)volume);
+        if (instance is not null)
+        {
+            MediaPlayerService?.SetVolume((float)volume);
+        }
     }
 
     public override bool HasVolumeSupport => false;

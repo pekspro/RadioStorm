@@ -931,7 +931,7 @@ public abstract class AudioManagerBase : IAudioManager
         IsSleepTimerEnabled = true;
         SleepActivationTime = DateTimeProvider.UtcNow.Add(timeLeftToSleepActivation);
 
-        Logger.LogInformation("Sleep mode activated. Sleep time: {sleepTime} (sleepActivationTime)", timeLeftToSleepActivation, SleepActivationTime);
+        Logger.LogInformation("Sleep mode activated. Sleep time: {sleepTime} ({sleepActivationTime})", timeLeftToSleepActivation, SleepActivationTime);
 
         while (sleepModeSessionId == SleepModeSessionId && IsSleepTimerEnabled)
         {
