@@ -25,6 +25,8 @@ public interface IAudioManager
     bool HasVolumeSupport { get; }
 
     int Volume { get; set; }
+    
+    int PlaybackRateIndex { get; set; }
 
     void Play(PlayListItem item);
     

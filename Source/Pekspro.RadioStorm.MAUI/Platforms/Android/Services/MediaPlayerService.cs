@@ -57,6 +57,8 @@ public class MediaPlayerService : Service,
     private Bitmap ItemImage;
     private int AudioCounter;
 
+    private double PlaybackRate = 1;
+
 #if USE_CONNECTION_ALIVE_CHECKER
     private ConnectionAliveChecker connectionAliveChecker;
 #endif
@@ -239,6 +241,7 @@ public class MediaPlayerService : Service,
     {
         Logger.LogInformation("Media prepared.");
 
+        mp.PlaybackParams = mediaPlayer.PlaybackParams.SetSpeed((float)PlaybackRate);
         mp.Start();
         UpdatePlaybackState(PlaybackStateCode.Playing);
 
@@ -462,7 +465,7 @@ public class MediaPlayerService : Service,
                     }
 
                     mediaPlayer.Reset();
-
+                    
                     _LatestValidDuration = -1;
                     _LatestValidPosition = -1;
 
@@ -575,6 +578,29 @@ public class MediaPlayerService : Service,
         });
     }
 
+    public async void SetPlaybackRate(double playbackRate)
+    {
+        await Task.Run(() =>
+        {
+            if (mediaPlayer is null)
+            {
+                return;
+            }
+
+            PlaybackRate = playbackRate;
+
+            try
+            {
+                mediaPlayer.PlaybackParams = mediaPlayer.PlaybackParams.SetSpeed((float)PlaybackRate);
+                UpdatePlaybackState(MediaPlayerState);
+            }
+            catch(Exception )
+            {
+
+            }
+        });
+    }
+
     private void UpdatePlaybackState(PlaybackStateCode state)
     {
         if (mediaSession is null || mediaPlayer is null)
@@ -594,7 +620,7 @@ public class MediaPlayerService : Service,
                     PlaybackState.ActionStop |
                     PlaybackState.ActionSeekTo
                 )
-                .SetState(state, RawPosition, 1.0f);
+                .SetState(state, RawPosition, (float) PlaybackRate);
 
             mediaSession.SetPlaybackState(stateBuilder.Build());
 

@@ -186,4 +186,9 @@ class WindowsAudioManager : AudioManagerBase
         mediaItem.ApplyDisplayProperties(displayProperties);
         return mediaItem;
     }
+
+    protected override void SetPlaybackRate(double playbackRate)
+    {
+        mediaPlayer.PlaybackRate = playbackRate;
+    }
 }

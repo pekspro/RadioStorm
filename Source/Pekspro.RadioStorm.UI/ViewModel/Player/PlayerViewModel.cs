@@ -85,6 +85,14 @@ public partial class PlayerViewModel : ObservableObject
                 PlaylistChanged();
             });
         });
+
+        messenger.Register<SpeedRateChanged>(this, (sender, message) =>
+        {
+            MainThreadRunner.RunInMainThread(() =>
+            {
+                PlaybackRateIndex = message.PlaybackRateIndex;
+            });
+        });
     }
 
     #endregion
@@ -295,10 +303,6 @@ public partial class PlayerViewModel : ObservableObject
                 Strings.Player_MenuSpeed_Normal,
                 Strings.Player_MenuSpeed_Fast,
                 Strings.Player_MenuSpeed_VeryFast,
-                Strings.Player_MenuSpeed_Fast,
-                Strings.Player_MenuSpeed_Normal,
-                Strings.Player_MenuSpeed_Slow,
-                Strings.Player_MenuSpeed_VerySlow,
             });
 
     [ObservableProperty]

@@ -124,6 +124,10 @@ class WpfAudioManager : AudioManagerBase
             var duration = MediaPlayer.NaturalDuration.TimeSpan;
             TryRestorePosition(duration);
         }
+    }
 
+    protected override void SetPlaybackRate(double playbackRate)
+    {
+        MediaPlayer.SpeedRatio = playbackRate;
     }
 }

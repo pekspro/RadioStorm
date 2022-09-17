@@ -3,7 +3,11 @@
 public abstract class AudioManagerBase : IAudioManager
 {
     #region Private properties
-    
+
+    private double[] PlaybackRates = new double[] { 0.5, 0.75, 1, 1.5, 2 };
+
+    private const int DefaultPlaybackRate = 2;
+
     private IRecentPlayedManager RecentPlayedManager { get; }
 
     private IDownloadManager DownloadManager { get; }
@@ -41,6 +45,7 @@ public abstract class AudioManagerBase : IAudioManager
     protected abstract void MediaRefreshButtonStates();
     protected abstract void MediaRefreshLengthAndPosition();
     abstract protected void MediaSetVolume(int volume);
+    abstract protected void SetPlaybackRate(double speedRatio);
     abstract public bool HasVolumeSupport { get; }
 
     #endregion
@@ -199,6 +204,56 @@ public abstract class AudioManagerBase : IAudioManager
     public int ProgressMaxValue { get; set; }
 
     public int ProgressValue { get; set; }
+
+    private int _PlaybackRateIndex = DefaultPlaybackRate;
+
+    public double PlaybackRate => PlaybackRates[_PlaybackRateIndex];
+
+    public int PlaybackRateIndex
+    {
+        get
+        {
+            return _PlaybackRateIndex;
+        }
+        set
+        {
+            if (value >= 0 && value < PlaybackRates.Length && value != _PlaybackRateIndex)
+            {
+                // Only default speed can be used on live audio.
+                if (value == DefaultPlaybackRate || CurrentPlayList?.IsLiveAudio != true)
+                {
+                    _PlaybackRateIndex = value;
+                    
+                    Logger.LogInformation("Setting play back index {index} ({playbackRate})", value, PlaybackRate);
+
+                    int timerIntervall;
+                    if (PlaybackRateIndex > DefaultPlaybackRate)
+                    {
+                        // Refresh more often if faster than default.
+                        timerIntervall = 1000 / 4;
+                    }
+                    else
+                    {
+                        timerIntervall = 1000;
+                    }
+
+                    if (MainThreadRefreshPositionTimer is not null)
+                    {
+                        MainThreadRefreshPositionTimer.Interval = timerIntervall;
+                    }
+                
+                    if (RefreshPositionTimer is not null)
+                    {
+                        RefreshPositionTimer.Interval = timerIntervall;
+                    }
+
+                    SetPlaybackRate(PlaybackRate);
+                }
+                    
+                Messenger.Send(new SpeedRateChanged(PlaybackRateIndex, PlaybackRate));
+            }
+        }
+    }
 
     #region Volume property
 
@@ -472,6 +527,12 @@ public abstract class AudioManagerBase : IAudioManager
         foreach (var item in items)
         {
             CurrentPlayList.Items.Add(item);
+        }
+
+        if (CurrentPlayList.IsLiveAudio)
+        {
+            // Reset speed ratio
+            PlaybackRateIndex = DefaultPlaybackRate;
         }
 
         SetPlaylistPosition(0);

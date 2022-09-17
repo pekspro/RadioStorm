@@ -190,4 +190,9 @@ internal class AndroidAudioManager : AudioManagerBase
             };
         }
     }
+
+    protected override void SetPlaybackRate(double playbackRate)
+    {
+        MediaPlayerService?.SetPlaybackRate(playbackRate);
+    }
 }

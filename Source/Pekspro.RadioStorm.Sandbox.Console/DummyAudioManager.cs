@@ -62,5 +62,10 @@ class DummyAudioManager : AudioManagerBase
         throw new NotImplementedException();
     }
 
+    protected override void SetPlaybackRate(double speedRatio)
+    {
+        throw new NotImplementedException();
+    }
+
     public override bool HasVolumeSupport => false;
 }
