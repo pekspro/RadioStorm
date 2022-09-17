@@ -2,7 +2,7 @@
 
 public interface ILocalSettings
 {
-    int Volume { get; set; }
+    double Volume { get; set; }
     int AutoRemoveListenedDownloadedFilesDayDelay { get; set; }
     int LaunchCount { get; set; }
     bool MayWantToReview { get; set; }

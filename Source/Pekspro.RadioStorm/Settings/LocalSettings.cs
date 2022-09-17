@@ -24,13 +24,13 @@ public sealed class LocalSettings : ILocalSettings
 
     #region Properties
 
-    public int Volume
+    public double Volume
     {
         get
         {
-            int v = SettingsService.GetSafeValue(nameof(Volume), 100);
+            double v = SettingsService.GetSafeValue(nameof(Volume), 1.0);
 
-            return Math.Clamp(v, -1, 100);
+            return Math.Clamp(v, 0, 1);
         }
         set
         {

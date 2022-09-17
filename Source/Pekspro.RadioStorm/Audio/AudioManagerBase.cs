@@ -76,7 +76,7 @@ public abstract class AudioManagerBase : IAudioManager
         DateTimeProvider = dateTimeProvider;
         Logger = logger;
         
-        Volume = localSettings.Volume * 0.01;
+        Volume = localSettings.Volume;
 
         if (useMainThreadTimer)
         {
@@ -270,7 +270,7 @@ public abstract class AudioManagerBase : IAudioManager
         set
         {
             _Volume = value;
-            LocalSettings.Volume = (int) (_Volume * 100);
+            LocalSettings.Volume = _Volume;
             UpdateVolume();
         }
     }

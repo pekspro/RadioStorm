@@ -15,6 +15,10 @@ public sealed class SettingsService : ISettingsService
         {
             Preferences.Set(key, t2);
         }
+        else if (value is double t2b)
+        {
+            Preferences.Set(key, t2b);
+        }
         else if (value is bool t3)
         {
             Preferences.Set(key, t3);
@@ -47,6 +51,10 @@ public sealed class SettingsService : ISettingsService
             else if (defaultValue is long t2)
             {
                 return (T)(object) Preferences.Get(key, t2);
+            }
+            else if (defaultValue is double t2b)
+            {
+                return (T)(object) Preferences.Get(key, t2b);
             }
             else if (defaultValue is bool t3)
             {

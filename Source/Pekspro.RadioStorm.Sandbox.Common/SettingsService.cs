@@ -97,6 +97,10 @@ public sealed class SettingsService : ISettingsService
                     {
                         return (T)(object)v2.GetInt32();
                     }
+                    else if (typeof(T) == typeof(double))
+                    {
+                        return (T)(object)v2.GetDouble();
+                    }
                 }
                 else if (v2.ValueKind == JsonValueKind.True)
                 {
