@@ -46,7 +46,7 @@ sealed class WindowsAudioManager : AudioManagerBase
 
     private async void PlaybackSession_BufferingStarted(MediaPlaybackSession sender, object args)
     {
-        Logger.LogWarning(nameof(PlaybackSession_BufferingStarted));
+        Logger.LogInformation(nameof(PlaybackSession_BufferingStarted));
 
         BufferingSessionId++;
 
@@ -69,7 +69,7 @@ sealed class WindowsAudioManager : AudioManagerBase
 
     private void PlaybackSession_BufferingEnded(MediaPlaybackSession sender, object args)
     {
-        Logger.LogWarning(nameof(PlaybackSession_BufferingEnded));
+        Logger.LogInformation(nameof(PlaybackSession_BufferingEnded));
 
         BufferingSessionId++;
         BufferRatio = mediaPlayer.PlaybackSession.BufferingProgress;

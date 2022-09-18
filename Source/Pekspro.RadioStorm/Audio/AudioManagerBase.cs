@@ -270,7 +270,7 @@ public abstract class AudioManagerBase : IAudioManager
         {
             if (value != _BufferRatio)
             {
-                Logger.LogWarning("New buffer ratio {bufferRatio:0.0000}", value);
+                Logger.LogInformation("New buffer ratio {bufferRatio:0.000}", value);
 
                 _BufferRatio = value;
 
@@ -973,7 +973,7 @@ public abstract class AudioManagerBase : IAudioManager
 
             if (currentTimeLeftToSleepActivation <= SleepVolumeFadeStartTime)
             {
-                Logger.LogInformation("Will sleep soon. Volume multiplier: {volumeMultiplier}.", SleepModeVolumeMultiplier);
+                Logger.LogInformation("Will sleep soon. Volume multiplier: {volumeMultiplier:0.000}.", SleepModeVolumeMultiplier);
             }
 
             UpdateVolume();
