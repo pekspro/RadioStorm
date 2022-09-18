@@ -16,6 +16,7 @@
 
     <Button Grid.Column="0"
             Text="{Binding SeekSizeViewModel.RewindSize, Converter={StaticResource TimeSpanToSeekSizeStringConverter}}"
+            TextColor="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"
             Command="{Binding RewindCommand}"
             Style="{StaticResource TextPlayerButton}"
             IsVisible="{Binding IsCurrentItemLiveAudio, Converter={StaticResource InvertedBoolConverter}}"
@@ -44,6 +45,7 @@
 
     <Button Grid.Column="4"
             Text="{Binding SeekSizeViewModel.ForwardSize, Converter={StaticResource TimeSpanToSeekSizeStringConverter}}"
+            TextColor="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"
             Command="{Binding ForwardCommand}"
             Style="{StaticResource TextPlayerButton}"
             IsVisible="{Binding IsCurrentItemLiveAudio, Converter={StaticResource InvertedBoolConverter}}"
