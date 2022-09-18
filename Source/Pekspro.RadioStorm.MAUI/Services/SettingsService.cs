@@ -1,6 +1,4 @@
-﻿using Pekspro.RadioStorm.Settings;
-
-namespace Pekspro.RadioStorm.MAUI.Services;
+﻿namespace Pekspro.RadioStorm.MAUI.Services;
 
 public sealed class SettingsService : ISettingsService
 {

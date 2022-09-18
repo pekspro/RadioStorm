@@ -1,14 +1,24 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Services;
 
-#nullable disable
+#nullable enable
 
 internal sealed class AndroidAudioManager : AudioManagerBase
 {
-    MainActivity instance;
-    private Pekspro.RadioStorm.MAUI.Platforms.Android.Services.MediaPlayerService MediaPlayerService
-        => this.instance.binder.GetMediaPlayerService();
+    private Platforms.Android.Services.MediaPlayerService? _MediaPlayerService;
 
-    bool EventsAreSetup = false;
+    private Platforms.Android.Services.MediaPlayerService MediaPlayerService
+    {
+        get
+        {
+            if (_MediaPlayerService is null)
+            {
+                _MediaPlayerService = MainActivity.instance.binder.GetMediaPlayerService();
+                SetupEvents(_MediaPlayerService);
+            }
+
+            return _MediaPlayerService;
+        }
+    }
 
     public AndroidAudioManager(
         IMainThreadTimerFactory mainThreadTimerFactory,
@@ -29,16 +39,7 @@ internal sealed class AndroidAudioManager : AudioManagerBase
     {
         try
         {
-            if (this.instance is null)
-            {
-                this.instance = MainActivity.instance;
-            }
-
-            var service = MediaPlayerService;
-
-            SetupEvents(service);
-
-            await service.Play(playlist);
+            await MediaPlayerService.Play(playlist);
         }
         catch (Exception )
         {
@@ -144,7 +145,7 @@ internal sealed class AndroidAudioManager : AudioManagerBase
 
     protected override void MediaSetVolume(double volume)
     {
-        if (instance is not null)
+        if (_MediaPlayerService is not null)
         {
             MediaPlayerService?.SetVolume((float)volume);
         }
@@ -157,40 +158,36 @@ internal sealed class AndroidAudioManager : AudioManagerBase
 
     private void SetupEvents(Pekspro.RadioStorm.MAUI.Platforms.Android.Services.MediaPlayerService service)
     {
-        if (!EventsAreSetup)
+        service.StatusChanged += (a, b) =>
         {
-            EventsAreSetup = true;
-            service.StatusChanged += (a, b) =>
+            RefreshState();
+
+            var currentState = MediaPlayerService.MediaPlayerState;
+
+            if (currentState == Android.Media.Session.PlaybackStateCode.Playing)
             {
-                RefreshState();
-
-                var currentState = MediaPlayerService.MediaPlayerState;
-
-                if (currentState == Android.Media.Session.PlaybackStateCode.Playing)
+                TryRestorePosition(MediaLength);
+            }
+            else if (currentState == Android.Media.Session.PlaybackStateCode.SkippingToNext)
+            {
+                if (!GoToNext())
                 {
-                    TryRestorePosition(MediaLength);
+                    Pause();
                 }
-                else if (currentState == Android.Media.Session.PlaybackStateCode.SkippingToNext)
+            }
+            else if (currentState == Android.Media.Session.PlaybackStateCode.SkippingToPrevious)
+            {
+                if (!GoToPrevious())
                 {
-                    if (!GoToNext())
-                    {
-                        Pause();
-                    }
+                    Pause();
                 }
-                else if (currentState == Android.Media.Session.PlaybackStateCode.SkippingToPrevious)
-                {
-                    if (!GoToPrevious())
-                    {
-                        Pause();
-                    }
-                }
-                else if (currentState == Android.Media.Session.PlaybackStateCode.Stopped)
-                {
-                    Logger.LogInformation("Player stopped. Will restore position on next play.");
-                    RestorePositionOnNextPlay();
-                }
-            };
-        }
+            }
+            else if (currentState == Android.Media.Session.PlaybackStateCode.Stopped)
+            {
+                Logger.LogInformation("Player stopped. Will restore position on next play.");
+                RestorePositionOnNextPlay();
+            }
+        };
     }
 
     protected override void SetPlaybackRate(double playbackRate)
