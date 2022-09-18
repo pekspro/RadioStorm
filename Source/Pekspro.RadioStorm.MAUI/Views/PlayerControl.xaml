@@ -70,7 +70,7 @@
         <Label Grid.Column="1" 
                Text="{Binding BufferPercent}"
                FontSize="{OnPlatform Default=8, WinUI=9}"
-               Margin="{OnPlatform Default='0', WinUI='0,0,2,1'}"
+               Margin="{OnPlatform Default='0,0,1,1', WinUI='0,0,2,1'}"
                HorizontalOptions="Center"
                VerticalOptions="Center"
                />
