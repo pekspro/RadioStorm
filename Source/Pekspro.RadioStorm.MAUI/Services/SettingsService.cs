@@ -46,27 +46,27 @@ public sealed class SettingsService : ISettingsService
         {
             if (defaultValue is int t)
             {
-                return (T) (object) Preferences.Get(key, t);
+                return (T)(object)Preferences.Get(key, t);
             }
             else if (defaultValue is long t2)
             {
-                return (T)(object) Preferences.Get(key, t2);
+                return (T)(object)Preferences.Get(key, t2);
             }
             else if (defaultValue is double t2b)
             {
-                return (T)(object) Preferences.Get(key, t2b);
+                return (T)(object)Preferences.Get(key, t2b);
             }
             else if (defaultValue is bool t3)
             {
-                return (T)(object) Preferences.Get(key, t3);
+                return (T)(object)Preferences.Get(key, t3);
             }
             else if (defaultValue is string t4)
             {
-                return (T)(object) Preferences.Get(key, t4);
+                return (T)(object)Preferences.Get(key, t4);
             }
             else if (defaultValue is null)
             {
-                return (T)(object) Preferences.Get(key, null)!;
+                return (T)(object)Preferences.Get(key, null)!;
             }
             else
             {
@@ -77,5 +77,11 @@ public sealed class SettingsService : ISettingsService
         {
             return defaultValue;
         }
+#if ANDROID
+        catch (Java.Lang.ClassCastException)
+        {
+            return defaultValue;
+        }
+#endif
     }
 }
