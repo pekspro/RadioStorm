@@ -11,6 +11,16 @@ namespace Pekspro.RadioStorm.MAUI.Platforms.Android.Receivers;
 [IntentFilter(new[] { Intent.ActionMediaButton })]
 public sealed class RemoteControlBroadcastReceiver : BroadcastReceiver
 {
+    private ILogger _Logger;
+
+    private ILogger Logger
+    {
+        get
+        {
+            return _Logger ??= MAUI.Services.ServiceProvider.Current.GetRequiredService<ILogger<RemoteControlBroadcastReceiver>>();
+        }
+    }
+
 
     /// <summary>
     /// gets the sealed class name for the component
@@ -39,6 +49,8 @@ public sealed class RemoteControlBroadcastReceiver : BroadcastReceiver
         {
             return;
         }
+
+        Logger.LogInformation("Key code: {keyCode}", key.KeyCode);
 
         string action;
 
@@ -72,6 +84,8 @@ public sealed class RemoteControlBroadcastReceiver : BroadcastReceiver
             default:
                 return;
         }
+
+        Logger.LogInformation("Action: {action}", action);
 
         var remoteIntent = new Intent(action);
         context.StartService(remoteIntent);

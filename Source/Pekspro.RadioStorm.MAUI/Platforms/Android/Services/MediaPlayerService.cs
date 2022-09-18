@@ -224,7 +224,7 @@ public sealed class MediaPlayerService : Service,
 
     public void OnCompletion(MediaPlayer mp)
     {
-        Logger.LogInformation("Audio playing is completed.");
+        Logger.LogInformation("Audio playing is completed at {position}, duration {duration}.", PositionTimeSpan, DurationTimeSpan);
 
         PlayNext();
 
@@ -270,6 +270,8 @@ public sealed class MediaPlayerService : Service,
         }
     }
 
+    private TimeSpan PositionTimeSpan => TimeSpan.FromMilliseconds(Position);
+
     private int RawPosition
     {
         get
@@ -308,6 +310,8 @@ public sealed class MediaPlayerService : Service,
             _LatestValidDuration = value;
         }
     }
+
+    private TimeSpan DurationTimeSpan => TimeSpan.FromMilliseconds(Duration);
 
     private int RawDuration
     {
@@ -760,6 +764,8 @@ public sealed class MediaPlayerService : Service,
 
         string action = intent.Action;
 
+        Logger.LogInformation("Intent action: {action}", action);
+
         if (action.Equals(ActionPlay))
         {
             mediaController.GetTransportControls().Play();
@@ -964,7 +970,18 @@ public sealed class MediaPlayerService : Service,
 
     public sealed class MediaSessionCallback : MediaSession.Callback
     {
+        private ILogger _Logger;
+
+        private ILogger Logger
+        {
+            get
+            {
+                return _Logger ??= MAUI.Services.ServiceProvider.Current.GetRequiredService<ILogger<MediaSessionCallback>>();
+            }
+        }
+        
         private readonly MediaPlayerServiceBinder mediaPlayerService;
+        
         public MediaSessionCallback(MediaPlayerServiceBinder service)
         {
             mediaPlayerService = service;
@@ -972,49 +989,64 @@ public sealed class MediaPlayerService : Service,
 
         public override void OnPause()
         {
+            Logger.LogInformation(nameof(OnPause));
+
             WeakReferenceMessenger.Default.Send(new ExternalMediaButtonPressed(ExternalMediaButton.Pause));
             base.OnPause();
         }
 
         public override void OnPlay()
         {
+            Logger.LogInformation(nameof(OnPlay));
+
             WeakReferenceMessenger.Default.Send(new ExternalMediaButtonPressed(ExternalMediaButton.Play));
             base.OnPlay();
         }
 
         public override void OnRewind()
         {
+            Logger.LogInformation(nameof(OnRewind));
+            
             WeakReferenceMessenger.Default.Send(new ExternalMediaButtonPressed(ExternalMediaButton.Rewind));
             base.OnRewind();
         }
 
         public override void OnFastForward()
         {
+            Logger.LogInformation(nameof(OnFastForward));
+            
             WeakReferenceMessenger.Default.Send(new ExternalMediaButtonPressed(ExternalMediaButton.Forward));
             base.OnFastForward();
         }
 
         public override void OnSkipToPrevious()
         {
+            Logger.LogInformation(nameof(OnSkipToPrevious));
+
             WeakReferenceMessenger.Default.Send(new ExternalMediaButtonPressed(ExternalMediaButton.Previous));
             base.OnSkipToPrevious();
         }
 
         public override void OnSkipToNext()
         {
+            Logger.LogInformation(nameof(OnSkipToNext));
+
             WeakReferenceMessenger.Default.Send(new ExternalMediaButtonPressed(ExternalMediaButton.Next));
             base.OnSkipToNext();
         }
 
-
         public override async void OnStop()
         {
+            Logger.LogInformation(nameof(OnStop));
+
             await mediaPlayerService.GetMediaPlayerService().Stop(true);
             base.OnStop();
         }
 
         public override void OnSeekTo(long pos)
         {
+            Logger.LogInformation($"{nameof(OnSeekTo)}: {{position}} ({{positionTimeSpan}})", pos, TimeSpan.FromMilliseconds(pos));
+            
             _ = mediaPlayerService.GetMediaPlayerService().Seek((int)pos);
             base.OnSeekTo(pos);
         }
