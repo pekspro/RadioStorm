@@ -37,10 +37,47 @@ sealed class WindowsAudioManager : AudioManagerBase
                 }
             }
         };
+
+        mediaPlayer.PlaybackSession.BufferingStarted += PlaybackSession_BufferingStarted;
+        mediaPlayer.PlaybackSession.BufferingEnded += PlaybackSession_BufferingEnded;
+    }
+
+    private int BufferingSessionId = 0;
+
+    private async void PlaybackSession_BufferingStarted(MediaPlaybackSession sender, object args)
+    {
+        Logger.LogWarning(nameof(PlaybackSession_BufferingStarted));
+
+        BufferingSessionId++;
+
+        int buffereingSessionId = BufferingSessionId;
+
+        while (buffereingSessionId == BufferingSessionId)
+        {
+            try
+            {
+                BufferRatio = mediaPlayer.PlaybackSession.BufferingProgress;
+            }
+            catch(Exception )
+            {
+                // I have seen at least one cast exception here.
+            }
+
+            await Task.Delay(1);
+        }
+    }
+
+    private void PlaybackSession_BufferingEnded(MediaPlaybackSession sender, object args)
+    {
+        Logger.LogWarning(nameof(PlaybackSession_BufferingEnded));
+
+        BufferingSessionId++;
+        BufferRatio = mediaPlayer.PlaybackSession.BufferingProgress;
     }
 
     protected override void MediaPlay(PlayList playlist)
     {
+        BufferingSessionId++;
         var playbackItem = CreateMediaPlaybackItem(playlist.CurrentItem!);
         mediaPlayer.Source = playbackItem;
 

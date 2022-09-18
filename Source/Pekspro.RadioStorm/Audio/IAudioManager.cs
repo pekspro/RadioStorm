@@ -34,6 +34,8 @@ public interface IAudioManager
 
     double SleepModeVolumeMultiplier { get; }
 
+    double? BufferRatio { get; set; }
+
     void Play(PlayListItem item);
     
     void Play(PlayListItem[] items);

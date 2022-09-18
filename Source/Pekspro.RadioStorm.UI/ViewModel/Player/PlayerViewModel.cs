@@ -47,6 +47,7 @@ public sealed partial class PlayerViewModel : ObservableObject
         _PlaybackRateIndex = audioManager.PlaybackRateIndex;
         AudioPosition = audioManager.Position;
         MediaLength = audioManager.MediaLength;
+        BufferRatio = audioManager.BufferRatio;
 
         messenger.Register<PlayerButtonStateChanged>(this, (sender, message) =>
         {
@@ -107,6 +108,14 @@ public sealed partial class PlayerViewModel : ObservableObject
                 {
                     SleepTimeIndex = 0;
                 }
+            });
+        });
+
+        messenger.Register<BufferRatioChanged>(this, (sender, message) =>
+        {
+            MainThreadRunner.RunInMainThread(() =>
+            {
+                BufferRatio = message.BufferRatio;
             });
         });
     }
@@ -208,6 +217,9 @@ public sealed partial class PlayerViewModel : ObservableObject
             return _MediaLength.Ticks > 0;
         }
     }
+
+    [ObservableProperty]
+    private double? _BufferRatio;
 
     #endregion
 

@@ -207,9 +207,10 @@ public abstract class AudioManagerBase : IAudioManager
 
     public int ProgressValue { get; set; }
 
-    private int _PlaybackRateIndex = DefaultPlaybackRate;
-
     public double PlaybackRate => PlaybackRates[_PlaybackRateIndex];
+    
+
+    private int _PlaybackRateIndex = DefaultPlaybackRate;
 
     public int PlaybackRateIndex
     {
@@ -253,6 +254,27 @@ public abstract class AudioManagerBase : IAudioManager
                 }
                     
                 Messenger.Send(new SpeedRateChanged(PlaybackRateIndex, PlaybackRate));
+            }
+        }
+    }
+
+    private double? _BufferRatio;
+
+    public double? BufferRatio
+    {
+        get
+        {
+            return _BufferRatio;
+        }
+        set
+        {
+            if (value != _BufferRatio)
+            {
+                Logger.LogWarning("New buffer ratio {bufferRatio:0.0000}", value);
+                
+                _BufferRatio = value;
+
+                Messenger.Send(new BufferRatioChanged(value));
             }
         }
     }
@@ -352,6 +374,7 @@ public abstract class AudioManagerBase : IAudioManager
         {
             // Switch url
             Logger.LogInformation($"Switches to audio url/path: {CurrentItem!.PreferablePlayUrl}");
+            BufferRatio = null;
             MediaPlay(CurrentPlayList!);
             RestorePosition = RestorePostionMode.RestoreAtAnyMargin;
         }
@@ -530,6 +553,7 @@ public abstract class AudioManagerBase : IAudioManager
         TryUpdateCurrentItemDownloadedFile();
 
         Logger.LogInformation($"Will play audio url/path: {CurrentItem!.PreferablePlayUrl}");
+        BufferRatio = null;
         MediaPlay(CurrentPlayList);
 
         RecentPlayedManager.AddOrUpdate(!CurrentItem!.IsLiveAudio, CurrentItem.AudioId);

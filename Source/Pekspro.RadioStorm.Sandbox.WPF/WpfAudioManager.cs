@@ -1,4 +1,5 @@
-﻿using Pekspro.RadioStorm.Audio.Models;
+﻿using System.Threading.Tasks;
+using Pekspro.RadioStorm.Audio.Models;
 using Pekspro.RadioStorm.Settings;
 
 namespace Pekspro.RadioStorm.Sandbox.WPF;
@@ -24,6 +25,29 @@ sealed class WpfAudioManager : AudioManagerBase
         : base(mainThreadTimerFactory, mainThreadRunner, listenStateManager, recentPlayedManager, downloadManager, localSettings, messenger, dateTimeProvider, logger, true)
     {
         MediaPlayer.MediaOpened += MediaPlayer_MediaOpened;
+        MediaPlayer.BufferingStarted += MediaPlayer_BufferingStarted;
+        MediaPlayer.BufferingEnded += MediaPlayer_BufferingEnded;
+    }
+
+    private int BufferingSessionId = 0;
+
+    private async void MediaPlayer_BufferingStarted(object sender, EventArgs e)
+    {
+        BufferingSessionId++;
+        
+        int buffereingSessionId = BufferingSessionId;
+
+        while (buffereingSessionId == BufferingSessionId)
+        {
+            BufferRatio = MediaPlayer.BufferingProgress;
+            await Task.Delay(1);
+        }
+    }
+
+    private void MediaPlayer_BufferingEnded(object sender, EventArgs e)
+    {
+        BufferingSessionId++;
+        BufferRatio = MediaPlayer.BufferingProgress;
     }
 
     protected async override void MediaPlay(PlayList playlistItem)
