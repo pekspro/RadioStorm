@@ -9,7 +9,7 @@
             IsVisible="{Binding CurrentItem, Converter={StaticResource NullToIsVisibleConverter}}"
             BackgroundColor="{AppThemeBinding Dark={StaticResource PanelBackgroundDark}, Light={StaticResource PanelBackgroundLight}}"
             >
-            <!--HeightRequest="{Binding IsCurrentItemLiveAudio, Converter={StaticResource LiveAudioToHeightConverter}}"-->
+    <!--HeightRequest="{Binding IsCurrentItemLiveAudio, Converter={StaticResource LiveAudioToHeightConverter}}"-->
     <Grid.RowDefinitions>
         <RowDefinition Height="auto" />
         <RowDefinition Height="auto" />
@@ -53,19 +53,29 @@
                 IsVisible="{Binding IsCurrentItemEpisode}"
                 />
     </Grid>
-    
+
     <views:CurrentPlayingControl Grid.Row="4" />
 
-    <ActivityIndicator 
-            Grid.Row="4"
-            Grid.Column="1"
-            Margin="8,0,0,0"
-            IsRunning="True"
-            WidthRequest="20"
-            HeightRequest="20"
-            IsVisible="{Binding IsBuffering}"
-            />
+    <Grid Grid.Row="4"
+          Grid.Column="1"
+          Margin="8,0,0,0"
+          IsVisible="{Binding IsBuffering}"
+            >
+        <ActivityIndicator 
+                IsRunning="{Binding IsBuffering}"
+                WidthRequest="{OnPlatform Default=28, WinUI=24}"
+                HeightRequest="{OnPlatform Default=28, WinUI=24}"
+                />
 
+        <Label Grid.Column="1" 
+               Text="{Binding BufferPercent}"
+               FontSize="{OnPlatform Default=8, WinUI=9}"
+               Margin="{OnPlatform Default='0', WinUI='0,0,2,1'}"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               />
+
+    </Grid>
     <views:PlayerButtonsControl Grid.Row="4" Grid.Column="2" />
 
     <views:PlayerPositionControl Grid.Row="5" Grid.ColumnSpan="3" IsVisible="{Binding IsCurrentItemEpisode}" />

@@ -191,6 +191,11 @@ internal sealed class AndroidAudioManager : AudioManagerBase
                 RestorePositionOnNextPlay();
             }
         };
+
+        service.BufferChanged += (a, b) =>
+        {
+            BufferRatio = MediaPlayerService.Buffered * 0.01;
+        };
     }
 
     protected override void SetPlaybackRate(double playbackRate)

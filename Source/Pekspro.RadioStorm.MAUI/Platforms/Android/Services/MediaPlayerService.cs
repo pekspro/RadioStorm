@@ -52,6 +52,7 @@ public sealed class MediaPlayerService : Service,
 #endif
 
     public event StatusChangedEventHandler StatusChanged;
+    public event BufferChangedEventHandler BufferChanged;
 
     private PlayList PlayList;
     private Bitmap ItemImage;
@@ -184,13 +185,11 @@ public sealed class MediaPlayerService : Service,
     public void OnBufferingUpdate(MediaPlayer mp, int percent)
     {
         // Logger.LogInformation("Buffering updated. Percent: {0}", percent);
-
-        int duration = Duration;
-
-        int newBufferedTime = duration * percent / 100;
-        if (newBufferedTime != Buffered)
+        if (Buffered != percent)
         {
-            Buffered = newBufferedTime;
+            Buffered = percent;
+
+            BufferChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 
@@ -326,26 +325,7 @@ public sealed class MediaPlayerService : Service,
         }
     }
 
-    private int buffered = 0;
-
-    public int Buffered
-    {
-        get
-        {
-            if (mediaPlayer is null)
-            {
-                return 0;
-            }
-            else
-            {
-                return buffered;
-            }
-        }
-        private set
-        {
-            buffered = value;
-        }
-    }
+    public int Buffered { get; private set; }
 
     /// <summary>
     /// Intializes the player.
@@ -467,7 +447,8 @@ public sealed class MediaPlayerService : Service,
                     }
 
                     mediaPlayer.Reset();
-                    
+
+                    Buffered = -1;
                     _LatestValidDuration = -1;
                     _LatestValidPosition = -1;
 

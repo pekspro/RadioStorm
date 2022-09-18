@@ -219,7 +219,10 @@ public sealed partial class PlayerViewModel : ObservableObject
     }
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(BufferPercent))]
     private double? _BufferRatio;
+
+    public int? BufferPercent => _BufferRatio is null ? null : (int)(_BufferRatio * 100);
 
     #endregion
 
