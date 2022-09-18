@@ -4,6 +4,7 @@ using Android.Net;
 using Android.OS;
 using Android.Runtime;
 using Pekspro.RadioStorm.MAUI.Platforms.Android.Services;
+using Pekspro.RadioStorm.MAUI.Services;
 using Intent = Android.Content.Intent;
 
 [assembly: UsesPermission(Android.Manifest.Permission.AccessNetworkState)]
@@ -13,6 +14,33 @@ namespace Pekspro.RadioStorm.MAUI;
 [Application]
 public sealed class MainApplication : MauiApplication
 {
+    sealed class MediaPlayerServiceConnection : Java.Lang.Object, IServiceConnection
+    {
+        readonly MainApplication TheApplication;
+
+        public MediaPlayerServiceConnection(MainApplication mainApplication)
+        {
+            TheApplication = mainApplication;
+        }
+
+        public void OnServiceConnected(ComponentName? name, IBinder? service)
+        {
+            if (service is MediaPlayerServiceBinder mediaPlayerServiceBinder)
+            {
+                TheApplication.MediaPlayerServiceBinder = mediaPlayerServiceBinder;
+
+                ((AndroidAudioManager) MAUI.Services.ServiceProvider.GetRequiredService<IAudioManager>()).MediaPlayerService = mediaPlayerServiceBinder.GetMediaPlayerService();
+            }
+        }
+
+        public void OnServiceDisconnected(ComponentName? name)
+        {
+            TheApplication.MediaPlayerServiceBinder = null;
+
+            ((AndroidAudioManager)MAUI.Services.ServiceProvider.GetRequiredService<IAudioManager>()).MediaPlayerService = null!;
+        }
+    }
+
     sealed class DownloadServiceConnection : Java.Lang.Object, IServiceConnection
     {
         readonly MainApplication TheApplication;
@@ -59,6 +87,9 @@ public sealed class MainApplication : MauiApplication
         }
     }
 
+    private MediaPlayerServiceConnection MediaPlayerServiceConnectionObject { get; }
+    private MediaPlayerServiceBinder? MediaPlayerServiceBinder;
+
     private DownloadServiceConnection DownloadServiceConnectionObject { get; }
     private DownloadServiceBinder? DownloadServiceBinder;
 
@@ -78,6 +109,7 @@ public sealed class MainApplication : MauiApplication
 
         DownloadServiceConnectionObject = new DownloadServiceConnection(this);
         SleepTimerServiceConnectionObject = new SleepTimerServiceConnection(this);
+        MediaPlayerServiceConnectionObject = new MediaPlayerServiceConnection(this);
     }
 
     public override void OnCreate()
@@ -111,6 +143,9 @@ public sealed class MainApplication : MauiApplication
                 UpdateSleepTimerServiceExpectedStatus(m);
             });
         }
+
+        var mediaPlayerServiceIntent = new Intent(this, typeof(MediaPlayerService));
+        BindService(mediaPlayerServiceIntent, MediaPlayerServiceConnectionObject, Bind.AutoCreate);
     }
 
     private void UpdateDownloadServiceExpectedStatus()
@@ -135,9 +170,7 @@ public sealed class MainApplication : MauiApplication
                     StopDownloadService();
                 }
             });
-
         }
-
     }
 
     private void StartDownloadService()

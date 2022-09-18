@@ -5,18 +5,21 @@
 internal sealed class AndroidAudioManager : AudioManagerBase
 {
     private Platforms.Android.Services.MediaPlayerService? _MediaPlayerService;
-
-    private Platforms.Android.Services.MediaPlayerService MediaPlayerService
+    
+    internal Platforms.Android.Services.MediaPlayerService MediaPlayerService
     {
         get
         {
-            if (_MediaPlayerService is null)
+            return _MediaPlayerService ?? throw new NullReferenceException($"{MediaPlayerService} not initialized.");
+        }
+        set
+        {
+            _MediaPlayerService = value;
+
+            if (_MediaPlayerService is not null)
             {
-                _MediaPlayerService = MainActivity.instance.binder.GetMediaPlayerService();
                 SetupEvents(_MediaPlayerService);
             }
-
-            return _MediaPlayerService;
         }
     }
 
