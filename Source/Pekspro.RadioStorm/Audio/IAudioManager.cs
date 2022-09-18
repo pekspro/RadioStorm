@@ -72,7 +72,11 @@ public interface IAudioManager
 
     bool GoToPrevious();
 
-    void StartSleepMode(TimeSpan timeLeftToSleepActivation);
+    void StartSleepTimer(TimeSpan timeLeftToSleepActivation);
 
-    void StopSleepMode();
+    void StopSleepTimer();
+
+    void IncreaseSleepTimer(TimeSpan timeLeftToSleepActivationDelta);
+    
+    void IncreaseSleepTimer();
 }

@@ -24,7 +24,7 @@
         <ColumnDefinition Width="Auto" />
     </Grid.ColumnDefinitions>
 
-    <Grid Grid.Row="0" Padding="8" ColumnDefinitions="auto, *, auto, auto" Grid.ColumnSpan="3"
+    <Grid Grid.Row="0" Padding="8" ColumnDefinitions="auto, auto, *, auto, auto" Grid.ColumnSpan="3"
           IsVisible="{Binding IsMenuOpen}">
         <Picker Grid.Column="0"
                 ItemsSource="{Binding SleepTimes}"
@@ -40,13 +40,15 @@
                 IsVisible="{Binding IsSleepTimerRunning}"
                 />
 
-        <Label Grid.Column="2" 
-               Text="{x:Static r:Strings.Player_MenuSpeed}"
-               Margin="{OnPlatform Default='0,11,8,0', WinUI='0,12,0,0'}"
-               IsVisible="{Binding IsCurrentItemEpisode}"
-               />
+        <Button Grid.Column="1" 
+                Text="{x:Static r:Strings.SleepTimer_Increase_5min}"
+                HorizontalOptions="Start" 
+                Margin="8,0,0,0"
+                Command="{Binding IncreaseSleepTimerCommand}"
+                IsVisible="{Binding IsSleepTimerRunning}"
+                />
 
-        <Picker Grid.Column="3"
+        <Picker Grid.Column="4"
                 ItemsSource="{Binding PlaybackRateOptions}"
                 SelectedIndex="{Binding PlaybackRateIndex, Mode=TwoWay}"
                 Margin="{OnPlatform Default='0', WinUI='0,6,0,0'}"

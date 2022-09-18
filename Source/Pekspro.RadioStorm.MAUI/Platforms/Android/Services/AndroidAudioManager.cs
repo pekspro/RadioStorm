@@ -76,8 +76,8 @@ internal sealed class AndroidAudioManager : AudioManagerBase
 
     protected override void MediaRefreshButtonStates()
     {
-        bool canPlay = false;
-        bool canPause = false;
+        bool canPlay;
+        bool canPause;
         bool isBuffering = false;
 
         var currentState = MediaPlayerService.MediaPlayerState;

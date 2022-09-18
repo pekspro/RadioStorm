@@ -592,7 +592,7 @@
     <value>Snabbt</value>
   </data>
   <data name="Player_MenuSpeed_Normal" xml:space="preserve">
-    <value>Normal</value>
+    <value>Normal hastighet</value>
   </data>
   <data name="Player_MenuSpeed_Slow" xml:space="preserve">
     <value>Långsamt</value>
@@ -954,16 +954,16 @@
   <data name="Weekday_Yesterday" xml:space="preserve">
     <value>Igår</value>
   </data>
-  <data name="Notification_SleepTimer_Action_Cancel" xml:space="preserve">
+  <data name="SleepTimer_Notification_Action_Cancel" xml:space="preserve">
     <value>Stoppa timer</value>
   </data>
-  <data name="Notification_SleepTimer_Action_CancelAndPause" xml:space="preserve">
-    <value>Stoppa timer och uppspelning</value>
+  <data name="SleepTimer_Notification_Description" xml:space="preserve">
+    <value>Uppspelningen avslutas när tiden har gått ut.</value>
   </data>
-  <data name="Notification_SleepTimer_Description" xml:space="preserve">
-    <value>Uppspelningen avslutas när tiden har gått ut. ({0:00}:{1:00})</value>
+  <data name="SleepTimer_Notification_Title" xml:space="preserve">
+    <value>Sovtimer -  {0:00}:{1:00}</value>
   </data>
-  <data name="Notification_SleepTimer_Title" xml:space="preserve">
-    <value>Sovtimer</value>
+  <data name="SleepTimer_Increase_5min" xml:space="preserve">
+    <value>+5 min</value>
   </data>
 </root>

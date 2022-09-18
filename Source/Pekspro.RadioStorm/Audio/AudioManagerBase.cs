@@ -23,7 +23,7 @@ public abstract class AudioManagerBase : IAudioManager
     private IListenStateManager ListenStateManager { get; }
 
     private IMessenger Messenger { get; }
-    
+
     private IDateTimeProvider DateTimeProvider { get; }
 
     protected ILogger Logger { get; }
@@ -37,7 +37,7 @@ public abstract class AudioManagerBase : IAudioManager
     private bool LatestOnLengthAndPositionUpdatedTriedSetToTrue = false;
 
     private SeekSizeProvider SeekSizeProvider = new SeekSizeProvider();
-    
+
     #endregion
 
     #region Abstract
@@ -54,7 +54,7 @@ public abstract class AudioManagerBase : IAudioManager
     #endregion
 
     #region Constructor
-    
+
     public AudioManagerBase(
             IMainThreadTimerFactory mainThreadTimerFactory,
             IMainThreadRunner mainThreadRunner,
@@ -75,7 +75,7 @@ public abstract class AudioManagerBase : IAudioManager
         Messenger = messenger;
         DateTimeProvider = dateTimeProvider;
         Logger = logger;
-        
+
         Volume = localSettings.Volume;
 
         if (useMainThreadTimer)
@@ -86,7 +86,7 @@ public abstract class AudioManagerBase : IAudioManager
         }
         else
         {
-            RefreshPositionTimer = new ();
+            RefreshPositionTimer = new();
             RefreshPositionTimer.Interval = 1000;
             RefreshPositionTimer.Elapsed += (a, b) => { OnTimerTick(); };
         }
@@ -131,7 +131,7 @@ public abstract class AudioManagerBase : IAudioManager
                     Move(SeekSizeProvider.RewindSize);
                     SeekSizeProvider.Decrease();
                     break;
-                    
+
                 case ExternalMediaButton.Forward:
                     Move(SeekSizeProvider.ForwardSize);
                     SeekSizeProvider.Increase();
@@ -208,7 +208,7 @@ public abstract class AudioManagerBase : IAudioManager
     public int ProgressValue { get; set; }
 
     public double PlaybackRate => PlaybackRates[_PlaybackRateIndex];
-    
+
 
     private int _PlaybackRateIndex = DefaultPlaybackRate;
 
@@ -226,7 +226,7 @@ public abstract class AudioManagerBase : IAudioManager
                 if (value == DefaultPlaybackRate || CurrentPlayList?.IsLiveAudio != true)
                 {
                     _PlaybackRateIndex = value;
-                    
+
                     Logger.LogInformation("Setting play back index {index} ({playbackRate})", value, PlaybackRate);
 
                     int timerIntervall;
@@ -244,7 +244,7 @@ public abstract class AudioManagerBase : IAudioManager
                     {
                         MainThreadRefreshPositionTimer.Interval = timerIntervall;
                     }
-                
+
                     if (RefreshPositionTimer is not null)
                     {
                         RefreshPositionTimer.Interval = timerIntervall;
@@ -252,7 +252,7 @@ public abstract class AudioManagerBase : IAudioManager
 
                     SetPlaybackRate(PlaybackRate);
                 }
-                    
+
                 Messenger.Send(new SpeedRateChanged(PlaybackRateIndex, PlaybackRate));
             }
         }
@@ -271,7 +271,7 @@ public abstract class AudioManagerBase : IAudioManager
             if (value != _BufferRatio)
             {
                 Logger.LogWarning("New buffer ratio {bufferRatio:0.0000}", value);
-                
+
                 _BufferRatio = value;
 
                 Messenger.Send(new BufferRatioChanged(value));
@@ -307,7 +307,7 @@ public abstract class AudioManagerBase : IAudioManager
     #region Sleep state properties
 
     public bool IsSleepTimerEnabled { get; private set; }
-    
+
     public DateTime SleepActivationTime { get; private set; }
 
     public TimeSpan TimeLeftToSleepActivation
@@ -331,7 +331,7 @@ public abstract class AudioManagerBase : IAudioManager
             }
         }
     }
-    
+
     public double SleepModeVolumeMultiplier
     {
         get
@@ -351,7 +351,7 @@ public abstract class AudioManagerBase : IAudioManager
             return timeLeft.TotalMilliseconds / SleepVolumeFadeStartTime.TotalMilliseconds;
         }
     }
-    
+
     #endregion
 
     public PlayListItem? CurrentItem => CurrentPlayList?.CurrentItem;
@@ -403,7 +403,7 @@ public abstract class AudioManagerBase : IAudioManager
             Play();
         }
     }
-        
+
     public void Move(TimeSpan delta)
     {
         Logger.LogInformation($"{nameof(Move)} delta: {delta}");
@@ -436,7 +436,7 @@ public abstract class AudioManagerBase : IAudioManager
         var newPosition = position + length;
 
         if (newPosition > duration)
-        {   
+        {
             // Less than 5 seconds from the end?
             if (position.Add(TimeSpan.FromSeconds(5)) >= duration)
             {
@@ -457,7 +457,7 @@ public abstract class AudioManagerBase : IAudioManager
 
         return true;
     }
-    
+
     public bool GoToNext()
     {
         if (CurrentPlayList is null)
@@ -660,7 +660,7 @@ public abstract class AudioManagerBase : IAudioManager
 
     protected virtual void OnPlayListChanged()
     {
-        
+
     }
 
     private void SendCurrentItemChanged()
@@ -940,34 +940,34 @@ public abstract class AudioManagerBase : IAudioManager
         }
     }
 
-    private int SleepModeSessionId = 0;
-        
-    public async void StartSleepMode(TimeSpan timeLeftToSleepActivation)
+    private int SleepTimerSessionId = 0;
+
+    public async void StartSleepTimer(TimeSpan timeLeftToSleepActivation)
     {
-        SleepModeSessionId++;
-        
-        int sleepModeSessionId = SleepModeSessionId;
+        SleepTimerSessionId++;
+
+        int sleepModeSessionId = SleepTimerSessionId;
 
         IsSleepTimerEnabled = true;
         SleepActivationTime = DateTimeProvider.UtcNow.Add(timeLeftToSleepActivation);
 
         Logger.LogInformation("Sleep mode activated. Sleep time: {sleepTime} ({sleepActivationTime})", timeLeftToSleepActivation, SleepActivationTime);
 
-        while (sleepModeSessionId == SleepModeSessionId && IsSleepTimerEnabled)
+        while (sleepModeSessionId == SleepTimerSessionId && IsSleepTimerEnabled)
         {
             SendSleepModeMessage();
-            
+
             var currentTimeLeftToSleepActivation = TimeLeftToSleepActivation;
 
             if (currentTimeLeftToSleepActivation <= TimeSpan.Zero)
             {
                 Logger.LogInformation("Sleep mode activated. Pausing and restoring volume.");
-                
+
                 Pause();
                 IsSleepTimerEnabled = false;
                 SendSleepModeMessage();
                 UpdateVolume();
-                
+
                 break;
             }
 
@@ -975,19 +975,36 @@ public abstract class AudioManagerBase : IAudioManager
             {
                 Logger.LogInformation("Will sleep soon. Volume multiplier: {volumeMultiplier}.", SleepModeVolumeMultiplier);
             }
-             
+
             UpdateVolume();
 
-            await Task.Delay(100);
+            await Task.Delay(1000);
         }
     }
 
-    public void StopSleepMode()
+    public void IncreaseSleepTimer()
     {
-        Logger.LogInformation("User stops sleep mode.");
+        IncreaseSleepTimer(TimeSpan.FromSeconds(5));
+    }
+    
+    public void IncreaseSleepTimer(TimeSpan timeLeftToSleepActivationDelta)
+    {
+        TimeSpan newTimeLeftToSleepActivation = TimeLeftToSleepActivation;
+
+        if (newTimeLeftToSleepActivation < TimeSpan.Zero)
+        {
+            newTimeLeftToSleepActivation = TimeSpan.Zero;
+        }
+
+        StartSleepTimer(newTimeLeftToSleepActivation + timeLeftToSleepActivationDelta);
+    }
+
+    public void StopSleepTimer()
+    {
+        Logger.LogInformation("User stops sleep timer.");
 
         IsSleepTimerEnabled = false;
-        SleepModeSessionId++;
+        SleepTimerSessionId++;
         SendSleepModeMessage();
 
         UpdateVolume();

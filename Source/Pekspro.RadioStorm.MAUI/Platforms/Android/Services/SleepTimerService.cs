@@ -2,7 +2,6 @@
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
-using AndroidX.Core.App;
 using Pekspro.RadioStorm.UI.Resources;
 using static Android.App.Notification;
 using Binder = Android.OS.Binder;
@@ -12,12 +11,12 @@ using Binder = Android.OS.Binder;
 namespace Pekspro.RadioStorm.MAUI.Platforms.Android.Services;
 
 [Service(Exported = true, ForegroundServiceType = global::Android.Content.PM.ForegroundService.TypeNone)]
-[IntentFilter(new[] { ActionStopSleepTimer, ActionStopSleepTimerAndPause })]
+[IntentFilter(new[] { ActionStopSleepTimer, ActionIncrease5Minutes })]
 public sealed class SleepTimerService : Service
 {
     // Actions
     public const string ActionStopSleepTimer = "com.pekspro.radiostorm.action.STOP_SLEEP_TIMER";
-    public const string ActionStopSleepTimerAndPause = "com.pekspro.radiostorm.action.STOP_SLEEP_TIMER_AND_PAUSE";
+    public const string ActionIncrease5Minutes = "com.pekspro.radiostorm.action.STOP_SLEEP_TIMER_AND_PAUSE";
 
     public const string CHANNEL_ID = "SleepTimer";
 
@@ -75,12 +74,14 @@ public sealed class SleepTimerService : Service
     {
         if (intent.Action == ActionStopSleepTimer)
         {
-            AudioManager.StopSleepMode();
+            AudioManager.StopSleepTimer();
+            
+            // Not sure why StopSelf is needed, but without the service doesn't stop.
+            StopSelf();
         }
-        else if (intent.Action == ActionStopSleepTimerAndPause)
+        else if (intent.Action == ActionIncrease5Minutes)
         {
-            AudioManager.StopSleepMode();
-            AudioManager.Pause();
+            AudioManager.IncreaseSleepTimer();
         }
             
         return base.OnStartCommand(intent, flags, startId);
@@ -103,8 +104,8 @@ public sealed class SleepTimerService : Service
     {
         return 
             (
-                Strings.Notification_SleepTimer_Title,
-                string.Format(Strings.Notification_SleepTimer_Description, timeLeftToSleepActivation.Minutes, timeLeftToSleepActivation.Seconds)
+                string.Format(Strings.SleepTimer_Notification_Title, timeLeftToSleepActivation.Minutes, timeLeftToSleepActivation.Seconds),
+                Strings.SleepTimer_Notification_Description
             );
     }
 
@@ -123,15 +124,15 @@ public sealed class SleepTimerService : Service
 
     private Notification CreateNotification(Context context, string shortDescription, string longDescription)
     {
-        var cancelAction = GenerateActionCompat(context, Resource.Drawable.ic_notification_skip_next, Strings.Notification_SleepTimer_Action_Cancel, ActionStopSleepTimer);
-        var cancelAndPauseAction = GenerateActionCompat(context, Resource.Drawable.ic_notification_pause, Strings.Notification_SleepTimer_Action_CancelAndPause, ActionStopSleepTimerAndPause);
+        var cancelAction = GenerateActionCompat(context, Resource.Drawable.ic_notification_skip_next, Strings.SleepTimer_Notification_Action_Cancel, ActionStopSleepTimer);
+        var increase5minutesAction = GenerateActionCompat(context, Resource.Drawable.ic_notification_pause, Strings.SleepTimer_Increase_5min, ActionIncrease5Minutes);
 
         var notificationBuilder = new Builder(this, CHANNEL_ID)
             .SetContentTitle(shortDescription)
             .SetContentText(longDescription)
             .SetSmallIcon(Resource.Drawable.ic_statusbar_download)
             .AddAction(cancelAction)
-            .AddAction(cancelAndPauseAction);
+            .AddAction(increase5minutesAction);
 
         return notificationBuilder.Build();
     }
