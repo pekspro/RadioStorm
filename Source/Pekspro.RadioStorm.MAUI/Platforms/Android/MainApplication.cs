@@ -95,7 +95,6 @@ public sealed class MainApplication : MauiApplication
 
     private SleepTimerServiceConnection SleepTimerServiceConnectionObject { get; }
     private SleepTimerServiceBinder? SleepTimerServiceBinder;
-    private bool SleepTimerServiceIsRequestedToRun;
 
     private ConnectivityManager? connectivityManager;
 
@@ -234,7 +233,7 @@ public sealed class MainApplication : MauiApplication
 
     private void StartSleepTimerService()
     {
-        if (SleepTimerServiceIsRequestedToRun)
+        if (SleepTimerServiceBinder is not null)
         {
             Logger.LogDebug("SleepTimer service already started.");
             return;
@@ -246,7 +245,6 @@ public sealed class MainApplication : MauiApplication
         if (ret)
         {
             Logger.LogInformation("SleepTimer service start request.");
-            SleepTimerServiceIsRequestedToRun = true;
         }
         else
         {
@@ -256,16 +254,16 @@ public sealed class MainApplication : MauiApplication
 
     private void StopSleepTimerService()
     {
-        if (!SleepTimerServiceIsRequestedToRun)
+        if (SleepTimerServiceBinder is null)
         {
             Logger.LogDebug("SleepTimer service is not running.");
             return;
         }
 
         Logger.LogInformation("Stopping SleepTimer service.");
-        SleepTimerServiceIsRequestedToRun = false;
 
         UnbindService(SleepTimerServiceConnectionObject);
+        SleepTimerServiceBinder.GetSleepTimerService().StopSelf();
         SleepTimerServiceBinder = null;
     }
 

@@ -984,7 +984,7 @@ public abstract class AudioManagerBase : IAudioManager
 
     public void IncreaseSleepTimer()
     {
-        IncreaseSleepTimer(TimeSpan.FromSeconds(5));
+        IncreaseSleepTimer(TimeSpan.FromMinutes(5));
     }
     
     public void IncreaseSleepTimer(TimeSpan timeLeftToSleepActivationDelta)

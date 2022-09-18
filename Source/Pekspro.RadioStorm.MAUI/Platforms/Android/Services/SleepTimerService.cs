@@ -75,9 +75,6 @@ public sealed class SleepTimerService : Service
         if (intent.Action == ActionStopSleepTimer)
         {
             AudioManager.StopSleepTimer();
-            
-            // Not sure why StopSelf is needed, but without the service doesn't stop.
-            StopSelf();
         }
         else if (intent.Action == ActionIncrease5Minutes)
         {
