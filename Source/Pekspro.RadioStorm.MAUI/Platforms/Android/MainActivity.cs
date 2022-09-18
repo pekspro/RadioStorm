@@ -12,27 +12,13 @@ namespace Pekspro.RadioStorm.MAUI;
 [Activity(Theme = "@style/Maui.SplashTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize)]
 public sealed class MainActivity : MauiAppCompatActivity
 {
-    internal static MainActivity instance;
-    public MediaPlayerServiceBinder binder;
-    MediaPlayerServiceConnection mediaPlayerServiceConnection;
-    private Intent mediaPlayerServiceIntent;
-
-    public event StatusChangedEventHandler StatusChanged;
-
-
     protected override void OnCreate(Bundle savedInstanceState)
     {
         base.OnCreate(savedInstanceState);
-        instance = this;
+
         NotificationHelper.CreateNotificationChannel(ApplicationContext);
-        if (mediaPlayerServiceConnection is null)
-        {
-            InitilizeMedia();
-        }
 
         GraphHelper.AuthUIParent = this;
-
-        // await MauiProgram.SetupAsync();
 
         #region Scheduler
 
@@ -76,14 +62,6 @@ public sealed class MainActivity : MauiAppCompatActivity
         }
 
         #endregion
-        // Platform.Init(this, savedInstanceState);
-    }
-
-    private void InitilizeMedia()
-    {
-        mediaPlayerServiceIntent = new Intent(ApplicationContext, typeof(MediaPlayerService));
-        mediaPlayerServiceConnection = new MediaPlayerServiceConnection(this);
-        BindService(mediaPlayerServiceIntent, mediaPlayerServiceConnection, Bind.AutoCreate);
     }
 
     /*
@@ -103,31 +81,4 @@ public sealed class MainActivity : MauiAppCompatActivity
             .SetAuthenticationContinuationEventArgs(requestCode, resultCode, data);
     }
     // </OnActivityResultSnippet>
-
-
-
-    sealed class MediaPlayerServiceConnection : Java.Lang.Object, IServiceConnection
-    {
-        readonly MainActivity instance;
-
-        public MediaPlayerServiceConnection(MainActivity mediaPlayer)
-        {
-            this.instance = mediaPlayer;
-        }
-
-        public void OnServiceConnected(ComponentName name, IBinder service)
-        {
-            if (service is MediaPlayerServiceBinder mediaPlayerServiceBinder)
-            {
-                var binder = (MediaPlayerServiceBinder)service;
-                instance.binder = binder;
-
-                binder.GetMediaPlayerService().StatusChanged += (object sender, EventArgs e) => { instance.StatusChanged?.Invoke(sender, e); };
-            }
-        }
-
-        public void OnServiceDisconnected(ComponentName name)
-        {
-        }
-    }
 }
