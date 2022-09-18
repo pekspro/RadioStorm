@@ -124,11 +124,15 @@ public sealed class DownloadService : Service
     
     private Notification CreateNotification(string shortDescription, string longDescription)
     {
+        // TODO: Add when this is released: https://github.com/dotnet/maui/issues/9090
+        // var openAppIntent = PendingIntent.GetActivity(this, 0, new Intent(this, typeof(MainActivity)), PendingIntentFlags.UpdateCurrent);
+
         Notification notification = new Notification.Builder(this, CHANNEL_ID)
             .SetContentTitle(Strings.DownloadsNotification_Title)
             .SetContentText(shortDescription)
             .SetSmallIcon(Resource.Drawable.ic_statusbar_download)
             .SetStyle(new BigTextStyle().BigText(longDescription))
+            //.SetContentIntent(openAppIntent);
             .Build();
 
         return notification;

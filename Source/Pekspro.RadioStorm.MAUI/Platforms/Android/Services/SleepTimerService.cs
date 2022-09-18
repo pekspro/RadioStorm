@@ -123,12 +123,16 @@ public sealed class SleepTimerService : Service
         var cancelAction = GenerateActionCompat(context, Resource.Drawable.ic_notification_skip_next, Strings.SleepTimer_Notification_Action_Cancel, ActionStopSleepTimer);
         var increase5minutesAction = GenerateActionCompat(context, Resource.Drawable.ic_notification_pause, Strings.SleepTimer_Increase_5min, ActionIncrease5Minutes);
 
+        // TODO: Add when this is released: https://github.com/dotnet/maui/issues/9090
+        // var openAppIntent = PendingIntent.GetActivity(this, 0, new Intent(this, typeof(MainActivity)), PendingIntentFlags.UpdateCurrent);
+
         var notificationBuilder = new Builder(this, CHANNEL_ID)
             .SetContentTitle(shortDescription)
             .SetContentText(longDescription)
             .SetSmallIcon(Resource.Drawable.ic_statusbar_bed)
             .AddAction(cancelAction)
             .AddAction(increase5minutesAction);
+            // .SetContentIntent(openAppIntent);
 
         return notificationBuilder.Build();
     }
