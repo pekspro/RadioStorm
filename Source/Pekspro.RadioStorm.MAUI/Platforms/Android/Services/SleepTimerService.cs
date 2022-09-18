@@ -111,8 +111,7 @@ public sealed class SleepTimerService : Service
         Intent intent = new Intent(context, typeof(SleepTimerService));
         intent.SetAction(intentAction);
 
-        PendingIntentFlags flags = PendingIntentFlags.UpdateCurrent;
-        flags |= PendingIntentFlags.Mutable;
+        PendingIntentFlags flags = PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Mutable;
 
         PendingIntent pendingIntent = PendingIntent.GetService(context, 1, intent, flags);
 
@@ -127,7 +126,7 @@ public sealed class SleepTimerService : Service
         var notificationBuilder = new Builder(this, CHANNEL_ID)
             .SetContentTitle(shortDescription)
             .SetContentText(longDescription)
-            .SetSmallIcon(Resource.Drawable.ic_statusbar_download)
+            .SetSmallIcon(Resource.Drawable.ic_statusbar_bed)
             .AddAction(cancelAction)
             .AddAction(increase5minutesAction);
 
