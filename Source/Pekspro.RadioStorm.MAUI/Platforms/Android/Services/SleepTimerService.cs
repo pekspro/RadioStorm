@@ -106,7 +106,7 @@ public sealed class SleepTimerService : Service
     {
         return 
             (
-                string.Format(Strings.SleepTimer_Notification_Title, timeLeftToSleepActivation.Minutes, timeLeftToSleepActivation.Seconds),
+                string.Format(Strings.SleepTimer_Notification_Title, (int) timeLeftToSleepActivation.TotalMinutes, timeLeftToSleepActivation.Seconds),
                 Strings.SleepTimer_Notification_Description
             );
     }

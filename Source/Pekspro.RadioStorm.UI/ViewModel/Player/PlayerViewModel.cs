@@ -308,7 +308,7 @@ public sealed partial class PlayerViewModel : ObservableObject
     public bool CanSleepTimerDecrease => TimeLeftToSleepActivation > AudioManagerBase.DefaultSleepTimerDelta;
 
     public string StopSleepTimerText =>
-        string.Format(Strings.Player_MenuSleepTimer_Disable, TimeLeftToSleepActivation.Minutes, TimeLeftToSleepActivation.Seconds);
+        string.Format(Strings.Player_MenuSleepTimer_Disable, (int) TimeLeftToSleepActivation.TotalMinutes, TimeLeftToSleepActivation.Seconds);
 
     #endregion
 
