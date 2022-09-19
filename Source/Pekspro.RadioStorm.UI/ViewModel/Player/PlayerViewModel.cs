@@ -301,7 +301,11 @@ public sealed partial class PlayerViewModel : ObservableObject
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(StopSleepTimerText))]
+    [NotifyPropertyChangedFor(nameof(CanSleepTimerDecrease))]
+    [NotifyCanExecuteChangedFor(nameof(DecreaseSleepTimerCommand))]
     private TimeSpan _TimeLeftToSleepActivation;
+
+    public bool CanSleepTimerDecrease => TimeLeftToSleepActivation > AudioManagerBase.DefaultSleepTimerDelta;
 
     public string StopSleepTimerText =>
         string.Format(Strings.Player_MenuSleepTimer_Disable, TimeLeftToSleepActivation.Minutes, TimeLeftToSleepActivation.Seconds);
@@ -405,6 +409,12 @@ public sealed partial class PlayerViewModel : ObservableObject
     public void IncreaseSleepTimer()
     {
         AudioManager.IncreaseSleepTimer();
+    }
+
+    [RelayCommand(CanExecute = nameof(CanSleepTimerDecrease))]
+    public void DecreaseSleepTimer()
+    {
+        AudioManager.DecreaseSleepTimer();
     }
 
     [RelayCommand]

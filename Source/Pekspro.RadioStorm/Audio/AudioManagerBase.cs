@@ -38,6 +38,8 @@ public abstract class AudioManagerBase : IAudioManager
 
     private SeekSizeProvider SeekSizeProvider = new SeekSizeProvider();
 
+    public static readonly TimeSpan DefaultSleepTimerDelta = TimeSpan.FromMinutes(5);
+
     #endregion
 
     #region Abstract
@@ -984,7 +986,12 @@ public abstract class AudioManagerBase : IAudioManager
 
     public void IncreaseSleepTimer()
     {
-        IncreaseSleepTimer(TimeSpan.FromMinutes(5));
+        IncreaseSleepTimer(DefaultSleepTimerDelta);
+    }
+
+    public void DecreaseSleepTimer()
+    {
+        IncreaseSleepTimer(-DefaultSleepTimerDelta);
     }
     
     public void IncreaseSleepTimer(TimeSpan timeLeftToSleepActivationDelta)
@@ -996,7 +1003,12 @@ public abstract class AudioManagerBase : IAudioManager
             newTimeLeftToSleepActivation = TimeSpan.Zero;
         }
 
-        StartSleepTimer(newTimeLeftToSleepActivation + timeLeftToSleepActivationDelta);
+        newTimeLeftToSleepActivation = newTimeLeftToSleepActivation + timeLeftToSleepActivationDelta;
+
+        if (newTimeLeftToSleepActivation > TimeSpan.Zero)
+        {
+            StartSleepTimer(newTimeLeftToSleepActivation);
+        }
     }
 
     public void StopSleepTimer()

@@ -72,16 +72,17 @@ public static class NotificationHelper
         PlayList playList,
         Service service)
     {
-        var pendingIntent = PendingIntent.GetActivity(
-            context,
-            0,
-            new Intent(context, typeof(MainActivity)),
-            PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Mutable);
         
         if (currentTrack is null)
         {
             return;
         }
+
+        //var pendingIntent = PendingIntent.GetActivity(
+        //    context,
+        //    0,
+        //    new Intent(context, typeof(MainActivity)),
+        //    PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Mutable);
 
         MediaStyle style = new MediaStyle();
         style.SetMediaSession(mediaSession.SessionToken);
@@ -96,7 +97,8 @@ public static class NotificationHelper
             .SetColor(color)
             .SetSmallIcon(Resource.Drawable.ic_statusbar_play)
             .SetLargeIcon(largeIcon)
-            .SetContentIntent(pendingIntent)
+            // TODO: Add when this is released: https://github.com/dotnet/maui/issues/9090
+            // .SetContentIntent(pendingIntent)
             .SetShowWhen(false)
             .SetOngoing(isPlaying)
             .SetVisibility(NotificationVisibility.Public);

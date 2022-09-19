@@ -2446,6 +2446,15 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to -5 min.
+        /// </summary>
+        public static string SleepTimer_Decrease_5min {
+            get {
+                return ResourceManager.GetString("SleepTimer_Decrease_5min", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to +5 min.
         /// </summary>
         public static string SleepTimer_Increase_5min {

@@ -24,7 +24,7 @@
         <ColumnDefinition Width="Auto" />
     </Grid.ColumnDefinitions>
 
-    <Grid Grid.Row="0" Padding="8" ColumnDefinitions="auto, auto, *, auto, auto" Grid.ColumnSpan="3"
+    <Grid Grid.Row="0" Padding="8" ColumnDefinitions="auto, auto, auto, *, auto" Grid.ColumnSpan="3"
           IsVisible="{Binding IsMenuOpen}">
         <Picker Grid.Column="0"
                 ItemsSource="{Binding SleepTimes}"
@@ -47,6 +47,15 @@
                 Command="{Binding IncreaseSleepTimerCommand}"
                 IsVisible="{Binding IsSleepTimerRunning}"
                 />
+
+        <Grid Grid.Column="2" IsVisible="{OnPlatform Default=False, WinUI=True}">
+            <Button Text="{x:Static r:Strings.SleepTimer_Decrease_5min}"
+                    HorizontalOptions="Start" 
+                    Margin="8,0,0,0"
+                    Command="{Binding DecreaseSleepTimerCommand}"
+                    IsVisible="{Binding IsSleepTimerRunning}"
+                    />
+        </Grid>
 
         <Picker Grid.Column="4"
                 ItemsSource="{Binding PlaybackRateOptions}"
