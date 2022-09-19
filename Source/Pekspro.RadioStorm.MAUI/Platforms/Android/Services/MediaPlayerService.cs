@@ -19,7 +19,7 @@ using Binder = Android.OS.Binder;
 
 namespace Pekspro.RadioStorm.MAUI.Platforms.Android.Services;
 
-[Service(Exported = true, ForegroundServiceType = global::Android.Content.PM.ForegroundService.TypeMediaPlayback)]
+[Service(Exported = false, ForegroundServiceType = global::Android.Content.PM.ForegroundService.TypeMediaPlayback)]
 [IntentFilter(new[] { ActionPlay, ActionPause, ActionStop, ActionTogglePlayback, ActionRewind, ActionForward, ActionNext, ActionPrevious })]
 public sealed class MediaPlayerService : Service,
    AudioManager.IOnAudioFocusChangeListener,

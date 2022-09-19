@@ -5,7 +5,7 @@ using Pekspro.RadioStorm.CacheDatabase;
 
 namespace Pekspro.RadioStorm.MAUI.Platforms.Android.Services;
 
-[Service(Permission = "android.permission.BIND_JOB_SERVICE")]
+[Service(Exported = false, Permission = "android.permission.BIND_JOB_SERVICE")]
 public sealed class MaintenanceJobService : JobService
 {
     private ILogger? _Logger;
