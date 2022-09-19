@@ -27,9 +27,5 @@
                  Source="{StaticResource PlayList}"
                  IsVisible="{Binding HasPlayList}" 
                  />
-    <ImageButton Command="{Binding ToogleMenuCommand}"
-                 Style="{x:StaticResource PlayerButton}"
-                 Source="{StaticResource Menu}"
-                 />
     
 </HorizontalStackLayout>
