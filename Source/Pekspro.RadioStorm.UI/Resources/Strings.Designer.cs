@@ -340,7 +340,7 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} nedladdning kvar....
+        ///   Looks up a localized string similar to {0} nedladdningar kvar....
         /// </summary>
         public static string DownloadsNotification_Description_MultipleLeft {
             get {

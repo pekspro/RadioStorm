@@ -193,7 +193,7 @@
     <value>i kö</value>
   </data>
   <data name="DownloadsNotification_Description_MultipleLeft" xml:space="preserve">
-    <value>{0} nedladdning kvar...</value>
+    <value>{0} nedladdningar kvar...</value>
   </data>
   <data name="DownloadsNotification_Description_SingleLeft" xml:space="preserve">
     <value>En nedladdning kvar...</value>
