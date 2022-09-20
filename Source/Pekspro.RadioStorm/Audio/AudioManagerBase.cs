@@ -382,6 +382,8 @@ public abstract class AudioManagerBase : IAudioManager
         }
         else
         {
+            Logger.LogInformation($"{nameof(Play)} on position: {{position}} (length {{length}})", Position, MediaLength);
+
             MediaPlay();
         }
     }
@@ -390,12 +392,16 @@ public abstract class AudioManagerBase : IAudioManager
     {
         if (CanPause)
         {
+            Logger.LogInformation($"{nameof(Pause)} on position: {{position}} (length {{length}})", Position, MediaLength);
+
             MediaPause();
         }
     }
 
     public void PlayPause()
     {
+        Logger.LogInformation($"{nameof(PlayPause)}");
+
         if (CanPause)
         {
             Pause();

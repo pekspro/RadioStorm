@@ -351,7 +351,7 @@ public sealed class MediaPlayerService : Service,
         }
         else
         {
-            Logger.LogInformation($"{nameof(Play)} with existing source.");
+            Logger.LogInformation($"{nameof(Play)} with existing source on position {{position}} (duration: {{duration}})", PositionTimeSpan, DurationTimeSpan);
 
             // Restart if stopped
             if (MediaPlayerState == PlaybackStateCode.Stopped)
@@ -493,7 +493,7 @@ public sealed class MediaPlayerService : Service,
 
     public async Task PlayPause()
     {
-        Logger.LogInformation($"{nameof(PlayPause)}");
+        Logger.LogInformation($"{nameof(PlayPause)} on position {{position}} (duration: {{duration}})", PositionTimeSpan, DurationTimeSpan);
 
         if (mediaPlayer is null || (mediaPlayer is not null && MediaPlayerState == PlaybackStateCode.Paused))
         {
@@ -507,7 +507,7 @@ public sealed class MediaPlayerService : Service,
 
     public async Task Pause()
     {
-        Logger.LogInformation($"{nameof(Pause)}");
+        Logger.LogInformation($"{nameof(Pause)} on position {{position}} (duration: {{duration}})", PositionTimeSpan, DurationTimeSpan);
 
         await Task.Run(() => {
             if (mediaPlayer is null)
@@ -616,24 +616,6 @@ public sealed class MediaPlayerService : Service,
     internal void SetVolume(double value)
     {
         Volume = value;
-
-        //value *= 100;
-
-        //int MAX_VOLUME = 100;
-        //float volume;
-        
-        //if (value >= MAX_VOLUME)
-        //{
-        //    volume = 1;
-        //}
-        //else
-        //{
-        //    volume = (float)(1 - (Math.Log(MAX_VOLUME - value) / Math.Log(MAX_VOLUME)));
-        //}
-
-        //Logger.LogError($"Setting {Volume} {value}");
-
-        ////mediaPlayer?.SetVolume((float)volume, (float)volume);
         
         mediaPlayer?.SetVolume((float)Volume, (float)Volume);
     }
