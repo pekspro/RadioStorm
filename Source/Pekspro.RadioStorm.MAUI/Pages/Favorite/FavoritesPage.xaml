@@ -191,8 +191,6 @@
             </CollectionView>
         </RefreshView>
 
-        <views:PlayerControl Grid.Row="2" />
-
         <HorizontalStackLayout
             x:Name="ProgressSynchronize"
             x:DataType="{x:Type settingsvm:SynchronizingViewModel}"                
@@ -239,7 +237,9 @@
                 </VisualStateManager.VisualStateGroups>
             </Label>
         </HorizontalStackLayout>
-        
+
+        <views:PlayerControl Grid.Row="0" Grid.RowSpan="3" x:Name="PlayerControl" />
+
     </Grid>
         
     <!--</RefreshView>-->

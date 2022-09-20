@@ -98,6 +98,6 @@
             </CollectionView>
         </RefreshView>
 
-        <views:PlayerControl Grid.Row="2" />
+        <views:PlayerControl Grid.Row="0" Grid.RowSpan="3" x:Name="PlayerControl" />
     </Grid>
 </ContentPage>

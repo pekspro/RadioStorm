@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Pekspro.RadioStorm.MAUI.Views.CurrentPlayingLargeControl"
+             >
+    <Grid>
+        <Grid Grid.Row="0" Padding="8" IsVisible="{Binding ChannelData, Converter={StaticResource NullToIsVisibleConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <Image
+               Grid.Row="0"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+			   WidthRequest="256"
+			   HeightRequest="256"
+               >
+                <Image.Source>
+                    <UriImageSource Uri="{Binding ChannelData.Image.LowResolution, Mode=OneWay}"
+                        CacheValidity="1"  
+                        CachingEnabled="True"
+                    />
+                </Image.Source>
+            </Image>
+
+            <Label 
+                Grid.Row="1"
+                HorizontalOptions="Center"
+                Text="{Binding ChannelData.Title, Mode=OneWay}"
+                LineBreakMode="TailTruncation"
+				MaxLines="1"
+				/>
+
+            <Label 
+                Grid.Row="2"
+                HorizontalOptions="Center"
+                Text="{Binding ChannelData.Status.CurrentProgram, Mode=OneWay}"
+                Style="{StaticResource DetailedTextStyle}"
+                LineBreakMode="TailTruncation"
+				MaxLines="1"
+				Margin="0"
+				Opacity="0.8"
+				/>
+            
+        </Grid>
+
+        <Grid Grid.Row="0" Padding="8" IsVisible="{Binding EpisodeData, Converter={StaticResource NullToIsVisibleConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            
+            <Image
+               Grid.Row="0"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+			   WidthRequest="256"
+			   HeightRequest="256"
+               >
+                <Image.Source>
+                    <UriImageSource Uri="{Binding EpisodeData.EpisodeImage.LowResolution, Mode=OneWay}"
+                        CacheValidity="1"  
+                        CachingEnabled="True"
+                    />
+                </Image.Source>
+            </Image>
+
+            <Label 
+                Grid.Row="1"
+                HorizontalOptions="Center"
+                Text="{Binding EpisodeData.Title, Mode=OneWay}"
+                LineBreakMode="TailTruncation"
+				MaxLines="1"
+				/>
+
+            <Label 
+                Grid.Row="2"
+                HorizontalOptions="Center"
+                Text="{Binding EpisodeData.ProgramName, Mode=OneWay}"
+                Style="{StaticResource DetailedTextStyle}"
+                LineBreakMode="TailTruncation"
+				MaxLines="1"
+				Margin="0"
+				Opacity="0.8"
+				/>
+        </Grid>
+    </Grid>
+</ContentView>

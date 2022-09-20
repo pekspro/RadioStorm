@@ -252,7 +252,7 @@
                 Text="{x:Static r:Strings.Episodes_GetAll}" />
         </Grid>
 
-        <views:PlayerControl Grid.Row="3" />
+        <views:PlayerControl Grid.Row="0" Grid.RowSpan="3" x:Name="PlayerControl" />
     </Grid>
 
 </ContentPage>

@@ -61,4 +61,9 @@ public sealed partial class ChannelDetailsPage : ContentPage
             }
         }
     }
+
+    protected override bool OnBackButtonPressed()
+    {
+        return PlayerControl.Back();
+    }
 }

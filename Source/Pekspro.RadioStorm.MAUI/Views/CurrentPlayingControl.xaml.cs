@@ -1,6 +1,4 @@
-﻿using Pekspro.RadioStorm.UI.ViewModel.Player;
-
-namespace Pekspro.RadioStorm.MAUI.Views;
+﻿namespace Pekspro.RadioStorm.MAUI.Views;
 
 public sealed partial class CurrentPlayingControl
 {

@@ -20,4 +20,15 @@ public sealed partial class PlayerControl
     {
         await Shell.Current.GoToAsync(nameof(PlaylistPage));
     }
+
+    public bool Back()
+    {
+        if (ViewModel.IsMenuOpen)
+        {
+            ViewModel.ToogleMenu();
+            return true;
+        }
+
+        return false;
+    }
 }

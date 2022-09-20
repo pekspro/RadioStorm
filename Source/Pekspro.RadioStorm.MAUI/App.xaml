@@ -131,6 +131,19 @@
                 <Setter Property="BorderWidth" Value="0" />
                 <Setter Property="HorizontalOptions" Value="Start" />
                 <Setter Property="FontSize" Value="{StaticResource FontSizeDetails}" />
+
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray400}}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
             </Style>
 
             <Style x:Key="PlayerButton" TargetType="ImageButton">

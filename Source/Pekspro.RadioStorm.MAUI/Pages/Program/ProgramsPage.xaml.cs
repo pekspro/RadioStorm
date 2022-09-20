@@ -43,6 +43,11 @@ public sealed partial class ProgramsPage : ContentPage
 
     protected override bool OnBackButtonPressed()
     {
+        if (PlayerControl.Back())
+        {
+            return true;
+        }
+
         ((AppShell)Shell.Current).GoToFavorites();
 
         return true;

@@ -33,6 +33,11 @@ public sealed partial class RecentEpisodesPage : ContentPage
 
     protected override bool OnBackButtonPressed()
     {
+        if (PlayerControl.Back())
+        {
+            return true;
+        }
+
         ((AppShell)Shell.Current).GoToFavorites();
 
         return true;

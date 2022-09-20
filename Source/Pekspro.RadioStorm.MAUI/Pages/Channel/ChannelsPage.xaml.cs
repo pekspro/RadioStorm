@@ -50,6 +50,11 @@ public sealed partial class ChannelsPage : ContentPage
 
     protected override bool OnBackButtonPressed()
     {
+        if (PlayerControl.Back())
+        {
+            return true;
+        }
+        
         ((AppShell)Shell.Current).GoToFavorites();
 
         return true;

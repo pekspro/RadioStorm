@@ -198,6 +198,9 @@
 	  <MauiXaml Update="Views\ChannelProgressBar.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\CurrentPlayingLargeControl.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\DebugSettingsControl.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
