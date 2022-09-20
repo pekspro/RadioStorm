@@ -18,7 +18,7 @@
 
             <Color x:Key="InactiveProgramColorDark">Gray</Color>
             <Color x:Key="InactiveProgramColorLight">#777777</Color>
-            <Color x:Key="HyperlinkColorDark">#0063B1</Color>
+            <Color x:Key="HyperlinkColorDark">#418AD9</Color>
             <Color x:Key="HyperlinkColorLight">#00508E</Color>
             <Color x:Key="PanelBackgroundDark">#1E1E1E</Color>
             <Color x:Key="PanelBackgroundLight">#E1E1E1</Color>
@@ -152,7 +152,8 @@
             <Style x:Key="Separator" TargetType="Rectangle">
                 <Setter Property="StrokeThickness" Value="0" />
                 <Setter Property="HeightRequest" Value="1" />
-                <Setter Property="Fill" Value="{AppThemeBinding Dark={StaticResource PanelBackgroundDark}, Light={StaticResource PanelBackgroundLight}}" />
+                <Setter Property="Opacity" Value="0.4" />
+                <Setter Property="Fill" Value="{AppThemeBinding Dark={StaticResource HyperlinkColorDark}, Light={StaticResource HyperlinkColorLight}}" />
             </Style>
 
             <FontImageSource
