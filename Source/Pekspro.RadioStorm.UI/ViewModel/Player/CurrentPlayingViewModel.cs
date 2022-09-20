@@ -54,12 +54,12 @@ public sealed partial class CurrentPlayingViewModel : DownloadViewModel, IDispos
 
         messenger.Register<PlaylistChanged>(this, (sender, message) =>
         {
-            QueueRefresh(new RefreshSettings());
+            QueueRefresh(new RefreshSettings(FullRefresh: true));
         });
 
         messenger.Register<CurrentItemChanged>(this, (sender, message) =>
         {
-            QueueRefresh(new RefreshSettings());
+            QueueRefresh(new RefreshSettings(FullRefresh: true));
         });
     }
 

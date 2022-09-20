@@ -6,14 +6,8 @@
             x:DataType="player:CurrentPlayingViewModel"
             HeightRequest="66"
             >
-    <Grid.RowDefinitions>
-        <RowDefinition Height="auto" />
-        <RowDefinition Height="auto" />
-    </Grid.RowDefinitions>
 
-    <views:DownloadState Grid.Row="0" />
-
-    <Grid Grid.Row="1" Padding="8" IsVisible="{Binding ChannelData, Converter={StaticResource NullToIsVisibleConverter}}">
+    <Grid Padding="8" IsVisible="{Binding ChannelData, Converter={StaticResource NullToIsVisibleConverter}}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
@@ -57,7 +51,7 @@
         </VerticalStackLayout>
     </Grid>
 
-    <Grid Grid.Row="1" Padding="8" IsVisible="{Binding EpisodeData, Converter={StaticResource NullToIsVisibleConverter}}">
+    <Grid Padding="8" IsVisible="{Binding EpisodeData, Converter={StaticResource NullToIsVisibleConverter}}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
@@ -100,4 +94,15 @@
 					/>
         </VerticalStackLayout>
     </Grid>
+
+    <ActivityIndicator 
+            IsVisible="{Binding IsBusy}" 
+            Grid.Row="0"
+            IsRunning="True"
+            WidthRequest="{OnPlatform Default=28, WinUI=24}"
+            HeightRequest="{OnPlatform Default=28, WinUI=24}"
+            Margin="{OnPlatform Default='16,0,0,0', WinUI='20,0,0,0'}"
+            VerticalOptions="Center"
+            HorizontalOptions="Start" />
+
 </Grid>
