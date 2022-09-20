@@ -11,7 +11,6 @@ using Android.Net.Wifi;
 using Android.OS;
 using Android.Runtime;
 using Java.Net;
-using Pekspro.RadioStorm.MAUI.Platforms.Android.Receivers;
 using AndroidNet = Android.Net;
 using Binder = Android.OS.Binder;
 
@@ -66,8 +65,6 @@ public sealed class MediaPlayerService : Service,
     private ConnectionAliveChecker connectionAliveChecker;
 #endif
 
-    private ComponentName remoteComponentName;
-
     public PlaybackStateCode MediaPlayerState
     {
         get
@@ -117,8 +114,6 @@ public sealed class MediaPlayerService : Service,
 #if USE_WIFI_LOCK
         wifiManager = (WifiManager)GetSystemService(WifiService);
 #endif
-
-        remoteComponentName = new ComponentName(PackageName, new RemoteControlBroadcastReceiver().ComponentName);
     }
 
     /// <summary>
@@ -135,14 +130,9 @@ public sealed class MediaPlayerService : Service,
                 Logger.LogInformation($"{nameof(InitMediaSession)} - Creating new session");
                 Intent nIntent = new Intent(ApplicationContext, typeof(MainActivity));
 
-                remoteComponentName = new ComponentName(PackageName, new RemoteControlBroadcastReceiver().ComponentName);
-
                 mediaSession = new MediaSession(ApplicationContext, "MauiStreamingAudio");
                 mediaSession.SetSessionActivity(PendingIntent.GetActivity(ApplicationContext, 0, nIntent, PendingIntentFlags.Mutable));
                 mediaController = new MediaController(ApplicationContext, mediaSession.SessionToken);
-
-                // Setup callback when playback state changes
-
             }
 
             mediaSession.Active = true;
