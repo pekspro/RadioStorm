@@ -15,12 +15,13 @@
 
     <!--HeightRequest="{Binding IsCurrentItemLiveAudio, Converter={StaticResource LiveAudioToHeightConverter}}"-->
 
-    <Grid Grid.Row="0" IsVisible="{Binding IsMenuOpen}" BackgroundColor="{AppThemeBinding Dark=#E6000000, Light=#E6FFFFFF}">
+    <Grid Grid.Row="0" IsVisible="{Binding IsMenuOpen}" BackgroundColor="{AppThemeBinding Dark=#EE000000, Light=#EEFFFFFF}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <Grid.GestureRecognizers>
             <TapGestureRecognizer Command="{Binding ToogleMenuCommand}" />
@@ -90,6 +91,8 @@
         </Grid>
 
         <views:CurrentPlayingLargeControl Grid.Row="2" />
+
+        <views:PlayerButtonsControl Grid.Row="4" Grid.Column="2" HorizontalOptions="Center"/>
     </Grid>
 
     <Grid Grid.Row="1" BackgroundColor="{AppThemeBinding Dark={StaticResource PanelBackgroundDark}, Light={StaticResource PanelBackgroundLight}}">
@@ -132,7 +135,15 @@
                    />
         </Grid>
     
-        <views:PlayerButtonsControl Grid.Row="4" Grid.Column="2" />
+        <!--<views:PlayerButtonsControl Grid.Row="4" Grid.Column="2" />-->
+
+        <ImageButton 
+            Grid.Row="4" 
+            Grid.Column="2"
+            Command="{Binding PlayPauseCommand}"
+            Style="{x:StaticResource PlayerButton}"
+            Source="{Binding CanPause, Converter={StaticResource BoolToPlayPause}}"
+            />
 
         <views:PlayerPositionControl Grid.Row="5" Grid.ColumnSpan="3" IsVisible="{Binding IsCurrentItemEpisode}" />
 
