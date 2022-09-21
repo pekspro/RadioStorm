@@ -16,6 +16,8 @@
             Margin="{OnPlatform Default=0, WinUI='8,0,0,0'}"
             />
     
+    <!-- 
+    
     <ImageButton Command="{Binding GoToPreviousCommand}"
                  Style="{x:StaticResource PlayerButton}"
                  Source="{StaticResource Previous}"
@@ -35,6 +37,57 @@
                  Source="{StaticResource PlayList}"
                  IsVisible="{Binding HasPlayList}" 
                  />
+    -->
+    
+
+    <Grid IsVisible="{Binding HasPlayList}" WidthRequest="{OnPlatform Default=56, WinUI=48}">
+        <ImageButton Style="{x:StaticResource PlayerButton}"
+                     Source="{StaticResource Previous}"
+                     Command="{Binding GoToPreviousCommand}"
+                 />
+
+        <Button 
+            IsVisible="{Binding CanGoToPrevious}"
+            Command="{Binding GoToPreviousCommand}"
+            Style="{StaticResource TextPlayerButton}"
+            />
+    </Grid>
+
+    <Grid>
+        <ImageButton Style="{x:StaticResource PlayerButton}"
+                     Source="{Binding CanPause, Converter={StaticResource BoolToPlayPause}}"
+                     Command="{Binding PlayPauseCommand}"
+                     />
+
+        <Button 
+            Command="{Binding PlayPauseCommand}"
+            Style="{StaticResource TextPlayerButton}"
+            />
+    </Grid>
+
+    <Grid IsVisible="{Binding HasPlayList}" WidthRequest="{OnPlatform Default=56, WinUI=48}">
+        <ImageButton Style="{x:StaticResource PlayerButton}"
+                     Source="{StaticResource Next}"
+                     Command="{Binding GoToNextCommand}"
+                 />
+
+        <Button 
+            IsVisible="{Binding CanGoToNext}"
+            Command="{Binding GoToNextCommand}"
+            Style="{StaticResource TextPlayerButton}"
+            />
+    </Grid>
+
+    <Grid IsVisible="{Binding HasPlayList}">
+        <ImageButton Style="{x:StaticResource PlayerButton}"
+                     Source="{StaticResource PlayList}"
+                 />
+
+        <Button 
+            Clicked="ButtonPlaylist_Clicked"
+            Style="{StaticResource TextPlayerButton}"
+            />
+    </Grid>
 
     <Button Text="{Binding SeekSizeViewModel.ForwardSize, Converter={StaticResource TimeSpanToSeekSizeStringConverter}}"
             TextColor="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"

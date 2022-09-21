@@ -18,10 +18,11 @@
     <Grid Grid.Row="0" IsVisible="{Binding IsMenuOpen}" BackgroundColor="{AppThemeBinding Dark=#EE000000, Light=#EEFFFFFF}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="2*" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.GestureRecognizers>
             <TapGestureRecognizer Command="{Binding ToogleMenuCommand}" />
@@ -137,13 +138,24 @@
     
         <!--<views:PlayerButtonsControl Grid.Row="4" Grid.Column="2" />-->
 
-        <ImageButton 
+
+        <Grid 
             Grid.Row="4" 
             Grid.Column="2"
-            Command="{Binding PlayPauseCommand}"
-            Style="{x:StaticResource PlayerButton}"
-            Source="{Binding CanPause, Converter={StaticResource BoolToPlayPause}}"
+            WidthRequest="{OnPlatform Default=56, WinUI=48}">
+
+            <ImageButton 
+                Command="{Binding PlayPauseCommand}"
+                Style="{x:StaticResource PlayerButton}"
+                Source="{Binding CanPause, Converter={StaticResource BoolToPlayPause}}"
+                />
+
+            <Button 
+                Command="{Binding PlayPauseCommand}"
+                Style="{StaticResource TextPlayerButton}"
             />
+        </Grid>
+
 
         <views:PlayerPositionControl Grid.Row="5" Grid.ColumnSpan="3" IsVisible="{Binding IsCurrentItemEpisode}" />
 
