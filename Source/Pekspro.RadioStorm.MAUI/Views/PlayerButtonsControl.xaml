@@ -1,4 +1,4 @@
-﻿<HorizontalStackLayout
+﻿<Grid
             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:player="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Player;assembly=Pekspro.RadioStorm.UI"
@@ -6,15 +6,17 @@
             x:Class="Pekspro.RadioStorm.MAUI.Views.PlayerButtonsControl"             
             x:DataType="player:PlayerViewModel"
             HeightRequest="66"
+            ColumnDefinitions="auto, auto, auto, auto, auto, auto"
+            RowDefinitions="auto, auto"
             >
     
-    <Button Text="{Binding SeekSizeViewModel.RewindSize, Converter={StaticResource TimeSpanToSeekSizeStringConverter}}"
+    <!--<Button Text="{Binding SeekSizeViewModel.RewindSize, Converter={StaticResource TimeSpanToSeekSizeStringConverter}}"
             TextColor="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"
             Command="{Binding RewindCommand}"
             Style="{StaticResource TextPlayerButton}"
             IsVisible="{Binding IsCurrentItemLiveAudio, Converter={StaticResource InvertedBoolConverter}}"
             Margin="{OnPlatform Default=0, WinUI='8,0,0,0'}"
-            />
+            />-->
     
     <!-- 
     
@@ -40,7 +42,9 @@
     -->
     
 
-    <Grid IsVisible="{Binding HasPlayList}" WidthRequest="{OnPlatform Default=56, WinUI=48}">
+    <Grid Grid.Column="0" 
+          IsVisible="{Binding HasPlayList}" 
+          WidthRequest="{OnPlatform Default=56, WinUI=48}">
         <ImageButton Style="{x:StaticResource PlayerButton}"
                      Source="{StaticResource Previous}"
                      Command="{Binding GoToPreviousCommand}"
@@ -53,7 +57,28 @@
             />
     </Grid>
 
-    <Grid>
+    <Grid Grid.Column="1" 
+          IsVisible="{Binding IsCurrentItemLiveAudio, Converter={StaticResource InvertedBoolConverter}}"
+          WidthRequest="{OnPlatform Default=56, WinUI=48}">
+        <ImageButton Style="{x:StaticResource PlayerButton}"
+                     Source="{StaticResource Rewind}"
+                     Command="{Binding RewindCommand}"
+                 />
+
+        <Button 
+            Command="{Binding RewindCommand}"
+            Style="{StaticResource TextPlayerButton}"
+            />
+    </Grid>
+
+    <Label 
+        Grid.Column="1" 
+        Grid.Row="1" 
+        IsVisible="{Binding IsCurrentItemLiveAudio, Converter={StaticResource InvertedBoolConverter}}"
+        Text="{Binding SeekSizeViewModel.RewindSize, Converter={StaticResource TimeSpanToSeekSizeStringConverter}}"
+        HorizontalOptions="Center" />
+
+    <Grid Grid.Column="2">
         <ImageButton Style="{x:StaticResource PlayerButton}"
                      Source="{Binding CanPause, Converter={StaticResource BoolToPlayPause}}"
                      Command="{Binding PlayPauseCommand}"
@@ -65,7 +90,31 @@
             />
     </Grid>
 
-    <Grid IsVisible="{Binding HasPlayList}" WidthRequest="{OnPlatform Default=56, WinUI=48}">
+    <Grid Grid.Column="3" 
+          IsVisible="{Binding IsCurrentItemLiveAudio, Converter={StaticResource InvertedBoolConverter}}"
+          WidthRequest="{OnPlatform Default=56, WinUI=48}">
+        <ImageButton Style="{x:StaticResource PlayerButton}"
+                     Source="{StaticResource Forward}"
+                     Command="{Binding ForwardCommand}"
+                 />
+
+        <Button 
+            Command="{Binding ForwardCommand}"
+            Style="{StaticResource TextPlayerButton}"
+            />
+    </Grid>
+
+    <Label 
+        Grid.Column="3"
+        Grid.Row="1" 
+        IsVisible="{Binding IsCurrentItemLiveAudio, Converter={StaticResource InvertedBoolConverter}}"
+        Text="{Binding SeekSizeViewModel.ForwardSize, Converter={StaticResource TimeSpanToSeekSizeStringConverter}}"
+        HorizontalOptions="Center" />
+
+
+    <Grid Grid.Column="4"
+          IsVisible="{Binding HasPlayList}" 
+          WidthRequest="{OnPlatform Default=56, WinUI=48}">
         <ImageButton Style="{x:StaticResource PlayerButton}"
                      Source="{StaticResource Next}"
                      Command="{Binding GoToNextCommand}"
@@ -78,7 +127,8 @@
             />
     </Grid>
 
-    <Grid IsVisible="{Binding HasPlayList}">
+    <Grid Grid.Column="5" 
+          IsVisible="{Binding HasPlayList}">
         <ImageButton Style="{x:StaticResource PlayerButton}"
                      Source="{StaticResource PlayList}"
                  />
@@ -89,11 +139,11 @@
             />
     </Grid>
 
-    <Button Text="{Binding SeekSizeViewModel.ForwardSize, Converter={StaticResource TimeSpanToSeekSizeStringConverter}}"
+    <!--<Button Text="{Binding SeekSizeViewModel.ForwardSize, Converter={StaticResource TimeSpanToSeekSizeStringConverter}}"
             TextColor="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"
             Command="{Binding ForwardCommand}"
             Style="{StaticResource TextPlayerButton}"
             IsVisible="{Binding IsCurrentItemLiveAudio, Converter={StaticResource InvertedBoolConverter}}"
-            />
+            />-->
 
-</HorizontalStackLayout>
+</Grid>
