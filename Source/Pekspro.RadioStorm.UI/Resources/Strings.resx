@@ -580,7 +580,7 @@
     <value>Sovtimer</value>
   </data>
   <data name="Player_MenuSleepTimer_Disable" xml:space="preserve">
-    <value>Stäng av sovtimer ({0:00}:{1:00})</value>
+    <value>Stoppa sovtimer</value>
   </data>
   <data name="Player_MenuSleepTimer_Set" xml:space="preserve">
     <value>{0} minuter</value>

@@ -300,15 +300,14 @@ public sealed partial class PlayerViewModel : ObservableObject
     public bool IsSleepTimerNotRunning => !IsSleepTimerRunning;
 
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(StopSleepTimerText))]
+    [NotifyPropertyChangedFor(nameof(SleepTimerText))]
     [NotifyPropertyChangedFor(nameof(CanSleepTimerDecrease))]
     [NotifyCanExecuteChangedFor(nameof(DecreaseSleepTimerCommand))]
     private TimeSpan _TimeLeftToSleepActivation;
 
     public bool CanSleepTimerDecrease => TimeLeftToSleepActivation > AudioManagerBase.DefaultSleepTimerDelta;
 
-    public string StopSleepTimerText =>
-        string.Format(Strings.Player_MenuSleepTimer_Disable, (int) TimeLeftToSleepActivation.TotalMinutes, TimeLeftToSleepActivation.Seconds);
+    public string SleepTimerText => string.Format("{0:00}:{1:00}", (int) TimeLeftToSleepActivation.TotalMinutes, TimeLeftToSleepActivation.Seconds);
 
     #endregion
 

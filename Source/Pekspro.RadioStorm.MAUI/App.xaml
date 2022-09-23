@@ -111,6 +111,11 @@
                 <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource HyperlinkColorDark}, Light={StaticResource HyperlinkColorLight}}" />
             </Style>
 
+            <Style x:Key="HyperlinkLabelDetailedStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource HyperlinkColorDark}, Light={StaticResource HyperlinkColorLight}}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeDetails}" />
+            </Style>
+
             <Style x:Key="DetailedTextStyle" TargetType="Label">
                 <Setter Property="FontSize" Value="{StaticResource FontSizeDetails}" />
             </Style>
