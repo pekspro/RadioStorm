@@ -216,6 +216,9 @@
 	  <MauiXaml Update="Views\LargeMediaButtonUserControl.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\PlayerControlMargin.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\PlayerPositionControl.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
