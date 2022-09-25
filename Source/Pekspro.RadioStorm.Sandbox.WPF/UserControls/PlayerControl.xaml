@@ -57,7 +57,7 @@
                 />
 
             <Button Grid.Column="0" 
-                Content="{Binding StopSleepTimerText}" 
+                Content="{Binding SleepTimerText}" 
                 Command="{Binding StopSleepTimerCommand}"
                 Visibility="{Binding IsSleepTimerRunning, Converter={StaticResource BoolToVisibilityConverter}}"
                 />
