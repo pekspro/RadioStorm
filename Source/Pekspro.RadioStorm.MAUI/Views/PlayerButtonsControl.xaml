@@ -50,11 +50,11 @@
                      Command="{Binding GoToPreviousCommand}"
                  />
 
-        <Button 
+        <!--<Button 
             IsVisible="{Binding CanGoToPrevious}"
             Command="{Binding GoToPreviousCommand}"
             Style="{StaticResource TextPlayerButton}"
-            />
+            />-->
     </Grid>
 
     <Grid Grid.Column="1" 
@@ -65,10 +65,10 @@
                      Command="{Binding RewindCommand}"
                  />
 
-        <Button 
+        <!--<Button 
             Command="{Binding RewindCommand}"
             Style="{StaticResource TextPlayerButton}"
-            />
+            />-->
     </Grid>
 
     <Label 
@@ -84,10 +84,10 @@
                      Command="{Binding PlayPauseCommand}"
                      />
 
-        <Button 
+        <!--<Button 
             Command="{Binding PlayPauseCommand}"
             Style="{StaticResource TextPlayerButton}"
-            />
+            />-->
     </Grid>
 
     <Grid Grid.Column="3" 
@@ -98,10 +98,10 @@
                      Command="{Binding ForwardCommand}"
                  />
 
-        <Button 
+        <!--<Button 
             Command="{Binding ForwardCommand}"
             Style="{StaticResource TextPlayerButton}"
-            />
+            />-->
     </Grid>
 
     <Label 
@@ -120,23 +120,23 @@
                      Command="{Binding GoToNextCommand}"
                  />
 
-        <Button 
+        <!--<Button 
             IsVisible="{Binding CanGoToNext}"
             Command="{Binding GoToNextCommand}"
             Style="{StaticResource TextPlayerButton}"
-            />
+            />-->
     </Grid>
 
     <Grid Grid.Column="5" 
           IsVisible="{Binding HasPlayList}">
         <ImageButton Style="{x:StaticResource PlayerButton}"
                      Source="{StaticResource PlayList}"
+                     Clicked="ButtonPlaylist_Clicked"
                  />
 
-        <Button 
-            Clicked="ButtonPlaylist_Clicked"
+        <!--<Button 
             Style="{StaticResource TextPlayerButton}"
-            />
+            />-->
     </Grid>
 
     <!--<Button Text="{Binding SeekSizeViewModel.ForwardSize, Converter={StaticResource TimeSpanToSeekSizeStringConverter}}"

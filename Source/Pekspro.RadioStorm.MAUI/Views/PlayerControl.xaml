@@ -165,10 +165,10 @@
                 Source="{Binding CanPause, Converter={StaticResource BoolToPlayPause}}"
                 />
 
-            <Button 
+            <!--<Button 
                 Command="{Binding PlayPauseCommand}"
                 Style="{StaticResource TextPlayerButton}"
-            />
+            />-->
         </Grid>
 
 
