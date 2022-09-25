@@ -23,6 +23,8 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.GestureRecognizers>
             <TapGestureRecognizer Command="{Binding ToogleMenuCommand}" />
@@ -109,6 +111,31 @@
         <views:CurrentPlayingLargeControl Grid.Row="2" />
 
         <views:PlayerButtonsControl Grid.Row="4" Grid.Column="2" HorizontalOptions="Center"/>
+
+        <HorizontalStackLayout Grid.Row="6" HorizontalOptions="Center"
+                IsVisible="{Binding HasPlayList}" >
+
+            <Grid 
+                WidthRequest="{OnPlatform Default=56, WinUI=48}">
+
+                <ImageButton Style="{x:StaticResource PlayerButton}"
+                     Source="{StaticResource PlayList}"
+                     Clicked="ButtonPlaylist_Clicked" />
+            </Grid>
+
+            <Label Text="{Binding PlayListItemIndex}" 
+                   Margin="0,0,0,3"
+                   VerticalTextAlignment="Center" />
+
+            <Label Text="/" 
+                   Margin="0,0,0,3"
+                   VerticalTextAlignment="Center" />
+
+            <Label Text="{Binding PlayListItemCount}" 
+                   Margin="0,0,0,3"
+                   VerticalTextAlignment="Center" />
+
+        </HorizontalStackLayout>
     </Grid>
 
     <Grid Grid.Row="1" BackgroundColor="{AppThemeBinding Dark={StaticResource PanelBackgroundDark}, Light={StaticResource PanelBackgroundLight}}">

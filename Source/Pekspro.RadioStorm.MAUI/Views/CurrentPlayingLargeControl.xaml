@@ -72,21 +72,22 @@
             <Label 
                 Grid.Row="1"
                 HorizontalOptions="Center"
-                Text="{Binding EpisodeData.Title, Mode=OneWay}"
+                Text="{Binding EpisodeData.ProgramName, Mode=OneWay}"
                 LineBreakMode="TailTruncation"
 				MaxLines="1"
+				Margin="0"
 				/>
 
             <Label 
                 Grid.Row="2"
                 HorizontalOptions="Center"
-                Text="{Binding EpisodeData.ProgramName, Mode=OneWay}"
+                Text="{Binding EpisodeData.Title, Mode=OneWay}"
                 Style="{StaticResource DetailedTextStyle}"
                 LineBreakMode="TailTruncation"
-				MaxLines="1"
-				Margin="0"
 				Opacity="0.8"
+				MaxLines="1"
 				/>
+
         </Grid>
     </Grid>
 </ContentView>

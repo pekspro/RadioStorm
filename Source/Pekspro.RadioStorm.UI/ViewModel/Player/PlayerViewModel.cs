@@ -239,6 +239,16 @@ public sealed partial class PlayerViewModel : ObservableObject
     [ObservableProperty]
     private PlayList? _CurrentPlayList;
 
+    public bool HasMorePlayListItems =>
+        AudioManager.CurrentPlayList?.CanGoToNext == true;
+
+    public int PlayListItemCount =>
+        AudioManager.CurrentPlayList?.Items.Count ?? 1;
+
+    public int PlayListItemIndex =>
+        (AudioManager.CurrentPlayList?.CurrentPosition ?? 0) + 1;
+
+
     #endregion
 
     #region Volume
@@ -434,6 +444,9 @@ public sealed partial class PlayerViewModel : ObservableObject
         OnPropertyChanged(nameof(IsCurrentItemEpisode));
         OnPropertyChanged(nameof(IsCurrentItemLiveAudio));
         OnPropertyChanged(nameof(HasPlayList));
+        OnPropertyChanged(nameof(HasMorePlayListItems));
+        OnPropertyChanged(nameof(PlayListItemIndex));
+        OnPropertyChanged(nameof(PlayListItemCount));
         GoToNextCommand.NotifyCanExecuteChanged();
         GoToPreviousCommand.NotifyCanExecuteChanged();
     }

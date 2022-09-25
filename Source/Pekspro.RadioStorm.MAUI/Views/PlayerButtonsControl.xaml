@@ -74,6 +74,8 @@
     <Label 
         Grid.Column="1" 
         Grid.Row="1" 
+        Margin="0,-12,0,0"
+        FontSize="{StaticResource FontSizeDetails}"
         IsVisible="{Binding IsCurrentItemLiveAudio, Converter={StaticResource InvertedBoolConverter}}"
         Text="{Binding SeekSizeViewModel.RewindSize, Converter={StaticResource TimeSpanToSeekSizeStringConverter}}"
         HorizontalOptions="Center" />
@@ -107,6 +109,8 @@
     <Label 
         Grid.Column="3"
         Grid.Row="1" 
+        Margin="0,-12,0,0"
+        FontSize="{StaticResource FontSizeDetails}"
         IsVisible="{Binding IsCurrentItemLiveAudio, Converter={StaticResource InvertedBoolConverter}}"
         Text="{Binding SeekSizeViewModel.ForwardSize, Converter={StaticResource TimeSpanToSeekSizeStringConverter}}"
         HorizontalOptions="Center" />
@@ -123,18 +127,6 @@
         <!--<Button 
             IsVisible="{Binding CanGoToNext}"
             Command="{Binding GoToNextCommand}"
-            Style="{StaticResource TextPlayerButton}"
-            />-->
-    </Grid>
-
-    <Grid Grid.Column="5" 
-          IsVisible="{Binding HasPlayList}">
-        <ImageButton Style="{x:StaticResource PlayerButton}"
-                     Source="{StaticResource PlayList}"
-                     Clicked="ButtonPlaylist_Clicked"
-                 />
-
-        <!--<Button 
             Style="{StaticResource TextPlayerButton}"
             />-->
     </Grid>
