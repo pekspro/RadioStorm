@@ -17,6 +17,17 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
+        <TextBlock Grid.Row="1">
+            <Run Text="Playlist item: " />
+            <Run Text="{Binding PlayListItemIndex, Mode=OneWay}" />
+            <Run Text="/" />
+            <Run Text="{Binding PlayListItemCount, Mode=OneWay}" />
+            <Run Text="Has more items: " />
+            <Run Text="{Binding HasMorePlayListItems, Mode=OneWay}" />
+            <Run Text="Next title: " />
+            <Run Text="{Binding NextEpisodeData.Title, Mode=OneWay}" />
+        </TextBlock>
+
         <UserControls:DownloadStateControl Grid.Row="2" />
 
         <StackPanel Orientation="Horizontal" Grid.Row="3">
@@ -45,6 +56,5 @@
                 <Run Text="{Binding EpisodeData.ProgramName, Mode=OneWay}" />
             </TextBlock>
         </StackPanel>
-
     </Grid>
 </UserControl>
