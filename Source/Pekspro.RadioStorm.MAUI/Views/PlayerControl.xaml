@@ -112,7 +112,7 @@
 
         <views:PlayerButtonsControl Grid.Row="4" Grid.Column="2" HorizontalOptions="Center"/>
 
-        <HorizontalStackLayout Grid.Row="6" HorizontalOptions="Center"
+        <VerticalStackLayout Grid.Row="6" HorizontalOptions="Center"
                 IsVisible="{Binding HasPlayList}" >
 
             <Grid 
@@ -123,19 +123,18 @@
                      Clicked="ButtonPlaylist_Clicked" />
             </Grid>
 
-            <Label Text="{Binding PlayListItemIndex}" 
-                   Margin="0,0,0,3"
-                   VerticalTextAlignment="Center" />
-
-            <Label Text="/" 
-                   Margin="0,0,0,3"
-                   VerticalTextAlignment="Center" />
-
-            <Label Text="{Binding PlayListItemCount}" 
-                   Margin="0,0,0,3"
-                   VerticalTextAlignment="Center" />
-
-        </HorizontalStackLayout>
+            <Label FontSize="{StaticResource FontSizeDetails}"
+                   HorizontalOptions="Center" 
+                   Margin="0,-10,0,0"
+                   >
+                <Label.Text>
+                    <MultiBinding StringFormat="{}{0}/{1}">
+                        <Binding Path="PlayListItemIndex" />
+                        <Binding Path="PlayListItemCount" />
+                    </MultiBinding>
+                </Label.Text>
+            </Label>
+        </VerticalStackLayout>
     </Grid>
 
     <Grid Grid.Row="1" BackgroundColor="{AppThemeBinding Dark={StaticResource PanelBackgroundDark}, Light={StaticResource PanelBackgroundLight}}">
