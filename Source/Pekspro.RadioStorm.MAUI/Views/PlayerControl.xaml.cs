@@ -18,10 +18,7 @@ public sealed partial class PlayerControl
 
     private async void ButtonPlaylist_Clicked(object sender, EventArgs e)
     {
-        if (ViewModel.IsMenuOpen)
-        {
-            ViewModel.ToogleMenu();
-        }
+        ViewModel.IsMenuOpen = false;
 
         await Shell.Current.GoToAsync(nameof(PlaylistPage));
     }
