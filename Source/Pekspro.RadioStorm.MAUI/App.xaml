@@ -49,7 +49,7 @@
             </OnPlatform>
             <x:Double x:Key="ListItemImageSize">64</x:Double>
             <x:Double x:Key="DefaultSwipeThreshold">160</x:Double>
-            
+
             <OnPlatform x:Key="NormalPageMargin" x:TypeArguments="Thickness" Default="20">
                 <On Platform="WinUI">8</On>
             </OnPlatform>
@@ -73,7 +73,7 @@
                 <Setter Property="Padding" Value="0,4,0,0" />
                 <Setter Property="HeightRequest" Value="44" />
             </Style>
-            
+
             <Style x:Key="ListItemLeftImage" TargetType="Image">
                 <Setter Property="Margin" Value="0,4,8,4" />
                 <Setter Property="HeightRequest" Value="{StaticResource ListItemImageSize}" />
@@ -150,6 +150,39 @@
                     </VisualStateGroupList>
                 </Setter>
             </Style>
+
+            <Style x:Key="PathBase" TargetType="Path">
+                <Setter Property="Fill" Value="{AppThemeBinding Dark=White, Light=Black}" />
+                <Setter Property="Aspect" Value="Uniform" />
+                <Setter Property="StrokeThickness" Value="0" />
+                <Setter Property="WidthRequest" Value="24" />
+                <Setter Property="HeightRequest" Value="24" />
+            </Style>
+
+            <Style x:Key="PathPlayerSkipToPrevious" TargetType="Path" BasedOn="{StaticResource PathBase}">
+                <Setter Property="Data" Value="M6,6h2v12L6,18zM9.5,12l8.5,6L18,6M 24,24 0,0z" />
+            </Style>
+
+            <Style x:Key="PathPlayerFastRewind" TargetType="Path" BasedOn="{StaticResource PathBase}">
+                <Setter Property="Data" Value="m 6,13 c 0,3.31 2.69,6 6,6 3.31,0 6,-2.69 6,-6 0,-3.31 -2.69,-6 -6,-6 v 4 L 7,6 12,1 v 4 c 4.42,0 8,3.58 8,8 0,4.42 -3.58,8 -8,8 -4.42,0 -8,-3.58 -8,-8 M 24,24 0,0 z" />
+            </Style>
+
+            <Style x:Key="PathPlayerPlay" TargetType="Path" BasedOn="{StaticResource PathBase}">
+                <Setter Property="Data" Value="M8,5v14l11,-7M 24,24 0,0z" />
+            </Style>
+
+            <Style x:Key="PathPlayerPause" TargetType="Path" BasedOn="{StaticResource PathBase}">
+                <Setter Property="Data" Value="M6,19h4L10,5L6,5v14zM14,5v14h4L18,5h-4M 24,24 0,0z" />
+            </Style>
+
+            <Style x:Key="PathPlayerFastForward" TargetType="Path" BasedOn="{StaticResource PathBase}">
+                <Setter Property="Data" Value="M18,13c0,3.31 -2.69,6 -6,6s-6,-2.69 -6,-6s2.69,-6 6,-6v4l5,-5l-5,-5v4c-4.42,0 -8,3.58 -8,8c0,4.42 3.58,8 8,8s8,-3.58 8,-8H18M 24,24 0,0z" />
+            </Style>
+
+            <Style x:Key="PathPlayerSkipToNext" TargetType="Path" BasedOn="{StaticResource PathBase}">
+                <Setter Property="Data" Value="M6,18l8.5,-6L6,6v12zM16,6v12h2V6h-2M 24,24 0,0z" />
+            </Style>
+
 
             <Style x:Key="PlayerButton" TargetType="ImageButton">
                 <Setter Property="BackgroundColor" Value="Transparent" />
@@ -312,6 +345,7 @@
                                              Multiplier="12"
                                              />
             <converters:BoolToIntConverter x:Key="LiveAudioToHeightConverter" TrueValue="64" FalseValue="102"/>
+            <converters:BoolToDoubleConverter x:Key="BoolToDoubleOneAndHalfConverter" TrueValue="1" FalseValue="0.43"/>
             <converters:MultiplierConverter x:Key="MultiplierConverter" />
 
             <converters:DownloadDataStatusToVisibilityConverter VisibilityValue="Done"

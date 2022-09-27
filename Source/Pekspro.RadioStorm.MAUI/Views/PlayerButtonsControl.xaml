@@ -10,14 +10,6 @@
             RowDefinitions="auto, auto"
             >
     
-    <!--<Button Text="{Binding SeekSizeViewModel.RewindSize, Converter={StaticResource TimeSpanToSeekSizeStringConverter}}"
-            TextColor="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"
-            Command="{Binding RewindCommand}"
-            Style="{StaticResource TextPlayerButton}"
-            IsVisible="{Binding IsCurrentItemLiveAudio, Converter={StaticResource InvertedBoolConverter}}"
-            Margin="{OnPlatform Default=0, WinUI='8,0,0,0'}"
-            />-->
-    
     <!-- 
     
     <ImageButton Command="{Binding GoToPreviousCommand}"
@@ -45,8 +37,14 @@
     <Grid Grid.Column="0" 
           IsVisible="{Binding HasPlayList}" 
           WidthRequest="{OnPlatform Default=56, WinUI=48}">
+
+        <Path   
+            Style="{x:StaticResource PathPlayerSkipToPrevious}"
+            Opacity="{Binding CanGoToPrevious, Converter={StaticResource BoolToDoubleOneAndHalfConverter}}"
+            WidthRequest="24"
+            />
+
         <ImageButton Style="{x:StaticResource PlayerButton}"
-                     Source="{StaticResource Previous}"
                      Command="{Binding GoToPreviousCommand}"
                  />
 
@@ -60,8 +58,13 @@
     <Grid Grid.Column="1" 
           IsVisible="{Binding IsCurrentItemLiveAudio, Converter={StaticResource InvertedBoolConverter}}"
           WidthRequest="{OnPlatform Default=56, WinUI=48}">
+
+        <Path   
+            Style="{x:StaticResource PathPlayerFastRewind}"
+            WidthRequest="24"
+            />
+
         <ImageButton Style="{x:StaticResource PlayerButton}"
-                     Source="{StaticResource Rewind}"
                      Command="{Binding RewindCommand}"
                  />
 
@@ -80,9 +83,22 @@
         Text="{Binding SeekSizeViewModel.RewindSize, Converter={StaticResource TimeSpanToSeekSizeStringConverter}}"
         HorizontalOptions="Center" />
 
-    <Grid Grid.Column="2">
+    <Grid Grid.Column="2"
+          WidthRequest="{OnPlatform Default=56, WinUI=48}">
+
+        <Path   
+            Style="{x:StaticResource PathPlayerPlay}"
+            IsVisible="{Binding CanPause, Converter={StaticResource InvertedBoolConverter}}"
+            WidthRequest="24"
+            />
+
+        <Path   
+            Style="{x:StaticResource PathPlayerPause}"
+            IsVisible="{Binding CanPause}"
+            WidthRequest="24"
+            />
+
         <ImageButton Style="{x:StaticResource PlayerButton}"
-                     Source="{Binding CanPause, Converter={StaticResource BoolToPlayPause}}"
                      Command="{Binding PlayPauseCommand}"
                      />
 
@@ -95,8 +111,13 @@
     <Grid Grid.Column="3" 
           IsVisible="{Binding IsCurrentItemLiveAudio, Converter={StaticResource InvertedBoolConverter}}"
           WidthRequest="{OnPlatform Default=56, WinUI=48}">
+
+        <Path   
+            Style="{x:StaticResource PathPlayerFastForward}"
+            WidthRequest="24"
+            />
+
         <ImageButton Style="{x:StaticResource PlayerButton}"
-                     Source="{StaticResource Forward}"
                      Command="{Binding ForwardCommand}"
                  />
 
@@ -119,8 +140,14 @@
     <Grid Grid.Column="4"
           IsVisible="{Binding HasPlayList}" 
           WidthRequest="{OnPlatform Default=56, WinUI=48}">
+
+        <Path   
+            Style="{x:StaticResource PathPlayerSkipToNext}"
+            Opacity="{Binding CanGoToNext, Converter={StaticResource BoolToDoubleOneAndHalfConverter}}"
+            WidthRequest="24"
+            />
+
         <ImageButton Style="{x:StaticResource PlayerButton}"
-                     Source="{StaticResource Next}"
                      Command="{Binding GoToNextCommand}"
                  />
 
@@ -130,12 +157,5 @@
             Style="{StaticResource TextPlayerButton}"
             />-->
     </Grid>
-
-    <!--<Button Text="{Binding SeekSizeViewModel.ForwardSize, Converter={StaticResource TimeSpanToSeekSizeStringConverter}}"
-            TextColor="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"
-            Command="{Binding ForwardCommand}"
-            Style="{StaticResource TextPlayerButton}"
-            IsVisible="{Binding IsCurrentItemLiveAudio, Converter={StaticResource InvertedBoolConverter}}"
-            />-->
 
 </Grid>

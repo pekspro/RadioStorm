@@ -185,10 +185,21 @@
             Grid.Column="2"
             WidthRequest="{OnPlatform Default=56, WinUI=48}">
 
+            <Path   
+                Style="{x:StaticResource PathPlayerPlay}"
+                IsVisible="{Binding CanPause, Converter={StaticResource InvertedBoolConverter}}"
+                WidthRequest="24"
+            />
+
+            <Path   
+                Style="{x:StaticResource PathPlayerPause}"
+                IsVisible="{Binding CanPause}"
+                WidthRequest="24"
+            />
+            
             <ImageButton 
                 Command="{Binding PlayPauseCommand}"
                 Style="{x:StaticResource PlayerButton}"
-                Source="{Binding CanPause, Converter={StaticResource BoolToPlayPause}}"
                 />
 
             <!--<Button 
