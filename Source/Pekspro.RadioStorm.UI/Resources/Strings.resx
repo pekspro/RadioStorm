@@ -969,4 +969,7 @@
   <data name="SleepTimer_Decrease_5min" xml:space="preserve">
     <value>-5 min</value>
   </data>
+  <data name="SleepTimer_Title" xml:space="preserve">
+    <value>Sovtimer</value>
+  </data>
 </root>

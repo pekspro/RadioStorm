@@ -2491,6 +2491,15 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sovtimer.
+        /// </summary>
+        public static string SleepTimer_Title {
+            get {
+                return ResourceManager.GetString("SleepTimer_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kanaler.
         /// </summary>
         public static string Start_JumpList_Channels {

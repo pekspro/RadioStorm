@@ -409,6 +409,19 @@ public sealed partial class PlayerViewModel : ObservableObject
     }
 
     [RelayCommand]
+    public void ToggleSleepTimer()
+    {
+        if (AudioManager.IsSleepTimerEnabled)
+        {
+            AudioManager.StopSleepTimer();
+        }
+        else
+        {
+            AudioManager.StartSleepTimer(TimeSpan.FromMinutes(SleepTimesInMinutes[0]));
+        }
+    }
+
+    [RelayCommand]
     public void StopSleepTimer()
     {
         AudioManager.StopSleepTimer();

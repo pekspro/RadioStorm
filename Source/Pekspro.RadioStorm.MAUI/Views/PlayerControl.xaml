@@ -32,75 +32,73 @@
 
         <Grid Grid.Row="0" 
               Padding="8" 
-              ColumnDefinitions="auto, auto, auto, *, auto" 
+              ColumnDefinitions="auto, auto, auto, auto, *, auto" 
               Grid.ColumnSpan="3"
               IsVisible="{Binding IsMenuOpen}">
 
-            <Picker 
-                Grid.Row="0"
-                Grid.ColumnSpan="3"
-                ItemsSource="{Binding SleepTimes}"
-                SelectedIndex="{Binding SleepTimeIndex, Mode=TwoWay}"
-                Margin="{OnPlatform Default='0,6,0,0', WinUI='0,6,0,0'}"
-                IsVisible="{Binding IsSleepTimerNotRunning}"
-                />
+            <Grid Grid.Column="0" 
+                  WidthRequest="{OnPlatform Default=56, WinUI=48}">
 
-            <Button 
-                Grid.Column="0"
-                Text="{x:Static r:Strings.SleepTimer_Decrease_5min}"
-                Style="{StaticResource HyperlinkButton}"
-                HorizontalOptions="Start" 
-                Margin="0,0,8,0"
-                HeightRequest="50"
-                Command="{Binding DecreaseSleepTimerCommand}"
-                IsVisible="{Binding IsSleepTimerRunning}"
-                />
+                <Path   
+                    Style="{x:StaticResource PathSleepTimer}"
+                    WidthRequest="24"
+                    />
 
-            <Grid 
-                Grid.Row="0"
-                Grid.Column="1"
-                HeightRequest="50"
-                RowDefinitions="auto, auto"
-                IsVisible="{Binding IsSleepTimerRunning}"
-                >
-                    
-                <Label Padding="0,4,0,0"
+                <ImageButton Style="{x:StaticResource PlayerButton}"
+                             Command="{Binding ToggleSleepTimerCommand}"
+                             />
+            </Grid>
+
+            <Grid Grid.Column="1"
+                  IsVisible="{Binding IsSleepTimerRunning}"
+                  RowDefinitions="auto, auto"
+                  >
+
+                <Label Padding="0,6,0,0"
                         Text="{Binding SleepTimerText}"
-                        FontSize="18"
-                        Style="{StaticResource HyperlinkLabelDetailedStyle}"
+                        FontSize="{StaticResource FontSizeDetails}"
                         HorizontalTextAlignment="Center"
                         />
 
                 <Label Grid.Row="1"
                         Padding="0,0,0,4"
-                        Text="{x:Static r:Strings.Player_MenuSleepTimer_Disable}"
-                        Style="{StaticResource HyperlinkLabelDetailedStyle}"
+                        Text="{x:Static r:Strings.SleepTimer_Title}"
+                        FontSize="{StaticResource FontSizeDetails}"
                         HorizontalTextAlignment="Center"
                         />
+            </Grid>
+            
+            <Grid Grid.Column="2"
+                  IsVisible="{Binding IsSleepTimerRunning}"
+                  Opacity="{Binding CanSleepTimerDecrease, Converter={StaticResource BoolToDoubleOneAndHalfConverter}}"
+                  WidthRequest="{OnPlatform Default=56, WinUI=48}">
 
-                <Button 
-                    Grid.RowSpan="2"
-                    Style="{StaticResource HyperlinkButton}"
-                    HeightRequest="50"
-                    HorizontalOptions="FillAndExpand" 
-                    VerticalOptions="StartAndExpand"
-                    Command="{Binding StopSleepTimerCommand}"
-                    IsVisible="{Binding IsSleepTimerRunning}"
+                <Path   
+                    Style="{x:StaticResource PathDecrease}"
+                    WidthRequest="24"
                     />
+
+                <ImageButton Style="{x:StaticResource PlayerButton}"
+                             Command="{Binding DecreaseSleepTimerCommand}"
+                             HorizontalOptions="Start"
+                             />
             </Grid>
 
-            <Button 
-                Grid.Column="2"
-                Style="{StaticResource HyperlinkButton}"
-                Text="{x:Static r:Strings.SleepTimer_Increase_5min}"
-                HorizontalOptions="Start" 
-                Margin="4,0,0,0"
-                HeightRequest="50"
-                Command="{Binding IncreaseSleepTimerCommand}"
-                IsVisible="{Binding IsSleepTimerRunning}"
-                />
+            <Grid Grid.Column="3"
+                  IsVisible="{Binding IsSleepTimerRunning}"
+                  WidthRequest="{OnPlatform Default=56, WinUI=48}">
 
-            <Picker Grid.Column="4"
+                <Path   
+                    Style="{x:StaticResource PathIncrease}"
+                    WidthRequest="24"
+                    />
+
+                <ImageButton Style="{x:StaticResource PlayerButton}"
+                             Command="{Binding IncreaseSleepTimerCommand}"
+                             />
+            </Grid>
+            
+            <Picker Grid.Column="5"
                     ItemsSource="{Binding PlaybackRateOptions}"
                     SelectedIndex="{Binding PlaybackRateIndex, Mode=TwoWay}"
                     Margin="{OnPlatform Default='0,6,0,0', WinUI='0,6,0,0'}"
