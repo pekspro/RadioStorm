@@ -417,7 +417,7 @@ public sealed partial class PlayerViewModel : ObservableObject
         }
         else
         {
-            AudioManager.StartSleepTimer(TimeSpan.FromMinutes(SleepTimesInMinutes[0]));
+            AudioManager.StartSleepTimer();
         }
     }
 
