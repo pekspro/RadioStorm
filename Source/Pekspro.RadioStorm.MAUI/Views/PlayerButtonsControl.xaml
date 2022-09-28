@@ -5,7 +5,6 @@
             xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
             x:Class="Pekspro.RadioStorm.MAUI.Views.PlayerButtonsControl"             
             x:DataType="player:PlayerViewModel"
-            HeightRequest="66"
             ColumnDefinitions="auto, auto, auto, auto, auto, auto"
             >
     

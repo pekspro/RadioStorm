@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:player="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Player;assembly=Pekspro.RadioStorm.UI"
+             xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
+             x:DataType="player:CurrentPlayingViewModel"
              x:Class="Pekspro.RadioStorm.MAUI.Views.CurrentPlayingLargeControl"
              >
     <Grid>
@@ -52,6 +55,7 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
             
             <Image
@@ -74,8 +78,8 @@
                 HorizontalOptions="Center"
                 Text="{Binding EpisodeData.ProgramName, Mode=OneWay}"
                 LineBreakMode="TailTruncation"
+                Margin="0,4,0,0"
 				MaxLines="1"
-				Margin="0"
 				/>
 
             <Label 
@@ -84,10 +88,26 @@
                 Text="{Binding EpisodeData.Title, Mode=OneWay}"
                 Style="{StaticResource DetailedTextStyle}"
                 LineBreakMode="TailTruncation"
-				Opacity="0.8"
+				Margin="0,4,0,0"
 				MaxLines="1"
 				/>
 
+            <Label 
+                Grid.Row="3"
+                HorizontalOptions="Center"
+                IsVisible="{Binding NextEpisodeData, Converter={StaticResource NullToIsVisibleConverter}}"
+                TextColor="{StaticResource InactiveProgramColorDark}"
+                Style="{StaticResource DetailedTextStyle}"
+                LineBreakMode="TailTruncation"
+				Margin="0,4,0,0"
+				MaxLines="1"
+				>
+                <Label.Text>
+                    <MultiBinding StringFormat="{x:Static r:Strings.Episodes_NextEpisode}">
+                        <Binding Path="NextEpisodeData.Title" />
+                    </MultiBinding>
+                </Label.Text>
+            </Label>
         </Grid>
     </Grid>
 </ContentView>
