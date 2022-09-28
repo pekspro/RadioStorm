@@ -21,12 +21,16 @@ public sealed class SeekSizeProvider
     {
         get
         {
+            return -TimeSpan.FromSeconds(10);
+            
+            /*
             if (SeekPosition <= 0)
             {
                 return -SeekSizes[-SeekPosition];
             }
 
             return -SeekSizes[SeekPosition - 1];
+            */
         }
     }
 
@@ -34,14 +38,16 @@ public sealed class SeekSizeProvider
     {
         get
         {
-            if( SeekPosition >= 0)
-            {
-                return SeekSizes[SeekPosition];
-            }
+            return TimeSpan.FromSeconds(10);
 
-            int reversedPos = -SeekPosition;
+            //if( SeekPosition >= 0)
+            //{
+            //    return SeekSizes[SeekPosition];
+            //}
 
-            return SeekSizes[reversedPos - 1];
+            //int reversedPos = -SeekPosition;
+
+            //return SeekSizes[reversedPos - 1];
         }
     }
 

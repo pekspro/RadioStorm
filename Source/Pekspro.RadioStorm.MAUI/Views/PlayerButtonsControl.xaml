@@ -7,7 +7,6 @@
             x:DataType="player:PlayerViewModel"
             HeightRequest="66"
             ColumnDefinitions="auto, auto, auto, auto, auto, auto"
-            RowDefinitions="auto, auto"
             >
     
     <!-- 
@@ -74,15 +73,6 @@
             />-->
     </Grid>
 
-    <Label 
-        Grid.Column="1" 
-        Grid.Row="1" 
-        Margin="0,-12,0,0"
-        FontSize="{StaticResource FontSizeDetails}"
-        IsVisible="{Binding IsCurrentItemLiveAudio, Converter={StaticResource InvertedBoolConverter}}"
-        Text="{Binding SeekSizeViewModel.RewindSize, Converter={StaticResource TimeSpanToSeekSizeStringConverter}}"
-        HorizontalOptions="Center" />
-
     <Grid Grid.Column="2"
           WidthRequest="{OnPlatform Default=56, WinUI=48}">
 
@@ -126,16 +116,6 @@
             Style="{StaticResource TextPlayerButton}"
             />-->
     </Grid>
-
-    <Label 
-        Grid.Column="3"
-        Grid.Row="1" 
-        Margin="0,-12,0,0"
-        FontSize="{StaticResource FontSizeDetails}"
-        IsVisible="{Binding IsCurrentItemLiveAudio, Converter={StaticResource InvertedBoolConverter}}"
-        Text="{Binding SeekSizeViewModel.ForwardSize, Converter={StaticResource TimeSpanToSeekSizeStringConverter}}"
-        HorizontalOptions="Center" />
-
 
     <Grid Grid.Column="4"
           IsVisible="{Binding HasPlayList}" 
