@@ -23,7 +23,7 @@ on:
 
 env:
   SECRETS_FILE: ./Source/Pekspro.RadioStorm.Settings.SynchronizedSettings.FileProvider.Secrets/Secrets-Protected.cs
-  BUILD_TIME_FILE: ./Source/Pekspro.RadioStorm/Utilities/BuildTimeProvider-Build.cs
+  BUILD_TIME_FILE: ./Source/Pekspro.RadioStorm/Utilities/BuildInformation-Build.cs
 
 
 jobs:
@@ -41,7 +41,7 @@ jobs:
     - name: "Create build time file"
       run: |
         echo "namespace Pekspro.RadioStorm.Utilities;" >> $env:BUILD_TIME_FILE
-        echo "public static partial class BuildTimeProvider" >> $env:BUILD_TIME_FILE
+        echo "public static partial class BuildInformation" >> $env:BUILD_TIME_FILE
         echo "{" >> $env:BUILD_TIME_FILE
         echo "    static partial void Initialize()" >> $env:BUILD_TIME_FILE
         echo "    {" >> $env:BUILD_TIME_FILE

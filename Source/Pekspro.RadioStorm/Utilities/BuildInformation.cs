@@ -1,8 +1,8 @@
 ﻿namespace Pekspro.RadioStorm.Utilities;
 
-public static partial class BuildTimeProvider
+public static partial class BuildInformation
 {
-    static BuildTimeProvider()
+    static BuildInformation()
     {
         Initialize();
     }
@@ -18,7 +18,7 @@ public static partial class BuildTimeProvider
 /*
  * When building in GitHub, a file like this is generated setting the build time:
  
-public static sealed partial class BuildTimeProvider
+public static sealed partial class BuildInformation
 {
     static partial void Initialize()
     {

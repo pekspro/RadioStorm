@@ -36,8 +36,8 @@ public sealed partial class AboutViewModel
     public string BuildDetails => string.Format
         (
             Strings.About_BuildDetails, 
-            BuildTimeProvider.BuildTime.ToShortDateString(),
-            BuildTimeProvider.BuildTime.ToShortTimeString()
+            BuildInformation.BuildTime.ToShortDateString(),
+            BuildInformation.BuildTime.ToShortTimeString()
         );
 
     public ILocalSettings LocalSettings { get; }
