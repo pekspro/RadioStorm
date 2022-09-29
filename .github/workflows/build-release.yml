@@ -52,6 +52,7 @@ jobs:
         echo "    {" >> $env:BUILD_TIME_FILE
         echo "        Branch = ""${{ github.ref_name }}"";" >> $env:BUILD_TIME_FILE
         echo "        BuildTimeString = ""${{ env.CURRENT_TIME_UTC_STRING }}"";" >> $env:BUILD_TIME_FILE
+        echo "        CommitId = ""${{ github.sha }}"";" >> $env:BUILD_TIME_FILE
         echo "        DotNetVersionString = ""${{ env.NET_VERSION_STRING }}"";" >> $env:BUILD_TIME_FILE
         echo "        MauiWorkloadAndroidVersionString = ""${{ env.WORKLOAD_ANDROID_VERSION_STRING }}"";" >> $env:BUILD_TIME_FILE
         echo "        MauiWorkloadWindowsVersionString = ""${{ env.WORKLOAD_WINDOWS_VERSION_STRING }}"";" >> $env:BUILD_TIME_FILE

@@ -40,6 +40,20 @@ public sealed partial class AboutViewModel
             BuildInformation.BuildTime.ToShortTimeString()
         );
 
+    public string? CommitId => BuildInformation.CommitId;
+    
+    public string? DotNetVersionString => BuildInformation.DotNetVersionString;
+    
+    public string? Branch => BuildInformation.Branch;
+    
+    public string? MauiWorkloadWindowsVersionString => BuildInformation.MauiWorkloadWindowsVersionString;
+    
+    public string? MauiWorkloadAndroidVersionString => BuildInformation.MauiWorkloadAndroidVersionString;
+    
+    public string? MauiWorkloadIosVersionString => BuildInformation.MauiWorkloadIosVersionString;
+    
+    public string? MauiWorkloadMacCatalysVersionString => BuildInformation.MauiWorkloadMacCatalysVersionString;
+
     public ILocalSettings LocalSettings { get; }
 
     #endregion

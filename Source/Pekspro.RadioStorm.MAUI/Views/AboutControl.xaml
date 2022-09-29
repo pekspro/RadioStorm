@@ -13,8 +13,67 @@
             </Label.GestureRecognizers>
         </Label>
         <Label Text="{x:Static r:Strings.About_Description}" />
-        <Label Text="{Binding BuildDetails}" Style="{StaticResource DetailedTextStyle}" 
-               TextColor="{AppThemeBinding Dark={StaticResource InactiveProgramColorDark}, Light={StaticResource InactiveProgramColorLight}}" />
+        
+        <VerticalStackLayout>
+            
+            <Label Text="{Binding BuildDetails}" Style="{StaticResource DetailedTextStyle}" 
+                   TextColor="{AppThemeBinding Dark={StaticResource InactiveProgramColorDark}, Light={StaticResource InactiveProgramColorLight}}" />
+        
+            <Label Style="{StaticResource DetailedTextStyle}"
+                   IsVisible="{Binding Branch, Converter={StaticResource NullToIsVisibleConverter}}"
+                   TextColor="{AppThemeBinding Dark={StaticResource InactiveProgramColorDark}, Light={StaticResource InactiveProgramColorLight}}">
+                <Label.Text>
+                    <MultiBinding StringFormat="{}Branch: {0}">
+                        <Binding Path="Branch" />
+                    </MultiBinding>
+                </Label.Text>
+            </Label>
+
+            <Label Style="{StaticResource DetailedTextStyle}"
+                   IsVisible="{Binding CommitId, Converter={StaticResource NullToIsVisibleConverter}}"
+                   TextColor="{AppThemeBinding Dark={StaticResource InactiveProgramColorDark}, Light={StaticResource InactiveProgramColorLight}}">
+                <Label.Text>
+                    <MultiBinding StringFormat="{}Commit: {0}">
+                        <Binding Path="CommitId" />
+                    </MultiBinding>
+                </Label.Text>
+            </Label>
+        
+            <Label Style="{StaticResource DetailedTextStyle}"
+                   IsVisible="{Binding DotNetVersionString, Converter={StaticResource NullToIsVisibleConverter}}"
+                   TextColor="{AppThemeBinding Dark={StaticResource InactiveProgramColorDark}, Light={StaticResource InactiveProgramColorLight}}">
+                <Label.Text>
+                    <MultiBinding StringFormat="{}.NET Version: {0}">
+                        <Binding Path="DotNetVersionString" />
+                    </MultiBinding>
+                </Label.Text>
+            </Label>
+
+            <HorizontalStackLayout IsVisible="{OnPlatform WinUI=true, Default=false}">
+                <Label Style="{StaticResource DetailedTextStyle}"
+                       IsVisible="{Binding MauiWorkloadWindowsVersionString, Converter={StaticResource NullToIsVisibleConverter}}"
+                       TextColor="{AppThemeBinding Dark={StaticResource InactiveProgramColorDark}, Light={StaticResource InactiveProgramColorLight}}">
+                    <Label.Text>
+                        <MultiBinding StringFormat="{}MAUI workload version: {0}">
+                            <Binding Path="MauiWorkloadWindowsVersionString" />
+                        </MultiBinding>
+                    </Label.Text>
+                </Label>
+            </HorizontalStackLayout>
+        
+            <HorizontalStackLayout IsVisible="{OnPlatform Android=true, Default=false}">
+                <Label Style="{StaticResource DetailedTextStyle}"
+                       IsVisible="{Binding MauiWorkloadAndroidVersionString, Converter={StaticResource NullToIsVisibleConverter}}"
+                       TextColor="{AppThemeBinding Dark={StaticResource InactiveProgramColorDark}, Light={StaticResource InactiveProgramColorLight}}">
+                    <Label.Text>
+                        <MultiBinding StringFormat="{}MAUI workload version: {0}">
+                            <Binding Path="MauiWorkloadAndroidVersionString" />
+                        </MultiBinding>
+                    </Label.Text>
+                </Label>
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
 
         <Label Text="{x:Static r:Strings.About_Credits_Title}" Style="{StaticResource Subtitle2TextBlockStyle}" />
         <Label Text="{x:Static r:Strings.About_Credits_Line1}" />
