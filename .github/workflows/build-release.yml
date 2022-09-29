@@ -33,10 +33,15 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Get current date
+    - name: Get build information
       run: |
         echo "CURRENT_TIME=$(date +'%Y%m%d_%H%M%S')" >> $env:GITHUB_ENV
         echo "CURRENT_TIME_UTC_STRING=$(date +'%Y-%m-%dT%H:%M:%SZ')" >> $env:GITHUB_ENV
+        echo "NET_VERSION_STRING=$(dotnet --version)" >> $env:GITHUB_ENV
+        echo "WORKLOAD_ANDROID_VERSION_STRING=$((dotnet workload list | Select-String maui-android)[0].ToString().Split(" ",[System.StringSplitOptions]::RemoveEmptyEntries)[1])" >> $env:GITHUB_ENV
+        echo "WORKLOAD_WINDOWS_VERSION_STRING=$((dotnet workload list | Select-String maui-windows)[0].ToString().Split(" ",[System.StringSplitOptions]::RemoveEmptyEntries)[1])" >> $env:GITHUB_ENV
+        echo "WORKLOAD_IOS_VERSION_STRING=$((dotnet workload list | Select-String maui-ios)[0].ToString().Split(" ",[System.StringSplitOptions]::RemoveEmptyEntries)[1])" >> $env:GITHUB_ENV
+        echo "WORKLOAD_MACCATALYST_VERSION_STRING=$((dotnet workload list | Select-String maui-maccatalys)[0].ToString().Split(" ",[System.StringSplitOptions]::RemoveEmptyEntries)[1])" >> $env:GITHUB_ENV
 
     - name: "Create build time file"
       run: |
@@ -45,7 +50,13 @@ jobs:
         echo "{" >> $env:BUILD_TIME_FILE
         echo "    static partial void Initialize()" >> $env:BUILD_TIME_FILE
         echo "    {" >> $env:BUILD_TIME_FILE
-        echo "        BuildTimeString  = ""${{ env.CURRENT_TIME_UTC_STRING }}"";" >> $env:BUILD_TIME_FILE
+        echo "        Branch = ""${{ github.ref_name }}"";" >> $env:BUILD_TIME_FILE
+        echo "        BuildTimeString = ""${{ env.CURRENT_TIME_UTC_STRING }}"";" >> $env:BUILD_TIME_FILE
+        echo "        DotNetVersionString = ""${{ env.NET_VERSION_STRING }}"";" >> $env:BUILD_TIME_FILE
+        echo "        MauiWorkloadAndroidVersionString = ""${{ env.WORKLOAD_ANDROID_VERSION_STRING }}"";" >> $env:BUILD_TIME_FILE
+        echo "        MauiWorkloadWindowsVersionString = ""${{ env.WORKLOAD_WINDOWS_VERSION_STRING }}"";" >> $env:BUILD_TIME_FILE
+        echo "        MauiWorkloadIosVersionString = ""${{ env.WORKLOAD_IOS_VERSION_STRING }}"";" >> $env:BUILD_TIME_FILE
+        echo "        MauiWorkloadMacCatalysVersionString = ""${{ env.WORKLOAD_MACCATALYST_VERSION_STRING }}"";" >> $env:BUILD_TIME_FILE
         echo "    }" >> $env:BUILD_TIME_FILE
         echo "}" >> $env:BUILD_TIME_FILE
 
