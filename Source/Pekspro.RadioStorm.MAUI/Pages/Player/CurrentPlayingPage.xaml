@@ -7,6 +7,12 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem 
+                Command="{Binding ToggleSleepTimerCommand}"
+                IconImageSource="{OnPlatform Default=sleeptimer_margin_0.png, Android=sleeptimer_margin_1of4.png}"
+                Text="{x:Static r:Strings.SleepTimer_Title}"
+                Order="Primary"
+                Priority="0" />
+        <ToolbarItem 
                 Command="{Binding SetSpeedVerySlowCommand}"
                 Text="{x:Static r:Strings.Player_MenuSpeed_VerySlow}"
                 Order="Secondary"
@@ -41,7 +47,7 @@
 
         <Grid Grid.Row="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
+                <RowDefinition Height="48" />
                 <RowDefinition Height="2*" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
@@ -51,73 +57,53 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" 
-              Padding="8" 
-              ColumnDefinitions="auto, auto, auto, auto, *, auto" 
-              Grid.ColumnSpan="3">
+            <HorizontalStackLayout
+                HorizontalOptions="End"
+                IsVisible="{Binding IsSleepTimerRunning}"        
+                Grid.Row="0" 
+                Padding="{OnPlatform Default=8, WinUI=0}" 
+                Grid.ColumnSpan="3">
 
-                <Grid Grid.Column="0" 
-                  WidthRequest="{OnPlatform Default=56, WinUI=48}">
+                <Grid VerticalOptions="Center"
+                      Opacity="{Binding CanSleepTimerDecrease, Converter={StaticResource BoolToDoubleOneAndHalfConverter}}"
+                      WidthRequest="{OnPlatform Default=32, WinUI=48}">
 
-                    <Path   
-                    Style="{x:StaticResource PathSleepTimer}"
-                    WidthRequest="24"
-                    />
+                    <Path Style="{x:StaticResource PathDecrease}"
+                          WidthRequest="24" />
 
                     <ImageButton Style="{x:StaticResource PlayerButton}"
-                             Command="{Binding ToggleSleepTimerCommand}"
-                             />
+                                 Command="{Binding DecreaseSleepTimerCommand}"
+                                 HorizontalOptions="Start" />
                 </Grid>
 
-                <Grid Grid.Column="1"
-                  IsVisible="{Binding IsSleepTimerRunning}"
-                  RowDefinitions="auto, auto"
-                  >
-
+                <Grid RowDefinitions="auto, auto" 
+                      Padding="{OnPlatform Default='4,0', WinUI='8,0'}"
+                      VerticalOptions="Center">
                     <Label Padding="0,6,0,0"
-                        Text="{Binding SleepTimerText}"
-                        FontSize="{StaticResource FontSizeDetails}"
-                        HorizontalTextAlignment="Center"
-                        />
+                           Text="{Binding SleepTimerText}"
+                           FontSize="{StaticResource FontSizeDetails}"
+                           HorizontalTextAlignment="Center" />
 
                     <Label Grid.Row="1"
-                        Padding="0,0,0,4"
-                        Text="{x:Static r:Strings.SleepTimer_Title}"
-                        FontSize="{StaticResource FontSizeDetails}"
-                        HorizontalTextAlignment="Center"
-                        />
+                           Padding="0,0,0,4"
+                           Text="{x:Static r:Strings.SleepTimer_Title}"
+                           FontSize="{StaticResource FontSizeDetails}"
+                           HorizontalTextAlignment="Center" />
                 </Grid>
 
-                <Grid Grid.Column="2"
-                  IsVisible="{Binding IsSleepTimerRunning}"
-                  Opacity="{Binding CanSleepTimerDecrease, Converter={StaticResource BoolToDoubleOneAndHalfConverter}}"
-                  WidthRequest="{OnPlatform Default=56, WinUI=48}">
+                <Grid VerticalOptions="Center"
+                      WidthRequest="{OnPlatform Default=32, WinUI=48}">
 
-                    <Path   
-                    Style="{x:StaticResource PathDecrease}"
-                    WidthRequest="24"
-                    />
+                    <Path Style="{x:StaticResource PathIncrease}"
+                          WidthRequest="24" />
 
                     <ImageButton Style="{x:StaticResource PlayerButton}"
-                             Command="{Binding DecreaseSleepTimerCommand}"
-                             HorizontalOptions="Start"
-                             />
+                                 Command="{Binding IncreaseSleepTimerCommand}" />
                 </Grid>
 
-                <Grid Grid.Column="3"
-                  IsVisible="{Binding IsSleepTimerRunning}"
-                  WidthRequest="{OnPlatform Default=56, WinUI=48}">
 
-                    <Path   
-                    Style="{x:StaticResource PathIncrease}"
-                    WidthRequest="24"
-                    />
 
-                    <ImageButton Style="{x:StaticResource PlayerButton}"
-                             Command="{Binding IncreaseSleepTimerCommand}"
-                             />
-                </Grid>
-            </Grid>
+            </HorizontalStackLayout>
 
             <views:CurrentPlayingLargeControl Grid.Row="2" />
 
