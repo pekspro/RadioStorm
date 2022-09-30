@@ -346,13 +346,6 @@ public sealed partial class PlayerViewModel : ObservableObject
 
     #endregion
 
-    #region Menu
-
-    [ObservableProperty]
-    private bool _IsMenuOpen;
-
-    #endregion
-
     #endregion
 
     #region Commands
@@ -437,12 +430,6 @@ public sealed partial class PlayerViewModel : ObservableObject
     public void DecreaseSleepTimer()
     {
         AudioManager.DecreaseSleepTimer();
-    }
-
-    [RelayCommand]
-    public void ToogleMenu()
-    {
-        IsMenuOpen = !IsMenuOpen;
     }
 
     #endregion

@@ -16,21 +16,16 @@ public sealed partial class PlayerControl
 
     private PlayerViewModel ViewModel => (PlayerViewModel) BindingContext;
 
-    private async void ButtonPlaylist_Clicked(object sender, EventArgs e)
+    private async void ButtonPlayerInfo_Clicked(object sender, EventArgs e)
     {
-        ViewModel.IsMenuOpen = false;
-
-        await Shell.Current.GoToAsync(nameof(PlaylistPage));
-    }
-
-    public bool Back()
-    {
-        if (ViewModel.IsMenuOpen)
+        // Open CurrentPlayingPage, or go back if already open
+        if (Shell.Current.CurrentPage is CurrentPlayingPage)
         {
-            ViewModel.ToogleMenu();
-            return true;
+            await Shell.Current.GoToAsync("..");
         }
-
-        return false;
+        else
+        {
+            await Shell.Current.GoToAsync(nameof(CurrentPlayingPage));
+        }
     }
 }

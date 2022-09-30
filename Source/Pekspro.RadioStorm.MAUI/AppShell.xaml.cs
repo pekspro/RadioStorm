@@ -24,8 +24,6 @@ public sealed partial class AppShell : Shell
     {
         if (!string.IsNullOrEmpty(selectedRoute))
         {
-            Services.ServiceProvider.GetRequiredService<PlayerViewModel>().IsMenuOpen = false;
-
             await Current.GoToAsync($"//{selectedRoute}");
         }
     }

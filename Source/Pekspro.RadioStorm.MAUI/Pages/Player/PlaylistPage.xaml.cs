@@ -51,10 +51,5 @@ public sealed partial class PlaylistPage : ContentPage
             }
         }
     }
-
-    protected override bool OnBackButtonPressed()
-    {
-        return PlayerControl.Back();
-    }
 }
 

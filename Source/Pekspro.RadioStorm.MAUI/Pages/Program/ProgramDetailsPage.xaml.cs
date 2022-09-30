@@ -78,9 +78,4 @@ public sealed partial class ProgramDetailsPage : ContentPage
     {
         SwipeHelper.SwipeEnded(sender);
     }
-
-    protected override bool OnBackButtonPressed()
-    {
-        return PlayerControl.Back();
-    }
 }

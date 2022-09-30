@@ -81,9 +81,4 @@ public sealed partial class FavoritesPage : ContentPage
     {
         SwipeHelper.SwipeEnded(sender);
     }
-
-    protected override bool OnBackButtonPressed()
-    {
-        return PlayerControl.Back();
-    }
 }

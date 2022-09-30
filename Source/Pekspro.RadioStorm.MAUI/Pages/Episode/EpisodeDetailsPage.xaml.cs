@@ -83,9 +83,4 @@ public sealed partial class EpisodeDetailsPage : ContentPage
                 });
         }
     }
-
-    protected override bool OnBackButtonPressed()
-    {
-        return PlayerControl.Back();
-    }
 }

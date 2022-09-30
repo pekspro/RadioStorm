@@ -6,208 +6,87 @@
             x:Class="Pekspro.RadioStorm.MAUI.Views.PlayerControl"             
             x:DataType="player:PlayerViewModel"
             IsVisible="{Binding CurrentItem, Converter={StaticResource NullToIsVisibleConverter}}"
-            >
-
-    <Grid.RowDefinitions>
-        <RowDefinition Height="*" />
-        <RowDefinition Height="auto" />
-    </Grid.RowDefinitions>
+            BackgroundColor="{AppThemeBinding Dark={StaticResource PanelBackgroundDark}, Light={StaticResource PanelBackgroundLight}}">
 
     <!--HeightRequest="{Binding IsCurrentItemLiveAudio, Converter={StaticResource LiveAudioToHeightConverter}}"-->
 
-    <Grid Grid.Row="0" IsVisible="{Binding IsMenuOpen}" BackgroundColor="{AppThemeBinding Dark=#EE000000, Light=#EEFFFFFF}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="2*" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.GestureRecognizers>
-            <TapGestureRecognizer Command="{Binding ToogleMenuCommand}" />
-        </Grid.GestureRecognizers>
-
-        <Grid Grid.Row="0" 
-              Padding="8" 
-              ColumnDefinitions="auto, auto, auto, auto, *, auto" 
-              Grid.ColumnSpan="3"
-              IsVisible="{Binding IsMenuOpen}">
-
-            <Grid Grid.Column="0" 
-                  WidthRequest="{OnPlatform Default=56, WinUI=48}">
-
-                <Path   
-                    Style="{x:StaticResource PathSleepTimer}"
-                    WidthRequest="24"
-                    />
-
-                <ImageButton Style="{x:StaticResource PlayerButton}"
-                             Command="{Binding ToggleSleepTimerCommand}"
-                             />
-            </Grid>
-
-            <Grid Grid.Column="1"
-                  IsVisible="{Binding IsSleepTimerRunning}"
-                  RowDefinitions="auto, auto"
-                  >
-
-                <Label Padding="0,6,0,0"
-                        Text="{Binding SleepTimerText}"
-                        FontSize="{StaticResource FontSizeDetails}"
-                        HorizontalTextAlignment="Center"
-                        />
-
-                <Label Grid.Row="1"
-                        Padding="0,0,0,4"
-                        Text="{x:Static r:Strings.SleepTimer_Title}"
-                        FontSize="{StaticResource FontSizeDetails}"
-                        HorizontalTextAlignment="Center"
-                        />
-            </Grid>
-            
-            <Grid Grid.Column="2"
-                  IsVisible="{Binding IsSleepTimerRunning}"
-                  Opacity="{Binding CanSleepTimerDecrease, Converter={StaticResource BoolToDoubleOneAndHalfConverter}}"
-                  WidthRequest="{OnPlatform Default=56, WinUI=48}">
-
-                <Path   
-                    Style="{x:StaticResource PathDecrease}"
-                    WidthRequest="24"
-                    />
-
-                <ImageButton Style="{x:StaticResource PlayerButton}"
-                             Command="{Binding DecreaseSleepTimerCommand}"
-                             HorizontalOptions="Start"
-                             />
-            </Grid>
-
-            <Grid Grid.Column="3"
-                  IsVisible="{Binding IsSleepTimerRunning}"
-                  WidthRequest="{OnPlatform Default=56, WinUI=48}">
-
-                <Path   
-                    Style="{x:StaticResource PathIncrease}"
-                    WidthRequest="24"
-                    />
-
-                <ImageButton Style="{x:StaticResource PlayerButton}"
-                             Command="{Binding IncreaseSleepTimerCommand}"
-                             />
-            </Grid>
-            
-            <Picker Grid.Column="5"
-                    ItemsSource="{Binding PlaybackRateOptions}"
-                    SelectedIndex="{Binding PlaybackRateIndex, Mode=TwoWay}"
-                    Margin="{OnPlatform Default='0,6,0,0', WinUI='0,6,0,0'}"
-                    IsVisible="{Binding IsCurrentItemEpisode}"
-                    />
-        </Grid>
-
-        <views:CurrentPlayingLargeControl Grid.Row="2" />
-
-        <views:PlayerButtonsControl Grid.Row="4" Grid.Column="2" HorizontalOptions="Center"/>
-
-        <VerticalStackLayout Grid.Row="6" HorizontalOptions="Center"
-                IsVisible="{Binding HasPlayList}" >
-
-            <Grid 
-                WidthRequest="{OnPlatform Default=56, WinUI=48}">
-
-                <ImageButton Style="{x:StaticResource PlayerButton}"
-                     Source="{StaticResource PlayList}"
-                     Clicked="ButtonPlaylist_Clicked" />
-            </Grid>
-
-            <Label FontSize="{StaticResource FontSizeDetails}"
-                   HorizontalOptions="Center" 
-                   Margin="0,-10,0,0"
-                   >
-                <Label.Text>
-                    <MultiBinding StringFormat="{}{0} / {1}">
-                        <Binding Path="PlayListItemIndex" />
-                        <Binding Path="PlayListItemCount" />
-                    </MultiBinding>
-                </Label.Text>
-            </Label>
-        </VerticalStackLayout>
-    </Grid>
-
-    <Grid Grid.Row="1" BackgroundColor="{AppThemeBinding Dark={StaticResource PanelBackgroundDark}, Light={StaticResource PanelBackgroundLight}}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="auto" />
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Width="Auto" />
+    </Grid.ColumnDefinitions>
 
 
-        <views:CurrentPlayingControl Grid.Row="4" />
+    <views:CurrentPlayingControl Grid.Row="4" />
 
-        <Button Grid.Row="4" Command="{Binding ToogleMenuCommand}" BackgroundColor="Transparent" BorderColor="Transparent" BorderWidth="0" />
-
-        <Grid Grid.Row="4"
-              Grid.Column="1"
-              Margin="8,0,0,0"
-              IsVisible="{Binding IsBuffering}"
-                >
-            <ActivityIndicator 
-                    IsRunning="{Binding IsBuffering}"
-                    WidthRequest="{OnPlatform Default=28, WinUI=24}"
-                    HeightRequest="{OnPlatform Default=28, WinUI=24}"
-                    />
-
-            <Label Grid.Column="1" 
-                   Text="{Binding BufferPercent}"
-                   FontSize="{OnPlatform Default=8, WinUI=9}"
-                   Margin="{OnPlatform Default='0,0,1,1', WinUI='0,0,2,1'}"
-                   HorizontalOptions="Center"
-                   VerticalOptions="Center"
-                   />
-        </Grid>
-    
-        <!--<views:PlayerButtonsControl Grid.Row="4" Grid.Column="2" />-->
-
-
-        <Grid 
+            <!--Command="{Binding ToogleMenuCommand}"--> 
+    <Button x:Name="ButtonPlayerInfo"
             Grid.Row="4" 
-            Grid.Column="2"
-            WidthRequest="{OnPlatform Default=56, WinUI=48}">
+            Clicked="ButtonPlayerInfo_Clicked"
+            BackgroundColor="Transparent" 
+            BorderColor="Transparent" 
+            BorderWidth="0" />
 
-            <Path   
-                Style="{x:StaticResource PathPlayerPlay}"
-                IsVisible="{Binding CanPause, Converter={StaticResource InvertedBoolConverter}}"
-                WidthRequest="24"
-            />
-
-            <Path   
-                Style="{x:StaticResource PathPlayerPause}"
-                IsVisible="{Binding CanPause}"
-                WidthRequest="24"
-            />
-            
-            <ImageButton 
-                Command="{Binding PlayPauseCommand}"
-                Style="{x:StaticResource PlayerButton}"
+    <Grid Grid.Row="4"
+            Grid.Column="1"
+            Margin="8,0,0,0"
+            IsVisible="{Binding IsBuffering}"
+            >
+        <ActivityIndicator 
+                IsRunning="{Binding IsBuffering}"
+                WidthRequest="{OnPlatform Default=28, WinUI=24}"
+                HeightRequest="{OnPlatform Default=28, WinUI=24}"
                 />
 
-            <!--<Button 
-                Command="{Binding PlayPauseCommand}"
-                Style="{StaticResource TextPlayerButton}"
-            />-->
-        </Grid>
-
-
-        <views:PlayerPositionControl Grid.Row="5" Grid.ColumnSpan="3" IsVisible="{Binding IsCurrentItemEpisode}" />
-
+        <Label Grid.Column="1" 
+                Text="{Binding BufferPercent}"
+                FontSize="{OnPlatform Default=8, WinUI=9}"
+                Margin="{OnPlatform Default='0,0,1,1', WinUI='0,0,2,1'}"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                />
     </Grid>
+    
+    <!--<views:PlayerButtonsControl Grid.Row="4" Grid.Column="2" />-->
+
+
+    <Grid 
+        Grid.Row="4" 
+        Grid.Column="2"
+        WidthRequest="{OnPlatform Default=56, WinUI=48}">
+
+        <Path   
+            Style="{x:StaticResource PathPlayerPlay}"
+            IsVisible="{Binding CanPause, Converter={StaticResource InvertedBoolConverter}}"
+            WidthRequest="24"
+        />
+
+        <Path   
+            Style="{x:StaticResource PathPlayerPause}"
+            IsVisible="{Binding CanPause}"
+            WidthRequest="24"
+        />
+            
+        <ImageButton 
+            Command="{Binding PlayPauseCommand}"
+            Style="{x:StaticResource PlayerButton}"
+            />
+
+        <!--<Button 
+            Command="{Binding PlayPauseCommand}"
+            Style="{StaticResource TextPlayerButton}"
+        />-->
+    </Grid>
+
+
+    <views:PlayerPositionControl Grid.Row="5" Grid.ColumnSpan="3" IsVisible="{Binding IsCurrentItemEpisode}" />
+
 </Grid>
