@@ -4,6 +4,35 @@
              xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
              x:Class="Pekspro.RadioStorm.MAUI.Pages.Player.CurrentPlayingPage"
              Title="{x:Static r:Strings.CurrentPlaying_Title}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+                Command="{Binding SetSpeedVerySlowCommand}"
+                Text="{x:Static r:Strings.Player_MenuSpeed_VerySlow}"
+                Order="Secondary"
+                Priority="0" />
+        <ToolbarItem 
+                Command="{Binding SetSpeedSlowCommand}"
+                Text="{x:Static r:Strings.Player_MenuSpeed_Slow}"
+                Order="Secondary"
+                Priority="0" />
+        <ToolbarItem 
+                Command="{Binding SetSpeedNormalCommand}"
+                Text="{x:Static r:Strings.Player_MenuSpeed_Normal}"
+                Order="Secondary"
+                Priority="0" />
+        <ToolbarItem 
+                Command="{Binding SetSpeedFastCommand}"
+                Text="{x:Static r:Strings.Player_MenuSpeed_Fast}"
+                Order="Secondary"
+                Priority="0" />
+        <ToolbarItem 
+                Command="{Binding SetSpeedVeryFastCommand}"
+                Text="{x:Static r:Strings.Player_MenuSpeed_VeryFast}"
+                Order="Secondary"
+                Priority="0" />
+    </ContentPage.ToolbarItems>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -88,13 +117,6 @@
                              Command="{Binding IncreaseSleepTimerCommand}"
                              />
                 </Grid>
-
-                <Picker Grid.Column="5"
-                    ItemsSource="{Binding PlaybackRateOptions}"
-                    SelectedIndex="{Binding PlaybackRateIndex, Mode=TwoWay}"
-                    Margin="{OnPlatform Default='0,6,0,0', WinUI='0,6,0,0'}"
-                    IsVisible="{Binding IsCurrentItemEpisode}"
-                    />
             </Grid>
 
             <views:CurrentPlayingLargeControl Grid.Row="2" />

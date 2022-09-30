@@ -323,26 +323,8 @@ public sealed partial class PlayerViewModel : ObservableObject
 
     #region Speed
 
-    private List<string>? _PlaybackRateOptions;
-
-    public IReadOnlyList<string> PlaybackRateOptions =>
-        _PlaybackRateOptions ??
-            (_PlaybackRateOptions = new List<string>()
-            {
-                Strings.Player_MenuSpeed_VerySlow,
-                Strings.Player_MenuSpeed_Slow,
-                Strings.Player_MenuSpeed_Normal,
-                Strings.Player_MenuSpeed_Fast,
-                Strings.Player_MenuSpeed_VeryFast,
-            });
-
     [ObservableProperty]
     private int _PlaybackRateIndex;
-
-    partial void OnPlaybackRateIndexChanged(int value)
-    {
-        AudioManager.PlaybackRateIndex = value;
-    }
 
     #endregion
 
@@ -401,6 +383,36 @@ public sealed partial class PlayerViewModel : ObservableObject
         AudioManager.GoToPrevious();
     }
 
+    [RelayCommand]
+    public void SetSpeedVerySlow()
+    {
+        AudioManager.PlaybackRateIndex = 0;
+    }
+
+    [RelayCommand]
+    public void SetSpeedSlow()
+    {
+        AudioManager.PlaybackRateIndex = 1;
+    }
+
+    [RelayCommand]
+    public void SetSpeedNormal()
+    {
+        AudioManager.PlaybackRateIndex = 2;
+    }
+    
+    [RelayCommand]
+    public void SetSpeedFast()
+    {
+        AudioManager.PlaybackRateIndex = 3;
+    }
+    
+    [RelayCommand]
+    public void SetSpeedVeryFast()
+    {
+        AudioManager.PlaybackRateIndex = 4;
+    }
+    
     [RelayCommand]
     public void ToggleSleepTimer()
     {
