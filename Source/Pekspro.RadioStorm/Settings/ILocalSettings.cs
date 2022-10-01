@@ -11,4 +11,5 @@ public interface ILocalSettings
     bool ShowDebugSettings { get; set; }
     bool WriteLogsToFile { get; set; }
     ThemeType Theme { get; set; }
+    int LastSetSleepTimerIntervall { get; set; }
 }

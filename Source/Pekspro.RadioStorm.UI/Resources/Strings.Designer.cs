@@ -1447,7 +1447,7 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stäng av sovtimer ({0:00}:{1:00}).
+        ///   Looks up a localized string similar to Stoppa sovtimer.
         /// </summary>
         public static string Player_MenuSleepTimer_Disable {
             get {
@@ -2487,6 +2487,15 @@ namespace Pekspro.RadioStorm.UI.Resources {
         public static string SleepTimer_Notification_Title {
             get {
                 return ResourceManager.GetString("SleepTimer_Notification_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sovtimer.
+        /// </summary>
+        public static string SleepTimer_Title {
+            get {
+                return ResourceManager.GetString("SleepTimer_Title", resourceCulture);
             }
         }
         

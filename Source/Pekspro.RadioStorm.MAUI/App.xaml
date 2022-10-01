@@ -49,7 +49,7 @@
             </OnPlatform>
             <x:Double x:Key="ListItemImageSize">64</x:Double>
             <x:Double x:Key="DefaultSwipeThreshold">160</x:Double>
-            
+
             <OnPlatform x:Key="NormalPageMargin" x:TypeArguments="Thickness" Default="20">
                 <On Platform="WinUI">8</On>
             </OnPlatform>
@@ -73,7 +73,7 @@
                 <Setter Property="Padding" Value="0,4,0,0" />
                 <Setter Property="HeightRequest" Value="44" />
             </Style>
-            
+
             <Style x:Key="ListItemLeftImage" TargetType="Image">
                 <Setter Property="Margin" Value="0,4,8,4" />
                 <Setter Property="HeightRequest" Value="{StaticResource ListItemImageSize}" />
@@ -111,6 +111,11 @@
                 <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource HyperlinkColorDark}, Light={StaticResource HyperlinkColorLight}}" />
             </Style>
 
+            <Style x:Key="HyperlinkLabelDetailedStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource HyperlinkColorDark}, Light={StaticResource HyperlinkColorLight}}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeDetails}" />
+            </Style>
+
             <Style x:Key="DetailedTextStyle" TargetType="Label">
                 <Setter Property="FontSize" Value="{StaticResource FontSizeDetails}" />
             </Style>
@@ -131,7 +136,65 @@
                 <Setter Property="BorderWidth" Value="0" />
                 <Setter Property="HorizontalOptions" Value="Start" />
                 <Setter Property="FontSize" Value="{StaticResource FontSizeDetails}" />
+
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray400}}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
             </Style>
+
+            <Style x:Key="PathBase" TargetType="Path">
+                <Setter Property="Fill" Value="{AppThemeBinding Dark=White, Light=Black}" />
+                <Setter Property="Aspect" Value="Uniform" />
+                <Setter Property="StrokeThickness" Value="0" />
+                <Setter Property="WidthRequest" Value="24" />
+                <Setter Property="HeightRequest" Value="24" />
+            </Style>
+
+            <Style x:Key="PathPlayerSkipToPrevious" TargetType="Path" BasedOn="{StaticResource PathBase}">
+                <Setter Property="Data" Value="M6,6h2v12L6,18zM9.5,12l8.5,6L18,6M 24,24 0,0z" />
+            </Style>
+
+            <Style x:Key="PathPlayerFastRewind" TargetType="Path" BasedOn="{StaticResource PathBase}">
+                <Setter Property="Data" Value="m 6,13 c 0,3.31 2.69,6 6,6 3.31,0 6,-2.69 6,-6 0,-3.31 -2.69,-6 -6,-6 v 4 L 7,6 12,1 v 4 c 4.42,0 8,3.58 8,8 0,4.42 -3.58,8 -8,8 -4.42,0 -8,-3.58 -8,-8 M 24,24 0,0 z" />
+            </Style>
+
+            <Style x:Key="PathPlayerPlay" TargetType="Path" BasedOn="{StaticResource PathBase}">
+                <Setter Property="Data" Value="M8,5v14l11,-7M 24,24 0,0z" />
+            </Style>
+
+            <Style x:Key="PathPlayerPause" TargetType="Path" BasedOn="{StaticResource PathBase}">
+                <Setter Property="Data" Value="M6,19h4L10,5L6,5v14zM14,5v14h4L18,5h-4M 24,24 0,0z" />
+            </Style>
+
+            <Style x:Key="PathPlayerFastForward" TargetType="Path" BasedOn="{StaticResource PathBase}">
+                <Setter Property="Data" Value="M18,13c0,3.31 -2.69,6 -6,6s-6,-2.69 -6,-6s2.69,-6 6,-6v4l5,-5l-5,-5v4c-4.42,0 -8,3.58 -8,8c0,4.42 3.58,8 8,8s8,-3.58 8,-8H18M 24,24 0,0z" />
+            </Style>
+
+            <Style x:Key="PathPlayerSkipToNext" TargetType="Path" BasedOn="{StaticResource PathBase}">
+                <Setter Property="Data" Value="M6,18l8.5,-6L6,6v12zM16,6v12h2V6h-2M 24,24 0,0z" />
+            </Style>
+
+            <Style x:Key="PathIncrease" TargetType="Path" BasedOn="{StaticResource PathBase}">
+                <Setter Property="Data" Value="M19,13h-6v6h-2v-6H5v-2h6V5h2v6h6v2M 24,24 0,0z" />
+            </Style>
+
+            <Style x:Key="PathDecrease" TargetType="Path" BasedOn="{StaticResource PathBase}">
+                <Setter Property="Data" Value="M19,13H5v-2h14v2M 24,24 0,0z" />
+            </Style>
+
+            <Style x:Key="PathSleepTimer" TargetType="Path" BasedOn="{StaticResource PathBase}">
+                <Setter Property="Data" Value="M 9 1 L 9 3 L 15 3 L 15 1 L 9 1 z M 12 4 C 7.03 4 3 8.03 3 13 C 3 17.97 7.02 22 12 22 C 16.98 22 21 17.97 21 13 C 21 10.88 20.259297 8.930625 19.029297 7.390625 L 20.449219 5.9707031 C 20.019219 5.4607031 19.549062 4.9805469 19.039062 4.5605469 L 17.619141 5.9804688 C 16.069141 4.7404687 14.12 4 12 4 z M 12 6 C 15.87 6 19 9.13 19 13 C 19 16.87 15.87 20 12 20 C 8.13 20 5 16.87 5 13 C 5 9.13 8.13 6 12 6 z M 12.226562 8.3769531 C 9.6094289 8.4213562 7.5566406 10.55715 7.5566406 13.130859 C 7.5566406 15.759023 9.6901955 17.890625 12.318359 17.890625 C 14.084751 17.890625 15.617724 16.930304 16.441406 15.501953 C 12.865769 15.382924 10.685509 11.487949 12.480469 8.3789062 C 12.394917 8.3759305 12.310986 8.3755208 12.226562 8.3769531 M 24,24 0,0z" />
+            </Style>
+
 
             <Style x:Key="PlayerButton" TargetType="ImageButton">
                 <Setter Property="BackgroundColor" Value="Transparent" />
@@ -220,6 +283,20 @@
                 Size="16"/>
 
             <FontImageSource
+                x:Key="Rewind"
+                FontFamily="{StaticResource DefaultIconFont}"
+                Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.Rewind}, Default={x:Static style:IconFont.Backward}}"
+                Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
+                Size="16"/>
+
+            <FontImageSource
+                x:Key="Forward"
+                FontFamily="{StaticResource DefaultIconFont}"
+                Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.FastForward}, Default={x:Static style:IconFont.Forward}}"
+                Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
+                Size="16"/>
+
+            <FontImageSource
                 x:Key="Previous"
                 FontFamily="{StaticResource DefaultIconFont}"
                 Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.BackSolidBold}, Default={x:Static style:IconFont.StepBackward}}"
@@ -280,6 +357,7 @@
                                              Multiplier="12"
                                              />
             <converters:BoolToIntConverter x:Key="LiveAudioToHeightConverter" TrueValue="64" FalseValue="102"/>
+            <converters:BoolToDoubleConverter x:Key="BoolToDoubleOneAndHalfConverter" TrueValue="1" FalseValue="0.43"/>
             <converters:MultiplierConverter x:Key="MultiplierConverter" />
 
             <converters:DownloadDataStatusToVisibilityConverter VisibilityValue="Done"

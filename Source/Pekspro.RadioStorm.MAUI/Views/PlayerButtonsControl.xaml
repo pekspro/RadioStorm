@@ -1,13 +1,15 @@
-﻿<HorizontalStackLayout
+﻿<Grid
             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:player="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Player;assembly=Pekspro.RadioStorm.UI"
             xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
             x:Class="Pekspro.RadioStorm.MAUI.Views.PlayerButtonsControl"             
             x:DataType="player:PlayerViewModel"
-            HeightRequest="66"
+            ColumnDefinitions="auto, auto, auto, auto, auto, auto"
             >
-
+    
+    <!-- 
+    
     <ImageButton Command="{Binding GoToPreviousCommand}"
                  Style="{x:StaticResource PlayerButton}"
                  Source="{StaticResource Previous}"
@@ -27,5 +29,112 @@
                  Source="{StaticResource PlayList}"
                  IsVisible="{Binding HasPlayList}" 
                  />
+    -->
     
-</HorizontalStackLayout>
+
+    <Grid Grid.Column="0" 
+          IsVisible="{Binding HasPlayList}" 
+          WidthRequest="{OnPlatform Default=56, WinUI=48}">
+
+        <Path   
+            Style="{x:StaticResource PathPlayerSkipToPrevious}"
+            Opacity="{Binding CanGoToPrevious, Converter={StaticResource BoolToDoubleOneAndHalfConverter}}"
+            WidthRequest="24"
+            />
+
+        <ImageButton Style="{x:StaticResource PlayerButton}"
+                     Command="{Binding GoToPreviousCommand}"
+                 />
+
+        <!--<Button 
+            IsVisible="{Binding CanGoToPrevious}"
+            Command="{Binding GoToPreviousCommand}"
+            Style="{StaticResource TextPlayerButton}"
+            />-->
+    </Grid>
+
+    <Grid Grid.Column="1" 
+          IsVisible="{Binding IsCurrentItemLiveAudio, Converter={StaticResource InvertedBoolConverter}}"
+          WidthRequest="{OnPlatform Default=56, WinUI=48}">
+
+        <Path   
+            Style="{x:StaticResource PathPlayerFastRewind}"
+            WidthRequest="24"
+            />
+
+        <ImageButton Style="{x:StaticResource PlayerButton}"
+                     Command="{Binding RewindCommand}"
+                 />
+
+        <!--<Button 
+            Command="{Binding RewindCommand}"
+            Style="{StaticResource TextPlayerButton}"
+            />-->
+    </Grid>
+
+    <Grid Grid.Column="2"
+          WidthRequest="{OnPlatform Default=56, WinUI=48}">
+
+        <Path   
+            Style="{x:StaticResource PathPlayerPlay}"
+            IsVisible="{Binding CanPause, Converter={StaticResource InvertedBoolConverter}}"
+            WidthRequest="24"
+            />
+
+        <Path   
+            Style="{x:StaticResource PathPlayerPause}"
+            IsVisible="{Binding CanPause}"
+            WidthRequest="24"
+            />
+
+        <ImageButton Style="{x:StaticResource PlayerButton}"
+                     Command="{Binding PlayPauseCommand}"
+                     />
+
+        <!--<Button 
+            Command="{Binding PlayPauseCommand}"
+            Style="{StaticResource TextPlayerButton}"
+            />-->
+    </Grid>
+
+    <Grid Grid.Column="3" 
+          IsVisible="{Binding IsCurrentItemLiveAudio, Converter={StaticResource InvertedBoolConverter}}"
+          WidthRequest="{OnPlatform Default=56, WinUI=48}">
+
+        <Path   
+            Style="{x:StaticResource PathPlayerFastForward}"
+            WidthRequest="24"
+            />
+
+        <ImageButton Style="{x:StaticResource PlayerButton}"
+                     Command="{Binding ForwardCommand}"
+                 />
+
+        <!--<Button 
+            Command="{Binding ForwardCommand}"
+            Style="{StaticResource TextPlayerButton}"
+            />-->
+    </Grid>
+
+    <Grid Grid.Column="4"
+          IsVisible="{Binding HasPlayList}" 
+          WidthRequest="{OnPlatform Default=56, WinUI=48}">
+
+        <Path   
+            Style="{x:StaticResource PathPlayerSkipToNext}"
+            Opacity="{Binding CanGoToNext, Converter={StaticResource BoolToDoubleOneAndHalfConverter}}"
+            WidthRequest="24"
+            />
+
+        <ImageButton Style="{x:StaticResource PlayerButton}"
+                     Command="{Binding GoToNextCommand}"
+                 />
+
+        <!--<Button 
+            IsVisible="{Binding CanGoToNext}"
+            Command="{Binding GoToNextCommand}"
+            Style="{StaticResource TextPlayerButton}"
+            />-->
+    </Grid>
+
+</Grid>

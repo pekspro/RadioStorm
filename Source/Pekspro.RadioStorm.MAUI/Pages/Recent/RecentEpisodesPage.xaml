@@ -58,6 +58,5 @@
         </RefreshView>
 
         <views:PlayerControl Grid.Row="2" />
-
     </Grid>
 </ContentPage>

@@ -1,0 +1,139 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
+             xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
+             x:Class="Pekspro.RadioStorm.MAUI.Pages.Player.CurrentPlayingPage"
+             Title="{x:Static r:Strings.CurrentPlaying_Title}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+                Command="{Binding ToggleSleepTimerCommand}"
+                IconImageSource="{OnPlatform Default=sleeptimer_margin_0.png, Android=sleeptimer_margin_1of4.png}"
+                Text="{x:Static r:Strings.SleepTimer_Title}"
+                Order="Primary"
+                Priority="0" />
+        <ToolbarItem 
+                Command="{Binding SetSpeedVerySlowCommand}"
+                Text="{x:Static r:Strings.Player_MenuSpeed_VerySlow}"
+                Order="Secondary"
+                Priority="0" />
+        <ToolbarItem 
+                Command="{Binding SetSpeedSlowCommand}"
+                Text="{x:Static r:Strings.Player_MenuSpeed_Slow}"
+                Order="Secondary"
+                Priority="0" />
+        <ToolbarItem 
+                Command="{Binding SetSpeedNormalCommand}"
+                Text="{x:Static r:Strings.Player_MenuSpeed_Normal}"
+                Order="Secondary"
+                Priority="0" />
+        <ToolbarItem 
+                Command="{Binding SetSpeedFastCommand}"
+                Text="{x:Static r:Strings.Player_MenuSpeed_Fast}"
+                Order="Secondary"
+                Priority="0" />
+        <ToolbarItem 
+                Command="{Binding SetSpeedVeryFastCommand}"
+                Text="{x:Static r:Strings.Player_MenuSpeed_VeryFast}"
+                Order="Secondary"
+                Priority="0" />
+    </ContentPage.ToolbarItems>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <HorizontalStackLayout
+                HorizontalOptions="End"
+                IsVisible="{Binding IsSleepTimerRunning}"        
+                Grid.Row="0" 
+                Padding="{OnPlatform Default=8, WinUI=0}" 
+                Grid.ColumnSpan="3">
+
+                <Grid VerticalOptions="Center"
+                      Opacity="{Binding CanSleepTimerDecrease, Converter={StaticResource BoolToDoubleOneAndHalfConverter}}"
+                      WidthRequest="{OnPlatform Default=32, WinUI=48}">
+
+                    <Path Style="{x:StaticResource PathDecrease}"
+                          WidthRequest="24" />
+
+                    <ImageButton Style="{x:StaticResource PlayerButton}"
+                                 Command="{Binding DecreaseSleepTimerCommand}"
+                                 HorizontalOptions="Start" />
+                </Grid>
+
+                <Grid RowDefinitions="auto, auto" 
+                      Padding="{OnPlatform Default='4,0', WinUI='8,0'}"
+                      VerticalOptions="Center">
+                    <Label Padding="0,6,0,0"
+                           Text="{Binding SleepTimerText}"
+                           FontSize="{StaticResource FontSizeDetails}"
+                           HorizontalTextAlignment="Center" />
+
+                    <Label Grid.Row="1"
+                           Padding="0,0,0,4"
+                           Text="{x:Static r:Strings.SleepTimer_Title}"
+                           FontSize="{StaticResource FontSizeDetails}"
+                           HorizontalTextAlignment="Center" />
+                </Grid>
+
+                <Grid VerticalOptions="Center"
+                      WidthRequest="{OnPlatform Default=32, WinUI=48}">
+
+                    <Path Style="{x:StaticResource PathIncrease}"
+                          WidthRequest="24" />
+
+                    <ImageButton Style="{x:StaticResource PlayerButton}"
+                                 Command="{Binding IncreaseSleepTimerCommand}" />
+                </Grid>
+
+
+
+            </HorizontalStackLayout>
+
+            <views:CurrentPlayingLargeControl Grid.Row="2" />
+
+            <views:PlayerButtonsControl Grid.Row="4" Grid.Column="2" HorizontalOptions="Center"/>
+
+            <VerticalStackLayout Grid.Row="6" HorizontalOptions="Center"
+                IsVisible="{Binding HasPlayList}" >
+
+                <Grid 
+                    WidthRequest="{OnPlatform Default=56, WinUI=48}">
+
+                    <ImageButton Style="{x:StaticResource PlayerButton}"
+                     Source="{StaticResource PlayList}"
+                     Clicked="ButtonPlaylist_Clicked" />
+                </Grid>
+
+                <Label FontSize="{StaticResource FontSizeDetails}"
+                   HorizontalOptions="Center" 
+                   Margin="0,-10,0,0"
+                   >
+                    <Label.Text>
+                        <MultiBinding StringFormat="{}{0} / {1}">
+                            <Binding Path="PlayListItemIndex" />
+                            <Binding Path="PlayListItemCount" />
+                        </MultiBinding>
+                    </Label.Text>
+                </Label>
+            </VerticalStackLayout>
+        </Grid>
+
+        <views:PlayerControl x:Name="PlayerControl" Grid.Row="1" />
+    </Grid>
+</ContentPage>

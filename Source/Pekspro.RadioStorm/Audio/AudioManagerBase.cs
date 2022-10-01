@@ -38,7 +38,7 @@ public abstract class AudioManagerBase : IAudioManager
 
     private SeekSizeProvider SeekSizeProvider = new SeekSizeProvider();
 
-    public static readonly TimeSpan DefaultSleepTimerDelta = TimeSpan.FromMinutes(5);
+    public static readonly TimeSpan DefaultSleepTimerDelta = TimeSpan.FromMinutes(2);
 
     #endregion
 
@@ -949,7 +949,25 @@ public abstract class AudioManagerBase : IAudioManager
     }
 
     private int SleepTimerSessionId = 0;
+    
+    private void SaveSleepTimerSettings()
+    {
+        if (IsSleepTimerEnabled)
+        {
+            LocalSettings.LastSetSleepTimerIntervall = (int) TimeLeftToSleepActivation.TotalSeconds;
+        }
+    }
 
+    public void StartSleepTimer()
+    {
+        int sleepTimeInSeconds = Math.Max(60, LocalSettings.LastSetSleepTimerIntervall);
+
+        // Make sure multiple of 60.
+        sleepTimeInSeconds = (int)Math.Ceiling(sleepTimeInSeconds / 60.0) * 60;
+
+        StartSleepTimer(TimeSpan.FromSeconds(sleepTimeInSeconds));
+    }
+    
     public async void StartSleepTimer(TimeSpan timeLeftToSleepActivation)
     {
         SleepTimerSessionId++;
@@ -958,6 +976,7 @@ public abstract class AudioManagerBase : IAudioManager
 
         IsSleepTimerEnabled = true;
         SleepActivationTime = DateTimeProvider.UtcNow.Add(timeLeftToSleepActivation);
+        SaveSleepTimerSettings();
 
         Logger.LogInformation("Sleep mode activated. Sleep time: {sleepTime} ({sleepActivationTime})", timeLeftToSleepActivation, SleepActivationTime);
 

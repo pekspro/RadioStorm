@@ -55,11 +55,27 @@ public sealed partial class CurrentPlayingViewModel : DownloadViewModel, IDispos
         messenger.Register<PlaylistChanged>(this, (sender, message) =>
         {
             QueueRefresh(new RefreshSettings(FullRefresh: true));
+
+            MainThreadRunner.RunInMainThread(() =>
+            {
+                OnPropertyChanged(nameof(HasPlayList));
+                OnPropertyChanged(nameof(HasMorePlayListItems));
+                OnPropertyChanged(nameof(PlayListItemIndex));
+                OnPropertyChanged(nameof(PlayListItemCount));
+            });
         });
 
         messenger.Register<CurrentItemChanged>(this, (sender, message) =>
         {
             QueueRefresh(new RefreshSettings(FullRefresh: true));
+
+            MainThreadRunner.RunInMainThread(() =>
+            {
+                OnPropertyChanged(nameof(HasPlayList));
+                OnPropertyChanged(nameof(HasMorePlayListItems));
+                OnPropertyChanged(nameof(PlayListItemIndex));
+                OnPropertyChanged(nameof(PlayListItemCount));
+            });
         });
     }
 
@@ -73,6 +89,20 @@ public sealed partial class CurrentPlayingViewModel : DownloadViewModel, IDispos
     [ObservableProperty]
     private EpisodeModel? _EpisodeData;
 
+    [ObservableProperty]
+    private EpisodeModel? _NextEpisodeData;
+
+    public bool HasPlayList => AudioManager.CurrentPlayList?.Items.Count > 0;
+
+    public bool HasMorePlayListItems =>
+        AudioManager.CurrentPlayList?.CanGoToNext == true;
+
+    public int PlayListItemCount =>
+        AudioManager.CurrentPlayList?.Items.Count ?? 1;
+
+    public int PlayListItemIndex =>
+        (AudioManager.CurrentPlayList?.CurrentPosition ?? 0) + 1;
+    
     #endregion
 
     #region Methods
@@ -88,6 +118,8 @@ public sealed partial class CurrentPlayingViewModel : DownloadViewModel, IDispos
             if (currentItem is null)
             {
                 ChannelData = null;
+                EpisodeData = null;
+                NextEpisodeData = null;
                 DownloadState = DownloadStates.NoData;
                 return;
             }
@@ -100,6 +132,7 @@ public sealed partial class CurrentPlayingViewModel : DownloadViewModel, IDispos
             if (currentItem.IsLiveAudio)
             {
                 EpisodeData = null;
+                NextEpisodeData = null;
 
                 if (ChannelData is null || ChannelData.Id != currentItem.AudioId || refreshSettings.FullRefresh)
                 {
@@ -132,10 +165,32 @@ public sealed partial class CurrentPlayingViewModel : DownloadViewModel, IDispos
                 ChannelData = null;
                 ChannelRefreshHelper.Stop();
 
+                if (!HasMorePlayListItems)
+                {
+                    NextEpisodeData = null;
+                }
+
                 var episodeData = await DataFetcher.GetEpisodeAsync(currentItem.AudioId, refreshSettings.AllowCache, cancellationToken);
                 if (episodeData is not null)
                 {
                     EpisodeData = EpisodeModelFactory.Create(episodeData);
+
+                    var playList = AudioManager.CurrentPlayList;
+
+                    if (playList is not null && playList.CanGoToNext)
+                    {
+                        var nextEpisodeData = await DataFetcher.GetEpisodeAsync
+                            (
+                                playList.Items[playList.CurrentPosition + 1].AudioId, 
+                                refreshSettings.AllowCache, 
+                                cancellationToken
+                            );
+
+                        if (nextEpisodeData is not null)
+                        {
+                            NextEpisodeData = EpisodeModelFactory.Create(nextEpisodeData);
+                        }
+                    }
 
                     DownloadState = DownloadStates.Done;
                 }

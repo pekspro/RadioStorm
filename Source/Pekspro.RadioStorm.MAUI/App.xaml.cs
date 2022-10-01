@@ -34,6 +34,7 @@ public sealed partial class App : Application
         Routing.RegisterRoute(nameof(ProgramDetailsPage), typeof(ProgramDetailsPage));
         Routing.RegisterRoute(nameof(ProgramSettingsPage), typeof(ProgramSettingsPage));
         Routing.RegisterRoute(nameof(EpisodeDetailsPage), typeof(EpisodeDetailsPage));
+        Routing.RegisterRoute(nameof(CurrentPlayingPage), typeof(CurrentPlayingPage));
         Routing.RegisterRoute(nameof(PlaylistPage), typeof(PlaylistPage));
         Routing.RegisterRoute(nameof(LogFileDetailsPage), typeof(LogFileDetailsPage));
 

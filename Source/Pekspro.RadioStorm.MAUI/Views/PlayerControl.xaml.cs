@@ -16,8 +16,16 @@ public sealed partial class PlayerControl
 
     private PlayerViewModel ViewModel => (PlayerViewModel) BindingContext;
 
-    private async void ButtonPlaylist_Clicked(object sender, EventArgs e)
+    private async void ButtonPlayerInfo_Clicked(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync(nameof(PlaylistPage));
+        // Open CurrentPlayingPage, or go back if already open
+        if (Shell.Current.CurrentPage is CurrentPlayingPage)
+        {
+            await Shell.Current.GoToAsync("..");
+        }
+        else
+        {
+            await Shell.Current.GoToAsync(nameof(CurrentPlayingPage));
+        }
     }
 }

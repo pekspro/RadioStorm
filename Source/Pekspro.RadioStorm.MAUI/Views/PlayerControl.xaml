@@ -5,11 +5,11 @@
             xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
             x:Class="Pekspro.RadioStorm.MAUI.Views.PlayerControl"             
             x:DataType="player:PlayerViewModel"
-      
             IsVisible="{Binding CurrentItem, Converter={StaticResource NullToIsVisibleConverter}}"
-            BackgroundColor="{AppThemeBinding Dark={StaticResource PanelBackgroundDark}, Light={StaticResource PanelBackgroundLight}}"
-            >
+            BackgroundColor="{AppThemeBinding Dark={StaticResource PanelBackgroundDark}, Light={StaticResource PanelBackgroundLight}}">
+
     <!--HeightRequest="{Binding IsCurrentItemLiveAudio, Converter={StaticResource LiveAudioToHeightConverter}}"-->
+
     <Grid.RowDefinitions>
         <RowDefinition Height="auto" />
         <RowDefinition Height="auto" />
@@ -24,55 +24,21 @@
         <ColumnDefinition Width="Auto" />
     </Grid.ColumnDefinitions>
 
-    <Grid Grid.Row="0" Padding="8" ColumnDefinitions="auto, auto, auto, *, auto" Grid.ColumnSpan="3"
-          IsVisible="{Binding IsMenuOpen}">
-        <Picker Grid.Column="0"
-                ItemsSource="{Binding SleepTimes}"
-                SelectedIndex="{Binding SleepTimeIndex, Mode=TwoWay}"
-                Margin="{OnPlatform Default='0', WinUI='0,6,0,0'}"
-                IsVisible="{Binding IsSleepTimerNotRunning}"
-                />
-
-        <Button Grid.Column="0" 
-                Text="{Binding StopSleepTimerText}" 
-                HorizontalOptions="Start" 
-                Command="{Binding StopSleepTimerCommand}"
-                IsVisible="{Binding IsSleepTimerRunning}"
-                />
-
-        <Button Grid.Column="1" 
-                Text="{x:Static r:Strings.SleepTimer_Increase_5min}"
-                HorizontalOptions="Start" 
-                Margin="8,0,0,0"
-                Command="{Binding IncreaseSleepTimerCommand}"
-                IsVisible="{Binding IsSleepTimerRunning}"
-                />
-
-        <Grid Grid.Column="2" IsVisible="{OnPlatform Default=False, WinUI=True}">
-            <Button Text="{x:Static r:Strings.SleepTimer_Decrease_5min}"
-                    HorizontalOptions="Start" 
-                    Margin="8,0,0,0"
-                    Command="{Binding DecreaseSleepTimerCommand}"
-                    IsVisible="{Binding IsSleepTimerRunning}"
-                    />
-        </Grid>
-
-        <Picker Grid.Column="4"
-                ItemsSource="{Binding PlaybackRateOptions}"
-                SelectedIndex="{Binding PlaybackRateIndex, Mode=TwoWay}"
-                Margin="{OnPlatform Default='0', WinUI='0,6,0,0'}"
-                IsVisible="{Binding IsCurrentItemEpisode}"
-                />
-    </Grid>
 
     <views:CurrentPlayingControl Grid.Row="4" />
 
-    <Button Grid.Row="4" Command="{Binding ToogleMenuCommand}" BackgroundColor="Transparent" BorderColor="Transparent" BorderWidth="0" />
+            <!--Command="{Binding ToogleMenuCommand}"--> 
+    <Button x:Name="ButtonPlayerInfo"
+            Grid.Row="4" 
+            Clicked="ButtonPlayerInfo_Clicked"
+            BackgroundColor="Transparent" 
+            BorderColor="Transparent" 
+            BorderWidth="0" />
 
     <Grid Grid.Row="4"
-          Grid.Column="1"
-          Margin="8,0,0,0"
-          IsVisible="{Binding IsBuffering}"
+            Grid.Column="1"
+            Margin="8,0,0,0"
+            IsVisible="{Binding IsBuffering}"
             >
         <ActivityIndicator 
                 IsRunning="{Binding IsBuffering}"
@@ -81,15 +47,46 @@
                 />
 
         <Label Grid.Column="1" 
-               Text="{Binding BufferPercent}"
-               FontSize="{OnPlatform Default=8, WinUI=9}"
-               Margin="{OnPlatform Default='0,0,1,1', WinUI='0,0,2,1'}"
-               HorizontalOptions="Center"
-               VerticalOptions="Center"
-               />
+                Text="{Binding BufferPercent}"
+                FontSize="{OnPlatform Default=8, WinUI=9}"
+                Margin="{OnPlatform Default='0,0,1,1', WinUI='0,0,2,1'}"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                />
     </Grid>
     
-    <views:PlayerButtonsControl Grid.Row="4" Grid.Column="2" />
+    <!--<views:PlayerButtonsControl Grid.Row="4" Grid.Column="2" />-->
+
+
+    <Grid 
+        Grid.Row="4" 
+        Grid.Column="2"
+        WidthRequest="{OnPlatform Default=56, WinUI=48}">
+
+        <Path   
+            Style="{x:StaticResource PathPlayerPlay}"
+            IsVisible="{Binding CanPause, Converter={StaticResource InvertedBoolConverter}}"
+            WidthRequest="24"
+        />
+
+        <Path   
+            Style="{x:StaticResource PathPlayerPause}"
+            IsVisible="{Binding CanPause}"
+            WidthRequest="24"
+        />
+            
+        <ImageButton 
+            Command="{Binding PlayPauseCommand}"
+            Style="{x:StaticResource PlayerButton}"
+            />
+
+        <!--<Button 
+            Command="{Binding PlayPauseCommand}"
+            Style="{StaticResource TextPlayerButton}"
+        />-->
+    </Grid>
+
 
     <views:PlayerPositionControl Grid.Row="5" Grid.ColumnSpan="3" IsVisible="{Binding IsCurrentItemEpisode}" />
+
 </Grid>

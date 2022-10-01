@@ -15,9 +15,4 @@ public sealed partial class PlayerButtonsControl
     }
 
     private PlayerViewModel ViewModel => (PlayerViewModel) BindingContext;
-
-    private async void ButtonPlaylist_Clicked(object sender, EventArgs e)
-    {
-        await Shell.Current.GoToAsync(nameof(PlaylistPage));
-    }
 }

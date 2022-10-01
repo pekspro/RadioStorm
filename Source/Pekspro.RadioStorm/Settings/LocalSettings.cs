@@ -84,6 +84,20 @@ public sealed class LocalSettings : ILocalSettings
         }
     }
 
+    public int LastSetSleepTimerIntervall
+    {
+        get
+        {
+            return SettingsService.GetSafeValue(nameof(LastSetSleepTimerIntervall), 300);
+        }
+        set
+        {
+            SettingsService.SetValue(nameof(LastSetSleepTimerIntervall), value);
+
+            NotifySettingChanged(nameof(LastSetSleepTimerIntervall));
+        }
+    }
+    
     public bool MayWantToReview
     {
         get

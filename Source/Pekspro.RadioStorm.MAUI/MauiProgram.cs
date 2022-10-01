@@ -66,7 +66,7 @@ public static class MauiProgram
         builder.Services.TryAddTransient<EpisodeDetailsPage>();
         builder.Services.TryAddTransient<FavoritesPage>();
         builder.Services.TryAddTransient<PlaylistPage>();
-        builder.Services.TryAddTransient<PlaylistPage>();
+        builder.Services.TryAddTransient<CurrentPlayingPage>();
         builder.Services.TryAddTransient<ProgramsPage>();
         builder.Services.TryAddTransient<ProgramDetailsPage>();
         builder.Services.TryAddTransient<ProgramSettingsPage>();
