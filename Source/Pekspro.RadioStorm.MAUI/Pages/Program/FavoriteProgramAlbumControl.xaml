@@ -59,8 +59,7 @@
             Grid.Row="0"
             Grid.ColumnSpan="2"
             Text="{Binding Name, Mode=OneWay}"
-            Style="{StaticResource ListHeaderTextStyle}"
-            MaxLines="1"
+            Style="{StaticResource AlbumHeaderTextStyle}"
             />
     
     <views:LargeMediaButtonUserControl
@@ -78,14 +77,14 @@
            Grid.Row="2"
 		   Grid.ColumnSpan="2"
 		   Text="{Binding EpisodeStatus.TopEpisode.Title, Mode=OneWay}"
-           Style="{StaticResource ListNormalTextStyle}"
+           Style="{StaticResource AlbumNormalTextStyle}"
 			/>
 
     <Label x:Name="LabelPublishDate"
            Grid.Row="3"
 		   Grid.ColumnSpan="2"
 		   Text="{Binding EpisodeStatus.TopEpisode.PublishLength.PublishDateString, Mode=OneWay}"
-           Style="{StaticResource ListNormalTextStyle}"
+           Style="{StaticResource AlbumNormalTextStyle}"
 			/>
 
 </Grid>

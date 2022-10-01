@@ -10,9 +10,8 @@
     <Label  Grid.Row="0"
             Grid.ColumnSpan="2"
             Text="{Binding Title, Mode=OneWay}"
-            Style="{StaticResource ListHeaderTextStyle}"
+            Style="{StaticResource AlbumHeaderTextStyle}"
             TextColor="{Binding ChannelColor, Converter={StaticResource StringToColorConverter}}"
-            MaxLines="1"
         />
 
     <views:ChannelProgressBar 
@@ -20,7 +19,7 @@
             Grid.Column="0"
             Grid.ColumnSpan="2"
             VerticalOptions="End"
-            Margin="{OnPlatform WinUI='-2,-0,2,2', Default='-2,-4,2,0'}"
+            Margin="{OnPlatform WinUI='0,0,0,-2', Default='0'}"
             />
 
     <views:LargeMediaButtonUserControl 
@@ -37,23 +36,23 @@
     <Label Grid.Row="2"
 		   Grid.Column="0"
 		   Text="{Binding Status.CurrentTimePeriod.StartTimeString, Mode=OneWay}"
-           Style="{StaticResource ListNormalTextStyle}"
+           Style="{StaticResource AlbumNormalTextStyle}"
 			/>
     <Label Grid.Row="2"
 		   Grid.Column="1"
            Text="{Binding Status.CurrentProgram, Mode=OneWay}"
-           Style="{StaticResource ListNormalTextStyle}"
+           Style="{StaticResource AlbumNormalTextStyle}"
 			/>
     <Label Grid.Row="3"
            Grid.Column="0"
            Text="{Binding Status.NextTimePeriod.StartTimeString, Mode=OneWay}"
-           Style="{StaticResource ListNormalTextStyle}"
+           Style="{StaticResource AlbumNormalTextStyle}"
            TextColor="{AppThemeBinding Dark={StaticResource InactiveProgramColorDark}, Light={StaticResource InactiveProgramColorLight}}"
 			/>
     <Label Grid.Row="3"
 		   Grid.Column="1"
            Text="{Binding Status.NextProgram, Mode=OneWay}"
-		   Style="{StaticResource ListNormalTextStyle}"
+		   Style="{StaticResource AlbumNormalTextStyle}"
            TextColor="{AppThemeBinding Dark={StaticResource InactiveProgramColorDark}, Light={StaticResource InactiveProgramColorLight}}"
 			/>
 </Grid>

@@ -130,13 +130,19 @@ public sealed partial class FavoritesPage : ContentPage
 
         if (AlbumMode)
         {
-            expectedMode = Width switch 
+            const int itemMargin = 4;
+            const int itemWidth = 160;
+            const int sideMargin = 8 * 2;
+
+            expectedMode = (Width - sideMargin) switch
             {
-                >= 180 * 6 => 6,
-                >= 180 * 5 => 5,
-                >= 180 * 4 => 4,
-                >= 180 * 3 => 3,
-                >= 180 * 2 => 2,
+                >= itemWidth * 8 + itemMargin * 8 => 8,
+                >= itemWidth * 7 + itemMargin * 7 => 7,
+                >= itemWidth * 6 + itemMargin * 6 => 6,
+                >= itemWidth * 5 + itemMargin * 5 => 5,
+                >= itemWidth * 4 + itemMargin * 4 => 4,
+                >= itemWidth * 3 + itemMargin * 3 => 3,
+                >= itemWidth * 2 + itemMargin * 2 => 2,
                 _ => 0
             };
         }
@@ -151,6 +157,8 @@ public sealed partial class FavoritesPage : ContentPage
             RefreshViewAlbum4.IsVisible = expectedMode == 4;
             RefreshViewAlbum5.IsVisible = expectedMode == 5;
             RefreshViewAlbum6.IsVisible = expectedMode == 6;
+            RefreshViewAlbum7.IsVisible = expectedMode == 7;
+            RefreshViewAlbum8.IsVisible = expectedMode == 8;
         }
     }
 }
