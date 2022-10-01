@@ -14,31 +14,19 @@
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
 
-            <Image
-               Grid.Row="0"
-               HorizontalOptions="Center"
-               VerticalOptions="Center"
-			   WidthRequest="256"
-			   HeightRequest="256"
-               >
-                <Image.Source>
-                    <UriImageSource Uri="{Binding ChannelData.Image.LowResolution, Mode=OneWay}"
-                        CacheValidity="1"  
-                        CachingEnabled="True"
-                    />
-                </Image.Source>
-            </Image>
 
             <Label 
-                Grid.Row="1"
+                Grid.Row="0"
                 HorizontalOptions="Center"
                 Text="{Binding ChannelData.Title, Mode=OneWay}"
+                Style="{StaticResource ListHeaderTextStyle}"
                 LineBreakMode="TailTruncation"
+                Margin="0,0,0,4"
 				MaxLines="1"
 				/>
 
             <Label 
-                Grid.Row="2"
+                Grid.Row="1"
                 HorizontalOptions="Center"
                 Text="{Binding ChannelData.Status.CurrentProgram, Mode=OneWay}"
                 Style="{StaticResource DetailedTextStyle}"
@@ -47,6 +35,22 @@
 				Margin="0"
 				Opacity="0.8"
 				/>
+            
+            <Image
+               Grid.Row="2"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+			   WidthRequest="256"
+			   HeightRequest="256"
+               >
+                <Image.Source>
+                    <UriImageSource Uri="{Binding ChannelData.Image.HighResolution, Mode=OneWay}"
+                        CacheValidity="1"  
+                        CachingEnabled="True"
+                    />
+                </Image.Source>
+            </Image>
+
             
         </Grid>
 
@@ -57,40 +61,40 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
+
+            <Label 
+                Grid.Row="0"
+                HorizontalOptions="Center"
+                Text="{Binding EpisodeData.ProgramName, Mode=OneWay}"
+                Style="{StaticResource ListHeaderTextStyle}"
+                LineBreakMode="TailTruncation"
+				MaxLines="1"
+				/>
+
+            <Label 
+                Grid.Row="1"
+                HorizontalOptions="Center"
+                Text="{Binding EpisodeData.Title, Mode=OneWay}"
+                Style="{StaticResource ListNormalTextStyle}"
+                LineBreakMode="TailTruncation"
+				Margin="0,0,0,4"
+				MaxLines="1"
+				/>
             
             <Image
-               Grid.Row="0"
+               Grid.Row="2"
                HorizontalOptions="Center"
                VerticalOptions="Center"
 			   WidthRequest="256"
 			   HeightRequest="256"
                >
                 <Image.Source>
-                    <UriImageSource Uri="{Binding EpisodeData.EpisodeImage.LowResolution, Mode=OneWay}"
+                    <UriImageSource Uri="{Binding EpisodeData.EpisodeImage.HighResolution, Mode=OneWay}"
                         CacheValidity="1"  
                         CachingEnabled="True"
                     />
                 </Image.Source>
             </Image>
-
-            <Label 
-                Grid.Row="1"
-                HorizontalOptions="Center"
-                Text="{Binding EpisodeData.ProgramName, Mode=OneWay}"
-                LineBreakMode="TailTruncation"
-                Margin="0,4,0,0"
-				MaxLines="1"
-				/>
-
-            <Label 
-                Grid.Row="2"
-                HorizontalOptions="Center"
-                Text="{Binding EpisodeData.Title, Mode=OneWay}"
-                Style="{StaticResource DetailedTextStyle}"
-                LineBreakMode="TailTruncation"
-				Margin="0,4,0,0"
-				MaxLines="1"
-				/>
 
             <Label 
                 Grid.Row="3"
