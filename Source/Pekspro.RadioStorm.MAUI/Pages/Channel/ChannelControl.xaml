@@ -45,19 +45,22 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Image WidthRequest="{StaticResource HeaderFavoriteStarSize}" 
-               HeightRequest="{StaticResource HeaderFavoriteStarSize}" 
-               Grid.Column="0"
-               Margin="{OnPlatform WinUI='0,8,4,8', Default='0,10,4,10'}" 
-               IsVisible="{Binding IsFavorite, Mode=OneWay}">
-            <Image.Source>
-                <FontImageSource
-                        FontFamily="{StaticResource DefaultIconFont}"
-                        Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.FavoriteStarFill}, Default={x:Static style:IconFont.Star}}"
-                        Color="{Binding ChannelColor, Converter={StaticResource StringToColorConverter}}"
-                        Size="{StaticResource HeaderFavoriteStarSize}"/>
-            </Image.Source>
-        </Image>
+        <Grid x:Name="FavoriteImageHolder">
+            <Image WidthRequest="{StaticResource HeaderFavoriteStarSize}" 
+                   HeightRequest="{StaticResource HeaderFavoriteStarSize}" 
+                   Grid.Column="0"
+                   Margin="{OnPlatform WinUI='0,8,4,8', Default='0,10,4,10'}" 
+                   IsVisible="{Binding IsFavorite, Mode=OneWay}"
+                   >
+                <Image.Source>
+                    <FontImageSource
+                            FontFamily="{StaticResource DefaultIconFont}"
+                            Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.FavoriteStarFill}, Default={x:Static style:IconFont.Star}}"
+                            Color="{Binding ChannelColor, Converter={StaticResource StringToColorConverter}}"
+                            Size="{StaticResource HeaderFavoriteStarSize}"/>
+                </Image.Source>
+            </Image>
+        </Grid>
 
         <Label  Grid.Column="1"
                 Text="{Binding Title, Mode=OneWay}"
@@ -84,7 +87,7 @@
             Grid.ColumnSpan="2"
             Margin="{OnPlatform WinUI='-2,-2,2,0', Default='-2,-4,2,0'}"
             />
-        
+
         <Label Grid.Row="1"
 				Grid.Column="0"
 				Text="{Binding Status.CurrentTimePeriod.StartTimeString, Mode=OneWay}"

@@ -25,7 +25,7 @@
                                            BackgroundColor="{StaticResource SwipeControlBackgroundGeneral}" />
                         </SwipeItems>
                     </SwipeView.LeftItems>
-                    <cc:ChannelControl>
+                    <cc:ChannelControl FavoriteMode="true">
                         <cc:ChannelControl.GestureRecognizers>
                             <TapGestureRecognizer Tapped="ChannelTapped"/>
                         </cc:ChannelControl.GestureRecognizers>
@@ -34,7 +34,7 @@
             </DataTemplate>
 
             <DataTemplate x:DataType="cm:ChannelModel" x:Key="ChannelTemplateWindows">
-                <cc:ChannelControl>
+                <cc:ChannelControl FavoriteMode="true">
                     <cc:ChannelControl.GestureRecognizers>
                         <TapGestureRecognizer Tapped="ChannelTapped"/>
                     </cc:ChannelControl.GestureRecognizers>
