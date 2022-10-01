@@ -835,6 +835,24 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Visa som album.
+        /// </summary>
+        public static string Favorites_ViewMode_Album {
+            get {
+                return ResourceManager.GetString("Favorites_ViewMode_Album", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Visa som lista.
+        /// </summary>
+        public static string Favorites_ViewMode_List {
+            get {
+                return ResourceManager.GetString("Favorites_ViewMode_List", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hej!.
         /// </summary>
         public static string Favorites_Welcome_1 {

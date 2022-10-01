@@ -1,0 +1,59 @@
+<Grid        xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Pekspro.RadioStorm.UI.Model.Channel;assembly=Pekspro.RadioStorm.UI"
+             xmlns:style="clr-namespace:Pekspro.RadioStorm.MAUI.Resources.Styles"
+             xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
+             x:Class="Pekspro.RadioStorm.MAUI.Pages.Channel.ChannelAlbumControl"
+             x:DataType="vm:ChannelModel"
+             Style="{StaticResource AlubumItem}"
+             >
+    <Label  Grid.Row="0"
+            Grid.ColumnSpan="2"
+            Text="{Binding Title, Mode=OneWay}"
+            Style="{StaticResource ListHeaderTextStyle}"
+            TextColor="{Binding ChannelColor, Converter={StaticResource StringToColorConverter}}"
+            MaxLines="1"
+        />
+
+    <views:ChannelProgressBar 
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            VerticalOptions="End"
+            Margin="{OnPlatform WinUI='-2,-0,2,2', Default='-2,-4,2,0'}"
+            />
+
+    <views:LargeMediaButtonUserControl 
+        Grid.ColumnSpan="2"
+        Grid.Row="1"
+        WidthRequest="160"
+        HeightRequest="160"
+        Source="{Binding Status.CurrentProgramImage.HighResolution, Mode=OneWay}"
+        Command="{Binding PlayPauseCommand, Mode=OneWay}"
+        AudioMediaState="{Binding AudioMediaState, Mode=OneWay}"
+        ButtonMouseOverBackgroundFill="{Binding ChannelColor, Mode=OneWay, Converter={StaticResource StringToColorConverter}}"
+    />
+
+    <Label Grid.Row="2"
+		   Grid.Column="0"
+		   Text="{Binding Status.CurrentTimePeriod.StartTimeString, Mode=OneWay}"
+           Style="{StaticResource ListNormalTextStyle}"
+			/>
+    <Label Grid.Row="2"
+		   Grid.Column="1"
+           Text="{Binding Status.CurrentProgram, Mode=OneWay}"
+           Style="{StaticResource ListNormalTextStyle}"
+			/>
+    <Label Grid.Row="3"
+           Grid.Column="0"
+           Text="{Binding Status.NextTimePeriod.StartTimeString, Mode=OneWay}"
+           Style="{StaticResource ListNormalTextStyle}"
+           TextColor="{AppThemeBinding Dark={StaticResource InactiveProgramColorDark}, Light={StaticResource InactiveProgramColorLight}}"
+			/>
+    <Label Grid.Row="3"
+		   Grid.Column="1"
+           Text="{Binding Status.NextProgram, Mode=OneWay}"
+		   Style="{StaticResource ListNormalTextStyle}"
+           TextColor="{AppThemeBinding Dark={StaticResource InactiveProgramColorDark}, Light={StaticResource InactiveProgramColorLight}}"
+			/>
+</Grid>

@@ -107,6 +107,15 @@
                 <Setter Property="MaxLines" Value="1" />
             </Style>
 
+            <Style x:Key="AlubumItem" TargetType="Grid">
+                <Setter Property="WidthRequest" Value="180" />
+                <Setter Property="HeightRequest" Value="238" />
+                <Setter Property="Padding" Value="{OnPlatform WinUI='8,6,16,6', Default='16,6,16,6'}" />
+                <Setter Property="Margin" Value="0,0" />
+                <Setter Property="ColumnDefinitions" Value="40, *" />
+                <Setter Property="RowDefinitions" Value="28, 160, 20, 20" />
+            </Style>
+
             <Style x:Key="HyperlinkStyle" TargetType="Span">
                 <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource HyperlinkColorDark}, Light={StaticResource HyperlinkColorLight}}" />
             </Style>
