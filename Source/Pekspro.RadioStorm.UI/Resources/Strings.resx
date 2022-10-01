@@ -963,11 +963,8 @@
   <data name="SleepTimer_Notification_Title" xml:space="preserve">
     <value>Sovtimer -  {0:00}:{1:00}</value>
   </data>
-  <data name="SleepTimer_Increase_5min" xml:space="preserve">
-    <value>+5 min</value>
-  </data>
-  <data name="SleepTimer_Decrease_5min" xml:space="preserve">
-    <value>-5 min</value>
+  <data name="SleepTimer_Notification_Change" xml:space="preserve">
+    <value>{0} min</value>
   </data>
   <data name="SleepTimer_Title" xml:space="preserve">
     <value>Sovtimer</value>
