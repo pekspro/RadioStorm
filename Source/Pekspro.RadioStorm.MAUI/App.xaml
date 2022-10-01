@@ -384,6 +384,7 @@
             <converters:BoolToIntConverter x:Key="LiveAudioToHeightConverter" TrueValue="64" FalseValue="102"/>
             <converters:BoolToDoubleConverter x:Key="BoolToDoubleOneAndHalfConverter" TrueValue="1" FalseValue="0.43"/>
             <converters:MultiplierConverter x:Key="MultiplierConverter" />
+            <converters:LargerThanZeroConverter x:Key="LargerThanZeroConverter" />
 
             <converters:DownloadDataStatusToVisibilityConverter VisibilityValue="Done"
                                                             x:Key="DownloadDataStatusDoneToVisibilityConverter" />
