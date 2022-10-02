@@ -1978,6 +1978,60 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Visar status på pågående nedladdningar..
+        /// </summary>
+        public static string Services_Download_Description {
+            get {
+                return ResourceManager.GetString("Services_Download_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nedladdning pågår.
+        /// </summary>
+        public static string Services_Download_Name {
+            get {
+                return ResourceManager.GetString("Services_Download_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Visar information när radio eller poddar spelas..
+        /// </summary>
+        public static string Services_Player_Description {
+            get {
+                return ResourceManager.GetString("Services_Player_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uppspelare.
+        /// </summary>
+        public static string Services_Player_Name {
+            get {
+                return ResourceManager.GetString("Services_Player_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Visar status på sovtimer..
+        /// </summary>
+        public static string Services_SleepTimer_Description {
+            get {
+                return ResourceManager.GetString("Services_SleepTimer_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sovtimer.
+        /// </summary>
+        public static string Services_SleepTimer_Name {
+            get {
+                return ResourceManager.GetString("Services_SleepTimer_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Töm cache.
         /// </summary>
         public static string Settings_Cache_ButtonClean {
@@ -2464,29 +2518,20 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to -5 min.
-        /// </summary>
-        public static string SleepTimer_Decrease_5min {
-            get {
-                return ResourceManager.GetString("SleepTimer_Decrease_5min", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to +5 min.
-        /// </summary>
-        public static string SleepTimer_Increase_5min {
-            get {
-                return ResourceManager.GetString("SleepTimer_Increase_5min", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Stoppa timer.
         /// </summary>
         public static string SleepTimer_Notification_Action_Cancel {
             get {
                 return ResourceManager.GetString("SleepTimer_Notification_Action_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} min.
+        /// </summary>
+        public static string SleepTimer_Notification_Change {
+            get {
+                return ResourceManager.GetString("SleepTimer_Notification_Change", resourceCulture);
             }
         }
         

@@ -52,8 +52,8 @@ public static class NotificationHelper
             return;
         }
 
-        var name = "RadioStorm Player";
-        var description = "The player.";
+        var name = Strings.Services_Player_Name;
+        var description = Strings.Services_Player_Description;
         var channel = new NotificationChannel(CHANNEL_ID, name, NotificationImportance.Low)
         {
             Description = description

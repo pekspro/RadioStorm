@@ -988,12 +988,19 @@ public abstract class AudioManagerBase : IAudioManager
 
             if (currentTimeLeftToSleepActivation <= TimeSpan.Zero)
             {
-                Logger.LogInformation("Sleep mode activated. Pausing and restoring volume.");
+                Logger.LogInformation("Sleep mode activated. Pausing.");
 
                 Pause();
                 IsSleepTimerEnabled = false;
                 SendSleepModeMessage();
-                UpdateVolume();
+
+                // Wait one second before restoring volume. This make sure playing has fully stopped before volume is raised again.
+                await Task.Delay(1000);
+                if (sleepModeSessionId == SleepTimerSessionId)
+                {
+                    Logger.LogInformation("Restoring volume.");
+                    UpdateVolume();
+                }
 
                 break;
             }

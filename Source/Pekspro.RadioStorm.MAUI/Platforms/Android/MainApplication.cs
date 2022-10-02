@@ -29,7 +29,7 @@ public sealed class MainApplication : MauiApplication
             {
                 TheApplication.MediaPlayerServiceBinder = mediaPlayerServiceBinder;
 
-                ((AndroidAudioManager) MAUI.Services.ServiceProvider.GetRequiredService<IAudioManager>()).MediaPlayerService = mediaPlayerServiceBinder.GetMediaPlayerService();
+                TheApplication.OnMediaServiceStarted(mediaPlayerServiceBinder.GetMediaPlayerService());
             }
         }
 
@@ -144,8 +144,44 @@ public sealed class MainApplication : MauiApplication
             });
         }
 
-        var mediaPlayerServiceIntent = new Intent(this, typeof(MediaPlayerService));
-        BindService(mediaPlayerServiceIntent, MediaPlayerServiceConnectionObject, Bind.AutoCreate);
+        ((AndroidAudioManager)MAUI.Services.ServiceProvider.GetRequiredService<IAudioManager>()).MediaServiceStarter = MediaServiceStarter;
+    }
+
+    private Action<MediaPlayerService>? MediaServiceStartedCallback;
+
+    private bool MediaServiceRequestIsExecuted = false;
+
+    private Stopwatch? MediaServiceStarterStopWatch;
+
+    public void MediaServiceStarter(Action<MediaPlayerService>? mediaServiceStartedCallback)
+    {
+        MediaServiceStartedCallback = mediaServiceStartedCallback;
+
+        if (MediaServiceRequestIsExecuted)
+        {
+            Logger.LogWarning("Has got multiple request to start media service.");
+
+        }
+        else
+        {
+            MediaServiceRequestIsExecuted = true;
+            MediaServiceStarterStopWatch = Stopwatch.StartNew();
+
+            Logger.LogInformation("Get request to start media service.");
+
+            NotificationHelper.CreateNotificationChannel(ApplicationContext);
+            var mediaPlayerServiceIntent = new Intent(this, typeof(MediaPlayerService));
+            BindService(mediaPlayerServiceIntent, MediaPlayerServiceConnectionObject, Bind.AutoCreate);
+        }
+    }
+    
+    private void OnMediaServiceStarted(MediaPlayerService mediaService)
+    {
+        Logger.LogInformation($"Media service started. Time to start service {MediaServiceStarterStopWatch?.Elapsed}");
+
+        ((AndroidAudioManager)MAUI.Services.ServiceProvider.GetRequiredService<IAudioManager>()).MediaPlayerService = mediaService;
+
+        MediaServiceStartedCallback?.Invoke(mediaService);
     }
 
     private void UpdateDownloadServiceExpectedStatus()

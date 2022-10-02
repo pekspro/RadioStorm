@@ -6,11 +6,11 @@ internal sealed class AndroidAudioManager : AudioManagerBase
 {
     private Platforms.Android.Services.MediaPlayerService? _MediaPlayerService;
     
-    internal Platforms.Android.Services.MediaPlayerService MediaPlayerService
+    internal Platforms.Android.Services.MediaPlayerService? MediaPlayerService
     {
         get
         {
-            return _MediaPlayerService ?? throw new NullReferenceException($"{MediaPlayerService} not initialized.");
+            return _MediaPlayerService;
         }
         set
         {
@@ -22,6 +22,8 @@ internal sealed class AndroidAudioManager : AudioManagerBase
             }
         }
     }
+
+    internal Action<Action<Platforms.Android.Services.MediaPlayerService>?>? MediaServiceStarter;
 
     public AndroidAudioManager(
         IMainThreadTimerFactory mainThreadTimerFactory,
@@ -42,7 +44,18 @@ internal sealed class AndroidAudioManager : AudioManagerBase
     {
         try
         {
-            await MediaPlayerService.Play(playlist);
+            if (MediaPlayerService is not null)
+            {
+                await MediaPlayerService.Play(playlist);
+            }
+            else
+            {
+                MediaServiceStarter?.Invoke((service) =>
+                {
+                    service.Play(playlist);
+                    RefreshState();
+                });
+            }
         }
         catch (Exception )
         {
@@ -52,17 +65,21 @@ internal sealed class AndroidAudioManager : AudioManagerBase
 
     protected override void MediaPlay()
     {
-        _ = MediaPlayerService.Play();
+        MediaPlayerService?.Play();
     }
 
     protected override void MediaPause()
     {
-        _ = MediaPlayerService.Pause();
+        MediaPlayerService?.Pause();
     }
 
     protected override void MediaSetPlaybackPosition(TimeSpan position)
     {
-        // throw new NotImplementedException();
+        if (MediaPlayerService is null)
+        {
+            return;
+        }
+
         int pos = (int)position.TotalMilliseconds;
         int mediaDuration = MediaPlayerService.Duration;
 
@@ -73,9 +90,14 @@ internal sealed class AndroidAudioManager : AudioManagerBase
             SetPositionAndLength(TimeSpan.FromMilliseconds(pos), TimeSpan.FromMilliseconds(mediaDuration));
         }
     }
-
+    
     protected override void MediaRefreshButtonStates()
     {
+        if (MediaPlayerService is null)
+        {
+            return;
+        }
+        
         bool canPlay;
         bool canPause;
         bool isBuffering = false;
@@ -126,6 +148,11 @@ internal sealed class AndroidAudioManager : AudioManagerBase
         }
         else
         {
+            if (MediaPlayerService is null)
+            {
+                return;
+            }
+            
             // Only check position when playing or paused. Otherwise position
             // could be wrong. Especially likely when switching to a new item
             // in the play list.
@@ -159,13 +186,13 @@ internal sealed class AndroidAudioManager : AudioManagerBase
         MediaPlayerService?.UpdateNotification();
     }
 
-    private void SetupEvents(Pekspro.RadioStorm.MAUI.Platforms.Android.Services.MediaPlayerService service)
+    private void SetupEvents(Platforms.Android.Services.MediaPlayerService service)
     {
         service.StatusChanged += (a, b) =>
         {
             RefreshState();
 
-            var currentState = MediaPlayerService.MediaPlayerState;
+            var currentState = service.MediaPlayerState;
 
             if (currentState == Android.Media.Session.PlaybackStateCode.Playing)
             {
@@ -194,6 +221,11 @@ internal sealed class AndroidAudioManager : AudioManagerBase
 
         service.BufferChanged += (a, b) =>
         {
+            if (MediaPlayerService is null)
+            {
+                return;
+            }
+
             BufferRatio = MediaPlayerService.Buffered * 0.01;
         };
     }

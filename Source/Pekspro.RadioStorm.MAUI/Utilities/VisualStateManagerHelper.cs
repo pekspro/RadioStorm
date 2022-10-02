@@ -24,7 +24,7 @@ internal sealed class WidthStateHelper
 
     public static void ConfigureWidthState(VisualElement element, VisualElement parentElement)
     {
-        element.SizeChanged += (sender, args) =>
+        parentElement.SizeChanged += (sender, args) =>
         {
             GoToWidthState(element, parentElement);
         };

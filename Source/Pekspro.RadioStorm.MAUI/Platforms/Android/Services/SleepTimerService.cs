@@ -47,8 +47,8 @@ public sealed class SleepTimerService : Service
         
         if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
         {
-            var name = "Sleep Timer Service Notification";
-            var description = "Status of sleep timer.";
+            var name = Strings.Services_SleepTimer_Name;
+            var description = Strings.Services_SleepTimer_Description;
             var channel = new NotificationChannel(CHANNEL_ID, name, NotificationImportance.Low)
             {
                 Description = description
@@ -125,8 +125,12 @@ public sealed class SleepTimerService : Service
 
     private Notification CreateNotification(Context context, string shortDescription, string longDescription, TimeSpan timeLeftToSleepActivation)
     {
+        int defaultChangMinutes = AudioManagerBase.DefaultSleepTimerDelta.Minutes;
+
+        string increaseText = string.Format(Strings.SleepTimer_Notification_Change, "+" + defaultChangMinutes);
+
         var cancelAction = GenerateActionCompat(context, Resource.Drawable.ic_notification_skip_next, Strings.SleepTimer_Notification_Action_Cancel, ActionStopSleepTimer);
-        var increase5minutesAction = GenerateActionCompat(context, Resource.Drawable.ic_notification_pause, Strings.SleepTimer_Increase_5min, ActionIncreaseSleepTimer);
+        var increaseAction = GenerateActionCompat(context, Resource.Drawable.ic_notification_pause, increaseText, ActionIncreaseSleepTimer);
 
         // TODO: Add when this is released: https://github.com/dotnet/maui/issues/9090
         // var openAppIntent = PendingIntent.GetActivity(this, 0, new Intent(this, typeof(MainActivity)), PendingIntentFlags.UpdateCurrent);
@@ -136,13 +140,15 @@ public sealed class SleepTimerService : Service
             .SetContentText(longDescription)
             .SetSmallIcon(Resource.Drawable.ic_statusbar_bed)
             .AddAction(cancelAction)
-            .AddAction(increase5minutesAction);
+            .AddAction(increaseAction);
         // .SetContentIntent(openAppIntent);
 
-        if (timeLeftToSleepActivation >= TimeSpan.FromMinutes(5))
+        if (timeLeftToSleepActivation >= AudioManagerBase.DefaultSleepTimerDelta)
         {
-            var derease5minutesAction = GenerateActionCompat(context, Resource.Drawable.ic_notification_pause, Strings.SleepTimer_Decrease_5min, ActionDecreaseSleepTimer);
-            notificationBuilder.AddAction(derease5minutesAction);
+            string decreaseText = string.Format(Strings.SleepTimer_Notification_Change, "-" + defaultChangMinutes);
+
+            var dereaseAction = GenerateActionCompat(context, Resource.Drawable.ic_notification_pause, decreaseText, ActionDecreaseSleepTimer);
+            notificationBuilder.AddAction(dereaseAction);
         }
 
         return notificationBuilder.Build();

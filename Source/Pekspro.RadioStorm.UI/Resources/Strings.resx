@@ -963,13 +963,28 @@
   <data name="SleepTimer_Notification_Title" xml:space="preserve">
     <value>Sovtimer -  {0:00}:{1:00}</value>
   </data>
-  <data name="SleepTimer_Increase_5min" xml:space="preserve">
-    <value>+5 min</value>
-  </data>
-  <data name="SleepTimer_Decrease_5min" xml:space="preserve">
-    <value>-5 min</value>
+  <data name="SleepTimer_Notification_Change" xml:space="preserve">
+    <value>{0} min</value>
   </data>
   <data name="SleepTimer_Title" xml:space="preserve">
+    <value>Sovtimer</value>
+  </data>
+  <data name="Services_Download_Description" xml:space="preserve">
+    <value>Visar status på pågående nedladdningar.</value>
+  </data>
+  <data name="Services_Download_Name" xml:space="preserve">
+    <value>Nedladdning pågår</value>
+  </data>
+  <data name="Services_Player_Description" xml:space="preserve">
+    <value>Visar information när radio eller poddar spelas.</value>
+  </data>
+  <data name="Services_Player_Name" xml:space="preserve">
+    <value>Uppspelare</value>
+  </data>
+  <data name="Services_SleepTimer_Description" xml:space="preserve">
+    <value>Visar status på sovtimer.</value>
+  </data>
+  <data name="Services_SleepTimer_Name" xml:space="preserve">
     <value>Sovtimer</value>
   </data>
   <data name="Favorites_ViewMode_Album" xml:space="preserve">
