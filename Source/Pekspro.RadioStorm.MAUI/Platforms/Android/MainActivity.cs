@@ -16,8 +16,6 @@ public sealed class MainActivity : MauiAppCompatActivity
     {
         base.OnCreate(savedInstanceState);
 
-        NotificationHelper.CreateNotificationChannel(ApplicationContext);
-
         GraphHelper.AuthUIParent = this;
 
         #region Scheduler
