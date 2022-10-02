@@ -48,8 +48,8 @@ public sealed class DownloadService : Service
 
         if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
         {
-            var name = "Download Service Notification";
-            var description = "Status of downloads.";
+            var name = Strings.Services_Download_Name;
+            var description = Strings.Services_Download_Description;
             var channel = new NotificationChannel(CHANNEL_ID, name, NotificationImportance.Low)
             {
                 Description = description

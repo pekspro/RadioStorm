@@ -47,8 +47,8 @@ public sealed class SleepTimerService : Service
         
         if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
         {
-            var name = "Sleep Timer Service Notification";
-            var description = "Status of sleep timer.";
+            var name = Strings.Services_SleepTimer_Name;
+            var description = Strings.Services_SleepTimer_Description;
             var channel = new NotificationChannel(CHANNEL_ID, name, NotificationImportance.Low)
             {
                 Description = description
