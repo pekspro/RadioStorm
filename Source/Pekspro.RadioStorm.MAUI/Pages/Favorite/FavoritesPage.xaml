@@ -72,6 +72,30 @@
                                         ChannelTemplateWindows="{StaticResource ChannelTemplateWindows}" 
                                         ProgramTemplateWindows="{StaticResource ProgramTemplateWindows}"
                                         />
+
+
+            <DataTemplate x:DataType="cm:ChannelModel" x:Key="AlbumChannelTemplate">
+                <cc:ChannelAlbumControl>
+                    <cc:ChannelAlbumControl.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ChannelTapped"/>
+                    </cc:ChannelAlbumControl.GestureRecognizers>
+                </cc:ChannelAlbumControl>
+            </DataTemplate>
+
+            <DataTemplate x:DataType="pm:ProgramModel" x:Key="AlbumProgramTemplate">
+                <pc:FavoriteProgramAlbumControl>
+                    <pc:FavoriteProgramAlbumControl.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ProgramTapped"/>
+                    </pc:FavoriteProgramAlbumControl.GestureRecognizers>
+                </pc:FavoriteProgramAlbumControl>
+            </DataTemplate>
+
+            <t:FavoriteTemplateSelector x:Key="albumFavoriteTemplateSelector" 
+                                        ChannelTemplate="{StaticResource AlbumChannelTemplate}" 
+                                        ProgramTemplate="{StaticResource AlbumProgramTemplate}"
+                                        ChannelTemplateWindows="{StaticResource AlbumChannelTemplate}" 
+                                        ProgramTemplateWindows="{StaticResource AlbumProgramTemplate}"
+                                        />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
@@ -82,13 +106,28 @@
             Text="{x:Static r:Strings.Settings_Synchronize_SyncNow}"
             IsVisible="{Binding HasAnyRemoteSignedInProvider}"
             Order="Secondary"
-            Priority="1" />
-
+            Priority="5" />
+        
         <ToolbarItem 
                 Command="{Binding UpdateCommand}"
                 Text="{x:Static r:Strings.General_Update}"
                 Order="Secondary"
                 Priority="0" />
+
+        <ToolbarItem 
+                x:Name="ToolbarItemListMode"
+                Clicked="ToolbarItemListMode_Clicked"
+                Text="{x:Static r:Strings.Favorites_ViewMode_List}"
+                Order="Secondary"
+                Priority="1" />
+
+        <ToolbarItem 
+                x:Name="ToolbarItemAlbumMode"
+                Clicked="ToolbarItemAlbumMode_Clicked"
+                Text="{x:Static r:Strings.Favorites_ViewMode_Album}"
+                Order="Secondary"
+                Priority="2" />
+        
     </ContentPage.ToolbarItems>
     <!--<RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy}">-->
 
@@ -171,25 +210,220 @@
         <views:DownloadState Grid.Row="0" Grid.RowSpan="2" NoDataText="" />
 
         <!-- Breaks on Android: ItemSizingStrategy="MeasureFirstItem"-->
-        <RefreshView 
-                Command="{Binding RefreshCommand}" 
-                IsRefreshing="{Binding IsRefreshing}"
-                IsVisible="{Binding HasData}"
-                Grid.Row="1"
-            >
-            <CollectionView 
-                ItemsSource="{Binding GroupedItems}"
-                IsGrouped="True"
-                SelectionMode="{Binding SelectionModeHelper.InSelectionMode, Converter={StaticResource BoolToSelectionMode}}"
-                ItemTemplate="{StaticResource favoriteTemplateSelector}" 
+        
+        <Grid IsVisible="{Binding HasData}"
+              VerticalOptions="FillAndExpand"
+              Grid.Row="1">
+            
+            <RefreshView 
+                    x:Name="RefreshViewList"
+                    Command="{Binding RefreshCommand}" 
+                    IsRefreshing="{Binding IsRefreshing}"
                 >
-                <CollectionView.GroupHeaderTemplate>
-                    <DataTemplate>
-                        <views:GroupHeaderControl />
-                    </DataTemplate>
-                </CollectionView.GroupHeaderTemplate>
-            </CollectionView>
-        </RefreshView>
+                <CollectionView 
+                    ItemsSource="{Binding GroupedItems}"
+                    IsGrouped="True"
+                    SelectionMode="{Binding SelectionModeHelper.InSelectionMode, Converter={StaticResource BoolToSelectionMode}}"
+                    ItemTemplate="{StaticResource favoriteTemplateSelector}"
+                    >
+                    <CollectionView.GroupHeaderTemplate>
+                        <DataTemplate>
+                            <views:GroupHeaderControl />
+                        </DataTemplate>
+                    </CollectionView.GroupHeaderTemplate>
+                </CollectionView>
+            </RefreshView>
+
+            <RefreshView 
+                    x:Name="RefreshViewAlbum2"
+                    Command="{Binding RefreshCommand}" 
+                    IsRefreshing="{Binding IsRefreshing}"
+                    Margin="8,0"
+                >
+                <CollectionView 
+                    ItemsSource="{Binding GroupedItems}"
+                    IsGrouped="True"
+                    SelectionMode="{Binding SelectionModeHelper.InSelectionMode, Converter={StaticResource BoolToSelectionMode}}"
+                    ItemTemplate="{StaticResource albumFavoriteTemplateSelector}" 
+                    >
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout 
+                            Orientation="Vertical"
+                            Span="2"
+                            VerticalItemSpacing="8"
+                            HorizontalItemSpacing="4" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.GroupHeaderTemplate>
+                        <DataTemplate>
+                            <views:GroupHeaderControl />
+                        </DataTemplate>
+                    </CollectionView.GroupHeaderTemplate>
+                </CollectionView>
+            </RefreshView>
+
+            <RefreshView 
+                    x:Name="RefreshViewAlbum3"
+                    Command="{Binding RefreshCommand}" 
+                    IsRefreshing="{Binding IsRefreshing}"
+                    Margin="8,0"
+                >
+                <CollectionView 
+                    ItemsSource="{Binding GroupedItems}"
+                    IsGrouped="True"
+                    SelectionMode="{Binding SelectionModeHelper.InSelectionMode, Converter={StaticResource BoolToSelectionMode}}"
+                    ItemTemplate="{StaticResource albumFavoriteTemplateSelector}" 
+                    >
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout 
+                            Orientation="Vertical"
+                            Span="3"
+                            VerticalItemSpacing="8"
+                            HorizontalItemSpacing="4" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.GroupHeaderTemplate>
+                        <DataTemplate>
+                            <views:GroupHeaderControl />
+                        </DataTemplate>
+                    </CollectionView.GroupHeaderTemplate>
+                </CollectionView>
+            </RefreshView>
+
+            <RefreshView 
+                    x:Name="RefreshViewAlbum4"
+                    Command="{Binding RefreshCommand}" 
+                    IsRefreshing="{Binding IsRefreshing}"
+                    Margin="8,0"
+                >
+                <CollectionView 
+                    ItemsSource="{Binding GroupedItems}"
+                    IsGrouped="True"
+                    SelectionMode="{Binding SelectionModeHelper.InSelectionMode, Converter={StaticResource BoolToSelectionMode}}"
+                    ItemTemplate="{StaticResource albumFavoriteTemplateSelector}" 
+                    >
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout 
+                            Orientation="Vertical"
+                            Span="4"
+                            VerticalItemSpacing="8"
+                            HorizontalItemSpacing="4" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.GroupHeaderTemplate>
+                        <DataTemplate>
+                            <views:GroupHeaderControl />
+                        </DataTemplate>
+                    </CollectionView.GroupHeaderTemplate>
+                </CollectionView>
+            </RefreshView>
+
+            <RefreshView 
+                    x:Name="RefreshViewAlbum5"
+                    Command="{Binding RefreshCommand}" 
+                    IsRefreshing="{Binding IsRefreshing}"
+                    Margin="8,0"
+                >
+                <CollectionView 
+                    ItemsSource="{Binding GroupedItems}"
+                    IsGrouped="True"
+                    SelectionMode="{Binding SelectionModeHelper.InSelectionMode, Converter={StaticResource BoolToSelectionMode}}"
+                    ItemTemplate="{StaticResource albumFavoriteTemplateSelector}" 
+                    >
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout 
+                            Orientation="Vertical"
+                            Span="5"
+                            VerticalItemSpacing="8"
+                            HorizontalItemSpacing="4" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.GroupHeaderTemplate>
+                        <DataTemplate>
+                            <views:GroupHeaderControl />
+                        </DataTemplate>
+                    </CollectionView.GroupHeaderTemplate>
+                </CollectionView>
+            </RefreshView>
+
+            <RefreshView 
+                    x:Name="RefreshViewAlbum6"
+                    Command="{Binding RefreshCommand}" 
+                    IsRefreshing="{Binding IsRefreshing}"
+                    Margin="8,0"
+                >
+                <CollectionView 
+                    ItemsSource="{Binding GroupedItems}"
+                    IsGrouped="True"
+                    SelectionMode="{Binding SelectionModeHelper.InSelectionMode, Converter={StaticResource BoolToSelectionMode}}"
+                    ItemTemplate="{StaticResource albumFavoriteTemplateSelector}" 
+                    >
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout 
+                            Orientation="Vertical"
+                            Span="6"
+                            VerticalItemSpacing="8"
+                            HorizontalItemSpacing="4" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.GroupHeaderTemplate>
+                        <DataTemplate>
+                            <views:GroupHeaderControl />
+                        </DataTemplate>
+                    </CollectionView.GroupHeaderTemplate>
+                </CollectionView>
+            </RefreshView>
+
+            <RefreshView 
+                    x:Name="RefreshViewAlbum7"
+                    Command="{Binding RefreshCommand}" 
+                    IsRefreshing="{Binding IsRefreshing}"
+                    Margin="8,0"
+                >
+                <CollectionView 
+                    ItemsSource="{Binding GroupedItems}"
+                    IsGrouped="True"
+                    SelectionMode="{Binding SelectionModeHelper.InSelectionMode, Converter={StaticResource BoolToSelectionMode}}"
+                    ItemTemplate="{StaticResource albumFavoriteTemplateSelector}" 
+                    >
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout 
+                            Orientation="Vertical"
+                            Span="7"
+                            VerticalItemSpacing="8"
+                            HorizontalItemSpacing="4" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.GroupHeaderTemplate>
+                        <DataTemplate>
+                            <views:GroupHeaderControl />
+                        </DataTemplate>
+                    </CollectionView.GroupHeaderTemplate>
+                </CollectionView>
+            </RefreshView>
+
+            <RefreshView 
+                    x:Name="RefreshViewAlbum8"
+                    Command="{Binding RefreshCommand}" 
+                    IsRefreshing="{Binding IsRefreshing}"
+                    Margin="8,0"
+                >
+                <CollectionView 
+                    ItemsSource="{Binding GroupedItems}"
+                    IsGrouped="True"
+                    SelectionMode="{Binding SelectionModeHelper.InSelectionMode, Converter={StaticResource BoolToSelectionMode}}"
+                    ItemTemplate="{StaticResource albumFavoriteTemplateSelector}" 
+                    >
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout 
+                            Orientation="Vertical"
+                            Span="8"
+                            VerticalItemSpacing="8"
+                            HorizontalItemSpacing="4" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.GroupHeaderTemplate>
+                        <DataTemplate>
+                            <views:GroupHeaderControl />
+                        </DataTemplate>
+                    </CollectionView.GroupHeaderTemplate>
+                </CollectionView>
+            </RefreshView>
+
+        </Grid>
 
         <HorizontalStackLayout
             x:Name="ProgressSynchronize"

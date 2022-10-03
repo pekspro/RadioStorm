@@ -154,6 +154,20 @@ public sealed class LocalSettings : ILocalSettings
         }
     }
 
+    public bool FavoriteAlbumMode
+    {
+        get
+        {
+            return SettingsService.GetSafeValue(nameof(FavoriteAlbumMode), true);
+        }
+        set
+        {
+            SettingsService.SetValue(nameof(FavoriteAlbumMode), value);
+
+            NotifySettingChanged(nameof(FavoriteAlbumMode));
+        }
+    }
+
     public ThemeType Theme
     {
         get

@@ -12,4 +12,5 @@ public interface ILocalSettings
     bool WriteLogsToFile { get; set; }
     ThemeType Theme { get; set; }
     int LastSetSleepTimerIntervall { get; set; }
+    bool FavoriteAlbumMode { get; set; }
 }

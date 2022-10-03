@@ -71,6 +71,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Pages\Channel\ChannelAlbumControl.xaml.cs">
+	    <DependentUpon>ChannelAlbumControl.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Pages\Channel\ChannelControl.xaml.cs">
 		<DependentUpon>%(Filename)</DependentUpon>
 	  </Compile>
@@ -91,6 +94,9 @@
 	  </Compile>
 	  <Compile Update="Pages\Player\PlaylistPage.xaml.cs">
 	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\Program\FavoriteProgramAlbumControl.xaml.cs">
+	    <DependentUpon>FavoriteProgramAlbumControl.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Pages\Program\FavoriteProgramControl.xaml.cs">
 	    <DependentUpon>%(Filename)</DependentUpon>
@@ -140,6 +146,9 @@
 	  <MauiXaml Update="AppShell.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\Channel\ChannelAlbumControl.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\Channel\ChannelControl.xaml">
 	    <SubType>Designer</SubType>
 	    <Generator>MSBuild:Compile</Generator>
@@ -171,6 +180,9 @@
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\Player\PlaylistPage.xaml">
 	    <SubType>Designer</SubType>
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\Program\FavoriteProgramAlbumControl.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\Program\FavoriteProgramControl.xaml">

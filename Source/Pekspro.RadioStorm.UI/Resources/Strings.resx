@@ -987,4 +987,10 @@
   <data name="Services_SleepTimer_Name" xml:space="preserve">
     <value>Sovtimer</value>
   </data>
+  <data name="Favorites_ViewMode_Album" xml:space="preserve">
+    <value>Visa som album</value>
+  </data>
+  <data name="Favorites_ViewMode_List" xml:space="preserve">
+    <value>Visa som lista</value>
+  </data>
 </root>
