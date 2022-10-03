@@ -20,26 +20,6 @@
                    TextColor="{AppThemeBinding Dark={StaticResource InactiveProgramColorDark}, Light={StaticResource InactiveProgramColorLight}}" />
         
             <Label Style="{StaticResource DetailedTextStyle}"
-                   IsVisible="{Binding Branch, Converter={StaticResource NullToIsVisibleConverter}}"
-                   TextColor="{AppThemeBinding Dark={StaticResource InactiveProgramColorDark}, Light={StaticResource InactiveProgramColorLight}}">
-                <Label.Text>
-                    <MultiBinding StringFormat="{}Branch: {0}">
-                        <Binding Path="Branch" />
-                    </MultiBinding>
-                </Label.Text>
-            </Label>
-
-            <Label Style="{StaticResource DetailedTextStyle}"
-                   IsVisible="{Binding CommitId, Converter={StaticResource NullToIsVisibleConverter}}"
-                   TextColor="{AppThemeBinding Dark={StaticResource InactiveProgramColorDark}, Light={StaticResource InactiveProgramColorLight}}">
-                <Label.Text>
-                    <MultiBinding StringFormat="{}Commit: {0}">
-                        <Binding Path="CommitId" />
-                    </MultiBinding>
-                </Label.Text>
-            </Label>
-        
-            <Label Style="{StaticResource DetailedTextStyle}"
                    IsVisible="{Binding DotNetVersionString, Converter={StaticResource NullToIsVisibleConverter}}"
                    TextColor="{AppThemeBinding Dark={StaticResource InactiveProgramColorDark}, Light={StaticResource InactiveProgramColorLight}}">
                 <Label.Text>
@@ -72,6 +52,26 @@
                     </Label.Text>
                 </Label>
             </HorizontalStackLayout>
+
+            <Label Style="{StaticResource DetailedTextStyle}"
+                   IsVisible="{Binding Branch, Converter={StaticResource NullToIsVisibleConverter}}"
+                   TextColor="{AppThemeBinding Dark={StaticResource InactiveProgramColorDark}, Light={StaticResource InactiveProgramColorLight}}">
+                <Label.Text>
+                    <MultiBinding StringFormat="{}Branch: {0}">
+                        <Binding Path="Branch" />
+                    </MultiBinding>
+                </Label.Text>
+            </Label>
+
+            <Label Style="{StaticResource DetailedTextStyle}"
+                   IsVisible="{Binding CommitId, Converter={StaticResource NullToIsVisibleConverter}}"
+                   TextColor="{AppThemeBinding Dark={StaticResource InactiveProgramColorDark}, Light={StaticResource InactiveProgramColorLight}}">
+                <Label.Text>
+                    <MultiBinding StringFormat="{}Commit: {0}">
+                        <Binding Path="CommitId" />
+                    </MultiBinding>
+                </Label.Text>
+            </Label>
 
         </VerticalStackLayout>
 
