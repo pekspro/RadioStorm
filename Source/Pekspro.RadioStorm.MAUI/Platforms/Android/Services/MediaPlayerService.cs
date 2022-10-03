@@ -58,7 +58,7 @@ public sealed class MediaPlayerService : Service,
     private int AudioCounter;
 
     private double PlaybackRate = 1;
-    
+
     private double Volume = 1;
 
 #if USE_CONNECTION_ALIVE_CHECKER
@@ -568,10 +568,23 @@ public sealed class MediaPlayerService : Service,
 
             try
             {
+
+                // When the playback is changed, the player will be started.
+                // https://developer.android.com/reference/android/media/MediaPlayer#setPlaybackParams(android.media.PlaybackParams)
+                // Very strange! Check if it's paused:
+                bool isPaused = MediaPlayerState == PlaybackStateCode.Paused;
+
                 mediaPlayer.PlaybackParams = mediaPlayer.PlaybackParams.SetSpeed((float)PlaybackRate);
+
+                // If it was paused before, pause it again.
+                if (isPaused)
+                {
+                    mediaPlayer.Pause();
+                }
+
                 UpdatePlaybackState(MediaPlayerState);
             }
-            catch(Exception )
+            catch (Exception)
             {
 
             }
@@ -597,7 +610,7 @@ public sealed class MediaPlayerService : Service,
                     PlaybackState.ActionStop |
                     PlaybackState.ActionSeekTo
                 )
-                .SetState(state, RawPosition, (float) PlaybackRate);
+                .SetState(state, RawPosition, (float)PlaybackRate);
 
             mediaSession.SetPlaybackState(stateBuilder.Build());
 
@@ -616,7 +629,7 @@ public sealed class MediaPlayerService : Service,
     internal void SetVolume(double value)
     {
         Volume = value;
-        
+
         mediaPlayer?.SetVolume((float)Volume, (float)Volume);
     }
 
@@ -887,7 +900,7 @@ public sealed class MediaPlayerService : Service,
         {
             case AudioFocus.Gain:
                 Logger.LogInformation("Gaining audio focus.");
-                
+
                 mediaPlayer?.SetVolume((float)Volume, (float)Volume);
 
                 if (RestartAudioOnGainAudioFocus)
@@ -951,9 +964,9 @@ public sealed class MediaPlayerService : Service,
                 return _Logger ??= MAUI.Services.ServiceProvider.Current.GetRequiredService<ILogger<MediaSessionCallback>>();
             }
         }
-        
+
         private readonly MediaPlayerServiceBinder mediaPlayerService;
-        
+
         public MediaSessionCallback(MediaPlayerServiceBinder service)
         {
             mediaPlayerService = service;
@@ -978,7 +991,7 @@ public sealed class MediaPlayerService : Service,
         public override void OnRewind()
         {
             Logger.LogInformation(nameof(OnRewind));
-            
+
             WeakReferenceMessenger.Default.Send(new ExternalMediaButtonPressed(ExternalMediaButton.Rewind));
             base.OnRewind();
         }
@@ -986,7 +999,7 @@ public sealed class MediaPlayerService : Service,
         public override void OnFastForward()
         {
             Logger.LogInformation(nameof(OnFastForward));
-            
+
             WeakReferenceMessenger.Default.Send(new ExternalMediaButtonPressed(ExternalMediaButton.Forward));
             base.OnFastForward();
         }
@@ -1018,7 +1031,7 @@ public sealed class MediaPlayerService : Service,
         public override void OnSeekTo(long pos)
         {
             Logger.LogInformation($"{nameof(OnSeekTo)}: {{position}} ({{positionTimeSpan}})", pos, TimeSpan.FromMilliseconds(pos));
-            
+
             _ = mediaPlayerService.GetMediaPlayerService().Seek((int)pos);
             base.OnSeekTo(pos);
         }
