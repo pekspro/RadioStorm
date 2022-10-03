@@ -1,6 +1,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
+             xmlns:c="clr-namespace:Pekspro.RadioStorm.MAUI.Controls"
              xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
              x:Class="Pekspro.RadioStorm.MAUI.Pages.Player.CurrentPlayingPage"
              Title="{x:Static r:Strings.CurrentPlaying_Title}">
@@ -12,31 +13,36 @@
                 Text="{x:Static r:Strings.SleepTimer_Title}"
                 Order="Primary"
                 Priority="0" />
-        <ToolbarItem 
+        <c:BindableToolbarItem 
+                x:Name="ToolbarItemVerySlow"
                 Command="{Binding SetSpeedVerySlowCommand}"
                 Text="{x:Static r:Strings.Player_MenuSpeed_VerySlow}"
                 Order="Secondary"
-                Priority="0" />
-        <ToolbarItem 
+                Priority="10" />
+        <c:BindableToolbarItem 
+                x:Name="ToolbarItemSlow"
                 Command="{Binding SetSpeedSlowCommand}"
                 Text="{x:Static r:Strings.Player_MenuSpeed_Slow}"
                 Order="Secondary"
-                Priority="0" />
-        <ToolbarItem 
+                Priority="11" />
+        <c:BindableToolbarItem 
+                x:Name="ToolbarItemNormal"
                 Command="{Binding SetSpeedNormalCommand}"
                 Text="{x:Static r:Strings.Player_MenuSpeed_Normal}"
                 Order="Secondary"
-                Priority="0" />
-        <ToolbarItem 
+                Priority="12" />
+        <c:BindableToolbarItem 
+                x:Name="ToolbarItemFast"
                 Command="{Binding SetSpeedFastCommand}"
                 Text="{x:Static r:Strings.Player_MenuSpeed_Fast}"
                 Order="Secondary"
-                Priority="0" />
-        <ToolbarItem 
+                Priority="13" />
+        <c:BindableToolbarItem 
+                x:Name="ToolbarItemVeryFast"
                 Command="{Binding SetSpeedVeryFastCommand}"
                 Text="{x:Static r:Strings.Player_MenuSpeed_VeryFast}"
                 Order="Secondary"
-                Priority="0" />
+                Priority="14" />
     </ContentPage.ToolbarItems>
 
     <Grid>
@@ -48,7 +54,7 @@
         <Grid Grid.Row="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="48" />
-                <RowDefinition Height="2*" />
+                <RowDefinition Height="*" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="auto" />

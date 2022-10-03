@@ -20,4 +20,27 @@ public sealed partial class CurrentPlayingPage : ContentPage
 
         Navigation.RemovePage(page);
     }
+
+#if ANDROID
+    // TODO: Remove when fixed: https://github.com/dotnet/maui/issues/10452
+    protected override void OnNavigatedTo(NavigatedToEventArgs args)
+    {
+        base.OnNavigatedTo(args);
+
+        ToolbarItemVerySlow.IsVisible = false;
+        ToolbarItemSlow.IsVisible = false;
+        ToolbarItemNormal.IsVisible = false;
+        ToolbarItemFast.IsVisible = false;
+        ToolbarItemVeryFast.IsVisible = false;
+
+        Application.Current!.Dispatcher.Dispatch(() =>
+        {
+            ToolbarItemVerySlow.IsVisible = true;
+            ToolbarItemSlow.IsVisible = true;
+            ToolbarItemNormal.IsVisible = true;
+            ToolbarItemFast.IsVisible = true;
+            ToolbarItemVeryFast.IsVisible = true;
+        });
+    }
+#endif 
 }
