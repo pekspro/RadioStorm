@@ -12,7 +12,7 @@
                         <Setter TargetName="ButtonBackground"
                                 Property="Ellipse.Fill" 
                                 Value="#333333" />
-                        
+
                         <Setter TargetName="PlayTriangle"
                                 Property="Opacity" 
                                 Value="1" />
@@ -96,6 +96,7 @@
         <Image x:Name="MediaImage"
                WidthRequest="4"
                HeightRequest="4"
+               Aspect="AspectFill"
                 >
             <Image.Source>
                 <UriImageSource Uri="https://sverigesradio.se/sida/images/132/2186745_512_512.jpg?preset=api-default-square" />

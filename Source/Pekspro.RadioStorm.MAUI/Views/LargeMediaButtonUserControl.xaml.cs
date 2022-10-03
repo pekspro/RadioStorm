@@ -20,7 +20,13 @@ public sealed partial class LargeMediaButtonUserControl : ContentView
                 if (WidthRequest > 0)
                 {
                     MediaImage.WidthRequest = WidthRequest;
-                    MediaImage.HeightRequest = WidthRequest;
+                }
+            }
+            else if (b.PropertyName == nameof(HeightRequest))
+            {
+                if (HeightRequest > 0)
+                {
+                    MediaImage.HeightRequest = HeightRequest;
                 }
             }
         };
@@ -62,7 +68,7 @@ public sealed partial class LargeMediaButtonUserControl : ContentView
         {
             return;
         }
-        
+
         VisualStateManager.GoToState(owner.GridLayout, state.ToString());
     }
 
@@ -126,7 +132,7 @@ public sealed partial class LargeMediaButtonUserControl : ContentView
 
     public string Source
     {
-        get { return (string) GetValue(SourceProperty); }
+        get { return (string)GetValue(SourceProperty); }
         set { SetValue(SourceProperty, value); }
     }
 
@@ -140,7 +146,7 @@ public sealed partial class LargeMediaButtonUserControl : ContentView
 
     private static void OnDisabledTextChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        LargeMediaButtonUserControl owner = (LargeMediaButtonUserControl) bindable;
+        LargeMediaButtonUserControl owner = (LargeMediaButtonUserControl)bindable;
 
         // owner.TextNotAvailible.Text = newValue as string;
     }
@@ -162,17 +168,17 @@ public sealed partial class LargeMediaButtonUserControl : ContentView
 
     private static void OnButtonBackgroundDiameterChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        LargeMediaButtonUserControl owner = (LargeMediaButtonUserControl) bindable;
+        LargeMediaButtonUserControl owner = (LargeMediaButtonUserControl)bindable;
 
-        owner.ButtonBackground.WidthRequest = owner.ButtonBackground.HeightRequest = (double) newValue;
+        owner.ButtonBackground.WidthRequest = owner.ButtonBackground.HeightRequest = (double)newValue;
 
         double scale = (double)newValue / 60.0;
 
-        owner.PauseSymbol.WidthRequest  = 28 * scale;
+        owner.PauseSymbol.WidthRequest = 28 * scale;
         owner.PauseSymbol.HeightRequest = 28 * scale;
-        owner.PlayTriangle.WidthRequest  = 28 * scale;
+        owner.PlayTriangle.WidthRequest = 28 * scale;
         owner.PlayTriangle.HeightRequest = 28 * scale;
-        owner.DisabledButton.WidthRequest  = 40 * scale;
+        owner.DisabledButton.WidthRequest = 40 * scale;
         owner.DisabledButton.HeightRequest = 40 * scale;
     }
 
@@ -192,9 +198,9 @@ public sealed partial class LargeMediaButtonUserControl : ContentView
 
     private static void OnButtonStrokeColorChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        LargeMediaButtonUserControl owner = (LargeMediaButtonUserControl) bindable;
+        LargeMediaButtonUserControl owner = (LargeMediaButtonUserControl)bindable;
 
-        owner.ButtonBackground.Stroke = new SolidColorBrush((Color) newValue);
+        owner.ButtonBackground.Stroke = new SolidColorBrush((Color)newValue);
 
         //owner.PlayStrokeColorAnimation.To =
         //    owner.PauseStrokeColorAnimation.To = (Color)e.NewValue;
@@ -217,9 +223,9 @@ public sealed partial class LargeMediaButtonUserControl : ContentView
     // private static void OnButtonStrokeWidthChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     private static void OnButtonStrokeWidthChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        LargeMediaButtonUserControl owner = (LargeMediaButtonUserControl) bindable;
+        LargeMediaButtonUserControl owner = (LargeMediaButtonUserControl)bindable;
 
-        owner.ButtonBackground.StrokeThickness = (double) newValue;
+        owner.ButtonBackground.StrokeThickness = (double)newValue;
     }
 
     public double ButtonStrokeWidth
@@ -244,7 +250,7 @@ public sealed partial class LargeMediaButtonUserControl : ContentView
         //    return;
         //}
 
-        LargeMediaButtonUserControl owner = (LargeMediaButtonUserControl) bindable;
+        LargeMediaButtonUserControl owner = (LargeMediaButtonUserControl)bindable;
 
         //owner.ButtonBackground.Fill = (Color)newValue;
         VisualStateManager.GetVisualStateGroups(owner.GridLayout)[0].States[0].Setters[0].Value = newValue;
@@ -270,7 +276,7 @@ public sealed partial class LargeMediaButtonUserControl : ContentView
     //private static void OnButtonMouseOverStrokeFillChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     private static void OnButtonMouseOverStrokeFillChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        LargeMediaButtonUserControl owner = (LargeMediaButtonUserControl) bindable;
+        LargeMediaButtonUserControl owner = (LargeMediaButtonUserControl)bindable;
 
         //owner.PauseMouseOverStrokeColorAnimation.To =
         //    owner.PlayMouseOverStrokeColorAnimation.To = (Color)e.NewValue;
