@@ -59,12 +59,12 @@ public sealed class WeekdaynameHelper : IWeekdaynameHelper
         else if (diff == -1)
         {
             text = Strings.Weekday_Yesterday;
-            retDate = day.Date.AddDays(-1);
+            retDate = today.AddDays(-1);
         }
         else if (diff == 1)
         {
             text = Strings.Weekday_Tomorrow;
-            retDate = day.Date.AddDays(1);
+            retDate = today.AddDays(1);
         }
         else if (diff >= 0 && diff < 9 && allowWeekdayName)
         {

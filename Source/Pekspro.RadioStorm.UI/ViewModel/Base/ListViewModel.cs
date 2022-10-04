@@ -165,7 +165,7 @@ abstract public partial class ListViewModel<T> : DownloadViewModel where T : cla
         
         for (int i = items.Count - 1; i >= 0; i--)
         {
-            int groupCompare = CompareGroupName(groupName, groupPriority, items[i].Header, GetGroupPriority(items[i].First()));
+            int groupCompare = CompareGroupName(groupName, groupPriority, items[i].Header, items[i].Priority);
             
             if (groupCompare > 0)
             {
