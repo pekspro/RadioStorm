@@ -56,7 +56,7 @@ public sealed partial class FavoritesPage : ContentPage
 
     async private void ProgramTapped(object sender, EventArgs e)
     {
-        var program = (sender as ProgramControl)?.BindingContext as ProgramModel ??
+        var program = (sender as FavoriteProgramControl)?.BindingContext as ProgramModel ??
                       (sender as FavoriteProgramAlbumControl)?.BindingContext as ProgramModel;
         
         if (program is not null)
