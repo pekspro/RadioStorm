@@ -176,6 +176,7 @@ public sealed partial class ChannelModel : FavoriteBaseModel
     private string? _LiveAudioUrl;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(Image))]
     private ChannelStatusModel? _Status = null;
 
     [ObservableProperty]
