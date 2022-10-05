@@ -100,6 +100,7 @@
             <Style x:Key="ListHeaderTextStyle" TargetType="Label">
                 <Setter Property="FontSize" Value="{StaticResource FontSizeHeader}" />
                 <Setter Property="FontAttributes" Value="{OnPlatform Default=None, Android=Bold}" />
+                <Setter Property="LineBreakMode" Value="TailTruncation" />
                 <Setter Property="MaxLines" Value="1" />
             </Style>
 
