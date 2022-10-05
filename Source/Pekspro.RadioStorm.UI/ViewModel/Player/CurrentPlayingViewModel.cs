@@ -9,6 +9,7 @@ public sealed partial class CurrentPlayingViewModel : DownloadViewModel, IDispos
     private IAudioManager AudioManager { get; }
     private IChannelRefreshHelper ChannelRefreshHelper { get; }
     private IEpisodeModelFactory EpisodeModelFactory { get; }
+    private IProgramModelFactory ProgramModelFactory { get; }
 
     #endregion
 
@@ -25,6 +26,8 @@ public sealed partial class CurrentPlayingViewModel : DownloadViewModel, IDispos
         AudioManager = null!;
         ChannelRefreshHelper = null!;
         EpisodeModelFactory = null!;
+        PlayerViewModel = null!;
+        ProgramModelFactory = null!;
 
         DownloadState = DownloadStates.Done;
         ChannelData = ChannelModel.CreateWithSampleData();
@@ -39,7 +42,9 @@ public sealed partial class CurrentPlayingViewModel : DownloadViewModel, IDispos
         IEpisodeModelFactory episodeModelFactory,
         IMessenger messenger,
         IMainThreadRunner mainThreadRunner,
-        ILogger<CurrentPlayingViewModel> logger)
+        PlayerViewModel playerViewModel,
+        ILogger<CurrentPlayingViewModel> logger,
+        IProgramModelFactory programModelFactory)
          : base(logger, mainThreadRunner)
     {
         DataFetcher = dataFetcher;
@@ -47,7 +52,8 @@ public sealed partial class CurrentPlayingViewModel : DownloadViewModel, IDispos
         AudioManager = audioManager;
         ChannelRefreshHelper = channelStatusRefreshHelper;
         EpisodeModelFactory = episodeModelFactory;
-
+        PlayerViewModel = playerViewModel;
+        ProgramModelFactory = programModelFactory;
         ChannelRefreshHelper.ViewModel = this;
         ChannelRefreshHelper.ChannelStatusTimer.SetupCallBack(() => QueueRefresh(new RefreshSettings(FullRefresh: false)));
         ChannelRefreshHelper.ChannelProgressTimer.SetupCallBack(() => ChannelRefreshHelper.RefreshChannelProgress(ChannelData));
@@ -102,6 +108,8 @@ public sealed partial class CurrentPlayingViewModel : DownloadViewModel, IDispos
 
     public int PlayListItemIndex =>
         (AudioManager.CurrentPlayList?.CurrentPosition ?? 0) + 1;
+
+    public PlayerViewModel PlayerViewModel { get; }
     
     #endregion
 
@@ -175,6 +183,16 @@ public sealed partial class CurrentPlayingViewModel : DownloadViewModel, IDispos
                 {
                     EpisodeData = EpisodeModelFactory.Create(episodeData);
 
+                    if (EpisodeData.ProgramId is not null)
+                    {
+                        var programData = await DataFetcher.GetProgramAsync(EpisodeData.ProgramId.Value, true, cancellationToken);
+
+                        if (programData is not null)
+                        {
+                            EpisodeData.ProgramDetails = ProgramModelFactory.Create(programData);
+                        }
+                    }
+
                     var playList = AudioManager.CurrentPlayList;
 
                     if (playList is not null && playList.CanGoToNext)
@@ -189,6 +207,23 @@ public sealed partial class CurrentPlayingViewModel : DownloadViewModel, IDispos
                         if (nextEpisodeData is not null)
                         {
                             NextEpisodeData = EpisodeModelFactory.Create(nextEpisodeData);
+
+                            if (NextEpisodeData.ProgramId is not null)
+                            {
+                                if (NextEpisodeData.ProgramId == EpisodeData.ProgramId)
+                                {
+                                    NextEpisodeData.ProgramDetails = EpisodeData.ProgramDetails;
+                                }
+                                else
+                                {
+                                    var programData = await DataFetcher.GetProgramAsync(NextEpisodeData.ProgramId.Value, true, cancellationToken);
+
+                                    if (programData is not null)
+                                    {
+                                        EpisodeData.ProgramDetails = ProgramModelFactory.Create(programData);
+                                    }
+                                }
+                            }
                         }
                     }
 
