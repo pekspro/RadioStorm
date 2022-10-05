@@ -2,14 +2,14 @@ namespace Pekspro.RadioStorm.MAUI.Pages.Player;
 
 public sealed partial class CurrentPlayingPage : ContentPage
 {
-    public CurrentPlayingPage(PlayerViewModel playerViewModel)
+    public CurrentPlayingPage(CurrentPlayingViewModel currentPlayingViewModel)
     {
         InitializeComponent();
 
-        BindingContext = playerViewModel;
+        BindingContext = currentPlayingViewModel;
     }
 
-    private PlayerViewModel ViewModel => (PlayerViewModel)BindingContext;
+    private CurrentPlayingViewModel ViewModel => (CurrentPlayingViewModel )BindingContext;
 
     private async void ButtonPlaylist_Clicked(object sender, EventArgs e)
     {
@@ -21,12 +21,13 @@ public sealed partial class CurrentPlayingPage : ContentPage
         Navigation.RemovePage(page);
     }
 
-#if ANDROID
-    // TODO: Remove when fixed: https://github.com/dotnet/maui/issues/10452
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
     {
         base.OnNavigatedTo(args);
 
+#if ANDROID
+        // TODO: Remove when fixed: https://github.com/dotnet/maui/issues/10452
+    
         ToolbarItemVerySlow.IsVisible = false;
         ToolbarItemSlow.IsVisible = false;
         ToolbarItemNormal.IsVisible = false;
@@ -41,6 +42,7 @@ public sealed partial class CurrentPlayingPage : ContentPage
             ToolbarItemFast.IsVisible = true;
             ToolbarItemVeryFast.IsVisible = true;
         });
-    }
 #endif 
+        
+    }
 }

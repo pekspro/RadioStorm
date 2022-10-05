@@ -6,6 +6,7 @@
             x:Class="Pekspro.RadioStorm.MAUI.Views.PlayerButtonsControl"             
             x:DataType="player:PlayerViewModel"
             ColumnDefinitions="auto, auto, auto, auto, auto, auto"
+            ColumnSpacing="20"
             >
     
     <!-- 
@@ -39,7 +40,7 @@
         <Path   
             Style="{x:StaticResource PathPlayerSkipToPrevious}"
             Opacity="{Binding CanGoToPrevious, Converter={StaticResource BoolToDoubleOneAndHalfConverter}}"
-            WidthRequest="24"
+            WidthRequest="36"
             />
 
         <ImageButton Style="{x:StaticResource PlayerButton}"
@@ -59,7 +60,7 @@
 
         <Path   
             Style="{x:StaticResource PathPlayerFastRewind}"
-            WidthRequest="24"
+            WidthRequest="36"
             />
 
         <ImageButton Style="{x:StaticResource PlayerButton}"
@@ -78,13 +79,13 @@
         <Path   
             Style="{x:StaticResource PathPlayerPlay}"
             IsVisible="{Binding CanPause, Converter={StaticResource InvertedBoolConverter}}"
-            WidthRequest="24"
+            WidthRequest="48"
             />
 
         <Path   
             Style="{x:StaticResource PathPlayerPause}"
             IsVisible="{Binding CanPause}"
-            WidthRequest="24"
+            WidthRequest="48"
             />
 
         <ImageButton Style="{x:StaticResource PlayerButton}"
@@ -103,7 +104,7 @@
 
         <Path   
             Style="{x:StaticResource PathPlayerFastForward}"
-            WidthRequest="24"
+            WidthRequest="36"
             />
 
         <ImageButton Style="{x:StaticResource PlayerButton}"
@@ -123,7 +124,7 @@
         <Path   
             Style="{x:StaticResource PathPlayerSkipToNext}"
             Opacity="{Binding CanGoToNext, Converter={StaticResource BoolToDoubleOneAndHalfConverter}}"
-            WidthRequest="24"
+            WidthRequest="36"
             />
 
         <ImageButton Style="{x:StaticResource PlayerButton}"

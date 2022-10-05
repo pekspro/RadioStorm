@@ -45,11 +45,9 @@
 		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#222222" BaseSize="128,128" />
 
 		<!-- Images -->
-        <MauiImage Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'"
-              	   Include="Resources\Images\sleeptimer_margin_1of4.svg" TintColor="White" BaseSize="32,32" />
+        <MauiImage Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" Include="Resources\Images\sleeptimer_margin_1of4.svg" TintColor="White" BaseSize="32,32" />
         
-        <MauiImage Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'"
-              	   Include="Resources\Images\sleeptimer_margin_0.svg" TintColor="White" BaseSize="20,20" />
+        <MauiImage Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" Include="Resources\Images\sleeptimer_margin_0.svg" TintColor="White" BaseSize="20,20" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -216,9 +214,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\ChannelProgressBar.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\CurrentPlayingLargeControl.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\DebugSettingsControl.xaml">
