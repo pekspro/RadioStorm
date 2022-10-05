@@ -98,9 +98,9 @@
                HeightRequest="4"
                Aspect="AspectFill"
                 >
-            <Image.Source>
+            <!--<Image.Source>
                 <UriImageSource Uri="https://sverigesradio.se/sida/images/132/2186745_512_512.jpg?preset=api-default-square" />
-            </Image.Source>
+            </Image.Source>-->
         </Image>
 
         <Ellipse x:Name="ButtonBackground"
