@@ -5,8 +5,7 @@
             xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
             x:Class="Pekspro.RadioStorm.MAUI.Views.PlayerButtonsControl"             
             x:DataType="player:PlayerViewModel"
-            ColumnDefinitions="auto, auto, auto, auto, auto, auto"
-            ColumnSpacing="20"
+            ColumnDefinitions="auto, auto, auto, auto, auto"
             >
     
     <!-- 
@@ -55,6 +54,7 @@
     </Grid>
 
     <Grid Grid.Column="1" 
+          Margin="20,0,0,0"
           IsVisible="{Binding IsCurrentItemLiveAudio, Converter={StaticResource InvertedBoolConverter}}"
           WidthRequest="{OnPlatform Default=56, WinUI=48}">
 
@@ -74,6 +74,7 @@
     </Grid>
 
     <Grid Grid.Column="2"
+          Margin="20,0"
           WidthRequest="{OnPlatform Default=56, WinUI=48}">
 
         <Path   
@@ -99,6 +100,7 @@
     </Grid>
 
     <Grid Grid.Column="3" 
+          Margin="0,0,20,0"
           IsVisible="{Binding IsCurrentItemLiveAudio, Converter={StaticResource InvertedBoolConverter}}"
           WidthRequest="{OnPlatform Default=56, WinUI=48}">
 
