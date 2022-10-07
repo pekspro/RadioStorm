@@ -11,12 +11,23 @@
         <ColumnDefinition Width="*" />
         <ColumnDefinition Width="auto" />
     </Grid.ColumnDefinitions>
+    <!--<Grid.RowDefinitions>
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="auto" />
+    </Grid.RowDefinitions>-->
 
     <Label  Grid.Column="0" 
             Text="{Binding PositionString, Mode=OneWay}"
             VerticalTextAlignment="Center" 
             Padding="4,0,0,0"
             />
+
+    <!--<Label  Grid.Row="1"
+            Grid.Column="1" 
+            Text="{Binding PositionString, Mode=OneWay}"
+            HorizontalOptions="Start" 
+            Padding="8,0,0,0"
+            />-->
 
     <Slider x:Name="ProgressSlider"
             Grid.Column="1" 
@@ -26,6 +37,13 @@
             ValueChanged="ProgressSlider_ValueChanged"
             DragCompleted="ProgressSlider_DragCompleted" />
 
+    <!--<Label  Grid.Row="1"
+            Grid.Column="1"
+            Text="{Binding MediaLengthString, Mode=OneWay}" 
+            HorizontalOptions="End" 
+            Padding="0,0,8,0"
+            />-->
+    
     <Label  Grid.Column="2"
             Text="{Binding MediaLengthString, Mode=OneWay}" 
             VerticalTextAlignment="Center" 
