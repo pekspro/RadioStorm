@@ -155,6 +155,7 @@
 
             <Style x:Key="HyperlinkButton" TargetType="Button">
                 <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource HyperlinkColorDark}, Light={StaticResource HyperlinkColorLight}}" />
+                <Setter Property="LineBreakMode" Value="TailTruncation" />
                 <Setter Property="BackgroundColor" Value="Transparent" />
                 <Setter Property="HeightRequest" Value="36" />
                 <Setter Property="Padding" Value="4,0" />
