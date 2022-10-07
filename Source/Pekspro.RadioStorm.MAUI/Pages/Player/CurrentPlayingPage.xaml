@@ -110,21 +110,26 @@
                 <Label  Grid.Row="0"
                         Grid.Column="1"
                         HorizontalOptions="StartAndExpand"
-                        FontSize="24"
-                        Text="{Binding EpisodeData.ProgramName, Mode=OneWay}"
+                        FontSize="20"
                         Style="{StaticResource ListHeaderTextStyle}"
                         VerticalOptions="Center"
 				        LineBreakMode="TailTruncation"
 				        MaxLines="1"
-				/>
+				>
+                    <Label.Text>
+                        <MultiBinding StringFormat="{}{0} - {1}">
+                            <Binding Path="EpisodeData.ProgramName" />
+                            <Binding Path="EpisodeData.Title" />
+                        </MultiBinding>
+                    </Label.Text>
+                </Label>
 
                 <Label  Grid.Row="1"
                         Grid.Column="1"
                         HorizontalOptions="StartAndExpand"
                         Padding="0,0,20,0"
-                        Text="{Binding EpisodeData.Title, Mode=OneWay}"
                         Style="{StaticResource ListNormalTextStyle}"
-				        LineBreakMode="TailTruncation"
+                        Text="{Binding EpisodeData.Description, Mode=OneWay}"
                         MaxLines="2"
 				        />  
             </Grid>
@@ -159,7 +164,6 @@
                     </Image.Source>
                 </Image>
 
-
                 <views:ChannelProgressBar Grid.Column="1"
                                           Grid.Row="1"
                                           Margin="0,0,0,0"
@@ -168,20 +172,11 @@
                 <Label  Grid.Row="0"
                         Grid.Column="1"
                         HorizontalOptions="StartAndExpand"
-                        FontSize="24"
-                        Text="{Binding ChannelData.Title, Mode=OneWay}"
+                        FontSize="20"
                         Style="{StaticResource ListHeaderTextStyle}"
                         VerticalOptions="Center"
 				        LineBreakMode="TailTruncation"
 				        MaxLines="1"
-				/>
-
-                <Label  Grid.Row="1"
-                        Grid.Column="1"
-                        HorizontalOptions="StartAndExpand"
-                        Padding="0,0,20,0"
-                        Style="{StaticResource ListNormalTextStyle}"
-				        LineBreakMode="TailTruncation"
 				        >
                     <Label.Text>
                         <MultiBinding StringFormat="{}{0} {1}">
@@ -190,6 +185,15 @@
                         </MultiBinding>
                     </Label.Text>
                 </Label>
+
+                <Label  Grid.Row="1"
+                        Grid.Column="1"
+                        HorizontalOptions="StartAndExpand"
+                        Padding="0,0,20,0"
+                        Style="{StaticResource ListNormalTextStyle}"
+                        Text="{Binding ChannelData.Status.CurrentProgramDescription}"
+                        MaxLines="2"
+                        />
 
             </Grid>
 
@@ -284,7 +288,7 @@
             <VerticalStackLayout 
                 HorizontalOptions="End"
                 VerticalOptions="End"
-                Margin="20,0,20,20"
+                Margin="20,0,4,20"
                 IsVisible="{Binding PlayerViewModel.HasPlayList}"
                 >
                 <Label 
@@ -337,22 +341,13 @@
                 <Label  Grid.Row="0"
                         Grid.Column="0"
                         HorizontalOptions="EndAndExpand"
-                        FontSize="24"
-                        Text="{Binding ChannelData.Title, Mode=OneWay}"
+                        FontSize="20"
                         Style="{StaticResource ListHeaderTextStyle}"
                         Padding="0,0,8,0"
                         VerticalOptions="Center"
 				        LineBreakMode="TailTruncation"
 				        MaxLines="1"
-				/>
-
-                <Label  Grid.Row="1"
-                        Grid.Column="0"
-                        HorizontalOptions="EndAndExpand"
-                        Padding="0,0,8,0"
-                        Style="{StaticResource ListNormalTextStyle}"
-				        LineBreakMode="TailTruncation"
-				        >
+				>
                     <Label.Text>
                         <MultiBinding StringFormat="{}{0} {1}">
                             <Binding Path="ChannelData.Status.NextTimePeriod.StartTimeString" />
@@ -360,6 +355,16 @@
                         </MultiBinding>
                     </Label.Text>
                 </Label>
+
+                <Label  Grid.Row="1"
+                        Grid.Column="0"
+                        HorizontalOptions="EndAndExpand"
+                        Padding="0,0,8,0"
+                        HorizontalTextAlignment="End"
+                        Style="{StaticResource ListNormalTextStyle}"
+				        Text="{Binding ChannelData.Status.NextProgramDescription}"
+                        MaxLines="2"
+				        />
             </Grid>
         </Grid>
 
