@@ -174,6 +174,7 @@
 
             <Style x:Key="HyperlinkButton" TargetType="Button">
                 <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource HyperlinkColorDark}, Light={StaticResource HyperlinkColorLight}}" />
+                <Setter Property="LineBreakMode" Value="TailTruncation" />
                 <Setter Property="BackgroundColor" Value="Transparent" />
                 <Setter Property="HeightRequest" Value="36" />
                 <Setter Property="Padding" Value="4,0" />
@@ -194,6 +195,12 @@
                         </VisualStateGroup>
                     </VisualStateGroupList>
                 </Setter>
+            </Style>
+
+            <Style x:Key="InlineHyperlinkButton" TargetType="Button" BasedOn="{StaticResource HyperlinkButton}">
+                <Setter Property="HeightRequest" Value="16" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Margin" Value="-4,0,0,0" />
             </Style>
 
             <Style x:Key="PathBase" TargetType="Path">

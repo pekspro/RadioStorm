@@ -81,12 +81,14 @@
             <Grid Grid.Row="0"
                 Padding="8" 
                 IsVisible="{Binding EpisodeData, Converter={StaticResource NullToIsVisibleConverter}}"
+                HeightRequest="96"
                 VerticalOptions="Start"
                 HorizontalOptions="Fill"
                 >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="24" />
+                    <RowDefinition Height="32" />
+                    <RowDefinition Height="26" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
@@ -95,9 +97,9 @@
 
                 <Image Grid.Row="0"
                         Grid.Column="0"
-                        Grid.RowSpan="2"
-			            WidthRequest="64"
-			            HeightRequest="64"
+                        Grid.RowSpan="3"
+			            WidthRequest="96"
+			            HeightRequest="96"
                         Margin="0,0,8,0">
                     <Image.Source>
                         <UriImageSource Uri="{Binding EpisodeData.EpisodeImage.HighResolution, Mode=OneWay}"
@@ -131,7 +133,54 @@
                         Style="{StaticResource ListNormalTextStyle}"
                         Text="{Binding EpisodeData.Description, Mode=OneWay}"
                         MaxLines="2"
-				        />  
+				        />
+
+                <HorizontalStackLayout Grid.Row="2" Grid.Column="1" Margin="0,12,0,0" Spacing="8">
+                    <Label  
+                        Style="{StaticResource DetailedTextStyle}"
+                        VerticalOptions="Center"
+				        LineBreakMode="TailTruncation"
+				        MaxLines="1"
+				        >
+                        <Label.Text>
+                            <MultiBinding StringFormat="{}{0} {1}">
+                                <Binding Source="{x:Static r:Strings.General_PublishDate}" />
+                                <Binding Path="EpisodeData.PublishLength.RelativePublishDateString" />
+                            </MultiBinding>
+                        </Label.Text>
+                    </Label>
+
+                    <!--<Label  
+                        Style="{StaticResource ListNormalTextStyle}"
+                        VerticalOptions="Center"
+				        LineBreakMode="TailTruncation"
+				        MaxLines="1"
+				        >
+                        <Label.Text>
+                            <MultiBinding StringFormat="{}{0} {1}">
+                                <Binding Source="{x:Static r:Strings.General_Length}" />
+                                <Binding Path="EpisodeData.PublishLength.LengthString" />
+                            </MultiBinding>
+                        </Label.Text>
+                    </Label>-->
+                    
+                    <Label  
+                        Style="{StaticResource DetailedTextStyle}"
+                        VerticalOptions="Center"
+				        LineBreakMode="TailTruncation"
+				        MaxLines="1"
+                        Text="{Binding EpisodeData.DownloadData.DownloadStatusText, Mode=OneWay}"
+				        >
+                    </Label>
+
+                    <Button Command="{Binding EpisodeData.DownloadCommand}"
+                            IsVisible="{Binding EpisodeData.CanDownload}"
+                            Style="{StaticResource InlineHyperlinkButton}"
+                            Margin="-8,0,0,0"
+                            Text="{x:Static r:Strings.General_Download}"
+                            />
+                    
+                </HorizontalStackLayout>
             </Grid>
 
             <!-- Top left, channel current program info -->
