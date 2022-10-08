@@ -6,93 +6,104 @@
              x:Class="Pekspro.RadioStorm.MAUI.Views.AboutControl"
              x:DataType="vm:AboutViewModel">
 
-    <VerticalStackLayout Spacing="8" x:Name="AboutLayout">
-        <Label Text="{Binding VersionString}" Style="{StaticResource SubtitleTextBlockStyle}">
-            <Label.GestureRecognizers>
-                <TapGestureRecognizer Tapped="VersionNumberLabel_Tapped" />
-            </Label.GestureRecognizers>
-        </Label>
-        <Label Text="{x:Static r:Strings.About_Description}" />
+    <Border Style="{StaticResource Card}" 
+            Grid.Row="0" 
+            Margin="{StaticResource NormalPageMargin}"
+            >
+        <Grid x:Name="GridLayout" 
+              HorizontalOptions="FillAndExpand"
+              Style="{StaticResource CardLayout}"
+              >
         
-        <VerticalStackLayout>
-            
-            <Label Text="{Binding BuildDetails}" Style="{StaticResource DetailedTextStyle}" 
-                   TextColor="{AppThemeBinding Dark={StaticResource InactiveProgramColorDark}, Light={StaticResource InactiveProgramColorLight}}" />
-        
-            <Label Style="{StaticResource DetailedTextStyle}"
-                   IsVisible="{Binding DotNetVersionString, Converter={StaticResource NullToIsVisibleConverter}}"
-                   TextColor="{AppThemeBinding Dark={StaticResource InactiveProgramColorDark}, Light={StaticResource InactiveProgramColorLight}}">
-                <Label.Text>
-                    <MultiBinding StringFormat="{}.NET Version: {0}">
-                        <Binding Path="DotNetVersionString" />
-                    </MultiBinding>
-                </Label.Text>
-            </Label>
-
-            <HorizontalStackLayout IsVisible="{OnPlatform WinUI=true, Default=false}">
-                <Label Style="{StaticResource DetailedTextStyle}"
-                       IsVisible="{Binding MauiWorkloadWindowsVersionString, Converter={StaticResource NullToIsVisibleConverter}}"
-                       TextColor="{AppThemeBinding Dark={StaticResource InactiveProgramColorDark}, Light={StaticResource InactiveProgramColorLight}}">
-                    <Label.Text>
-                        <MultiBinding StringFormat="{}MAUI workload version: {0}">
-                            <Binding Path="MauiWorkloadWindowsVersionString" />
-                        </MultiBinding>
-                    </Label.Text>
+            <VerticalStackLayout Spacing="8" x:Name="AboutLayout">
+                <Label Text="{Binding VersionString}" Style="{StaticResource SubtitleTextBlockStyle}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="VersionNumberLabel_Tapped" />
+                    </Label.GestureRecognizers>
                 </Label>
-            </HorizontalStackLayout>
-        
-            <HorizontalStackLayout IsVisible="{OnPlatform Android=true, Default=false}">
-                <Label Style="{StaticResource DetailedTextStyle}"
-                       IsVisible="{Binding MauiWorkloadAndroidVersionString, Converter={StaticResource NullToIsVisibleConverter}}"
+                <Label Text="{x:Static r:Strings.About_Description}" />
+
+                <VerticalStackLayout>
+
+                    <Label Text="{Binding BuildDetails}" Style="{StaticResource DetailedTextStyle}" 
+                       TextColor="{AppThemeBinding Dark={StaticResource InactiveProgramColorDark}, Light={StaticResource InactiveProgramColorLight}}" />
+
+                    <Label Style="{StaticResource DetailedTextStyle}"
+                       IsVisible="{Binding DotNetVersionString, Converter={StaticResource NullToIsVisibleConverter}}"
                        TextColor="{AppThemeBinding Dark={StaticResource InactiveProgramColorDark}, Light={StaticResource InactiveProgramColorLight}}">
-                    <Label.Text>
-                        <MultiBinding StringFormat="{}MAUI workload version: {0}">
-                            <Binding Path="MauiWorkloadAndroidVersionString" />
-                        </MultiBinding>
-                    </Label.Text>
-                </Label>
-            </HorizontalStackLayout>
+                        <Label.Text>
+                            <MultiBinding StringFormat="{}.NET Version: {0}">
+                                <Binding Path="DotNetVersionString" />
+                            </MultiBinding>
+                        </Label.Text>
+                    </Label>
 
-            <Label Style="{StaticResource DetailedTextStyle}"
-                   IsVisible="{Binding Branch, Converter={StaticResource NullToIsVisibleConverter}}"
-                   TextColor="{AppThemeBinding Dark={StaticResource InactiveProgramColorDark}, Light={StaticResource InactiveProgramColorLight}}">
-                <Label.Text>
-                    <MultiBinding StringFormat="{}Branch: {0}">
-                        <Binding Path="Branch" />
-                    </MultiBinding>
-                </Label.Text>
-            </Label>
+                    <HorizontalStackLayout IsVisible="{OnPlatform WinUI=true, Default=false}">
+                        <Label Style="{StaticResource DetailedTextStyle}"
+                           IsVisible="{Binding MauiWorkloadWindowsVersionString, Converter={StaticResource NullToIsVisibleConverter}}"
+                           TextColor="{AppThemeBinding Dark={StaticResource InactiveProgramColorDark}, Light={StaticResource InactiveProgramColorLight}}">
+                            <Label.Text>
+                                <MultiBinding StringFormat="{}MAUI workload version: {0}">
+                                    <Binding Path="MauiWorkloadWindowsVersionString" />
+                                </MultiBinding>
+                            </Label.Text>
+                        </Label>
+                    </HorizontalStackLayout>
 
-            <Label Style="{StaticResource DetailedTextStyle}"
-                   IsVisible="{Binding CommitId, Converter={StaticResource NullToIsVisibleConverter}}"
-                   TextColor="{AppThemeBinding Dark={StaticResource InactiveProgramColorDark}, Light={StaticResource InactiveProgramColorLight}}">
-                <Label.Text>
-                    <MultiBinding StringFormat="{}Commit: {0}">
-                        <Binding Path="CommitId" />
-                    </MultiBinding>
-                </Label.Text>
-            </Label>
+                    <HorizontalStackLayout IsVisible="{OnPlatform Android=true, Default=false}">
+                        <Label Style="{StaticResource DetailedTextStyle}"
+                           IsVisible="{Binding MauiWorkloadAndroidVersionString, Converter={StaticResource NullToIsVisibleConverter}}"
+                           TextColor="{AppThemeBinding Dark={StaticResource InactiveProgramColorDark}, Light={StaticResource InactiveProgramColorLight}}">
+                            <Label.Text>
+                                <MultiBinding StringFormat="{}MAUI workload version: {0}">
+                                    <Binding Path="MauiWorkloadAndroidVersionString" />
+                                </MultiBinding>
+                            </Label.Text>
+                        </Label>
+                    </HorizontalStackLayout>
 
-        </VerticalStackLayout>
+                    <Label Style="{StaticResource DetailedTextStyle}"
+                       IsVisible="{Binding Branch, Converter={StaticResource NullToIsVisibleConverter}}"
+                       TextColor="{AppThemeBinding Dark={StaticResource InactiveProgramColorDark}, Light={StaticResource InactiveProgramColorLight}}">
+                        <Label.Text>
+                            <MultiBinding StringFormat="{}Branch: {0}">
+                                <Binding Path="Branch" />
+                            </MultiBinding>
+                        </Label.Text>
+                    </Label>
 
-        <Label Text="{x:Static r:Strings.About_Credits_Title}" Style="{StaticResource Subtitle2TextBlockStyle}" />
-        <Label Text="{x:Static r:Strings.About_Credits_Line1}" />
-        <Label Text="{x:Static r:Strings.About_Credits_Line2}" />
-        <Label Text="{x:Static r:Strings.About_Credits_Line3}" />
-        <Label Text="{x:Static r:Strings.About_Credits_Line4}" />
+                    <Label Style="{StaticResource DetailedTextStyle}"
+                       IsVisible="{Binding CommitId, Converter={StaticResource NullToIsVisibleConverter}}"
+                       TextColor="{AppThemeBinding Dark={StaticResource InactiveProgramColorDark}, Light={StaticResource InactiveProgramColorLight}}">
+                        <Label.Text>
+                            <MultiBinding StringFormat="{}Commit: {0}">
+                                <Binding Path="CommitId" />
+                            </MultiBinding>
+                        </Label.Text>
+                    </Label>
 
-        <Label Text="{x:Static r:Strings.About_Header_Email}" Style="{StaticResource Subtitle2TextBlockStyle}" />
-        <Label Text="{x:Static r:Strings.About_Email_Note}" />
-        <Button Command="{Binding EmailCommand}"
-                        Style="{StaticResource HyperlinkButton}"
-                        Text="{x:Static r:Strings.General_Pekspro_EmailAddress}"
-                        />
+                </VerticalStackLayout>
 
-        <Label Text="{x:Static r:Strings.About_Header_Webbpage}" Style="{StaticResource Subtitle2TextBlockStyle}" />
-        <Button Command="{Binding OpenWebPageCommand}"
-                        Style="{StaticResource HyperlinkButton}"
-                        Text="{x:Static r:Strings.General_Pekspro_Url}"
-                        />
-    </VerticalStackLayout>
+                <Label Text="{x:Static r:Strings.About_Credits_Title}" Style="{StaticResource Subtitle2TextBlockStyle}" />
+                <Label Text="{x:Static r:Strings.About_Credits_Line1}" />
+                <Label Text="{x:Static r:Strings.About_Credits_Line2}" />
+                <Label Text="{x:Static r:Strings.About_Credits_Line3}" />
+                <Label Text="{x:Static r:Strings.About_Credits_Line4}" />
+
+                <Label Text="{x:Static r:Strings.About_Header_Email}" Style="{StaticResource Subtitle2TextBlockStyle}" />
+                <Label Text="{x:Static r:Strings.About_Email_Note}" />
+                <Button Command="{Binding EmailCommand}"
+                            Style="{StaticResource HyperlinkButton}"
+                            Text="{x:Static r:Strings.General_Pekspro_EmailAddress}"
+                            />
+
+                <Label Text="{x:Static r:Strings.About_Header_Webbpage}" Style="{StaticResource Subtitle2TextBlockStyle}" />
+                <Button Command="{Binding OpenWebPageCommand}"
+                            Style="{StaticResource HyperlinkButton}"
+                            Text="{x:Static r:Strings.General_Pekspro_Url}"
+                            />
+            </VerticalStackLayout>
+        </Grid>
+    </Border>
 
 </ContentView>

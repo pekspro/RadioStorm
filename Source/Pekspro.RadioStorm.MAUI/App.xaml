@@ -148,7 +148,7 @@
                 <Setter Property="HeightRequest" Value="252" />
             </Style>
 
-            <Style x:Key="CardGridContent" TargetType="Grid">
+            <Style x:Key="CardLayout" TargetType="Layout">
                 <Setter Property="Padding" Value="8" />
             </Style>
 

@@ -113,7 +113,7 @@
                   RowDefinitions="64,36,Auto" 
                   ColumnDefinitions="Auto,*" 
                   HorizontalOptions="FillAndExpand"
-                  Style="{StaticResource CardGridContent}"
+                  Style="{StaticResource CardLayout}"
                   >
                 <!--<VisualStateManager.VisualStateGroups>
                     <VisualStateGroup Name="WidthState">
