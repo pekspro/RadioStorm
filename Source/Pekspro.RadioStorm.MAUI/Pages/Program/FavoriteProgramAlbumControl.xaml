@@ -1,11 +1,10 @@
-<Grid        xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Pekspro.RadioStorm.UI.Model.Program;assembly=Pekspro.RadioStorm.UI"
              xmlns:style="clr-namespace:Pekspro.RadioStorm.MAUI.Resources.Styles"
              xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
              x:Class="Pekspro.RadioStorm.MAUI.Pages.Program.FavoriteProgramAlbumControl"
              x:DataType="vm:ProgramModel"
-             Style="{StaticResource AlubumItem}"
              >
     <VisualStateManager.VisualStateGroups>
         <VisualStateGroup Name="ListenState">
@@ -55,49 +54,52 @@
         </VisualStateGroup>
     </VisualStateManager.VisualStateGroups>
 
-    <Label  x:Name="LabelProgramName"
-            Grid.Row="0"
-            Grid.ColumnSpan="2"
-            Text="{Binding Name, Mode=OneWay}"
-            Style="{StaticResource AlbumHeaderTextStyle}"
+    <Border Style="{StaticResource AlbumCard}">
+        <Grid Style="{StaticResource AlbumItem}">
+            <Label  x:Name="LabelProgramName"
+                Grid.Row="0"
+                Grid.ColumnSpan="2"
+                Text="{Binding Name, Mode=OneWay}"
+                Style="{StaticResource AlbumHeaderTextStyle}"
+                />
+
+            <views:LargeMediaButtonUserControl
+                Grid.ColumnSpan="2"
+                Grid.Row="1"
+                WidthRequest="160"
+                HeightRequest="160"
+                Source="{Binding ProgramImage.HighResolution, Mode=OneWay}"
+                Command="{Binding EpisodeStatus.TopEpisode.PlayPauseCommand, Mode=OneWay}"
+                AudioMediaState="{Binding EpisodeStatus.TopEpisode.AudioMediaState, Mode=OneWay}"
+                IsVisible="{Binding EpisodeStatus, Converter={StaticResource NullToIsVisibleConverter}}"
             />
-    
-    <views:LargeMediaButtonUserControl
-        Grid.ColumnSpan="2"
-        Grid.Row="1"
-        WidthRequest="160"
-        HeightRequest="160"
-        Source="{Binding ProgramImage.HighResolution, Mode=OneWay}"
-        Command="{Binding EpisodeStatus.TopEpisode.PlayPauseCommand, Mode=OneWay}"
-        AudioMediaState="{Binding EpisodeStatus.TopEpisode.AudioMediaState, Mode=OneWay}"
-        IsVisible="{Binding EpisodeStatus, Converter={StaticResource NullToIsVisibleConverter}}"
-    />
 
-    <Label Grid.Row="1"
-		   Grid.ColumnSpan="2"
-           BackgroundColor="#AA000000"
-           HorizontalOptions="End"
-           VerticalOptions="Start"
-           Margin="0,4,0,0"
-           Padding="4,0,4,2"
-           IsVisible="{Binding EpisodeStatus.NotListenedEpisodeCount, Converter={StaticResource LargerThanZeroConverter}, Mode=OneWay}"
-		   Text="{Binding EpisodeStatus.NotListenedEpisodeCount, Mode=OneWay}"
-           TextColor="White"
-           Style="{StaticResource AlbumNormalTextStyle}"
-			/>
-    
-    <Label x:Name="LabelEpisodeTitle"
-           Grid.Row="2"
-		   Grid.ColumnSpan="2"
-		   Text="{Binding EpisodeStatus.TopEpisode.Title, Mode=OneWay}"
-           Style="{StaticResource AlbumNormalTextStyle}"
-			/>
+            <Label Grid.Row="1"
+		       Grid.ColumnSpan="2"
+               BackgroundColor="#AA000000"
+               HorizontalOptions="End"
+               VerticalOptions="Start"
+               Margin="0,4,0,0"
+               Padding="4,0,4,2"
+               IsVisible="{Binding EpisodeStatus.NotListenedEpisodeCount, Converter={StaticResource LargerThanZeroConverter}, Mode=OneWay}"
+		       Text="{Binding EpisodeStatus.NotListenedEpisodeCount, Mode=OneWay}"
+               TextColor="White"
+               Style="{StaticResource AlbumNormalTextStyle}"
+			    />
 
-    <Label x:Name="LabelPublishDate"
-           Grid.Row="3"
-		   Grid.ColumnSpan="2"
-		   Text="{Binding EpisodeStatus.TopEpisode.PublishLength.PublishDateString, Mode=OneWay}"
-           Style="{StaticResource AlbumNormalTextStyle}"
-			/>
+            <Label x:Name="LabelEpisodeTitle"
+               Grid.Row="2"
+		       Grid.ColumnSpan="2"
+		       Text="{Binding EpisodeStatus.TopEpisode.Title, Mode=OneWay}"
+               Style="{StaticResource AlbumNormalTextStyle}"
+			    />
 
-</Grid>
+            <Label x:Name="LabelPublishDate"
+               Grid.Row="3"
+		       Grid.ColumnSpan="2"
+		       Text="{Binding EpisodeStatus.TopEpisode.PublishLength.PublishDateString, Mode=OneWay}"
+               Style="{StaticResource AlbumNormalTextStyle}"
+			    />
+        </Grid>
+    </Border>
+</ContentView>

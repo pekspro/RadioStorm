@@ -107,114 +107,130 @@
             IsVisible="{Binding HasAnyRemoteSignedInProvider}"
             Order="Secondary"
             Priority="5" />
-        
+
         <ToolbarItem 
                 Command="{Binding UpdateCommand}"
                 Text="{x:Static r:Strings.General_Update}"
                 Order="Secondary"
                 Priority="0" />
 
-        <ToolbarItem 
+        <c:BindableToolbarItem 
                 x:Name="ToolbarItemListMode"
                 Clicked="ToolbarItemListMode_Clicked"
                 Text="{x:Static r:Strings.Favorites_ViewMode_List}"
+                IsVisible="{Binding HasFavorites}"
                 Order="Secondary"
                 Priority="1" />
 
-        <ToolbarItem 
+        <c:BindableToolbarItem 
                 x:Name="ToolbarItemAlbumMode"
                 Clicked="ToolbarItemAlbumMode_Clicked"
                 Text="{x:Static r:Strings.Favorites_ViewMode_Album}"
+                IsVisible="{Binding HasFavorites}"
                 Order="Secondary"
                 Priority="2" />
-        
+
     </ContentPage.ToolbarItems>
     <!--<RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy}">-->
 
     <Grid RowSpacing="0" RowDefinitions="Auto,*,Auto">
 
-        <VerticalStackLayout
+        <Border 
+            Style="{StaticResource Card}"
+            MaximumHeightRequest="440"
+            MaximumWidthRequest="360"
             Grid.Row="0"
-            Padding="{StaticResource NormalPageMargin}"
-            Spacing="8"
+            Grid.RowSpan="2"
+            Padding="0"
+            Margin="{StaticResource NormalPageMargin}"
+            VerticalOptions="Start"
+            HorizontalOptions="Center"
             IsVisible="{Binding HasFavorites, Converter={StaticResource InvertedBoolConverter}}">
 
-            <Label Text="{x:Static r:Strings.Favorites_Welcome_1}" />
+            <ScrollView>
+                <VerticalStackLayout
+                    Padding="{StaticResource NormalPageMargin}"
+                    Spacing="8"
+                    >
 
-            <Label Text="{x:Static r:Strings.Favorites_Welcome_2}"
-                    />
+                    <Label Text="{x:Static r:Strings.Favorites_Welcome_1}" />
 
-            <Label>
-                <Label.FormattedText>
-                    <FormattedString>
-                        <Span Text="{x:Static r:Strings.Favorites_Welcome_3a}" />
-                        <Span Text="{x:Static r:Strings.Favorites_Welcome_3b}" Style="{StaticResource HyperlinkStyle}">
-                            <Span.GestureRecognizers>
-                                <TapGestureRecognizer x:Name="ButtonWelcomeModeChannels" Tapped="ButtonWelcomeModeChannels_Tapped" />
-                            </Span.GestureRecognizers>
-                        </Span>
-                        <Span Text="{x:Static r:Strings.Favorites_Welcome_3c}" />
-                        <Span Text="{x:Static r:Strings.Favorites_Welcome_3d}" Style="{StaticResource HyperlinkStyle}">
-                            <Span.GestureRecognizers>
-                                <TapGestureRecognizer x:Name="ButtonWelcomeModePrograms" Tapped="ButtonWelcomeModePrograms_Tapped" />
-                            </Span.GestureRecognizers>
-                        </Span>
-                        <Span Text="{x:Static r:Strings.Favorites_Welcome_3e}" />
-                        <Span Text="{x:Static r:Strings.Favorites_Welcome_3f}" />
-                    </FormattedString>
-                </Label.FormattedText>
-            </Label>
+                    <Label Text="{x:Static r:Strings.Favorites_Welcome_2}"
+                            />
 
-            <Label>
-                <Label.FormattedText>
-                    <FormattedString>
-                        <Span Text="{x:Static r:Strings.Favorites_Welcome_4a}" />
-                        <Span Text="{x:Static r:Strings.Favorites_Welcome_4b}" Style="{StaticResource HyperlinkStyle}">
-                            <Span.GestureRecognizers>
-                                <TapGestureRecognizer x:Name="ButtonWelcomeModeSettings" Tapped="ButtonWelcomeModeSettings_Tapped" />
-                            </Span.GestureRecognizers>
-                        </Span>
-                        <Span Text="{x:Static r:Strings.Favorites_Welcome_4c}" />
-                    </FormattedString>
-                </Label.FormattedText>
-            </Label>
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{x:Static r:Strings.Favorites_Welcome_3a}" />
+                                <Span Text="{x:Static r:Strings.Favorites_Welcome_3b}" Style="{StaticResource HyperlinkStyle}">
+                                    <Span.GestureRecognizers>
+                                        <TapGestureRecognizer x:Name="ButtonWelcomeModeChannels" Tapped="ButtonWelcomeModeChannels_Tapped" />
+                                    </Span.GestureRecognizers>
+                                </Span>
+                                <Span Text="{x:Static r:Strings.Favorites_Welcome_3c}" />
+                                <Span Text="{x:Static r:Strings.Favorites_Welcome_3d}" Style="{StaticResource HyperlinkStyle}">
+                                    <Span.GestureRecognizers>
+                                        <TapGestureRecognizer x:Name="ButtonWelcomeModePrograms" Tapped="ButtonWelcomeModePrograms_Tapped" />
+                                    </Span.GestureRecognizers>
+                                </Span>
+                                <Span Text="{x:Static r:Strings.Favorites_Welcome_3e}" />
+                                <Span Text="{x:Static r:Strings.Favorites_Welcome_3f}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
 
-            <Label Text="{x:Static r:Strings.Favorites_Welcome_5}"
-                    />
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{x:Static r:Strings.Favorites_Welcome_4a}" />
+                                <Span Text="{x:Static r:Strings.Favorites_Welcome_4b}" Style="{StaticResource HyperlinkStyle}">
+                                    <Span.GestureRecognizers>
+                                        <TapGestureRecognizer x:Name="ButtonWelcomeModeSettings" Tapped="ButtonWelcomeModeSettings_Tapped" />
+                                    </Span.GestureRecognizers>
+                                </Span>
+                                <Span Text="{x:Static r:Strings.Favorites_Welcome_4c}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
 
-            <Label>
-                <Label.FormattedText>
-                    <FormattedString>
-                        <Span Text="{x:Static r:Strings.Favorites_Welcome_6}"  Style="{StaticResource HyperlinkStyle}">
-                            <Span.GestureRecognizers>
-                                <TapGestureRecognizer x:Name="ButtonWelcomeModeFeedback" Command="{Binding EmailCommand}" />
-                            </Span.GestureRecognizers>
-                        </Span>
-                    </FormattedString>
-                </Label.FormattedText>
-            </Label>
+                    <Label Text="{x:Static r:Strings.Favorites_Welcome_5}"
+                            />
 
-            <Label Text="{x:Static r:Strings.Favorites_Welcome_7}"
-                    />
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{x:Static r:Strings.Favorites_Welcome_6}"  Style="{StaticResource HyperlinkStyle}">
+                                    <Span.GestureRecognizers>
+                                        <TapGestureRecognizer x:Name="ButtonWelcomeModeFeedback" Command="{Binding EmailCommand}" />
+                                    </Span.GestureRecognizers>
+                                </Span>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
 
-            <Label Text="{x:Static r:Strings.Favorites_Welcome_8}"
-                    />
+                    <Label Text="{x:Static r:Strings.Favorites_Welcome_7}"
+                            />
 
-            <Button Text="{x:Static r:Strings.Favorites_AddRecommendedFavorites}"
-                    HorizontalOptions="Start"
-                    Command="{Binding AddRecommendedFavoritesCommand}"
-                    />
+                    <Label Text="{x:Static r:Strings.Favorites_Welcome_8}"
+                            />
 
-        </VerticalStackLayout>
+                    <Button Text="{x:Static r:Strings.Favorites_AddRecommendedFavorites}"
+                            HorizontalOptions="Start"
+                            Command="{Binding AddRecommendedFavoritesCommand}"
+                            />
+
+                </VerticalStackLayout>
+            </ScrollView>
+        </Border>
 
         <views:DownloadState Grid.Row="0" Grid.RowSpan="2" NoDataText="" />
 
         <!-- Breaks on Android: ItemSizingStrategy="MeasureFirstItem"-->
-        
+
         <Grid IsVisible="{Binding HasData}"
               VerticalOptions="FillAndExpand"
               Grid.Row="1">
-            
+
             <RefreshView 
                     x:Name="RefreshViewList"
                     Command="{Binding RefreshCommand}" 
@@ -474,6 +490,6 @@
 
         <views:PlayerControl Grid.Row="3" />
     </Grid>
-        
+
     <!--</RefreshView>-->
 </ContentPage>

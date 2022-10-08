@@ -3,7 +3,7 @@
 public sealed partial class FavoritesPage : ContentPage
 {
     public FavoritesPage(FavoritesViewModel viewModel, SynchronizingViewModel synchronizingViewModel, ILocalSettings localSettings)
-    { 
+    {
         InitializeComponent();
 
         BindingContext = viewModel;
@@ -18,10 +18,10 @@ public sealed partial class FavoritesPage : ContentPage
         SizeChanged += (a, b) => UpdateListMode();
     }
 
-    private FavoritesViewModel ViewModel => (FavoritesViewModel) BindingContext;
+    private FavoritesViewModel ViewModel => (FavoritesViewModel)BindingContext;
 
     public SynchronizingViewModel SynchronizingViewModel { get; }
-    
+
     public ILocalSettings LocalSettings { get; }
 
     protected override void OnAppearing()
@@ -42,7 +42,7 @@ public sealed partial class FavoritesPage : ContentPage
     {
         var channel = (sender as ChannelControl)?.BindingContext as ChannelModel ??
                       (sender as ChannelAlbumControl)?.BindingContext as ChannelModel;
-        
+
         if (channel is not null)
         {
             string param = ChannelDetailsViewModel.CreateStartParameter(channel);
@@ -58,7 +58,7 @@ public sealed partial class FavoritesPage : ContentPage
     {
         var program = (sender as FavoriteProgramControl)?.BindingContext as ProgramModel ??
                       (sender as FavoriteProgramAlbumControl)?.BindingContext as ProgramModel;
-        
+
         if (program is not null)
         {
             string param = ProgramDetailsViewModel.CreateStartParameter(program);
@@ -109,7 +109,7 @@ public sealed partial class FavoritesPage : ContentPage
 
     private bool AlbumMode
     {
-        get => _AlbumMode;        
+        get => _AlbumMode;
         set
         {
             if (_AlbumMode != value)
@@ -131,7 +131,7 @@ public sealed partial class FavoritesPage : ContentPage
         if (AlbumMode)
         {
             const int itemMargin = 4;
-            const int itemWidth = 160;
+            const int itemWidth = 188;
             const int sideMargin = 8 * 2;
 
             expectedMode = (Width - sideMargin) switch
