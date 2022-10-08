@@ -13,7 +13,7 @@
     xmlns:recent="clr-namespace:Pekspro.RadioStorm.MAUI.Pages.Recent"
     xmlns:player="clr-namespace:Pekspro.RadioStorm.MAUI.Pages.Player"
     xmlns:setting="clr-namespace:Pekspro.RadioStorm.MAUI.Pages.Settings"
-    FlyoutWidth="178"
+    FlyoutWidth="{OnIdiom Phone=178, Default={OnPlatform WinUI=48, Default=56}}"
     FlyoutBackgroundColor="{AppThemeBinding Dark={StaticResource PanelBackgroundDark}, Light={StaticResource PanelBackgroundLight}}"
     FlyoutBehavior="{OnIdiom Phone=Flyout, Default=Locked}"
     >
