@@ -102,112 +102,115 @@
 
     <Grid RowDefinitions="Auto,*,Auto,Auto">
 
-        <views:DownloadState Grid.Row="0" Grid.RowSpan="3" Padding="{StaticResource NormalPageMargin}" />
+        <views:DownloadState Grid.Row="0" Grid.RowSpan="3" />
 
-        <Grid Grid.Row="0" 
-              x:Name="GridLayout" 
-              BackgroundColor="{AppThemeBinding Dark={StaticResource PanelBackgroundDark}, Light={StaticResource PanelBackgroundLight}}"
-              IsVisible="{Binding HasData}"
-              Padding="{OnPlatform WinUI='8,8,0,8', Default='20,10,0,10'}"
-              RowDefinitions="64,36,Auto" 
-              ColumnDefinitions="Auto,*" 
-              HorizontalOptions="FillAndExpand"
-              >
-            <!--<VisualStateManager.VisualStateGroups>
-                <VisualStateGroup Name="WidthState">
-                    <VisualState Name="Narrow">
-                        <VisualState.Setters>
-                            <Setter Property="Margin" Value="0,8,0,0" TargetName="DescriptionPanel" />
-                            <Setter Property="Grid.Column" Value="0" TargetName="DescriptionPanel" />
-                            <Setter Property="Grid.Row" Value="1" TargetName="DescriptionPanel" />
-                            <Setter Property="Grid.RowSpan" Value="1" TargetName="DescriptionPanel" />
-                            <Setter Property="ColumnDefinitions" Value="*" TargetName="GridLayout" />
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState Name="Wide">
-                        <VisualState.Setters>
-                            <Setter Property="Margin" Value="8,0,0,0" TargetName="DescriptionPanel" />
-                            <Setter Property="Grid.Column" Value="1" TargetName="DescriptionPanel" />
-                            <Setter Property="Grid.Row" Value="0" TargetName="DescriptionPanel" />
-                            <Setter Property="Grid.RowSpan" Value="2" TargetName="DescriptionPanel" />
-                            <Setter Property="ColumnDefinitions" Value="Auto,*" TargetName="GridLayout" />
-                        </VisualState.Setters>
-                    </VisualState>
-                </VisualStateGroup>
-            </VisualStateManager.VisualStateGroups>-->
-
-            <Image WidthRequest="100" 
-                   HeightRequest="100"
-                   Grid.Row="0"
-                   Grid.RowSpan="2"
-                   HorizontalOptions="Center"
-                   >
-                <Image.Source>
-                    <UriImageSource Uri="{Binding ProgramData.ProgramImage.HighResolution, Mode=OneWay}"
-                    CacheValidity="1"  
-                    CachingEnabled="True"
-                />
-                </Image.Source>
-            </Image>
-
-            <ScrollView x:Name="DescriptionPanel"
-                        Grid.Column="1"
-                        Grid.Row="0"
-                        Grid.RowSpan="1"
-                        MaximumHeightRequest="100"
-                        >
-                <VerticalStackLayout>
-                    <Label Text="{Binding ProgramData.Description, Mode=OneWay}"
-                           Margin="{OnPlatform WinUI='8,0,8,0', Default='8,8,8,0'}"
-                        />
-                </VerticalStackLayout>
-            </ScrollView>
-
-            <HorizontalStackLayout 
-                    Spacing="8"
-                    Margin="8,0,0,0"
-                    Grid.Column="1"
-                    Grid.Row="1"
+        <Border Style="{StaticResource Card}" 
+                Grid.Row="0" 
+                IsVisible="{Binding HasData}"
+                Margin="{StaticResource NormalPageMargin}"
                 >
-                <Button Style="{StaticResource HyperlinkButton}"
-                                IsVisible="{Binding EpisodesViewModel.CanAutoCreatePlayList}"
-                                Text="{x:Static r:Strings.Episodes_AutoCreatePlayList}"
-                                Command="{Binding EpisodesViewModel.AutoCreatePlayListCommand}"
-                                />
+            <Grid x:Name="GridLayout" 
+                  RowDefinitions="64,36,Auto" 
+                  ColumnDefinitions="Auto,*" 
+                  HorizontalOptions="FillAndExpand"
+                  Style="{StaticResource CardGridContent}"
+                  >
+                <!--<VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup Name="WidthState">
+                        <VisualState Name="Narrow">
+                            <VisualState.Setters>
+                                <Setter Property="Margin" Value="0,8,0,0" TargetName="DescriptionPanel" />
+                                <Setter Property="Grid.Column" Value="0" TargetName="DescriptionPanel" />
+                                <Setter Property="Grid.Row" Value="1" TargetName="DescriptionPanel" />
+                                <Setter Property="Grid.RowSpan" Value="1" TargetName="DescriptionPanel" />
+                                <Setter Property="ColumnDefinitions" Value="*" TargetName="GridLayout" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState Name="Wide">
+                            <VisualState.Setters>
+                                <Setter Property="Margin" Value="8,0,0,0" TargetName="DescriptionPanel" />
+                                <Setter Property="Grid.Column" Value="1" TargetName="DescriptionPanel" />
+                                <Setter Property="Grid.Row" Value="0" TargetName="DescriptionPanel" />
+                                <Setter Property="Grid.RowSpan" Value="2" TargetName="DescriptionPanel" />
+                                <Setter Property="ColumnDefinitions" Value="Auto,*" TargetName="GridLayout" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>-->
 
-                <HorizontalStackLayout IsVisible="{OnPlatform Default=true, Android=false}">
-                    <!-- This feature doesn't work well on Android. -->
+                <Image WidthRequest="100" 
+                       HeightRequest="100"
+                       Grid.Row="0"
+                       Grid.RowSpan="2"
+                       HorizontalOptions="Center"
+                       >
+                    <Image.Source>
+                        <UriImageSource Uri="{Binding ProgramData.ProgramImage.HighResolution, Mode=OneWay}"
+                        CacheValidity="1"  
+                        CachingEnabled="True"
+                    />
+                    </Image.Source>
+                </Image>
+
+                <ScrollView x:Name="DescriptionPanel"
+                            Grid.Column="1"
+                            Grid.Row="0"
+                            Grid.RowSpan="1"
+                            MaximumHeightRequest="100"
+                            >
+                    <VerticalStackLayout>
+                        <Label Text="{Binding ProgramData.Description, Mode=OneWay}"
+                               Margin="{OnPlatform WinUI='8,0,8,0', Default='8,8,8,0'}"
+                            />
+                    </VerticalStackLayout>
+                </ScrollView>
+
+                <HorizontalStackLayout 
+                        Spacing="8"
+                        Margin="8,0,0,0"
+                        Grid.Column="1"
+                        Grid.Row="1"
+                    >
+                    <Button Style="{StaticResource HyperlinkButton}"
+                                    IsVisible="{Binding EpisodesViewModel.CanAutoCreatePlayList}"
+                                    Text="{x:Static r:Strings.Episodes_AutoCreatePlayList}"
+                                    Command="{Binding EpisodesViewModel.AutoCreatePlayListCommand}"
+                                    />
+
+                    <HorizontalStackLayout IsVisible="{OnPlatform Default=true, Android=false}">
+                        <!-- This feature doesn't work well on Android. -->
+                        <Button Style="{StaticResource HyperlinkButton}"
+                                        IsVisible="{Binding EpisodesViewModel.FirstNotListenedEpisodePosition, Converter={StaticResource NullToIsVisibleConverter}}"
+                                        Text="{x:Static r:Strings.Episodes_ShowNotPlayedEpisode}"
+                                        x:Name="ButtonScrollToFirstNotListened"
+                                        Clicked="ButtonScrollToFirstNotListened_Clicked"
+                                        />
+                    </HorizontalStackLayout>
+                </HorizontalStackLayout>
+
+                <!--<HorizontalStackLayout 
+                        Spacing="8"
+                        BackgroundColor="DarkGreen"
+                        Margin="0,0,0,0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="2"
+                    >
+                    <Button Style="{StaticResource HyperlinkButton}"
+                                    Text="{x:Static r:Strings.Episodes_AutoCreatePlayList}"
+                                    Command="{Binding EpisodesViewModel.AutoCreatePlayListCommand}"
+                                    />
+
                     <Button Style="{StaticResource HyperlinkButton}"
                                     IsVisible="{Binding EpisodesViewModel.FirstNotListenedEpisodePosition, Converter={StaticResource NullToIsVisibleConverter}}"
                                     Text="{x:Static r:Strings.Episodes_ShowNotPlayedEpisode}"
                                     x:Name="ButtonScrollToFirstNotListened"
                                     Clicked="ButtonScrollToFirstNotListened_Clicked"
                                     />
-                </HorizontalStackLayout>
-            </HorizontalStackLayout>
+                </HorizontalStackLayout>-->
 
-            <!--<HorizontalStackLayout 
-                    Spacing="8"
-                    BackgroundColor="DarkGreen"
-                    Margin="0,0,0,0"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="2"
-                    Grid.Row="2"
-                >
-                <Button Style="{StaticResource HyperlinkButton}"
-                                Text="{x:Static r:Strings.Episodes_AutoCreatePlayList}"
-                                Command="{Binding EpisodesViewModel.AutoCreatePlayListCommand}"
-                                />
-
-                <Button Style="{StaticResource HyperlinkButton}"
-                                IsVisible="{Binding EpisodesViewModel.FirstNotListenedEpisodePosition, Converter={StaticResource NullToIsVisibleConverter}}"
-                                Text="{x:Static r:Strings.Episodes_ShowNotPlayedEpisode}"
-                                x:Name="ButtonScrollToFirstNotListened"
-                                Clicked="ButtonScrollToFirstNotListened_Clicked"
-                                />
-            </HorizontalStackLayout>-->
-
-        </Grid>
+            </Grid>
+        </Border>
 
         <views:DownloadState Grid.Row="1" Grid.RowSpan="2" Padding="{StaticResource NormalPageMargin}" BindingContext="{Binding EpisodesViewModel}" />
 
