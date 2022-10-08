@@ -379,10 +379,10 @@
     <value>Hej!</value>
   </data>
   <data name="Favorites_Welcome_2" xml:space="preserve">
-    <value>Roligt att du har valt att prova RadioStorm. Här visas i normala fall dina favoriter som finns i Sveriges Radio. Just nu vet vi inte vad du gillar så du får se detta istället! :-)</value>
+    <value>Roligt att du har valt att prova RadioStorm. På den här sidan ser du dina favoriter från Sveriges Radio när du gjort dina val.</value>
   </data>
   <data name="Favorites_Welcome_3a" xml:space="preserve">
-    <value>Använd menyn för att se vilka </value>
+    <value>Använd menyn till vänster för att se vilka </value>
   </data>
   <data name="Favorites_Welcome_3b" xml:space="preserve">
     <value>kanaler</value>
@@ -409,16 +409,10 @@
     <value> för att aktivera detta.</value>
   </data>
   <data name="Favorites_Welcome_5" xml:space="preserve">
-    <value>Ha det så kul! :-)</value>
-  </data>
-  <data name="Favorites_Welcome_6" xml:space="preserve">
     <value>/PEK</value>
   </data>
-  <data name="Favorites_Welcome_7" xml:space="preserve">
-    <value>Psst!</value>
-  </data>
-  <data name="Favorites_Welcome_8" xml:space="preserve">
-    <value>Vill du ha lite tips på några favoriter? Klicka på den här knappen.</value>
+  <data name="Favorites_Welcome_6" xml:space="preserve">
+    <value>Psst! Vill du ha lite tips på några favoriter? Klicka på den här knappen:</value>
   </data>
   <data name="GeneralButtonAbout" xml:space="preserve">
     <value>Om</value>

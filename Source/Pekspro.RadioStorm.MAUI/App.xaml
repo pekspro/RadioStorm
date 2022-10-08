@@ -138,6 +138,26 @@
 
             <Style x:Key="Card" TargetType="Border">
                 <Setter Property="Background" Value="{AppThemeBinding Dark={StaticResource PanelBackgroundDark}, Light={StaticResource PanelBackgroundLight}}" />
+
+                <!--<Setter Property="Background">
+                    <Setter.Value>
+                        --><!--<LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                            <GradientStop Color="{AppThemeBinding Dark={StaticResource PanelBackgroundDark}, Light={StaticResource PanelBackgroundLight}}"
+                                          Offset="0.6" />
+
+                            <GradientStop Color="{AppThemeBinding Dark=#262626, Light=#F7F7F7}" Offset="0.7" />
+                            <GradientStop Color="{AppThemeBinding Dark={StaticResource PanelBackgroundDark}, Light={StaticResource PanelBackgroundLight}}"
+                                          Offset="1.0" />
+                        </LinearGradientBrush>-->
+
+                        <!--<RadialGradientBrush Center="0.85,0.15" Radius="0.5">
+                            <GradientStop Color="{AppThemeBinding Dark=#262626, Light=#FFFFFF}" Offset="0.1" />
+                            <GradientStop Color="{AppThemeBinding Dark={StaticResource PanelBackgroundDark}, Light={StaticResource PanelBackgroundLight}}" Offset="1.0" />
+                        </RadialGradientBrush>--><!--
+
+                    </Setter.Value>
+                </Setter>-->
+
                 <Setter Property="Stroke" Value="{AppThemeBinding Dark={StaticResource CardBorderStrokeDark}, Light={StaticResource CardBorderStrokeLight}}" />
                 <Setter Property="StrokeThickness" Value="2" />
                 <Setter Property="StrokeShape" Value="RoundRectangle 12" />

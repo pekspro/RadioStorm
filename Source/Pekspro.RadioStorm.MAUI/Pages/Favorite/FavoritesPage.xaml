@@ -193,13 +193,10 @@
                         </Label.FormattedText>
                     </Label>
 
-                    <Label Text="{x:Static r:Strings.Favorites_Welcome_5}"
-                            />
-
                     <Label>
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="{x:Static r:Strings.Favorites_Welcome_6}"  Style="{StaticResource HyperlinkStyle}">
+                                <Span Text="{x:Static r:Strings.Favorites_Welcome_5}"  Style="{StaticResource HyperlinkStyle}">
                                     <Span.GestureRecognizers>
                                         <TapGestureRecognizer x:Name="ButtonWelcomeModeFeedback" Command="{Binding EmailCommand}" />
                                     </Span.GestureRecognizers>
@@ -208,11 +205,7 @@
                         </Label.FormattedText>
                     </Label>
 
-                    <Label Text="{x:Static r:Strings.Favorites_Welcome_7}"
-                            />
-
-                    <Label Text="{x:Static r:Strings.Favorites_Welcome_8}"
-                            />
+                    <Label Text="{x:Static r:Strings.Favorites_Welcome_6}" />
 
                     <Button Text="{x:Static r:Strings.Favorites_AddRecommendedFavorites}"
                             HorizontalOptions="Start"

@@ -862,7 +862,7 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Roligt att du har valt att prova RadioStorm. Här visas i normala fall dina favoriter som finns i Sveriges Radio. Just nu vet vi inte vad du gillar så du får se detta istället! :-).
+        ///   Looks up a localized string similar to Roligt att du har valt att prova RadioStorm. På den här sidan ser du dina favoriter från Sveriges Radio när du gjort dina val..
         /// </summary>
         public static string Favorites_Welcome_2 {
             get {
@@ -871,7 +871,7 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Använd menyn för att se vilka .
+        ///   Looks up a localized string similar to Använd menyn till vänster för att se vilka .
         /// </summary>
         public static string Favorites_Welcome_3a {
             get {
@@ -952,7 +952,7 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ha det så kul! :-).
+        ///   Looks up a localized string similar to /PEK.
         /// </summary>
         public static string Favorites_Welcome_5 {
             get {
@@ -961,29 +961,11 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /PEK.
+        ///   Looks up a localized string similar to Psst! Vill du ha lite tips på några favoriter? Klicka på den här knappen:.
         /// </summary>
         public static string Favorites_Welcome_6 {
             get {
                 return ResourceManager.GetString("Favorites_Welcome_6", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Psst!.
-        /// </summary>
-        public static string Favorites_Welcome_7 {
-            get {
-                return ResourceManager.GetString("Favorites_Welcome_7", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Vill du ha lite tips på några favoriter? Klicka på den här knappen..
-        /// </summary>
-        public static string Favorites_Welcome_8 {
-            get {
-                return ResourceManager.GetString("Favorites_Welcome_8", resourceCulture);
             }
         }
         
