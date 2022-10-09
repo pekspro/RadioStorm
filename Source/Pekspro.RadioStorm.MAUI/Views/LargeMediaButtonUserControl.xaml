@@ -111,27 +111,27 @@
                          Fill="Black"
                          Opacity="0.4"/>
 
-        <Path  Data="M 0,0 L 10,0 10,28 0,28 Z  M 18,0 L 28,0 28,28 18,28 Z"
-                 Fill="#FFFFFF"
-                 Aspect="Uniform"
-                 WidthRequest="28"
-                 HeightRequest="28"
-                 Opacity="0.7"
-                 IsVisible="False"
-                 HorizontalOptions="Center"
-                 VerticalOptions="Center"
-                 x:Name="PauseSymbol" />
-
-        <Polygon Points="0,0 0,19 18,10"
-                 Fill="#FFFFFF"
-                 Aspect="Uniform"
-                 WidthRequest="28"
-                 HeightRequest="28"
-                 Opacity="0.7"
-                 IsVisible="False"
-                 HorizontalOptions="Center"
-                 VerticalOptions="Center"
-                 x:Name="PlayTriangle" />
+        <Path  x:Name="PauseSymbol"
+               Style="{StaticResource PathPlayerPause}"
+               Fill="#FFFFFF"
+               WidthRequest="48"
+               HeightRequest="48"
+               Opacity="0.7"
+               IsVisible="True"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+                />
+        
+        <Path  x:Name="PlayTriangle"
+               Style="{StaticResource PathPlayerPlay}"
+               Fill="#FFFFFF"
+               WidthRequest="48"
+               HeightRequest="48"
+               Opacity="0.7"
+               IsVisible="True"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+                />
 
         <Path  x:Name="DisabledButton"
                Style="{StaticResource PathMediaButtonDisabled}"

@@ -174,10 +174,10 @@ public sealed partial class LargeMediaButtonUserControl : ContentView
 
         double scale = (double)newValue / 60.0;
 
-        owner.PauseSymbol.WidthRequest = 28 * scale;
-        owner.PauseSymbol.HeightRequest = 28 * scale;
-        owner.PlayTriangle.WidthRequest = 28 * scale;
-        owner.PlayTriangle.HeightRequest = 28 * scale;
+        owner.PauseSymbol.WidthRequest = 48 * scale;
+        owner.PauseSymbol.HeightRequest = 48 * scale;
+        owner.PlayTriangle.WidthRequest = 48 * scale;
+        owner.PlayTriangle.HeightRequest = 48 * scale;
         owner.DisabledButton.WidthRequest = 40 * scale;
         owner.DisabledButton.HeightRequest = 40 * scale;
     }
