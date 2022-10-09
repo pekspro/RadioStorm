@@ -8,30 +8,6 @@
             ColumnDefinitions="auto, auto, auto, auto, auto"
             >
     
-    <!-- 
-    
-    <ImageButton Command="{Binding GoToPreviousCommand}"
-                 Style="{x:StaticResource PlayerButton}"
-                 Source="{StaticResource Previous}"
-                 IsVisible="{Binding HasPlayList}"
-                 />
-    <ImageButton Command="{Binding PlayPauseCommand}"
-                 Style="{x:StaticResource PlayerButton}"
-                 Source="{Binding CanPause, Converter={StaticResource BoolToPlayPause}}"
-                 />
-    <ImageButton Command="{Binding GoToNextCommand}"
-                 Style="{x:StaticResource PlayerButton}"
-                 Source="{StaticResource Next}"
-                 IsVisible="{Binding HasPlayList}"
-                 />
-    <ImageButton Clicked="ButtonPlaylist_Clicked"
-                 Style="{x:StaticResource PlayerButton}"
-                 Source="{StaticResource PlayList}"
-                 IsVisible="{Binding HasPlayList}" 
-                 />
-    -->
-    
-
     <Grid Grid.Column="0" 
           IsVisible="{Binding HasPlayList}" 
           WidthRequest="{OnPlatform Default=56, WinUI=48}">

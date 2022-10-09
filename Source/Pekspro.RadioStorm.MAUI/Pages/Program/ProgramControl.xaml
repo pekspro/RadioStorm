@@ -44,19 +44,15 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Image WidthRequest="{StaticResource HeaderFavoriteStarSize}"
-               HeightRequest="{StaticResource HeaderFavoriteStarSize}"
-               Margin="{OnPlatform WinUI='0,8,4,8', Default='0,10,4,10'}" 
-               IsVisible="{Binding IsFavorite, Mode=OneWay}"
-               >
-            <Image.Source>
-                <FontImageSource
-                    FontFamily="{StaticResource DefaultIconFont}"
-                    Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.FavoriteStarFill}, Default={x:Static style:IconFont.Star}}"
-                    Color="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"
-                    Size="{StaticResource HeaderFavoriteStarSize}"/>
-            </Image.Source>
-        </Image>
+        <Path   Style="{StaticResource PathIndicatorFavorite}"
+                IsVisible="{Binding IsFavorite, Mode=OneWay}"
+                WidthRequest="{StaticResource HeaderFavoriteStarSize}" 
+                HeightRequest="{StaticResource HeaderFavoriteStarSize}" 
+                Margin="{OnPlatform WinUI='0,0,4,0', Default='0,10,4,10'}"
+                Fill="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                />
 
         <Label  Grid.Column="1"
                 Text="{Binding Name, Mode=OneWay}"

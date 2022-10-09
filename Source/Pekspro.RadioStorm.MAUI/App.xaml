@@ -297,6 +297,12 @@
                 <Setter Property="Data" Value="M 4.1015625 0 L 4.1015625 8.0605469 L 1.4902344 5.4355469 L 0.78515625 6.1386719 L 4.5996094 9.984375 L 8.4179688 6.1386719 L 8.3300781 6.0507812 L 7.7128906 5.4355469 L 5.0996094 8.0625 L 5.0996094 0 L 4.1015625 0 z M 1.1015625 11 L 1.1015625 12 L 1.2265625 12 L 8.0996094 12 L 8.0996094 11 L 1.1015625 11 M 9,12 0,0z" />
             </Style>
 
+            <Style x:Key="PathIndicatorFavorite" TargetType="Path" BasedOn="{StaticResource PathBase}">
+                <Setter Property="WidthRequest" Value="20" />
+                <Setter Property="HeightRequest" Value="20" />
+                <Setter Property="Data" Value="M 13.828125,12.246094 16.25,20 10,15.195313 3.75,20 6.171875,12.246094 0,7.5 H 7.65625 L 10,0 12.34375,7.5 H 20 M 20,0 0,0z" />
+            </Style>
+
             <Style x:Key="PathMediaButtonDisabled" TargetType="Path" BasedOn="{StaticResource PathBase}">
                 <Setter Property="WidthRequest" Value="40" />
                 <Setter Property="HeightRequest" Value="40" />
@@ -332,20 +338,6 @@
                 <Setter Property="Fill" Value="{AppThemeBinding Dark={StaticResource HyperlinkColorDark}, Light={StaticResource HyperlinkColorLight}}" />
             </Style>
 
-            <FontImageSource
-                x:Key="Play"
-                FontFamily="{StaticResource DefaultIconFont}"
-                Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.PlaySolid}, Default={x:Static style:IconFont.Play}}"
-                Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
-                Size="16"/>
-
-            <FontImageSource
-                x:Key="Pause"
-                FontFamily="{StaticResource DefaultIconFont}"
-                Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.PauseBold}, Default={x:Static style:IconFont.Pause}}"
-                Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
-                Size="16"/>
-
             <converters:StringToColorConverter x:Key="StringToColorConverter" FallbackColor="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}" />
             <converters:StringToColorConverter x:Key="StringToHalfTransparentColorConverter" FallbackColor="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}" Alpha="{OnPlatform 0.1, Android=0.3}"/>
 
@@ -363,9 +355,6 @@
             <converters:BoolToStringConverter x:Key="BoolToIsListenedImageConverter" 
                                              FalseValue="{OnPlatform Default=toolbar_listened_off_16px.png, Android=toolbar_listened_off_24px_margin_4px.png}"
                                              TrueValue="{OnPlatform Default=toolbar_listened_on_16px.png, Android=toolbar_listened_on_24px_margin_4px.png}" />
-            <converters:BoolToImageConverter x:Key="BoolToPlayPause" 
-                                             FalseImage="{StaticResource Play}" 
-                                             TrueImage="{StaticResource Pause}" />
             <converters:BoolToStringConverter x:Key="BoolToToggleIsListenedConverter" 
                                              FalseValue="{x:Static r:Strings.Episodes_SetAsListened}" 
                                              TrueValue="{x:Static r:Strings.Episodes_SetAsNotListened}" 
