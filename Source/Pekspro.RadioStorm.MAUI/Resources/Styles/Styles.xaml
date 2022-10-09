@@ -11,6 +11,7 @@
 
     <OnPlatform x:Key="DefaultIconFont" x:TypeArguments="x:String" Default="FontAwesome">
         <On Platform="WinUI">Segoe MDL2 Assets</On>
+        <On Platform="Android">sans-serif</On>
     </OnPlatform>
 
     <Style TargetType="ActivityIndicator">
