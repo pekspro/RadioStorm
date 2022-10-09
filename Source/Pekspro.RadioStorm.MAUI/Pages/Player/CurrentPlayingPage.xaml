@@ -176,7 +176,7 @@
                     <Button Command="{Binding EpisodeData.DownloadCommand}"
                             IsVisible="{Binding EpisodeData.CanDownload}"
                             Style="{StaticResource InlineHyperlinkButton}"
-                            Margin="-8,0,0,0"
+                            Margin="-8,2,0,0"
                             Text="{x:Static r:Strings.General_Download}"
                             />
                     
