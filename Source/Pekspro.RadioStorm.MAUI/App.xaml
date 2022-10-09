@@ -346,13 +346,6 @@
                 Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
                 Size="16"/>
 
-            <FontImageSource
-                x:Key="PlayList"
-                FontFamily="{StaticResource DefaultIconFont}"
-                Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.BulletedList}, Default={x:Static style:IconFont.List}}"
-                Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
-                Size="16"/>
-
             <converters:StringToColorConverter x:Key="StringToColorConverter" FallbackColor="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}" />
             <converters:StringToColorConverter x:Key="StringToHalfTransparentColorConverter" FallbackColor="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}" Alpha="{OnPlatform 0.1, Android=0.3}"/>
 

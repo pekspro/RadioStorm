@@ -62,7 +62,7 @@
                IsVisible="{Binding EpisodeData, Converter={StaticResource NullToIsVisibleConverter}}"
                Grid.RowSpan="4"
                Aspect="AspectFill"
-               Opacity="{OnPlatform Default=0.2, Android=0.3}"
+               Opacity="{OnPlatform Default=0.2, Android=0.2}"
                 />
 
         <Image Source="{Binding ChannelData.ChannelImage.HighResolution}"
@@ -71,7 +71,7 @@
                IsVisible="{Binding ChannelData, Converter={StaticResource NullToIsVisibleConverter}}"
                Grid.RowSpan="4"
                Aspect="AspectFill"
-               Opacity="{OnPlatform Default=0.2, Android=0.3}"
+               Opacity="{OnPlatform Default=0.2, Android=0.2}"
                 />
 
         <!-- Upper panel -->
