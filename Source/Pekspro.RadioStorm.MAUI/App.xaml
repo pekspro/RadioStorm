@@ -431,12 +431,12 @@
             <converters:InvertedBoolConverter x:Key="InvertedBoolConverter" />
             <converters:MediaStateConverter x:Key="MediaStateConverter" />
             <converters:BoolToSelectionModeConverter x:Key="BoolToSelectionMode" />
-            <converters:BoolToImageConverter x:Key="BoolToFavoriteImageConverter" 
-                                             FalseImage="{StaticResource ToolBarIconNotFavorite}" 
-                                             TrueImage="{StaticResource ToolBarIconFavorite}" />
-            <converters:BoolToImageConverter x:Key="BoolToIsListenedImageConverter" 
-                                             FalseImage="{StaticResource ToolBarIconIsNotListened}" 
-                                             TrueImage="{StaticResource ToolBarIconIsListened}" />
+            <converters:BoolToStringConverter x:Key="BoolToFavoriteImageConverter" 
+                                             FalseValue="{OnPlatform Default=toolbar_favorite_inactive_16px.png, Android=toolbar_favorite_inactive_24px_margin_4px.png}"
+                                             TrueValue="{OnPlatform Default=toolbar_favorite_active_16px.png, Android=toolbar_favorite_active_24px_margin_4px.png}" />
+            <converters:BoolToStringConverter x:Key="BoolToIsListenedImageConverter" 
+                                             FalseValue="{OnPlatform Default=toolbar_listened_off_16px.png, Android=toolbar_listened_off_24px_margin_4px.png}"
+                                             TrueValue="{OnPlatform Default=toolbar_listened_on_16px.png, Android=toolbar_listened_on_24px_margin_4px.png}" />
             <converters:BoolToImageConverter x:Key="BoolToPlayPause" 
                                              FalseImage="{StaticResource Play}" 
                                              TrueImage="{StaticResource Pause}" />

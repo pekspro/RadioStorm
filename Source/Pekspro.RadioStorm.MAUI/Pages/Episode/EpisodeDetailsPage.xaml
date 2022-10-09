@@ -21,7 +21,7 @@
 
         <c:BindableToolbarItem 
             Command="{Binding EpisodeData.DownloadCommand}"   
-            IconImageSource="{StaticResource ToolBarIconDownload}"
+            IconImageSource="{OnPlatform Default=toolbar_download_16px.png, Android=toolbar_download_24px_margin_4px.png}"
             Text="{x:Static r:Strings.General_Download}"
             IsVisible="{Binding EpisodeData.DownloadData, Converter={StaticResource InvertedNullToIsVisibleConverter}}"
             Order="Primary"
@@ -29,7 +29,7 @@
 
         <c:BindableToolbarItem 
             Command="{Binding EpisodeData.DeleteDownloadCommand}"
-            IconImageSource="{StaticResource ToolBarIconDelete}"
+            IconImageSource="{OnPlatform Default=toolbar_delete_16px.png, Android=toolbar_delete_24px_margin_4px.png}"
             Text="{x:Static r:Strings.General_RemoveDownload}"
             IsVisible="{Binding EpisodeData.DownloadData, Converter={StaticResource NullToIsVisibleConverter}}"
             Order="Primary"

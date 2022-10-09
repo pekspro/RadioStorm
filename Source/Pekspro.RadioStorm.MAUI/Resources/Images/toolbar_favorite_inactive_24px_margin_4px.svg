@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="toolbar_favorite_inactive_24px_margin_4px.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="10.35098"
+     inkscape:cx="13.187157"
+     inkscape:cy="29.417504"
+     inkscape:window-width="1680"
+     inkscape:window-height="987"
+     inkscape:window-x="1672"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="text3222-3"
+     inkscape:pageshadow="2"
+     width="22px"
+     showguides="true"
+     inkscape:guide-bbox="true">
+    <sodipodi:guide
+       position="0,20"
+       orientation="0,1"
+       id="guide1023"
+       inkscape:label=""
+       inkscape:locked="false"
+       inkscape:color="rgb(0,0,255)" />
+    <sodipodi:guide
+       position="0,4"
+       orientation="0,1"
+       id="guide1025"
+       inkscape:label=""
+       inkscape:locked="false"
+       inkscape:color="rgb(0,0,255)" />
+    <sodipodi:guide
+       position="4,24"
+       orientation="-1,0"
+       id="guide1027"
+       inkscape:label=""
+       inkscape:locked="false"
+       inkscape:color="rgb(0,0,255)" />
+    <sodipodi:guide
+       position="20,24"
+       orientation="-1,0"
+       id="guide1029"
+       inkscape:label=""
+       inkscape:locked="false"
+       inkscape:color="rgb(0,0,255)" />
+  </sodipodi:namedview>
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Lager 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       style="font-size:16px;line-height:1.25;font-family:'Segoe UI Symbol';-inkscape-font-specification:'Segoe UI Symbol'"
+       x="29.851894"
+       y="19.782209"
+       id="text3222"><tspan
+         sodipodi:role="line"
+         id="tspan3220"
+         x="29.851894"
+         y="19.782209"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:'Segoe MDL2 Assets';-inkscape-font-specification:'Segoe MDL2 Assets'"></tspan></text>
+    <g
+       aria-label=""
+       id="text3222-3"
+       style="font-size:16px;line-height:1.25;font-family:'Segoe UI Symbol';-inkscape-font-specification:'Segoe UI Symbol'">
+      <path
+         d="M 15.0625,13.796875 17,20 12,16.15625 7,20 8.9375,13.796875 4,10 h 6.125 L 12,4 13.875,10 H 20 Z m 0.03906,3.484375 Q 14.804688,16.3125 14.507813,15.359375 14.210938,14.398438 13.898438,13.429688 14.703125,12.828125 15.484375,12.21875 16.265625,11.609375 17.0625,11 H 13.140625 L 12,7.3515625 10.859375,11 H 6.9375 q 0.796875,0.609375 1.578125,1.21875 0.78125,0.609375 1.585938,1.210938 -0.3125005,0.96875 -0.6093755,1.929687 -0.296875,0.953125 -0.59375,1.921875 L 12,14.890625 Z"
+         style="font-family:'Segoe MDL2 Assets';-inkscape-font-specification:'Segoe MDL2 Assets'"
+         id="path1616" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:16px;line-height:1.25;font-family:'Segoe UI Symbol';-inkscape-font-specification:'Segoe UI Symbol'"
+       x="58.494644"
+       y="24.181622"
+       id="text3222-0"><tspan
+         sodipodi:role="line"
+         id="tspan3220-3"
+         x="58.494644"
+         y="24.181622"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:'Segoe MDL2 Assets';-inkscape-font-specification:'Segoe MDL2 Assets'"></tspan></text>
+  </g>
+</svg>

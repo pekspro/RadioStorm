@@ -75,7 +75,7 @@
         <ToolbarItem 
             x:Name="ToolbarItemSettings"
             Clicked="ToolbarItemSettings_Clicked"
-            IconImageSource="{StaticResource ToolBarIconSettings}"
+            IconImageSource="{OnPlatform Default=toolbar_settings_16px.png, Android=toolbar_settings_24px_margin_4px.png}"
             Order="Primary"
             Priority="1" />
 

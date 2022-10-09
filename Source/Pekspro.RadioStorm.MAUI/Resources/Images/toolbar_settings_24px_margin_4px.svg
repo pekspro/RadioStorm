@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="toolbar_settings_24px_margin_4px.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="10.35098"
+     inkscape:cx="13.187157"
+     inkscape:cy="29.417504"
+     inkscape:window-width="1680"
+     inkscape:window-height="987"
+     inkscape:window-x="1672"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     inkscape:pageshadow="2"
+     width="22px"
+     showguides="true"
+     inkscape:guide-bbox="true">
+    <sodipodi:guide
+       position="0,20"
+       orientation="0,1"
+       id="guide1023"
+       inkscape:label=""
+       inkscape:locked="false"
+       inkscape:color="rgb(0,0,255)" />
+    <sodipodi:guide
+       position="0,4"
+       orientation="0,1"
+       id="guide1025"
+       inkscape:label=""
+       inkscape:locked="false"
+       inkscape:color="rgb(0,0,255)" />
+    <sodipodi:guide
+       position="4,24"
+       orientation="-1,0"
+       id="guide1027"
+       inkscape:label=""
+       inkscape:locked="false"
+       inkscape:color="rgb(0,0,255)" />
+    <sodipodi:guide
+       position="20,24"
+       orientation="-1,0"
+       id="guide1029"
+       inkscape:label=""
+       inkscape:locked="false"
+       inkscape:color="rgb(0,0,255)" />
+  </sodipodi:namedview>
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Lager 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       style="font-size:16px;line-height:1.25;font-family:'Segoe UI Symbol';-inkscape-font-specification:'Segoe UI Symbol'"
+       x="29.851894"
+       y="19.782209"
+       id="text3222"><tspan
+         sodipodi:role="line"
+         id="tspan3220"
+         x="29.851894"
+         y="19.782209"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:'Segoe MDL2 Assets';-inkscape-font-specification:'Segoe MDL2 Assets'"></tspan></text>
+    <g
+       aria-label=""
+       id="text3222-2"
+       style="font-size:16px;line-height:1.25;font-family:'Segoe UI Symbol';-inkscape-font-specification:'Segoe UI Symbol'"
+       transform="translate(-4,-4)">
+      <path
+         d="m 21.929687,15.71875 q 0,0.07031 0,0.140625 0.0078,0.07031 0.0078,0.140625 0,0.07031 -0.0078,0.140625 0,0.07031 0,0.140625 L 23.953125,17.539062 22.710937,20.53125 20.390625,20 Q 20.203125,20.203125 20,20.390625 l 0.53125,2.320312 -2.992188,1.242188 -1.257812,-2.023438 q -0.07031,0 -0.140625,0.0078 -0.07031,0 -0.140625,0 -0.07031,0 -0.140625,0 -0.07031,-0.0078 -0.140625,-0.0078 L 14.460938,23.953125 11.46875,22.710937 12,20.390625 Q 11.796875,20.203125 11.609375,20 L 9.2890625,20.53125 8.046875,17.539062 10.070313,16.28125 q 0,-0.07031 -0.0078,-0.140625 0,-0.07031 0,-0.140625 0,-0.07031 0,-0.140625 0.0078,-0.07031 0.0078,-0.140625 L 8.046875,14.460938 9.2890625,11.46875 11.609375,12 Q 11.796875,11.796875 12,11.609375 L 11.46875,9.2890625 14.460938,8.046875 15.71875,10.070313 q 0.07031,0 0.140625,0 0.07031,-0.0078 0.140625,-0.0078 0.07031,0 0.140625,0.0078 0.07031,0 0.140625,0 L 17.539062,8.046875 20.53125,9.2890625 20,11.609375 Q 20.203125,11.796875 20.390625,12 l 2.320312,-0.53125 1.242188,2.992188 z m -0.914062,1.015625 q 0.01563,-0.1875 0.03125,-0.367188 0.01563,-0.1875 0.01563,-0.374999 0,-0.179688 -0.01563,-0.367188 -0.01563,-0.1875 -0.03125,-0.367187 l 1.84375,-1.148438 -0.671875,-1.625 -2.117188,0.492188 q -0.242187,-0.296875 -0.5,-0.546875 -0.25,-0.25 -0.546875,-0.5 l 0.492188,-2.117188 -1.625,-0.671875 -1.15625,1.84375 Q 16.554687,10.96875 16.367187,10.953125 16.179687,10.9375 16,10.9375 q -0.1875,0 -0.375,0.01563 -0.179687,0.01563 -0.367187,0.03125 l -1.148438,-1.84375 -1.625,0.671875 0.492188,2.117188 q -0.296875,0.242187 -0.546875,0.5 -0.25,0.25 -0.5,0.546875 L 9.8125,12.484375 l -0.671875,1.625 1.84375,1.15625 q -0.01563,0.1875 -0.03125,0.375 -0.01563,0.179688 -0.01563,0.367187 0,0.179688 0.01563,0.367188 0.01563,0.1875 0.03125,0.367187 l -1.84375,1.148438 0.671875,1.625 2.117188,-0.492188 q 0.242187,0.296875 0.492187,0.546875 0.257813,0.25 0.554688,0.5 l -0.492188,2.117188 1.625,0.671875 1.15625,-1.84375 q 0.179688,0.01563 0.367188,0.03125 0.1875,0.01563 0.367187,0.01563 0.1875,0 0.367187,-0.01563 0.1875,-0.01563 0.375,-0.03125 l 1.148438,1.84375 1.625,-0.671875 -0.492188,-2.117188 q 0.296875,-0.242187 0.546875,-0.492187 0.25,-0.257813 0.5,-0.554688 l 2.117188,0.492188 0.671875,-1.625 z M 16,13.0625 q 0.609375,0 1.140625,0.234375 0.539062,0.226563 0.9375,0.625 0.398437,0.398438 0.625,0.9375 Q 18.9375,15.390625 18.9375,16 q 0,0.609375 -0.234375,1.148437 -0.226563,0.53125 -0.625,0.929688 -0.398438,0.398437 -0.9375,0.632812 Q 16.609375,18.9375 16,18.9375 q -0.609375,0 -1.148437,-0.226563 -0.53125,-0.234375 -0.929688,-0.632812 Q 13.523438,17.679687 13.289063,17.148437 13.0625,16.609375 13.0625,16 q 0,-0.609375 0.226563,-1.140625 0.234375,-0.539062 0.632812,-0.9375 0.398438,-0.398437 0.929688,-0.625 Q 15.390625,13.0625 16,13.0625 Z m 0,5 q 0.429687,0 0.804687,-0.15625 0.375,-0.164063 0.65625,-0.445313 0.28125,-0.28125 0.4375,-0.65625 Q 18.0625,16.429687 18.0625,16 q 0,-0.429687 -0.164063,-0.804687 -0.15625,-0.375 -0.4375,-0.65625 -0.28125,-0.28125 -0.65625,-0.4375 Q 16.429687,13.9375 16,13.9375 q -0.429687,0 -0.804687,0.164063 -0.375,0.15625 -0.65625,0.4375 -0.28125,0.28125 -0.445313,0.65625 -0.15625,0.375 -0.15625,0.804687 0,0.429687 0.15625,0.804687 0.164063,0.375 0.445313,0.65625 0.28125,0.28125 0.65625,0.445313 0.375,0.15625 0.804687,0.15625 z"
+         style="font-family:'Segoe MDL2 Assets';-inkscape-font-specification:'Segoe MDL2 Assets'"
+         id="path6960" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:16px;line-height:1.25;font-family:'Segoe UI Symbol';-inkscape-font-specification:'Segoe UI Symbol'"
+       x="58.494644"
+       y="24.181622"
+       id="text3222-0"><tspan
+         sodipodi:role="line"
+         id="tspan3220-3"
+         x="58.494644"
+         y="24.181622"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:'Segoe MDL2 Assets';-inkscape-font-specification:'Segoe MDL2 Assets'"></tspan></text>
+  </g>
+</svg>

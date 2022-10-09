@@ -49,7 +49,28 @@
         
         <MauiImage Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" Include="Resources\Images\sleeptimer_margin_0.svg" TintColor="White" BaseSize="20,20" />
 
-		<!-- Custom Fonts -->
+        <MauiImage Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" Include="Resources\Images\toolbar_settings_24px_margin_4px.svg" TintColor="White" BaseSize="24,24" />
+        <MauiImage Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" Include="Resources\Images\toolbar_settings_16px.svg" TintColor="White" BaseSize="16,16" />
+
+        <MauiImage Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" Include="Resources\Images\toolbar_download_24px_margin_4px.svg" TintColor="White" BaseSize="24,24" />
+        <MauiImage Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" Include="Resources\Images\toolbar_download_16px.svg" TintColor="White" BaseSize="16,16" />
+
+        <MauiImage Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" Include="Resources\Images\toolbar_delete_24px_margin_4px.svg" TintColor="White" BaseSize="24,24" />
+        <MauiImage Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" Include="Resources\Images\toolbar_delete_16px.svg" TintColor="White" BaseSize="16,16" />
+
+        <MauiImage Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" Include="Resources\Images\toolbar_favorite_active_24px_margin_4px.svg" TintColor="White" BaseSize="24,24" />
+        <MauiImage Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" Include="Resources\Images\toolbar_favorite_active_16px.svg" TintColor="White" BaseSize="16,16" />
+
+        <MauiImage Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" Include="Resources\Images\toolbar_favorite_inactive_24px_margin_4px.svg" TintColor="White" BaseSize="24,24" />
+        <MauiImage Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" Include="Resources\Images\toolbar_favorite_inactive_16px.svg" TintColor="White" BaseSize="16,16" />
+
+        <MauiImage Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" Include="Resources\Images\toolbar_listened_on_24px_margin_4px.svg" TintColor="White" BaseSize="24,24" />
+        <MauiImage Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" Include="Resources\Images\toolbar_listened_on_16px.svg" TintColor="White" BaseSize="16,16" />
+
+        <MauiImage Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" Include="Resources\Images\toolbar_listened_off_24px_margin_4px.svg" TintColor="White" BaseSize="24,24" />
+        <MauiImage Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" Include="Resources\Images\toolbar_listened_off_16px.svg" TintColor="White" BaseSize="16,16" />        
+		
+        <!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
 	
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
