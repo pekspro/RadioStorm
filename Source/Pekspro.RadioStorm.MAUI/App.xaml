@@ -297,6 +297,12 @@
                 <Setter Property="Data" Value="M 4.1015625 0 L 4.1015625 8.0605469 L 1.4902344 5.4355469 L 0.78515625 6.1386719 L 4.5996094 9.984375 L 8.4179688 6.1386719 L 8.3300781 6.0507812 L 7.7128906 5.4355469 L 5.0996094 8.0625 L 5.0996094 0 L 4.1015625 0 z M 1.1015625 11 L 1.1015625 12 L 1.2265625 12 L 8.0996094 12 L 8.0996094 11 L 1.1015625 11 M 9,12 0,0z" />
             </Style>
 
+            <Style x:Key="PathMediaButtonDisabled" TargetType="Path" BasedOn="{StaticResource PathBase}">
+                <Setter Property="WidthRequest" Value="40" />
+                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="Data" Value="m 20,0.09375005 c 2.754883,0 5.332031,0.5183919 7.731445,1.55517575 2.429037,1.0367839 4.547038,2.4586589 6.354004,4.265625 1.806966,1.8069661 3.228841,3.9249671 4.265625,6.3540042 1.036784,2.399414 1.555176,4.976562 1.555176,7.731445 0,2.754883 -0.518392,5.346842 -1.555176,7.775879 -1.036784,2.399414 -2.458659,4.502604 -4.265625,6.30957 -1.806966,1.806967 -3.924967,3.228842 -6.354004,4.265625 C 25.332031,39.387858 22.754883,39.90625 20,39.90625 c -2.754883,0 -5.346842,-0.518392 -7.775879,-1.555176 C 9.824707,37.314291 7.721517,35.892416 5.9145508,34.085449 4.1075847,32.278483 2.6857097,30.175293 1.6489258,27.775879 0.6121419,25.346842 0.09375,22.754883 0.09375,20 c 0,-2.754883 0.5183919,-5.332031 1.5551758,-7.731445 C 2.6857097,9.8395179 4.1075847,7.7215169 5.9145508,5.9145508 7.721517,4.1075847 9.824707,2.6857097 12.224121,1.6489258 14.653158,0.61214195 17.245117,0.09375005 20,0.09375005 Z M 5.78125,20 c 0,1.955078 0.37028,3.806478 1.1108399,5.554199 0.7405601,1.718099 1.7477211,3.228842 3.0214841,4.532227 1.303385,1.273763 2.814128,2.280924 4.532227,3.021484 1.747721,0.74056 3.599121,1.11084 5.554199,1.11084 1.392253,0 2.754883,-0.192546 4.087891,-0.577637 1.333007,-0.414713 2.577148,-1.007161 3.732422,-1.777343 L 8.13623,12.179688 C 7.366048,13.334961 6.7736002,14.579102 6.3588867,15.912109 5.9737956,17.245117 5.78125,18.607747 5.78125,20 Z m 26.08252,7.820313 c 0.770182,-1.155274 1.347819,-2.399415 1.73291,-3.732422 0.414713,-1.333008 0.62207,-2.695638 0.62207,-4.087891 0,-1.955078 -0.385091,-3.791667 -1.155273,-5.509766 -0.74056,-1.718099 -1.762533,-3.214029 -3.065918,-4.487792 C 28.723796,8.6990559 27.227865,7.6770831 25.509766,6.9365234 23.791667,6.1663411 21.955078,5.78125 20,5.78125 c -1.392253,0 -2.754883,0.2073568 -4.087891,0.6220703 -1.333007,0.3850911 -2.577148,0.962728 -3.732421,1.7329106 M 40,40 0,0z" />
+            </Style>
+
             <Style x:Key="PlayerButton" TargetType="ImageButton">
                 <Setter Property="BackgroundColor" Value="Transparent" />
                 <Setter Property="WidthRequest" Value="{OnPlatform Default=48, WinUI=28}" />
@@ -368,14 +374,6 @@
                 Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.BulletedList}, Default={x:Static style:IconFont.List}}"
                 Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
                 Size="16"/>
-
-            <FontImageSource
-                x:Key="LargeImageButtonDisabledImage"
-                FontFamily="{StaticResource DefaultIconFont}"
-                Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.StatusCircleBlock}, Default={x:Static style:IconFont.Ban}}"
-                Color="White"
-                Size="60"/>
-
 
             <converters:StringToColorConverter x:Key="StringToColorConverter" FallbackColor="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}" />
             <converters:StringToColorConverter x:Key="StringToHalfTransparentColorConverter" FallbackColor="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}" Alpha="{OnPlatform 0.1, Android=0.3}"/>

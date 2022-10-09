@@ -133,13 +133,16 @@
                  VerticalOptions="Center"
                  x:Name="PlayTriangle" />
 
-        <Image x:Name="DisabledButton"
-               Source="{StaticResource LargeImageButtonDisabledImage}"
-               Opacity="0.7"
-               IsVisible="False"
-               HeightRequest="40"
+        <Path  x:Name="DisabledButton"
+               Style="{StaticResource PathMediaButtonDisabled}"
+               Fill="#FFFFFF"
                WidthRequest="40"
-               />
+               HeightRequest="40"
+               Opacity="0.7"
+               IsVisible="True"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+                />
 
         <Button x:Name="TheButton"
                 BackgroundColor="Transparent"
