@@ -321,55 +321,6 @@
             </Style>
 
             <FontImageSource
-                x:Key="ToolBarIconNotFavorite"
-                FontFamily="{StaticResource DefaultIconFont}"
-                Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.FavoriteStar}, Default={x:Static style:IconFont.Star}}"
-                Color="{AppThemeBinding Dark={StaticResource ToolbarIconColorFadedDark}, Light={StaticResource ToolbarIconColorFadedLight}}"
-                Size="16"/>
-
-            <FontImageSource
-                x:Key="ToolBarIconFavorite"
-                FontFamily="{StaticResource DefaultIconFont}"
-                Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.FavoriteStarFill}, Default={x:Static style:IconFont.Star}}"
-                Color="{AppThemeBinding Dark={StaticResource ToolbarIconColorDark}, Light={StaticResource ToolbarIconColorLight}}"
-                Size="16"/>
-
-            <FontImageSource
-                x:Key="ToolBarIconDownload"
-                FontFamily="{StaticResource DefaultIconFont}"
-                Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.Download}, Default={x:Static style:IconFont.Download}}"
-                Color="{AppThemeBinding Dark={StaticResource ToolbarIconColorDark}, Light={StaticResource ToolbarIconColorLight}}"
-                Size="16"/>
-
-            <FontImageSource
-                x:Key="ToolBarIconDelete"
-                FontFamily="{StaticResource DefaultIconFont}"
-                Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.Delete}, Default={x:Static style:IconFont.Trash}}"
-                Color="{AppThemeBinding Dark={StaticResource ToolbarIconColorDark}, Light={StaticResource ToolbarIconColorLight}}"
-                Size="16"/>
-
-            <FontImageSource
-                x:Key="ToolBarIconIsNotListened"
-                FontFamily="{StaticResource DefaultIconFont}"
-                Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.CheckMark}, Default={x:Static style:IconFont.CheckCircle}}"
-                Color="{AppThemeBinding Dark={StaticResource ToolbarIconColorFadedDark}, Light={StaticResource ToolbarIconColorFadedLight}}"
-                Size="16"/>
-
-            <FontImageSource
-                x:Key="ToolBarIconIsListened"
-                FontFamily="{StaticResource DefaultIconFont}"
-                Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.CheckMark}, Default={x:Static style:IconFont.CheckCircle}}"
-                Color="{AppThemeBinding Dark={StaticResource ToolbarIconColorDark}, Light={StaticResource ToolbarIconColorLight}}"
-                Size="16"/>
-
-            <FontImageSource
-                x:Key="ToolBarIconSettings"
-                FontFamily="{StaticResource DefaultIconFont}"
-                Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.Setting}, Default={x:Static style:IconFont.Cog}}"
-                Color="{AppThemeBinding Dark={StaticResource ToolbarIconColorDark}, Light={StaticResource ToolbarIconColorLight}}"
-                Size="16"/>
-
-            <FontImageSource
                 x:Key="Play"
                 FontFamily="{StaticResource DefaultIconFont}"
                 Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.PlaySolid}, Default={x:Static style:IconFont.Play}}"
