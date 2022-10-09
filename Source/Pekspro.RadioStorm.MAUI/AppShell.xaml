@@ -91,7 +91,7 @@
                                     FontFamily="{StaticResource DefaultIconFont}"
                                     Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.FavoriteStarFill}}"
                                     Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
-                                    Size="64"/>
+                                    Size="48"/>
                                 </Image.Source>
                             </Image>
 
@@ -121,7 +121,7 @@
                                     FontFamily="{StaticResource DefaultIconFont}"
                                     Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.Microphone}}"
                                     Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
-                                    Size="64"/>
+                                    Size="48"/>
                                 </Image.Source>
                             </Image>
 
@@ -151,7 +151,7 @@
                                     FontFamily="{StaticResource DefaultIconFont}"
                                     Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.Library}}"
                                     Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
-                                    Size="64"/>
+                                    Size="48"/>
                                 </Image.Source>
                             </Image>
 
@@ -182,7 +182,7 @@
                                     FontFamily="{StaticResource DefaultIconFont}"
                                     Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.History}}"
                                     Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
-                                    Size="64"/>
+                                    Size="48"/>
                                 </Image.Source>
                             </Image>
 
@@ -212,7 +212,7 @@
                                     FontFamily="{StaticResource DefaultIconFont}"
                                     Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.Download}}"
                                     Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
-                                    Size="64"/>
+                                    Size="48"/>
                                 </Image.Source>
                             </Image>
 
@@ -242,7 +242,7 @@
                                     FontFamily="{StaticResource DefaultIconFont}"
                                     Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.Setting}}"
                                     Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
-                                    Size="64"/>
+                                    Size="48"/>
                                 </Image.Source>
                             </Image>
 
