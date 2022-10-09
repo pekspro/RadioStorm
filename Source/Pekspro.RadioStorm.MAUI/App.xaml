@@ -114,7 +114,7 @@
             </Style>
 
             <Style x:Key="AlbumItem" TargetType="Grid">
-                <Setter Property="WidthRequest" Value="176" />
+                <Setter Property="WidthRequest" Value="172" />
                 <Setter Property="HeightRequest" Value="244" />
                 <Setter Property="Padding" Value="8" />
                 <Setter Property="Margin" Value="0,0" />
@@ -164,7 +164,7 @@
             </Style>
 
             <Style x:Key="AlbumCard" TargetType="Border" BasedOn="{StaticResource Card}">
-                <Setter Property="WidthRequest" Value="188" />
+                <Setter Property="WidthRequest" Value="184" />
                 <Setter Property="HeightRequest" Value="252" />
             </Style>
 

@@ -131,7 +131,7 @@ public sealed partial class FavoritesPage : ContentPage
         if (AlbumMode)
         {
             const int itemMargin = 4;
-            const int itemWidth = 188;
+            const int itemWidth = 184;
             const int sideMargin = 8 * 2;
 
             expectedMode = (Width - sideMargin) switch
