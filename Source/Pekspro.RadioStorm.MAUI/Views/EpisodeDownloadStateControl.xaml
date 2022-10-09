@@ -23,9 +23,9 @@
                             Value="{AppThemeBinding Light={StaticResource InactiveProgramColorLight}, Dark={StaticResource InactiveProgramColorDark}}"
                             TargetName="LabelDownloadSize"
                             />
-                    <Setter Property="Label.TextColor" 
+                    <Setter Property="Path.Fill" 
                             Value="{AppThemeBinding Light={StaticResource InactiveProgramColorLight}, Dark={StaticResource InactiveProgramColorDark}}"
-                            TargetName="LabelDownloadStatus"
+                            TargetName="PathDownloadStatus"
                             />
                     <Setter Property="Label.TextColor" 
                             Value="{AppThemeBinding Light={StaticResource InactiveProgramColorLight}, Dark={StaticResource InactiveProgramColorDark}}"
@@ -45,9 +45,9 @@
                             Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"
                             TargetName="LabelDownloadSize"
                             />
-                    <Setter Property="Label.TextColor" 
+                    <Setter Property="Path.Fill" 
                             Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"
-                            TargetName="LabelDownloadStatus"
+                            TargetName="PathDownloadStatus"
                             />
                     <Setter Property="Label.TextColor" 
                             Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"
@@ -109,14 +109,24 @@
         </ProgressBar>
         -->
     
-        <Label  x:Name="LabelDownloadStatus"
+        <!--<Label  x:Name="LabelDownloadStatus"
                 Text="{OnPlatform WinUI={x:Static style:SegoeIconFont.Download}, Default={x:Static style:IconFont.Download}}"
                 IsVisible="{Binding DownloadData.Status, Mode=OneWay, Converter={StaticResource DownloadDataStatusDoneToVisibilityConverter}}"
                 FontSize="12"
                 Margin="4,2,0,0"
-                FontFamily="{StaticResource DefaultIconFont}" />
+                FontFamily="{StaticResource DefaultIconFont}" />-->
 
-        <Label  x:Name="LabelDownloadError"
+    <Grid Margin="{OnPlatform Default='3,-6,3,0', Android='3,-7,3,0'}"
+          IsVisible="{Binding DownloadData.Status, Mode=OneWay, Converter={StaticResource DownloadDataStatusDoneToVisibilityConverter}}"
+          >
+        <Path   x:Name="PathDownloadStatus"
+                Style="{x:StaticResource PathIndicatorDownload}"
+                WidthRequest="9"
+                HeightRequest="12"
+                />
+    </Grid>
+
+    <Label  x:Name="LabelDownloadError"
                 Text="{x:Static r:Strings.DownloadStatus_Error}"
                 IsVisible="{Binding DownloadData.Status, Mode=OneWay, Converter={StaticResource DownloadDataStatusErrorToVisibilityConverter}}"
                 FontSize="12"
