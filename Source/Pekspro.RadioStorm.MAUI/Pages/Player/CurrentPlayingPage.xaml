@@ -78,10 +78,12 @@
         <Grid ColumnDefinitions="*, auto">
 
             <!-- Top left, current episode info -->
-            <Grid Grid.Row="0"
+            <Grid 
+                Grid.Row="0"
                 Padding="8" 
                 IsVisible="{Binding EpisodeData, Converter={StaticResource NullToIsVisibleConverter}}"
                 HeightRequest="96"
+                Margin="0,8,0,0"
                 VerticalOptions="Start"
                 HorizontalOptions="Fill"
                 >
