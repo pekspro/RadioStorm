@@ -311,12 +311,20 @@
                 IsVisible="{Binding PlayerViewModel.HasPlayList}"
                 >
                 <VerticalStackLayout HorizontalOptions="End">
-                    <Grid 
-                        WidthRequest="{OnPlatform Default=56, WinUI=48}">
+                    <Grid Margin="{OnPlatform Default='0', Android='0,0,0,12'}">
 
+                        <Path  x:Name="DisabledButton"
+                           Style="{StaticResource PathPlaylist}"
+                           WidthRequest="32"
+                           HeightRequest="32"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                            />
+                        
                         <ImageButton Style="{x:StaticResource PlayerButton}"
-                            Source="{StaticResource PlayList}"
-                            Clicked="ButtonPlaylist_Clicked" />
+                                     HeightRequest="36"
+                                     Clicked="ButtonPlaylist_Clicked" />
+
                     </Grid>
 
                     <Label FontSize="{StaticResource FontSizeDetails}"
