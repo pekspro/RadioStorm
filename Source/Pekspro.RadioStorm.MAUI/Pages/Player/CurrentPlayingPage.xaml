@@ -11,7 +11,7 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem 
                 Command="{Binding PlayerViewModel.ToggleSleepTimerCommand}"
-                IconImageSource="{OnPlatform Default=sleeptimer_margin_0.png, Android=sleeptimer_margin_1of4.png}"
+                IconImageSource="{OnPlatform Default=toolbar_sleeptimer_16px.png, Android=toolbar_sleeptimer_24px_margin_4px.png}"
                 Text="{x:Static r:Strings.SleepTimer_Title}"
                 Order="Primary"
                 Priority="0" />

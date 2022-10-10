@@ -45,12 +45,12 @@
 		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#222222" BaseSize="128,128" />
 
 		<!-- Images -->
-        <MauiImage Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" Include="Resources\Images\sleeptimer_margin_1of4.svg" TintColor="White" BaseSize="32,32" />
         
-        <MauiImage Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" Include="Resources\Images\sleeptimer_margin_0.svg" TintColor="White" BaseSize="20,20" />
-
         <MauiImage Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" Include="Resources\Images\toolbar_settings_24px_margin_4px.svg" TintColor="White" BaseSize="24,24" />
         <MauiImage Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" Include="Resources\Images\toolbar_settings_16px.svg" TintColor="White" BaseSize="16,16" />
+
+        <MauiImage Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" Include="Resources\Images\toolbar_sleeptimer_24px_margin_4px.svg" TintColor="White" BaseSize="24,24" />
+        <MauiImage Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" Include="Resources\Images\toolbar_sleeptimer_16px.svg" TintColor="White" BaseSize="16,16" />
 
         <MauiImage Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" Include="Resources\Images\toolbar_download_24px_margin_4px.svg" TintColor="White" BaseSize="24,24" />
         <MauiImage Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" Include="Resources\Images\toolbar_download_16px.svg" TintColor="White" BaseSize="16,16" />
