@@ -68,6 +68,7 @@
 			   Grid.RowSpan="2"
 			   WidthRequest="48"
 			   HeightRequest="48"
+               Aspect="AspectFill"
                 >
             <Image.Source>
                 <UriImageSource Uri="{Binding EpisodeData.EpisodeImage.LowResolution, Mode=OneWay}"
