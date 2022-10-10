@@ -97,6 +97,20 @@
 				   Opacity="0.8"
 				   />
 
+            <Label Style="{StaticResource DetailedTextStyle}"
+                   Margin="0,2,0,0"
+				   MaxLines="1"
+                   IsVisible="{Binding PlayerViewModel.HasPlayList}"
+				   Opacity="0.4"
+				   >
+                <Label.Text>
+                    <MultiBinding StringFormat="{}{0} / {1}">
+                        <Binding Path="PlayListItemIndex" />
+                        <Binding Path="PlayListItemCount" />
+                    </MultiBinding>
+                </Label.Text>
+            </Label>
+
         </VerticalStackLayout>
     </Grid>
 
