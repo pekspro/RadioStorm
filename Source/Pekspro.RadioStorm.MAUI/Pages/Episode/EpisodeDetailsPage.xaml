@@ -47,13 +47,14 @@
     <Grid RowDefinitions="*,Auto">
         <views:DownloadState Padding="{StaticResource NormalPageMargin}" />
 
-        <RefreshView 
+        <!-- TODO: Add refreshview when this is fixed: https://github.com/dotnet/maui/issues/9371 -->
+        <!--<RefreshView 
             Command="{Binding RefreshCommand}" 
             IsRefreshing="{Binding IsRefreshing}"
             IsVisible="{Binding HasData}"
-            >
+            >-->
             <ScrollView Padding="{StaticResource NormalPageMargin}">
-                <Grid RowDefinitions="Auto,Auto,Auto,*"
+                <Grid RowDefinitions="Auto,Auto"
                     ColumnDefinitions="Auto,*"
                     x:Name="GridLayout"
                     >
@@ -63,7 +64,7 @@
                                 <VisualState.Setters>
                                     <Setter Property="Margin" Value="0,8,0,0" TargetName="DetailsPanel" />
                                     <Setter Property="Grid.Column" Value="0" TargetName="DetailsPanel" />
-                                    <Setter Property="Grid.Row" Value="2" TargetName="DetailsPanel" />
+                                    <Setter Property="Grid.Row" Value="1" TargetName="DetailsPanel" />
                                     <Setter Property="Grid.RowSpan" Value="1" TargetName="DetailsPanel" />
                                     <Setter Property="IsVisible" Value="False" TargetName="DataTableWide" />
                                     <Setter Property="IsVisible" Value="{Binding EpisodeData.HasAudio, Mode=OneWay}" TargetName="DataTableNarrow" />
@@ -74,7 +75,7 @@
                                 <VisualState.Setters>
                                     <Setter Property="Margin" Value="8,0,0,0" TargetName="DetailsPanel" />
                                     <Setter Property="Grid.Column" Value="1" TargetName="DetailsPanel" />
-                                    <Setter Property="Grid.Row" Value="1" TargetName="DetailsPanel" />
+                                    <Setter Property="Grid.Row" Value="0" TargetName="DetailsPanel" />
                                     <Setter Property="Grid.RowSpan" Value="2" TargetName="DetailsPanel" />
                                     <Setter Property="IsVisible" Value="{Binding EpisodeData.HasAudio, Mode=OneWay}" TargetName="DataTableWide" />
                                     <Setter Property="IsVisible" Value="False" TargetName="DataTableNarrow" />
@@ -84,7 +85,7 @@
                         </VisualStateGroup>
                     </VisualStateManager.VisualStateGroups>
 
-                    <VerticalStackLayout x:Name="ImagePanel" Grid.Row="1" Grid.Column="0">
+                    <VerticalStackLayout x:Name="ImagePanel" Grid.Row="0" Grid.Column="0">
                         <views:LargeMediaButtonUserControl    
                             HorizontalOptions="Center"
                             WidthRequest="200"
@@ -100,10 +101,10 @@
                     </VerticalStackLayout>
 
                     <Grid   x:Name="DataTableWide"
+                            Grid.Row="1"
                             HorizontalOptions="Start"
                             MaximumWidthRequest="200"
                             Margin="0,8,0,0"
-                            Grid.Row="2"
                             IsVisible="{Binding EpisodeData.HasAudio, Mode=OneWay}"
                             ColumnDefinitions="Auto, *"
                             RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
@@ -252,7 +253,7 @@
                     </VerticalStackLayout>
                 </Grid>
             </ScrollView>
-        </RefreshView>
+        <!--</RefreshView>-->
 
         <views:PlayerControl Grid.Row="1" />
     </Grid>
