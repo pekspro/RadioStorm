@@ -324,7 +324,14 @@ public sealed partial class PlayerViewModel : ObservableObject
     #region Speed
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(HasNormalPlaybackRate))]
+    [NotifyPropertyChangedFor(nameof(PlaybackRateShortString))]
+
     private int _PlaybackRateIndex;
+
+    public bool HasNormalPlaybackRate => _PlaybackRateIndex == 2;
+    
+    public string PlaybackRateShortString => AudioManager.PlaybackRate.ToString("0.00").Replace(".", ",").TrimEnd('0').TrimEnd(',') + "x";
 
     #endregion
 

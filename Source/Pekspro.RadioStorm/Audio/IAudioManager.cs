@@ -26,6 +26,8 @@ public interface IAudioManager
     
     int PlaybackRateIndex { get; set; }
 
+    double PlaybackRate { get; }
+
     bool IsSleepTimerEnabled { get; }
 
     DateTime SleepActivationTime { get; }

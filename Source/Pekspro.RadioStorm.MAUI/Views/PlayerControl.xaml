@@ -65,6 +65,14 @@
         <Label Style="{StaticResource DetailedTextStyle}"
                Text="{Binding SleepTimerText}"
                IsVisible="{Binding IsSleepTimerRunning}"
+               Margin="4,0,8,0"
+               Opacity="0.5"
+               HorizontalOptions="End" />
+
+        <Label Style="{StaticResource DetailedTextStyle}"
+               Text="{Binding PlaybackRateShortString}"
+               IsVisible="{Binding HasNormalPlaybackRate, Converter={StaticResource InvertedBoolConverter}}"
+               Margin="4,0,8,0"
                Opacity="0.5"
                HorizontalOptions="End" />
 
