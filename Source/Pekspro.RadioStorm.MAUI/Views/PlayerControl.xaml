@@ -13,33 +13,31 @@
     <Grid.RowDefinitions>
         <RowDefinition Height="auto" />
         <RowDefinition Height="auto" />
-        <RowDefinition Height="auto" />
-        <RowDefinition Height="auto" />
-        <RowDefinition Height="auto" />
-        <RowDefinition Height="auto" />
     </Grid.RowDefinitions>
     <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*" />
         <ColumnDefinition Width="Auto" />
         <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Width="Auto" />
     </Grid.ColumnDefinitions>
 
 
-    <views:CurrentPlayingControl Grid.Row="4" />
+    <views:CurrentPlayingControl Grid.Row="0" Grid.Column="0" />
 
-            <!--Command="{Binding ToogleMenuCommand}"--> 
     <Button x:Name="ButtonPlayerInfo"
-            Grid.Row="4" 
+            Grid.Row="0" 
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
             Clicked="ButtonPlayerInfo_Clicked"
             BackgroundColor="Transparent" 
             BorderColor="Transparent" 
             BorderWidth="0" />
 
-    <Grid Grid.Row="4"
-            Grid.Column="1"
-            Margin="8,0,0,0"
-            IsVisible="{Binding IsBuffering}"
-            >
+    <Grid Grid.Row="0"
+          Grid.Column="1"
+          Margin="8,0,0,0"
+          IsVisible="{Binding IsBuffering}"
+          >
         <ActivityIndicator 
                 IsRunning="{Binding IsBuffering}"
                 WidthRequest="{OnPlatform Default=28, WinUI=24}"
@@ -54,13 +52,27 @@
                 VerticalOptions="Center"
                 />
     </Grid>
-    
+
     <!--<views:PlayerButtonsControl Grid.Row="4" Grid.Column="2" />-->
 
+    <VerticalStackLayout 
+        VerticalOptions="Center"
+        Spacing="4"
+        BackgroundColor="Transparent"
+        Grid.Row="0"
+        Grid.Column="2">
+
+        <Label Style="{StaticResource DetailedTextStyle}"
+               Text="{Binding SleepTimerText}"
+               IsVisible="{Binding IsSleepTimerRunning}"
+               Opacity="0.5"
+               HorizontalOptions="End" />
+
+    </VerticalStackLayout>
 
     <Grid 
-        Grid.Row="4" 
-        Grid.Column="2"
+        Grid.Row="0"
+        Grid.Column="3"
         WidthRequest="{OnPlatform Default=56, WinUI=48}">
 
         <Path   
@@ -74,7 +86,7 @@
             IsVisible="{Binding CanPause}"
             WidthRequest="24"
         />
-            
+
         <ImageButton 
             Command="{Binding PlayPauseCommand}"
             Style="{x:StaticResource PlayerButton}"
@@ -87,6 +99,6 @@
     </Grid>
 
 
-    <views:PlayerPositionControl Grid.Row="5" Grid.ColumnSpan="3" IsVisible="{Binding IsCurrentItemEpisode}" />
+    <views:PlayerPositionControl Grid.Row="1" Grid.ColumnSpan="4" IsVisible="{Binding IsCurrentItemEpisode}" />
 
 </Grid>
