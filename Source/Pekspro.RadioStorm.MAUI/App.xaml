@@ -116,7 +116,7 @@
             <Style x:Key="AlbumItem" TargetType="Grid">
                 <Setter Property="WidthRequest" Value="172" />
                 <Setter Property="HeightRequest" Value="244" />
-                <Setter Property="Padding" Value="8" />
+                <Setter Property="Padding" Value="6,8" />
                 <Setter Property="Margin" Value="0,0" />
                 <Setter Property="ColumnDefinitions" Value="40, *" />
                 <Setter Property="RowDefinitions" Value="20, 168, 20, 20" />

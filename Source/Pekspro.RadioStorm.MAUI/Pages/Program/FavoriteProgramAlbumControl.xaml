@@ -74,18 +74,22 @@
                 IsVisible="{Binding EpisodeStatus, Converter={StaticResource NullToIsVisibleConverter}}"
             />
 
-            <Label Grid.Row="1"
-		       Grid.ColumnSpan="2"
-               BackgroundColor="#AA000000"
-               HorizontalOptions="End"
-               VerticalOptions="Start"
-               Margin="0,4,0,0"
-               Padding="4,0,4,2"
-               IsVisible="{Binding EpisodeStatus.NotListenedEpisodeCount, Converter={StaticResource LargerThanZeroConverter}, Mode=OneWay}"
-		       Text="{Binding EpisodeStatus.NotListenedEpisodeCount, Mode=OneWay}"
-               TextColor="White"
-               Style="{StaticResource AlbumNormalTextStyle}"
-			    />
+            <Grid Grid.Row="1"
+		          Grid.ColumnSpan="2"
+                  IsVisible="{Binding EpisodeStatus, Converter={StaticResource NullToIsVisibleConverter}, Mode=OneWay}"
+                  >
+                <Label 
+                   BackgroundColor="#AA000000"
+                   HorizontalOptions="End"
+                   VerticalOptions="Start"
+                   Margin="0,4,0,0"
+                   Padding="4,0,4,2"
+                   IsVisible="{Binding EpisodeStatus.NotListenedEpisodeCount, Converter={StaticResource LargerThanZeroConverter}, Mode=OneWay}"
+		           Text="{Binding EpisodeStatus.NotListenedEpisodeCount, Mode=OneWay}"
+                   TextColor="White"
+                   Style="{StaticResource AlbumNormalTextStyle}"
+			        />
+            </Grid>
 
             <Label x:Name="LabelEpisodeTitle"
                Grid.Row="2"
