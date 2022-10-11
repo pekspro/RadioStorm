@@ -67,7 +67,7 @@
                                     <Setter Property="Grid.Row" Value="1" TargetName="DetailsPanel" />
                                     <Setter Property="Grid.RowSpan" Value="1" TargetName="DetailsPanel" />
                                     <Setter Property="IsVisible" Value="False" TargetName="DataTableWide" />
-                                    <Setter Property="IsVisible" Value="{Binding EpisodeData.HasAudio, Mode=OneWay}" TargetName="DataTableNarrow" />
+                                    <Setter Property="IsVisible" Value="True" TargetName="DataTableNarrow" />
                                     <Setter Property="ColumnDefinitions" Value="*" TargetName="GridLayout" />
                                 </VisualState.Setters>
                             </VisualState>
@@ -77,7 +77,7 @@
                                     <Setter Property="Grid.Column" Value="1" TargetName="DetailsPanel" />
                                     <Setter Property="Grid.Row" Value="0" TargetName="DetailsPanel" />
                                     <Setter Property="Grid.RowSpan" Value="2" TargetName="DetailsPanel" />
-                                    <Setter Property="IsVisible" Value="{Binding EpisodeData.HasAudio, Mode=OneWay}" TargetName="DataTableWide" />
+                                    <Setter Property="IsVisible" Value="True" TargetName="DataTableWide" />
                                     <Setter Property="IsVisible" Value="False" TargetName="DataTableNarrow" />
                                     <Setter Property="ColumnDefinitions" Value="Auto,*" TargetName="GridLayout" />
                                 </VisualState.Setters>
@@ -105,7 +105,6 @@
                             HorizontalOptions="Start"
                             MaximumWidthRequest="200"
                             Margin="0,8,0,0"
-                            IsVisible="{Binding EpisodeData.HasAudio, Mode=OneWay}"
                             ColumnDefinitions="Auto, *"
                             RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
                         >
@@ -122,11 +121,13 @@
 
                         <Label  Grid.Row="1"
                             Grid.Column="0"
+                            IsVisible="{Binding EpisodeData.PublishLength.LengthString, Converter={x:StaticResource EmptyToBoolConverter}, ConverterParameter=false, Mode=OneWay}"
                             Text="{x:Static r:Strings.General_Length}"
                             Style="{StaticResource DetailedTextStyle}" />
 
                         <Label  Grid.Row="1"
                             Grid.Column="1"
+                            IsVisible="{Binding EpisodeData.PublishLength.LengthString, Converter={x:StaticResource EmptyToBoolConverter}, ConverterParameter=false, Mode=OneWay}"
                             Text="{Binding EpisodeData.PublishLength.LengthString, Mode=OneWay}"
                             Style="{StaticResource DetailedTextStyle}"
                             Margin="7,0,0,0" />
@@ -160,11 +161,22 @@
                         <Label Text="{Binding Title, Mode=OneWay}" Style="{StaticResource SubtitleTextBlockStyle}" />
                         <Label Text="{Binding EpisodeData.Description, Mode=OneWay}" />
 
+                        <Label Text="{x:Static r:Strings.Episodes_NoAudioAvailible}"
+                               Margin="0,8,0,0"
+                               TextColor="{AppThemeBinding Light={StaticResource ErrorColorLight}, Dark={StaticResource ErrorColorDark}}"
+                             >
+                            <Label.IsVisible>
+                                <MultiBinding Converter="{StaticResource AndConverter}">
+                                    <Binding Path="EpisodeData.HasAudio" Converter="{StaticResource InvertedBoolConverter}" />
+                                    <Binding Path="EpisodeData.DownloadData" Converter="{StaticResource InvertedNullToIsVisibleConverter}" />
+                                </MultiBinding>
+                            </Label.IsVisible>
+                        </Label>
+
                         <Grid x:Name="DataTableNarrow"
                             HorizontalOptions="Start"
                             MaximumWidthRequest="200"
                             Margin="0,8,0,0"
-                            IsVisible="{Binding EpisodeData.HasAudio, Mode=OneWay}"
                             ColumnDefinitions="Auto, *"
                             RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
                             >
@@ -181,11 +193,13 @@
 
                             <Label Grid.Row="1"
                                 Grid.Column="0"
+                                IsVisible="{Binding EpisodeData.PublishLength.LengthString, Converter={x:StaticResource EmptyToBoolConverter}, ConverterParameter=false, Mode=OneWay}"
                                 Text="{x:Static r:Strings.General_Length}"
                                 Style="{StaticResource DetailedTextStyle}" />
 
                             <Label Grid.Row="1"
                                 Grid.Column="1"
+                                IsVisible="{Binding EpisodeData.PublishLength.LengthString, Converter={x:StaticResource EmptyToBoolConverter}, ConverterParameter=false, Mode=OneWay}"
                                 Text="{Binding EpisodeData.PublishLength.LengthString, Mode=OneWay}"
                                 Style="{StaticResource DetailedTextStyle}"
                                 Margin="7,0,0,0" />
