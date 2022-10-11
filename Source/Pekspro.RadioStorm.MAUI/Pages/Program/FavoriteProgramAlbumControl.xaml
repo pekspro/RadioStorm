@@ -63,32 +63,37 @@
                 Style="{StaticResource AlbumHeaderTextStyle}"
                 />
 
-            <views:LargeMediaButtonUserControl
-                Grid.ColumnSpan="2"
+            <Grid Grid.ColumnSpan="2"
                 Grid.Row="1"
+                Margin="0,0,0,0"
                 WidthRequest="160"
-                HeightRequest="160"
-                Source="{Binding ProgramImage.HighResolution, Mode=OneWay}"
-                Command="{Binding EpisodeStatus.TopEpisode.PlayPauseCommand, Mode=OneWay}"
-                AudioMediaState="{Binding EpisodeStatus.TopEpisode.AudioMediaState, Mode=OneWay}"
-                IsVisible="{Binding EpisodeStatus, Converter={StaticResource NullToIsVisibleConverter}}"
-            />
+                HeightRequest="160">
 
-            <Grid Grid.Row="1"
-		          Grid.ColumnSpan="2"
-                  IsVisible="{Binding EpisodeStatus, Converter={StaticResource NullToIsVisibleConverter}, Mode=OneWay}"
-                  >
+                <views:LargeMediaButtonUserControl
+                    WidthRequest="160"
+                    HeightRequest="160"
+                    Source="{Binding ProgramImage.HighResolution, Mode=OneWay}"
+                    Command="{Binding EpisodeStatus.TopEpisode.PlayPauseCommand, Mode=OneWay}"
+                    AudioMediaState="{Binding EpisodeStatus.TopEpisode.AudioMediaState, Mode=OneWay}"
+                    IsVisible="{Binding EpisodeStatus, Converter={StaticResource NullToIsVisibleConverter}}"
+                />
+
                 <Label 
-                   BackgroundColor="#AA000000"
-                   HorizontalOptions="End"
-                   VerticalOptions="Start"
-                   Margin="0,4,0,0"
-                   Padding="4,0,4,2"
-                   IsVisible="{Binding EpisodeStatus.NotListenedEpisodeCount, Converter={StaticResource LargerThanZeroConverter}, Mode=OneWay}"
-		           Text="{Binding EpisodeStatus.NotListenedEpisodeCount, Mode=OneWay}"
-                   TextColor="White"
-                   Style="{StaticResource AlbumNormalTextStyle}"
-			        />
+                    BackgroundColor="#AA000000"
+                    HorizontalOptions="End"
+                    VerticalOptions="Start"
+                    Padding="4,0,4,1"
+                    Text="{Binding EpisodeStatus.NotListenedEpisodeCount, Mode=OneWay}"
+                    TextColor="White"
+                    Style="{StaticResource AlbumNormalTextStyle}"
+			    >
+                    <Label.IsVisible>
+                        <MultiBinding Converter="{StaticResource AndConverter}">
+                            <Binding Path="EpisodeStatus" Converter="{StaticResource NullToIsVisibleConverter}" />
+                            <Binding Path="EpisodeStatus.NotListenedEpisodeCount" Converter="{StaticResource LargerThanZeroConverter}" />
+                        </MultiBinding>
+                    </Label.IsVisible>
+                </Label>
             </Grid>
 
             <Label x:Name="LabelEpisodeTitle"
