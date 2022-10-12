@@ -132,7 +132,7 @@ public sealed partial class CurrentPlayingViewModel : DownloadViewModel, IDispos
                 return;
             }
 
-            if (refreshSettings.FullRefresh)
+            if (refreshSettings.FullRefresh || DownloadState == DownloadStates.Error)
             {
                 DownloadState = DownloadStates.Downloading;
             }

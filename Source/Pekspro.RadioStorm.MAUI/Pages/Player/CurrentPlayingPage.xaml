@@ -15,6 +15,11 @@
                 Text="{x:Static r:Strings.SleepTimer_Title}"
                 Order="Primary"
                 Priority="0" />
+        <ToolbarItem 
+                Command="{Binding UpdateCommand}"
+                Text="{x:Static r:Strings.General_Update}"
+                Order="Secondary"
+                Priority="0" />
         <c:BindableToolbarItem 
                 x:Name="ToolbarItemVerySlow"
                 Command="{Binding PlayerViewModel.SetSpeedVerySlowCommand}"
@@ -343,6 +348,8 @@
                 </VerticalStackLayout>
             </VerticalStackLayout>
 
+            <views:DownloadState HorizontalOptions="Start" VerticalOptions="End" Margin="{StaticResource NormalPageMargin}" />
+            
             <!-- Next episode info -->
             <Grid 
                 Padding="8" 
