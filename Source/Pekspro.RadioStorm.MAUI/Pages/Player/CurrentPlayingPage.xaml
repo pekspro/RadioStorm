@@ -138,7 +138,7 @@
 				        />
 
                 <HorizontalStackLayout Grid.Row="2" Grid.Column="1" Padding="0,0,0,0" Spacing="8">
-                    <Label  
+                    <!--<Label  
                         Style="{StaticResource DetailedTextStyle}"
                         VerticalOptions="End"
 				        LineBreakMode="TailTruncation"
@@ -150,7 +150,7 @@
                                 <Binding Path="EpisodeData.PublishLength.RelativePublishDateString" />
                             </MultiBinding>
                         </Label.Text>
-                    </Label>
+                    </Label>-->
 
                     <!--<Label  
                         Style="{StaticResource ListNormalTextStyle}"
@@ -317,8 +317,8 @@
 
                         <Path  x:Name="DisabledButton"
                            Style="{StaticResource PathPlaylist}"
-                           WidthRequest="32"
-                           HeightRequest="32"
+                           WidthRequest="20"
+                           HeightRequest="20"
                            HorizontalOptions="Center"
                            VerticalOptions="Center"
                             />
@@ -344,19 +344,42 @@
             </VerticalStackLayout>
 
             <!-- Next episode info -->
-            <VerticalStackLayout 
+            <Grid 
+                Padding="8" 
+                IsVisible="{Binding NextEpisodeData, Converter={StaticResource NullToIsVisibleConverter}}"
                 HorizontalOptions="End"
                 VerticalOptions="End"
-                Margin="20,0,4,20"
-                IsVisible="{Binding PlayerViewModel.HasPlayList}"
+                Margin="0,0,4,0"
                 >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="24" />
+                    <RowDefinition Height="24" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+
+                <Image Grid.Row="0"
+                        Grid.Column="1"
+                        Grid.RowSpan="2"
+			            WidthRequest="48"
+			            HeightRequest="48"
+                        Aspect="AspectFill"
+                        Margin="8,0,0,0">
+                    <Image.Source>
+                        <UriImageSource Uri="{Binding NextEpisodeData.EpisodeImage.HighResolution, Mode=OneWay}"
+                        CacheValidity="1"  
+                        CachingEnabled="True"
+                    />
+                    </Image.Source>
+                </Image>
+
                 <Label 
+                    VerticalOptions="Start"
                     HorizontalOptions="End"
-                    IsVisible="{Binding NextEpisodeData, Converter={StaticResource NullToIsVisibleConverter}}"
                     Style="{StaticResource DetailedTextStyle}"
                     LineBreakMode="TailTruncation"
-				    Margin="0,4,0,0"
-				    MaxLines="2"
 				    >
                     <Label.Text>
                         <MultiBinding StringFormat="{x:Static r:Strings.Episodes_NextEpisode}">
@@ -364,8 +387,27 @@
                         </MultiBinding>
                     </Label.Text>
                 </Label>
-            </VerticalStackLayout>
+                
+                <HorizontalStackLayout Grid.Row="1" Grid.Column="0" HorizontalOptions="End">
+                    
+                    <Label  
+                        Style="{StaticResource DetailedTextStyle}"
+                        VerticalOptions="End"
+				        LineBreakMode="TailTruncation"
+				        MaxLines="1"
+                        Text="{Binding NextEpisodeData.DownloadData.DownloadStatusText, Mode=OneWay}"
+				        >
+                    </Label>
 
+                    <Button Command="{Binding NextEpisodeData.DownloadCommand}"
+                            IsVisible="{Binding NextEpisodeData.CanDownload}"
+                            Style="{StaticResource InlineHyperlinkButton}"
+                            Margin="0,0,0,-8"
+                            Text="{x:Static r:Strings.General_Download}"
+                            />
+
+                </HorizontalStackLayout>
+            </Grid>
 
             <!-- Lower right, channel next program info -->
             <Grid Grid.Row="0"
@@ -375,8 +417,8 @@
                 HorizontalOptions="Fill"
                 >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="24" />
+                    <RowDefinition Height="24" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -386,9 +428,9 @@
                 <Image Grid.Row="0"
                        Grid.Column="1"
                        Grid.RowSpan="2"
-			           WidthRequest="64"
-			           HeightRequest="64"
-                       Margin="0,0,0,0">
+			           WidthRequest="48"
+			           HeightRequest="48"
+                       Margin="8,0,0,0">
                     <Image.Source>
                         <UriImageSource Uri="{Binding ChannelData.Status.NextProgramImage.LowResolution, Mode=OneWay}"
                         CacheValidity="1"  
@@ -399,13 +441,10 @@
 
                 <Label  Grid.Row="0"
                         Grid.Column="0"
-                        HorizontalOptions="EndAndExpand"
-                        FontSize="20"
-                        Style="{StaticResource ListHeaderTextStyle}"
-                        Padding="0,0,8,0"
-                        VerticalOptions="Center"
+                        VerticalOptions="Start"
+                        HorizontalOptions="End"
+                        Style="{StaticResource DetailedTextStyle}"
 				        LineBreakMode="TailTruncation"
-				        MaxLines="1"
 				>
                     <Label.Text>
                         <MultiBinding StringFormat="{}{0} {1}">
@@ -417,12 +456,11 @@
 
                 <Label  Grid.Row="1"
                         Grid.Column="0"
-                        HorizontalOptions="EndAndExpand"
-                        Padding="0,0,8,0"
-                        HorizontalTextAlignment="End"
-                        Style="{StaticResource ListNormalTextStyle}"
+                        VerticalOptions="End"
+                        HorizontalOptions="End"
+                        Style="{StaticResource DetailedTextStyle}"
+				        LineBreakMode="TailTruncation"
 				        Text="{Binding ChannelData.Status.NextProgramDescription}"
-                        MaxLines="2"
 				        />
             </Grid>
         </Grid>
