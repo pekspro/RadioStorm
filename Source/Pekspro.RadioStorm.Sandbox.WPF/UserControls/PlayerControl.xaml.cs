@@ -22,4 +22,29 @@ public sealed partial class PlayerControl : UserControl
         var playListWindow = App.ServiceProvider.GetRequiredService<PlaylistWindow>();
         playListWindow.Show();
     }
+
+    private void ContextMenuVerySlow_Click(object sender, RoutedEventArgs e)
+    {
+        ViewModel.SetSpeedVerySlow();
+    }
+
+    private void ContextMenuSlow_Click(object sender, RoutedEventArgs e)
+    {
+        ViewModel.SetSpeedSlow();
+    }
+
+    private void ContextMenuNormal_Click(object sender, RoutedEventArgs e)
+    {
+        ViewModel.SetSpeedNormal();
+    }
+
+    private void ContextMenuFast_Click(object sender, RoutedEventArgs e)
+    {
+        ViewModel.SetSpeedFast();
+    }
+
+    private void ContextMenuVeryFast_Click(object sender, RoutedEventArgs e)
+    {
+        ViewModel.SetSpeedVeryFast();
+    }
 }

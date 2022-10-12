@@ -36,12 +36,11 @@
             <Button Command="{Binding RewindCommand, Mode=OneWay}" Content="{Binding SeekSizeViewModel.RewindSize, Converter={StaticResource TimeSpanToSeekSizeStringConverter}}" />
             <Button Command="{Binding ForwardCommand, Mode=OneWay}" Content="{Binding SeekSizeViewModel.ForwardSize, Converter={StaticResource TimeSpanToSeekSizeStringConverter}}" />
             <Button Command="{Binding GoToNextCommand, Mode=OneWay}" Content="Next" />
-            <Button Command="{Binding ToogleMenuCommand, Mode=OneWay}" Content="..." />
             <Button IsEnabled="{Binding HasPlayList, Mode=OneWay}" Click="ButtonOpenPlaylist_Click" Content="Playlist" />
             <Slider x:Name="SliderVolume" Minimum="0" Maximum="100" Width="150" Value="{Binding Volume}" />
         </StackPanel>
 
-        <Grid Grid.Row="2" Grid.ColumnSpan="3" Visibility="{Binding IsMenuOpen, Converter={StaticResource BoolToVisibilityConverter}}">
+        <Grid Grid.Row="2" Grid.ColumnSpan="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="*" />
@@ -62,15 +61,34 @@
                 Visibility="{Binding IsSleepTimerRunning, Converter={StaticResource BoolToVisibilityConverter}}"
                 />
 
-            <Label Grid.Column="2" 
-               Content="{x:Static r:Strings.Player_MenuSpeed}"
-               />
-
-            <ComboBox Grid.Column="3"
-                IsEnabled="{Binding IsCurrentItemLiveAudio, Converter={StaticResource InvertedBoolToVisibilityConverter}}"
-                ItemsSource="{Binding PlaybackRateOptions}"
-                SelectedIndex="{Binding PlaybackRateIndex, Mode=TwoWay}"
-                />
+            <Button Grid.Column="3" Content="{x:Static r:Strings.Player_MenuSpeed}">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Style.Triggers>
+                            <EventTrigger RoutedEvent="Click">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="ContextMenu.IsOpen">
+                                                <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True"/>
+                                            </BooleanAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="{x:Static r:Strings.Player_MenuSpeed_VerySlow}" x:Name="ContextMenuVerySlow" Click="ContextMenuVerySlow_Click" />
+                        <MenuItem Header="{x:Static r:Strings.Player_MenuSpeed_Slow}" x:Name="ContextMenuSlow" Click="ContextMenuSlow_Click" />
+                        <MenuItem Header="{x:Static r:Strings.Player_MenuSpeed_Normal}" x:Name="ContextMenuNormal" Click="ContextMenuNormal_Click" />
+                        <MenuItem Header="{x:Static r:Strings.Player_MenuSpeed_Fast}" x:Name="ContextMenuFast" Click="ContextMenuFast_Click" />
+                        <MenuItem Header="{x:Static r:Strings.Player_MenuSpeed_VeryFast}" x:Name="ContextMenuVeryFast" Click="ContextMenuVeryFast_Click" />
+                    </ContextMenu>
+                </Button.ContextMenu>
+            </Button>
         </Grid>
 
         <!--<StackPanel Orientation="Horizontal" Grid.Row="2">
