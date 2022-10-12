@@ -62,12 +62,20 @@
         Grid.Row="0"
         Grid.Column="2">
 
-        <Label Style="{StaticResource DetailedTextStyle}"
-               Text="{Binding SleepTimerText}"
-               IsVisible="{Binding IsSleepTimerRunning}"
-               Margin="4,0,8,0"
-               Opacity="0.5"
-               HorizontalOptions="End" />
+        <HorizontalStackLayout Margin="4,0,8,0"
+                               Opacity="0.5"
+                               IsVisible="{Binding IsSleepTimerRunning}"
+                               HorizontalOptions="End">
+            <Path Style="{x:StaticResource PathIndicatorSleepTimer}"
+                  WidthRequest="11"
+                  HeightRequest="11"
+                />
+            
+            <Label Style="{StaticResource DetailedTextStyle}"
+                   Margin="4,0,0,1"
+                   Text="{Binding SleepTimerText}"
+                   />
+        </HorizontalStackLayout>
 
         <Label Style="{StaticResource DetailedTextStyle}"
                Text="{Binding PlaybackRateShortString}"
