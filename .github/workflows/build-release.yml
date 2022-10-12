@@ -38,6 +38,7 @@ jobs:
         echo "CURRENT_TIME=$(date +'%Y%m%d_%H%M%S')" >> $env:GITHUB_ENV
         echo "CURRENT_TIME_UTC_STRING=$(date +'%Y-%m-%dT%H:%M:%SZ')" >> $env:GITHUB_ENV
         echo "NET_VERSION_STRING=$(dotnet --version)" >> $env:GITHUB_ENV
+        echo "SHORT_SHA=$("${{ github.sha }}".SubString(0, 8))" >> $env:GITHUB_ENV
         echo "WORKLOAD_ANDROID_VERSION_STRING=$((dotnet workload list | Select-String maui-android)[0].ToString().Split(" ",[System.StringSplitOptions]::RemoveEmptyEntries)[1])" >> $env:GITHUB_ENV
         echo "WORKLOAD_WINDOWS_VERSION_STRING=$((dotnet workload list | Select-String maui-windows)[0].ToString().Split(" ",[System.StringSplitOptions]::RemoveEmptyEntries)[1])" >> $env:GITHUB_ENV
         echo "WORKLOAD_IOS_VERSION_STRING=$((dotnet workload list | Select-String maui-ios)[0].ToString().Split(" ",[System.StringSplitOptions]::RemoveEmptyEntries)[1])" >> $env:GITHUB_ENV
@@ -64,7 +65,7 @@ jobs:
     - name: Upload source
       uses: actions/upload-artifact@v3.1.0
       with:
-        name: source-${{ env.CURRENT_TIME }}
+        name: source-${{ env.CURRENT_TIME }}-${{ env.SHORT_SHA }}
         retention-days: 5
         path: |
           ./**/*.*
@@ -155,7 +156,7 @@ jobs:
       if: github.event.inputs.buildWindows == 'true'
       uses: actions/upload-artifact@v3.1.0
       with:
-        name: windows-${{ env.BUILD_TYPE }}-${{ env.CURRENT_TIME }}-${{ steps.windows_version.outputs.info }}
+        name: windows-${{ env.BUILD_TYPE }}-${{ env.CURRENT_TIME }}-${{ env.SHORT_SHA }}-${{ steps.windows_version.outputs.info }}
         retention-days: 5
         path: |
           ./*.msix
@@ -209,14 +210,14 @@ jobs:
       if: github.event.inputs.buildAndroid == 'true'
       shell: powershell 
       run: |
-         Get-ChildItem -Filter *.aab | Rename-Item -NewName { $_.BaseName + '-${{ steps.android_display_version.outputs.info }} [${{ steps.android_version.outputs.info }}]' + $_.Extension }
-         Get-ChildItem -Filter *.apk | Rename-Item -NewName { $_.BaseName + '-${{ steps.android_display_version.outputs.info }} [${{ steps.android_version.outputs.info }}]' + $_.Extension }
+         Get-ChildItem -Filter *.aab | Rename-Item -NewName { $_.BaseName + '-${{ env.SHORT_SHA }}-${{ steps.android_display_version.outputs.info }} [${{ steps.android_version.outputs.info }}]' + $_.Extension }
+         Get-ChildItem -Filter *.apk | Rename-Item -NewName { $_.BaseName + '-${{ env.SHORT_SHA }}-${{ steps.android_display_version.outputs.info }} [${{ steps.android_version.outputs.info }}]' + $_.Extension }
 
     - name: Upload a Android Artifact
       if: github.event.inputs.buildAndroid == 'true'
       uses: actions/upload-artifact@v3.1.0
       with:
-        name: android-${{ env.BUILD_TYPE }}-${{ env.CURRENT_TIME }}-${{ steps.android_display_version.outputs.info }} [${{ steps.android_version.outputs.info }}]
+        name: android-${{ env.BUILD_TYPE }}-${{ env.CURRENT_TIME }}-${{ env.SHORT_SHA }}-${{ steps.android_display_version.outputs.info }} [${{ steps.android_version.outputs.info }}]
         retention-days: 5
         path: |
           ./*.aab
