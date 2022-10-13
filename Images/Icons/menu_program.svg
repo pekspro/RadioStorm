@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="menu_program.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="px"
+     showgrid="false"
+     units="px"
+     inkscape:zoom="20.496746"
+     inkscape:cx="4.3665468"
+     inkscape:cy="15.782993"
+     inkscape:window-width="1680"
+     inkscape:window-height="987"
+     inkscape:window-x="1672"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="text3222-0"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     scale-x="1">
+    <sodipodi:guide
+       position="5,10.827177"
+       orientation="-1,0"
+       id="guide8061"
+       inkscape:label=""
+       inkscape:locked="false"
+       inkscape:color="rgb(0,0,255)" />
+    <sodipodi:guide
+       position="-0.58545879,18"
+       orientation="0,1"
+       id="guide8063"
+       inkscape:label=""
+       inkscape:locked="false"
+       inkscape:color="rgb(0,0,255)" />
+    <sodipodi:guide
+       position="3.837957,16.996807"
+       orientation="0,-1"
+       id="guide8065" />
+  </sodipodi:namedview>
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Lager 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       style="font-size:16px;line-height:1.25;font-family:'Segoe UI Symbol';-inkscape-font-specification:'Segoe UI Symbol'"
+       x="31.069735"
+       y="20"
+       id="text3222"><tspan
+         sodipodi:role="line"
+         id="tspan3220"
+         x="31.069735"
+         y="20"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:'Segoe MDL2 Assets';-inkscape-font-specification:'Segoe MDL2 Assets'"></tspan></text>
+    <g
+       aria-label=""
+       id="text3222-0"
+       style="font-size:16px;line-height:1.25;font-family:'Segoe UI Symbol';-inkscape-font-specification:'Segoe UI Symbol'">
+      <path
+         d="M 9,18.002129 V 6.0021286 h 3 V 18.002129 Z M 10,7.0021286 V 17.002129 h 1 V 7.0021286 Z M 5,18.002129 V 6.0021286 H 8 V 18.002129 Z M 6,7.0021286 V 17.002129 H 7 V 7.0021286 Z m 9.648438,-1.1796875 3.781249,11.3281249 -2.703125,0.90625 -3.781249,-11.3281249 z m -1.59375,1.453125 3.218749,9.6718749 1.046875,-0.34375 -3.226562,-9.6718749 z"
+         style="font-family:'Segoe MDL2 Assets';-inkscape-font-specification:'Segoe MDL2 Assets'"
+         id="path8079" />
+    </g>
+    <g
+       aria-label=""
+       id="text3222-3"
+       style="font-size:13.3333px;line-height:1.25;font-family:'Segoe UI Symbol';-inkscape-font-specification:'Segoe UI Symbol'"
+       transform="translate(2.8116269,0.89696073)" />
+  </g>
+</svg>

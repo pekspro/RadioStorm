@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="11"
+   height="11"
+   viewBox="0 0 11 11"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="indicator_sleeptimer_11x11px.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="5.6568545"
+     inkscape:cx="-17.766057"
+     inkscape:cy="19.357047"
+     inkscape:window-width="1680"
+     inkscape:window-height="987"
+     inkscape:window-x="1672"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="text3222-7"
+     inkscape:pageshadow="2"
+     width="22px"
+     showguides="true"
+     inkscape:guide-bbox="true" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Lager 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       style="font-size:24px;line-height:1.25;font-family:'Segoe UI Symbol';-inkscape-font-specification:'Segoe UI Symbol'"
+       x="16.219315"
+       y="11.712313"
+       id="text3222"><tspan
+         sodipodi:role="line"
+         id="tspan3220"
+         x="16.219315"
+         y="11.712313"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;font-family:'Segoe MDL2 Assets';-inkscape-font-specification:'Segoe MDL2 Assets'"></tspan></text>
+    <g
+       aria-label=""
+       id="text3222-7"
+       style="font-size:24px;line-height:1.25;font-family:'Segoe UI Symbol';-inkscape-font-specification:'Segoe UI Symbol'">
+      <path
+         id="path6871-9"
+         style="font-size:24px;line-height:1.25;font-family:'Segoe MDL2 Assets';-inkscape-font-specification:'Segoe MDL2 Assets'"
+         d="m 4.7578125,0.546875 c -0.671875,0.0625 -1.296875,0.2421875 -1.875,0.5390625 C 2.3046875,1.3828125 1.8007818,1.765625 1.3710938,2.234375 0.94140675,2.695313 0.60546825,3.226563 0.36328125,3.828125 0.12109425,4.429688 0,5.070313 0,5.75 0,6.476563 0.13671925,7.1601562 0.41015625,7.8007812 0.68359325,8.4335933 1.0585932,8.9882807 1.5351562,9.4648438 2.0117192,9.9414067 2.5664068,10.316407 3.1992188,10.589844 3.8398438,10.863281 4.523438,11 5.25,11 5.929688,11 6.570313,10.878906 7.171875,10.636719 7.773437,10.394532 8.304687,10.058593 8.765625,9.6289062 9.234375,9.1992183 9.6171875,8.6953125 9.9140625,8.1171875 10.210938,7.5390625 10.390625,6.9140625 10.453125,6.2421875 10.21875,6.3281265 9.9804692,6.3945362 9.7382812,6.4414062 9.4960942,6.4804662 9.25,6.5 9,6.5 8.375,6.5 7.7890625,6.3828125 7.2421875,6.1484375 6.7031255,5.9140625 6.226563,5.59375 5.8125,5.1875 5.40625,4.773438 5.0859375,4.2968755 4.8515625,3.7578125 4.6171875,3.2109375 4.5,2.625 4.5,2 4.5,1.75 4.519534,1.5039057 4.558594,1.2617188 4.605469,1.0195318 4.6718727,0.7812499 4.7578125,0.546875 Z"
+         sodipodi:nodetypes="cscsscscsscsccscccscc" />
+    </g>
+  </g>
+</svg>
