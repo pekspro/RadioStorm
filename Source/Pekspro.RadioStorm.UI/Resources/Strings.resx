@@ -376,10 +376,10 @@
     <value>Inställningar och information om RadioStorm</value>
   </data>
   <data name="Favorites_Welcome_1" xml:space="preserve">
-    <value>Hej!</value>
+    <value>Välkommen till RadioStorm!</value>
   </data>
   <data name="Favorites_Welcome_2" xml:space="preserve">
-    <value>Roligt att du har valt att prova RadioStorm. På den här sidan ser du dina favoriter från Sveriges Radio när du gjort dina val.</value>
+    <value>Roligt att du använder RadioStorm. På den här sidan ser du dina favoriter från Sveriges Radio när du gjort dina val.</value>
   </data>
   <data name="Favorites_Welcome_3a" xml:space="preserve">
     <value>Använd menyn till vänster för att se vilka </value>

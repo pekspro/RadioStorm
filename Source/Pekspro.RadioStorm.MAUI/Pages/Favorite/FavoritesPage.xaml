@@ -153,7 +153,7 @@
                     Spacing="8"
                     >
 
-                    <Label Text="{x:Static r:Strings.Favorites_Welcome_1}" />
+                    <Label Text="{x:Static r:Strings.Favorites_Welcome_1}"  Style="{StaticResource SubtitleTextBlockStyle}" />
 
                     <Label Text="{x:Static r:Strings.Favorites_Welcome_2}"
                             />

@@ -853,7 +853,7 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hej!.
+        ///   Looks up a localized string similar to Välkommen till RadioStorm!.
         /// </summary>
         public static string Favorites_Welcome_1 {
             get {
@@ -862,7 +862,7 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Roligt att du har valt att prova RadioStorm. På den här sidan ser du dina favoriter från Sveriges Radio när du gjort dina val..
+        ///   Looks up a localized string similar to Roligt att du använder RadioStorm. På den här sidan ser du dina favoriter från Sveriges Radio när du gjort dina val..
         /// </summary>
         public static string Favorites_Welcome_2 {
             get {
