@@ -356,7 +356,7 @@ public sealed class MediaPlayerService : Service,
             // Restart if stopped
             if (MediaPlayerState == PlaybackStateCode.Stopped)
             {
-                Logger.LogInformation($"Player is stopped, maybe something went wrong. Restarting.");
+                Logger.LogInformation($"Player is stopped, maybe audio focus was lost or something went wrong. Restarting.");
 
                 if (PlayList is not null)
                 {
@@ -690,8 +690,7 @@ public sealed class MediaPlayerService : Service,
             ItemImage,
             MediaPlayerState is
                 PlaybackStateCode.Playing or
-                PlaybackStateCode.Buffering or
-                PlaybackStateCode.Stopped,
+                PlaybackStateCode.Buffering,
             PlayList,
             this);
     }
