@@ -64,8 +64,8 @@
             <Setter Property="FontSize" Value="{OnPlatform Default=16, WinUI=16}" />
         </Style>
     </Shell.Resources>
-    
-    
+
+
     <!--FlyoutBackgroundColor="#1E1E1E" -->
 
     <Shell.FlyoutContentTemplate>
@@ -78,22 +78,22 @@
                         <Setter Property="ControlTemplate" Value="{StaticResource MenuItemTemplate}"/>
                     </Style>
                 </Grid.Resources>
-                
+
                 <RadioButton Value="favorites" 
                              IsChecked="True" 
                              Grid.Row="0"
                              CheckedChanged="OnMenuItemChanged">
                     <RadioButton.Content>
                         <Grid RowDefinitions="{OnPlatform WinUI='48', Default='56'}" ColumnDefinitions="{OnPlatform WinUI='48,*', Default='56,*'}">
-                            <Image Style="{StaticResource MenuImage}" IsVisible="{OnPlatform Default=False, WinUI=True}">
-                                <Image.Source>
-                                    <FontImageSource
-                                    FontFamily="{StaticResource DefaultIconFont}"
-                                    Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.FavoriteStarFill}}"
-                                    Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
-                                    Size="48"/>
-                                </Image.Source>
-                            </Image>
+                            <Label Grid.Column="0"
+                                   IsVisible="{OnPlatform Default=False, WinUI=True}"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   FontFamily="{StaticResource DefaultIconFont}"
+                                   Text="{x:Static style:SegoeIconFont.FavoriteStarFill}" 
+                                   TextColor="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
+                                   FontSize="16"
+                                   />
 
                             <Path Grid.Column="0"   
                                 Style="{x:StaticResource PathMenuFavorite}"
@@ -115,15 +115,15 @@
                              CheckedChanged="OnMenuItemChanged">
                     <RadioButton.Content>
                         <Grid RowDefinitions="{OnPlatform WinUI='48', Default='56'}" ColumnDefinitions="{OnPlatform WinUI='48,*', Default='56,*'}">
-                            <Image Style="{StaticResource MenuImage}" IsVisible="{OnPlatform Default=False, WinUI=True}">
-                                <Image.Source>
-                                    <FontImageSource
-                                    FontFamily="{StaticResource DefaultIconFont}"
-                                    Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.Microphone}}"
-                                    Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
-                                    Size="48"/>
-                                </Image.Source>
-                            </Image>
+                            <Label Grid.Column="0"
+                                   IsVisible="{OnPlatform Default=False, WinUI=True}"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   FontFamily="{StaticResource DefaultIconFont}"
+                                   Text="{x:Static style:SegoeIconFont.Microphone}" 
+                                   TextColor="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
+                                   FontSize="16"
+                                   />
 
                             <Path Grid.Column="0"   
                                 Style="{x:StaticResource PathMenuRadio}"
@@ -132,7 +132,7 @@
                                 Fill="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
                                 WidthRequest="36"
                                 />
-                            
+
                             <Label Grid.Column="1" 
                                    Text="{x:Static r:Strings.GeneralButtonChannels}" 
                                    Style="{StaticResource MenuLabel}" />
@@ -145,15 +145,15 @@
                              CheckedChanged="OnMenuItemChanged">
                     <RadioButton.Content>
                         <Grid RowDefinitions="{OnPlatform WinUI='48', Default='56'}" ColumnDefinitions="{OnPlatform WinUI='48,*', Default='56,*'}">
-                            <Image Style="{StaticResource MenuImage}" IsVisible="{OnPlatform Default=False, WinUI=True}">
-                                <Image.Source>
-                                    <FontImageSource
-                                    FontFamily="{StaticResource DefaultIconFont}"
-                                    Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.Library}}"
-                                    Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
-                                    Size="48"/>
-                                </Image.Source>
-                            </Image>
+                            <Label Grid.Column="0"
+                                   IsVisible="{OnPlatform Default=False, WinUI=True}"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   FontFamily="{StaticResource DefaultIconFont}"
+                                   Text="{x:Static style:SegoeIconFont.Library}" 
+                                   TextColor="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
+                                   FontSize="16"
+                                   />
 
                             <Path Grid.Column="0"   
                                 Style="{x:StaticResource PathMenuProgram}"
@@ -176,15 +176,15 @@
                              CheckedChanged="OnMenuItemChanged">
                     <RadioButton.Content>
                         <Grid RowDefinitions="{OnPlatform WinUI='48', Default='56'}" ColumnDefinitions="{OnPlatform WinUI='48,*', Default='56,*'}">
-                            <Image Style="{StaticResource MenuImage}" IsVisible="{OnPlatform Default=False, WinUI=True}">
-                                <Image.Source>
-                                    <FontImageSource
-                                    FontFamily="{StaticResource DefaultIconFont}"
-                                    Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.History}}"
-                                    Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
-                                    Size="48"/>
-                                </Image.Source>
-                            </Image>
+                            <Label Grid.Column="0"
+                                   IsVisible="{OnPlatform Default=False, WinUI=True}"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   FontFamily="{StaticResource DefaultIconFont}"
+                                   Text="{x:Static style:SegoeIconFont.History}" 
+                                   TextColor="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
+                                   FontSize="16"
+                                   />
 
                             <Path Grid.Column="0"   
                                 Style="{x:StaticResource PathMenuRecent}"
@@ -206,15 +206,15 @@
                              CheckedChanged="OnMenuItemChanged">
                     <RadioButton.Content>
                         <Grid RowDefinitions="{OnPlatform WinUI='48', Default='56'}" ColumnDefinitions="{OnPlatform WinUI='48,*', Default='56,*'}">
-                            <Image Style="{StaticResource MenuImage}" IsVisible="{OnPlatform Default=False, WinUI=True}">
-                                <Image.Source>
-                                    <FontImageSource
-                                    FontFamily="{StaticResource DefaultIconFont}"
-                                    Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.Download}}"
-                                    Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
-                                    Size="48"/>
-                                </Image.Source>
-                            </Image>
+                            <Label Grid.Column="0"
+                                   IsVisible="{OnPlatform Default=False, WinUI=True}"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   FontFamily="{StaticResource DefaultIconFont}"
+                                   Text="{x:Static style:SegoeIconFont.Download}" 
+                                   TextColor="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
+                                   FontSize="16"
+                                   />
 
                             <Path Grid.Column="0"   
                                 Style="{x:StaticResource PathMenuDownload}"
@@ -236,15 +236,15 @@
                              CheckedChanged="OnMenuItemChanged">
                     <RadioButton.Content>
                         <Grid RowDefinitions="{OnPlatform WinUI='48', Default='56'}" ColumnDefinitions="{OnPlatform WinUI='48,*', Default='56,*'}">
-                            <Image Style="{StaticResource MenuImage}" IsVisible="{OnPlatform Default=False, WinUI=True}">
-                                <Image.Source>
-                                    <FontImageSource
-                                    FontFamily="{StaticResource DefaultIconFont}"
-                                    Glyph="{OnPlatform WinUI={x:Static style:SegoeIconFont.Setting}}"
-                                    Color="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
-                                    Size="48"/>
-                                </Image.Source>
-                            </Image>
+                            <Label Grid.Column="0"
+                                   IsVisible="{OnPlatform Default=False, WinUI=True}"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   FontFamily="{StaticResource DefaultIconFont}"
+                                   Text="{x:Static style:SegoeIconFont.Setting}" 
+                                   TextColor="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
+                                   FontSize="16"
+                                   />
 
                             <Path Grid.Column="0"   
                                 Style="{x:StaticResource PathMenuSettings}"
