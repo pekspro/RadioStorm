@@ -32,15 +32,26 @@ public sealed partial class AboutViewModel
     public string VersionString => $"RadioStorm {VersionProvider.ApplicationVersion}";
 
     public string PureVersionString => VersionProvider.ApplicationVersion.ToString();
-    
-    public string BuildDetails => string.Format
-        (
-            Strings.About_BuildDetails, 
-            BuildInformation.BuildTime.ToShortDateString(),
-            BuildInformation.BuildTime.ToShortTimeString()
-        );
 
-    public string? CommitId => BuildInformation.CommitId;
+    public string? BuildTimeDetails
+    {
+        get
+        {
+            if (BuildInformation.BuildTimeString is null)
+            {
+                return null;
+            }
+            
+            return string.Format
+            (
+                Strings.About_BuildDetails,
+                BuildInformation.BuildTime.ToShortDateString(),
+                BuildInformation.BuildTime.ToShortTimeString()
+            );
+        }
+    }
+
+    public string? ShortCommitId => BuildInformation.ShortCommitId;
     
     public string? DotNetVersionString => BuildInformation.DotNetVersionString;
     

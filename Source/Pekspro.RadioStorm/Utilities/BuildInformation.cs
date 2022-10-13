@@ -17,7 +17,9 @@ public static partial class BuildInformation
         BuildTimeString is null ? DateTime.MinValue : DateTime.Parse(BuildTimeString);
 
     public static string? CommitId { get; private set; }
-    
+
+    public static string? ShortCommitId => CommitId?.Substring(0, Math.Min(CommitId.Length, 7));
+
     public static string? DotNetVersionString { get; private set; }
 
     public static string? MauiWorkloadAndroidVersionString { get; private set; }
@@ -37,13 +39,13 @@ public static partial class BuildInformation
     static partial void Initialize()
     {
         Branch = "main";
-        BuildTimeString = "2022-07-16T18:41:12Z";
+        BuildTimeString = "2038-01-18T03:14:40Z";
         CommitId = "588e4c916b95bd3ec301662c5d68ee151b3a805c";
         DotNetVersionString = "6.0.401";
-        MauiWorkloadAndroidVersionString = "6.0.486/6.0.400";
-        MauiWorkloadWindowsVersionString = "6.0.486/6.0.400";
-        MauiWorkloadIosVersionString = "6.0.486/6.0.400";
-        MauiWorkloadMacCatalysVersionString = "6.0.486/6.0.400";
+        MauiWorkloadAndroidVersionString = "6.0.541/6.0.400";
+        MauiWorkloadWindowsVersionString = "6.0.541/6.0.400";
+        MauiWorkloadIosVersionString = "6.0.541/6.0.400";
+        MauiWorkloadMacCatalysVersionString = "6.0.541/6.0.400";
     }
 }
 */

@@ -25,8 +25,10 @@
 
                 <VerticalStackLayout>
 
-                    <Label Text="{Binding BuildDetails}" Style="{StaticResource DetailedTextStyle}" 
-                       TextColor="{AppThemeBinding Dark={StaticResource InactiveProgramColorDark}, Light={StaticResource InactiveProgramColorLight}}" />
+                    <Label Style="{StaticResource DetailedTextStyle}" 
+                           Text="{Binding BuildTimeDetails}" 
+                           IsVisible="{Binding BuildTimeDetails, Converter={StaticResource NullToIsVisibleConverter}}"
+                           TextColor="{AppThemeBinding Dark={StaticResource InactiveProgramColorDark}, Light={StaticResource InactiveProgramColorLight}}" />
 
                     <Label Style="{StaticResource DetailedTextStyle}"
                        IsVisible="{Binding DotNetVersionString, Converter={StaticResource NullToIsVisibleConverter}}"
@@ -73,11 +75,11 @@
                     </Label>
 
                     <Label Style="{StaticResource DetailedTextStyle}"
-                       IsVisible="{Binding CommitId, Converter={StaticResource NullToIsVisibleConverter}}"
+                       IsVisible="{Binding ShortCommitId, Converter={StaticResource NullToIsVisibleConverter}}"
                        TextColor="{AppThemeBinding Dark={StaticResource InactiveProgramColorDark}, Light={StaticResource InactiveProgramColorLight}}">
                         <Label.Text>
                             <MultiBinding StringFormat="{}Commit: {0}">
-                                <Binding Path="CommitId" />
+                                <Binding Path="ShortCommitId" />
                             </MultiBinding>
                         </Label.Text>
                     </Label>
