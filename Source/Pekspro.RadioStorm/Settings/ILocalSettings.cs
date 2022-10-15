@@ -8,7 +8,6 @@ public interface ILocalSettings
     bool MayWantToReview { get; set; }
     bool PreferStreamsWithMusic { get; set; }
     bool UseLiveTile { get; set; }
-    bool ShowDebugSettings { get; set; }
     bool WriteLogsToFile { get; set; }
     ThemeType Theme { get; set; }
     int LastSetSleepTimerIntervall { get; set; }

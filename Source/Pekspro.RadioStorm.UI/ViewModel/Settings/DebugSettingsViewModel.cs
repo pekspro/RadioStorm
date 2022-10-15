@@ -19,19 +19,11 @@ public sealed partial class DebugSettingsViewModel : ObservableObject
         Logger = null!;
     }
 
-    public DebugSettingsViewModel(ILocalSettings localSettings, ILogFileHelper logFileHelper, IMessenger messenger, ILogger<DebugSettingsViewModel> logger)
+    public DebugSettingsViewModel(ILocalSettings localSettings, ILogFileHelper logFileHelper, ILogger<DebugSettingsViewModel> logger)
     {
         Settings = localSettings;
         LogFileHelper = logFileHelper;
         Logger = logger;
-
-        messenger.Register<SettingChangedMessage>(this, (r, n) =>
-        {
-            if (n.SettingName == nameof(Settings.ShowDebugSettings))
-            {
-                OnPropertyChanged(nameof(ShowDebugSettings));
-            }
-        });
     }
 
     #endregion
@@ -39,23 +31,7 @@ public sealed partial class DebugSettingsViewModel : ObservableObject
     #region Public properties
 
     public ILocalSettings Settings { get; }
-
-    public bool ShowDebugSettings
-    {
-        get
-        {
-            return Settings.ShowDebugSettings;
-        }
-        set
-        {
-            if (Settings.ShowDebugSettings != value)
-            {
-                Settings.ShowDebugSettings = value;
-                OnPropertyChanged(nameof(ShowDebugSettings));
-            }
-        }
-    }
-
+    
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(HasLogFiles))]
     [NotifyPropertyChangedFor(nameof(CanRemoveLogFiles))]

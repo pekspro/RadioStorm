@@ -24,9 +24,7 @@
             <Label Content="{x:Static r:Strings.About_Troubleshooting_Title}" 
                     />
 
-            <CheckBox IsChecked="{Binding ShowDebugSettings}" Content="{x:Static r:Strings.About_Troubleshooting_EnableDebugSettings}" />
-
-            <StackPanel Visibility="{Binding ShowDebugSettings, Converter={StaticResource BoolToVisibilityConverter}}">
+            <StackPanel>
                 <Label Content="{x:Static r:Strings.About_Troubleshooting_LogFiles_Title}" 
                        />
                 
