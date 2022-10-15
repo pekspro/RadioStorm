@@ -192,11 +192,17 @@
 
             <!-- Top left, channel current program info -->
             <Grid Grid.Row="0"
-                Padding="8" 
-                IsVisible="{Binding ChannelData, Converter={StaticResource NullToIsVisibleConverter}}"
+                Padding="8"                 
                 VerticalOptions="Start"
                 HorizontalOptions="Fill"
                 >
+                <Grid.IsVisible>
+                    <MultiBinding Converter="{StaticResource AndConverter}">
+                        <Binding Path="ChannelData" Converter="{StaticResource NullToIsVisibleConverter}" />
+                        <Binding Path="ChannelData.Status" Converter="{StaticResource NullToIsVisibleConverter}" />
+                        <Binding Path="ChannelData.Status.CurrentProgram" Converter="{StaticResource NullToIsVisibleConverter}" />
+                    </MultiBinding>
+                </Grid.IsVisible>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
@@ -223,33 +229,32 @@
                 <views:ChannelProgressBar Grid.Column="1"
                                           Grid.Row="1"
                                           Margin="0,0,0,0"
-                                          BindingContext="{Binding ChannelData}"
+                                          BindingContext="{Binding ChannelData}" 
                                           />
+
                 <Label  Grid.Row="0"
                         Grid.Column="1"
-                        HorizontalOptions="StartAndExpand"
-                        FontSize="20"
-                        Style="{StaticResource ListHeaderTextStyle}"
-                        VerticalOptions="Center"
-				        LineBreakMode="TailTruncation"
-				        MaxLines="1"
-				        >
+                        HorizontalOptions="Start"
+                        Style="{StaticResource ListNormalTextStyle}"
+                        MaxLines="1">
                     <Label.Text>
-                        <MultiBinding StringFormat="{}{0} {1}">
+                        <MultiBinding StringFormat="{}{0} - {1}">
                             <Binding Path="ChannelData.Status.CurrentTimePeriod.StartTimeString" />
-                            <Binding Path="ChannelData.Status.CurrentProgram" />
+                            <Binding Path="ChannelData.Status.CurrentTimePeriod.EndTimeString" />
                         </MultiBinding>
                     </Label.Text>
                 </Label>
 
                 <Label  Grid.Row="1"
                         Grid.Column="1"
-                        HorizontalOptions="StartAndExpand"
-                        Padding="0,0,20,0"
-                        Style="{StaticResource ListNormalTextStyle}"
-                        Text="{Binding ChannelData.Status.CurrentProgramDescription}"
-                        MaxLines="2"
-                        />
+                        HorizontalOptions="Start"
+                        FontSize="20"
+                        Style="{StaticResource ListHeaderTextStyle}"
+                        VerticalOptions="Center"
+				        LineBreakMode="TailTruncation"
+				        MaxLines="1"
+                        Text="{Binding ChannelData.Status.CurrentProgram}"
+				        />
 
             </Grid>
 
@@ -419,10 +424,16 @@
             <!-- Lower right, channel next program info -->
             <Grid Grid.Row="0"
                 Padding="8" 
-                IsVisible="{Binding ChannelData, Converter={StaticResource NullToIsVisibleConverter}}"
                 VerticalOptions="End"
                 HorizontalOptions="Fill"
                 >
+                <Grid.IsVisible>
+                    <MultiBinding Converter="{StaticResource AndConverter}">
+                        <Binding Path="ChannelData" Converter="{StaticResource NullToIsVisibleConverter}" />
+                        <Binding Path="ChannelData.Status" Converter="{StaticResource NullToIsVisibleConverter}" />
+                        <Binding Path="ChannelData.Status.NextProgram" Converter="{StaticResource NullToIsVisibleConverter}" />
+                    </MultiBinding>
+                </Grid.IsVisible>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="24" />
                     <RowDefinition Height="24" />
@@ -448,15 +459,13 @@
 
                 <Label  Grid.Row="0"
                         Grid.Column="0"
-                        VerticalOptions="Start"
                         HorizontalOptions="End"
                         Style="{StaticResource DetailedTextStyle}"
-				        LineBreakMode="TailTruncation"
-				>
+                        MaxLines="1">
                     <Label.Text>
-                        <MultiBinding StringFormat="{}{0} {1}">
+                        <MultiBinding StringFormat="{}{0} - {1}">
                             <Binding Path="ChannelData.Status.NextTimePeriod.StartTimeString" />
-                            <Binding Path="ChannelData.Status.NextProgram" />
+                            <Binding Path="ChannelData.Status.NextTimePeriod.EndTimeString" />
                         </MultiBinding>
                     </Label.Text>
                 </Label>
@@ -467,8 +476,9 @@
                         HorizontalOptions="End"
                         Style="{StaticResource DetailedTextStyle}"
 				        LineBreakMode="TailTruncation"
-				        Text="{Binding ChannelData.Status.NextProgramDescription}"
-				        />
+                        MaxLines="1"
+                        Text="{Binding ChannelData.Status.NextProgram}"
+				/>
             </Grid>
         </Grid>
 

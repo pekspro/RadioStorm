@@ -135,6 +135,14 @@ public sealed partial class CurrentPlayingViewModel : DownloadViewModel, IDispos
             if (refreshSettings.FullRefresh || DownloadState == DownloadStates.Error)
             {
                 DownloadState = DownloadStates.Downloading;
+
+                EpisodeData = null;
+                NextEpisodeData = null;
+
+                if (ChannelData is not null)
+                {
+                    ChannelData.Status = null;
+                }
             }
 
             if (currentItem.IsLiveAudio)

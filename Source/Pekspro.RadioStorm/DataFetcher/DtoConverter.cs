@@ -76,7 +76,7 @@ internal sealed class DtoConverter : IDtoConverter
         NextProgramImage = scheduleData.Nextscheduledepisode?.Socialimage,
         NextProgramDescription = scheduleData.Nextscheduledepisode?.Description,
         NextStartTime = scheduleData.Nextscheduledepisode?.Starttimeutc,
-        NextEndTime = scheduleData.Nextscheduledepisode?.Starttimeutc
+        NextEndTime = scheduleData.Nextscheduledepisode?.Endtimeutc
     };
 
     public IEnumerable<ChannelStatusData> Convert(ICollection<ChannelRightNow> channels) =>
