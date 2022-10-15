@@ -8,114 +8,118 @@
              x:DataType="vm:SettingsViewModel"
              Title="{x:Static r:Strings.Settings_Title}"
     >
-    <ScrollView Padding="{StaticResource NormalPageMargin}">
-        <VerticalStackLayout Spacing="8">
-            <Border Style="{StaticResource Card}" 
-                    Grid.Row="0" 
-                    Margin="{StaticResource NormalPageMargin}">
-                <Grid x:Name="GridLayout" 
-                        HorizontalOptions="FillAndExpand"
-                        Style="{StaticResource CardLayout}">
+    <Grid RowDefinitions="*,Auto">
+        <ScrollView Padding="{StaticResource NormalPageMargin}">
+            <VerticalStackLayout Spacing="8">
+                <Border Style="{StaticResource Card}" 
+                        Grid.Row="0" 
+                        Margin="{StaticResource NormalPageMargin}">
+                    <Grid x:Name="GridLayout" 
+                            HorizontalOptions="FillAndExpand"
+                            Style="{StaticResource CardLayout}">
 
-                    <VerticalStackLayout Spacing="8" x:Name="AboutLayout">
-                        <Label Text="{Binding VersionString}" Style="{StaticResource SubtitleTextBlockStyle}" />
+                        <VerticalStackLayout Spacing="8" x:Name="AboutLayout">
+                            <Label Text="{Binding VersionString}" Style="{StaticResource SubtitleTextBlockStyle}" />
 
-                        <Label Text="{x:Static r:Strings.Settings_Description}" />
+                            <Label Text="{x:Static r:Strings.Settings_Description}" />
 
-                        <Button Clicked="ButtonAbout_Clicked" 
+                            <Button Clicked="ButtonAbout_Clicked" 
+                                    Style="{StaticResource HyperlinkButton}"
+                                    Text="{x:Static r:Strings.Settings_Open_About}" />
+
+                            <Label Text="{x:Static r:Strings.Settings_Credits_Title}" Style="{StaticResource Subtitle2TextBlockStyle}" />
+                            <Label Text="{x:Static r:Strings.Settings_Credits_Line1}" />
+                            <Label Text="{x:Static r:Strings.Settings_Credits_Line2}" />
+                            <Label Text="{x:Static r:Strings.Settings_Credits_Line3}" />
+                            <Label Text="{x:Static r:Strings.Settings_Credits_Line4}" />
+
+                            <Label Text="{x:Static r:Strings.Settings_Header_Email}" Style="{StaticResource Subtitle2TextBlockStyle}" Margin="0,12,0,0" />
+                            <Label Text="{x:Static r:Strings.Settings_Email_Note}" />
+                            <Button Command="{Binding EmailCommand}"
                                 Style="{StaticResource HyperlinkButton}"
-                                Text="{x:Static r:Strings.Settings_Open_About}" />
+                                Text="{x:Static r:Strings.General_Pekspro_EmailAddress}"
+                                />
 
-                        <Label Text="{x:Static r:Strings.Settings_Credits_Title}" Style="{StaticResource Subtitle2TextBlockStyle}" />
-                        <Label Text="{x:Static r:Strings.Settings_Credits_Line1}" />
-                        <Label Text="{x:Static r:Strings.Settings_Credits_Line2}" />
-                        <Label Text="{x:Static r:Strings.Settings_Credits_Line3}" />
-                        <Label Text="{x:Static r:Strings.Settings_Credits_Line4}" />
+                            <Label Text="{x:Static r:Strings.Settings_Header_Webbpage}" Style="{StaticResource Subtitle2TextBlockStyle}" />
+                            <Button Command="{Binding OpenWebPageCommand}"
+                                Style="{StaticResource HyperlinkButton}"
+                                Text="{x:Static r:Strings.General_Pekspro_Url}"
+                                />
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
 
-                        <Label Text="{x:Static r:Strings.Settings_Header_Email}" Style="{StaticResource Subtitle2TextBlockStyle}" Margin="0,12,0,0" />
-                        <Label Text="{x:Static r:Strings.Settings_Email_Note}" />
-                        <Button Command="{Binding EmailCommand}"
-                            Style="{StaticResource HyperlinkButton}"
-                            Text="{x:Static r:Strings.General_Pekspro_EmailAddress}"
-                            />
+                <Rectangle Style="{StaticResource Separator}" />
 
-                        <Label Text="{x:Static r:Strings.Settings_Header_Webbpage}" Style="{StaticResource Subtitle2TextBlockStyle}" />
-                        <Button Command="{Binding OpenWebPageCommand}"
-                            Style="{StaticResource HyperlinkButton}"
-                            Text="{x:Static r:Strings.General_Pekspro_Url}"
-                            />
-                    </VerticalStackLayout>
+                <views:GraphControl />
+                <views:SynchronizeControl />
+
+
+                <Rectangle Style="{StaticResource Separator}" />
+
+                <Label Text="{x:Static r:Strings.Settings_Theme_Title}" 
+                   Style="{StaticResource SubtitleTextBlockStyle}"
+                   />
+
+                <Label Text="{x:Static r:Strings.Settings_Theme_Description}" />
+
+                <Picker ItemsSource="{Binding ThemeTypes}"
+                        SelectedIndex="{Binding ThemeIndex, Mode=TwoWay}"
+                        Margin="{OnPlatform Default='0', WinUI='0,0,0,12'}"
+                        />
+
+                <Rectangle Style="{StaticResource Separator}" />
+
+                <Label Text="{x:Static r:Strings.Settings_Play_Title}" 
+                   Style="{StaticResource SubtitleTextBlockStyle}"
+                   />
+
+                <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="*, Auto">
+                    <!-- On Windows, label on top off switch. On Android label left to switch -->
+
+                    <Label 
+                        Text="{x:Static r:Strings.Settings_Play_PreferMusicDescription}"
+                        VerticalOptions="Center"
+                        Grid.Row="{OnPlatform WinUI=0, Default=0}"
+                        Grid.Column="{OnPlatform WinUI=0, Default=0}"
+                        Margin="{OnPlatform WinUI='0,0,0,8', Default=0}"
+                        />
+
+                    <Switch 
+                        VerticalOptions="Center"
+                        IsToggled="{Binding Settings.PreferStreamsWithMusic}"
+                        Grid.Row="{OnPlatform WinUI=1, Default=0}"
+                        Grid.Column="{OnPlatform WinUI=0, Default=1}"
+                        />
                 </Grid>
-            </Border>
 
-            <Rectangle Style="{StaticResource Separator}" />
+                <Label Text="{x:Static r:Strings.Settings_Play_DownloadNote}" 
+                   />
 
-            <views:GraphControl />
-            <views:SynchronizeControl />
+                <Rectangle Style="{StaticResource Separator}" />
 
-            
-            <Rectangle Style="{StaticResource Separator}" />
+                <Label Text="{x:Static r:Strings.Settings_Cache_Title}" 
+                   Style="{StaticResource SubtitleTextBlockStyle}"
+                   />
 
-            <Label Text="{x:Static r:Strings.Settings_Theme_Title}" 
-               Style="{StaticResource SubtitleTextBlockStyle}"
-               />
+                <Label Text="{x:Static r:Strings.Settings_Cache_Description}"
+                   />
 
-            <Label Text="{x:Static r:Strings.Settings_Theme_Description}" />
+                <Button Command="{Binding ClearCacheCommand}" 
+                        Text="{x:Static r:Strings.Settings_Cache_ButtonClean}" 
+                        Grid.Row="1" 
+                        HorizontalOptions="Start"
+                        />
 
-            <Picker ItemsSource="{Binding ThemeTypes}"
-                    SelectedIndex="{Binding ThemeIndex, Mode=TwoWay}"
-                    Margin="{OnPlatform Default='0', WinUI='0,0,0,12'}"
-                    />
+                <Label Text="{x:Static r:Strings.Settings_Cache_Clearing}" IsVisible="{Binding IsCacheClearing}" />
+                <Label Text="{x:Static r:Strings.Settings_Cache_Cleared}" IsVisible="{Binding IsCacheCleared}" />
 
-            <Rectangle Style="{StaticResource Separator}" />
-            
-            <Label Text="{x:Static r:Strings.Settings_Play_Title}" 
-               Style="{StaticResource SubtitleTextBlockStyle}"
-               />
+                <Rectangle Style="{StaticResource Separator}" />
 
-            <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="*, Auto">
-                <!-- On Windows, label on top off switch. On Android label left to switch -->
-                
-                <Label 
-                    Text="{x:Static r:Strings.Settings_Play_PreferMusicDescription}"
-                    VerticalOptions="Center"
-                    Grid.Row="{OnPlatform WinUI=0, Default=0}"
-                    Grid.Column="{OnPlatform WinUI=0, Default=0}"
-                    Margin="{OnPlatform WinUI='0,0,0,8', Default=0}"
-                    />
+                <views:DownloadSettingsControl />
+            </VerticalStackLayout>
+        </ScrollView>
 
-                <Switch 
-                    VerticalOptions="Center"
-                    IsToggled="{Binding Settings.PreferStreamsWithMusic}"
-                    Grid.Row="{OnPlatform WinUI=1, Default=0}"
-                    Grid.Column="{OnPlatform WinUI=0, Default=1}"
-                    />
-            </Grid>
-
-            <Label Text="{x:Static r:Strings.Settings_Play_DownloadNote}" 
-               />
-
-            <Rectangle Style="{StaticResource Separator}" />
-            
-            <Label Text="{x:Static r:Strings.Settings_Cache_Title}" 
-               Style="{StaticResource SubtitleTextBlockStyle}"
-               />
-
-            <Label Text="{x:Static r:Strings.Settings_Cache_Description}"
-               />
-
-            <Button Command="{Binding ClearCacheCommand}" 
-                    Text="{x:Static r:Strings.Settings_Cache_ButtonClean}" 
-                    Grid.Row="1" 
-                    HorizontalOptions="Start"
-                    />
-
-            <Label Text="{x:Static r:Strings.Settings_Cache_Clearing}" IsVisible="{Binding IsCacheClearing}" />
-            <Label Text="{x:Static r:Strings.Settings_Cache_Cleared}" IsVisible="{Binding IsCacheCleared}" />
-
-            <Rectangle Style="{StaticResource Separator}" />
-            
-            <views:DownloadSettingsControl />
-        </VerticalStackLayout>
-    </ScrollView>
+        <views:PlayerControl Grid.Row="1" />
+    </Grid>
 </ContentPage>
