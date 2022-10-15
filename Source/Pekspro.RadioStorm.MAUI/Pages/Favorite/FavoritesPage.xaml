@@ -108,9 +108,10 @@
             Order="Secondary"
             Priority="5" />
 
-        <ToolbarItem 
+        <c:BindableToolbarItem 
                 Command="{Binding UpdateCommand}"
                 Text="{x:Static r:Strings.General_Update}"
+                IsVisible="{Binding HasFavorites}"
                 Order="Secondary"
                 Priority="0" />
 
@@ -143,7 +144,7 @@
             Grid.RowSpan="2"
             Padding="0"
             Margin="{StaticResource NormalPageMargin}"
-            VerticalOptions="Start"
+            VerticalOptions="Center"
             HorizontalOptions="Center"
             IsVisible="{Binding HasFavorites, Converter={StaticResource InvertedBoolConverter}}">
 
