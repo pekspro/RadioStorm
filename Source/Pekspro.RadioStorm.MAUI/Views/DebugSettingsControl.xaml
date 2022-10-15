@@ -6,20 +6,23 @@
              x:Class="Pekspro.RadioStorm.MAUI.Views.DebugSettingsControl"
              x:DataType="vm:DebugSettingsViewModel">
     
-    <VerticalStackLayout x:Name="DebugSettings" IsVisible="{Binding ShowDebugSettings}">
+    <VerticalStackLayout>
         <Rectangle Style="{StaticResource Separator}" />
 
-        <Label 
-                    Text="{x:Static r:Strings.Settings_Debug_Title}"
+        <Label      Text="{x:Static r:Strings.About_Troubleshooting_Title}"
                     Margin="0,8"
                     Style="{StaticResource SubtitleTextBlockStyle}"
+                    />
+
+        <Label      Text="{x:Static r:Strings.About_Troubleshooting_Description}"
+                    Margin="0,8"
                     />
 
         <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="*, Auto">
             <!-- On Windows, label on top off switch. On Android label left to switch -->
 
             <Label 
-                        Text="{x:Static r:Strings.Settings_Debug_LogFiles_EnableLogToFile}"
+                        Text="{x:Static r:Strings.About_Troubleshooting_LogFiles_EnableLogToFile}"
                         VerticalOptions="Center"
                         Grid.Row="{OnPlatform WinUI=0, Default=0}"
                         Grid.Column="{OnPlatform WinUI=0, Default=0}"
@@ -35,19 +38,19 @@
         </Grid>
 
         <Label 
-                    Text="{x:Static r:Strings.Settings_Debug_LogFiles_Title}" 
+                    Text="{x:Static r:Strings.About_Troubleshooting_LogFiles_Title}" 
                     Margin="0,8"
                     Style="{StaticResource Subtitle2TextBlockStyle}"
                     />
 
-        <Label Text="{x:Static r:Strings.Settings_Debug_LogFiles_NoFiles}" 
+        <Label Text="{x:Static r:Strings.About_Troubleshooting_LogFiles_NoFiles}" 
                        IsVisible="{Binding HasLogFiles, Converter={StaticResource InvertedBoolConverter}}" />
 
         <VerticalStackLayout IsVisible="{Binding HasLogFiles}" Margin="0,8,0,0">
 
             <HorizontalStackLayout Spacing="8">
-                <Button Command="{Binding ZipLogFilesCommand}" Text="{x:Static r:Strings.Settings_Debug_LogFiles_SendLogFiles}" />
-                <Button Command="{Binding RemoveLogFilesCommand}" Text="{x:Static r:Strings.Settings_Debug_LogFiles_RemoveOldLogFiles}" />
+                <Button Command="{Binding ZipLogFilesCommand}" Text="{x:Static r:Strings.About_Troubleshooting_LogFiles_SendLogFiles}" />
+                <Button Command="{Binding RemoveLogFilesCommand}" Text="{x:Static r:Strings.About_Troubleshooting_LogFiles_RemoveOldLogFiles}" />
             </HorizontalStackLayout>
 
             <HorizontalStackLayout 
@@ -59,7 +62,7 @@
                             Margin="0,0,4,0" 
                             IsRunning="True" />
 
-                <Label Text="{x:Static r:Strings.Settings_Debug_LogFiles_CollectingLogFiles}"
+                <Label Text="{x:Static r:Strings.About_Troubleshooting_LogFiles_CollectingLogFiles}"
                             VerticalOptions="Center"
                             />
             </HorizontalStackLayout>
@@ -74,7 +77,7 @@
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
 
-                <Label Text="{x:Static r:Strings.Settings_Debug_LogFiles_Title}" 
+                <Label Text="{x:Static r:Strings.About_Troubleshooting_LogFiles_Title}" 
                                Margin="{OnPlatform WinUI='0,7,8,7', Default='0,10,8,0'}"
                                Grid.Column="0" />
 
@@ -85,7 +88,7 @@
                             Margin="{OnPlatform Default='0', WinUI='0,0,0,12'}"
                             />
 
-                <Button Text="{x:Static r:Strings.Settings_Debug_LogFiles_Open}"
+                <Button Text="{x:Static r:Strings.About_Troubleshooting_LogFiles_Open}"
                                 x:Name="ButtonOpenLogFile"
                                 IsEnabled="{Binding CanReadSelectedLogFile}"
                                 Clicked="ButtonOpenLogFile_Clicked"

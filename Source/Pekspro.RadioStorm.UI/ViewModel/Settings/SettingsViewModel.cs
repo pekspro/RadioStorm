@@ -6,6 +6,10 @@ public sealed partial class SettingsViewModel : ObservableObject
 
     private CacheDatabaseManager CacheDatabaseManager { get; }
 
+    private IVersionProvider VersionProvider { get; }
+
+    private IUriLauncher UriLauncher { get; }
+
     [ObservableProperty]
     private bool _CanClearCache = true;
 
@@ -20,12 +24,16 @@ public sealed partial class SettingsViewModel : ObservableObject
     {
         CacheDatabaseManager = null!;
         Settings = null!;
+        VersionProvider = null!;
+        UriLauncher = null!;
     }
 
-    public SettingsViewModel(CacheDatabaseManager cacheDatabaseManager, ILocalSettings localSettings)
+    public SettingsViewModel(CacheDatabaseManager cacheDatabaseManager, ILocalSettings localSettings, IVersionProvider versionProvider, IUriLauncher uriLauncher)
     {
         CacheDatabaseManager = cacheDatabaseManager;
         Settings = localSettings;
+        VersionProvider = versionProvider;
+        UriLauncher = uriLauncher;
         ThemeTypes.Add(Strings.Settings_Theme_Default);
         ThemeTypes.Add(Strings.Settings_Theme_Light);
         ThemeTypes.Add(Strings.Settings_Theme_Dark);
@@ -59,9 +67,26 @@ public sealed partial class SettingsViewModel : ObservableObject
         }
     }
 
+    public string VersionString => $"RadioStorm {VersionProvider.ApplicationVersion}";
+
+    public string PureVersionString => VersionProvider.ApplicationVersion.ToString();
+
+
     #endregion
 
     #region Commands
+
+    [RelayCommand]
+    private async void Email()
+    {
+        await UriLauncher.LaunchAsync(new Uri($"mailto:{Strings.General_Pekspro_EmailAddress}"));
+    }
+
+    [RelayCommand]
+    private async void OpenWebPage()
+    {
+        await UriLauncher.LaunchAsync(new Uri(Strings.General_Pekspro_Url));
+    }
 
     [RelayCommand(CanExecute = nameof(CanClearCache))]
     private async void ClearCache()

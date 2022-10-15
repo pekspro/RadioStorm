@@ -28,6 +28,7 @@ public sealed partial class App : Application
         MainPage = new AppShell();
 
         Routing.RegisterRoute(nameof(SettingsPage), typeof(SettingsPage));
+        Routing.RegisterRoute(nameof(AboutPage), typeof(AboutPage));
         Routing.RegisterRoute(nameof(ChannelsPage), typeof(ChannelsPage));
         Routing.RegisterRoute(nameof(ChannelDetailsPage), typeof(ChannelDetailsPage));
         Routing.RegisterRoute(nameof(ProgramsPage), typeof(ProgramsPage));

@@ -61,92 +61,65 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Den här versionen skapades {0} {1}..
+        ///   Looks up a localized string similar to Branch:.
         /// </summary>
-        public static string About_BuildDetails {
+        public static string About_BuildInformation_Branch {
             get {
-                return ResourceManager.GetString("About_BuildDetails", resourceCulture);
+                return ResourceManager.GetString("About_BuildInformation_Branch", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to …Sveriges Radio som gör sådana här projekt möjliga..
+        ///   Looks up a localized string similar to Den här versionen skapades:.
         /// </summary>
-        public static string About_Credits_Line1 {
+        public static string About_BuildInformation_BuildTime {
             get {
-                return ResourceManager.GetString("About_Credits_Line1", resourceCulture);
+                return ResourceManager.GetString("About_BuildInformation_BuildTime", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to …Joakim Karlsson för ikonen och grafisk rådgivning..
+        ///   Looks up a localized string similar to Commit:.
         /// </summary>
-        public static string About_Credits_Line2 {
+        public static string About_BuildInformation_Commit {
             get {
-                return ResourceManager.GetString("About_Credits_Line2", resourceCulture);
+                return ResourceManager.GetString("About_BuildInformation_Commit", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to …alla er som önskat förbättringar och hittat brister i programmet..
+        ///   Looks up a localized string similar to Version av .NET:.
         /// </summary>
-        public static string About_Credits_Line3 {
+        public static string About_BuildInformation_DotnetVersion {
             get {
-                return ResourceManager.GetString("About_Credits_Line3", resourceCulture);
+                return ResourceManager.GetString("About_BuildInformation_DotnetVersion", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to …dig som just nu använder RadioStorm! :-).
+        ///   Looks up a localized string similar to Version av .NET MAUI Workspace:.
         /// </summary>
-        public static string About_Credits_Line4 {
+        public static string About_BuildInformation_MauiVersion {
             get {
-                return ResourceManager.GetString("About_Credits_Line4", resourceCulture);
+                return ResourceManager.GetString("About_BuildInformation_MauiVersion", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tack till….
+        ///   Looks up a localized string similar to Bygginformation.
         /// </summary>
-        public static string About_Credits_Title {
+        public static string About_BuildInformation_Title {
             get {
-                return ResourceManager.GetString("About_Credits_Title", resourceCulture);
+                return ResourceManager.GetString("About_BuildInformation_Title", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to RadioStorm är utvecklat av PEK&apos;s Productions oberoende av Sveriges Radio. Programmet använder sig av Sveriges Radios öppna API..
+        ///   Looks up a localized string similar to RadioStorm är ett projekt med öppen källkod. Du hittar all källkod här:.
         /// </summary>
         public static string About_Description {
             get {
                 return ResourceManager.GetString("About_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Saknar du något i RadioStorm? Kontakta oss!.
-        /// </summary>
-        public static string About_Email_Note {
-            get {
-                return ResourceManager.GetString("About_Email_Note", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to E-post.
-        /// </summary>
-        public static string About_Header_Email {
-            get {
-                return ResourceManager.GetString("About_Header_Email", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hemsida.
-        /// </summary>
-        public static string About_Header_Webbpage {
-            get {
-                return ResourceManager.GetString("About_Header_Webbpage", resourceCulture);
             }
         }
         
@@ -156,6 +129,96 @@ namespace Pekspro.RadioStorm.UI.Resources {
         public static string About_Title {
             get {
                 return ResourceManager.GetString("About_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Om du aktiverar loggning så loggas det en massa information i den enhet vad som händer i RadioStorm. Detta kan du sedan själv titta på eller skicka vidare för att underlätta felsökning..
+        /// </summary>
+        public static string About_Troubleshooting_Description {
+            get {
+                return ResourceManager.GetString("About_Troubleshooting_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aktivera inställningar för felsökning.
+        /// </summary>
+        public static string About_Troubleshooting_EnableDebugSettings {
+            get {
+                return ResourceManager.GetString("About_Troubleshooting_EnableDebugSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Samlar ihop logfiler....
+        /// </summary>
+        public static string About_Troubleshooting_LogFiles_CollectingLogFiles {
+            get {
+                return ResourceManager.GetString("About_Troubleshooting_LogFiles_CollectingLogFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aktivera loggning (kräver omstart).
+        /// </summary>
+        public static string About_Troubleshooting_LogFiles_EnableLogToFile {
+            get {
+                return ResourceManager.GetString("About_Troubleshooting_LogFiles_EnableLogToFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Det finns inga loggfiler..
+        /// </summary>
+        public static string About_Troubleshooting_LogFiles_NoFiles {
+            get {
+                return ResourceManager.GetString("About_Troubleshooting_LogFiles_NoFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Öppna.
+        /// </summary>
+        public static string About_Troubleshooting_LogFiles_Open {
+            get {
+                return ResourceManager.GetString("About_Troubleshooting_LogFiles_Open", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Radera gamla loggfiler.
+        /// </summary>
+        public static string About_Troubleshooting_LogFiles_RemoveOldLogFiles {
+            get {
+                return ResourceManager.GetString("About_Troubleshooting_LogFiles_RemoveOldLogFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skicka loggfiler.
+        /// </summary>
+        public static string About_Troubleshooting_LogFiles_SendLogFiles {
+            get {
+                return ResourceManager.GetString("About_Troubleshooting_LogFiles_SendLogFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loggfiler.
+        /// </summary>
+        public static string About_Troubleshooting_LogFiles_Title {
+            get {
+                return ResourceManager.GetString("About_Troubleshooting_LogFiles_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Felsökning.
+        /// </summary>
+        public static string About_Troubleshooting_Title {
+            get {
+                return ResourceManager.GetString("About_Troubleshooting_Title", resourceCulture);
             }
         }
         
@@ -1114,6 +1177,15 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to https://github.com/pekspro/RadioStorm.
+        /// </summary>
+        public static string General_Pekspro_Repository_Url {
+            get {
+                return ResourceManager.GetString("General_Pekspro_Repository_Url", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to https://www.pekspro.com.
         /// </summary>
         public static string General_Pekspro_Url {
@@ -2059,83 +2131,56 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aktivera inställningar för felsökning.
+        ///   Looks up a localized string similar to …Sveriges Radio som gör sådana här projekt möjliga..
         /// </summary>
-        public static string Settings_Debug_EnableDebugSettings {
+        public static string Settings_Credits_Line1 {
             get {
-                return ResourceManager.GetString("Settings_Debug_EnableDebugSettings", resourceCulture);
+                return ResourceManager.GetString("Settings_Credits_Line1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Samlar ihop logfiler....
+        ///   Looks up a localized string similar to …Joakim Karlsson för ikonen och grafisk rådgivning..
         /// </summary>
-        public static string Settings_Debug_LogFiles_CollectingLogFiles {
+        public static string Settings_Credits_Line2 {
             get {
-                return ResourceManager.GetString("Settings_Debug_LogFiles_CollectingLogFiles", resourceCulture);
+                return ResourceManager.GetString("Settings_Credits_Line2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aktivera loggning (kräver omstart).
+        ///   Looks up a localized string similar to …alla er som önskat förbättringar och hittat brister i programmet..
         /// </summary>
-        public static string Settings_Debug_LogFiles_EnableLogToFile {
+        public static string Settings_Credits_Line3 {
             get {
-                return ResourceManager.GetString("Settings_Debug_LogFiles_EnableLogToFile", resourceCulture);
+                return ResourceManager.GetString("Settings_Credits_Line3", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Det finns inga loggfiler..
+        ///   Looks up a localized string similar to …dig som just nu använder RadioStorm! :-).
         /// </summary>
-        public static string Settings_Debug_LogFiles_NoFiles {
+        public static string Settings_Credits_Line4 {
             get {
-                return ResourceManager.GetString("Settings_Debug_LogFiles_NoFiles", resourceCulture);
+                return ResourceManager.GetString("Settings_Credits_Line4", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Öppna.
+        ///   Looks up a localized string similar to Tack till….
         /// </summary>
-        public static string Settings_Debug_LogFiles_Open {
+        public static string Settings_Credits_Title {
             get {
-                return ResourceManager.GetString("Settings_Debug_LogFiles_Open", resourceCulture);
+                return ResourceManager.GetString("Settings_Credits_Title", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Radera gamla loggfiler.
+        ///   Looks up a localized string similar to RadioStorm är utvecklat av PEK&apos;s Productions oberoende av Sveriges Radio. Programmet använder sig av Sveriges Radios öppna API..
         /// </summary>
-        public static string Settings_Debug_LogFiles_RemoveOldLogFiles {
+        public static string Settings_Description {
             get {
-                return ResourceManager.GetString("Settings_Debug_LogFiles_RemoveOldLogFiles", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Skicka loggfiler.
-        /// </summary>
-        public static string Settings_Debug_LogFiles_SendLogFiles {
-            get {
-                return ResourceManager.GetString("Settings_Debug_LogFiles_SendLogFiles", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Loggfiler.
-        /// </summary>
-        public static string Settings_Debug_LogFiles_Title {
-            get {
-                return ResourceManager.GetString("Settings_Debug_LogFiles_Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Felsökning.
-        /// </summary>
-        public static string Settings_Debug_Title {
-            get {
-                return ResourceManager.GetString("Settings_Debug_Title", resourceCulture);
+                return ResourceManager.GetString("Settings_Description", resourceCulture);
             }
         }
         
@@ -2293,6 +2338,33 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Saknar du något i RadioStorm? Kontakta oss!.
+        /// </summary>
+        public static string Settings_Email_Note {
+            get {
+                return ResourceManager.GetString("Settings_Email_Note", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to E-post.
+        /// </summary>
+        public static string Settings_Header_Email {
+            get {
+                return ResourceManager.GetString("Settings_Header_Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hemsida.
+        /// </summary>
+        public static string Settings_Header_Webbpage {
+            get {
+                return ResourceManager.GetString("Settings_Header_Webbpage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Använd levande panel..
         /// </summary>
         public static string Settings_LiveTile_Description {
@@ -2307,6 +2379,15 @@ namespace Pekspro.RadioStorm.UI.Resources {
         public static string Settings_LiveTile_Title {
             get {
                 return ResourceManager.GetString("Settings_LiveTile_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Visa mer information om RadioStorm.
+        /// </summary>
+        public static string Settings_Open_About {
+            get {
+                return ResourceManager.GetString("Settings_Open_About", resourceCulture);
             }
         }
         

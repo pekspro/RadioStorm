@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Settings;assembly=Pekspro.RadioStorm.UI"
+             xmlns:v="clr-namespace:Pekspro.RadioStorm.MAUI.Pages.Settings"
+             xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
+             xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
+             x:Class="Pekspro.RadioStorm.MAUI.Pages.Settings.AboutPage"
+             x:DataType="vm:AboutViewModel"
+             Title="{x:Static r:Strings.About_Title}">
+    <ScrollView Padding="{StaticResource NormalPageMargin}">
+        <VerticalStackLayout Spacing="8">
+
+            <Border Style="{StaticResource Card}" 
+                    Grid.Row="0" 
+                    Margin="{StaticResource NormalPageMargin}">
+                
+                <Grid x:Name="GridLayout" 
+                  HorizontalOptions="FillAndExpand"
+                  Style="{StaticResource CardLayout}">
+
+                    <VerticalStackLayout Spacing="8" x:Name="AboutLayout">
+                        <Label Text="{Binding VersionString}" Style="{StaticResource SubtitleTextBlockStyle}" />
+
+                        <Label Text="{x:Static r:Strings.About_Description}" />
+
+                        <Button Command="{Binding OpenRepositoryCommand}"
+                            Style="{StaticResource HyperlinkButton}"
+                            Text="{x:Static r:Strings.General_Pekspro_Repository_Url}"
+                            />
+                    </VerticalStackLayout>
+                </Grid>
+            </Border>
+
+            <Rectangle Style="{StaticResource Separator}" />
+            
+            <Label Text="{x:Static r:Strings.About_BuildInformation_Title}" Style="{StaticResource SubtitleTextBlockStyle}" />
+
+            <Grid ColumnDefinitions="auto, auto" RowDefinitions="auto, auto, auto, auto, auto" ColumnSpacing="8">
+                <Label Grid.Row="0" Grid.Column="0"
+                       Style="{StaticResource DetailedTextStyle}" 
+                       IsVisible="{Binding BuildTimeDetails, Converter={StaticResource NullToIsVisibleConverter}}"
+                       Text="{x:Static r:Strings.About_BuildInformation_BuildTime}"
+                       />
+
+                <Label Grid.Row="0" Grid.Column="1"
+                       Style="{StaticResource DetailedTextStyle}" 
+                       IsVisible="{Binding BuildTimeDetails, Converter={StaticResource NullToIsVisibleConverter}}"
+                       Text="{Binding BuildTimeDetails}"
+                       />
+
+
+                <Label Grid.Row="1" Grid.Column="0"
+                       Style="{StaticResource DetailedTextStyle}" 
+                       IsVisible="{Binding DotNetVersionString, Converter={StaticResource NullToIsVisibleConverter}}"
+                       Text="{x:Static r:Strings.About_BuildInformation_DotnetVersion}" 
+                       />
+
+                <Label Grid.Row="1" Grid.Column="1"
+                       Style="{StaticResource DetailedTextStyle}" 
+                       IsVisible="{Binding DotNetVersionString, Converter={StaticResource NullToIsVisibleConverter}}"
+                       Text="{Binding DotNetVersionString}"
+                       />
+
+
+                <Label Grid.Row="2" Grid.Column="0"
+                       Style="{StaticResource DetailedTextStyle}" 
+                       IsVisible="{OnPlatform WinUI={Binding MauiWorkloadWindowsVersionString, Converter={StaticResource NullToIsVisibleConverter}}, Default=False}"
+                       Text="{x:Static r:Strings.About_BuildInformation_MauiVersion}"
+                       />
+
+                <Label Grid.Row="2" Grid.Column="1"
+                       Style="{StaticResource DetailedTextStyle}" 
+                       IsVisible="{OnPlatform WinUI={Binding MauiWorkloadWindowsVersionString, Converter={StaticResource NullToIsVisibleConverter}}, Default=False}"
+                       Text="{Binding MauiWorkloadWindowsVersionString}" 
+                       />
+
+                <Label Grid.Row="2" Grid.Column="0"
+                       Style="{StaticResource DetailedTextStyle}" 
+                       IsVisible="{OnPlatform Android={Binding MauiWorkloadAndroidVersionString, Converter={StaticResource NullToIsVisibleConverter}}, Default=False}"
+                       Text="{x:Static r:Strings.About_BuildInformation_MauiVersion}"
+                        />
+
+                <Label Grid.Row="2" Grid.Column="1"
+                       Style="{StaticResource DetailedTextStyle}" 
+                       IsVisible="{OnPlatform Android={Binding MauiWorkloadAndroidVersionString, Converter={StaticResource NullToIsVisibleConverter}}, Default=False}"
+                       Text="{Binding MauiWorkloadAndroidVersionString}"
+                       />
+
+                <Label Grid.Row="3" Grid.Column="0"
+                       Style="{StaticResource DetailedTextStyle}" 
+                       IsVisible="{Binding ShortCommitId, Converter={StaticResource NullToIsVisibleConverter}}"
+                       Text="{x:Static r:Strings.About_BuildInformation_Commit}"
+                       />
+
+                <Label Grid.Row="3" Grid.Column="1"
+                       Style="{StaticResource DetailedTextStyle}" 
+                       IsVisible="{Binding ShortCommitId, Converter={StaticResource NullToIsVisibleConverter}}"
+                       Text="{Binding ShortCommitId}"
+                       />
+                
+                <Label Grid.Row="4" Grid.Column="0"
+                       Style="{StaticResource DetailedTextStyle}" 
+                       IsVisible="{Binding Branch, Converter={StaticResource NullToIsVisibleConverter}}"
+                       Text="{x:Static r:Strings.About_BuildInformation_Branch}"
+                       />
+
+                <Label Grid.Row="4" Grid.Column="1"
+                       Style="{StaticResource DetailedTextStyle}" 
+                       IsVisible="{Binding Branch, Converter={StaticResource NullToIsVisibleConverter}}"
+                       Text="{Binding Branch}"
+                       />
+            </Grid>
+
+            <views:DebugSettingsControl x:Name="DebugSettings" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

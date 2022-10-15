@@ -21,23 +21,23 @@
                     x:Name="DebugSettingsPanel"
                     >
 
-            <Label Content="{x:Static r:Strings.Settings_Debug_Title}" 
+            <Label Content="{x:Static r:Strings.About_Troubleshooting_Title}" 
                     />
 
-            <CheckBox IsChecked="{Binding ShowDebugSettings}" Content="{x:Static r:Strings.Settings_Debug_EnableDebugSettings}" />
+            <CheckBox IsChecked="{Binding ShowDebugSettings}" Content="{x:Static r:Strings.About_Troubleshooting_EnableDebugSettings}" />
 
             <StackPanel Visibility="{Binding ShowDebugSettings, Converter={StaticResource BoolToVisibilityConverter}}">
-                <Label Content="{x:Static r:Strings.Settings_Debug_LogFiles_Title}" 
+                <Label Content="{x:Static r:Strings.About_Troubleshooting_LogFiles_Title}" 
                        />
                 
-                <CheckBox IsChecked="{Binding Settings.WriteLogsToFile}" Content="{x:Static r:Strings.Settings_Debug_LogFiles_EnableLogToFile}" />
+                <CheckBox IsChecked="{Binding Settings.WriteLogsToFile}" Content="{x:Static r:Strings.About_Troubleshooting_LogFiles_EnableLogToFile}" />
 
-                <Label Content="{x:Static r:Strings.Settings_Debug_LogFiles_NoFiles}" 
+                <Label Content="{x:Static r:Strings.About_Troubleshooting_LogFiles_NoFiles}" 
                        Visibility="{Binding HasLogFiles, Converter={StaticResource InvertedBoolToVisibilityConverter}}" />
 
                 <StackPanel Orientation="Horizontal">
-                    <Button Command="{Binding ZipLogFilesCommand}" Content="{x:Static r:Strings.Settings_Debug_LogFiles_SendLogFiles}" />
-                    <Button Command="{Binding RemoveLogFilesCommand}" Content="{x:Static r:Strings.Settings_Debug_LogFiles_RemoveOldLogFiles}" />
+                    <Button Command="{Binding ZipLogFilesCommand}" Content="{x:Static r:Strings.About_Troubleshooting_LogFiles_SendLogFiles}" />
+                    <Button Command="{Binding RemoveLogFilesCommand}" Content="{x:Static r:Strings.About_Troubleshooting_LogFiles_RemoveOldLogFiles}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical" Visibility="{Binding HasLogFiles, Converter={StaticResource BoolToVisibilityConverter}}">
@@ -51,7 +51,7 @@
                             <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
 
-                        <Label Content="{x:Static r:Strings.Settings_Debug_LogFiles_Title}" 
+                        <Label Content="{x:Static r:Strings.About_Troubleshooting_LogFiles_Title}" 
                                Grid.Column="0" />
 
                         <ComboBox 
@@ -60,7 +60,7 @@
                             SelectedIndex="{Binding SelectedLogFileIndex, Mode=TwoWay}"
                             />
 
-                        <Button Content="{x:Static r:Strings.Settings_Debug_LogFiles_Open}"
+                        <Button Content="{x:Static r:Strings.About_Troubleshooting_LogFiles_Open}"
                                 x:Name="ButtonOpenLogFile"
                                 Click="ButtonOpenLogFile_Click"
                                 HorizontalAlignment="Left"
@@ -77,7 +77,7 @@
                             Margin="0,0,8,0"
                             />
 
-                        <TextBlock Text="{x:Static r:Strings.Settings_Debug_LogFiles_CollectingLogFiles }" />
+                        <TextBlock Text="{x:Static r:Strings.About_Troubleshooting_LogFiles_CollectingLogFiles }" />
                     </StackPanel>
                 </StackPanel>
             </StackPanel>

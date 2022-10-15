@@ -117,38 +117,59 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="About_BuildDetails" xml:space="preserve">
-    <value>Den här versionen skapades {0} {1}.</value>
+  <data name="About_BuildInformation_Branch" xml:space="preserve">
+    <value>Branch:</value>
   </data>
-  <data name="About_Credits_Line1" xml:space="preserve">
-    <value>…Sveriges Radio som gör sådana här projekt möjliga.</value>
+  <data name="About_BuildInformation_BuildTime" xml:space="preserve">
+    <value>Den här versionen skapades:</value>
   </data>
-  <data name="About_Credits_Line2" xml:space="preserve">
-    <value>…Joakim Karlsson för ikonen och grafisk rådgivning.</value>
+  <data name="About_BuildInformation_Commit" xml:space="preserve">
+    <value>Commit:</value>
   </data>
-  <data name="About_Credits_Line3" xml:space="preserve">
-    <value>…alla er som önskat förbättringar och hittat brister i programmet.</value>
+  <data name="About_BuildInformation_DotnetVersion" xml:space="preserve">
+    <value>Version av .NET:</value>
   </data>
-  <data name="About_Credits_Line4" xml:space="preserve">
-    <value>…dig som just nu använder RadioStorm! :-)</value>
+  <data name="About_BuildInformation_MauiVersion" xml:space="preserve">
+    <value>Version av .NET MAUI Workspace:</value>
   </data>
-  <data name="About_Credits_Title" xml:space="preserve">
-    <value>Tack till…</value>
+  <data name="About_BuildInformation_Title" xml:space="preserve">
+    <value>Bygginformation</value>
   </data>
   <data name="About_Description" xml:space="preserve">
-    <value>RadioStorm är utvecklat av PEK's Productions oberoende av Sveriges Radio. Programmet använder sig av Sveriges Radios öppna API.</value>
-  </data>
-  <data name="About_Email_Note" xml:space="preserve">
-    <value>Saknar du något i RadioStorm? Kontakta oss!</value>
-  </data>
-  <data name="About_Header_Email" xml:space="preserve">
-    <value>E-post</value>
-  </data>
-  <data name="About_Header_Webbpage" xml:space="preserve">
-    <value>Hemsida</value>
+    <value>RadioStorm är ett projekt med öppen källkod. Du hittar all källkod här:</value>
   </data>
   <data name="About_Title" xml:space="preserve">
     <value>Om</value>
+  </data>
+  <data name="About_Troubleshooting_Description" xml:space="preserve">
+    <value>Om du aktiverar loggning så loggas det en massa information i den enhet vad som händer i RadioStorm. Detta kan du sedan själv titta på eller skicka vidare för att underlätta felsökning.</value>
+  </data>
+  <data name="About_Troubleshooting_EnableDebugSettings" xml:space="preserve">
+    <value>Aktivera inställningar för felsökning</value>
+  </data>
+  <data name="About_Troubleshooting_LogFiles_CollectingLogFiles" xml:space="preserve">
+    <value>Samlar ihop logfiler...</value>
+  </data>
+  <data name="About_Troubleshooting_LogFiles_EnableLogToFile" xml:space="preserve">
+    <value>Aktivera loggning (kräver omstart)</value>
+  </data>
+  <data name="About_Troubleshooting_LogFiles_NoFiles" xml:space="preserve">
+    <value>Det finns inga loggfiler.</value>
+  </data>
+  <data name="About_Troubleshooting_LogFiles_Open" xml:space="preserve">
+    <value>Öppna</value>
+  </data>
+  <data name="About_Troubleshooting_LogFiles_RemoveOldLogFiles" xml:space="preserve">
+    <value>Radera gamla loggfiler</value>
+  </data>
+  <data name="About_Troubleshooting_LogFiles_SendLogFiles" xml:space="preserve">
+    <value>Skicka loggfiler</value>
+  </data>
+  <data name="About_Troubleshooting_LogFiles_Title" xml:space="preserve">
+    <value>Loggfiler</value>
+  </data>
+  <data name="About_Troubleshooting_Title" xml:space="preserve">
+    <value>Felsökning</value>
   </data>
   <data name="ChannelInfo_MoreAbout" xml:space="preserve">
     <value>Mer om {0}</value>
@@ -375,6 +396,12 @@
   <data name="Favorites_Tooltips_Settings" xml:space="preserve">
     <value>Inställningar och information om RadioStorm</value>
   </data>
+  <data name="Favorites_ViewMode_Album" xml:space="preserve">
+    <value>Visa som album</value>
+  </data>
+  <data name="Favorites_ViewMode_List" xml:space="preserve">
+    <value>Visa som lista</value>
+  </data>
   <data name="Favorites_Welcome_1" xml:space="preserve">
     <value>Välkommen till RadioStorm!</value>
   </data>
@@ -518,6 +545,9 @@
   </data>
   <data name="General_Pekspro_EmailAddress" xml:space="preserve">
     <value>info@pekspro.com</value>
+  </data>
+  <data name="General_Pekspro_Repository_Url" xml:space="preserve">
+    <value>https://github.com/pekspro/RadioStorm</value>
   </data>
   <data name="General_Pekspro_Url" xml:space="preserve">
     <value>https://www.pekspro.com</value>
@@ -744,6 +774,24 @@
   <data name="SavedPlaylist_Title" xml:space="preserve">
     <value>Sparad spellista</value>
   </data>
+  <data name="Services_Download_Description" xml:space="preserve">
+    <value>Visar status på pågående nedladdningar.</value>
+  </data>
+  <data name="Services_Download_Name" xml:space="preserve">
+    <value>Nedladdning pågår</value>
+  </data>
+  <data name="Services_Player_Description" xml:space="preserve">
+    <value>Visar information när radio eller poddar spelas.</value>
+  </data>
+  <data name="Services_Player_Name" xml:space="preserve">
+    <value>Uppspelare</value>
+  </data>
+  <data name="Services_SleepTimer_Description" xml:space="preserve">
+    <value>Visar status på sovtimer.</value>
+  </data>
+  <data name="Services_SleepTimer_Name" xml:space="preserve">
+    <value>Sovtimer</value>
+  </data>
   <data name="Settings_Cache_ButtonClean" xml:space="preserve">
     <value>Töm cache</value>
   </data>
@@ -759,32 +807,23 @@
   <data name="Settings_Cache_Title" xml:space="preserve">
     <value>Cache</value>
   </data>
-  <data name="Settings_Debug_EnableDebugSettings" xml:space="preserve">
-    <value>Aktivera inställningar för felsökning</value>
+  <data name="Settings_Credits_Line1" xml:space="preserve">
+    <value>…Sveriges Radio som gör sådana här projekt möjliga.</value>
   </data>
-  <data name="Settings_Debug_LogFiles_CollectingLogFiles" xml:space="preserve">
-    <value>Samlar ihop logfiler...</value>
+  <data name="Settings_Credits_Line2" xml:space="preserve">
+    <value>…Joakim Karlsson för ikonen och grafisk rådgivning.</value>
   </data>
-  <data name="Settings_Debug_LogFiles_EnableLogToFile" xml:space="preserve">
-    <value>Aktivera loggning (kräver omstart)</value>
+  <data name="Settings_Credits_Line3" xml:space="preserve">
+    <value>…alla er som önskat förbättringar och hittat brister i programmet.</value>
   </data>
-  <data name="Settings_Debug_LogFiles_NoFiles" xml:space="preserve">
-    <value>Det finns inga loggfiler.</value>
+  <data name="Settings_Credits_Line4" xml:space="preserve">
+    <value>…dig som just nu använder RadioStorm! :-)</value>
   </data>
-  <data name="Settings_Debug_LogFiles_Open" xml:space="preserve">
-    <value>Öppna</value>
+  <data name="Settings_Credits_Title" xml:space="preserve">
+    <value>Tack till…</value>
   </data>
-  <data name="Settings_Debug_LogFiles_RemoveOldLogFiles" xml:space="preserve">
-    <value>Radera gamla loggfiler</value>
-  </data>
-  <data name="Settings_Debug_LogFiles_SendLogFiles" xml:space="preserve">
-    <value>Skicka loggfiler</value>
-  </data>
-  <data name="Settings_Debug_LogFiles_Title" xml:space="preserve">
-    <value>Loggfiler</value>
-  </data>
-  <data name="Settings_Debug_Title" xml:space="preserve">
-    <value>Felsökning</value>
+  <data name="Settings_Description" xml:space="preserve">
+    <value>RadioStorm är utvecklat av PEK's Productions oberoende av Sveriges Radio. Programmet använder sig av Sveriges Radios öppna API.</value>
   </data>
   <data name="Settings_Downloads_AutoRemove_Description" xml:space="preserve">
     <value>Ta automatisk bort nedladdade avsnitt som är spelade efter:</value>
@@ -837,11 +876,23 @@
   <data name="Settings_Downloads_Usage_Title" xml:space="preserve">
     <value>Användning av lagringsutrymme</value>
   </data>
+  <data name="Settings_Email_Note" xml:space="preserve">
+    <value>Saknar du något i RadioStorm? Kontakta oss!</value>
+  </data>
+  <data name="Settings_Header_Email" xml:space="preserve">
+    <value>E-post</value>
+  </data>
+  <data name="Settings_Header_Webbpage" xml:space="preserve">
+    <value>Hemsida</value>
+  </data>
   <data name="Settings_LiveTile_Description" xml:space="preserve">
     <value>Använd levande panel.</value>
   </data>
   <data name="Settings_LiveTile_Title" xml:space="preserve">
     <value>Levande panel</value>
+  </data>
+  <data name="Settings_Open_About" xml:space="preserve">
+    <value>Visa mer information om RadioStorm</value>
   </data>
   <data name="Settings_Play_DownloadNote" xml:space="preserve">
     <value>Avsnitt som laddats ned spelas alltid upp utan musik.</value>
@@ -867,9 +918,6 @@
   <data name="Settings_Synchronize_SyncState_Done" xml:space="preserve">
     <value>Senaste synkroniseringen gjordes {0}.</value>
   </data>
-  <data name="Settings_Synchronize_SyncState_Failed_Short" xml:space="preserve">
-    <value>Synkroniseringen misslyckades. </value>
-  </data>
   <data name="Settings_Synchronize_SyncState_Failed" xml:space="preserve">
     <value>Synkroniseringen misslyckades ({0}). </value>
   </data>
@@ -878,6 +926,9 @@
   </data>
   <data name="Settings_Synchronize_SyncState_Failed_ProviderError" xml:space="preserve">
     <value>Något gick i kommunikationen ({0}).</value>
+  </data>
+  <data name="Settings_Synchronize_SyncState_Failed_Short" xml:space="preserve">
+    <value>Synkroniseringen misslyckades. </value>
   </data>
   <data name="Settings_Synchronize_SyncState_None" xml:space="preserve">
     <value>Ingen synkronisering har gjorts.</value>
@@ -905,6 +956,21 @@
   </data>
   <data name="Settings_Title" xml:space="preserve">
     <value>Inställningar</value>
+  </data>
+  <data name="SleepTimer_Notification_Action_Cancel" xml:space="preserve">
+    <value>Stoppa timer</value>
+  </data>
+  <data name="SleepTimer_Notification_Change" xml:space="preserve">
+    <value>{0} min</value>
+  </data>
+  <data name="SleepTimer_Notification_Description" xml:space="preserve">
+    <value>Uppspelningen avslutas när tiden har gått ut.</value>
+  </data>
+  <data name="SleepTimer_Notification_Title" xml:space="preserve">
+    <value>Sovtimer -  {0:00}:{1:00}</value>
+  </data>
+  <data name="SleepTimer_Title" xml:space="preserve">
+    <value>Sovtimer</value>
   </data>
   <data name="Start_JumpList_Channels" xml:space="preserve">
     <value>Kanaler</value>
@@ -947,44 +1013,5 @@
   </data>
   <data name="Weekday_Yesterday" xml:space="preserve">
     <value>Igår</value>
-  </data>
-  <data name="SleepTimer_Notification_Action_Cancel" xml:space="preserve">
-    <value>Stoppa timer</value>
-  </data>
-  <data name="SleepTimer_Notification_Description" xml:space="preserve">
-    <value>Uppspelningen avslutas när tiden har gått ut.</value>
-  </data>
-  <data name="SleepTimer_Notification_Title" xml:space="preserve">
-    <value>Sovtimer -  {0:00}:{1:00}</value>
-  </data>
-  <data name="SleepTimer_Notification_Change" xml:space="preserve">
-    <value>{0} min</value>
-  </data>
-  <data name="SleepTimer_Title" xml:space="preserve">
-    <value>Sovtimer</value>
-  </data>
-  <data name="Services_Download_Description" xml:space="preserve">
-    <value>Visar status på pågående nedladdningar.</value>
-  </data>
-  <data name="Services_Download_Name" xml:space="preserve">
-    <value>Nedladdning pågår</value>
-  </data>
-  <data name="Services_Player_Description" xml:space="preserve">
-    <value>Visar information när radio eller poddar spelas.</value>
-  </data>
-  <data name="Services_Player_Name" xml:space="preserve">
-    <value>Uppspelare</value>
-  </data>
-  <data name="Services_SleepTimer_Description" xml:space="preserve">
-    <value>Visar status på sovtimer.</value>
-  </data>
-  <data name="Services_SleepTimer_Name" xml:space="preserve">
-    <value>Sovtimer</value>
-  </data>
-  <data name="Favorites_ViewMode_Album" xml:space="preserve">
-    <value>Visa som album</value>
-  </data>
-  <data name="Favorites_ViewMode_List" xml:space="preserve">
-    <value>Visa som lista</value>
   </data>
 </root>

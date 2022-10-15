@@ -227,11 +227,11 @@
 	    <SubType>Designer</SubType>
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\Settings\SettingsPage.xaml">
-	    <SubType>Designer</SubType>
+	  <MauiXaml Update="Pages\Settings\AboutPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\AboutControl.xaml">
+	  <MauiXaml Update="Pages\Settings\SettingsPage.xaml">
+	    <SubType>Designer</SubType>
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\ChannelProgressBar.xaml">

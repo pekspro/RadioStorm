@@ -44,7 +44,7 @@ public sealed partial class AboutViewModel
             
             return string.Format
             (
-                Strings.About_BuildDetails,
+                "{0} {1}",
                 BuildInformation.BuildTime.ToShortDateString(),
                 BuildInformation.BuildTime.ToShortTimeString()
             );
@@ -72,15 +72,9 @@ public sealed partial class AboutViewModel
     #region Commands
 
     [RelayCommand]
-    private async void Email()
+    private async void OpenRepository()
     {
-        await UriLauncher.LaunchAsync(new Uri($"mailto:{Strings.General_Pekspro_EmailAddress}"));
-    }
-
-    [RelayCommand]
-    private async void OpenWebPage()
-    {
-        await UriLauncher.LaunchAsync(new Uri(Strings.General_Pekspro_Url));
+        await UriLauncher.LaunchAsync(new Uri(Strings.General_Pekspro_Repository_Url));
     }
 
     #endregion

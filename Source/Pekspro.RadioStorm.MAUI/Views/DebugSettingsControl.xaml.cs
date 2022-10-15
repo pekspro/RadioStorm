@@ -24,7 +24,7 @@ public sealed partial class DebugSettingsControl : ContentView
             {
                 await Share.RequestAsync(new ShareFileRequest
                 {
-                    Title = Pekspro.RadioStorm.UI.Resources.Strings.Settings_Debug_LogFiles_SendLogFiles,
+                    Title = Pekspro.RadioStorm.UI.Resources.Strings.About_Troubleshooting_LogFiles_SendLogFiles,
                     File = new ShareFile(x)
                 });
             };

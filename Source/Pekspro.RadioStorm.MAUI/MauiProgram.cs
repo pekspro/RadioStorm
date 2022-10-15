@@ -69,6 +69,7 @@ public static class MauiProgram
         builder.Services.TryAddTransient<ProgramDetailsPage>();
         builder.Services.TryAddTransient<ProgramSettingsPage>();
         builder.Services.TryAddTransient<RecentEpisodesPage>();
+        builder.Services.TryAddTransient<AboutPage>();
         builder.Services.TryAddTransient<SettingsPage>();
         builder.Services.TryAddTransient<LogFileDetailsPage>();
 
