@@ -37,66 +37,68 @@
                     />
         </Grid>
 
-        <Label 
-                    Text="{x:Static r:Strings.About_Troubleshooting_LogFiles_Title}" 
-                    Margin="0,8"
-                    Style="{StaticResource Subtitle2TextBlockStyle}"
-                    />
+        <VerticalStackLayout IsVisible="{Binding Settings.WriteLogsToFile}">
+            
+            <Label 
+                        Text="{x:Static r:Strings.About_Troubleshooting_LogFiles_Title}" 
+                        Margin="0,8"
+                        Style="{StaticResource Subtitle2TextBlockStyle}"
+                        />
+            <Label Text="{x:Static r:Strings.About_Troubleshooting_LogFiles_NoFiles}" 
+                           IsVisible="{Binding HasLogFiles, Converter={StaticResource InvertedBoolConverter}}" />
 
-        <Label Text="{x:Static r:Strings.About_Troubleshooting_LogFiles_NoFiles}" 
-                       IsVisible="{Binding HasLogFiles, Converter={StaticResource InvertedBoolConverter}}" />
+            <VerticalStackLayout IsVisible="{Binding HasLogFiles}" Margin="0,8,0,0">
 
-        <VerticalStackLayout IsVisible="{Binding HasLogFiles}" Margin="0,8,0,0">
+                <HorizontalStackLayout Spacing="8">
+                    <Button Command="{Binding ZipLogFilesCommand}" Text="{x:Static r:Strings.About_Troubleshooting_LogFiles_SendLogFiles}" />
+                    <Button Command="{Binding RemoveLogFilesCommand}" Text="{x:Static r:Strings.About_Troubleshooting_LogFiles_RemoveOldLogFiles}" />
+                </HorizontalStackLayout>
 
-            <HorizontalStackLayout Spacing="8">
-                <Button Command="{Binding ZipLogFilesCommand}" Text="{x:Static r:Strings.About_Troubleshooting_LogFiles_SendLogFiles}" />
-                <Button Command="{Binding RemoveLogFilesCommand}" Text="{x:Static r:Strings.About_Troubleshooting_LogFiles_RemoveOldLogFiles}" />
-            </HorizontalStackLayout>
+                <HorizontalStackLayout 
+                            Margin="0,8" 
+                            IsVisible="{Binding IsZippingLogFiles}">
+                    <ActivityIndicator 
+                                WidthRequest="12"
+                                HeightRequest="12"
+                                Margin="0,0,4,0" 
+                                IsRunning="True" />
 
-            <HorizontalStackLayout 
-                        Margin="0,8" 
-                        IsVisible="{Binding IsZippingLogFiles}">
-                <ActivityIndicator 
-                            WidthRequest="12"
-                            HeightRequest="12"
-                            Margin="0,0,4,0" 
-                            IsRunning="True" />
-
-                <Label Text="{x:Static r:Strings.About_Troubleshooting_LogFiles_CollectingLogFiles}"
-                            VerticalOptions="Center"
-                            />
-            </HorizontalStackLayout>
-
-            <Grid Margin="0,8">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="auto" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
-
-                <Label Text="{x:Static r:Strings.About_Troubleshooting_LogFiles_Title}" 
-                               Margin="{OnPlatform WinUI='0,7,8,7', Default='0,10,8,0'}"
-                               Grid.Column="0" />
-
-                <Picker 
-                            Grid.Column="1"
-                            ItemsSource="{Binding LogFilesNameOnly}"
-                            SelectedIndex="{Binding SelectedLogFileIndex, Mode=TwoWay}"
-                            Margin="{OnPlatform Default='0', WinUI='0,0,0,12'}"
-                            />
-
-                <Button Text="{x:Static r:Strings.About_Troubleshooting_LogFiles_Open}"
-                                x:Name="ButtonOpenLogFile"
-                                IsEnabled="{Binding CanReadSelectedLogFile}"
-                                Clicked="ButtonOpenLogFile_Clicked"
-                                HorizontalOptions="Start"
-                                Grid.Row="1"
-                                Grid.Column="2"
+                    <Label Text="{x:Static r:Strings.About_Troubleshooting_LogFiles_CollectingLogFiles}"
+                                VerticalOptions="Center"
                                 />
-            </Grid>
+                </HorizontalStackLayout>
+
+                <Grid Margin="0,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <Label Text="{x:Static r:Strings.About_Troubleshooting_LogFiles_Title}" 
+                                   Margin="{OnPlatform WinUI='0,7,8,7', Default='0,10,8,0'}"
+                                   Grid.Column="0" />
+
+                    <Picker 
+                                Grid.Column="1"
+                                ItemsSource="{Binding LogFilesNameOnly}"
+                                SelectedIndex="{Binding SelectedLogFileIndex, Mode=TwoWay}"
+                                Margin="{OnPlatform Default='0', WinUI='0,0,0,12'}"
+                                />
+
+                    <Button Text="{x:Static r:Strings.About_Troubleshooting_LogFiles_Open}"
+                                    x:Name="ButtonOpenLogFile"
+                                    IsEnabled="{Binding CanReadSelectedLogFile}"
+                                    Clicked="ButtonOpenLogFile_Clicked"
+                                    HorizontalOptions="Start"
+                                    Grid.Row="1"
+                                    Grid.Column="2"
+                                    />
+                </Grid>
+            </VerticalStackLayout>
         </VerticalStackLayout>
     </VerticalStackLayout>
 </ContentView>
