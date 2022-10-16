@@ -1,3 +1,3 @@
 ﻿namespace Pekspro.RadioStorm.Audio.Message;
 
-public sealed record PlaylistChanged(PlayList PlayList, bool ItemsMoved);
+public sealed record PlaylistChanged(PlayList? PlayList, bool ItemsMoved);

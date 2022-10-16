@@ -73,6 +73,11 @@ internal sealed class AndroidAudioManager : AudioManagerBase
         MediaPlayerService?.Pause();
     }
 
+    protected override void MediaStop()
+    {
+        MediaPlayerService?.Stop(false);
+    }
+
     protected override void MediaSetPlaybackPosition(TimeSpan position)
     {
         if (MediaPlayerService is null)

@@ -648,6 +648,9 @@
   <data name="Player_Previous" xml:space="preserve">
     <value>Föregående</value>
   </data>
+  <data name="Player_Stop" xml:space="preserve">
+    <value>Avsluta uppspelning</value>
+  </data>
   <data name="Playlist_ButtonMove" xml:space="preserve">
     <value>Flytta</value>
   </data>

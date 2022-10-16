@@ -85,6 +85,14 @@ sealed class WpfAudioManager : AudioManagerBase
         RefreshState();
     }
 
+    protected override void MediaStop()
+    {
+        IsPlaying = false;
+        MediaPlayer.Stop();
+        MediaPlayer.Close();
+        RefreshState();
+    }
+
     protected override void MediaSetPlaybackPosition(TimeSpan position)
     {
         MediaPlayer.Position = position;

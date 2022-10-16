@@ -55,6 +55,7 @@ public sealed partial class PlayerViewModel : ObservableObject
             {
                 CanPause = message.CanPause;
                 CanPlay = message.CanPlay;
+                CanStop = message.CanStop;
                 IsBuffering = message.IsBuffering;
             });
         });
@@ -145,6 +146,10 @@ public sealed partial class PlayerViewModel : ObservableObject
     private bool _CanPause;
 
     public bool CanPlayPause => CanPause || CanPlay;
+
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(StopCommand))]
+    private bool _CanStop;
 
     public bool CanGoToNext => CurrentPlayList?.CanGoToNext == true;
 
@@ -364,6 +369,12 @@ public sealed partial class PlayerViewModel : ObservableObject
         }
     }
 
+    [RelayCommand(CanExecute = nameof(CanStop))]
+    public void Stop()
+    {
+        AudioManager.Stop();
+    }
+    
     [RelayCommand]
     public void Rewind()
     {

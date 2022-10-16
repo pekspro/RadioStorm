@@ -1654,6 +1654,15 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Avsluta uppspelning.
+        /// </summary>
+        public static string Player_Stop {
+            get {
+                return ResourceManager.GetString("Player_Stop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Flytta.
         /// </summary>
         public static string Playlist_ButtonMove {

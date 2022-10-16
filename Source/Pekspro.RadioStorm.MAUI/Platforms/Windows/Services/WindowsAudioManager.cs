@@ -94,6 +94,11 @@ sealed class WindowsAudioManager : AudioManagerBase
         mediaPlayer.Pause();
     }
 
+    protected override void MediaStop()
+    {
+        mediaPlayer.Source = null;
+    }
+
     protected override void MediaSetPlaybackPosition(TimeSpan position)
     {
         if (position < mediaPlayer.NaturalDuration)

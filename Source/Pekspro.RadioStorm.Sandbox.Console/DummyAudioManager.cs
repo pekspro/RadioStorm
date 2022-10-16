@@ -43,6 +43,11 @@ sealed class DummyAudioManager : AudioManagerBase
         throw new NotImplementedException();
     }
 
+    protected override void MediaStop()
+    {
+        throw new NotImplementedException();
+    }
+
     protected override void MediaSetPlaybackPosition(TimeSpan position)
     {
         throw new NotImplementedException();

@@ -47,6 +47,7 @@ public abstract class AudioManagerBase : IAudioManager
     protected abstract void MediaPlay(PlayList playlist);
     protected abstract void MediaPlay();
     protected abstract void MediaPause();
+    protected abstract void MediaStop();
     protected abstract void MediaSetPlaybackPosition(TimeSpan position);
     protected abstract void MediaRefreshButtonStates();
     protected abstract void MediaRefreshLengthAndPosition();
@@ -198,6 +199,8 @@ public abstract class AudioManagerBase : IAudioManager
     #endregion
 
     public bool CanPlayPause => CanPause || CanPlay;
+
+    public bool CanStop => CurrentPlayList is not null;
 
     public bool IsBuffering { get; set; }
 
@@ -410,6 +413,17 @@ public abstract class AudioManagerBase : IAudioManager
         {
             Play();
         }
+    }
+
+    public void Stop()
+    {
+        Logger.LogInformation($"{nameof(Stop)} on position: {{position}} (length {{length}})", Position, MediaLength);
+
+        MediaStop();
+
+        CurrentPlayList = null;
+        SendPlaylistChanged();
+        UpdateButtonStates(false, false, false);
     }
 
     public void Move(TimeSpan delta)
@@ -660,10 +674,7 @@ public abstract class AudioManagerBase : IAudioManager
 
     private void SendPlaylistChanged(bool itemsMoved = false)
     {
-        if (CurrentPlayList is not null)
-        {
-            Messenger.Send(new PlaylistChanged(CurrentPlayList, itemsMoved));
-        }
+        Messenger.Send(new PlaylistChanged(CurrentPlayList, itemsMoved));
     }
 
     protected virtual void OnPlayListChanged()
@@ -845,7 +856,7 @@ public abstract class AudioManagerBase : IAudioManager
 
         if (changed)
         {
-            Messenger.Send(new PlayerButtonStateChanged(CanPlay, CanPause, IsBuffering));
+            Messenger.Send(new PlayerButtonStateChanged(CanPlay, CanPause, CanStop, IsBuffering));
         }
     }
 
@@ -933,7 +944,7 @@ public abstract class AudioManagerBase : IAudioManager
         int margin = restorePosition == RestorePostionMode.RestoreAtAnyMargin ? 0 : 30;
         int nextPosition = ListenStateManager.GetListenLength(CurrentItem.AudioId);
 
-        Logger.LogInformation($"Should continue from position {nextPosition} (from listen state), margin {nextPosition}.");
+        Logger.LogInformation($"Should continue from position {nextPosition} (from listen state), margin {margin}.");
 
         if (nextPosition >= margin && currentMediaDuration.TotalSeconds - margin > nextPosition)
         {

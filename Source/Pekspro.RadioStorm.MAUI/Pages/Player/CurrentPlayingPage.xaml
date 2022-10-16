@@ -50,6 +50,12 @@
                 Text="{x:Static r:Strings.Player_MenuSpeed_VeryFast}"
                 Order="Secondary"
                 Priority="14" />
+        <c:BindableToolbarItem
+                x:Name="ToolbarStop"
+                Clicked="ToolbarStop_Clicked"
+                Text="{x:Static r:Strings.Player_Stop}"
+                Order="Secondary"
+                Priority="20" />
     </ContentPage.ToolbarItems>
 
     <Grid>

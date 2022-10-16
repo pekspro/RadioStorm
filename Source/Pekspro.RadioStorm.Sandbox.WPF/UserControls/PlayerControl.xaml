@@ -32,6 +32,7 @@
             <Button Command="{Binding PlayCommand, Mode=OneWay}" Content="Play" />
             <Button Command="{Binding PauseCommand, Mode=OneWay}" Content="Pause" />
             <Button Command="{Binding PlayPauseCommand, Mode=OneWay}" Content="Play/Pause" />
+            <Button Command="{Binding StopCommand, Mode=OneWay}" Content="Stop" />
             <Button Command="{Binding GoToPreviousCommand, Mode=OneWay}" Content="Previous" />
             <Button Command="{Binding RewindCommand, Mode=OneWay}" Content="{Binding SeekSizeViewModel.RewindSize, Converter={StaticResource TimeSpanToSeekSizeStringConverter}}" />
             <Button Command="{Binding ForwardCommand, Mode=OneWay}" Content="{Binding SeekSizeViewModel.ForwardSize, Converter={StaticResource TimeSpanToSeekSizeStringConverter}}" />
