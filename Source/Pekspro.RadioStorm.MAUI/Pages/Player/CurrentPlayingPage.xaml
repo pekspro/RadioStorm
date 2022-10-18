@@ -365,12 +365,12 @@
             <Grid 
                 Padding="8" 
                 IsVisible="{Binding NextEpisodeData, Converter={StaticResource NullToIsVisibleConverter}}"
-                HorizontalOptions="End"
+                HorizontalOptions="Fill"
                 VerticalOptions="End"
                 Margin="0,0,4,0"
                 >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="24" />
+                    <RowDefinition Height="32" />
                     <RowDefinition Height="24" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -381,8 +381,8 @@
                 <Image Grid.Row="0"
                         Grid.Column="1"
                         Grid.RowSpan="2"
-			            WidthRequest="48"
-			            HeightRequest="48"
+			            WidthRequest="60"
+			            HeightRequest="60"
                         Aspect="AspectFill"
                         Margin="8,0,0,0">
                     <Image.Source>
@@ -396,8 +396,9 @@
                 <Label 
                     VerticalOptions="Start"
                     HorizontalOptions="End"
+                    HorizontalTextAlignment="End"
                     Style="{StaticResource DetailedTextStyle}"
-                    LineBreakMode="TailTruncation"
+                    MaxLines="2"
 				    >
                     <Label.Text>
                         <MultiBinding StringFormat="{x:Static r:Strings.Episodes_NextEpisode}">
@@ -442,7 +443,7 @@
                 </Grid.IsVisible>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="24" />
-                    <RowDefinition Height="24" />
+                    <RowDefinition Height="32" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -452,8 +453,8 @@
                 <Image Grid.Row="0"
                        Grid.Column="1"
                        Grid.RowSpan="2"
-			           WidthRequest="48"
-			           HeightRequest="48"
+			           WidthRequest="60"
+			           HeightRequest="60"
                        Margin="8,0,0,0">
                     <Image.Source>
                         <UriImageSource Uri="{Binding ChannelData.Status.NextProgramImage.LowResolution, Mode=OneWay}"
@@ -480,9 +481,9 @@
                         Grid.Column="0"
                         VerticalOptions="End"
                         HorizontalOptions="End"
+                        HorizontalTextAlignment="End"
                         Style="{StaticResource DetailedTextStyle}"
-				        LineBreakMode="TailTruncation"
-                        MaxLines="1"
+				        MaxLines="2"
                         Text="{Binding ChannelData.Status.NextProgram}"
 				/>
             </Grid>
