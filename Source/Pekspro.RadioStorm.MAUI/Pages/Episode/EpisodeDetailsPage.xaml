@@ -67,7 +67,7 @@
                                     <Setter Property="Grid.Row" Value="1" TargetName="DetailsPanel" />
                                     <Setter Property="Grid.RowSpan" Value="1" TargetName="DetailsPanel" />
                                     <Setter Property="IsVisible" Value="False" TargetName="DataTableWide" />
-                                    <Setter Property="IsVisible" Value="True" TargetName="DataTableNarrow" />
+                                    <Setter Property="IsVisible" Value="{Binding HasData}" TargetName="DataTableNarrow" />
                                     <Setter Property="ColumnDefinitions" Value="*" TargetName="GridLayout" />
                                 </VisualState.Setters>
                             </VisualState>
@@ -77,7 +77,7 @@
                                     <Setter Property="Grid.Column" Value="1" TargetName="DetailsPanel" />
                                     <Setter Property="Grid.Row" Value="0" TargetName="DetailsPanel" />
                                     <Setter Property="Grid.RowSpan" Value="2" TargetName="DetailsPanel" />
-                                    <Setter Property="IsVisible" Value="True" TargetName="DataTableWide" />
+                                    <Setter Property="IsVisible" Value="{Binding HasData}" TargetName="DataTableWide" />
                                     <Setter Property="IsVisible" Value="False" TargetName="DataTableNarrow" />
                                     <Setter Property="ColumnDefinitions" Value="Auto,*" TargetName="GridLayout" />
                                 </VisualState.Setters>
@@ -85,7 +85,7 @@
                         </VisualStateGroup>
                     </VisualStateManager.VisualStateGroups>
 
-                    <VerticalStackLayout x:Name="ImagePanel" Grid.Row="0" Grid.Column="0">
+                    <VerticalStackLayout x:Name="ImagePanel" Grid.Row="0" Grid.Column="0" IsVisible="{Binding HasData}">
                         <views:LargeMediaButtonUserControl    
                             HorizontalOptions="Center"
                             WidthRequest="200"
@@ -157,7 +157,7 @@
                             />
                     </Grid>
 
-                    <VerticalStackLayout x:Name="DetailsPanel">
+                    <VerticalStackLayout x:Name="DetailsPanel" IsVisible="{Binding HasData}">
                         <Label Text="{Binding Title, Mode=OneWay}" Style="{StaticResource SubtitleTextBlockStyle}" />
                         <Label Text="{Binding EpisodeData.Description, Mode=OneWay}" />
 
