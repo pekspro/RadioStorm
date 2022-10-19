@@ -194,7 +194,8 @@
                         </Label.FormattedText>
                     </Label>
 
-                    <Label>
+                    <!-- TODO: Maybe readd when solved: https://github.com/dotnet/maui/issues/4734 -->
+                    <!--<Label>
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="{x:Static r:Strings.Favorites_Welcome_5}"  Style="{StaticResource HyperlinkStyle}">
@@ -204,7 +205,9 @@
                                 </Span>
                             </FormattedString>
                         </Label.FormattedText>
-                    </Label>
+                    </Label>-->
+
+                    <Label Text="{x:Static r:Strings.Favorites_Welcome_5}" />
 
                     <Label Text="{x:Static r:Strings.Favorites_Welcome_6}" />
 
