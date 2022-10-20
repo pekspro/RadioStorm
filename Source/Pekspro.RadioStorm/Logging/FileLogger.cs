@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace Pekspro.RadioStorm.Logging;
+﻿namespace Pekspro.RadioStorm.Logging;
 
 internal sealed class FileLogger : ILogger
 {
