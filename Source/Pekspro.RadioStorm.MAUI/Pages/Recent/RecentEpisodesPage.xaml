@@ -23,7 +23,7 @@
     
     <Grid RowSpacing="0" RowDefinitions="Auto,*,Auto">
 
-        <views:DownloadState Grid.Row="0" Grid.RowSpan="2" />
+        <views:DownloadState Grid.Row="0" Grid.RowSpan="2" NoDataText="{x:Static r:Strings.Recent_Empty}" />
 
         <!-- Breaks on Android: ItemSizingStrategy="MeasureFirstItem"-->
         <RefreshView 

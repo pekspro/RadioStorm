@@ -68,7 +68,7 @@
     <Grid RowSpacing="0" RowDefinitions="Auto,*,Auto"
             Padding="{OnPlatform iOS='30,60,30,30', Default='0'}">
 
-        <views:DownloadState Grid.Row="0" Grid.RowSpan="2" />
+        <views:DownloadState Grid.Row="0" Grid.RowSpan="2" NoDataText="{x:Static r:Strings.Playlist_Empty}" />
 
         <!-- Breaks on Android: ItemSizingStrategy="MeasureFirstItem"-->
         <CollectionView 
