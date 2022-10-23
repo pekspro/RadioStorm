@@ -8,8 +8,8 @@ download it from:
 
 * [Windows
   Store](https://pekspro.com/getproduct?n=RadioStorm_Win10_WindowsStore&s=sv)
-* Google Play - when it's ready :-)
- 
+* [Google Play](https://play.google.com/store/apps/details?id=com.pekspro.radiostorm)
+
 The source code for the Windows Store edition is not publicly available, but the
 plan is to replace that edition with a version based on the source code in this
 repository. In fact, much of that source code is used in this project.
