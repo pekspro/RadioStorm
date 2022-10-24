@@ -98,9 +98,8 @@
                 HorizontalOptions="Fill"
                 >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="24" />
-                    <RowDefinition Height="36" />
-                    <RowDefinition Height="24" />
+                    <RowDefinition Height="56" />
+                    <RowDefinition Height="28" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
@@ -122,33 +121,35 @@
                     </Image.Source>
                 </Image>
 
-                <Label  Grid.Row="0"
-                        Grid.Column="1"
-                        HorizontalOptions="Start"
-                        FontSize="18"
-                        Style="{StaticResource ListHeaderTextStyle}"
-                        VerticalOptions="Start"
-				        LineBreakMode="TailTruncation"
-				        MaxLines="1"
-				>
-                    <Label.Text>
-                        <MultiBinding StringFormat="{}{0} - {1}">
-                            <Binding Path="EpisodeData.Title" />
-                            <Binding Path="EpisodeData.ProgramName" />
-                        </MultiBinding>
-                    </Label.Text>
-                </Label>
+                <ScrollView Grid.Row="0" 
+                            Grid.Column="1"
+                            >
+                    <VerticalStackLayout>
+                        <Label  HorizontalOptions="Start"
+                                FontSize="18"
+                                Style="{StaticResource ListHeaderTextStyle}"
+                                VerticalOptions="Start"
+				                LineBreakMode="TailTruncation"
+				                MaxLines="1"
+				        >
+                            <Label.Text>
+                                <MultiBinding StringFormat="{}{0} - {1}">
+                                    <Binding Path="EpisodeData.Title" />
+                                    <Binding Path="EpisodeData.ProgramName" />
+                                </MultiBinding>
+                            </Label.Text>
+                        </Label>
 
-                <Label  Grid.Row="1"
-                        Grid.Column="1"
-                        HorizontalOptions="Start"
-                        Padding="0,0,20,0"
-                        Style="{StaticResource ListNormalTextStyle}"
-                        Text="{Binding EpisodeData.Description, Mode=OneWay}"
-                        MaxLines="2"
-				        />
+                        <Label  HorizontalOptions="Start"
+                                Style="{StaticResource ListNormalTextStyle}"
+                                MaxLines="0"
+                                Text="{Binding EpisodeData.Description, Mode=OneWay}"
+				                />
+                                <!--Text="{Binding EpisodeData.Description, Mode=OneWay}"-->
+                    </VerticalStackLayout>
+                </ScrollView>
 
-                <HorizontalStackLayout Grid.Row="2" Grid.Column="1" Padding="0,0,0,0" Spacing="8">
+                <HorizontalStackLayout Grid.Row="2" Grid.Column="1" Padding="0,0,0,0" Spacing="8" VerticalOptions="Fill">
                     <!--<Label  
                         Style="{StaticResource DetailedTextStyle}"
                         VerticalOptions="End"
@@ -189,7 +190,8 @@
                     <Button Command="{Binding EpisodeData.DownloadCommand}"
                             IsVisible="{Binding EpisodeData.CanDownload}"
                             Style="{StaticResource InlineHyperlinkButton}"
-                            Margin="-8,8,0,0"
+                            HeightRequest="28"
+                            Margin="-8,12,0,0"
                             Text="{x:Static r:Strings.General_Download}"
                             />
                     
@@ -393,20 +395,20 @@
                     </Image.Source>
                 </Image>
 
-                <Label 
-                    VerticalOptions="Start"
-                    HorizontalOptions="End"
-                    HorizontalTextAlignment="End"
-                    Style="{StaticResource DetailedTextStyle}"
-                    MaxLines="2"
-				    >
-                    <Label.Text>
-                        <MultiBinding StringFormat="{x:Static r:Strings.Episodes_NextEpisode}">
-                            <Binding Path="NextEpisodeData.Title" />
-                        </MultiBinding>
-                    </Label.Text>
-                </Label>
-                
+                <ScrollView>
+                    <Label 
+                        VerticalOptions="Start"
+                        HorizontalTextAlignment="End"
+                        Style="{StaticResource DetailedTextStyle}"
+				        >
+                        <Label.Text>
+                            <MultiBinding StringFormat="{x:Static r:Strings.Episodes_NextEpisode}">
+                                <Binding Path="NextEpisodeData.Title" />
+                            </MultiBinding>
+                        </Label.Text>
+                    </Label>
+                </ScrollView>
+
                 <HorizontalStackLayout Grid.Row="1" Grid.Column="0" HorizontalOptions="End">
                     
                     <Label  
