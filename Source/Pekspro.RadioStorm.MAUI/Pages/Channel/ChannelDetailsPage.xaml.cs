@@ -61,4 +61,15 @@ public sealed partial class ChannelDetailsPage : ContentPage
             }
         }
     }
+
+    private async void ButtonOpenScheduleEpisodes_Click(object sender, EventArgs e)
+    {
+        if (ViewModel?.ChannelId is not null)
+        {
+            await Shell.Current.GoToAsync(nameof(ScheduledEpisodesPage), new Dictionary<string, object>()
+            {
+                { "Data", ViewModel.ChannelId }
+            });
+        }
+    }
 }

@@ -130,9 +130,14 @@
                                 Style="{StaticResource HyperlinkButton}"
                                 IsVisible="{Binding ChannelData.Status.NextProgramId, Converter={StaticResource NullToIsVisibleConverter}, Mode=OneWay}"
                                 Text="{Binding ChannelData.Status.NextProgram, StringFormat={x:Static r:Strings.ChannelInfo_MoreAbout}}"
-                                Clicked="ButtonOpenNextProgram_Click"
-                                >
-                        </Button>
+                                Clicked="ButtonOpenNextProgram_Click" />
+
+                        <Button x:Name="ButtonOpenScheduleEpisodes"
+                                Style="{StaticResource HyperlinkButton}"
+                                Text="{x:Static r:Strings.Channel_ScheduleEpisodes}"
+                                Clicked="ButtonOpenScheduleEpisodes_Click"
+                                />
+
                     </VerticalStackLayout>
                 </Grid>
             </ScrollView>

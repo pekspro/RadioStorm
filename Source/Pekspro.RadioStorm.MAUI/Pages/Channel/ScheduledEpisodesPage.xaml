@@ -1,0 +1,50 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:base="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Base;assembly=Pekspro.RadioStorm.UI"
+             xmlns:vm="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.SchedulesEpisode;assembly=Pekspro.RadioStorm.UI"
+             xmlns:m="clr-namespace:Pekspro.RadioStorm.UI.Model.SchedulesEpisode;assembly=Pekspro.RadioStorm.UI"
+             xmlns:v="clr-namespace:Pekspro.RadioStorm.MAUI.Pages.Channel"
+             xmlns:t="clr-namespace:Pekspro.RadioStorm.MAUI.TemplateSelector"
+             xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
+             xmlns:controls="clr-namespace:Pekspro.RadioStorm.MAUI.Controls"
+             xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
+             xmlns:search="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Search;assembly=Pekspro.RadioStorm.UI"
+             x:Class="Pekspro.RadioStorm.MAUI.Pages.Channel.ScheduledEpisodesPage"
+             x:DataType="vm:SchedulesEpisodesViewModel"
+             Title="{x:Static r:Strings.Channel_ScheduleEpisodes}"
+             >
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+                Command="{Binding UpdateCommand}"
+                Text="{x:Static r:Strings.General_Update}"
+                Order="Secondary"
+                Priority="0" />
+    </ContentPage.ToolbarItems>
+
+    <Grid RowSpacing="0" RowDefinitions="Auto,*,Auto">
+
+        <views:DownloadState Grid.Row="0" Grid.RowSpan="2" />
+
+        <!-- Breaks on Android: ItemSizingStrategy="MeasureFirstItem"-->
+        <RefreshView 
+                Command="{Binding RefreshCommand}" 
+                IsRefreshing="{Binding IsRefreshing}"
+                IsVisible="{Binding HasData}"
+                Grid.Row="1"
+            >
+            <CollectionView 
+                ItemsSource="{Binding Items}"
+                >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="m:SchedulesEpisodeModel">
+                        <Grid>
+                            <Label Text="{Binding ProgramName}" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+        <views:PlayerControl Grid.Row="2" />
+    </Grid>
+</ContentPage>
