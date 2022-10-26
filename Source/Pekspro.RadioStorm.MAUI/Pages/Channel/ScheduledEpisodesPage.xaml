@@ -21,7 +21,7 @@
                 Priority="0" />
     </ContentPage.ToolbarItems>
 
-    <Grid RowSpacing="0" RowDefinitions="Auto,*,Auto">
+    <Grid RowDefinitions="Auto,*,Auto">
 
         <views:DownloadState Grid.Row="0" Grid.RowSpan="2" />
 
@@ -32,13 +32,38 @@
                 IsVisible="{Binding HasData}"
                 Grid.Row="1"
             >
-            <CollectionView 
-                ItemsSource="{Binding Items}"
-                >
+            <CollectionView ItemsSource="{Binding Items}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="m:SchedulesEpisodeModel">
-                        <Grid>
-                            <Label Text="{Binding ProgramName}" />
+                        <Grid Padding="{OnPlatform WinUI='8,6,16,6', Default='16,6,16,6'}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+
+                            <Label Text="{Binding StartTimeString, Mode=OneTime}"
+                                   Grid.Column="0"
+                                   Grid.Row="0"
+                                   Style="{StaticResource ListHeaderTextStyle}"
+                                />
+
+                            <Label Text="{Binding ProgramNameOrTitle, Mode=OneTime}"
+                                   Margin="8,0,0,0"
+                                   Grid.Column="1"
+                                   Grid.Row="0"
+                                   Style="{StaticResource ListHeaderTextStyle}"
+                                />
+
+                            <Label Text="{Binding Description, Mode=OneTime}"
+                                   Grid.ColumnSpan="2"
+                                   Grid.Row="1"
+                                   MaxLines="3"
+                                   Style="{StaticResource ListNormalTextStyle}"
+                                />
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
