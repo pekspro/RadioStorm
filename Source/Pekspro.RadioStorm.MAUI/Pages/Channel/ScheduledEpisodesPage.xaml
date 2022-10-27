@@ -36,6 +36,50 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="m:SchedulesEpisodeModel">
                         <Grid Padding="{OnPlatform WinUI='8,6,16,6', Default='16,6,16,6'}">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup Name="FinishedState">
+                                    <VisualState Name="Finished">
+                                        <VisualState.StateTriggers>
+                                            <StateTrigger IsActive="{Binding IsFinished}"/>
+                                        </VisualState.StateTriggers>
+                                        <VisualState.Setters>
+                                            <Setter Property="Label.TextColor" 
+                                                    Value="{AppThemeBinding Light={StaticResource InactiveProgramColorLight}, Dark={StaticResource InactiveProgramColorDark}}"
+                                                    TargetName="LabelStartTime"
+                                                    />
+                                            <Setter Property="Label.TextColor" 
+                                                    Value="{AppThemeBinding Light={StaticResource InactiveProgramColorLight}, Dark={StaticResource InactiveProgramColorDark}}"
+                                                    TargetName="LabelTitle"
+                                                    />
+                                            <Setter Property="Label.TextColor" 
+                                                    Value="{AppThemeBinding Light={StaticResource InactiveProgramColorLight}, Dark={StaticResource InactiveProgramColorDark}}"
+                                                    TargetName="LabelDescription"
+                                                    />
+
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState Name="NotFinished">
+                                        <VisualState.StateTriggers>
+                                            <StateTrigger IsActive="{Binding IsFinished, Converter={StaticResource InvertedBoolConverter}}" />
+                                        </VisualState.StateTriggers>
+                                        <VisualState.Setters>
+                                            <Setter Property="Label.TextColor" 
+                                                    Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"
+                                                    TargetName="LabelStartTime"
+                                                    />
+                                            <Setter Property="Label.TextColor" 
+                                                    Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"
+                                                    TargetName="LabelTitle"
+                                                    />
+                                            <Setter Property="Label.TextColor" 
+                                                    Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"
+                                                    TargetName="LabelDescription"
+                                                    />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto" />
                                 <ColumnDefinition Width="*" />
@@ -46,12 +90,14 @@
                             </Grid.RowDefinitions>
 
                             <Label Text="{Binding StartTimeString, Mode=OneTime}"
+                                   x:Name="LabelStartTime"
                                    Grid.Column="0"
                                    Grid.Row="0"
                                    Style="{StaticResource ListHeaderTextStyle}"
                                 />
 
                             <Label Text="{Binding ProgramNameOrTitle, Mode=OneTime}"
+                                   x:Name="LabelTitle"
                                    Margin="8,0,0,0"
                                    Grid.Column="1"
                                    Grid.Row="0"
@@ -59,6 +105,7 @@
                                 />
 
                             <Label Text="{Binding Description, Mode=OneTime}"
+                                   x:Name="LabelDescription"
                                    Grid.ColumnSpan="2"
                                    Grid.Row="1"
                                    MaxLines="3"
