@@ -1,4 +1,6 @@
-﻿namespace Pekspro.RadioStorm.UI.ViewModel.SchedulesEpisode;
+﻿using static Pekspro.RadioStorm.UI.ViewModel.Channel.ChannelDetailsViewModel;
+
+namespace Pekspro.RadioStorm.UI.ViewModel.SchedulesEpisode;
 
 public sealed partial class SchedulesEpisodesViewModel : DownloadViewModel, IDisposable
 {
@@ -64,6 +66,12 @@ public sealed partial class SchedulesEpisodesViewModel : DownloadViewModel, IDis
     [ObservableProperty]
     public ObservableCollection<SchedulesEpisodeModel> _Items = new ObservableCollection<SchedulesEpisodeModel>();
 
+    [ObservableProperty]
+    private string? _Title;
+
+    [ObservableProperty]
+    private string? _ChannelColor;
+
     #endregion
 
     #region Methods
@@ -109,14 +117,20 @@ public sealed partial class SchedulesEpisodesViewModel : DownloadViewModel, IDis
         MainThreadTimer.Start();
     }
 
-    public void OnNavigatedTo(int channelId)
+    public void OnNavigatedTo(object parameter)
     {
-        ChannelId = channelId;
+        StartParameter startParameter = 
+            StartParameterHelper.Deserialize(parameter, ChannelDetailsStartParameterJsonContext.Default.StartParameter);
+        
+        ChannelId = startParameter.ChannelId;
+        Title = startParameter.ChannelName;
+        ChannelColor = startParameter.Color;
 
+        QueueRefresh(new RefreshSettings(FullRefresh: true));
+    
         MainThreadTimer.Start();
 
         base.OnNavigatedTo();
-
     }
 
     public override void OnNavigatedFrom()

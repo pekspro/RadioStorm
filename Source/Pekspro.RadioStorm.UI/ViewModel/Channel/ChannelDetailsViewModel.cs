@@ -4,7 +4,7 @@ public sealed partial class ChannelDetailsViewModel : DownloadViewModel, IDispos
 {
     #region Start parameter
 
-    sealed class StartParameter
+    internal sealed class StartParameter
     {
         public int ChannelId { get; set; }
         public string? ChannelName { get; set; }
@@ -14,7 +14,7 @@ public sealed partial class ChannelDetailsViewModel : DownloadViewModel, IDispos
 
     [JsonSourceGenerationOptions()]
     [JsonSerializable(typeof(StartParameter))]
-    sealed partial class ChannelDetailsStartParameterJsonContext : JsonSerializerContext
+    internal sealed partial class ChannelDetailsStartParameterJsonContext : JsonSerializerContext
     {
     }
 
@@ -206,7 +206,7 @@ public sealed partial class ChannelDetailsViewModel : DownloadViewModel, IDispos
         ChannelRefreshHelper.RefreshChannelProgress(ChannelData);
 
         SongsViewModel.OnNavigatedTo(true, ChannelId);
-        SchedulesEpisodesViewModel.OnNavigatedTo(ChannelId);
+        SchedulesEpisodesViewModel.OnNavigatedTo(parameter);
 
         base.OnNavigatedTo();
     }

@@ -3,8 +3,8 @@
 [QueryProperty(nameof(Data), nameof(Data))]
 public sealed partial class ScheduledEpisodesPage : ContentPage
 {
-    public int Data { get; set; }
-    
+    public string Data { get; set; } = null!;
+
     public ScheduledEpisodesPage(SchedulesEpisodesViewModel viewModel)
     {
         InitializeComponent();
