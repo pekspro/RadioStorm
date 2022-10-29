@@ -21,6 +21,22 @@ public sealed partial class ScheduledEpisodesPage : ContentPage
         ViewModel.OnNavigatedTo(Data);
     }
 
+    protected override void OnNavigatedTo(NavigatedToEventArgs args)
+    {
+        base.OnNavigatedTo(args);
+
+#if ANDROID
+        // TODO: Remove when fixed: https://github.com/dotnet/maui/issues/10452
+
+        ToolbarItemUpdate.IsVisible = false;
+
+        Application.Current!.Dispatcher.Dispatch(() =>
+        {
+            ToolbarItemUpdate.IsVisible = true;
+        });
+#endif 
+    }
+    
     protected override void OnDisappearing()
     {
         base.OnDisappearing();

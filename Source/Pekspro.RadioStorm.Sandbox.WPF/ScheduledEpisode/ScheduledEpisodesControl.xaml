@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
              xmlns:local="clr-namespace:Pekspro.RadioStorm.Sandbox.WPF.ScheduledEpisode"
              xmlns:UserControls="clr-namespace:Pekspro.RadioStorm.Sandbox.WPF.UserControls" 
              xmlns:vm="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.SchedulesEpisode;assembly=Pekspro.RadioStorm.UI"
@@ -12,15 +13,28 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <UserControls:DebugControl Grid.Row="0" />
 
-        <UserControls:DownloadStateControl Grid.Row="1" />
+
+        <StackPanel Grid.Row="1" 
+                    Visibility="{Binding HasError, Converter={StaticResource InvertedBoolToVisibilityConverter}}"
+                    Orientation="Horizontal">
+            <Label Content="{x:Static r:Strings.Channel_ScheduleEpisodes_Date}" />
+
+            <ComboBox ItemsSource="{Binding DateOptions}"
+                      SelectedIndex="{Binding DateOptionIndex, Mode=TwoWay}"
+                      />
+        </StackPanel>
+
+
+        <UserControls:DownloadStateControl Grid.Row="2" />
 
         <ListView 
             x:Name="ListViewScheduledEpisodes"
-            Grid.Row="1" 
+            Grid.Row="2" 
             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
             ItemsSource="{Binding Items}"
             Visibility="{Binding HasData, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}"

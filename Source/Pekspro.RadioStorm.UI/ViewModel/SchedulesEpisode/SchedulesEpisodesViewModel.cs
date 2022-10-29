@@ -2,14 +2,14 @@
 
 namespace Pekspro.RadioStorm.UI.ViewModel.SchedulesEpisode;
 
-public sealed partial class SchedulesEpisodesViewModel : DownloadViewModel, IDisposable
+public sealed partial class SchedulesEpisodesViewModel : DownloadViewModel
 {
     #region Private properties
 
     private IDataFetcher DataFetcher { get; }
     private ISchedulesEpisodeFactory SchedulesEpisodeFactory { get; }
     private IDateTimeProvider DateTimeProvider { get; }
-    private IMainThreadTimer MainThreadTimer { get; }
+    private DateOnly FirstDate { get; }    
 
     #endregion
 
@@ -23,7 +23,6 @@ public sealed partial class SchedulesEpisodesViewModel : DownloadViewModel, IDis
     {
         DataFetcher = null!;
         SchedulesEpisodeFactory = null!;
-        MainThreadTimer = null!;
         DateTimeProvider = null!;
         DownloadState = DownloadStates.Done;
 
@@ -37,6 +36,7 @@ public sealed partial class SchedulesEpisodesViewModel : DownloadViewModel, IDis
         ISchedulesEpisodeFactory songListItemModelFactory,
         IMainThreadTimerFactory mainThreadTimerFactory,
         IDateTimeProvider dateTimeProvider,
+        IWeekdaynameHelper weekdaynameHelper,
         IMainThreadRunner mainThreadRunner,
         ILogger<SongsViewModel> logger)
          : base(logger, mainThreadRunner)
@@ -44,17 +44,17 @@ public sealed partial class SchedulesEpisodesViewModel : DownloadViewModel, IDis
         DataFetcher = dataFetcher;
         SchedulesEpisodeFactory = songListItemModelFactory;
         DateTimeProvider = dateTimeProvider;
-        MainThreadTimer = mainThreadTimerFactory.CreateTimer("Scheduled episodes timer");
-        MainThreadTimer.Interval = 2 * 60 * 1000;
 
-        MainThreadTimer.SetupCallBack(() =>
+        FirstDate = DateOnly.FromDateTime(dateTimeProvider.SwedishNow);
+
+        for(int i = 0; i < 10; i++)
         {
-            if (IsActive)
-            {
-                Logger.LogInformation("Refreshing song list");
-                QueueRefresh(new RefreshSettings(FullRefresh: false));
-            }
-        });
+            DateOnly date = FirstDate.AddDays(i);
+
+            (string name, _) = weekdaynameHelper.GetRelativeWeekdayName(date);
+
+            DateOptions.Add(name);
+        }
     }
 
     #endregion
@@ -72,14 +72,23 @@ public sealed partial class SchedulesEpisodesViewModel : DownloadViewModel, IDis
     [ObservableProperty]
     private string? _ChannelColor;
 
+    [ObservableProperty]
+    public ObservableCollection<string> _DateOptions = new ObservableCollection<string>();
+
+    [ObservableProperty]
+    public int _DateOptionIndex;
+    
+    partial void OnDateOptionIndexChanged(int value)
+    {
+        QueueRefresh(new RefreshSettings(FullRefresh: true));
+    }
+
     #endregion
 
     #region Methods
 
     internal override async Task RefreshAsync(RefreshSettings refreshSettings, CancellationToken cancellationToken)
     {
-        MainThreadTimer.Stop();
-
         if (refreshSettings.FullRefresh)
         {
             DownloadState = DownloadStates.Downloading;
@@ -87,23 +96,37 @@ public sealed partial class SchedulesEpisodesViewModel : DownloadViewModel, IDis
 
         Items = new ObservableCollection<SchedulesEpisodeModel>();
 
-        DateOnly swedishCurrentDate = DateOnly.FromDateTime(DateTimeProvider.SwedishNow);
+        DateOnly date = FirstDate.AddDays(DateOptionIndex);
+        
+        Logger.LogInformation($"Getting scheduled episodes for channel {ChannelId} for date {date:yyyy-MM-dd} {refreshSettings}");
+        var data = await DataFetcher.GetScheduledEpisodeListAsync(ChannelId, date, refreshSettings.AllowCache, cancellationToken);
 
-        for (int i = 0; i < 10; i++)
+        Logger.LogInformation($"Got scheduled episodes for channel {ChannelId} for date {date:yyyy-MM-dd} {refreshSettings}. {data!.Count} items");
+
+        foreach (var item in data.OrderBy(a => a.Date))
         {
-            var date = swedishCurrentDate.AddDays(i);
-            Logger.LogInformation($"Getting scheduled episodes for channel {ChannelId} for date {date:yyyy-MM-dd} {refreshSettings}");
-            var data = await DataFetcher.GetScheduledEpisodeListAsync(ChannelId, date, refreshSettings.AllowCache, cancellationToken);
+            var model = SchedulesEpisodeFactory.Create(item);
 
-            Logger.LogInformation($"Got scheduled episodes for channel {ChannelId} for date {date:yyyy-MM-dd} {refreshSettings}. {data!.Count} items");
-
-            foreach (var item in data.OrderBy(a => a.Date))
-            {
-                var model = SchedulesEpisodeFactory.Create(item);
-
-                Items.Add(model);
-            }
+            Items.Add(model);
         }
+
+        //DateOnly swedishCurrentDate = DateOnly.FromDateTime(DateTimeProvider.SwedishNow);
+
+        //for (int i = 0; i < 10; i++)
+        //{
+        //    var date = swedishCurrentDate.AddDays(i);
+        //    Logger.LogInformation($"Getting scheduled episodes for channel {ChannelId} for date {date:yyyy-MM-dd} {refreshSettings}");
+        //    var data = await DataFetcher.GetScheduledEpisodeListAsync(ChannelId, date, refreshSettings.AllowCache, cancellationToken);
+
+        //    Logger.LogInformation($"Got scheduled episodes for channel {ChannelId} for date {date:yyyy-MM-dd} {refreshSettings}. {data!.Count} items");
+
+        //    foreach (var item in data.OrderBy(a => a.Date))
+        //    {
+        //        var model = SchedulesEpisodeFactory.Create(item);
+
+        //        Items.Add(model);
+        //    }
+        //}
 
         if (Items.Count > 0)
         {
@@ -113,8 +136,6 @@ public sealed partial class SchedulesEpisodesViewModel : DownloadViewModel, IDis
         {
             DownloadState = DownloadStates.NoData;
         }
-
-        MainThreadTimer.Start();
     }
 
     public void OnNavigatedTo(object parameter)
@@ -126,43 +147,12 @@ public sealed partial class SchedulesEpisodesViewModel : DownloadViewModel, IDis
         Title = startParameter.ChannelName;
         ChannelColor = startParameter.Color;
 
-        QueueRefresh(new RefreshSettings(FullRefresh: true));
-    
-        MainThreadTimer.Start();
+        if (!Items.Any())
+        {
+            QueueRefresh(new RefreshSettings(FullRefresh: true));
+        }
 
         base.OnNavigatedTo();
-    }
-
-    public override void OnNavigatedFrom()
-    {
-        base.OnNavigatedFrom();
-
-        MainThreadTimer.Stop();
-    }
-
-    #endregion
-
-    #region Dispose
-
-    private bool disposedValue;
-
-    private void Dispose(bool disposing)
-    {
-        if (!disposedValue)
-        {
-            if (disposing)
-            {
-                MainThreadTimer.Dispose();
-            }
-
-            disposedValue = true;
-        }
-    }
-
-    public void Dispose()
-    {
-        Dispose(disposing: true);
-        GC.SuppressFinalize(this);
     }
 
     #endregion
