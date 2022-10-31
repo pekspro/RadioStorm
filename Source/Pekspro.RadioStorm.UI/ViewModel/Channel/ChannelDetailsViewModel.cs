@@ -77,8 +77,6 @@ public sealed partial class ChannelDetailsViewModel : DownloadViewModel, IDispos
         ChannelModelFactory = null!;
         AudioManager = null!;
         ChannelRefreshHelper = null!;
-        SongsViewModel = new SongsViewModel();
-        SchedulesEpisodesViewModel = new SchedulesEpisodesViewModel();
         DownloadState = DownloadStates.Done;
 
         _ChannelData = ChannelModel.CreateWithSampleData();
@@ -89,8 +87,6 @@ public sealed partial class ChannelDetailsViewModel : DownloadViewModel, IDispos
         IChannelModelFactory channelModelFactory,
         IAudioManager audioManager,
         IChannelRefreshHelper channelStatusRefreshHelper,
-        SongsViewModel songsViewModel,
-        SchedulesEpisodesViewModel schedulesEpisodesViewModel,
         IMainThreadRunner mainThreadRunner,
         ILogger<ChannelDetailsViewModel> logger)
          : base(logger, mainThreadRunner)
@@ -99,8 +95,6 @@ public sealed partial class ChannelDetailsViewModel : DownloadViewModel, IDispos
         ChannelModelFactory = channelModelFactory;
         AudioManager = audioManager;
         ChannelRefreshHelper = channelStatusRefreshHelper;
-        SongsViewModel = songsViewModel;
-        SchedulesEpisodesViewModel = schedulesEpisodesViewModel;
 
         ChannelRefreshHelper.ViewModel = this;
         ChannelRefreshHelper.ChannelStatusTimer.SetupCallBack(() =>
@@ -126,10 +120,6 @@ public sealed partial class ChannelDetailsViewModel : DownloadViewModel, IDispos
     public string Title => ChannelData?.Title ?? _Title;
 
     public string ChannelColor => ChannelData?.ChannelColor ?? _ChannelColor;
-
-    public SongsViewModel SongsViewModel { get; }
-
-    public SchedulesEpisodesViewModel SchedulesEpisodesViewModel { get; }
 
     #endregion
 
@@ -205,18 +195,12 @@ public sealed partial class ChannelDetailsViewModel : DownloadViewModel, IDispos
 
         ChannelRefreshHelper.RefreshChannelProgress(ChannelData);
 
-        SongsViewModel.OnNavigatedTo(true, ChannelId);
-        SchedulesEpisodesViewModel.OnNavigatedTo(parameter);
-
         base.OnNavigatedTo();
     }
 
     public override void OnNavigatedFrom()
     {
         ChannelRefreshHelper.Stop();
-
-        SongsViewModel.OnNavigatedFrom();
-        SchedulesEpisodesViewModel.OnNavigatedFrom();
 
         base.OnNavigatedFrom();
     }
