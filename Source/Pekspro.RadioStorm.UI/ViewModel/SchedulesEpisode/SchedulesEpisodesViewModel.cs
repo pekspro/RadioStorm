@@ -10,6 +10,7 @@ public sealed partial class SchedulesEpisodesViewModel : DownloadViewModel
     private ISchedulesEpisodeFactory SchedulesEpisodeFactory { get; }
     private IDateTimeProvider DateTimeProvider { get; }
     private DateOnly FirstDate { get; }    
+    private IMessenger Messenger { get; }
 
     #endregion
 
@@ -24,6 +25,7 @@ public sealed partial class SchedulesEpisodesViewModel : DownloadViewModel
         DataFetcher = null!;
         SchedulesEpisodeFactory = null!;
         DateTimeProvider = null!;
+        Messenger = null!;
         DownloadState = DownloadStates.Done;
 
         Items.Add(SchedulesEpisodeModel.CreateWithSampleData(0));
@@ -37,6 +39,7 @@ public sealed partial class SchedulesEpisodesViewModel : DownloadViewModel
         IMainThreadTimerFactory mainThreadTimerFactory,
         IDateTimeProvider dateTimeProvider,
         IWeekdaynameHelper weekdaynameHelper,
+        IMessenger messenger,
         IMainThreadRunner mainThreadRunner,
         ILogger<SongsViewModel> logger)
          : base(logger, mainThreadRunner)
@@ -44,6 +47,7 @@ public sealed partial class SchedulesEpisodesViewModel : DownloadViewModel
         DataFetcher = dataFetcher;
         SchedulesEpisodeFactory = songListItemModelFactory;
         DateTimeProvider = dateTimeProvider;
+        Messenger = messenger;
 
         FirstDate = DateOnly.FromDateTime(dateTimeProvider.SwedishNow);
 
@@ -108,6 +112,19 @@ public sealed partial class SchedulesEpisodesViewModel : DownloadViewModel
             var model = SchedulesEpisodeFactory.Create(item);
 
             Items.Add(model);
+        }
+
+        // Find first not completed
+        if (Items.Count > 1 && Items[0].IsFinished)
+        {
+            for (int i = 1; i < Items.Count; i++)
+            {
+                if (!Items[i].IsFinished)
+                {
+                    Messenger.Send(new SemiCompletedScheduleEpisodesListLoaded(ChannelId, i));
+                    break;
+                }
+            }
         }
 
         //DateOnly swedishCurrentDate = DateOnly.FromDateTime(DateTimeProvider.SwedishNow);

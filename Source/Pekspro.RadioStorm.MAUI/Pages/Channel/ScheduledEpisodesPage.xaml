@@ -52,7 +52,7 @@
                 IsVisible="{Binding HasData}"
                 Grid.Row="1"
             >
-            <CollectionView ItemsSource="{Binding Items}">
+            <CollectionView ItemsSource="{Binding Items}" x:Name="ListViewScheduledEpisodes">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="m:SchedulesEpisodeModel">
                         <Grid Padding="{OnPlatform WinUI='8,6,16,6', Default='16,6,16,6'}">
