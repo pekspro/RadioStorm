@@ -3,12 +3,12 @@
             xmlns:player="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Player;assembly=Pekspro.RadioStorm.UI"
             xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
             xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
-            x:Class="Pekspro.RadioStorm.MAUI.Views.PlayerControl"             
-            x:DataType="player:PlayerViewModel"
-            IsVisible="{Binding CurrentItem, Converter={StaticResource NullToIsVisibleConverter}}"
+            x:Class="Pekspro.RadioStorm.MAUI.Views.PlayerControl"
+            x:DataType="player:CurrentPlayingViewModel"
+            IsVisible="{Binding PlayerViewModel.CurrentItem, Converter={StaticResource NullToIsVisibleConverter}}"
             BackgroundColor="{AppThemeBinding Dark={StaticResource PanelBackgroundDark}, Light={StaticResource PanelBackgroundLight}}">
 
-    <!--HeightRequest="{Binding IsCurrentItemLiveAudio, Converter={StaticResource LiveAudioToHeightConverter}}"-->
+    <!--HeightRequest="{Binding PlayerViewModel.IsCurrentItemLiveAudio, Converter={StaticResource LiveAudioToHeightConverter}}"-->
 
     <Grid.RowDefinitions>
         <RowDefinition Height="auto" />
@@ -32,20 +32,32 @@
             BackgroundColor="Transparent" 
             BorderColor="Transparent" 
             BorderWidth="0" />
-
+    
     <Grid Grid.Row="0"
           Grid.Column="1"
           Margin="8,0,0,0"
-          IsVisible="{Binding IsBuffering}"
           >
+        <Grid.IsVisible>
+            <MultiBinding Converter="{StaticResource OrConverter}">
+                <Binding Path="PlayerViewModel.IsBuffering" />
+                <Binding Path="IsBusy" />
+            </MultiBinding>
+        </Grid.IsVisible>
+
         <ActivityIndicator 
-                IsRunning="{Binding IsBuffering}"
                 WidthRequest="{OnPlatform Default=28, WinUI=24}"
                 HeightRequest="{OnPlatform Default=28, WinUI=24}"
-                />
+                >
+            <ActivityIndicator.IsRunning>
+                <MultiBinding Converter="{StaticResource OrConverter}">
+                    <Binding Path="PlayerViewModel.IsBuffering" />
+                    <Binding Path="IsBusy" />
+                </MultiBinding>
+            </ActivityIndicator.IsRunning>
+        </ActivityIndicator>
 
-        <Label Grid.Column="1" 
-                Text="{Binding BufferPercent}"
+        <Label  Text="{Binding PlayerViewModel.BufferPercent}"
+                IsVisible="{Binding PlayerViewModel.IsBuffering}"
                 FontSize="{OnPlatform Default=8, WinUI=9}"
                 Margin="{OnPlatform Default='0,0,1,1', WinUI='0,0,2,1'}"
                 HorizontalOptions="Center"
@@ -64,22 +76,22 @@
 
         <HorizontalStackLayout Margin="4,0,8,0"
                                Opacity="0.5"
-                               IsVisible="{Binding IsSleepTimerRunning}"
+                               IsVisible="{Binding PlayerViewModel.IsSleepTimerRunning}"
                                HorizontalOptions="End">
             <Path Style="{x:StaticResource PathIndicatorSleepTimer}"
                   WidthRequest="11"
                   HeightRequest="11"
                 />
-            
+
             <Label Style="{StaticResource DetailedTextStyle}"
                    Margin="4,0,0,1"
-                   Text="{Binding SleepTimerText}"
+                   Text="{Binding PlayerViewModel.SleepTimerText}"
                    />
         </HorizontalStackLayout>
 
         <Label Style="{StaticResource DetailedTextStyle}"
-               Text="{Binding PlaybackRateShortString}"
-               IsVisible="{Binding HasNormalPlaybackRate, Converter={StaticResource InvertedBoolConverter}}"
+               Text="{Binding PlayerViewModel.PlaybackRateShortString}"
+               IsVisible="{Binding PlayerViewModel.HasNormalPlaybackRate, Converter={StaticResource InvertedBoolConverter}}"
                Margin="4,0,8,0"
                Opacity="0.5"
                HorizontalOptions="End" />
@@ -93,28 +105,27 @@
 
         <Path   
             Style="{x:StaticResource PathPlayerPlay}"
-            IsVisible="{Binding CanPause, Converter={StaticResource InvertedBoolConverter}}"
+            IsVisible="{Binding PlayerViewModel.CanPause, Converter={StaticResource InvertedBoolConverter}}"
             WidthRequest="24"
         />
 
         <Path   
             Style="{x:StaticResource PathPlayerPause}"
-            IsVisible="{Binding CanPause}"
+            IsVisible="{Binding PlayerViewModel.CanPause}"
             WidthRequest="24"
         />
 
         <ImageButton 
-            Command="{Binding PlayPauseCommand}"
+            Command="{Binding PlayerViewModel.PlayPauseCommand}"
             Style="{x:StaticResource PlayerButton}"
             />
 
         <!--<Button 
-            Command="{Binding PlayPauseCommand}"
+            Command="{Binding PlayerViewModel.PlayPauseCommand}"
             Style="{StaticResource TextPlayerButton}"
         />-->
     </Grid>
 
-
-    <views:PlayerPositionControl Grid.Row="1" Grid.ColumnSpan="4" IsVisible="{Binding IsCurrentItemEpisode}" />
+    <views:PlayerPositionControl Grid.Row="1" Grid.ColumnSpan="4" IsVisible="{Binding PlayerViewModel.IsCurrentItemEpisode}" />
 
 </Grid>

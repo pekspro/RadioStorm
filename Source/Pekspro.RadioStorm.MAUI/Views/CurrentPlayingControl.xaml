@@ -2,7 +2,7 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:player="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Player;assembly=Pekspro.RadioStorm.UI"
             xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
-            x:Class="Pekspro.RadioStorm.MAUI.Views.CurrentPlayingControl"             
+            x:Class="Pekspro.RadioStorm.MAUI.Views.CurrentPlayingControl"
             x:DataType="player:CurrentPlayingViewModel"
             HeightRequest="66"
             >
@@ -84,7 +84,7 @@
 					VerticalOptions="Center"
 					Margin="8,-4,0,0"
 					>
-            
+
             <Label Text="{Binding EpisodeData.ProgramName, Mode=OneWay}"
                    LineBreakMode="TailTruncation"
 				   MaxLines="1"
@@ -114,15 +114,4 @@
 
         </VerticalStackLayout>
     </Grid>
-
-    <ActivityIndicator 
-            IsVisible="{Binding IsBusy}" 
-            Grid.Row="0"
-            IsRunning="True"
-            WidthRequest="{OnPlatform Default=28, WinUI=24}"
-            HeightRequest="{OnPlatform Default=28, WinUI=24}"
-            Margin="{OnPlatform Default='16,0,0,0', WinUI='20,0,0,0'}"
-            VerticalOptions="Center"
-            HorizontalOptions="Start" />
-
 </Grid>
