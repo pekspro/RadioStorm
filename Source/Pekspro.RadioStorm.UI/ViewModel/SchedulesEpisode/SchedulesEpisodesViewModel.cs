@@ -114,18 +114,19 @@ public sealed partial class SchedulesEpisodesViewModel : DownloadViewModel
             Items.Add(model);
         }
 
-        // Find first not completed
-        if (Items.Count > 1 && Items[0].IsFinished)
-        {
-            for (int i = 1; i < Items.Count; i++)
-            {
-                if (!Items[i].IsFinished)
-                {
-                    Messenger.Send(new SemiCompletedScheduleEpisodesListLoaded(ChannelId, i));
-                    break;
-                }
-            }
-        }
+        // This scrolling code causes crashes:
+        //// Find first not completed
+        //if (Items.Count > 1 && Items[0].IsFinished)
+        //{
+        //    for (int i = 1; i < Items.Count; i++)
+        //    {
+        //        if (!Items[i].IsFinished)
+        //        {
+        //            Messenger.Send(new SemiCompletedScheduleEpisodesListLoaded(ChannelId, i));
+        //            break;
+        //        }
+        //    }
+        //}
 
         //DateOnly swedishCurrentDate = DateOnly.FromDateTime(DateTimeProvider.SwedishNow);
 
