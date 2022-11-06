@@ -362,7 +362,30 @@
             </VerticalStackLayout>
 
             <views:DownloadState HorizontalOptions="Start" VerticalOptions="End" Margin="{StaticResource NormalPageMargin}" />
-            
+
+            <Grid HorizontalOptions="Start" 
+                  VerticalOptions="End" 
+                  Margin="{StaticResource NormalPageMargin}">
+                <Grid.IsVisible>
+                    <MultiBinding Converter="{StaticResource AndConverter}">
+                        <Binding Path="PlayerViewModel.IsBuffering" />
+                        <Binding Path="HasData" />
+                    </MultiBinding>
+                </Grid.IsVisible>
+
+                <ActivityIndicator 
+                    IsRunning="{Binding PlayerViewModel.IsBuffering}"
+                    />
+
+                <Label Grid.Column="1" 
+                    Text="{Binding PlayerViewModel.BufferPercent}"
+                    FontSize="{OnPlatform Default=11, WinUI=10}"
+                    Margin="{OnPlatform Default='0,0,1,1', WinUI='0,0,2,1'}"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    />
+            </Grid>
+
             <!-- Next episode info -->
             <Grid 
                 Padding="8" 
