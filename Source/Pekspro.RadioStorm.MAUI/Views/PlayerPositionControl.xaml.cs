@@ -6,8 +6,6 @@ public sealed partial class PlayerPositionControl
 
     public PlayerPositionControl()
     {
-        InitializeComponent();
-
         if (Services.ServiceProvider.Current is not null)
         {
             BindingContext = Services.ServiceProvider.GetRequiredService<PlayerViewModel>();
@@ -26,16 +24,21 @@ public sealed partial class PlayerPositionControl
                 });
             });
         }
+
+        InitializeComponent();
     }
 
     private PlayerViewModel ViewModel => (PlayerViewModel) BindingContext;
 
     private void SetSliderPosition(TimeSpan position, TimeSpan length)
     {
-        ProgressSlider.Value = position.TotalMilliseconds;
-        ProgressSlider.Maximum = Math.Max(1, length.TotalMilliseconds);
-        // Yes, value might be set twice, cause it could be large than maximum at first attempt.
-        ProgressSlider.Value = position.TotalMilliseconds;
+        if (ProgressSlider is not null)
+        {
+            ProgressSlider.Value = position.TotalMilliseconds;
+            ProgressSlider.Maximum = Math.Max(1, length.TotalMilliseconds);
+            // Yes, value might be set twice, cause it could be large than maximum at first attempt.
+            ProgressSlider.Value = position.TotalMilliseconds;
+        }
     }
 
     protected override void OnSizeAllocated(double width, double height)
