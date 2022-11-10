@@ -27,8 +27,8 @@
             <views:LargeMediaButtonUserControl 
                 Grid.ColumnSpan="2"
                 Grid.Row="1"
-                WidthRequest="160"
-                HeightRequest="160"
+                WidthRequest="140"
+                HeightRequest="140"
                 Source="{Binding Status.CurrentProgramImage.HighResolution, Mode=OneWay}"
                 Command="{Binding PlayPauseCommand, Mode=OneWay}"
                 AudioMediaState="{Binding AudioMediaState, Mode=OneWay}"

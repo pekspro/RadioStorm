@@ -66,12 +66,12 @@
             <Grid Grid.ColumnSpan="2"
                 Grid.Row="1"
                 Margin="0,0,0,0"
-                WidthRequest="160"
-                HeightRequest="160">
+                WidthRequest="140"
+                HeightRequest="140">
 
                 <views:LargeMediaButtonUserControl
-                    WidthRequest="160"
-                    HeightRequest="160"
+                    WidthRequest="140"
+                    HeightRequest="140"
                     Source="{Binding ProgramImage.HighResolution, Mode=OneWay}"
                     Command="{Binding EpisodeStatus.TopEpisode.PlayPauseCommand, Mode=OneWay}"
                     AudioMediaState="{Binding EpisodeStatus.TopEpisode.AudioMediaState, Mode=OneWay}"
