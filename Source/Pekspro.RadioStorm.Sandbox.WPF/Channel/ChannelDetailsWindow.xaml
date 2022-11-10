@@ -66,12 +66,12 @@
                 </Grid>
             </TabItem>
 
-            <TabItem Header="{x:Static r:Strings.General_SongList}">
-                <song:SongsControl DataContext="{Binding SongsViewModel}" />
+            <TabItem Header="{x:Static r:Strings.General_SongList}" x:Name="TabSongList">
+                <song:SongsControl  />
             </TabItem>
             
-            <TabItem Header="{x:Static r:Strings.Channel_ScheduleEpisodes}">
-                <scheduledepisode:ScheduledEpisodesControl DataContext="{Binding SchedulesEpisodesViewModel}" />
+            <TabItem Header="{x:Static r:Strings.Channel_ScheduleEpisodes}" x:Name="TabScheduledEpisodes">
+                <scheduledepisode:ScheduledEpisodesControl />
             </TabItem>
         </TabControl>
     </Grid>

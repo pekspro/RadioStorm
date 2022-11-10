@@ -60,6 +60,7 @@ public static class MauiProgram
 
         builder.Services.TryAddTransient<ChannelsPage>();
         builder.Services.TryAddTransient<ChannelDetailsPage>();
+        builder.Services.TryAddTransient<ScheduledEpisodesPage>();
         builder.Services.TryAddTransient<DownloadsPage>();
         builder.Services.TryAddTransient<EpisodeDetailsPage>();
         builder.Services.TryAddTransient<FavoritesPage>();

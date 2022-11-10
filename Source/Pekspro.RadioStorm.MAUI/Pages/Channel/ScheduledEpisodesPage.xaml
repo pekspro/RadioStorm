@@ -1,0 +1,142 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:base="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Base;assembly=Pekspro.RadioStorm.UI"
+             xmlns:vm="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.SchedulesEpisode;assembly=Pekspro.RadioStorm.UI"
+             xmlns:m="clr-namespace:Pekspro.RadioStorm.UI.Model.SchedulesEpisode;assembly=Pekspro.RadioStorm.UI"
+             xmlns:v="clr-namespace:Pekspro.RadioStorm.MAUI.Pages.Channel"
+             xmlns:t="clr-namespace:Pekspro.RadioStorm.MAUI.TemplateSelector"
+             xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
+             xmlns:controls="clr-namespace:Pekspro.RadioStorm.MAUI.Controls"
+             xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
+             xmlns:c="clr-namespace:Pekspro.RadioStorm.MAUI.Controls"
+             xmlns:search="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Search;assembly=Pekspro.RadioStorm.UI"
+             x:Class="Pekspro.RadioStorm.MAUI.Pages.Channel.ScheduledEpisodesPage"
+             x:DataType="vm:SchedulesEpisodesViewModel"
+             >
+    <ContentPage.Title>
+        <MultiBinding StringFormat="{x:Static r:Strings.Channel_ScheduleEpisodes_Title}">
+            <Binding Path="Title" />
+        </MultiBinding>
+    </ContentPage.Title>
+    <ContentPage.ToolbarItems>
+        <c:BindableToolbarItem 
+                x:Name="ToolbarItemUpdate"
+                Command="{Binding UpdateCommand}"
+                Text="{x:Static r:Strings.General_Update}"
+                Order="Secondary"
+                Priority="0" />
+    </ContentPage.ToolbarItems>
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <Border Style="{StaticResource Card}" 
+                Grid.Row="0" 
+                IsVisible="{Binding HasError, Converter={StaticResource InvertedBoolConverter}}"
+                Margin="{StaticResource NormalPageMargin}">
+            <HorizontalStackLayout Style="{StaticResource CardLayout}">
+                <Label Text="{x:Static r:Strings.Channel_ScheduleEpisodes_Date}" Margin="{OnPlatform Default='0,11,8,0', WinUI='0,6,0,0'}" />
+
+                <Picker ItemsSource="{Binding DateOptions}"
+                        SelectedIndex="{Binding DateOptionIndex, Mode=TwoWay}"
+                        Margin="{OnPlatform Default='0', WinUI='0,0,0,12'}"
+                        />
+            </HorizontalStackLayout>
+        </Border>
+
+        <views:DownloadState Grid.Row="1" NoDataText="{x:Static r:Strings.Channel_ScheduleEpisodes_NoData}" />
+        
+        <!-- Breaks on Android: ItemSizingStrategy="MeasureFirstItem"-->
+        <RefreshView 
+                Command="{Binding RefreshCommand}" 
+                IsRefreshing="{Binding IsRefreshing}"
+                IsVisible="{Binding HasData}"
+                Grid.Row="1"
+            >
+            <CollectionView ItemsSource="{Binding Items}" x:Name="ListViewScheduledEpisodes">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="m:SchedulesEpisodeModel">
+                        <Grid Padding="{OnPlatform WinUI='8,6,16,6', Default='16,6,16,6'}">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup Name="FinishedState">
+                                    <VisualState Name="Finished">
+                                        <VisualState.StateTriggers>
+                                            <StateTrigger IsActive="{Binding IsFinished}"/>
+                                        </VisualState.StateTriggers>
+                                        <VisualState.Setters>
+                                            <Setter Property="Label.TextColor" 
+                                                    Value="{AppThemeBinding Light={StaticResource InactiveProgramColorLight}, Dark={StaticResource InactiveProgramColorDark}}"
+                                                    TargetName="LabelStartTime"
+                                                    />
+                                            <Setter Property="Label.TextColor" 
+                                                    Value="{AppThemeBinding Light={StaticResource InactiveProgramColorLight}, Dark={StaticResource InactiveProgramColorDark}}"
+                                                    TargetName="LabelTitle"
+                                                    />
+                                            <Setter Property="Label.TextColor" 
+                                                    Value="{AppThemeBinding Light={StaticResource InactiveProgramColorLight}, Dark={StaticResource InactiveProgramColorDark}}"
+                                                    TargetName="LabelDescription"
+                                                    />
+
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState Name="NotFinished">
+                                        <VisualState.StateTriggers>
+                                            <StateTrigger IsActive="{Binding IsFinished, Converter={StaticResource InvertedBoolConverter}}" />
+                                        </VisualState.StateTriggers>
+                                        <VisualState.Setters>
+                                            <Setter Property="Label.TextColor" 
+                                                    Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"
+                                                    TargetName="LabelStartTime"
+                                                    />
+                                            <Setter Property="Label.TextColor" 
+                                                    Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"
+                                                    TargetName="LabelTitle"
+                                                    />
+                                            <Setter Property="Label.TextColor" 
+                                                    Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"
+                                                    TargetName="LabelDescription"
+                                                    />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+
+                            <Label Text="{Binding StartTimeString, Mode=OneTime}"
+                                   x:Name="LabelStartTime"
+                                   Grid.Column="0"
+                                   Grid.Row="0"
+                                   Style="{StaticResource ListHeaderTextStyle}"
+                                />
+
+                            <Label Text="{Binding ProgramNameOrTitle, Mode=OneTime}"
+                                   x:Name="LabelTitle"
+                                   Margin="8,0,0,0"
+                                   Grid.Column="1"
+                                   Grid.Row="0"
+                                   Style="{StaticResource ListHeaderTextStyle}"
+                                />
+
+                            <Label Text="{Binding Description, Mode=OneTime}"
+                                   x:Name="LabelDescription"
+                                   Grid.ColumnSpan="2"
+                                   Grid.Row="1"
+                                   MaxLines="3"
+                                   Style="{StaticResource ListNormalTextStyle}"
+                                />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+        <views:PlayerControl Grid.Row="2" />
+    </Grid>
+</ContentPage>

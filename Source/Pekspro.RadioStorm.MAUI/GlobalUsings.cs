@@ -38,6 +38,7 @@ global using Pekspro.RadioStorm.UI.ViewModel.Logging;
 global using Pekspro.RadioStorm.UI.ViewModel.Player;
 global using Pekspro.RadioStorm.UI.ViewModel.Program;
 global using Pekspro.RadioStorm.UI.ViewModel.RecentEpisodes;
+global using Pekspro.RadioStorm.UI.ViewModel.SchedulesEpisode;
 global using Pekspro.RadioStorm.UI.ViewModel.Search;
 global using Pekspro.RadioStorm.UI.ViewModel.Settings;
 global using Pekspro.RadioStorm.Utilities;
