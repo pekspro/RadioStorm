@@ -62,7 +62,7 @@ public sealed partial class ChannelDetailsPage : ContentPage
         }
     }
 
-    private async void ButtonOpenScheduleEpisodes_Click(object sender, EventArgs e)
+    private async void ToolbarItemOpenScheduleEpisodes_Click(object sender, EventArgs e)
     {
         if (ViewModel?.ChannelData is not null)
         {

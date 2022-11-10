@@ -26,10 +26,17 @@
             Priority="0" />
         
         <ToolbarItem 
+            x:Name="ToolbarItemOpenScheduleEpisodes"
+            Clicked="ToolbarItemOpenScheduleEpisodes_Click"
+            Text="{x:Static r:Strings.Channel_ScheduleEpisodes}"
+            Order="Secondary"
+            Priority="1" />
+        
+        <ToolbarItem 
             Command="{Binding ChannelData.OpenWebPageCommand}"
             Text="{x:Static r:Strings.GeneralButtonOpenWebPage}"
             Order="Secondary"
-            Priority="1" />
+            Priority="2" />
         
     </ContentPage.ToolbarItems>
 
@@ -131,12 +138,6 @@
                                 IsVisible="{Binding ChannelData.Status.NextProgramId, Converter={StaticResource NullToIsVisibleConverter}, Mode=OneWay}"
                                 Text="{Binding ChannelData.Status.NextProgram, StringFormat={x:Static r:Strings.ChannelInfo_MoreAbout}}"
                                 Clicked="ButtonOpenNextProgram_Click" />
-
-                        <Button x:Name="ButtonOpenScheduleEpisodes"
-                                Style="{StaticResource HyperlinkButton}"
-                                Text="{x:Static r:Strings.Channel_ScheduleEpisodes}"
-                                Clicked="ButtonOpenScheduleEpisodes_Click"
-                                />
 
                     </VerticalStackLayout>
                 </Grid>
