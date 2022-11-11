@@ -15,7 +15,7 @@ internal sealed class FileLogger : ILogger
         DateTimeProvider = dateTimeProvider;
     }
 
-    public IDisposable BeginScope<TState>(TState state) /* Add in .NET7: where TState : notnull */ => null!;
+    public IDisposable BeginScope<TState>(TState state) => null!;
 
     public bool IsEnabled(LogLevel logLevel)
     {
