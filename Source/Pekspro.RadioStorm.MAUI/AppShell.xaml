@@ -71,6 +71,7 @@
     <Shell.FlyoutContentTemplate>
         <DataTemplate>
             <Grid RowDefinitions="{OnPlatform WinUI='48,48,48,48,48,*,48', Default='56,56,56,56,56,*,56'}"
+                  BackgroundColor="{AppThemeBinding Dark={StaticResource PanelBackgroundDark}, Light={StaticResource PanelBackgroundLight}}"
                   RadioButtonGroup.GroupName="Menu"
                   RadioButtonGroup.SelectedValue="{Binding SelectedRoute}">
                 <Grid.Resources>
