@@ -8,4 +8,9 @@ public sealed partial class FavoriteProgramAlbumControl
     }
 
     private ProgramModel ViewModel => (ProgramModel) BindingContext;
+
+    private void AlbumItem_SizeChanged(object sender, EventArgs e)
+    {
+        GridLargeMediaButton.WidthRequest = LargeMediaButton.WidthRequest = Width - 16;
+    }
 }

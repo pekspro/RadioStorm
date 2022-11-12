@@ -1,6 +1,7 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Pekspro.RadioStorm.UI.Model.Program;assembly=Pekspro.RadioStorm.UI"
+             xmlns:favvm="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Favorite;assembly=Pekspro.RadioStorm.UI"
              xmlns:style="clr-namespace:Pekspro.RadioStorm.MAUI.Resources.Styles"
              xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
              x:Class="Pekspro.RadioStorm.MAUI.Pages.Program.FavoriteProgramAlbumControl"
@@ -54,8 +55,8 @@
         </VisualStateGroup>
     </VisualStateManager.VisualStateGroups>
 
-    <Border Style="{StaticResource AlbumCard}">
-        <Grid Style="{StaticResource AlbumItem}">
+    <Border Style="{StaticResource AlbumCard}" WidthRequest="{Binding Source={RelativeSource AncestorType={x:Type favvm:FavoritesViewModel}}, Path=AlbumCardWidth}">
+        <Grid Style="{StaticResource AlbumItem}" x:Name="AlbumItem" SizeChanged="AlbumItem_SizeChanged">
             <Label  x:Name="LabelProgramName"
                 Grid.Row="0"
                 Grid.ColumnSpan="2"
@@ -64,12 +65,14 @@
                 />
 
             <Grid Grid.ColumnSpan="2"
-                Grid.Row="1"
-                Margin="0,0,0,0"
-                WidthRequest="140"
-                HeightRequest="140">
+                  Grid.Row="1"
+                  x:Name="GridLargeMediaButton"
+                  Margin="0,0,0,0"
+                  WidthRequest="140"
+                  HeightRequest="140">
 
                 <views:LargeMediaButtonUserControl
+                    x:Name="LargeMediaButton"
                     WidthRequest="140"
                     HeightRequest="140"
                     Source="{Binding ProgramImage.HighResolution, Mode=OneWay}"
