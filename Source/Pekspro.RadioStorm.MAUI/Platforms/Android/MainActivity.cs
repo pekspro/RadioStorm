@@ -38,7 +38,7 @@ public sealed class MainActivity : MauiAppCompatActivity
         //    //.SetBackoffCriteria(120 * 1000, BackoffPolicy.Linear)
             ;
 
-        if (Build.VERSION.SdkInt >= BuildVersionCodes.P)
+        if (OperatingSystem.IsAndroidVersionAtLeast(28))
         {
             jobBuilder.SetPrefetch(true);
         }

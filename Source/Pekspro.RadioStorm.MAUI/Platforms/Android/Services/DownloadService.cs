@@ -46,7 +46,7 @@ public sealed class DownloadService : Service
         StartWakeLock();
         AquireWifiLock();
 
-        if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
+        if (OperatingSystem.IsAndroidVersionAtLeast(26))
         {
             var name = Strings.Services_Download_Name;
             var description = Strings.Services_Download_Description;

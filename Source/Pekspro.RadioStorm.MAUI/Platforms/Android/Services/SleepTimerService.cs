@@ -44,8 +44,8 @@ public sealed class SleepTimerService : Service
     public override void OnCreate()
     {
         Logger.LogInformation("{serviceName} starts", nameof(SleepTimerService));
-        
-        if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
+
+        if (OperatingSystem.IsAndroidVersionAtLeast(26))
         {
             var name = Strings.Services_SleepTimer_Name;
             var description = Strings.Services_SleepTimer_Description;
