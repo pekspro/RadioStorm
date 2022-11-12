@@ -9,7 +9,10 @@ using Pekspro.RadioStorm.MAUI.Platforms.Android.Services;
 #nullable disable
 
 namespace Pekspro.RadioStorm.MAUI;
-[Activity(Theme = "@style/Maui.SplashTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize)]
+[Activity(  Theme = "@style/Maui.SplashTheme", 
+            MainLauncher = true, 
+            ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize,
+            LaunchMode = LaunchMode.SingleTop)]
 public sealed class MainActivity : MauiAppCompatActivity
 {
     protected override void OnCreate(Bundle savedInstanceState)
