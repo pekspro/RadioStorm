@@ -34,11 +34,12 @@
                 IsVisible="{Binding HasError, Converter={StaticResource InvertedBoolConverter}}"
                 Margin="{StaticResource NormalPageMargin}">
             <HorizontalStackLayout Style="{StaticResource CardLayout}">
-                <Label Text="{x:Static r:Strings.Channel_ScheduleEpisodes_Date}" Margin="{OnPlatform Default='0,11,8,0', WinUI='0,6,0,0'}" />
+                
+                <Label Text="{x:Static r:Strings.Channel_ScheduleEpisodes_Date}" 
+                       Margin="{OnPlatform Default='0,13,8,0', WinUI='0,12,8,0'}" />
 
                 <Picker ItemsSource="{Binding DateOptions}"
                         SelectedIndex="{Binding DateOptionIndex, Mode=TwoWay}"
-                        Margin="{OnPlatform Default='0', WinUI='0,0,0,12'}"
                         />
             </HorizontalStackLayout>
         </Border>

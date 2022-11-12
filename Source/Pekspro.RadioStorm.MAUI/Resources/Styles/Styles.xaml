@@ -207,7 +207,8 @@
         <Setter Property="BackgroundColor" Value="Transparent" />
         <!-- Changed: <Setter Property="FontFamily" Value="OpenSansRegular" /> -->
         <Setter Property="FontFamily" Value="{StaticResource DefaultFont}" />
-        <Setter Property="FontSize" Value="14"/>
+        <!--<Setter Property="FontSize" Value="14"/>-->
+        <Setter Property="FontSize" Value="13" />
         <Setter Property="MinimumHeightRequest" Value="44"/>
         <Setter Property="MinimumWidthRequest" Value="44"/>
         <Setter Property="VisualStateManager.VisualStateGroups">
