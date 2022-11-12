@@ -43,40 +43,41 @@
     <Grid RowDefinitions="*,Auto">
         <views:DownloadState Grid.Row="0" />
 
-        <RefreshView 
+        <!-- TODO: Add refreshview when this is fixed: https://github.com/dotnet/maui/issues/9371 -->
+        <!--<RefreshView 
             Command="{Binding RefreshCommand}" 
             IsRefreshing="{Binding IsRefreshing}"
             IsVisible="{Binding HasData}"
-            >
+            >-->
             <ScrollView Padding="{StaticResource NormalPageMargin}">
-                <Grid RowDefinitions="Auto,Auto,Auto,*"
+                <Grid RowDefinitions="Auto,Auto"
                       ColumnDefinitions="Auto,*"
                       x:Name="GridLayout"
                       >
-                    <VisualStateManager.VisualStateGroups>
-                        <VisualStateGroup Name="WidthState">
-                            <VisualState Name="Narrow">
-                                <VisualState.Setters>
-                                    <Setter Property="Grid.Margin" Value="0,8,0,0" TargetName="DetailsPanel" />
-                                    <Setter Property="Grid.Column" Value="0" TargetName="DetailsPanel" />
-                                    <Setter Property="Grid.Row" Value="2" TargetName="DetailsPanel" />
-                                    <Setter Property="Grid.RowSpan" Value="1" TargetName="DetailsPanel" />
-                                    <Setter Property="Grid.ColumnDefinitions" Value="*" TargetName="GridLayout" />
-                                </VisualState.Setters>
-                            </VisualState>
-                            <VisualState Name="Wide">
-                                <VisualState.Setters>
-                                    <Setter Property="Grid.Margin" Value="8,0,0,0" TargetName="DetailsPanel" />
-                                    <Setter Property="Grid.Column" Value="1" TargetName="DetailsPanel" />
-                                    <Setter Property="Grid.Row" Value="1" TargetName="DetailsPanel" />
-                                    <Setter Property="Grid.RowSpan" Value="2" TargetName="DetailsPanel" />
-                                    <Setter Property="Grid.ColumnDefinitions" Value="Auto,*" TargetName="GridLayout" />
-                                </VisualState.Setters>
-                            </VisualState>
-                        </VisualStateGroup>
-                    </VisualStateManager.VisualStateGroups>
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup Name="WidthState">
+                        <VisualState Name="Narrow">
+                            <VisualState.Setters>
+                                <Setter Property="Grid.Margin" Value="0,8,0,0" TargetName="DetailsPanel" />
+                                <Setter Property="Grid.Column" Value="0" TargetName="DetailsPanel" />
+                                <Setter Property="Grid.Row" Value="1" TargetName="DetailsPanel" />
+                                <Setter Property="Grid.RowSpan" Value="1" TargetName="DetailsPanel" />
+                                <Setter Property="Grid.ColumnDefinitions" Value="*" TargetName="GridLayout" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState Name="Wide">
+                            <VisualState.Setters>
+                                <Setter Property="Grid.Margin" Value="8,0,0,0" TargetName="DetailsPanel" />
+                                <Setter Property="Grid.Column" Value="1" TargetName="DetailsPanel" />
+                                <Setter Property="Grid.Row" Value="0" TargetName="DetailsPanel" />
+                                <Setter Property="Grid.RowSpan" Value="2" TargetName="DetailsPanel" />
+                                <Setter Property="Grid.ColumnDefinitions" Value="Auto,*" TargetName="GridLayout" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
 
-                    <VerticalStackLayout x:Name="ImagePanel" Grid.Row="1" Grid.Column="0">
+                <VerticalStackLayout x:Name="ImagePanel">
                         <views:LargeMediaButtonUserControl
                             HorizontalOptions="Center"
                             WidthRequest="200"
@@ -135,15 +136,14 @@
                                />
 
                         <Button x:Name="ButtonOpenNextProgram"
-                                Style="{StaticResource HyperlinkButton}"
-                                IsVisible="{Binding ChannelData.Status.NextProgramId, Converter={StaticResource NullToIsVisibleConverter}, Mode=OneWay}"
-                                Text="{Binding ChannelData.Status.NextProgram, StringFormat={x:Static r:Strings.ChannelInfo_MoreAbout}}"
-                                Clicked="ButtonOpenNextProgram_Click" />
-
+                                    Style="{StaticResource HyperlinkButton}"
+                                    IsVisible="{Binding ChannelData.Status.NextProgramId, Converter={StaticResource NullToIsVisibleConverter}, Mode=OneWay}"
+                                    Text="{Binding ChannelData.Status.NextProgram, StringFormat={x:Static r:Strings.ChannelInfo_MoreAbout}}"
+                                    Clicked="ButtonOpenNextProgram_Click" />
                     </VerticalStackLayout>
                 </Grid>
             </ScrollView>
-        </RefreshView>
+        <!--</RefreshView>-->
 
         <views:PlayerControl Grid.Row="1" />
     </Grid>
