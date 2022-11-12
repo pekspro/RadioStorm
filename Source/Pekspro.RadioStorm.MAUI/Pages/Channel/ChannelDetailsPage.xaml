@@ -57,20 +57,20 @@
                         <VisualStateGroup Name="WidthState">
                             <VisualState Name="Narrow">
                                 <VisualState.Setters>
-                                    <Setter Property="Margin" Value="0,8,0,0" TargetName="DetailsPanel" />
+                                    <Setter Property="Grid.Margin" Value="0,8,0,0" TargetName="DetailsPanel" />
                                     <Setter Property="Grid.Column" Value="0" TargetName="DetailsPanel" />
                                     <Setter Property="Grid.Row" Value="2" TargetName="DetailsPanel" />
                                     <Setter Property="Grid.RowSpan" Value="1" TargetName="DetailsPanel" />
-                                    <Setter Property="ColumnDefinitions" Value="*" TargetName="GridLayout" />
+                                    <Setter Property="Grid.ColumnDefinitions" Value="*" TargetName="GridLayout" />
                                 </VisualState.Setters>
                             </VisualState>
                             <VisualState Name="Wide">
                                 <VisualState.Setters>
-                                    <Setter Property="Margin" Value="8,0,0,0" TargetName="DetailsPanel" />
+                                    <Setter Property="Grid.Margin" Value="8,0,0,0" TargetName="DetailsPanel" />
                                     <Setter Property="Grid.Column" Value="1" TargetName="DetailsPanel" />
                                     <Setter Property="Grid.Row" Value="1" TargetName="DetailsPanel" />
                                     <Setter Property="Grid.RowSpan" Value="2" TargetName="DetailsPanel" />
-                                    <Setter Property="ColumnDefinitions" Value="Auto,*" TargetName="GridLayout" />
+                                    <Setter Property="Grid.ColumnDefinitions" Value="Auto,*" TargetName="GridLayout" />
                                 </VisualState.Setters>
                             </VisualState>
                         </VisualStateGroup>
@@ -101,6 +101,7 @@
                                 </MultiBinding>
                             </Label.Text>
                         </Label>
+                        
                         <Label Text="{Binding ChannelData.Status.CurrentProgramDescription}"
                                IsVisible="{Binding ChannelData.Status.CurrentProgramDescription, Converter={StaticResource StringToIsVisibleConverter}}"   
                                />

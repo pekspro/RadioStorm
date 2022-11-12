@@ -190,7 +190,7 @@
                     <Button Command="{Binding EpisodeData.DownloadCommand}"
                             IsVisible="{Binding EpisodeData.CanDownload}"
                             Style="{StaticResource InlineHyperlinkButton}"
-                            HeightRequest="28"
+                            HeightRequest="44"
                             Margin="-8,12,0,0"
                             Text="{x:Static r:Strings.General_Download}"
                             />
@@ -446,6 +446,7 @@
                     <Button Command="{Binding NextEpisodeData.DownloadCommand}"
                             IsVisible="{Binding NextEpisodeData.CanDownload}"
                             Style="{StaticResource InlineHyperlinkButton}"
+                            HeightRequest="44"
                             Margin="0,0,0,-8"
                             Text="{x:Static r:Strings.General_Download}"
                             />
