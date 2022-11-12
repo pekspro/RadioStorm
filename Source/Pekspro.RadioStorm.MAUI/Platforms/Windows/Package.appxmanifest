@@ -3,6 +3,7 @@
 <Package
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
   IgnorableNamespaces="uap rescap">
 
@@ -11,7 +12,9 @@
     Publisher="CN=30A7FC1D-484E-4B99-B58D-88EFCC23039F"
     Version="0.1.0.0" />
 
-  <!--<Properties>
+    <mp:PhoneIdentity PhoneProductId="4E8D64C2-A092-419E-B581-6B8874A44902" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+
+    <!--<Properties>
     <DisplayName>Pekspro.RadioStorm.MAUI</DisplayName>
     <PublisherDisplayName>Microsoft</PublisherDisplayName>
     <Logo>appiconStoreLogo.png</Logo>
