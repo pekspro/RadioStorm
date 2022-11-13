@@ -85,6 +85,10 @@
 	  <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <PackageReference Include="CommunityToolkit.Maui" Version="3.0.0" />
+	</ItemGroup>
+
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Pekspro.RadioStorm.Settings.SynchronizedSettings.FileProvider.Graph\Pekspro.RadioStorm.Settings.SynchronizedSettings.FileProvider.Graph.csproj" />
