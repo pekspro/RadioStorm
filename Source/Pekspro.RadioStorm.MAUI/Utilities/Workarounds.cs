@@ -17,7 +17,10 @@ public static class Workarounds
         {
             foreach (var item in secondayToolBarItems)
             {
-                page.ToolbarItems.Add(item);
+                if (!page.ToolbarItems.Contains(item))
+                {
+                    page.ToolbarItems.Add(item);
+                }
             }
         });
 #endif

@@ -2,6 +2,8 @@
 
 internal sealed class BindableToolbarItem : ToolbarItem
 {
+    private IList<ToolbarItem>? ToolbarItems;
+
     public static readonly BindableProperty IsVisibleProperty = 
         BindableProperty.Create(nameof(IsVisible), typeof(bool), typeof(BindableToolbarItem), true, BindingMode.OneWay, propertyChanged: OnIsVisibleChanged);
 
@@ -15,6 +17,11 @@ internal sealed class BindableToolbarItem : ToolbarItem
     {
         base.OnParentChanged();
 
+        if ((Parent as ContentPage)?.ToolbarItems is not null) 
+        { 
+            ToolbarItems = (Parent as ContentPage)?.ToolbarItems;
+        }
+
         RefreshVisibility();
     }
 
@@ -27,22 +34,20 @@ internal sealed class BindableToolbarItem : ToolbarItem
 
     private void RefreshVisibility()
     {
-        if (Parent is null)
+        if (ToolbarItems is null)
         {
             return;
         }
 
         bool value = IsVisible;
 
-        var toolbarItems = ((ContentPage)Parent).ToolbarItems;
-
-        if (value && !toolbarItems.Contains(this))
+        if (value && !ToolbarItems.Contains(this))
         {
-            Application.Current!.Dispatcher.Dispatch(() => { toolbarItems.Add(this); });
+            Application.Current!.Dispatcher.Dispatch(() => { ToolbarItems.Add(this); });
         }
-        else if (!value && toolbarItems.Contains(this))
+        else if (!value && ToolbarItems.Contains(this))
         {
-            Application.Current!.Dispatcher.Dispatch(() => { toolbarItems.Remove(this); });
+            Application.Current!.Dispatcher.Dispatch(() => { ToolbarItems.Remove(this); });
         }
     }
 }
