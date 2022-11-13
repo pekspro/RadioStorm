@@ -33,18 +33,26 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 7.0.x
+        
+    - name: Install MAUI Workload
+      run: dotnet workload install maui --ignore-failed-sources
+
     - name: Get build information
       run: |
         echo "CURRENT_TIME=$(date +'%Y%m%d_%H%M%S')" >> $env:GITHUB_ENV
         echo "CURRENT_TIME_UTC_STRING=$(date +'%Y-%m-%dT%H:%M:%SZ')" >> $env:GITHUB_ENV
         echo "NET_VERSION_STRING=$(dotnet --version)" >> $env:GITHUB_ENV
         echo "SHORT_SHA=$("${{ github.sha }}".SubString(0, 8))" >> $env:GITHUB_ENV
-        echo "WORKLOAD_ANDROID_VERSION_STRING=$((dotnet workload list | Select-String maui-android)[0].ToString().Split(" ",[System.StringSplitOptions]::RemoveEmptyEntries)[1])" >> $env:GITHUB_ENV
-        echo "WORKLOAD_WINDOWS_VERSION_STRING=$((dotnet workload list | Select-String maui-windows)[0].ToString().Split(" ",[System.StringSplitOptions]::RemoveEmptyEntries)[1])" >> $env:GITHUB_ENV
-        echo "WORKLOAD_IOS_VERSION_STRING=$((dotnet workload list | Select-String maui-ios)[0].ToString().Split(" ",[System.StringSplitOptions]::RemoveEmptyEntries)[1])" >> $env:GITHUB_ENV
-        echo "WORKLOAD_MACCATALYST_VERSION_STRING=$((dotnet workload list | Select-String maui-maccatalys)[0].ToString().Split(" ",[System.StringSplitOptions]::RemoveEmptyEntries)[1])" >> $env:GITHUB_ENV
+        echo "WORKLOAD_ANDROID_VERSION_STRING=$((dotnet workload list | Select-String maui)[0].ToString().Split(" ",[System.StringSplitOptions]::RemoveEmptyEntries)[1])" >> $env:GITHUB_ENV
+        echo "WORKLOAD_WINDOWS_VERSION_STRING=$((dotnet workload list | Select-String maui)[0].ToString().Split(" ",[System.StringSplitOptions]::RemoveEmptyEntries)[1])" >> $env:GITHUB_ENV
+        echo "WORKLOAD_IOS_VERSION_STRING=$((dotnet workload list | Select-String maui)[0].ToString().Split(" ",[System.StringSplitOptions]::RemoveEmptyEntries)[1])" >> $env:GITHUB_ENV
+        echo "WORKLOAD_MACCATALYST_VERSION_STRING=$((dotnet workload list | Select-String maui)[0].ToString().Split(" ",[System.StringSplitOptions]::RemoveEmptyEntries)[1])" >> $env:GITHUB_ENV
 
-    - name: "Create build time file"
+    - name: Create build time file
       run: |
         echo "namespace Pekspro.RadioStorm.Utilities;" > $env:BUILD_INFO_FILE
         echo "public static partial class BuildInformation" >> $env:BUILD_INFO_FILE
@@ -107,15 +115,6 @@ jobs:
         echo "Build type: ${{ env.BUILD_TYPE }}"
         echo "Build setting: ${{ github.event.inputs.productionApiKeys }}"
         echo "Build time string: ${{ env.CURRENT_TIME_UTC_STRING }}"
-
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v2
-      with:
-        dotnet-version: 7.0.x
-        
-    - name: Install MAUI Workload
-      run: dotnet workload install maui --ignore-failed-sources
-
 
     - name: Get Windows version
       if: github.event.inputs.buildWindows == 'true'
