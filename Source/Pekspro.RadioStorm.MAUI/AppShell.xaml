@@ -80,7 +80,8 @@
                     </Style>
                 </Grid.Resources>
 
-                <RadioButton Value="favorites" 
+                <RadioButton Value="favorites"
+                             ToolTipProperties.Text="{x:Static r:Strings.Favorites_Tooltips_Favorites}"
                              IsChecked="True" 
                              Grid.Row="0"
                              CheckedChanged="OnMenuItemChanged">
@@ -112,7 +113,8 @@
                     </RadioButton.Content>
                 </RadioButton>
 
-                <RadioButton Value="channels" 
+                <RadioButton Value="channels"
+                             ToolTipProperties.Text="{x:Static r:Strings.Favorites_Tooltips_Channels}"
                              Grid.Row="1"
                              CheckedChanged="OnMenuItemChanged">
                     <RadioButton.Content>
@@ -143,7 +145,8 @@
                     </RadioButton.Content>
                 </RadioButton>
 
-                <RadioButton Value="programs" 
+                <RadioButton Value="programs"
+                             ToolTipProperties.Text="{x:Static r:Strings.Favorites_Tooltips_Programs}"
                              Grid.Row="2"
                              CheckedChanged="OnMenuItemChanged">
                     <RadioButton.Content>
@@ -175,7 +178,8 @@
                 </RadioButton>
 
 
-                <RadioButton Value="recent" 
+                <RadioButton Value="recent"
+                             ToolTipProperties.Text="{x:Static r:Strings.Favorites_Tooltips_Recent}"
                              Grid.Row="3"
                              CheckedChanged="OnMenuItemChanged">
                     <RadioButton.Content>
@@ -206,7 +210,8 @@
                     </RadioButton.Content>
                 </RadioButton>
 
-                <RadioButton Value="downloads" 
+                <RadioButton Value="downloads"
+                             ToolTipProperties.Text="{x:Static r:Strings.Favorites_Tooltips_Downloads}"
                              Grid.Row="4"
                              CheckedChanged="OnMenuItemChanged">
                     <RadioButton.Content>
@@ -237,7 +242,8 @@
                     </RadioButton.Content>
                 </RadioButton>
 
-                <RadioButton Value="settings" 
+                <RadioButton Value="settings"
+                             ToolTipProperties.Text="{x:Static r:Strings.Favorites_Tooltips_Settings}"
                              Grid.Row="6"
                              CheckedChanged="OnMenuItemChanged">
                     <RadioButton.Content>
