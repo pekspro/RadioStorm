@@ -18,7 +18,7 @@
     <ContentPage.Behaviors>
         <toolkit:StatusBarBehavior 
             StatusBarColor="{AppThemeBinding Dark={StaticResource PanelBackgroundDark}, Light={StaticResource PanelBackgroundLight}}" 
-            StatusBarStyle="{AppThemeBinding Dark={StaticResource LightContent}, Default=DarkContent}"/>
+            StatusBarStyle="{AppThemeBinding Dark=LightContent, Default=DarkContent}"/>
     </ContentPage.Behaviors>
     <ContentPage.Resources>
         <ResourceDictionary>
