@@ -146,9 +146,6 @@
 	  <Compile Update="Pages\Settings\SettingsPage.xaml.cs">
 	    <DependentUpon>%(Filename)</DependentUpon>
 	  </Compile>
-	  <Compile Update="Platforms\Android\Services\VersionProvider.cs">
-	    <ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
-	  </Compile>
 	  <Compile Update="Views\DownloadSettingsControl.xaml.cs">
 	    <DependentUpon>DownloadSettingsControl.xaml</DependentUpon>
 	  </Compile>

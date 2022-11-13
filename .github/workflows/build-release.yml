@@ -131,7 +131,7 @@ jobs:
 
     - name: Create Windows certificate file
       if: github.event.inputs.buildWindows == 'true'
-      uses: timheuer/base64-to-file@v1.1
+      uses: timheuer/base64-to-file@v1.2
       id: create_windows_certificate_file
       with:
         fileName: radiostorm.pfx
@@ -165,7 +165,7 @@ jobs:
     - name: Get Android display version
       id: android_display_version
       if: github.event.inputs.buildAndroid == 'true'
-      uses: mavrosxristoforos/get-xml-info@1.1.0
+      uses: mavrosxristoforos/get-xml-info@1.1.1
       with:
         xml-file: Source/Pekspro.RadioStorm.MAUI/Pekspro.RadioStorm.MAUI.csproj
         xpath: /Project/PropertyGroup/ApplicationDisplayVersion
@@ -173,7 +173,7 @@ jobs:
     - name: Get Android version
       id: android_version
       if: github.event.inputs.buildAndroid == 'true'
-      uses: mavrosxristoforos/get-xml-info@1.1.0
+      uses: mavrosxristoforos/get-xml-info@1.1.1
       with:
         xml-file: Source/Pekspro.RadioStorm.MAUI/Pekspro.RadioStorm.MAUI.csproj
         xpath: /Project/PropertyGroup/ApplicationVersion
@@ -185,7 +185,7 @@ jobs:
 
     - name: Create Android key file
       if: github.event.inputs.buildAndroid == 'true'
-      uses: timheuer/base64-to-file@v1.1
+      uses: timheuer/base64-to-file@v1.2
       id: create_android_key_file
       with:
         fileName: androidkeyfile
