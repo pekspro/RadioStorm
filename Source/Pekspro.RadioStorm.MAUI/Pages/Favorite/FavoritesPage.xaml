@@ -31,6 +31,12 @@
                                            BackgroundColor="{StaticResource SwipeControlBackgroundGeneral}" />
                         </SwipeItems>
                     </SwipeView.LeftItems>
+                    <FlyoutBase.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="{x:Static r:Strings.General_RemoveAsFavorite}" 
+                                            Command="{Binding ToggleIsFavoriteCommand}" />
+                        </MenuFlyout>
+                    </FlyoutBase.ContextFlyout>
                     <cc:ChannelControl FavoriteMode="true">
                         <cc:ChannelControl.GestureRecognizers>
                             <TapGestureRecognizer Tapped="ChannelTapped"/>
@@ -41,6 +47,12 @@
 
             <DataTemplate x:DataType="cm:ChannelModel" x:Key="ChannelTemplateWindows">
                 <cc:ChannelControl FavoriteMode="true">
+                    <FlyoutBase.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="{x:Static r:Strings.General_RemoveAsFavorite}" 
+                                            Command="{Binding ToggleIsFavoriteCommand}" />
+                        </MenuFlyout>
+                    </FlyoutBase.ContextFlyout>
                     <cc:ChannelControl.GestureRecognizers>
                         <TapGestureRecognizer Tapped="ChannelTapped"/>
                     </cc:ChannelControl.GestureRecognizers>
@@ -56,6 +68,12 @@
                                            BackgroundColor="{StaticResource SwipeControlBackgroundGeneral}" />
                         </SwipeItems>
                     </SwipeView.LeftItems>
+                    <FlyoutBase.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="{x:Static r:Strings.General_RemoveAsFavorite}" 
+                                            Command="{Binding ToggleIsFavoriteCommand}" />
+                        </MenuFlyout>
+                    </FlyoutBase.ContextFlyout>
                     <pc:FavoriteProgramControl>
                         <pc:FavoriteProgramControl.GestureRecognizers>
                             <TapGestureRecognizer Tapped="ProgramTapped"/>
@@ -66,6 +84,12 @@
 
             <DataTemplate x:DataType="pm:ProgramModel" x:Key="ProgramTemplateWindows">
                 <pc:FavoriteProgramControl>
+                    <FlyoutBase.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="{x:Static r:Strings.General_RemoveAsFavorite}" 
+                                            Command="{Binding ToggleIsFavoriteCommand}" />
+                        </MenuFlyout>
+                    </FlyoutBase.ContextFlyout>
                     <pc:FavoriteProgramControl.GestureRecognizers>
                         <TapGestureRecognizer Tapped="ProgramTapped"/>
                     </pc:FavoriteProgramControl.GestureRecognizers>
@@ -82,6 +106,12 @@
 
             <DataTemplate x:DataType="cm:ChannelModel" x:Key="AlbumChannelTemplate">
                 <cc:ChannelAlbumControl>
+                    <FlyoutBase.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="{x:Static r:Strings.General_RemoveAsFavorite}" 
+                                            Command="{Binding ToggleIsFavoriteCommand}" />
+                        </MenuFlyout>
+                    </FlyoutBase.ContextFlyout>
                     <cc:ChannelAlbumControl.GestureRecognizers>
                         <TapGestureRecognizer Tapped="ChannelTapped"/>
                     </cc:ChannelAlbumControl.GestureRecognizers>
@@ -90,6 +120,12 @@
 
             <DataTemplate x:DataType="pm:ProgramModel" x:Key="AlbumProgramTemplate">
                 <pc:FavoriteProgramAlbumControl>
+                    <FlyoutBase.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="{x:Static r:Strings.General_RemoveAsFavorite}" 
+                                            Command="{Binding ToggleIsFavoriteCommand}" />
+                        </MenuFlyout>
+                    </FlyoutBase.ContextFlyout>
                     <pc:FavoriteProgramAlbumControl.GestureRecognizers>
                         <TapGestureRecognizer Tapped="ProgramTapped"/>
                     </pc:FavoriteProgramAlbumControl.GestureRecognizers>
