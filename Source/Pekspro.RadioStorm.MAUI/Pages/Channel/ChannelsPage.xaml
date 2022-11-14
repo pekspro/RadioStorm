@@ -17,13 +17,19 @@
         <ResourceDictionary>
             <DataTemplate x:DataType="m:ChannelModel" x:Key="ChannelTemplate">
                 <SwipeView Threshold="{StaticResource DefaultSwipeThreshold}" SwipeStarted="SwipeView_SwipeStarted" SwipeEnded="SwipeView_SwipeEnded">
-                        <SwipeView.LeftItems>
-                            <SwipeItems Mode="Execute">
-                                <SwipeItem Text="{Binding IsFavorite, Converter={StaticResource BoolToToggleIsFavoriteConverter}}"
-                                           Command="{Binding ToggleIsFavoriteCommand}"
-                                           BackgroundColor="{StaticResource SwipeControlBackgroundGeneral}" />
-                            </SwipeItems>
-                        </SwipeView.LeftItems>
+                    <SwipeView.LeftItems>
+                        <SwipeItems Mode="Execute">
+                            <SwipeItem Text="{Binding IsFavorite, Converter={StaticResource BoolToToggleIsFavoriteConverter}}"
+                                        Command="{Binding ToggleIsFavoriteCommand}"
+                                        BackgroundColor="{StaticResource SwipeControlBackgroundGeneral}" />
+                        </SwipeItems>
+                    </SwipeView.LeftItems>
+                    <FlyoutBase.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="{Binding IsFavorite, Converter={StaticResource BoolToToggleIsFavoriteConverter}}" 
+                                            Command="{Binding ToggleIsFavoriteCommand}" />
+                        </MenuFlyout>
+                    </FlyoutBase.ContextFlyout>
                     <v:ChannelControl>
                         <v:ChannelControl.GestureRecognizers>
                             <TapGestureRecognizer Tapped="ChannelTapped"/>
@@ -34,6 +40,12 @@
 
             <DataTemplate x:DataType="m:ChannelModel" x:Key="ChannelTemplateWindows">
                 <v:ChannelControl>
+                    <FlyoutBase.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="{Binding IsFavorite, Converter={StaticResource BoolToToggleIsFavoriteConverter}}" 
+                                            Command="{Binding ToggleIsFavoriteCommand}" />
+                        </MenuFlyout>
+                    </FlyoutBase.ContextFlyout>
                     <v:ChannelControl.GestureRecognizers>
                         <TapGestureRecognizer Tapped="ChannelTapped"/>
                     </v:ChannelControl.GestureRecognizers>
