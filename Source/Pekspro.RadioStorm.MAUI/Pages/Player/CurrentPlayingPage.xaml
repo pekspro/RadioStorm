@@ -98,8 +98,8 @@
                 HorizontalOptions="Fill"
                 >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="56" />
-                    <RowDefinition Height="28" />
+                    <RowDefinition Height="84" />
+                    <RowDefinition Height="20" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
@@ -107,12 +107,12 @@
                 </Grid.ColumnDefinitions>
 
                 <Image Grid.Row="0"
-                        Grid.Column="0"
-                        Grid.RowSpan="3"
-			            WidthRequest="84"
-			            HeightRequest="84"
-                        Aspect="AspectFill"
-                        Margin="0,0,8,0">
+                       Grid.Column="0"
+                       Grid.RowSpan="0"
+			           WidthRequest="84"
+			           HeightRequest="84"
+                       Aspect="AspectFill"
+                       Margin="0,0,8,0">
                     <Image.Source>
                         <UriImageSource Uri="{Binding EpisodeData.EpisodeImage.HighResolution, Mode=OneWay}"
                         CacheValidity="1"  
@@ -149,7 +149,7 @@
                     </VerticalStackLayout>
                 </ScrollView>
 
-                <HorizontalStackLayout Grid.Row="2" Grid.Column="1" Padding="0,0,0,0" Spacing="8" VerticalOptions="Fill">
+                <HorizontalStackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Padding="0,0,0,0" Spacing="8" VerticalOptions="Fill">
                     <!--<Label  
                         Style="{StaticResource DetailedTextStyle}"
                         VerticalOptions="End"
@@ -191,7 +191,7 @@
                             IsVisible="{Binding EpisodeData.CanDownload}"
                             Style="{StaticResource InlineHyperlinkButton}"
                             HeightRequest="28"
-                            Margin="-8,12,0,0"
+                            Margin="-8,4,0,0"
                             Text="{x:Static r:Strings.General_Download}"
                             />
                     
