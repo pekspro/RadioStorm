@@ -155,6 +155,8 @@ public sealed partial class FavoritesPage : ContentPage
             };
         }
 
+        ViewModel.HasAlbumViewSupport = (Width - sideMargin) >= thinMinItemWidth * 2 + itemMargin * 1;
+
         if (expectedColumnCount != _CurrenColumnCount)
         {
             _CurrenColumnCount = expectedColumnCount;

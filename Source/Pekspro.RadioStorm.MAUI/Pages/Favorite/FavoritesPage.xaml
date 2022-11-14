@@ -119,18 +119,29 @@
                 x:Name="ToolbarItemListMode"
                 Clicked="ToolbarItemListMode_Clicked"
                 Text="{x:Static r:Strings.Favorites_ViewMode_List}"
-                IsVisible="{Binding HasFavorites}"
                 Order="Secondary"
-                Priority="1" />
+                Priority="1">
+            <c:BindableToolbarItem.IsVisible>
+                <MultiBinding Converter="{StaticResource AndConverter}">
+                    <Binding Path="HasFavorites" />
+                    <Binding Path="HasAlbumViewSupport" />
+                </MultiBinding>
+            </c:BindableToolbarItem.IsVisible>
+        </c:BindableToolbarItem>
 
         <c:BindableToolbarItem 
                 x:Name="ToolbarItemAlbumMode"
                 Clicked="ToolbarItemAlbumMode_Clicked"
                 Text="{x:Static r:Strings.Favorites_ViewMode_Album}"
-                IsVisible="{Binding HasFavorites}"
                 Order="Secondary"
-                Priority="2" />
-
+                Priority="2">
+            <c:BindableToolbarItem.IsVisible>
+                <MultiBinding Converter="{StaticResource AndConverter}">
+                    <Binding Path="HasFavorites" />
+                    <Binding Path="HasAlbumViewSupport" />
+                </MultiBinding>
+            </c:BindableToolbarItem.IsVisible>
+        </c:BindableToolbarItem>
     </ContentPage.ToolbarItems>
     <!--<RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy}">-->
 
