@@ -39,6 +39,22 @@
                                         BackgroundColor="{StaticResource SwipeControlBackgroundDownload}" />
                         </SwipeItems>
                     </SwipeView.RightItems>
+                    <FlyoutBase.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="{x:Static r:Strings.General_AddToPlayList}" 
+                                            Command="{Binding AddToPlayListCommand}" />
+                            <MenuFlyoutItem Command="{Binding ToggleDownloadCommand}">
+                                <MenuFlyoutItem.Text>
+                                    <MultiBinding Converter="{StaticResource ToggleDownloadStringConverter}">
+                                        <Binding Path="CanDownload" />
+                                        <Binding Path="CanDeleteDownload" />
+                                    </MultiBinding>
+                                </MenuFlyoutItem.Text>
+                            </MenuFlyoutItem>
+                            <MenuFlyoutItem Text="{Binding IsListened, Converter={StaticResource BoolToToggleIsListenedConverter}}" 
+                                            Command="{Binding ToggleIsListenedCommand}" />
+                        </MenuFlyout>
+                    </FlyoutBase.ContextFlyout>
                     <v:EpisodeControl>
                         <v:EpisodeControl.GestureRecognizers>
                             <TapGestureRecognizer Tapped="EpisodeTapped"/>
@@ -50,6 +66,22 @@
             <!-- TODO: Remove Grid when this issue is fixed: https://github.com/dotnet/maui/issues/9131 -->
             <DataTemplate x:Key="EpisodeTemplateWindows" x:DataType="m:EpisodeModel">
                 <Grid>
+                    <FlyoutBase.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="{x:Static r:Strings.General_AddToPlayList}" 
+                                        Command="{Binding AddToPlayListCommand}" />
+                            <MenuFlyoutItem Command="{Binding ToggleDownloadCommand}">
+                                <MenuFlyoutItem.Text>
+                                    <MultiBinding Converter="{StaticResource ToggleDownloadStringConverter}">
+                                        <Binding Path="CanDownload" />
+                                        <Binding Path="CanDeleteDownload" />
+                                    </MultiBinding>
+                                </MenuFlyoutItem.Text>
+                            </MenuFlyoutItem>
+                            <MenuFlyoutItem Text="{Binding IsListened, Converter={StaticResource BoolToToggleIsListenedConverter}}" 
+                                        Command="{Binding ToggleIsListenedCommand}" />
+                        </MenuFlyout>
+                    </FlyoutBase.ContextFlyout>
                     <v:EpisodeControl>
                         <v:EpisodeControl.GestureRecognizers>
                             <TapGestureRecognizer Tapped="EpisodeTapped"/>

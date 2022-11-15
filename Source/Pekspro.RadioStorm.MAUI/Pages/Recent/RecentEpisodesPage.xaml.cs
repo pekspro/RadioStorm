@@ -18,7 +18,7 @@ public sealed partial class RecentEpisodesPage : ContentPage
         ViewModel.OnNavigatedTo();
     }
 
-    async private void RecentTapped(object sender, EventArgs e)
+    async private void EpisodeTapped(object sender, EventArgs e)
     {
         if ((sender as EpisodeControl)?.BindingContext is EpisodeModel episode)
         {
@@ -29,6 +29,16 @@ public sealed partial class RecentEpisodesPage : ContentPage
                 { "Data", param }
             });
         }
+    }
+
+    private void SwipeView_SwipeStarted(object sender, SwipeStartedEventArgs e)
+    {
+        SwipeHelper.SwipeStarted(sender);
+    }
+
+    private void SwipeView_SwipeEnded(object sender, SwipeEndedEventArgs e)
+    {
+        SwipeHelper.SwipeEnded(sender);
     }
 
     protected override bool OnBackButtonPressed()
