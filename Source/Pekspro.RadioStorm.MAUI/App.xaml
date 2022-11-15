@@ -379,6 +379,7 @@
             <converters:AndConverter x:Key="AndConverter" />
             <converters:OrConverter x:Key="OrConverter" />
             <converters:LargerThanZeroConverter x:Key="LargerThanZeroConverter" />
+            <converters:ToggleDownloadStringConverter x:Key="ToggleDownloadStringConverter" />
 
             <converters:DownloadDataStatusToVisibilityConverter VisibilityValue="Done"
                                                             x:Key="DownloadDataStatusDoneToVisibilityConverter" />

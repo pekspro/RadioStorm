@@ -51,6 +51,22 @@
 
             <DataTemplate x:DataType="e:EpisodeModel" x:Key="EpisodeTemplateWindows">
                 <u:EpisodeControl>
+                    <FlyoutBase.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="{x:Static r:Strings.General_AddToPlayList}" 
+                                            Command="{Binding AddToPlayListCommand}" />
+                            <MenuFlyoutItem Command="{Binding ToggleDownloadCommand}">
+                                <MenuFlyoutItem.Text>
+                                    <MultiBinding Converter="{StaticResource ToggleDownloadStringConverter}">
+                                        <Binding Path="CanDownload" />
+                                        <Binding Path="CanDeleteDownload" />
+                                    </MultiBinding>
+                                </MenuFlyoutItem.Text>
+                            </MenuFlyoutItem>
+                            <MenuFlyoutItem Text="{Binding IsListened, Converter={StaticResource BoolToToggleIsListenedConverter}}" 
+                                            Command="{Binding ToggleIsListenedCommand}" />
+                        </MenuFlyout>
+                    </FlyoutBase.ContextFlyout>
                     <u:EpisodeControl.GestureRecognizers>
                         <TapGestureRecognizer Tapped="EpisodeTapped"/>
                     </u:EpisodeControl.GestureRecognizers>

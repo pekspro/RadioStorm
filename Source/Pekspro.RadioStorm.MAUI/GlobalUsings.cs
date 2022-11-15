@@ -31,6 +31,7 @@ global using Pekspro.RadioStorm.Settings.SynchronizedSettings.RecentHistory;
 global using Pekspro.RadioStorm.UI.Model.Channel;
 global using Pekspro.RadioStorm.UI.Model.Episode;
 global using Pekspro.RadioStorm.UI.Model.Program;
+global using Pekspro.RadioStorm.UI.Resources;
 global using Pekspro.RadioStorm.UI.ViewModel.Channel;
 global using Pekspro.RadioStorm.UI.ViewModel.Episode;
 global using Pekspro.RadioStorm.UI.ViewModel.Favorite;

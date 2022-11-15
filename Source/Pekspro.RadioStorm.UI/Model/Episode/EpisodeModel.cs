@@ -321,6 +321,9 @@ public sealed partial class EpisodeModel : ObservableObject, IComparable<Episode
     public bool CanDeleteDownload =>
         HasDownloadSupport && DownloadData is not null;
 
+    public bool CanToggleDownload =>
+       (DownloadData is null || DownloadData.Status == DownloadDataStatus.Error) ? CanDownload : CanDeleteDownload;
+
     public bool CanPause
     {
         get
@@ -405,6 +408,19 @@ public sealed partial class EpisodeModel : ObservableObject, IComparable<Episode
         DownloadManager.DeleteDownload(ProgramId ?? 0, Id);
     }
 
+    [RelayCommand(CanExecute = nameof(CanToggleDownload))]
+    public void ToggleDownload()
+    {
+        if (CanDownload)
+        {
+            Download();
+        }
+        else if (CanDeleteDownload)
+        {
+            DeleteDownload();
+        }
+    }
+
     [RelayCommand]
     public void AddToPlayList()
     {
@@ -486,6 +502,7 @@ public sealed partial class EpisodeModel : ObservableObject, IComparable<Episode
         OnPropertyChanged(nameof(ExpireDateNote));
         OnPropertyChanged(nameof(CanDownload));
         OnPropertyChanged(nameof(CanDeleteDownload));
+        OnPropertyChanged(nameof(CanToggleDownload));
         DeleteDownloadCommand.NotifyCanExecuteChanged();
         DownloadCommand.NotifyCanExecuteChanged();
     }
