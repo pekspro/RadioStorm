@@ -379,7 +379,14 @@
             <converters:AndConverter x:Key="AndConverter" />
             <converters:OrConverter x:Key="OrConverter" />
             <converters:LargerThanZeroConverter x:Key="LargerThanZeroConverter" />
-            <converters:ToggleDownloadStringConverter x:Key="ToggleDownloadStringConverter" />
+            <converters:ToggleAddRemoveStringConverter x:Key="ToggleDownloadStringConverter"
+                                                       AddValue="{x:Static r:Strings.General_Download}"
+                                                       RemoveValue="{x:Static r:Strings.General_RemoveDownload}"
+                                                       />
+            <converters:ToggleAddRemoveStringConverter x:Key="TogglePlaylistStringConverter"
+                                                       AddValue="{x:Static r:Strings.General_AddToPlayList}"
+                                                       RemoveValue="{x:Static r:Strings.General_RemoveFromPlayList}"
+                                                       />
 
             <converters:DownloadDataStatusToVisibilityConverter VisibilityValue="Done"
                                                             x:Key="DownloadDataStatusDoneToVisibilityConverter" />

@@ -1,10 +1,14 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Converters;
 
-public sealed class ToggleDownloadStringConverter : IMultiValueConverter
+public sealed class ToggleAddRemoveStringConverter : IMultiValueConverter
 {
-    public ToggleDownloadStringConverter()
+    public ToggleAddRemoveStringConverter()
     {
     }
+
+    public string AddValue { get; set; } = string.Empty;
+    
+    public string RemoveValue { get; set; } = string.Empty;
 
     public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
     {
@@ -15,10 +19,10 @@ public sealed class ToggleDownloadStringConverter : IMultiValueConverter
 
         if (values[1] is bool b && b)
         {
-            return Strings.General_RemoveDownload;
+            return RemoveValue;
         }
 
-        return Strings.General_Download;
+        return AddValue;
     }
 
     public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)

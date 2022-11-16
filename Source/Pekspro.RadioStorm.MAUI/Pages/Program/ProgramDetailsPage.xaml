@@ -53,8 +53,14 @@
                 <u:EpisodeControl>
                     <FlyoutBase.ContextFlyout>
                         <MenuFlyout>
-                            <MenuFlyoutItem Text="{x:Static r:Strings.General_AddToPlayList}" 
-                                            Command="{Binding AddToPlayListCommand}" />
+                            <MenuFlyoutItem Command="{Binding TogglePlayListCommand}">
+                                <MenuFlyoutItem.Text>
+                                    <MultiBinding Converter="{StaticResource TogglePlaylistStringConverter}">
+                                        <Binding Path="CanBeAddedToPlayList" />
+                                        <Binding Path="CanBeRemovedFromPlayList" />
+                                    </MultiBinding>
+                                </MenuFlyoutItem.Text>
+                            </MenuFlyoutItem>
                             <MenuFlyoutItem Command="{Binding ToggleDownloadCommand}">
                                 <MenuFlyoutItem.Text>
                                     <MultiBinding Converter="{StaticResource ToggleDownloadStringConverter}">

@@ -1285,6 +1285,15 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ta bort från spellista.
+        /// </summary>
+        public static string General_RemoveFromPlayList {
+            get {
+                return ResourceManager.GetString("General_RemoveFromPlayList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Välj alla.
         /// </summary>
         public static string General_SelectAll {
@@ -1695,15 +1704,6 @@ namespace Pekspro.RadioStorm.UI.Resources {
         public static string Playlist_ButtonMove {
             get {
                 return ResourceManager.GetString("Playlist_ButtonMove", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ta bort från spellista.
-        /// </summary>
-        public static string PlayList_ButtonRemoveFromPlaylist {
-            get {
-                return ResourceManager.GetString("PlayList_ButtonRemoveFromPlaylist", resourceCulture);
             }
         }
         

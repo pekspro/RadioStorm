@@ -582,6 +582,9 @@
   <data name="General_RemoveDownload" xml:space="preserve">
     <value>Ta bort nedladdning</value>
   </data>
+  <data name="General_RemoveFromPlayList" xml:space="preserve">
+    <value>Ta bort från spellista</value>
+  </data>
   <data name="General_SelectAll" xml:space="preserve">
     <value>Välj alla</value>
   </data>
@@ -662,9 +665,6 @@
   </data>
   <data name="Playlist_ButtonMove" xml:space="preserve">
     <value>Flytta</value>
-  </data>
-  <data name="PlayList_ButtonRemoveFromPlaylist" xml:space="preserve">
-    <value>Ta bort från spellista</value>
   </data>
   <data name="Playlist_Empty" xml:space="preserve">
     <value>Din spellista är tom.</value>

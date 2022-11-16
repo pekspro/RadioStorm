@@ -45,8 +45,14 @@
                     </SwipeView.RightItems>
                     <FlyoutBase.ContextFlyout>
                         <MenuFlyout>
-                            <MenuFlyoutItem Text="{x:Static r:Strings.General_AddToPlayList}" 
-                                            Command="{Binding Model.AddToPlayListCommand}" />
+                            <MenuFlyoutItem Command="{Binding Model.TogglePlayListCommand}">
+                                <MenuFlyoutItem.Text>
+                                    <MultiBinding Converter="{StaticResource TogglePlaylistStringConverter}">
+                                        <Binding Path="Model.CanBeAddedToPlayList" />
+                                        <Binding Path="Model.CanBeRemovedFromPlayList" />
+                                    </MultiBinding>
+                                </MenuFlyoutItem.Text>
+                            </MenuFlyoutItem>
                             <MenuFlyoutItem Command="{Binding Model.ToggleDownloadCommand}">
                                 <MenuFlyoutItem.Text>
                                     <MultiBinding Converter="{StaticResource ToggleDownloadStringConverter}">
@@ -72,8 +78,14 @@
                 <Grid>
                     <FlyoutBase.ContextFlyout>
                         <MenuFlyout>
-                            <MenuFlyoutItem Text="{x:Static r:Strings.General_AddToPlayList}" 
-                                            Command="{Binding Model.AddToPlayListCommand}" />
+                            <MenuFlyoutItem Command="{Binding Model.TogglePlayListCommand}">
+                                <MenuFlyoutItem.Text>
+                                    <MultiBinding Converter="{StaticResource TogglePlaylistStringConverter}">
+                                        <Binding Path="Model.CanBeAddedToPlayList" />
+                                        <Binding Path="Model.CanBeRemovedFromPlayList" />
+                                    </MultiBinding>
+                                </MenuFlyoutItem.Text>
+                            </MenuFlyoutItem>
                             <MenuFlyoutItem Command="{Binding Model.ToggleDownloadCommand}">
                                 <MenuFlyoutItem.Text>
                                     <MultiBinding Converter="{StaticResource ToggleDownloadStringConverter}">

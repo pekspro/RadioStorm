@@ -20,7 +20,7 @@
                                                Command="{Binding AddToPlayListCommand}"
                                                BackgroundColor="{AppThemeBinding Dark={StaticResource WarningColorDark}, Light={StaticResource WarningColorLight}}"
                                     />-->
-                            <SwipeItem Text="{x:Static r:Strings.PlayList_ButtonRemoveFromPlaylist}"
+                            <SwipeItem Text="{x:Static r:Strings.General_RemoveFromPlayList}"
                                                Clicked="SwipeItemRemoveFromPlayList_Clicked"
                                                BackgroundColor="{StaticResource SwipeControlBackgroundRemove}"
                                     />
