@@ -18,9 +18,17 @@ public sealed partial class RecentEpisodesPage : ContentPage
         ViewModel.OnNavigatedTo();
     }
 
+    private void MenuItemRemoveFromRecentTapped(object sender, EventArgs e)
+    {
+        if ((sender as BindableObject)?.BindingContext is RecentEpisodeModel recent)
+        {
+            ViewModel.RemoveFromRecentList(recent.Model);
+        }
+    }
+
     async private void EpisodeTapped(object sender, EventArgs e)
     {
-        if ((sender as EpisodeControl)?.BindingContext is EpisodeModel episode)
+        if ((sender as BindableObject)?.BindingContext is EpisodeModel episode)
         {
             string param = EpisodeDetailsViewModel.CreateStartParameter(episode, true);
 

@@ -45,6 +45,9 @@
                     </SwipeView.RightItems>
                     <FlyoutBase.ContextFlyout>
                         <MenuFlyout>
+                            <MenuFlyoutItem x:Name="MenuItemRemoveFromRecent"
+                                            Text="{x:Static r:Strings.Recent_RemoveFromRecent}" 
+                                            Clicked="MenuItemRemoveFromRecentTapped" />
                             <MenuFlyoutItem Command="{Binding Model.TogglePlayListCommand}">
                                 <MenuFlyoutItem.Text>
                                     <MultiBinding Converter="{StaticResource TogglePlaylistStringConverter}">
@@ -78,6 +81,9 @@
                 <Grid>
                     <FlyoutBase.ContextFlyout>
                         <MenuFlyout>
+                            <MenuFlyoutItem x:Name="MenuItemRemoveFromRecent"
+                                            Text="{x:Static r:Strings.Recent_RemoveFromRecent}" 
+                                            Clicked="MenuItemRemoveFromRecentTapped" />
                             <MenuFlyoutItem Command="{Binding Model.TogglePlayListCommand}">
                                 <MenuFlyoutItem.Text>
                                     <MultiBinding Converter="{StaticResource TogglePlaylistStringConverter}">
