@@ -114,12 +114,11 @@
             </Style>
 
             <Style x:Key="AlbumItem" TargetType="Grid">
-                <Setter Property="WidthRequest" Value="172" />
-                <Setter Property="HeightRequest" Value="244" />
+                <Setter Property="HeightRequest" Value="220" />
                 <Setter Property="Padding" Value="6,8" />
                 <Setter Property="Margin" Value="0,0" />
                 <Setter Property="ColumnDefinitions" Value="40, *" />
-                <Setter Property="RowDefinitions" Value="20, 168, 20, 20" />
+                <Setter Property="RowDefinitions" Value="20, 148, 20, 20" />
             </Style>
 
             <Style x:Key="AlbumHeaderTextStyle" TargetType="Label">
@@ -164,8 +163,8 @@
             </Style>
 
             <Style x:Key="AlbumCard" TargetType="Border" BasedOn="{StaticResource Card}">
-                <Setter Property="WidthRequest" Value="184" />
-                <Setter Property="HeightRequest" Value="252" />
+                <Setter Property="WidthRequest" Value="160" />
+                <Setter Property="HeightRequest" Value="232" />
             </Style>
 
             <Style x:Key="CardLayout" TargetType="Layout">

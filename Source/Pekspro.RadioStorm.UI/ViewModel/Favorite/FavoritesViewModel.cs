@@ -1,7 +1,4 @@
-﻿using Pekspro.RadioStorm.UI.Model.Favorite;
-using Pekspro.SwedRadio;
-
-namespace Pekspro.RadioStorm.UI.ViewModel.Favorite;
+﻿namespace Pekspro.RadioStorm.UI.ViewModel.Favorite;
 
 public sealed partial class FavoritesViewModel : ListViewModel<FavoriteBaseModel>, IDisposable
 {
@@ -163,6 +160,9 @@ public sealed partial class FavoritesViewModel : ListViewModel<FavoriteBaseModel
     #region Properties
 
     public bool HasFavorites => DownloadState != DownloadStates.NoData;
+
+    [ObservableProperty]
+    private int _AlbumCardWidth = 100;
 
     #endregion
 

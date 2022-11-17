@@ -8,13 +8,13 @@ public sealed partial class PlayerControl
 
         if (Services.ServiceProvider.Current is not null)
         {
-            var s = Services.ServiceProvider.GetRequiredService<PlayerViewModel>();
+            var s = Services.ServiceProvider.GetRequiredService<CurrentPlayingViewModel>();
 
             BindingContext = s;
         }
     }
 
-    private PlayerViewModel ViewModel => (PlayerViewModel) BindingContext;
+    private CurrentPlayingViewModel ViewModel => (CurrentPlayingViewModel) BindingContext;
 
     private async void ButtonPlayerInfo_Clicked(object sender, EventArgs e)
     {

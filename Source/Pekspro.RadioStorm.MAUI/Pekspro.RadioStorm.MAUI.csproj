@@ -96,6 +96,9 @@
 	  <Compile Update="Pages\Channel\ChannelDetailsPage.xaml.cs">
 		<DependentUpon>%(Filename)</DependentUpon>
 	  </Compile>
+	  <Compile Update="Pages\Channel\ScheduledEpisodesPage.xaml.cs">
+	    <DependentUpon>ScheduledEpisodesPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Pages\Episode\EpisodeDetailsPage.xaml.cs">
 		<DependentUpon>%(Filename)</DependentUpon>
 	  </Compile>
@@ -131,9 +134,6 @@
 	  </Compile>
 	  <Compile Update="Pages\Settings\SettingsPage.xaml.cs">
 	    <DependentUpon>%(Filename)</DependentUpon>
-	  </Compile>
-	  <Compile Update="Platforms\Android\Services\VersionProvider.cs">
-	    <ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
 	  </Compile>
 	  <Compile Update="Views\DownloadSettingsControl.xaml.cs">
 	    <DependentUpon>DownloadSettingsControl.xaml</DependentUpon>
@@ -171,6 +171,9 @@
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\Channel\ChannelDetailsPage.xaml">
 	    <SubType>Designer</SubType>
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\Channel\ScheduledEpisodesPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\Episode\EpisodeDetailsPage.xaml">

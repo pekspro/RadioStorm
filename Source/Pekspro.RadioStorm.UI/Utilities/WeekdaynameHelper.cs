@@ -35,6 +35,11 @@ public sealed class WeekdaynameHelper : IWeekdaynameHelper
         _ => Strings.Weekday_Sunday,
     };
 
+    public (string text, DateTime dateTime) GetRelativeWeekdayName(DateOnly day, bool allowWeekdayName = true)
+    {
+        return GetRelativeWeekdayName(day.ToDateTime(TimeOnly.MinValue), allowWeekdayName, false, false);
+    }
+
     public (string text, DateTime dateTime) GetRelativeWeekdayName(DateTime day, bool allowWeekdayName = true, bool useTimeInsteadOfToday = false, bool alwaysIncludeTime = false)
     {
         var today = DateTimeProvider.LocalNow.Date;

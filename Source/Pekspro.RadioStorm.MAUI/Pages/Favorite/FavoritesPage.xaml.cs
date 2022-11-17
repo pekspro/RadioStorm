@@ -122,43 +122,58 @@ public sealed partial class FavoritesPage : ContentPage
         }
     }
 
-    int _CurrentMode = -1;
+    int _CurrenColumnCount = -1;
 
     private void UpdateListMode()
     {
-        int expectedMode = 0;
+        int expectedColumnCount = 0;
+        const int itemMargin = 4;
+        // const int normalMinItemWidth = 180;
+        const int normalMinItemWidth = 168;
+        const int thinMinItemWidth = 160;
+
+#if WINDOWS
+        // To much margin on Windows:
+        // TODO: Remove this when fixed: https://github.com/dotnet/maui/issues/11320
+        const int sideMargin = 8 * 2 + 32;
+#else
+        const int sideMargin = 8 * 2;
+#endif
 
         if (AlbumMode)
         {
-            const int itemMargin = 4;
-            const int itemWidth = 184;
-            const int sideMargin = 8 * 2;
-
-            expectedMode = (Width - sideMargin) switch
+            expectedColumnCount = (Width - sideMargin) switch
             {
-                >= itemWidth * 8 + itemMargin * 8 => 8,
-                >= itemWidth * 7 + itemMargin * 7 => 7,
-                >= itemWidth * 6 + itemMargin * 6 => 6,
-                >= itemWidth * 5 + itemMargin * 5 => 5,
-                >= itemWidth * 4 + itemMargin * 4 => 4,
-                >= itemWidth * 3 + itemMargin * 3 => 3,
-                >= itemWidth * 2 + itemMargin * 2 => 2,
+                >= normalMinItemWidth * 8 + itemMargin * 7 => 8,
+                >= normalMinItemWidth * 7 + itemMargin * 6 => 7,
+                >= normalMinItemWidth * 6 + itemMargin * 5 => 6,
+                >= normalMinItemWidth * 5 + itemMargin * 4 => 5,
+                >= normalMinItemWidth * 4 + itemMargin * 3 => 4,
+                >= thinMinItemWidth   * 3 + itemMargin * 2 => 3,
+                >= thinMinItemWidth   * 2 + itemMargin * 1 => 2,
                 _ => 0
             };
         }
 
-        if (expectedMode != _CurrentMode)
+        if (expectedColumnCount != _CurrenColumnCount)
         {
-            _CurrentMode = expectedMode;
+            _CurrenColumnCount = expectedColumnCount;
 
-            RefreshViewList.IsVisible = expectedMode == 0;
-            RefreshViewAlbum2.IsVisible = expectedMode == 2;
-            RefreshViewAlbum3.IsVisible = expectedMode == 3;
-            RefreshViewAlbum4.IsVisible = expectedMode == 4;
-            RefreshViewAlbum5.IsVisible = expectedMode == 5;
-            RefreshViewAlbum6.IsVisible = expectedMode == 6;
-            RefreshViewAlbum7.IsVisible = expectedMode == 7;
-            RefreshViewAlbum8.IsVisible = expectedMode == 8;
+            RefreshViewList.IsVisible = expectedColumnCount == 0;
+            RefreshViewAlbum2.IsVisible = expectedColumnCount == 2;
+            RefreshViewAlbum3.IsVisible = expectedColumnCount == 3;
+            RefreshViewAlbum4.IsVisible = expectedColumnCount == 4;
+            RefreshViewAlbum5.IsVisible = expectedColumnCount == 5;
+            RefreshViewAlbum6.IsVisible = expectedColumnCount == 6;
+            RefreshViewAlbum7.IsVisible = expectedColumnCount == 7;
+            RefreshViewAlbum8.IsVisible = expectedColumnCount == 8;
+        }
+
+        if (expectedColumnCount > 0)
+        {
+            double realItemWidth = (Width - sideMargin - itemMargin * (expectedColumnCount-1)) / expectedColumnCount;
+
+            ViewModel.AlbumCardWidth = (int) realItemWidth;
         }
     }
 }

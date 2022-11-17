@@ -192,6 +192,15 @@
   <data name="Channel_ScheduleEpisodes" xml:space="preserve">
     <value>Tablå</value>
   </data>
+  <data name="Channel_ScheduleEpisodes_Date" xml:space="preserve">
+    <value>Dag:</value>
+  </data>
+  <data name="Channel_ScheduleEpisodes_NoData" xml:space="preserve">
+    <value>Det finns inget i tablån för den här dagen.</value>
+  </data>
+  <data name="Channel_ScheduleEpisodes_Title" xml:space="preserve">
+    <value>Tablå - {0}</value>
+  </data>
   <data name="CurrentPlaying_NothingTitle" xml:space="preserve">
     <value>Hoppsan</value>
   </data>

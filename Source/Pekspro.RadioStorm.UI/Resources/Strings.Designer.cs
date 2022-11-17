@@ -232,6 +232,33 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dag:.
+        /// </summary>
+        public static string Channel_ScheduleEpisodes_Date {
+            get {
+                return ResourceManager.GetString("Channel_ScheduleEpisodes_Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Det finns inget i tablån för den här dagen..
+        /// </summary>
+        public static string Channel_ScheduleEpisodes_NoData {
+            get {
+                return ResourceManager.GetString("Channel_ScheduleEpisodes_NoData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tablå - {0}.
+        /// </summary>
+        public static string Channel_ScheduleEpisodes_Title {
+            get {
+                return ResourceManager.GetString("Channel_ScheduleEpisodes_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mer om {0}.
         /// </summary>
         public static string ChannelInfo_MoreAbout {

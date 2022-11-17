@@ -1,4 +1,5 @@
-﻿<Grid xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+﻿<ContentView 
+            xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:player="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Player;assembly=Pekspro.RadioStorm.UI"
             xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
@@ -6,48 +7,50 @@
             x:DataType="player:PlayerViewModel"
             HeightRequest="36"
             >
-    <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="auto" />
-        <ColumnDefinition Width="*" />
-        <ColumnDefinition Width="auto" />
-    </Grid.ColumnDefinitions>
-    <!--<Grid.RowDefinitions>
-        <RowDefinition Height="auto" />
-        <RowDefinition Height="auto" />
-    </Grid.RowDefinitions>-->
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="auto" />
+        </Grid.ColumnDefinitions>
+        <!--<Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>-->
 
-    <Label  Grid.Column="0" 
-            Text="{Binding PositionString, Mode=OneWay}"
-            VerticalTextAlignment="Center" 
-            Padding="8,0,0,0"
-            />
+        <Label  Grid.Column="0" 
+                Text="{Binding PositionString, Mode=OneWay}"
+                VerticalTextAlignment="Center" 
+                Padding="8,0,0,0"
+                />
 
-    <!--<Label  Grid.Row="1"
-            Grid.Column="1" 
-            Text="{Binding PositionString, Mode=OneWay}"
-            HorizontalOptions="Start" 
-            Padding="8,0,0,0"
-            />-->
+        <!--<Label  Grid.Row="1"
+                Grid.Column="1" 
+                Text="{Binding PositionString, Mode=OneWay}"
+                HorizontalOptions="Start" 
+                Padding="8,0,0,0"
+                />-->
 
-    <Slider x:Name="ProgressSlider"
-            Grid.Column="1" 
-            HeightRequest="{OnPlatform Default=40, WinUI=32}"
-            Margin="{OnPlatform Default=0, WinUI='8,0'}"
-            DragStarted="ProgressSlider_DragStarted" 
-            ValueChanged="ProgressSlider_ValueChanged"
-            DragCompleted="ProgressSlider_DragCompleted" />
+        <Slider x:Name="ProgressSlider"
+                Grid.Column="1" 
+                HeightRequest="{OnPlatform Default=40, WinUI=32}"
+                Margin="{OnPlatform Default=0, WinUI='8,0'}"
+                DragStarted="ProgressSlider_DragStarted" 
+                ValueChanged="ProgressSlider_ValueChanged"
+                DragCompleted="ProgressSlider_DragCompleted" />
 
-    <!--<Label  Grid.Row="1"
-            Grid.Column="1"
-            Text="{Binding MediaLengthString, Mode=OneWay}" 
-            HorizontalOptions="End" 
-            Padding="0,0,8,0"
-            />-->
+        <!--<Label  Grid.Row="1"
+                Grid.Column="1"
+                Text="{Binding MediaLengthString, Mode=OneWay}" 
+                HorizontalOptions="End" 
+                Padding="0,0,8,0"
+                />-->
     
-    <Label  Grid.Column="2"
-            Text="{Binding MediaLengthString, Mode=OneWay}" 
-            VerticalTextAlignment="Center" 
-            Padding="0,0,8,0"
-            />
+        <Label  Grid.Column="2"
+                Text="{Binding MediaLengthString, Mode=OneWay}" 
+                VerticalTextAlignment="Center" 
+                Padding="0,0,8,0"
+                />
 
-</Grid>
+    </Grid>
+</ContentView>
