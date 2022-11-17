@@ -293,7 +293,7 @@
                     x:Name="RefreshViewAlbum2"
                     Command="{Binding RefreshCommand}" 
                     IsRefreshing="{Binding IsRefreshing}"
-                    Margin="8,0"
+                    Margin="{OnPlatform WinUI='8,0,0,0', Default='16,0'}"
                 >
                 <CollectionView 
                     ItemsSource="{Binding GroupedItems}"
@@ -310,7 +310,7 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.GroupHeaderTemplate>
                         <DataTemplate>
-                            <views:GroupHeaderControl />
+                            <views:GroupHeaderControl HeaderMargin="{OnPlatform WinUI='-4,0,0,0', Default='0,12,0,0'}" />
                         </DataTemplate>
                     </CollectionView.GroupHeaderTemplate>
                 </CollectionView>
@@ -320,7 +320,7 @@
                     x:Name="RefreshViewAlbum3"
                     Command="{Binding RefreshCommand}" 
                     IsRefreshing="{Binding IsRefreshing}"
-                    Margin="8,0"
+                    Margin="{OnPlatform WinUI='8,0,0,0', Default='16,0'}"
                 >
                 <CollectionView 
                     ItemsSource="{Binding GroupedItems}"
@@ -337,7 +337,7 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.GroupHeaderTemplate>
                         <DataTemplate>
-                            <views:GroupHeaderControl />
+                            <views:GroupHeaderControl HeaderMargin="{OnPlatform WinUI='-4,0,0,0', Default='0,12,0,0'}" />
                         </DataTemplate>
                     </CollectionView.GroupHeaderTemplate>
                 </CollectionView>
@@ -347,7 +347,7 @@
                     x:Name="RefreshViewAlbum4"
                     Command="{Binding RefreshCommand}" 
                     IsRefreshing="{Binding IsRefreshing}"
-                    Margin="8,0"
+                    Margin="{OnPlatform WinUI='8,0,0,0', Default='16,0'}"
                 >
                 <CollectionView 
                     ItemsSource="{Binding GroupedItems}"
@@ -364,7 +364,7 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.GroupHeaderTemplate>
                         <DataTemplate>
-                            <views:GroupHeaderControl />
+                            <views:GroupHeaderControl HeaderMargin="{OnPlatform WinUI='-4,0,0,0', Default='0,12,0,0'}" />
                         </DataTemplate>
                     </CollectionView.GroupHeaderTemplate>
                 </CollectionView>
@@ -374,7 +374,7 @@
                     x:Name="RefreshViewAlbum5"
                     Command="{Binding RefreshCommand}" 
                     IsRefreshing="{Binding IsRefreshing}"
-                    Margin="8,0"
+                    Margin="{OnPlatform WinUI='8,0,0,0', Default='16,0'}"
                 >
                 <CollectionView 
                     ItemsSource="{Binding GroupedItems}"
@@ -391,7 +391,7 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.GroupHeaderTemplate>
                         <DataTemplate>
-                            <views:GroupHeaderControl />
+                            <views:GroupHeaderControl HeaderMargin="{OnPlatform WinUI='-4,0,0,0', Default='0,12,0,0'}" />
                         </DataTemplate>
                     </CollectionView.GroupHeaderTemplate>
                 </CollectionView>
@@ -401,7 +401,7 @@
                     x:Name="RefreshViewAlbum6"
                     Command="{Binding RefreshCommand}" 
                     IsRefreshing="{Binding IsRefreshing}"
-                    Margin="8,0"
+                    Margin="{OnPlatform WinUI='8,0,0,0', Default='16,0'}"
                 >
                 <CollectionView 
                     ItemsSource="{Binding GroupedItems}"
@@ -418,7 +418,7 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.GroupHeaderTemplate>
                         <DataTemplate>
-                            <views:GroupHeaderControl />
+                            <views:GroupHeaderControl HeaderMargin="{OnPlatform WinUI='-4,0,0,0', Default='0,12,0,0'}" />
                         </DataTemplate>
                     </CollectionView.GroupHeaderTemplate>
                 </CollectionView>
@@ -428,7 +428,7 @@
                     x:Name="RefreshViewAlbum7"
                     Command="{Binding RefreshCommand}" 
                     IsRefreshing="{Binding IsRefreshing}"
-                    Margin="8,0"
+                    Margin="{OnPlatform WinUI='8,0,0,0', Default='16,0'}"
                 >
                 <CollectionView 
                     ItemsSource="{Binding GroupedItems}"
@@ -445,7 +445,7 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.GroupHeaderTemplate>
                         <DataTemplate>
-                            <views:GroupHeaderControl />
+                            <views:GroupHeaderControl HeaderMargin="{OnPlatform WinUI='-4,0,0,0', Default='0,12,0,0'}" />
                         </DataTemplate>
                     </CollectionView.GroupHeaderTemplate>
                 </CollectionView>
@@ -455,7 +455,7 @@
                     x:Name="RefreshViewAlbum8"
                     Command="{Binding RefreshCommand}" 
                     IsRefreshing="{Binding IsRefreshing}"
-                    Margin="8,0"
+                    Margin="{OnPlatform WinUI='8,0,0,0', Default='16,0'}"
                 >
                 <CollectionView 
                     ItemsSource="{Binding GroupedItems}"
@@ -472,7 +472,7 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.GroupHeaderTemplate>
                         <DataTemplate>
-                            <views:GroupHeaderControl />
+                            <views:GroupHeaderControl HeaderMargin="{OnPlatform WinUI='-4,0,0,0', Default='0,12,0,0'}" />
                         </DataTemplate>
                     </CollectionView.GroupHeaderTemplate>
                 </CollectionView>

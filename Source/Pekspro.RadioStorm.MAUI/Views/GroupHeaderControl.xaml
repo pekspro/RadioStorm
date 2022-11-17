@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Pekspro.RadioStorm.MAUI.Views.GroupHeaderControl"
              >
-    <Grid RowDefinitions="Auto, Auto" RowSpacing="4" Margin="{OnPlatform WinUI='-4,0,0,0', Default='16,12,16,0'}">
+    <Grid RowDefinitions="Auto, Auto" RowSpacing="4" Margin="{OnPlatform WinUI='-4,0,0,0', Default='16,12,16,0'}" x:Name="MainGrid">
         <Label Grid.Row="0" Text="{Binding Header}" Style="{StaticResource ListGroupTextStyle}" />
         <Rectangle Grid.Row="1" Style="{StaticResource Separator}" />
     </Grid>
