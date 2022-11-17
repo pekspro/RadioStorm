@@ -195,7 +195,8 @@
                 <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource HyperlinkColorDark}, Light={StaticResource HyperlinkColorLight}}" />
                 <Setter Property="LineBreakMode" Value="TailTruncation" />
                 <Setter Property="BackgroundColor" Value="Transparent" />
-                <Setter Property="HeightRequest" Value="36" />
+                <Setter Property="HeightRequest" Value="44" />
+                <Setter Property="MinimumHeightRequest" Value="44" />
                 <Setter Property="Padding" Value="4,0" />
                 <Setter Property="Margin" Value="-4,0,0,0" />
                 <Setter Property="BorderWidth" Value="0" />
@@ -379,6 +380,14 @@
             <converters:AndConverter x:Key="AndConverter" />
             <converters:OrConverter x:Key="OrConverter" />
             <converters:LargerThanZeroConverter x:Key="LargerThanZeroConverter" />
+            <converters:ToggleAddRemoveStringConverter x:Key="ToggleDownloadStringConverter"
+                                                       AddValue="{x:Static r:Strings.General_Download}"
+                                                       RemoveValue="{x:Static r:Strings.General_RemoveDownload}"
+                                                       />
+            <converters:ToggleAddRemoveStringConverter x:Key="TogglePlaylistStringConverter"
+                                                       AddValue="{x:Static r:Strings.General_AddToPlayList}"
+                                                       RemoveValue="{x:Static r:Strings.General_RemoveFromPlayList}"
+                                                       />
 
             <converters:DownloadDataStatusToVisibilityConverter VisibilityValue="Done"
                                                             x:Key="DownloadDataStatusDoneToVisibilityConverter" />

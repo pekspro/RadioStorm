@@ -6,8 +6,6 @@ using Android.Content;
 using Android.Graphics;
 using Android.Media;
 using Android.Media.Session;
-using Android.Net;
-using Android.Net.Wifi;
 using Android.OS;
 using Android.Runtime;
 using Java.Net;
@@ -404,7 +402,7 @@ public sealed class MediaPlayerService : Service,
 
         try
         {
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
+            if (OperatingSystem.IsAndroidVersionAtLeast(26))
             {
                 Logger.LogInformation("Starts playing from {0}", item.PreferablePlayUrl);
 
@@ -547,7 +545,7 @@ public sealed class MediaPlayerService : Service,
             if (!allowRestart)
             {
                 NotificationHelper.StopNotification(ApplicationContext);
-                StopForeground(true);
+                StopForeground(StopForegroundFlags.Remove);
                 UnregisterMediaSessionCompat();
             }
 
@@ -883,7 +881,7 @@ public sealed class MediaPlayerService : Service,
             mediaPlayer = null;
 
             NotificationHelper.StopNotification(ApplicationContext);
-            StopForeground(true);
+            StopForeground(StopForegroundFlags.Remove);
             ReleaseWifiLock();
             UnregisterMediaSessionCompat();
         }

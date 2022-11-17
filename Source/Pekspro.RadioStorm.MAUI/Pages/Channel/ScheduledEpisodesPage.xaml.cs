@@ -38,16 +38,7 @@ public sealed partial class ScheduledEpisodesPage : ContentPage
     {
         base.OnNavigatedTo(args);
 
-#if ANDROID
-        // TODO: Remove when fixed: https://github.com/dotnet/maui/issues/10452
-
-        ToolbarItemUpdate.IsVisible = false;
-
-        Application.Current!.Dispatcher.Dispatch(() =>
-        {
-            ToolbarItemUpdate.IsVisible = true;
-        });
-#endif 
+        this.FixToolbarItems();
     }
     
     protected override void OnDisappearing()

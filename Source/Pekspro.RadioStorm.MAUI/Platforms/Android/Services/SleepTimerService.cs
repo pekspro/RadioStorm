@@ -44,8 +44,8 @@ public sealed class SleepTimerService : Service
     public override void OnCreate()
     {
         Logger.LogInformation("{serviceName} starts", nameof(SleepTimerService));
-        
-        if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
+
+        if (OperatingSystem.IsAndroidVersionAtLeast(26))
         {
             var name = Strings.Services_SleepTimer_Name;
             var description = Strings.Services_SleepTimer_Description;
@@ -132,16 +132,19 @@ public sealed class SleepTimerService : Service
         var cancelAction = GenerateActionCompat(context, Resource.Drawable.ic_notification_skip_next, Strings.SleepTimer_Notification_Action_Cancel, ActionStopSleepTimer);
         var increaseAction = GenerateActionCompat(context, Resource.Drawable.ic_notification_pause, increaseText, ActionIncreaseSleepTimer);
 
-        // TODO: Add when this is released: https://github.com/dotnet/maui/issues/9090
-        // var openAppIntent = PendingIntent.GetActivity(this, 0, new Intent(this, typeof(MainActivity)), PendingIntentFlags.UpdateCurrent);
+        var openAppIntent = PendingIntent.GetActivity(
+                                this, 
+                                0, 
+                                new Intent(this, typeof(MainActivity)), 
+                                PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Immutable);
 
         var notificationBuilder = new Builder(this, CHANNEL_ID)
             .SetContentTitle(shortDescription)
             .SetContentText(longDescription)
             .SetSmallIcon(Resource.Drawable.ic_statusbar_bed)
             .AddAction(cancelAction)
-            .AddAction(increaseAction);
-        // .SetContentIntent(openAppIntent);
+            .AddAction(increaseAction)
+            .SetContentIntent(openAppIntent);
 
         if (timeLeftToSleepActivation >= AudioManagerBase.DefaultSleepTimerDelta)
         {

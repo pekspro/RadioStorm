@@ -28,6 +28,7 @@
                             <Button Command="{Binding OpenRepositoryCommand}"
                                 Style="{StaticResource HyperlinkButton}"
                                 Text="{x:Static r:Strings.General_Pekspro_Repository_Url}"
+                                Margin="-4,-12,0,0"
                                 />
                         </VerticalStackLayout>
                     </Grid>

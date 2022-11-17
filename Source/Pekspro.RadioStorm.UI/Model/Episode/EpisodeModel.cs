@@ -113,15 +113,23 @@ public sealed partial class EpisodeModel : ObservableObject, IComparable<Episode
 
         messenger?.Register<PlaylistChanged>(this, (r, m) =>
         {
+            IsPlayingThisCache = null;
+            InPlayListCache = null;
             OnPropertyChanged(nameof(IsPlayingThis));
             OnPropertyChanged(nameof(InPlayList));
             OnPropertyChanged(nameof(CanBeAddedToPlayList));
+            OnPropertyChanged(nameof(CanBeRemovedFromPlayList));
+            OnPropertyChanged(nameof(CanTogglePlayList));
             OnPropertyChanged(nameof(AudioMediaState));
+            AddToPlayListCommand.NotifyCanExecuteChanged();
+            RemoveFromPlayListCommand.NotifyCanExecuteChanged();
+            TogglePlayListCommand.NotifyCanExecuteChanged();
         }
         );
 
         messenger?.Register<PlayerButtonStateChanged>(this, (r, m) =>
         {
+            IsPlayingThisCache = null;
             OnPropertyChanged(nameof(IsPlayingThis));
             OnPropertyChanged(nameof(AudioMediaState));
         }
@@ -129,6 +137,7 @@ public sealed partial class EpisodeModel : ObservableObject, IComparable<Episode
 
         messenger?.Register<CurrentItemChanged>(this, (r, m) =>
         {
+            IsPlayingThisCache = null;
             bool playingThis = IsPlayingThis;
             OnPropertyChanged(nameof(IsPlayingThis));
             OnPropertyChanged(nameof(AudioMediaState));
@@ -300,11 +309,19 @@ public sealed partial class EpisodeModel : ObservableObject, IComparable<Episode
     //private string? AudioDownloadOrStreamUrl
     //    => AudioUrlHelper.GetDownloadUrl(AudioStreamWithMusicUrl, AudioStreamWithoutMusicUrl, AudioDownloadUrl);
 
-    public bool IsPlayingThis => AudioManager?.IsItemIdActive(false, Id) == true;
+    private bool? IsPlayingThisCache = null;
+    
+    public bool IsPlayingThis => IsPlayingThisCache ??= AudioManager?.IsItemIdActive(false, Id) == true;
 
-    public bool InPlayList => AudioManager?.IsItemIdInPlayList(false, Id) == true;
+    private bool? InPlayListCache = null;
+    
+    public bool InPlayList => InPlayListCache ??= AudioManager?.IsItemIdInPlayList(false, Id) == true;
 
     public bool CanBeAddedToPlayList => HasAudio && !InPlayList;
+    
+    public bool CanBeRemovedFromPlayList => InPlayList && AudioManager?.CurrentPlayList?.Items.Count > 1;
+    
+    public bool CanTogglePlayList => CanBeAddedToPlayList || CanBeRemovedFromPlayList;
 
     [ObservableProperty]
     private DownloadDataViewModel? _DownloadData;
@@ -320,6 +337,9 @@ public sealed partial class EpisodeModel : ObservableObject, IComparable<Episode
 
     public bool CanDeleteDownload =>
         HasDownloadSupport && DownloadData is not null;
+
+    public bool CanToggleDownload =>
+       (DownloadData is null || DownloadData.Status == DownloadDataStatus.Error) ? CanDownload : CanDeleteDownload;
 
     public bool CanPause
     {
@@ -405,10 +425,42 @@ public sealed partial class EpisodeModel : ObservableObject, IComparable<Episode
         DownloadManager.DeleteDownload(ProgramId ?? 0, Id);
     }
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(CanToggleDownload))]
+    public void ToggleDownload()
+    {
+        if (CanDownload)
+        {
+            Download();
+        }
+        else if (CanDeleteDownload)
+        {
+            DeleteDownload();
+        }
+    }
+
+    [RelayCommand(CanExecute = nameof(CanBeAddedToPlayList))]
     public void AddToPlayList()
     {
         AudioManager.Add(CreatePlayListItem());
+    }
+
+    [RelayCommand(CanExecute = nameof(CanBeRemovedFromPlayList))]
+    public void RemoveFromPlayList()
+    {
+        AudioManager.RemoveItemFromPlaylist(Id);
+    }
+
+    [RelayCommand(CanExecute = nameof(CanTogglePlayList))]
+    public void TogglePlayList()
+    {
+        if (CanBeAddedToPlayList)
+        {
+            AddToPlayList();
+        }
+        else if (CanBeRemovedFromPlayList)
+        {
+            RemoveFromPlayList();
+        }
     }
 
     [RelayCommand(CanExecute = nameof(HasAudio))]
@@ -486,6 +538,7 @@ public sealed partial class EpisodeModel : ObservableObject, IComparable<Episode
         OnPropertyChanged(nameof(ExpireDateNote));
         OnPropertyChanged(nameof(CanDownload));
         OnPropertyChanged(nameof(CanDeleteDownload));
+        OnPropertyChanged(nameof(CanToggleDownload));
         DeleteDownloadCommand.NotifyCanExecuteChanged();
         DownloadCommand.NotifyCanExecuteChanged();
     }

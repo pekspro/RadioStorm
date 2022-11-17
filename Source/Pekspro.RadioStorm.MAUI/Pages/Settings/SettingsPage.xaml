@@ -25,6 +25,7 @@
 
                             <Button Clicked="ButtonAbout_Clicked" 
                                     Style="{StaticResource HyperlinkButton}"
+                                    Margin="-4,-12,0,0"
                                     Text="{x:Static r:Strings.Settings_Open_About}" />
 
                             <Label Text="{x:Static r:Strings.Settings_Credits_Title}" Style="{StaticResource Subtitle2TextBlockStyle}" />
@@ -36,15 +37,17 @@
                             <Label Text="{x:Static r:Strings.Settings_Header_Email}" Style="{StaticResource Subtitle2TextBlockStyle}" Margin="0,12,0,0" />
                             <Label Text="{x:Static r:Strings.Settings_Email_Note}" />
                             <Button Command="{Binding EmailCommand}"
-                                Style="{StaticResource HyperlinkButton}"
-                                Text="{x:Static r:Strings.General_Pekspro_EmailAddress}"
-                                />
+                                    Style="{StaticResource HyperlinkButton}"
+                                    Margin="-4,-12,0,0"
+                                    Text="{x:Static r:Strings.General_Pekspro_EmailAddress}"
+                                    />
 
                             <Label Text="{x:Static r:Strings.Settings_Header_Webbpage}" Style="{StaticResource Subtitle2TextBlockStyle}" />
                             <Button Command="{Binding OpenWebPageCommand}"
-                                Style="{StaticResource HyperlinkButton}"
-                                Text="{x:Static r:Strings.General_Pekspro_Url}"
-                                />
+                                    Style="{StaticResource HyperlinkButton}"
+                                    Margin="-4,-12,0,0"
+                                    Text="{x:Static r:Strings.General_Pekspro_Url}"
+                                    />
                         </VerticalStackLayout>
                     </Grid>
                 </Border>

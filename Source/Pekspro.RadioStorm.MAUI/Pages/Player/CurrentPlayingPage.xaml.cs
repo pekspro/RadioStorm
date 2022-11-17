@@ -25,27 +25,7 @@ public sealed partial class CurrentPlayingPage : ContentPage
     {
         base.OnNavigatedTo(args);
 
-#if ANDROID
-        // TODO: Remove when fixed: https://github.com/dotnet/maui/issues/10452
-
-        ToolbarStop.IsVisible = false;
-        ToolbarItemVerySlow.IsVisible = false;
-        ToolbarItemSlow.IsVisible = false;
-        ToolbarItemNormal.IsVisible = false;
-        ToolbarItemFast.IsVisible = false;
-        ToolbarItemVeryFast.IsVisible = false;
-
-        Application.Current!.Dispatcher.Dispatch(() =>
-        {
-            ToolbarStop.IsVisible = true;
-            ToolbarItemVerySlow.IsVisible = true;
-            ToolbarItemSlow.IsVisible = true;
-            ToolbarItemNormal.IsVisible = true;
-            ToolbarItemFast.IsVisible = true;
-            ToolbarItemVeryFast.IsVisible = true;
-        });
-#endif 
-        
+        this.FixToolbarItems();
     }
 
     private void ToolbarStop_Clicked(object sender, EventArgs e)

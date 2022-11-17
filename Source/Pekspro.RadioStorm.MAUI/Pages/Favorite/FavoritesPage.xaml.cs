@@ -135,9 +135,9 @@ public sealed partial class FavoritesPage : ContentPage
 #if WINDOWS
         // To much margin on Windows:
         // TODO: Remove this when fixed: https://github.com/dotnet/maui/issues/11320
-        const int sideMargin = 8 * 2 + 32;
+        const int sideMargin = 8 + 8 + 32;
 #else
-        const int sideMargin = 8 * 2;
+        const int sideMargin = 16 + 16;
 #endif
 
         if (AlbumMode)

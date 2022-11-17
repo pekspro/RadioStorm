@@ -71,7 +71,8 @@ internal sealed class LogFileHelper : ILogFileHelper
 
         string zipFileName = Path.Combine(TemporaryPath, $"radiostorm-logs.zip");
 
-        // TODO: Proper async support in .NET 7?
+        // TODO: Proper async support in .NET 8?
+        // https://github.com/dotnet/runtime/issues/1541
         // https://github.com/dotnet/runtime/issues/62658
 
         await Task.Run(async () =>

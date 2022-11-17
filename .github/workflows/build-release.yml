@@ -33,18 +33,26 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 7.0.x
+        
+    - name: Install MAUI Workload
+      run: dotnet workload install maui --ignore-failed-sources
+
     - name: Get build information
       run: |
         echo "CURRENT_TIME=$(date +'%Y%m%d_%H%M%S')" >> $env:GITHUB_ENV
         echo "CURRENT_TIME_UTC_STRING=$(date +'%Y-%m-%dT%H:%M:%SZ')" >> $env:GITHUB_ENV
         echo "NET_VERSION_STRING=$(dotnet --version)" >> $env:GITHUB_ENV
         echo "SHORT_SHA=$("${{ github.sha }}".SubString(0, 8))" >> $env:GITHUB_ENV
-        echo "WORKLOAD_ANDROID_VERSION_STRING=$((dotnet workload list | Select-String maui-android)[0].ToString().Split(" ",[System.StringSplitOptions]::RemoveEmptyEntries)[1])" >> $env:GITHUB_ENV
-        echo "WORKLOAD_WINDOWS_VERSION_STRING=$((dotnet workload list | Select-String maui-windows)[0].ToString().Split(" ",[System.StringSplitOptions]::RemoveEmptyEntries)[1])" >> $env:GITHUB_ENV
-        echo "WORKLOAD_IOS_VERSION_STRING=$((dotnet workload list | Select-String maui-ios)[0].ToString().Split(" ",[System.StringSplitOptions]::RemoveEmptyEntries)[1])" >> $env:GITHUB_ENV
-        echo "WORKLOAD_MACCATALYST_VERSION_STRING=$((dotnet workload list | Select-String maui-maccatalys)[0].ToString().Split(" ",[System.StringSplitOptions]::RemoveEmptyEntries)[1])" >> $env:GITHUB_ENV
+        echo "WORKLOAD_ANDROID_VERSION_STRING=$((dotnet workload list | Select-String maui)[0].ToString().Split(" ",[System.StringSplitOptions]::RemoveEmptyEntries)[1])" >> $env:GITHUB_ENV
+        echo "WORKLOAD_WINDOWS_VERSION_STRING=$((dotnet workload list | Select-String maui)[0].ToString().Split(" ",[System.StringSplitOptions]::RemoveEmptyEntries)[1])" >> $env:GITHUB_ENV
+        echo "WORKLOAD_IOS_VERSION_STRING=$((dotnet workload list | Select-String maui)[0].ToString().Split(" ",[System.StringSplitOptions]::RemoveEmptyEntries)[1])" >> $env:GITHUB_ENV
+        echo "WORKLOAD_MACCATALYST_VERSION_STRING=$((dotnet workload list | Select-String maui)[0].ToString().Split(" ",[System.StringSplitOptions]::RemoveEmptyEntries)[1])" >> $env:GITHUB_ENV
 
-    - name: "Create build time file"
+    - name: Create build time file
       run: |
         echo "namespace Pekspro.RadioStorm.Utilities;" > $env:BUILD_INFO_FILE
         echo "public static partial class BuildInformation" >> $env:BUILD_INFO_FILE
@@ -108,15 +116,6 @@ jobs:
         echo "Build setting: ${{ github.event.inputs.productionApiKeys }}"
         echo "Build time string: ${{ env.CURRENT_TIME_UTC_STRING }}"
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v2
-      with:
-        dotnet-version: 6.0.x
-        
-    - name: Install MAUI Workload
-      run: dotnet workload install maui --ignore-failed-sources
-
-
     - name: Get Windows version
       if: github.event.inputs.buildWindows == 'true'
       id: windows_version
@@ -144,13 +143,13 @@ jobs:
       
     - name: Build MAUI for Windows
       if: github.event.inputs.buildWindows == 'true'
-      run: dotnet publish ./Source/Pekspro.RadioStorm.MAUI/Pekspro.RadioStorm.MAUI.csproj --framework:net6.0-windows10.0.19041.0 --configuration:Release /p:GenerateAppxPackageOnBuild=true /p:AppxPackageSigningEnabled=true /p:PackageCertificateThumbprint=${{ secrets.WINDOWS_KEY_THUMBPRINT }} --output ./publish
+      run: dotnet publish ./Source/Pekspro.RadioStorm.MAUI/Pekspro.RadioStorm.MAUI.csproj --framework:net7.0-windows10.0.19041.0 --configuration:Release /p:GenerateAppxPackageOnBuild=true /p:AppxPackageSigningEnabled=true /p:PackageCertificateThumbprint=${{ secrets.WINDOWS_KEY_THUMBPRINT }} --output ./publish
   
     - name: Move to root folder
       if: github.event.inputs.buildWindows == 'true'
       run: |
-        mv ./Source/Pekspro.RadioStorm.MAUI/bin/Release/net6.0-windows*/win10*/AppPackages/*/*.msix ./
-        mv ./Source/Pekspro.RadioStorm.MAUI/bin/Release/net6.0-windows*/win10*/AppPackages/*/*.cer ./
+        mv ./Source/Pekspro.RadioStorm.MAUI/bin/Release/net7.0-windows*/win10*/AppPackages/*/*.msix ./
+        mv ./Source/Pekspro.RadioStorm.MAUI/bin/Release/net7.0-windows*/win10*/AppPackages/*/*.cer ./
 
     - name: Upload Windows Artifact
       if: github.event.inputs.buildWindows == 'true'
@@ -194,7 +193,7 @@ jobs:
      
     - name: Build MAUI for Android
       if: github.event.inputs.buildAndroid == 'true'
-      run: dotnet publish ./Source/Pekspro.RadioStorm.MAUI/Pekspro.RadioStorm.MAUI.csproj --framework:net6.0-android --configuration:Release /p:AndroidSigningKeyStore=${{ steps.create_android_key_file.outputs.filePath }} /p:AndroidKeyStore=True /p:AndroidSigningKeyAlias=${{ secrets.ANDROID_KEY_ALIAS }} /p:AndroidSigningKeyPass=${{ secrets.ANDROID_KEY_PASSWORD }} /p:AndroidSigningStorePass=${{ secrets.ANDROID_KEY_PASSWORD }}  --output ./Android
+      run: dotnet publish ./Source/Pekspro.RadioStorm.MAUI/Pekspro.RadioStorm.MAUI.csproj --framework:net7.0-android --configuration:Release /p:AndroidSigningKeyStore=${{ steps.create_android_key_file.outputs.filePath }} /p:AndroidKeyStore=True /p:AndroidSigningKeyAlias=${{ secrets.ANDROID_KEY_ALIAS }} /p:AndroidSigningKeyPass=${{ secrets.ANDROID_KEY_PASSWORD }} /p:AndroidSigningStorePass=${{ secrets.ANDROID_KEY_PASSWORD }} /p:PublishTrimmed=false /p:RunAOTCompilation=false --output ./Android
 
     - name: Delete AAB-files
       if: github.event.inputs.buildAndroid == 'true' && github.event.inputs.androidKeepAab == 'false'

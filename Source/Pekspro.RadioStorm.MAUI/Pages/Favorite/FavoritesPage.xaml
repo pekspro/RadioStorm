@@ -9,11 +9,17 @@
              xmlns:c="clr-namespace:Pekspro.RadioStorm.MAUI.Controls"
              xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
              xmlns:settingsvm="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Settings;assembly=Pekspro.RadioStorm.UI"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
              x:Class="Pekspro.RadioStorm.MAUI.Pages.Favorite.FavoritesPage"
              x:DataType="vm:FavoritesViewModel"
              Title="{x:Static r:Strings.Favorites_Title}"
              >
+    <ContentPage.Behaviors>
+        <toolkit:StatusBarBehavior 
+            StatusBarColor="{AppThemeBinding Dark={StaticResource PanelBackgroundDark}, Light={StaticResource PanelBackgroundLight}}" 
+            StatusBarStyle="{AppThemeBinding Dark=LightContent, Default=DarkContent}"/>
+    </ContentPage.Behaviors>
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:DataType="cm:ChannelModel" x:Key="ChannelTemplate">
@@ -25,6 +31,12 @@
                                            BackgroundColor="{StaticResource SwipeControlBackgroundGeneral}" />
                         </SwipeItems>
                     </SwipeView.LeftItems>
+                    <FlyoutBase.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="{x:Static r:Strings.General_RemoveAsFavorite}" 
+                                            Command="{Binding ToggleIsFavoriteCommand}" />
+                        </MenuFlyout>
+                    </FlyoutBase.ContextFlyout>
                     <cc:ChannelControl FavoriteMode="true">
                         <cc:ChannelControl.GestureRecognizers>
                             <TapGestureRecognizer Tapped="ChannelTapped"/>
@@ -35,6 +47,12 @@
 
             <DataTemplate x:DataType="cm:ChannelModel" x:Key="ChannelTemplateWindows">
                 <cc:ChannelControl FavoriteMode="true">
+                    <FlyoutBase.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="{x:Static r:Strings.General_RemoveAsFavorite}" 
+                                            Command="{Binding ToggleIsFavoriteCommand}" />
+                        </MenuFlyout>
+                    </FlyoutBase.ContextFlyout>
                     <cc:ChannelControl.GestureRecognizers>
                         <TapGestureRecognizer Tapped="ChannelTapped"/>
                     </cc:ChannelControl.GestureRecognizers>
@@ -50,6 +68,12 @@
                                            BackgroundColor="{StaticResource SwipeControlBackgroundGeneral}" />
                         </SwipeItems>
                     </SwipeView.LeftItems>
+                    <FlyoutBase.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="{x:Static r:Strings.General_RemoveAsFavorite}" 
+                                            Command="{Binding ToggleIsFavoriteCommand}" />
+                        </MenuFlyout>
+                    </FlyoutBase.ContextFlyout>
                     <pc:FavoriteProgramControl>
                         <pc:FavoriteProgramControl.GestureRecognizers>
                             <TapGestureRecognizer Tapped="ProgramTapped"/>
@@ -60,6 +84,12 @@
 
             <DataTemplate x:DataType="pm:ProgramModel" x:Key="ProgramTemplateWindows">
                 <pc:FavoriteProgramControl>
+                    <FlyoutBase.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="{x:Static r:Strings.General_RemoveAsFavorite}" 
+                                            Command="{Binding ToggleIsFavoriteCommand}" />
+                        </MenuFlyout>
+                    </FlyoutBase.ContextFlyout>
                     <pc:FavoriteProgramControl.GestureRecognizers>
                         <TapGestureRecognizer Tapped="ProgramTapped"/>
                     </pc:FavoriteProgramControl.GestureRecognizers>
@@ -76,6 +106,12 @@
 
             <DataTemplate x:DataType="cm:ChannelModel" x:Key="AlbumChannelTemplate">
                 <cc:ChannelAlbumControl>
+                    <FlyoutBase.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="{x:Static r:Strings.General_RemoveAsFavorite}" 
+                                            Command="{Binding ToggleIsFavoriteCommand}" />
+                        </MenuFlyout>
+                    </FlyoutBase.ContextFlyout>
                     <cc:ChannelAlbumControl.GestureRecognizers>
                         <TapGestureRecognizer Tapped="ChannelTapped"/>
                     </cc:ChannelAlbumControl.GestureRecognizers>
@@ -84,6 +120,12 @@
 
             <DataTemplate x:DataType="pm:ProgramModel" x:Key="AlbumProgramTemplate">
                 <pc:FavoriteProgramAlbumControl>
+                    <FlyoutBase.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="{x:Static r:Strings.General_RemoveAsFavorite}" 
+                                            Command="{Binding ToggleIsFavoriteCommand}" />
+                        </MenuFlyout>
+                    </FlyoutBase.ContextFlyout>
                     <pc:FavoriteProgramAlbumControl.GestureRecognizers>
                         <TapGestureRecognizer Tapped="ProgramTapped"/>
                     </pc:FavoriteProgramAlbumControl.GestureRecognizers>
@@ -262,7 +304,7 @@
                     x:Name="RefreshViewAlbum2"
                     Command="{Binding RefreshCommand}" 
                     IsRefreshing="{Binding IsRefreshing}"
-                    Margin="8,0"
+                    Margin="{OnPlatform WinUI='8,0,0,0', Default='16,0'}"
                 >
                 <CollectionView 
                     ItemsSource="{Binding GroupedItems}"
@@ -279,7 +321,7 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.GroupHeaderTemplate>
                         <DataTemplate>
-                            <views:GroupHeaderControl />
+                            <views:GroupHeaderControl HeaderMargin="{OnPlatform WinUI='-4,0,0,0', Default='0,12,0,0'}" />
                         </DataTemplate>
                     </CollectionView.GroupHeaderTemplate>
                 </CollectionView>
@@ -289,7 +331,7 @@
                     x:Name="RefreshViewAlbum3"
                     Command="{Binding RefreshCommand}" 
                     IsRefreshing="{Binding IsRefreshing}"
-                    Margin="8,0"
+                    Margin="{OnPlatform WinUI='8,0,0,0', Default='16,0'}"
                 >
                 <CollectionView 
                     ItemsSource="{Binding GroupedItems}"
@@ -306,7 +348,7 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.GroupHeaderTemplate>
                         <DataTemplate>
-                            <views:GroupHeaderControl />
+                            <views:GroupHeaderControl HeaderMargin="{OnPlatform WinUI='-4,0,0,0', Default='0,12,0,0'}" />
                         </DataTemplate>
                     </CollectionView.GroupHeaderTemplate>
                 </CollectionView>
@@ -316,7 +358,7 @@
                     x:Name="RefreshViewAlbum4"
                     Command="{Binding RefreshCommand}" 
                     IsRefreshing="{Binding IsRefreshing}"
-                    Margin="8,0"
+                    Margin="{OnPlatform WinUI='8,0,0,0', Default='16,0'}"
                 >
                 <CollectionView 
                     ItemsSource="{Binding GroupedItems}"
@@ -333,7 +375,7 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.GroupHeaderTemplate>
                         <DataTemplate>
-                            <views:GroupHeaderControl />
+                            <views:GroupHeaderControl HeaderMargin="{OnPlatform WinUI='-4,0,0,0', Default='0,12,0,0'}" />
                         </DataTemplate>
                     </CollectionView.GroupHeaderTemplate>
                 </CollectionView>
@@ -343,7 +385,7 @@
                     x:Name="RefreshViewAlbum5"
                     Command="{Binding RefreshCommand}" 
                     IsRefreshing="{Binding IsRefreshing}"
-                    Margin="8,0"
+                    Margin="{OnPlatform WinUI='8,0,0,0', Default='16,0'}"
                 >
                 <CollectionView 
                     ItemsSource="{Binding GroupedItems}"
@@ -360,7 +402,7 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.GroupHeaderTemplate>
                         <DataTemplate>
-                            <views:GroupHeaderControl />
+                            <views:GroupHeaderControl HeaderMargin="{OnPlatform WinUI='-4,0,0,0', Default='0,12,0,0'}" />
                         </DataTemplate>
                     </CollectionView.GroupHeaderTemplate>
                 </CollectionView>
@@ -370,7 +412,7 @@
                     x:Name="RefreshViewAlbum6"
                     Command="{Binding RefreshCommand}" 
                     IsRefreshing="{Binding IsRefreshing}"
-                    Margin="8,0"
+                    Margin="{OnPlatform WinUI='8,0,0,0', Default='16,0'}"
                 >
                 <CollectionView 
                     ItemsSource="{Binding GroupedItems}"
@@ -387,7 +429,7 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.GroupHeaderTemplate>
                         <DataTemplate>
-                            <views:GroupHeaderControl />
+                            <views:GroupHeaderControl HeaderMargin="{OnPlatform WinUI='-4,0,0,0', Default='0,12,0,0'}" />
                         </DataTemplate>
                     </CollectionView.GroupHeaderTemplate>
                 </CollectionView>
@@ -397,7 +439,7 @@
                     x:Name="RefreshViewAlbum7"
                     Command="{Binding RefreshCommand}" 
                     IsRefreshing="{Binding IsRefreshing}"
-                    Margin="8,0"
+                    Margin="{OnPlatform WinUI='8,0,0,0', Default='16,0'}"
                 >
                 <CollectionView 
                     ItemsSource="{Binding GroupedItems}"
@@ -414,7 +456,7 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.GroupHeaderTemplate>
                         <DataTemplate>
-                            <views:GroupHeaderControl />
+                            <views:GroupHeaderControl HeaderMargin="{OnPlatform WinUI='-4,0,0,0', Default='0,12,0,0'}" />
                         </DataTemplate>
                     </CollectionView.GroupHeaderTemplate>
                 </CollectionView>
@@ -424,7 +466,7 @@
                     x:Name="RefreshViewAlbum8"
                     Command="{Binding RefreshCommand}" 
                     IsRefreshing="{Binding IsRefreshing}"
-                    Margin="8,0"
+                    Margin="{OnPlatform WinUI='8,0,0,0', Default='16,0'}"
                 >
                 <CollectionView 
                     ItemsSource="{Binding GroupedItems}"
@@ -441,7 +483,7 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.GroupHeaderTemplate>
                         <DataTemplate>
-                            <views:GroupHeaderControl />
+                            <views:GroupHeaderControl HeaderMargin="{OnPlatform WinUI='-4,0,0,0', Default='0,12,0,0'}" />
                         </DataTemplate>
                     </CollectionView.GroupHeaderTemplate>
                 </CollectionView>

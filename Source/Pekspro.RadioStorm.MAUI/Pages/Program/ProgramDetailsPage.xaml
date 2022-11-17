@@ -51,6 +51,28 @@
 
             <DataTemplate x:DataType="e:EpisodeModel" x:Key="EpisodeTemplateWindows">
                 <u:EpisodeControl>
+                    <FlyoutBase.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Command="{Binding TogglePlayListCommand}">
+                                <MenuFlyoutItem.Text>
+                                    <MultiBinding Converter="{StaticResource TogglePlaylistStringConverter}">
+                                        <Binding Path="CanBeAddedToPlayList" />
+                                        <Binding Path="CanBeRemovedFromPlayList" />
+                                    </MultiBinding>
+                                </MenuFlyoutItem.Text>
+                            </MenuFlyoutItem>
+                            <MenuFlyoutItem Command="{Binding ToggleDownloadCommand}">
+                                <MenuFlyoutItem.Text>
+                                    <MultiBinding Converter="{StaticResource ToggleDownloadStringConverter}">
+                                        <Binding Path="CanDownload" />
+                                        <Binding Path="CanDeleteDownload" />
+                                    </MultiBinding>
+                                </MenuFlyoutItem.Text>
+                            </MenuFlyoutItem>
+                            <MenuFlyoutItem Text="{Binding IsListened, Converter={StaticResource BoolToToggleIsListenedConverter}}" 
+                                            Command="{Binding ToggleIsListenedCommand}" />
+                        </MenuFlyout>
+                    </FlyoutBase.ContextFlyout>
                     <u:EpisodeControl.GestureRecognizers>
                         <TapGestureRecognizer Tapped="EpisodeTapped"/>
                     </u:EpisodeControl.GestureRecognizers>
@@ -174,6 +196,7 @@
                                     IsVisible="{Binding EpisodesViewModel.CanAutoCreatePlayList}"
                                     Text="{x:Static r:Strings.Episodes_AutoCreatePlayList}"
                                     Command="{Binding EpisodesViewModel.AutoCreatePlayListCommand}"
+                                    Margin="-4,0,0,-12"
                                     />
 
                     <HorizontalStackLayout IsVisible="{OnPlatform Default=true, Android=false}">
@@ -182,32 +205,11 @@
                                         IsVisible="{Binding EpisodesViewModel.FirstNotListenedEpisodePosition, Converter={StaticResource NullToIsVisibleConverter}}"
                                         Text="{x:Static r:Strings.Episodes_ShowNotPlayedEpisode}"
                                         x:Name="ButtonScrollToFirstNotListened"
+                                        Margin="-4,0,0,-12"
                                         Clicked="ButtonScrollToFirstNotListened_Clicked"
                                         />
                     </HorizontalStackLayout>
                 </HorizontalStackLayout>
-
-                <!--<HorizontalStackLayout 
-                        Spacing="8"
-                        BackgroundColor="DarkGreen"
-                        Margin="0,0,0,0"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="2"
-                        Grid.Row="2"
-                    >
-                    <Button Style="{StaticResource HyperlinkButton}"
-                                    Text="{x:Static r:Strings.Episodes_AutoCreatePlayList}"
-                                    Command="{Binding EpisodesViewModel.AutoCreatePlayListCommand}"
-                                    />
-
-                    <Button Style="{StaticResource HyperlinkButton}"
-                                    IsVisible="{Binding EpisodesViewModel.FirstNotListenedEpisodePosition, Converter={StaticResource NullToIsVisibleConverter}}"
-                                    Text="{x:Static r:Strings.Episodes_ShowNotPlayedEpisode}"
-                                    x:Name="ButtonScrollToFirstNotListened"
-                                    Clicked="ButtonScrollToFirstNotListened_Clicked"
-                                    />
-                </HorizontalStackLayout>-->
-
             </Grid>
         </Border>
 

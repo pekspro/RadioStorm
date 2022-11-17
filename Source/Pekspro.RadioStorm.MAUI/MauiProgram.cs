@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection.Extensions;
+﻿using CommunityToolkit.Maui;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Pekspro.RadioStorm.MAUI.Pages.Favorite;
 using Pekspro.RadioStorm.MAUI.Pages.Recent;
 using Pekspro.RadioStorm.MAUI.Services;
@@ -15,7 +16,8 @@ public static class MauiProgram
     {
         var builder = MauiApp.CreateBuilder();
         builder
-            .UseMauiApp<App>()            
+            .UseMauiApp<App>()
+            .UseMauiCommunityToolkit()
             .ConfigureFonts(fonts =>
             {
                 //fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

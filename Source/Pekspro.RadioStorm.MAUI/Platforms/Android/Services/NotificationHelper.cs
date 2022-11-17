@@ -44,7 +44,7 @@ public static class NotificationHelper
 
     internal static void CreateNotificationChannel(Context context)
     {
-        if (Build.VERSION.SdkInt < BuildVersionCodes.O)
+        if (!OperatingSystem.IsAndroidVersionAtLeast(26))
         {
             // Notification channels are new in API 26 (and not a part of the
             // support library). There is no need to create a notification
@@ -78,11 +78,11 @@ public static class NotificationHelper
             return;
         }
 
-        //var pendingIntent = PendingIntent.GetActivity(
-        //    context,
-        //    0,
-        //    new Intent(context, typeof(MainActivity)),
-        //    PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Mutable);
+        var pendingIntent = PendingIntent.GetActivity(
+            context,
+            0,
+            new Intent(context, typeof(MainActivity)),
+            PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Immutable);
 
         MediaStyle style = new MediaStyle();
         style.SetMediaSession(mediaSession.SessionToken);
@@ -97,8 +97,7 @@ public static class NotificationHelper
             .SetColor(color)
             .SetSmallIcon(Resource.Drawable.ic_statusbar_play)
             .SetLargeIcon(largeIcon)
-            // TODO: Add when this is released: https://github.com/dotnet/maui/issues/9090
-            // .SetContentIntent(pendingIntent)
+            .SetContentIntent(pendingIntent)
             .SetShowWhen(false)
             .SetOngoing(isPlaying)
             .SetVisibility(NotificationVisibility.Public);
@@ -126,11 +125,10 @@ public static class NotificationHelper
             {
                 builder.AddAction(GenerateActionCompat(context, Resource.Drawable.ic_notification_skip_next, Strings.Player_Next, MediaPlayerService.ActionNext));
             }
-            
             style.SetShowActionsInCompactView(showOffset + 0, showOffset + 1, showOffset + 2);
         }
 
-        if (Build.VERSION.SdkInt >= BuildVersionCodes.Q)
+        if (OperatingSystem.IsAndroidVersionAtLeast(29))
         {
             service.StartForeground(NotificationId, builder.Build(), ForegroundService.TypeMediaPlayback);
         }
@@ -138,13 +136,12 @@ public static class NotificationHelper
         {
             service.StartForeground(NotificationId, builder.Build());
         }
-        
+
         //NotificationManagerCompat.From(context).Notify(NotificationId, builder.Build());
     }
-
     private static void AddPlayPauseActionCompat(
-        Notification.Builder builder,
-        Context context,
+    Notification.Builder builder,
+    Context context,
         bool isPlaying)
     {
         if (isPlaying)

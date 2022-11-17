@@ -22,6 +22,12 @@
                                            BackgroundColor="{StaticResource SwipeControlBackgroundGeneral}" />
                         </SwipeItems>
                     </SwipeView.LeftItems>
+                    <FlyoutBase.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="{Binding IsFavorite, Converter={StaticResource BoolToToggleIsFavoriteConverter}}" 
+                                            Command="{Binding ToggleIsFavoriteCommand}" />
+                        </MenuFlyout>
+                    </FlyoutBase.ContextFlyout>
                     <v:ProgramControl>
                         <v:ProgramControl.GestureRecognizers>
                             <TapGestureRecognizer Tapped="ProgramTapped"/>
@@ -32,6 +38,12 @@
 
             <DataTemplate x:DataType="m:ProgramModel" x:Key="ProgramTemplateWindows">
                 <v:ProgramControl>
+                    <FlyoutBase.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="{Binding IsFavorite, Converter={StaticResource BoolToToggleIsFavoriteConverter}}" 
+                                            Command="{Binding ToggleIsFavoriteCommand}" />
+                        </MenuFlyout>
+                    </FlyoutBase.ContextFlyout>
                     <v:ProgramControl.GestureRecognizers>
                         <TapGestureRecognizer Tapped="ProgramTapped"/>
                     </v:ProgramControl.GestureRecognizers>

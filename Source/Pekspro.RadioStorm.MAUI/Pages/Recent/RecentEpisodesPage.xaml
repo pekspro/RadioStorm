@@ -4,6 +4,7 @@
              xmlns:m="clr-namespace:Pekspro.RadioStorm.UI.Model.Episode;assembly=Pekspro.RadioStorm.UI"
              xmlns:v="clr-namespace:Pekspro.RadioStorm.MAUI.Pages.Episode"
              xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
+             xmlns:t="clr-namespace:Pekspro.RadioStorm.MAUI.TemplateSelector"
              xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
              x:Class="Pekspro.RadioStorm.MAUI.Pages.Recent.RecentEpisodesPage"
              Title="{x:Static r:Strings.Recent_Title}"
@@ -13,6 +14,110 @@
                     x:DataType="vm:RecentEpisodesViewModel"
     
                 when this issue is fixed: https://github.com/dotnet/maui/issues/9131 -->
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="EpisodeTemplate" x:DataType="m:RecentEpisodeModel">
+                <SwipeView Threshold="{StaticResource DefaultSwipeThreshold}" SwipeStarted="SwipeView_SwipeStarted" SwipeEnded="SwipeView_SwipeEnded">
+                    <SwipeView.LeftItems>
+                        <SwipeItems Mode="Execute">
+                            <!--<SwipeItem Text="{x:Static r:Strings.General_AddToPlayList}"
+                                               Command="{Binding AddToPlayListCommand}"
+                                               BackgroundColor="{AppThemeBinding Dark={StaticResource WarningColorDark}, Light={StaticResource WarningColorLight}}"
+                                    />-->
+                            <SwipeItem Text="{Binding Model.IsListened, Converter={StaticResource BoolToToggleIsListenedConverter}}"
+                                               Command="{Binding Model.ToggleIsListenedCommand}"
+                                               BackgroundColor="{StaticResource SwipeControlBackgroundGeneral}"
+                                    />
+                        </SwipeItems>
+                    </SwipeView.LeftItems>
+                    <SwipeView.RightItems>
+                        <SwipeItems Mode="Execute">
+                            <SwipeItem  Text="{x:Static r:Strings.General_RemoveDownload}"
+                                        IsVisible="{Binding Model.DownloadData, Converter={StaticResource NullToIsVisibleConverter}}"
+                                        Command="{Binding Model.DeleteDownloadCommand}"
+                                        BackgroundColor="{StaticResource SwipeControlBackgroundRemove}" />
+
+                            <SwipeItem  Text="{x:Static r:Strings.General_Download}"
+                                        IsVisible="{Binding Model.HasDownloadSupportAndNoDownload}"
+                                        Command="{Binding Model.DownloadCommand}"
+                                        BackgroundColor="{StaticResource SwipeControlBackgroundDownload}" />
+                        </SwipeItems>
+                    </SwipeView.RightItems>
+                    <FlyoutBase.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem x:Name="MenuItemRemoveFromRecent"
+                                            Text="{x:Static r:Strings.Recent_RemoveFromRecent}" 
+                                            Clicked="MenuItemRemoveFromRecentTapped" />
+                            <MenuFlyoutItem Command="{Binding Model.TogglePlayListCommand}">
+                                <MenuFlyoutItem.Text>
+                                    <MultiBinding Converter="{StaticResource TogglePlaylistStringConverter}">
+                                        <Binding Path="Model.CanBeAddedToPlayList" />
+                                        <Binding Path="Model.CanBeRemovedFromPlayList" />
+                                    </MultiBinding>
+                                </MenuFlyoutItem.Text>
+                            </MenuFlyoutItem>
+                            <MenuFlyoutItem Command="{Binding Model.ToggleDownloadCommand}">
+                                <MenuFlyoutItem.Text>
+                                    <MultiBinding Converter="{StaticResource ToggleDownloadStringConverter}">
+                                        <Binding Path="Model.CanDownload" />
+                                        <Binding Path="Model.CanDeleteDownload" />
+                                    </MultiBinding>
+                                </MenuFlyoutItem.Text>
+                            </MenuFlyoutItem>
+                            <MenuFlyoutItem Text="{Binding Model.IsListened, Converter={StaticResource BoolToToggleIsListenedConverter}}" 
+                                            Command="{Binding Model.ToggleIsListenedCommand}" />
+                        </MenuFlyout>
+                    </FlyoutBase.ContextFlyout>
+                    <v:EpisodeControl BindingContext="{Binding Model}">
+                        <v:EpisodeControl.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="EpisodeTapped"/>
+                        </v:EpisodeControl.GestureRecognizers>
+                    </v:EpisodeControl>
+                </SwipeView>
+            </DataTemplate>
+
+            <!-- TODO: Remove Grid when this issue is fixed: https://github.com/dotnet/maui/issues/9131 -->
+            <DataTemplate x:Key="EpisodeTemplateWindows" x:DataType="m:RecentEpisodeModel">
+                <Grid>
+                    <FlyoutBase.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem x:Name="MenuItemRemoveFromRecent"
+                                            Text="{x:Static r:Strings.Recent_RemoveFromRecent}" 
+                                            Clicked="MenuItemRemoveFromRecentTapped" />
+                            <MenuFlyoutItem Command="{Binding Model.TogglePlayListCommand}">
+                                <MenuFlyoutItem.Text>
+                                    <MultiBinding Converter="{StaticResource TogglePlaylistStringConverter}">
+                                        <Binding Path="Model.CanBeAddedToPlayList" />
+                                        <Binding Path="Model.CanBeRemovedFromPlayList" />
+                                    </MultiBinding>
+                                </MenuFlyoutItem.Text>
+                            </MenuFlyoutItem>
+                            <MenuFlyoutItem Command="{Binding Model.ToggleDownloadCommand}">
+                                <MenuFlyoutItem.Text>
+                                    <MultiBinding Converter="{StaticResource ToggleDownloadStringConverter}">
+                                        <Binding Path="Model.CanDownload" />
+                                        <Binding Path="Model.CanDeleteDownload" />
+                                    </MultiBinding>
+                                </MenuFlyoutItem.Text>
+                            </MenuFlyoutItem>
+                            <MenuFlyoutItem Text="{Binding Model.IsListened, Converter={StaticResource BoolToToggleIsListenedConverter}}" 
+                                            Command="{Binding Model.ToggleIsListenedCommand}" />
+                        </MenuFlyout>
+                    </FlyoutBase.ContextFlyout>
+                    <v:EpisodeControl BindingContext="{Binding Model}">
+                        <v:EpisodeControl.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="EpisodeTapped"/>
+                        </v:EpisodeControl.GestureRecognizers>
+                    </v:EpisodeControl>
+                </Grid>
+            </DataTemplate>
+
+            <t:PlatformTemplateSelector x:Key="episodeTemplateSelector" 
+                                        DefaultTemplate="{StaticResource EpisodeTemplate}" 
+                                        WindowsTemplate="{StaticResource EpisodeTemplateWindows}" 
+                                        />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.ToolbarItems>
         <ToolbarItem 
                 Command="{Binding UpdateCommand}"
@@ -36,24 +141,13 @@
                 ItemsSource="{Binding GroupedItems}"
                 IsGrouped="True"
                 SelectionMode="{Binding SelectionModeHelper.InSelectionMode, Converter={StaticResource BoolToSelectionMode}}"
+                ItemTemplate="{StaticResource episodeTemplateSelector}"
                 >
                 <CollectionView.GroupHeaderTemplate>
                     <DataTemplate>
                         <views:GroupHeaderControl />
                     </DataTemplate>
                 </CollectionView.GroupHeaderTemplate>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <!-- TODO: Remove Grid when this issue is fixed: https://github.com/dotnet/maui/issues/9131 -->
-                        <Grid>
-                            <v:EpisodeControl BindingContext="{Binding Model}">
-                                <v:EpisodeControl.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="RecentTapped"/>
-                                </v:EpisodeControl.GestureRecognizers>
-                            </v:EpisodeControl>
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
             </CollectionView>
         </RefreshView>
 
