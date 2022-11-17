@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Messaging;
@@ -64,6 +65,7 @@ public sealed class Worker : BackgroundService
             System.Console.WriteLine("5. Fetch episodes");
             System.Console.WriteLine("6. Prefetch");
             System.Console.WriteLine("7. Benchmark: Insert");
+            System.Console.WriteLine("a. Download images");
 
             try
             {
@@ -91,6 +93,9 @@ public sealed class Worker : BackgroundService
                         break;
                     case '7':
                         await BenchmarkInsertAsync(stoppingToken);
+                        break;
+                    case 'a':
+                        await DownloadImagesAsync(stoppingToken);
                         break;
                 }
             }
@@ -328,7 +333,64 @@ public sealed class Worker : BackgroundService
         System.Console.WriteLine($"{stopwatchNormal.ElapsedMilliseconds} ms with normal insert.");
     }
 
+    private async Task DownloadImagesAsync(CancellationToken stoppingToken)
+    {
+        System.Console.Clear();
+        Log();
 
+        string basePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "RadioStormImages");
+        
+        IDataFetcher dataFetcher = ServiceProvider.GetRequiredService<IDataFetcher>();
+
+        // Download channel images
+        string channelImagePath = Path.Combine(basePath, "Channel");
+        Directory.CreateDirectory(channelImagePath);
+
+        var channels = await dataFetcher.GetChannelsAsync(true);
+        foreach (var channel in channels)
+        {
+            string imageUri = channel.ChannelImageHighResolution;
+
+            if (imageUri is not null)
+            {
+                Uri uri = new Uri(imageUri);
+                string targetFileName = $"{channel.Title.Trim()}";
+
+                targetFileName = string.Join("_", targetFileName.Split(Path.GetInvalidFileNameChars()));
+
+                await DownloadImageAsync(uri, Path.Combine(channelImagePath, $"{targetFileName}{Path.GetExtension(uri.LocalPath)}"));
+            }
+        }
+
+        // Download program images
+        string programImagePath = Path.Combine(basePath, "Program");
+        Directory.CreateDirectory(programImagePath);
+
+        var programs = await dataFetcher.GetProgramsAsync(true);
+        foreach (var program in programs)
+        {
+            string imageUri = program.ProgramImageHighResolution;
+
+            if (imageUri is not null)
+            {
+                Uri uri = new Uri(imageUri);
+                string targetFileName = $"{program.Name.Trim()}";
+                
+                targetFileName = string.Join("_", targetFileName.Split(Path.GetInvalidFileNameChars()));
+                
+                await DownloadImageAsync(uri, Path.Combine(programImagePath, $"{targetFileName}{Path.GetExtension(uri.LocalPath)}"));
+            }
+        }
+    }
+
+    private async Task DownloadImageAsync(Uri url, string fileName)
+    {
+        using var httpClient = new HttpClient();
+        using var response = await httpClient.GetAsync(url);
+        using var stream = await response.Content.ReadAsStreamAsync();
+        using var fileStream = File.Create(fileName);
+        await stream.CopyToAsync(fileStream);
+    }
 
     private async Task RunUglyCode(CancellationToken stoppingToken)
     {
