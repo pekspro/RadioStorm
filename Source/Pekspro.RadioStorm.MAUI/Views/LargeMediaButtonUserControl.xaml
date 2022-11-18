@@ -94,8 +94,6 @@
         </VisualStateManager.VisualStateGroups>
 
         <Image x:Name="MediaImage"
-               WidthRequest="4"
-               HeightRequest="4"
                Aspect="AspectFill"
                 >
             <!--<Image.Source>

@@ -165,6 +165,9 @@ public sealed partial class FavoritesViewModel : ListViewModel<FavoriteBaseModel
     private int _AlbumCardWidth = 100;
 
     [ObservableProperty]
+    private int _AlbumCardHeight = 100;
+
+    [ObservableProperty]
     private bool _HasAlbumViewSupport = false;
 
     #endregion

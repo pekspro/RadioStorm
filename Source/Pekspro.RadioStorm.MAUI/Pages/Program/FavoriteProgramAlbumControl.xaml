@@ -55,8 +55,11 @@
         </VisualStateGroup>
     </VisualStateManager.VisualStateGroups>
 
-    <Border Style="{StaticResource AlbumCard}" WidthRequest="{Binding Source={RelativeSource AncestorType={x:Type favvm:FavoritesViewModel}}, Path=AlbumCardWidth}">
-        <Grid Style="{StaticResource AlbumItem}" x:Name="AlbumItem" SizeChanged="AlbumItem_SizeChanged">
+    <Border Style="{StaticResource AlbumCard}" 
+            WidthRequest="{Binding Source={RelativeSource AncestorType={x:Type favvm:FavoritesViewModel}}, Path=AlbumCardWidth}"
+            HeightRequest="{Binding Source={RelativeSource AncestorType={x:Type favvm:FavoritesViewModel}}, Path=AlbumCardHeight}"
+            >
+        <Grid Style="{StaticResource AlbumItem}" x:Name="AlbumItem">
             <Label  x:Name="LabelProgramName"
                 Grid.Row="0"
                 Grid.ColumnSpan="2"
@@ -67,14 +70,11 @@
             <Grid Grid.ColumnSpan="2"
                   Grid.Row="1"
                   x:Name="GridLargeMediaButton"
-                  Margin="0,0,0,0"
-                  WidthRequest="140"
-                  HeightRequest="140">
+                  Margin="0,4"
+                  >
 
                 <views:LargeMediaButtonUserControl
                     x:Name="LargeMediaButton"
-                    WidthRequest="140"
-                    HeightRequest="140"
                     Source="{Binding ProgramImage.HighResolution, Mode=OneWay}"
                     Command="{Binding EpisodeStatus.TopEpisode.PlayPauseCommand, Mode=OneWay}"
                     AudioMediaState="{Binding EpisodeStatus.TopEpisode.AudioMediaState, Mode=OneWay}"

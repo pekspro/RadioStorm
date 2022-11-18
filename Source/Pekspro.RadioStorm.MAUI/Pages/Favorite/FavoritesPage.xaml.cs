@@ -176,6 +176,8 @@ public sealed partial class FavoritesPage : ContentPage
             double realItemWidth = (Width - sideMargin - itemMargin * (expectedColumnCount-1)) / expectedColumnCount;
 
             ViewModel.AlbumCardWidth = (int) realItemWidth;
+            // Original height - original image + new width - horisontal margin.
+            ViewModel.AlbumCardHeight = (int) Math.Min(232 - 140 + realItemWidth - 16, 260);
         }
     }
 }

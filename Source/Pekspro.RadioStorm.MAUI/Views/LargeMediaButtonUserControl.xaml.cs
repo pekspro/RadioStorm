@@ -11,25 +11,6 @@ public sealed partial class LargeMediaButtonUserControl : ContentView
 
         TheButton.Pressed += (a, b) => VisualStateManager.GoToState(GridLayout, "InFocus");
         TheButton.Released += (a, b) => VisualStateManager.GoToState(GridLayout, "NotFocus");
-
-        // Set image size when WidthReqest is changing
-        this.PropertyChanged += (a, b) =>
-        {
-            if (b.PropertyName == nameof(WidthRequest))
-            {
-                if (WidthRequest > 0)
-                {
-                    MediaImage.WidthRequest = WidthRequest;
-                }
-            }
-            else if (b.PropertyName == nameof(HeightRequest))
-            {
-                if (HeightRequest > 0)
-                {
-                    MediaImage.HeightRequest = HeightRequest;
-                }
-            }
-        };
     }
 
     #region Command property

@@ -8,9 +8,4 @@ public sealed partial class ChannelAlbumControl
     }
 
     private ChannelModel ViewModel => (ChannelModel) BindingContext;
-
-    private void AlbumItem_SizeChanged(object sender, EventArgs e)
-    {
-        LargeMediaButton.WidthRequest = Width - 16;
-    }
 }
