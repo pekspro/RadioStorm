@@ -37,6 +37,11 @@
 		<DefaultLanguage>sv</DefaultLanguage>
 	</PropertyGroup>
 
+    <PropertyGroup>
+        <PublishTrimmed>false</PublishTrimmed>
+        <RunAOTCompilation>false</RunAOTCompilation>
+    </PropertyGroup>
+    
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'windows'"

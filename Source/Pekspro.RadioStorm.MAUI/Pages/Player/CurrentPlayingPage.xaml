@@ -108,7 +108,6 @@
 
                 <Image Grid.Row="0"
                        Grid.Column="0"
-                       Grid.RowSpan="0"
 			           WidthRequest="84"
 			           HeightRequest="84"
                        Aspect="AspectFill"

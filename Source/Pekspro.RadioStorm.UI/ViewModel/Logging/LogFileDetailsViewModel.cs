@@ -105,10 +105,14 @@ public sealed partial class LogFileDetailsViewModel : DownloadViewModel
                         if (parts.Length == 4)
                         {
                             // Check first part match the patten 2022-09-02 12:34:56
-                            if (Regex.IsMatch(parts[0], @"\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d"))
+                            //if (Regex.IsMatch(parts[0], @"\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d"))
                             {
                                 logLines.Add(new LogLine(parts[0], parts[1], parts[2], parts[3]));
                             }
+                        }
+                        else
+                        {
+                            logLines.Add(new LogLine("xxxx", "Exception", "Bad", line));
                         }
                     }
                 }
