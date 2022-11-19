@@ -51,9 +51,12 @@ public static class MauiProgram
         builder.Services.TryAddSingleton<IConnectivityProvider, ConnectivityProvider>();
         builder.Services.TryAddSingleton<IVersionProvider, Services.VersionProvider>();
 #if WINDOWS
+        builder.Services.TryAddTransient<IVersionMigrator, Pekspro.RadioStorm.MAUI.Platforms.Windows.Services.VersionMigrator>();
         builder.Services.TryAddSingleton<IAudioManager, WindowsAudioManager>();
+        builder.Services.TryAddSingleton<IReviewLauncher, Pekspro.RadioStorm.MAUI.Platforms.Windows.Services.ReviewLauncherWindows>();
 #elif ANDROID
         builder.Services.TryAddSingleton<IAudioManager, AndroidAudioManager>();
+        builder.Services.TryAddSingleton<IReviewLauncher, Pekspro.RadioStorm.MAUI.Platforms.Android.Services.ReviewLauncherAndroid>();
 #endif
         builder.Services.AddRadioStorm(builder.Configuration);
         builder.Services.AddRadioStormUI(builder.Configuration);
@@ -120,7 +123,7 @@ public static class MauiProgram
         
         return app;
     }
-
+    
     public static async Task SetupAsync(IServiceProvider serviceProvider)
     {
         var bootstrap = serviceProvider.GetRequiredService<Bootstrap.Bootstrap>();

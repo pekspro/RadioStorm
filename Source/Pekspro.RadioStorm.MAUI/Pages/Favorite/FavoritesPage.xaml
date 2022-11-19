@@ -9,6 +9,7 @@
              xmlns:c="clr-namespace:Pekspro.RadioStorm.MAUI.Controls"
              xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
              xmlns:settingsvm="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Settings;assembly=Pekspro.RadioStorm.UI"
+             xmlns:reviewvm="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Review;assembly=Pekspro.RadioStorm.UI"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
              x:Class="Pekspro.RadioStorm.MAUI.Pages.Favorite.FavoritesPage"
@@ -187,7 +188,7 @@
     </ContentPage.ToolbarItems>
     <!--<RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy}">-->
 
-    <Grid RowSpacing="0" RowDefinitions="Auto,*,Auto">
+    <Grid RowSpacing="0" RowDefinitions="Auto,*,Auto, Auto">
 
         <Border 
             Style="{StaticResource Card}"
@@ -538,6 +539,25 @@
             </Label>
         </HorizontalStackLayout>
 
+        <Border x:Name="ReviewBorder"
+                x:DataType="{x:Type reviewvm:ReviewViewModel}"                
+                Style="{StaticResource Card}" 
+                Grid.Row="2" 
+                IsVisible="{Binding IsVisible}"
+                Margin="{OnPlatform Default='20,8', WinUI='8'}"
+                >
+            <VerticalStackLayout Style="{StaticResource CardLayout}">
+                <Label  Text="{x:Static r:Strings.Review_Message}" 
+                        Margin="0,0,8,8" />
+
+                <HorizontalStackLayout HorizontalOptions="End">
+                    <Button Text="{x:Static r:Strings.Review_Yes}" Command="{Binding YesCommand}" />
+                    <Button Text="{x:Static r:Strings.Review_MaybeLater}" Margin="8,0" Command="{Binding MaybeLaterCommand}" />
+                    <Button Text="{x:Static r:Strings.Review_No}" Command="{Binding NoCommand}"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Border>
+        
         <views:PlayerControl Grid.Row="3" />
     </Grid>
 

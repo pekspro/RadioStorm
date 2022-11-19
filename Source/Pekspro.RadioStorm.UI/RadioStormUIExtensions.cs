@@ -36,8 +36,10 @@ public static class RadioStormUIExtensions
         services.TryAddTransient<SynchronizingViewModel, SynchronizingViewModel>();
         services.TryAddTransient<SongsViewModel, SongsViewModel>();
         services.TryAddTransient<SchedulesEpisodesViewModel, SchedulesEpisodesViewModel>();
+        services.TryAddSingleton<ReviewViewModel, ReviewViewModel>();
 
         // IUrlLauncher needs to be implemented somewhere else.
+        // Also IReviewLauncher, but this is optional.
 
         return services;
     }

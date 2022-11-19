@@ -2005,7 +2005,7 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kanske någon annan gång.
+        ///   Looks up a localized string similar to Kanske senare.
         /// </summary>
         public static string Review_MaybeLater {
             get {
@@ -2014,7 +2014,7 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Har du tid att lägga några sekunder på att sätta ett omdöme på RadioStorm? På så sätt gör du det enklare för andra att hitta vår lilla app - det skulle göra oss glada :)..
+        ///   Looks up a localized string similar to Kan du lägga några sekunder på att sätta ett omdöme på RadioStorm? Då blir det lättare för andra att hitta vår lilla app - det skulle göra oss glada :)..
         /// </summary>
         public static string Review_Message {
             get {

@@ -766,10 +766,10 @@
     <value>Tidigare</value>
   </data>
   <data name="Review_MaybeLater" xml:space="preserve">
-    <value>Kanske någon annan gång</value>
+    <value>Kanske senare</value>
   </data>
   <data name="Review_Message" xml:space="preserve">
-    <value>Har du tid att lägga några sekunder på att sätta ett omdöme på RadioStorm? På så sätt gör du det enklare för andra att hitta vår lilla app - det skulle göra oss glada :).</value>
+    <value>Kan du lägga några sekunder på att sätta ett omdöme på RadioStorm? Då blir det lättare för andra att hitta vår lilla app - det skulle göra oss glada :).</value>
   </data>
   <data name="Review_No" xml:space="preserve">
     <value>Nej</value>

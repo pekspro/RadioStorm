@@ -2,14 +2,18 @@
 
 public sealed partial class FavoritesPage : ContentPage
 {
-    public FavoritesPage(FavoritesViewModel viewModel, SynchronizingViewModel synchronizingViewModel, ILocalSettings localSettings)
+    public FavoritesPage(FavoritesViewModel viewModel, ReviewViewModel reviewViewModel, SynchronizingViewModel synchronizingViewModel, ILocalSettings localSettings)
     {
         InitializeComponent();
 
         BindingContext = viewModel;
+
         SynchronizingViewModel = synchronizingViewModel;
         ToolBarItemSynchronize.BindingContext = synchronizingViewModel;
         ProgressSynchronize.BindingContext = synchronizingViewModel;
+        
+        ReviewViewModel = reviewViewModel;
+        ReviewBorder.BindingContext = reviewViewModel;
 
         LocalSettings = localSettings;
         _AlbumMode = LocalSettings.FavoriteAlbumMode;
@@ -21,6 +25,8 @@ public sealed partial class FavoritesPage : ContentPage
     private FavoritesViewModel ViewModel => (FavoritesViewModel)BindingContext;
 
     public SynchronizingViewModel SynchronizingViewModel { get; }
+    
+    public ReviewViewModel ReviewViewModel { get; }
 
     public ILocalSettings LocalSettings { get; }
 
