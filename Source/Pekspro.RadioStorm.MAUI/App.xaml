@@ -116,8 +116,7 @@
             <Style x:Key="AlbumItem" TargetType="Grid">
                 <Setter Property="Padding" Value="6,6" />
                 <Setter Property="Margin" Value="0,0" />
-                <Setter Property="ColumnDefinitions" Value="40, *" />
-                <Setter Property="RowDefinitions" Value="20, *, 20, 20" />
+                <Setter Property="RowDefinitions" Value="24, *, 20, 20" />
             </Style>
 
             <Style x:Key="AlbumHeaderTextStyle" TargetType="Label">

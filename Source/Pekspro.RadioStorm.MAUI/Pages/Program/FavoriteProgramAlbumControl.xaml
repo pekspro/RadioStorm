@@ -61,16 +61,13 @@
             >
         <Grid Style="{StaticResource AlbumItem}" x:Name="AlbumItem">
             <Label  x:Name="LabelProgramName"
-                Grid.Row="0"
-                Grid.ColumnSpan="2"
-                Text="{Binding Name, Mode=OneWay}"
-                Style="{StaticResource AlbumHeaderTextStyle}"
-                />
+                    Grid.Row="0"
+                    Text="{Binding Name, Mode=OneWay}"
+                    Style="{StaticResource AlbumHeaderTextStyle}" />
 
-            <Grid Grid.ColumnSpan="2"
-                  Grid.Row="1"
+            <Grid Grid.Row="1"
                   x:Name="GridLargeMediaButton"
-                  Margin="0,4"
+                  Margin="0,4,0,2"
                   >
 
                 <views:LargeMediaButtonUserControl
@@ -78,8 +75,7 @@
                     Source="{Binding ProgramImage.HighResolution, Mode=OneWay}"
                     Command="{Binding EpisodeStatus.TopEpisode.PlayPauseCommand, Mode=OneWay}"
                     AudioMediaState="{Binding EpisodeStatus.TopEpisode.AudioMediaState, Mode=OneWay}"
-                    IsVisible="{Binding EpisodeStatus, Converter={StaticResource NullToIsVisibleConverter}}"
-                />
+                    IsVisible="{Binding EpisodeStatus, Converter={StaticResource NullToIsVisibleConverter}}" />
 
                 <Label 
                     BackgroundColor="#AA000000"
@@ -100,18 +96,14 @@
             </Grid>
 
             <Label x:Name="LabelEpisodeTitle"
-               Grid.Row="2"
-		       Grid.ColumnSpan="2"
-		       Text="{Binding EpisodeStatus.TopEpisode.Title, Mode=OneWay}"
-               Style="{StaticResource AlbumNormalTextStyle}"
-			    />
+                   Grid.Row="2"
+		           Text="{Binding EpisodeStatus.TopEpisode.Title, Mode=OneWay}"
+                   Style="{StaticResource AlbumNormalTextStyle}" />
 
             <Label x:Name="LabelPublishDate"
-               Grid.Row="3"
-		       Grid.ColumnSpan="2"
-		       Text="{Binding EpisodeStatus.TopEpisode.PublishLength.PublishDateString, Mode=OneWay}"
-               Style="{StaticResource AlbumNormalTextStyle}"
-			    />
+                   Grid.Row="3"
+		           Text="{Binding EpisodeStatus.TopEpisode.PublishLength.PublishDateString, Mode=OneWay}"
+                   Style="{StaticResource AlbumNormalTextStyle}" />
         </Grid>
     </Border>
 </ContentView>
