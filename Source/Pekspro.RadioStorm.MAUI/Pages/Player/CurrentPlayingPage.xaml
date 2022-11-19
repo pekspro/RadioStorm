@@ -86,7 +86,7 @@
                 />
 
         <!-- Upper panel -->
-        <Grid ColumnDefinitions="*, auto">
+        <Grid RowDefinitions="auto, *">
 
             <!-- Top left, current episode info -->
             <Grid 
@@ -267,11 +267,12 @@
 
             <!-- Sleep timer -->
             <HorizontalStackLayout
-                Grid.Column="1" 
-                VerticalOptions="Start"
-                HorizontalOptions="End"
+                Grid.Row="1" 
+                HorizontalOptions="Center"
+                VerticalOptions="End"
+                Margin="0,0,0,20"
                 IsVisible="{Binding PlayerViewModel.IsSleepTimerRunning}"
-                Padding="{OnPlatform Default=8, WinUI=0}" 
+                Padding="8,0,8,8" 
                 >
 
                 <Grid VerticalOptions="Center"
@@ -323,10 +324,10 @@
         <Grid Grid.Row="2">
 
             <!-- Playlist info -->
-            <VerticalStackLayout 
+            <VerticalStackLayout
                 HorizontalOptions="Center"
-                Margin="0,40,0,0"
                 VerticalOptions="Start"
+                Margin="0,20,0,0"
                 IsVisible="{Binding PlayerViewModel.HasPlayList}"
                 >
                 <VerticalStackLayout HorizontalOptions="End">
