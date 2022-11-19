@@ -260,13 +260,7 @@ public sealed class Bootstrap
 
             if (LocalSettings.MayWantToReview)
             {
-                int launchCount = LocalSettings.LaunchCount + 1;
-                LocalSettings.LaunchCount = launchCount;
-
-                /*if (launchCount >= LocalSettings.LaunchCountBeforeAskForReview)
-                {
-                    LocalSettings.AskForReview = true;
-                }*/
+                LocalSettings.LaunchCount = LocalSettings.LaunchCount + 1;
             }
         }
     }

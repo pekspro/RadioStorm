@@ -107,11 +107,6 @@ public static class MauiProgram
         });
 #endif
 
-#if WINDOWS
-        builder.Services.TryAddTransient<IVersionMigrator, Pekspro.RadioStorm.MAUI.Platforms.Windows.Services.VersionMigrator>();
-#endif
-
-
         SQLitePCL.Batteries_V2.Init();
         var app = builder.Build();
 
@@ -124,11 +119,6 @@ public static class MauiProgram
         }).Wait();
         
         return app;
-    }
-
-    public static Task SetupAsync()
-    {
-        return SetupAsync(Services.ServiceProvider.Current);
     }
 
     public static async Task SetupAsync(IServiceProvider serviceProvider)

@@ -40,12 +40,10 @@ public sealed partial class App : MauiWinUIApplication
 
     protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
 
-    protected override async void OnLaunched(LaunchActivatedEventArgs args)
+    protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
         base.OnLaunched(args);
 
         Logger.LogInformation("Application launched.");
-
-        await MauiProgram.SetupAsync();
     }
 }
