@@ -62,68 +62,106 @@ public sealed partial class App : Application
         }
 
 #if ANDROID
-        if (RequestedTheme == AppTheme.Light)
+        try
         {
-            ToolbarHandler.PlatformView.OverflowIcon = Platform.CurrentActivity!.GetDrawable(Resource.Drawable.ic_more_vert_24_light);
+            if (RequestedTheme == AppTheme.Light)
+            {
+                ToolbarHandler.PlatformView.OverflowIcon = Platform.CurrentActivity!.GetDrawable(Resource.Drawable.ic_more_vert_24_light);
+            }
+            else
+            {
+                ToolbarHandler.PlatformView.OverflowIcon = Platform.CurrentActivity!.GetDrawable(Resource.Drawable.ic_more_vert_24_dark);
+            }
         }
-        else
+        catch (Exception ex)
         {
-            ToolbarHandler.PlatformView.OverflowIcon = Platform.CurrentActivity!.GetDrawable(Resource.Drawable.ic_more_vert_24_dark);
+            /* We have this stack trace that indicates something bad could happen here:
+             * 
+                Exception android.runtime.JavaProxyThrowable: System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+                ---> System.InvalidOperationException: PlatformView cannot be null here
+                at Microsoft.Maui.Handlers.ElementHandler`2[[Microsoft.Maui.IToolbar, Microsoft.Maui, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[Google.Android.Material.AppBar.MaterialToolbar, Xamarin.Google.Android.Material, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]].get_PlatformView()
+                at Microsoft.Maui.Handlers.ToolbarHandler.Microsoft.Maui.Handlers.IToolbarHandler.get_PlatformView()
+                at Pekspro.RadioStorm.MAUI.App.SetupMenuBarColorFix()
+                at Pekspro.RadioStorm.MAUI.App.<.ctor>b__10_1(Object s, AppThemeChangedEventArgs e)
+                at System.Reflection.MethodInvoker.InterpretedInvoke(Object obj, Span`1 args, BindingFlags invokeAttr)
+                --- End of inner exception stack trace ---
+                at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+                at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+                at Microsoft.Maui.WeakEventManager.HandleEvent(Object sender, Object args, String eventName)
+                at Microsoft.Maui.Controls.Application.TriggerThemeChangedActual()
+                at Microsoft.Maui.Controls.Application.set_UserAppTheme(AppTheme value)
+                at Pekspro.RadioStorm.MAUI.App.UpdateTheme()
+                at Pekspro.RadioStorm.MAUI.App.<.ctor>b__10_2(Object r, SettingChangedMessage m)
+                at CommunityToolkit.Mvvm.Messaging.Internals.MessageHandlerDispatcher.For`2[[System.Object, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[Pekspro.RadioStorm.Settings.SettingChangedMessage, Pekspro.RadioStorm, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]].Invoke(Object recipient, Object message)
+                at CommunityToolkit.Mvvm.Messaging.WeakReferenceMessenger.SendAll[SettingChangedMessage](ReadOnlySpan`1 pairs, Int32 i, SettingChangedMessage message)
+                at CommunityToolkit.Mvvm.Messaging.WeakReferenceMessenger.Send[SettingChangedMessage,Unit](SettingChangedMessage message, Unit token)
+                at CommunityToolkit.Mvvm.Messaging.IMessengerExtensions.Send[SettingChangedMessage](IMessenger messenger, SettingChangedMessage message)
+                at Pekspro.RadioStorm.Settings.LocalSettings.NotifySettingChanged(String settingsName)
+                at Pekspro.RadioStorm.Settings.LocalSettings.set_Theme(ThemeType value)
+                at Pekspro.RadioStorm.UI.ViewModel.Settings.SettingsViewModel.set_ThemeIndex(Int32 value)           
+            */
+        
+            Logger.LogError(ex, "Failed to setup menu bar color fix.");
+            
+            if (Debugger.IsAttached)
+            {
+                Debugger.Break();
+            }
         }
 #endif
     }
 
     private void UpdateTheme()
     {
-        var theme = LocalSettings.Theme;
+    var theme = LocalSettings.Theme;
 
-        UserAppTheme = theme switch
-        {
-            ThemeType.Light => AppTheme.Light,
-            ThemeType.Dark => AppTheme.Dark,
-            _ => AppTheme.Unspecified,
-        };
-    }
-
-    public async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+    UserAppTheme = theme switch
     {
-        await Shell.Current.GoToAsync(nameof(SettingsPage));
-    }
+        ThemeType.Light => AppTheme.Light,
+        ThemeType.Dark => AppTheme.Dark,
+        _ => AppTheme.Unspecified,
+    };
+}
+
+public async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+{
+await Shell.Current.GoToAsync(nameof(SettingsPage));
+}
 
 #if WINDOWS
-    protected async override void OnSleep()
-    {
-        base.OnSleep();
+protected async override void OnSleep()
+{
+base.OnSleep();
 
-        Logger.LogInformation("OnSleep. Will shut down services, running on Windows.");
-        
-        var shutDownManager = Services.ServiceProvider.GetService<IShutDownManager>();
+Logger.LogInformation("OnSleep. Will shut down services, running on Windows.");
 
-        if (shutDownManager is not null)
-        {
-            await shutDownManager.ShutDownAsync();
-        }
-    }
+var shutDownManager = Services.ServiceProvider.GetService<IShutDownManager>();
+
+if (shutDownManager is not null)
+{
+    await shutDownManager.ShutDownAsync();
+}
+}
 #else
-    protected override void OnSleep()
-    {
-        base.OnSleep();
+protected override void OnSleep()
+{
+base.OnSleep();
 
-        Logger.LogInformation("OnSleep.");
-    }
+Logger.LogInformation("OnSleep.");
+}
 #endif
 
-    protected override void OnStart()
-    {
-        base.OnStart();
+protected override void OnStart()
+{
+base.OnStart();
 
-        Logger.LogInformation("OnStart.");
-    }
+Logger.LogInformation("OnStart.");
+}
 
-    protected override void OnResume()
-    {
-        base.OnResume();
+protected override void OnResume()
+{
+base.OnResume();
 
-        Logger.LogInformation("OnResume.");
-    }
+Logger.LogInformation("OnResume.");
+}
 }
