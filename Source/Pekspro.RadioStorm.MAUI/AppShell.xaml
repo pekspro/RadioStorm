@@ -242,6 +242,16 @@
                     </RadioButton.Content>
                 </RadioButton>
 
+                <!-- 
+                    This prevents taps in empty area go thru the menu and tap on
+                    things under the menu (like a collection view).
+                -->
+                <Grid Grid.Row="5">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer />
+                    </Grid.GestureRecognizers>
+                </Grid>
+
                 <RadioButton Value="settings"
                              ToolTipProperties.Text="{x:Static r:Strings.Favorites_Tooltips_Settings}"
                              Grid.Row="6"
