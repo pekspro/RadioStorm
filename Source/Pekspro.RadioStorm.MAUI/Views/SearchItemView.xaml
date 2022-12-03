@@ -4,6 +4,7 @@
              xmlns:search="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Search;assembly=Pekspro.RadioStorm.UI"
              x:Class="Pekspro.RadioStorm.MAUI.Views.SearchItemView"
              x:DataType="search:SearchItem"
+             BackgroundColor="{AppThemeBinding Dark={StaticResource PanelBackgroundDark}, Light={StaticResource PanelBackgroundLight}}"
              >
 
     <Grid Margin="8,4" ColumnDefinitions="Auto, *" RowDefinitions="Auto, *" HeightRequest="60">
@@ -16,7 +17,6 @@
         
         <Label Grid.Column="1"
                Grid.Row="0"
-               TextColor="Black"
                Margin="0,2,0,0"
                Text="{Binding Title}"
                Style="{StaticResource ListHeaderTextStyle}"
@@ -26,7 +26,6 @@
         <Label Grid.Column="1"
                Grid.Row="1"
                MaxLines="2"
-               TextColor="Black"
                Margin="0,2,0,0"
                Text="{Binding Details}"
                Style="{StaticResource ListNormalTextStyle}"
