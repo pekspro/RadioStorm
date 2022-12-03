@@ -14,14 +14,15 @@
             IsRunning="True" 
             HorizontalOptions="Center" />
 
-        <VerticalStackLayout 
-                HorizontalOptions="Center"
-                VerticalOptions="Center"
-                IsVisible="{Binding HasNoData, Mode=OneWay}">
-            <Label x:Name="TextBlockNoData" 
-                   Text="{x:Static r:Strings.DowloadControl_NoDataFound}"
-                     />
-        </VerticalStackLayout>
+        <Label x:Name="TextBlockNoData" 
+               IsVisible="{Binding HasNoData, Mode=OneWay}"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               MaxLines="10"
+               MaximumWidthRequest="300"
+               Text="{x:Static r:Strings.DowloadControl_NoDataFound}"
+               Style="{StaticResource ListNormalTextStyle}"    
+               />
 
         <VerticalStackLayout 
                 HorizontalOptions="Center"
