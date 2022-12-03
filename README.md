@@ -2,7 +2,7 @@
 
 [![Build test](https://github.com/pekspro/RadioStorm/actions/workflows/build-test.yml/badge.svg)](https://github.com/pekspro/RadioStorm/actions/workflows/build-test.yml)
 
-RadioStorm is an unofficial app the let you listen of live broadcasts and pods
+RadioStorm is an unofficial app which let you listen of live broadcasts and pods
 by [Sveriges Radio](https://sverigesradio.se/). If you want to use it, you could
 download it from:
 
@@ -16,8 +16,8 @@ repository. In fact, much of that source code is used in this project.
 
 ## About the source
 
-RadioStorm for Android is a MAUI application. It is separated into several
-libraries:
+RadioStorm for Android is a MAUI application (.NET 7). It is separated into
+several libraries:
 
 ### Pekspro.SwedRadio
 
