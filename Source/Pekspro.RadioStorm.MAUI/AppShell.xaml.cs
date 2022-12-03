@@ -25,6 +25,11 @@ public sealed partial class AppShell : Shell
         if (!string.IsNullOrEmpty(selectedRoute))
         {
             await Current.GoToAsync($"//{selectedRoute}");
+
+            if (FlyoutBehavior == FlyoutBehavior.Flyout)
+            {
+                FlyoutIsPresented = false;
+            }
         }
     }
 
