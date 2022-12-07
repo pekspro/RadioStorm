@@ -64,8 +64,34 @@ public sealed partial class ProgramDetailsPage : ContentPage
 
         if (position is not null)
         {
-            // TODO: Not working properly on Android. See this issue: https://github.com/dotnet/maui/issues/8718
+#if ANDROID
+            // TODO: Remote below workaround when this issue is fixed: https://github.com/dotnet/maui/issues/8718
+            var recyclerView = EpisodesListView.Handler.PlatformView as AndroidX.RecyclerView.Widget.RecyclerView;
+
+            int extra = 0;
+            int prevGroupSum = 0;
+
+            for (int i = 0; i < ViewModel.EpisodesViewModel.GroupedItems.Count; i++)
+            {
+                var group = ViewModel.EpisodesViewModel.GroupedItems[i];
+
+                if (position.Value < prevGroupSum + group.Count)
+                {
+                    extra = i;
+                    break;
+                }
+
+                prevGroupSum += group.Count;
+            }
+
+            // recyclerView.ScrollToPosition(position.Value + extra + 1);
+
+            var layoutManager = recyclerView.GetLayoutManager() as AndroidX.RecyclerView.Widget.LinearLayoutManager;
+            layoutManager.ScrollToPositionWithOffset(position.Value + extra + 1, 0);
+            
+#else
             EpisodesListView.ScrollTo(position.Value, position: ScrollToPosition.Center);
+#endif
         }
     }
 

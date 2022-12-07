@@ -199,8 +199,7 @@
                                     Margin="-4,0,0,-12"
                                     />
 
-                    <HorizontalStackLayout IsVisible="{OnPlatform Default=true, Android=false}">
-                        <!-- This feature doesn't work well on Android. -->
+                    <HorizontalStackLayout>
                         <Button Style="{StaticResource HyperlinkButton}"
                                         IsVisible="{Binding EpisodesViewModel.FirstNotListenedEpisodePosition, Converter={StaticResource NullToIsVisibleConverter}}"
                                         Text="{x:Static r:Strings.Episodes_ShowNotPlayedEpisode}"
