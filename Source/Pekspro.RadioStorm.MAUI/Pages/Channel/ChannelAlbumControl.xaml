@@ -12,7 +12,7 @@
             WidthRequest="{Binding Source={RelativeSource AncestorType={x:Type favvm:FavoritesViewModel}}, Path=AlbumCardWidth}"
             HeightRequest="{Binding Source={RelativeSource AncestorType={x:Type favvm:FavoritesViewModel}}, Path=AlbumCardHeight}"
             >
-        <Grid Style="{StaticResource AlbumItem}" x:Name="AlbumItem">
+        <Grid Style="{StaticResource AlbumItem}" CompressedLayout.IsHeadless="True">
             <Label  Grid.Row="0"
                     Text="{Binding Title, Mode=OneWay}"
                     Style="{StaticResource AlbumHeaderTextStyle}"
