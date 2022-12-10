@@ -6,6 +6,7 @@
              x:Class="Pekspro.RadioStorm.MAUI.Pages.Program.FavoriteProgramControl"
              x:DataType="vm:ProgramModel"
              Style="{StaticResource ListItem}"
+             CompressedLayout.IsHeadless="True"
              >
     <VisualStateManager.VisualStateGroups>
         <VisualStateGroup Name="WidthState">
@@ -78,6 +79,7 @@
            -->
     <Grid  Grid.Row="0" 
            Grid.Column="1" 
+           CompressedLayout.IsHeadless="True"
            Style="{StaticResource ListItemTitleArea}"
            >
         <Grid.ColumnDefinitions>
@@ -111,6 +113,7 @@
 
     <Grid   Grid.Column="1"
             Grid.Row="1" 
+            CompressedLayout.IsHeadless="True"
             Style="{StaticResource ListItemContentArea}">
         <Label 
             x:Name="LabelDescription"

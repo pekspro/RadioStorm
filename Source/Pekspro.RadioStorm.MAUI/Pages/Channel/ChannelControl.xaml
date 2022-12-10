@@ -6,6 +6,7 @@
              x:Class="Pekspro.RadioStorm.MAUI.Pages.Channel.ChannelControl"
              x:DataType="vm:ChannelModel"
              Style="{StaticResource ListItem}"
+             CompressedLayout.IsHeadless="True"
              >
     <VisualStateManager.VisualStateGroups>
         <VisualStateGroup Name="WidthState">
@@ -38,6 +39,7 @@
 
     <Grid  Grid.Row="0" 
            Grid.Column="1" 
+           CompressedLayout.IsHeadless="True"
            Style="{StaticResource ListItemTitleArea}"
            >
         <Grid.ColumnDefinitions>
@@ -65,7 +67,7 @@
             />
     </Grid>
 
-    <Grid Grid.Column="1" Grid.Row="1" Style="{StaticResource ListItemContentArea}">
+    <Grid Grid.Column="1" Grid.Row="1" Style="{StaticResource ListItemContentArea}" CompressedLayout.IsHeadless="True">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="{OnPlatform Default=40, WinUI=36}" />
             <ColumnDefinition Width="*" />
