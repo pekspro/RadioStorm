@@ -8,6 +8,7 @@
              xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
              x:Class="Pekspro.RadioStorm.MAUI.Pages.Episode.DownloadsPage"
              x:DataType="vm:DownloadsViewModel"
+             Shell.PresentationMode="NotAnimated"
              Title="{x:Static r:Strings.Downloads_Title}"
              >
     <ContentPage.Resources>

@@ -11,6 +11,7 @@
              xmlns:search="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Search;assembly=Pekspro.RadioStorm.UI"
              x:Class="Pekspro.RadioStorm.MAUI.Pages.Channel.ChannelsPage"
              x:DataType="vm:ChannelsViewModel"
+             Shell.PresentationMode="NotAnimated"
              Title="{x:Static r:Strings.Channels_Title}"
              >
     <ContentPage.Resources>

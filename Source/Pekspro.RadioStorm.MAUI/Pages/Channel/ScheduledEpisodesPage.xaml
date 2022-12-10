@@ -12,6 +12,7 @@
              xmlns:search="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Search;assembly=Pekspro.RadioStorm.UI"
              x:Class="Pekspro.RadioStorm.MAUI.Pages.Channel.ScheduledEpisodesPage"
              x:DataType="vm:SchedulesEpisodesViewModel"
+             Shell.PresentationMode="NotAnimated"
              >
     <ContentPage.Title>
         <MultiBinding StringFormat="{x:Static r:Strings.Channel_ScheduleEpisodes_Title}">

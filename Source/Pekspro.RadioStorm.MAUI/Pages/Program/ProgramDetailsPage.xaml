@@ -10,6 +10,7 @@
              xmlns:controls="clr-namespace:Pekspro.RadioStorm.MAUI.Controls"
              x:Class="Pekspro.RadioStorm.MAUI.Pages.Program.ProgramDetailsPage"
              x:DataType="vm:ProgramDetailsViewModel"
+             Shell.PresentationMode="NotAnimated"
              Title="{Binding Name, Mode=OneWay}"
              >
     <ContentPage.Resources>

@@ -7,6 +7,7 @@
              xmlns:t="clr-namespace:Pekspro.RadioStorm.MAUI.TemplateSelector"
              xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
              x:Class="Pekspro.RadioStorm.MAUI.Pages.Recent.RecentEpisodesPage"
+             Shell.PresentationMode="NotAnimated"
              Title="{x:Static r:Strings.Recent_Title}"
              >
             <!-- TODO: Add:

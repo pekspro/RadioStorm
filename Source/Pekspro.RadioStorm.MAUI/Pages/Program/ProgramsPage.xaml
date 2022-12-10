@@ -9,6 +9,7 @@
              xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
              x:Class="Pekspro.RadioStorm.MAUI.Pages.Program.ProgramsPage"
              x:DataType="vm:ProgramsViewModel"
+             Shell.PresentationMode="NotAnimated"
              Title="{x:Static r:Strings.Programs_Title}"
              >
     <ContentPage.Resources>
