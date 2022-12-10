@@ -7,7 +7,7 @@
             x:DataType="player:PlayerViewModel"
             ColumnDefinitions="auto, auto, auto, auto, auto"
             >
-    
+
     <Grid Grid.Column="0" 
           IsVisible="{Binding HasPlayList}" 
           WidthRequest="{OnPlatform Default=56, WinUI=48}">
@@ -37,6 +37,7 @@
         <Path   
             Style="{x:StaticResource PathPlayerFastRewind}"
             WidthRequest="36"
+            HeightRequest="18"
             />
 
         <ImageButton Style="{x:StaticResource PlayerButton}"
@@ -57,12 +58,14 @@
             Style="{x:StaticResource PathPlayerPlay}"
             IsVisible="{Binding CanPause, Converter={StaticResource InvertedBoolConverter}}"
             WidthRequest="48"
+            HeightRequest="36"
             />
 
         <Path   
             Style="{x:StaticResource PathPlayerPause}"
             IsVisible="{Binding CanPause}"
             WidthRequest="48"
+            HeightRequest="36"
             />
 
         <ImageButton Style="{x:StaticResource PlayerButton}"
@@ -83,6 +86,7 @@
         <Path   
             Style="{x:StaticResource PathPlayerFastForward}"
             WidthRequest="36"
+            HeightRequest="18"
             />
 
         <ImageButton Style="{x:StaticResource PlayerButton}"
