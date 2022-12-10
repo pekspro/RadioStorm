@@ -16,7 +16,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:DataType="m:ChannelModel" x:Key="ChannelTemplate">
-                <SwipeView Threshold="{StaticResource DefaultSwipeThreshold}" SwipeStarted="SwipeView_SwipeStarted" SwipeEnded="SwipeView_SwipeEnded">
+                <SwipeView Threshold="{StaticResource DefaultSwipeThreshold}" SwipeStarted="SwipeView_SwipeStarted" SwipeEnded="SwipeView_SwipeEnded" HeightRequest="{StaticResource ListItemHeight}">
                     <SwipeView.LeftItems>
                         <SwipeItems Mode="Execute">
                             <SwipeItem Text="{Binding IsFavorite, Converter={StaticResource BoolToToggleIsFavoriteConverter}}"

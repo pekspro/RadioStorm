@@ -24,7 +24,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:DataType="cm:ChannelModel" x:Key="ChannelTemplate">
-                <SwipeView Threshold="{StaticResource DefaultSwipeThreshold}" SwipeStarted="SwipeView_SwipeStarted" SwipeEnded="SwipeView_SwipeEnded">
+                <SwipeView Threshold="{StaticResource DefaultSwipeThreshold}" SwipeStarted="SwipeView_SwipeStarted" SwipeEnded="SwipeView_SwipeEnded" HeightRequest="{StaticResource ListItemHeight}">
                     <SwipeView.LeftItems>
                         <SwipeItems Mode="Execute">
                             <SwipeItem Text="{x:Static r:Strings.General_RemoveAsFavorite}"
@@ -61,7 +61,7 @@
             </DataTemplate>
 
             <DataTemplate x:DataType="pm:ProgramModel" x:Key="ProgramTemplate">
-                <SwipeView Threshold="{StaticResource DefaultSwipeThreshold}" SwipeStarted="SwipeView_SwipeStarted" SwipeEnded="SwipeView_SwipeEnded">
+                <SwipeView Threshold="{StaticResource DefaultSwipeThreshold}" SwipeStarted="SwipeView_SwipeStarted" SwipeEnded="SwipeView_SwipeEnded" HeightRequest="{StaticResource ListItemHeight}">
                     <SwipeView.LeftItems>
                         <SwipeItems Mode="Execute">
                             <SwipeItem Text="{x:Static r:Strings.General_RemoveAsFavorite}"

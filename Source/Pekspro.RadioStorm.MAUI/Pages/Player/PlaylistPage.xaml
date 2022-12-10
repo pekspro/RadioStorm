@@ -13,7 +13,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="EpisodeTemplate" x:DataType="m:EpisodeModel">
-                <SwipeView Threshold="{StaticResource DefaultSwipeThreshold}" SwipeStarted="SwipeView_SwipeStarted" SwipeEnded="SwipeView_SwipeEnded">
+                <SwipeView Threshold="{StaticResource DefaultSwipeThreshold}" SwipeStarted="SwipeView_SwipeStarted" SwipeEnded="SwipeView_SwipeEnded" HeightRequest="{StaticResource ListItemHeight}">
                     <SwipeView.LeftItems>
                         <SwipeItems Mode="Execute">
                             <!--<SwipeItem Text="{x:Static r:Strings.General_AddToPlayList}"

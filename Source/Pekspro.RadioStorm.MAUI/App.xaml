@@ -58,9 +58,10 @@
             <OnPlatform x:Key="NormalPageMargin" x:TypeArguments="Thickness" Default="20">
                 <On Platform="WinUI">8</On>
             </OnPlatform>
+            <x:Double x:Key="ListItemHeight">84</x:Double>
 
             <Style x:Key="ListItem" TargetType="Grid">
-                <Setter Property="HeightRequest" Value="84" />
+                <Setter Property="HeightRequest" Value="{StaticResource ListItemHeight}" />
                 <Setter Property="Padding" Value="{OnPlatform WinUI='8,6,16,6', Default='16,6,16,6'}" />
                 <Setter Property="Margin" Value="0,0" />
                 <Setter Property="ColumnDefinitions" Value="Auto, *, Auto" />
