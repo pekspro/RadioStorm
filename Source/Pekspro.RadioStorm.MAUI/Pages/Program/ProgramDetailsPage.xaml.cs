@@ -66,12 +66,12 @@ public sealed partial class ProgramDetailsPage : ContentPage
         {
 #if ANDROID
             // TODO: Remote below workaround when this issue is fixed: https://github.com/dotnet/maui/issues/8718
-            var recyclerView = EpisodesListView.Handler.PlatformView as AndroidX.RecyclerView.Widget.RecyclerView;
+            var recyclerView = EpisodesListView.Handler!.PlatformView as AndroidX.RecyclerView.Widget.RecyclerView;
 
             int extra = 0;
             int prevGroupSum = 0;
 
-            for (int i = 0; i < ViewModel.EpisodesViewModel.GroupedItems.Count; i++)
+            for (int i = 0; i < ViewModel.EpisodesViewModel.GroupedItems!.Count; i++)
             {
                 var group = ViewModel.EpisodesViewModel.GroupedItems[i];
 
@@ -86,8 +86,8 @@ public sealed partial class ProgramDetailsPage : ContentPage
 
             // recyclerView.ScrollToPosition(position.Value + extra + 1);
 
-            var layoutManager = recyclerView.GetLayoutManager() as AndroidX.RecyclerView.Widget.LinearLayoutManager;
-            layoutManager.ScrollToPositionWithOffset(position.Value + extra + 1, 0);
+            var layoutManager = recyclerView!.GetLayoutManager() as AndroidX.RecyclerView.Widget.LinearLayoutManager;
+            layoutManager!.ScrollToPositionWithOffset(position.Value + extra + 1, 0);
             
 #else
             EpisodesListView.ScrollTo(position.Value, position: ScrollToPosition.Center);

@@ -20,12 +20,11 @@
         </MultiBinding>
     </ContentPage.Title>
     <ContentPage.ToolbarItems>
-        <c:BindableToolbarItem 
-                x:Name="ToolbarItemUpdate"
-                Command="{Binding UpdateCommand}"
-                Text="{x:Static r:Strings.General_Update}"
-                Order="Secondary"
-                Priority="0" />
+        <ToolbarItem
+            Command="{Binding UpdateCommand}"
+            Text="{x:Static r:Strings.General_Update}"
+            Order="Secondary"
+            Priority="0" />
     </ContentPage.ToolbarItems>
 
     <Grid RowDefinitions="Auto,*,Auto">
