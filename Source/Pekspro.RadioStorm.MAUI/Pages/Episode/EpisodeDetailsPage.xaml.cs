@@ -20,6 +20,8 @@ public sealed partial class EpisodeDetailsPage : ContentPage
     {
         base.OnAppearing();
 
+        RefreshToolbarItems();
+
         ViewModel.OnNavigatedTo(Data);
     }
 
@@ -28,6 +30,17 @@ public sealed partial class EpisodeDetailsPage : ContentPage
         base.OnDisappearing();
 
         ViewModel.OnNavigatedFrom();
+    }
+
+    private void RefreshToolbarItems()
+    {
+        this.SetToolbarItemVisibility(ToolbarItemDownload, ToolbarHelperCanDownload);
+        this.SetToolbarItemVisibility(ToolbarItemDeleteDownload, ToolbarHelperCanDelete);
+    }
+
+    private void ToolbarHelper_ToggleChanged(object sender, ToggledEventArgs e)
+    {
+        RefreshToolbarItems();
     }
 
     private async void ButtonShowPlayList_Clicked(object sender, EventArgs e)

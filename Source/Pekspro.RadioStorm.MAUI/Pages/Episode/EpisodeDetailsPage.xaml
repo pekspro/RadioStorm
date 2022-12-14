@@ -19,19 +19,19 @@
             Order="Primary"
             Priority="0" />
 
-        <c:BindableToolbarItem 
+        <ToolbarItem 
+            x:Name="ToolbarItemDownload"
             Command="{Binding EpisodeData.DownloadCommand}"   
             IconImageSource="{OnPlatform Default=toolbar_download_16px.png, Android=toolbar_download_24px_margin_4px.png}"
             Text="{x:Static r:Strings.General_Download}"
-            IsVisible="{Binding EpisodeData.DownloadData, Converter={StaticResource InvertedNullToIsVisibleConverter}}"
             Order="Primary"
             Priority="1" />
 
-        <c:BindableToolbarItem 
+        <ToolbarItem 
+            x:Name="ToolbarItemDeleteDownload"
             Command="{Binding EpisodeData.DeleteDownloadCommand}"
             IconImageSource="{OnPlatform Default=toolbar_delete_16px.png, Android=toolbar_delete_24px_margin_4px.png}"
             Text="{x:Static r:Strings.General_RemoveDownload}"
-            IsVisible="{Binding EpisodeData.DownloadData, Converter={StaticResource NullToIsVisibleConverter}}"
             Order="Primary"
             Priority="2" />
 
@@ -45,6 +45,20 @@
 
     <!--<RefreshView Command="{Binding CommandRetry}" IsRefreshing="{Binding IsBusy}">-->
     <Grid RowDefinitions="*,Auto">
+        <VerticalStackLayout IsVisible="False">
+            <Switch 
+                x:Name="ToolbarHelperCanDownload"
+                IsToggled="{Binding EpisodeData.CanDownload, Mode=OneWay}"
+                Toggled="ToolbarHelper_ToggleChanged"
+                />
+
+            <Switch 
+                x:Name="ToolbarHelperCanDelete"
+                IsToggled="{Binding EpisodeData.CanDeleteDownload, Mode=OneWay}"
+                Toggled="ToolbarHelper_ToggleChanged"
+                />
+        </VerticalStackLayout>
+
         <views:DownloadState Padding="{StaticResource NormalPageMargin}" />
 
         <!-- TODO: Add refreshview when this is fixed: https://github.com/dotnet/maui/issues/9371 -->
