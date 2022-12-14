@@ -20,37 +20,37 @@
                 Text="{x:Static r:Strings.General_Update}"
                 Order="Secondary"
                 Priority="0" />
-        <c:BindableToolbarItem 
+        <ToolbarItem 
                 x:Name="ToolbarItemVerySlow"
                 Command="{Binding PlayerViewModel.SetSpeedVerySlowCommand}"
                 Text="{x:Static r:Strings.Player_MenuSpeed_VerySlow}"
                 Order="Secondary"
                 Priority="10" />
-        <c:BindableToolbarItem 
+        <ToolbarItem 
                 x:Name="ToolbarItemSlow"
                 Command="{Binding PlayerViewModel.SetSpeedSlowCommand}"
                 Text="{x:Static r:Strings.Player_MenuSpeed_Slow}"
                 Order="Secondary"
                 Priority="11" />
-        <c:BindableToolbarItem 
+        <ToolbarItem 
                 x:Name="ToolbarItemNormal"
                 Command="{Binding PlayerViewModel.SetSpeedNormalCommand}"
                 Text="{x:Static r:Strings.Player_MenuSpeed_Normal}"
                 Order="Secondary"
                 Priority="12" />
-        <c:BindableToolbarItem 
+        <ToolbarItem 
                 x:Name="ToolbarItemFast"
                 Command="{Binding PlayerViewModel.SetSpeedFastCommand}"
                 Text="{x:Static r:Strings.Player_MenuSpeed_Fast}"
                 Order="Secondary"
                 Priority="13" />
-        <c:BindableToolbarItem 
+        <ToolbarItem 
                 x:Name="ToolbarItemVeryFast"
                 Command="{Binding PlayerViewModel.SetSpeedVeryFastCommand}"
                 Text="{x:Static r:Strings.Player_MenuSpeed_VeryFast}"
                 Order="Secondary"
                 Priority="14" />
-        <c:BindableToolbarItem
+        <ToolbarItem
                 x:Name="ToolbarStop"
                 Clicked="ToolbarStop_Clicked"
                 Text="{x:Static r:Strings.Player_Stop}"

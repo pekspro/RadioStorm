@@ -9,8 +9,9 @@ public sealed partial class FavoritesPage : ContentPage
         BindingContext = viewModel;
 
         SynchronizingViewModel = synchronizingViewModel;
-        ToolBarItemSynchronize.BindingContext = synchronizingViewModel;
         ProgressSynchronize.BindingContext = synchronizingViewModel;
+        ToolbarHelperHasAnyRemoteSignedInProvider.BindingContext =
+        ToolbarItemSynchronize.BindingContext = synchronizingViewModel;
         
         ReviewViewModel = reviewViewModel;
         ReviewBorder.BindingContext = reviewViewModel;
@@ -33,8 +34,10 @@ public sealed partial class FavoritesPage : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-
+        
         ViewModel.OnNavigatedTo();
+        
+        RefreshToolbarItems();
     }
 
     protected override void OnDisappearing()
@@ -44,6 +47,19 @@ public sealed partial class FavoritesPage : ContentPage
         ViewModel.OnNavigatedFrom();
     }
 
+    private void RefreshToolbarItems()
+    {
+        this.SetToolbarItemVisibility(ToolbarItemListMode, ViewModel.HasFavorites && ViewModel.HasAlbumViewSupport);
+        this.SetToolbarItemVisibility(ToolbarItemAlbumMode, ViewModel.HasFavorites && ViewModel.HasAlbumViewSupport);
+        this.SetToolbarItemVisibility(ToolbarItemSynchronize, SynchronizingViewModel?.HasAnyRemoteSignedInProvider == true);
+        this.SetToolbarItemVisibility(ToolbarItemUpdate, ViewModel.HasFavorites);
+    }
+
+    private void ToolbarHelper_ToggleChanged(object sender, ToggledEventArgs e)
+    {
+        RefreshToolbarItems();
+    }
+    
     async void ChannelTapped(object sender, EventArgs e)
     {
         var channel = (sender as ChannelControl)?.BindingContext as ChannelModel ??
