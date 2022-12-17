@@ -41,6 +41,13 @@
                 Order="Secondary"
                 Priority="0" />
 
+        <ToolbarItem 
+            x:Name="ToolbarItemOpenSongList"
+            Clicked="ToolbarItemOpenSongList_Click"
+            Text="{x:Static r:Strings.General_SongList}"
+            Order="Secondary"
+            Priority="1" />
+        
     </ContentPage.ToolbarItems>
 
     <!--<RefreshView Command="{Binding CommandRetry}" IsRefreshing="{Binding IsBusy}">-->

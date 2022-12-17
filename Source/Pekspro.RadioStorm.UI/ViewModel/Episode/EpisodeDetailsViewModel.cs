@@ -4,7 +4,7 @@ public sealed partial class EpisodeDetailsViewModel : DownloadViewModel
 {
     #region Start parameter
 
-    sealed class StartParameter
+    internal sealed class StartParameter
     {
         public int EpisodeId { get; set; }
         public string? Title { get; set; }
@@ -13,7 +13,7 @@ public sealed partial class EpisodeDetailsViewModel : DownloadViewModel
 
     [JsonSourceGenerationOptions()]
     [JsonSerializable(typeof(StartParameter))]
-    sealed partial class EpisodeDetailsStartParameterJsonContext : JsonSerializerContext
+    internal sealed partial class EpisodeDetailsStartParameterJsonContext : JsonSerializerContext
     {
     }
 
@@ -64,7 +64,6 @@ public sealed partial class EpisodeDetailsViewModel : DownloadViewModel
         DataFetcher = null!;
         UriLauncher = null!;
         EpisodeModelFactory = null!;
-        SongsViewModel = new SongsViewModel();
         DownloadState = DownloadStates.Done;
         AllowNavigationToProgramInfoPage = true;
 
@@ -77,7 +76,6 @@ public sealed partial class EpisodeDetailsViewModel : DownloadViewModel
         IDataFetcher dataFetcher,
         IUriLauncher uriLauncher,
         IEpisodeModelFactory episodeModelFactory,
-        SongsViewModel songsViewModel,
         IMainThreadRunner mainThreadRunner,
         ILogger<EpisodeDetailsViewModel> logger)
         : base(logger, mainThreadRunner)
@@ -85,7 +83,6 @@ public sealed partial class EpisodeDetailsViewModel : DownloadViewModel
         DataFetcher = dataFetcher;
         UriLauncher = uriLauncher;
         EpisodeModelFactory = episodeModelFactory;
-        SongsViewModel = songsViewModel;
     }
 
     #endregion
@@ -93,8 +90,6 @@ public sealed partial class EpisodeDetailsViewModel : DownloadViewModel
     #region Properties
 
     private int EpisodeId { get; set; } = -1;
-
-    public SongsViewModel SongsViewModel { get; }
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(Title))]
@@ -198,14 +193,14 @@ public sealed partial class EpisodeDetailsViewModel : DownloadViewModel
             OnPropertyChanged(nameof(Title));
         }
 
-        SongsViewModel.OnNavigatedTo(false, EpisodeId);
+        // SongsViewModel.OnNavigatedTo(false, EpisodeId);
 
         base.OnNavigatedTo();
     }
 
     public override void OnNavigatedFrom()
     {
-        SongsViewModel.OnNavigatedFrom();
+        // SongsViewModel.OnNavigatedFrom();
 
         base.OnNavigatedFrom();
     }

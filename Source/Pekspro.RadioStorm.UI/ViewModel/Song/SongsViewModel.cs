@@ -1,6 +1,4 @@
-﻿using static Pekspro.RadioStorm.UI.ViewModel.Channel.ChannelDetailsViewModel;
-
-namespace Pekspro.RadioStorm.UI.ViewModel.Song;
+﻿namespace Pekspro.RadioStorm.UI.ViewModel.Song;
 
 public sealed partial class SongsViewModel : ListViewModel<SongModel>, IDisposable
 {
@@ -154,8 +152,8 @@ public sealed partial class SongsViewModel : ListViewModel<SongModel>, IDisposab
 
         if (IsChannel)
         {
-            StartParameter startParameter =
-                StartParameterHelper.Deserialize(parameter, ChannelDetailsStartParameterJsonContext.Default.StartParameter);
+            ChannelDetailsViewModel.StartParameter startParameter =
+                StartParameterHelper.Deserialize(parameter, ChannelDetailsViewModel.ChannelDetailsStartParameterJsonContext.Default.StartParameter);
 
             SourceId = startParameter.ChannelId;
             Title = startParameter.ChannelName;
@@ -163,9 +161,16 @@ public sealed partial class SongsViewModel : ListViewModel<SongModel>, IDisposab
             
             MainThreadTimer.Start();
         }
+        else
+        {
+            EpisodeDetailsViewModel.StartParameter startParameter =
+                StartParameterHelper.Deserialize(parameter, EpisodeDetailsViewModel.EpisodeDetailsStartParameterJsonContext.Default.StartParameter);
+
+            SourceId = startParameter.EpisodeId;
+            Title = startParameter.Title;
+        }
 
         base.OnNavigatedTo();
-
     }
 
     public override void OnNavigatedFrom()

@@ -115,6 +115,9 @@
 	  <Compile Update="Pages\Channel\ScheduledEpisodesPage.xaml.cs">
 	    <DependentUpon>ScheduledEpisodesPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Pages\Episode\EpisodeSongListPage.xaml.cs">
+	    <DependentUpon>EpisodeSongListPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Pages\Episode\EpisodeDetailsPage.xaml.cs">
 		<DependentUpon>%(Filename)</DependentUpon>
 	  </Compile>
@@ -193,6 +196,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\Channel\ScheduledEpisodesPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\Episode\EpisodeSongListPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\Episode\EpisodeDetailsPage.xaml">

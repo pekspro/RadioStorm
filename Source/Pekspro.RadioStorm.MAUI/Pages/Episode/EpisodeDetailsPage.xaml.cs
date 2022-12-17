@@ -96,4 +96,20 @@ public sealed partial class EpisodeDetailsPage : ContentPage
                 });
         }
     }
+
+    private async void ToolbarItemOpenSongList_Click(object sender, EventArgs e)
+    {
+        if (ViewModel?.EpisodeData is not null)
+        {
+            string startParameter = EpisodeDetailsViewModel.CreateStartParameter(ViewModel.EpisodeData, false);
+
+            if (startParameter is not null)
+            {
+                await Shell.Current.GoToAsync(nameof(EpisodeSongListPage), new Dictionary<string, object>()
+                {
+                    { "Data", startParameter }
+                });
+            }
+        }
+    }
 }
