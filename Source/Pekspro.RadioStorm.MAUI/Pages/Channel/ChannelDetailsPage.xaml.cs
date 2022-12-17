@@ -77,4 +77,20 @@ public sealed partial class ChannelDetailsPage : ContentPage
             }
         }
     }
+
+    private async void ToolbarItemOpenSongList_Click(object sender, EventArgs e)
+    {
+        if (ViewModel?.ChannelData is not null)
+        {
+            string startParameter = ChannelDetailsViewModel.CreateStartParameter(ViewModel.ChannelData);
+
+            if (startParameter is not null)
+            {
+                await Shell.Current.GoToAsync(nameof(ChannelSongListPage), new Dictionary<string, object>()
+                {
+                    { "Data", startParameter }
+                });
+            }
+        }
+    }
 }

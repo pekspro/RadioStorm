@@ -44,4 +44,5 @@ global using Pekspro.RadioStorm.UI.ViewModel.Review;
 global using Pekspro.RadioStorm.UI.ViewModel.SchedulesEpisode;
 global using Pekspro.RadioStorm.UI.ViewModel.Search;
 global using Pekspro.RadioStorm.UI.ViewModel.Settings;
+global using Pekspro.RadioStorm.UI.ViewModel.Song;
 global using Pekspro.RadioStorm.Utilities;

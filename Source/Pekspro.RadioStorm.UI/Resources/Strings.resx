@@ -201,6 +201,12 @@
   <data name="Channel_ScheduleEpisodes_Title" xml:space="preserve">
     <value>Tablå - {0}</value>
   </data>
+  <data name="Channel_SongList_NoData" xml:space="preserve">
+    <value>Inga låtar hittades.</value>
+  </data>
+  <data name="Channel_SongList_Title" xml:space="preserve">
+    <value>Låtlista - {0}</value>
+  </data>
   <data name="CurrentPlaying_NothingTitle" xml:space="preserve">
     <value>Hoppsan</value>
   </data>

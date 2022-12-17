@@ -50,5 +50,20 @@ public sealed class DateTimeHolder
         }
     }
 
+    public string RelativeDayName
+    {
+        get
+        {
+            if (Date is null)
+            {
+                return string.Empty;
+            }
+
+            (string name, _) = WeekdaynameHelper.GetRelativeWeekdayName(Date.Value.LocalDateTime, true, false, false);
+
+            return name;
+        }
+    }
+
     #endregion
 }

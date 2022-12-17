@@ -189,6 +189,9 @@
 	    <SubType>Designer</SubType>
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\Channel\ChannelSongListPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\Channel\ScheduledEpisodesPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

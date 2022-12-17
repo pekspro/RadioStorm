@@ -1,6 +1,8 @@
-﻿namespace Pekspro.RadioStorm.UI.ViewModel.Song;
+﻿using static Pekspro.RadioStorm.UI.ViewModel.Channel.ChannelDetailsViewModel;
 
-public sealed partial class SongsViewModel : DownloadViewModel, IDisposable
+namespace Pekspro.RadioStorm.UI.ViewModel.Song;
+
+public sealed partial class SongsViewModel : ListViewModel<SongModel>, IDisposable
 {
     #region Private properties
 
@@ -64,6 +66,12 @@ public sealed partial class SongsViewModel : DownloadViewModel, IDisposable
     [ObservableProperty]
     private ObservableCollection<SongModel> _Items = new ObservableCollection<SongModel>();
 
+    [ObservableProperty]
+    private string? _Title;
+
+    [ObservableProperty]
+    private string? _ChannelColor;
+
     #endregion
 
     #region Methods
@@ -81,7 +89,7 @@ public sealed partial class SongsViewModel : DownloadViewModel, IDisposable
 
         if (IsChannel)
         {
-            Logger.LogInformation($"Getting channel song list {SourceId} {refreshSettings}"); ;
+            Logger.LogInformation($"Getting channel song list {SourceId} {refreshSettings}");
             var data = await DataFetcher.GetChannelSongListAsync(SourceId, refreshSettings.AllowCache, cancellationToken);
 
             Logger.LogInformation($"Got channel song list {SourceId} {refreshSettings}. {data?.Count} items");
@@ -110,6 +118,7 @@ public sealed partial class SongsViewModel : DownloadViewModel, IDisposable
         if (Items is null || Items.Count != items.Count || Items.Count == 0 || !Items[0].Equals(items[0]))
         {
             Items = items;
+            UpdateList(items.ToList());
             Logger.LogDebug($"Song list has been updated.");
         }
         else
@@ -132,12 +141,28 @@ public sealed partial class SongsViewModel : DownloadViewModel, IDisposable
         }
     }
 
-    public void OnNavigatedTo(bool isChannel, int sourceId)
+    protected override int GetId(SongModel item) => item.PublishDate.GetHashCode();
+
+    protected override int Compare(SongModel a, SongModel b) => a.PublishDate.Date < b.PublishDate.Date ? -1 : 1;
+
+    protected override string GetGroupName(SongModel item) =>
+        item.PublishDate.RelativeDayName;
+    
+    public void OnNavigatedTo(bool isChannel, object parameter)
     {
         IsChannel = isChannel;
-        SourceId = sourceId;
 
-        MainThreadTimer.Start();
+        if (IsChannel)
+        {
+            StartParameter startParameter =
+                StartParameterHelper.Deserialize(parameter, ChannelDetailsStartParameterJsonContext.Default.StartParameter);
+
+            SourceId = startParameter.ChannelId;
+            Title = startParameter.ChannelName;
+            ChannelColor = startParameter.Color;
+            
+            MainThreadTimer.Start();
+        }
 
         base.OnNavigatedTo();
 

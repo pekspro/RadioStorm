@@ -116,7 +116,10 @@ public sealed class WeekdaynameHelper : IWeekdaynameHelper
 
         if (alwaysIncludeTime)
         {
-            text += " " + day.ToString("HH:mm");
+            if (!useTimeInsteadOfToday)
+            {
+                text += " " + day.ToString("HH:mm");
+            }
 
             retDate = new DateTime(retDate.Year, retDate.Month, retDate.Day, day.Hour, day.Minute, 0);
         }

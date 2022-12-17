@@ -259,6 +259,24 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Inga låtar hittades..
+        /// </summary>
+        public static string Channel_SongList_NoData {
+            get {
+                return ResourceManager.GetString("Channel_SongList_NoData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Låtlista - {0}.
+        /// </summary>
+        public static string Channel_SongList_Title {
+            get {
+                return ResourceManager.GetString("Channel_SongList_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mer om {0}.
         /// </summary>
         public static string ChannelInfo_MoreAbout {

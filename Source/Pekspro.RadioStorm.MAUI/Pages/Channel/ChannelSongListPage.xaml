@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:r="clr-namespace:Pekspro.RadioStorm.UI.Resources;assembly=Pekspro.RadioStorm.UI"
+             xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
+             xmlns:vm="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Song;assembly=Pekspro.RadioStorm.UI"
+             xmlns:m="clr-namespace:Pekspro.RadioStorm.UI.Model.Song;assembly=Pekspro.RadioStorm.UI"
+             Title="ChannelSongListPage"
+             x:Class="Pekspro.RadioStorm.MAUI.Pages.Channel.ChannelSongListPage"
+             x:DataType="vm:SongsViewModel"
+             Shell.PresentationMode="NotAnimated"
+             >
+    <ContentPage.Title>
+        <MultiBinding StringFormat="{x:Static r:Strings.Channel_SongList_Title}">
+            <Binding Path="Title" />
+        </MultiBinding>
+    </ContentPage.Title>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Command="{Binding UpdateCommand}"
+            Text="{x:Static r:Strings.General_Update}"
+            Order="Secondary"
+            Priority="0" />
+    </ContentPage.ToolbarItems>
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!--<Border Style="{StaticResource Card}" 
+                Grid.Row="0" 
+                IsVisible="{Binding HasError, Converter={StaticResource InvertedBoolConverter}}"
+                Margin="{StaticResource NormalPageMargin}">
+            <HorizontalStackLayout Style="{StaticResource CardLayout}">
+
+                <Label Text="{x:Static r:Strings.Channel_ScheduleEpisodes_Date}" 
+                       Margin="{OnPlatform Default='0,13,8,0', WinUI='0,12,8,0'}" />
+
+                <Picker ItemsSource="{Binding DateOptions}"
+                        SelectedIndex="{Binding DateOptionIndex, Mode=TwoWay}"
+                        />
+            </HorizontalStackLayout>
+        </Border>-->
+
+        <views:DownloadState Grid.Row="1" NoDataText="{x:Static r:Strings.Channel_SongList_NoData}" />
+
+        <!-- Breaks on Android: ItemSizingStrategy="MeasureFirstItem"-->
+        <RefreshView 
+                Command="{Binding RefreshCommand}" 
+                IsRefreshing="{Binding IsRefreshing}"
+                IsVisible="{Binding HasData}"
+                Grid.Row="1"
+            >
+            <CollectionView ItemsSource="{Binding Items}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="m:SongModel">
+                        <Grid Padding="{OnPlatform WinUI='8,6,16,6', Default='16,6,16,6'}" HeightRequest="80" CompressedLayout.IsHeadless="True">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+
+                            <Label Text="{Binding Title, Mode=OneTime}"
+                                   Grid.Row="0"
+                                   FontAttributes="Bold"
+                                   Style="{StaticResource ListNormalTextStyle}"
+                                />
+
+                            <Label Text="{Binding Artist, Mode=OneTime}"
+                                   Grid.Row="1"
+                                   TextColor="{StaticResource InactiveProgramColorDark}"
+                                   Style="{StaticResource ListNormalTextStyle}"
+                                />
+
+                            <Label Text="{Binding Composer, Mode=OneTime}"
+                                   Grid.Row="2"
+                                   TextColor="{StaticResource InactiveProgramColorDark}"
+                                   Style="{StaticResource ListNormalTextStyle}"
+                                />
+
+                            <Label Text="{Binding PublishDate.RelativeDateString, Mode=OneTime}"
+                                   Grid.Row="3"
+                                   TextColor="{StaticResource InactiveProgramColorDark}"
+                                   Style="{StaticResource ListNormalTextStyle}"
+                                />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+        <views:PlayerControl Grid.Row="2" />
+    </Grid>
+</ContentPage>

@@ -31,12 +31,19 @@
             Text="{x:Static r:Strings.Channel_ScheduleEpisodes}"
             Order="Secondary"
             Priority="1" />
+
+        <ToolbarItem 
+            x:Name="ToolbarItemOpenSongList"
+            Clicked="ToolbarItemOpenSongList_Click"
+            Text="{x:Static r:Strings.General_SongList}"
+            Order="Secondary"
+            Priority="2" />
         
         <ToolbarItem 
             Command="{Binding ChannelData.OpenWebPageCommand}"
             Text="{x:Static r:Strings.GeneralButtonOpenWebPage}"
             Order="Secondary"
-            Priority="2" />
+            Priority="3" />
         
     </ContentPage.ToolbarItems>
 
