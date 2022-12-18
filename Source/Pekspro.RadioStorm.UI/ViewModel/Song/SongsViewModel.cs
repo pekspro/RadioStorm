@@ -144,7 +144,7 @@ public sealed partial class SongsViewModel : ListViewModel<SongModel>, IDisposab
     protected override int Compare(SongModel a, SongModel b) => a.PublishDate.Date < b.PublishDate.Date ? -1 : 1;
 
     protected override string GetGroupName(SongModel item) =>
-        item.PublishDate.RelativeDayName;
+        item.PublishDate.RelativeDateName;
     
     public void OnNavigatedTo(bool isChannel, object parameter)
     {

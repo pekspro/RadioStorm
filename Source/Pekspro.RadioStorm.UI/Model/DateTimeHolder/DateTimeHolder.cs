@@ -1,4 +1,6 @@
-﻿namespace Pekspro.RadioStorm.UI.Model.DateTimeHolder;
+﻿using Npgsql.Logging;
+
+namespace Pekspro.RadioStorm.UI.Model.DateTimeHolder;
 
 public sealed class DateTimeHolder
 {
@@ -22,46 +24,47 @@ public sealed class DateTimeHolder
 
     public DateTimeOffset? Date { get; }
 
-    public string DateString
+    private string? RelativeDateAndTimeStringCache;
+
+    public string RelativeDateAndTimeString
     {
         get
         {
-            if (Date is null)
+            if (RelativeDateAndTimeStringCache is null)
             {
-                return string.Empty;
+                if (Date is null)
+                {
+                    RelativeDateAndTimeStringCache = string.Empty;
+                }
+                else
+                {
+                    (RelativeDateAndTimeStringCache, _) = WeekdaynameHelper.GetRelativeWeekdayName(Date.Value.LocalDateTime, true, false, true);
+                }
             }
 
-            return Date.Value.LocalDateTime.ToString("yyyy-MM-dd HH:mm");
+            return RelativeDateAndTimeStringCache;
         }
     }
 
-    public string RelativeDateString
+    private string? RelativeDateNameCache;
+
+    public string RelativeDateName
     {
         get
         {
-            if (Date is null)
+            if (RelativeDateNameCache is null)
             {
-                return string.Empty;
+                if (Date is null)
+                {
+                    RelativeDateNameCache = string.Empty;
+                }
+                else
+                {
+                    (RelativeDateNameCache, _) = WeekdaynameHelper.GetRelativeWeekdayName(Date.Value.LocalDateTime, true, false, false);
+                }
             }
 
-            (string name, _) = WeekdaynameHelper.GetRelativeWeekdayName(Date.Value.LocalDateTime, true, true, true);
-
-            return name;
-        }
-    }
-
-    public string RelativeDayName
-    {
-        get
-        {
-            if (Date is null)
-            {
-                return string.Empty;
-            }
-
-            (string name, _) = WeekdaynameHelper.GetRelativeWeekdayName(Date.Value.LocalDateTime, true, false, false);
-
-            return name;
+            return RelativeDateNameCache;
         }
     }
 

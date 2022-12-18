@@ -78,7 +78,7 @@
                                    Style="{StaticResource ListNormalTextStyle}"
                                 />
 
-                            <Label Text="{Binding PublishDate.RelativeDateString, Mode=OneTime}"
+                            <Label Text="{Binding PublishDate.RelativeDateAndTimeString, Mode=OneTime}"
                                    Grid.Row="3"
                                    TextColor="{StaticResource InactiveProgramColorDark}"
                                    Style="{StaticResource ListNormalTextStyle}"

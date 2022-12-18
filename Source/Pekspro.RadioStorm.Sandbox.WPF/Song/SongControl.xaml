@@ -38,7 +38,7 @@
                     TextTrimming="CharacterEllipsis"
                     />
 
-        <TextBlock  Text="{Binding PublishDate.RelativeDateString, Mode=OneWay}"
+        <TextBlock  Text="{Binding PublishDate.RelativeDateAndTimeString, Mode=OneWay}"
                     Grid.Column="0"
                     Grid.Row="3"
                     TextTrimming="CharacterEllipsis"
