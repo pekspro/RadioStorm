@@ -141,11 +141,16 @@ public sealed partial class SongsViewModel : ListViewModel<SongModel>, IDisposab
 
     protected override int GetId(SongModel item) => item.PublishDate.GetHashCode();
 
-    protected override int Compare(SongModel a, SongModel b) => a.PublishDate.Date < b.PublishDate.Date ? -1 : 1;
+    protected override int Compare(SongModel a, SongModel b) => a.PublishDate.Date < b.PublishDate.Date ? 1 : -1;
 
     protected override string GetGroupName(SongModel item) =>
         item.PublishDate.RelativeDateName;
-    
+
+    protected override int GetGroupPriority(SongModel item)
+    {
+        return -(item.PublishDate.Date!.Value.LocalDateTime.Year * 10000 + item.PublishDate.Date.Value.LocalDateTime.Month * 100 + item.PublishDate.Date.Value.LocalDateTime.Day);
+    }
+
     public void OnNavigatedTo(bool isChannel, object parameter)
     {
         IsChannel = isChannel;

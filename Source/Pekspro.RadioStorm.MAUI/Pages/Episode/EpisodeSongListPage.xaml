@@ -36,9 +36,8 @@
             <CollectionView ItemsSource="{Binding Items}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="m:SongModel">
-                        <Grid Padding="{OnPlatform WinUI='8,6,16,6', Default='16,6,16,6'}" HeightRequest="80" CompressedLayout.IsHeadless="True">
+                        <Grid Padding="{OnPlatform WinUI='8,6,16,6', Default='16,6,16,6'}" HeightRequest="64" CompressedLayout.IsHeadless="True">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="auto" />
                                 <RowDefinition Height="auto" />
                                 <RowDefinition Height="auto" />
                                 <RowDefinition Height="auto" />
@@ -56,14 +55,8 @@
                                    Style="{StaticResource ListNormalTextStyle}"
                                 />
 
-                            <Label Text="{Binding Composer, Mode=OneTime}"
-                                   Grid.Row="2"
-                                   TextColor="{StaticResource InactiveProgramColorDark}"
-                                   Style="{StaticResource ListNormalTextStyle}"
-                                />
-
                             <Label Text="{Binding PublishDate.RelativeDateAndTimeString, Mode=OneTime}"
-                                   Grid.Row="3"
+                                   Grid.Row="2"
                                    TextColor="{StaticResource InactiveProgramColorDark}"
                                    Style="{StaticResource ListNormalTextStyle}"
                                 />

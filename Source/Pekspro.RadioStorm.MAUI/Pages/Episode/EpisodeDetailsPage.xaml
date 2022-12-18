@@ -8,6 +8,7 @@
              xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
              x:Class="Pekspro.RadioStorm.MAUI.Pages.Episode.EpisodeDetailsPage"
              x:DataType="vm:EpisodeDetailsViewModel"
+             Shell.PresentationMode="NotAnimated"
              Title="{Binding Title, Mode=OneWay}"
              >
 
@@ -41,12 +42,16 @@
                 Order="Secondary"
                 Priority="0" />
 
+        <!-- 
+        Cannot have this on toolbar due https://github.com/dotnet/maui/issues/10452
+        
         <ToolbarItem 
             x:Name="ToolbarItemOpenSongList"
             Clicked="ToolbarItemOpenSongList_Click"
             Text="{x:Static r:Strings.General_SongList}"
             Order="Secondary"
             Priority="1" />
+        -->
         
     </ContentPage.ToolbarItems>
 
@@ -277,6 +282,12 @@
                                 Style="{StaticResource HyperlinkButton}"
                                 IsVisible="{Binding HasPreviousEpisodeData}"
                                 Text="{Binding PreviousEpisodeData.Title, StringFormat={x:Static r:Strings.Episodes_PreviousEpisode}}"
+                                />
+                        
+                        <Button x:Name="ButtonShowSongList"
+                                Clicked="ToolbarItemOpenSongList_Click"
+                                Style="{StaticResource HyperlinkButton}"
+                                Text="{x:Static r:Strings.General_SongList}"
                                 />
 
                         <Button x:Name="ButtonShowMoreEpisodes"

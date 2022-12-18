@@ -252,7 +252,7 @@ public sealed class DataFetcher : IDataFetcher
         {
             bool res = await RunWithClientAsync(async (a) =>
             {
-                var response = await a.GetPlaylistByChannelAsync(Format.Json, MaxEpisodeDownloadCount, channelId, null, null, cancellationToken).ConfigureAwait(false);
+                var response = await a.GetPlaylistByChannelAsync(Format.Json, MaxEpisodeDownloadCount, channelId, DateTimeOffset.UtcNow.Date.AddDays(-1), DateTimeOffset.UtcNow.Date.AddDays(1), cancellationToken).ConfigureAwait(false);
 
                 songList = DtoConverter.ConvertToChannelSongs(channelId, response.Song);
             }).ConfigureAwait(false);
