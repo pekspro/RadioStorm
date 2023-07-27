@@ -134,9 +134,9 @@ public sealed class Worker : BackgroundService
 
             var client = await graphSignInHelper.GetClientAsync();
 
-            var me = await client.Me.Request().GetAsync(stoppingToken);
+            // var me = await client.Me.Request().GetAsync(stoppingToken);
 
-            Log($"Your ID: {me.Id}");
+            // Log($"Your ID: {me.Id}");
         }
         else
         {

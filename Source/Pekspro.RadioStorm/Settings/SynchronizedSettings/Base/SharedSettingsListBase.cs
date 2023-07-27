@@ -127,7 +127,7 @@ public abstract class SharedSettingsListBase<T> : ISharedSettingsListBase<T>
 
                             using (var stream = await fileBaseProvider.Provider.GetFileContentAsync(fileName))
                             {
-                                using (var memoryStream = new MemoryStream((int)stream.Length))
+                                using (var memoryStream = new MemoryStream(10 * 1024))
                                 {
                                     await stream.CopyToAsync(memoryStream);
                                     memoryStream.Position = 0;

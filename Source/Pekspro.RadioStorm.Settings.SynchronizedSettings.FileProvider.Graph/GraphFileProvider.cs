@@ -20,66 +20,53 @@ public sealed class GraphFileProvider : FileBaseProvider
 
     public override bool IsSlow => true;
 
+    private (DateTime CacheTime, Drive Drive, DriveItem DriveItem)? DriveCache { get; set; }
 
-#if NO_ANDROID_FIX
-#else
-    sealed class Response<T>
+    private async Task<(Drive Drive, DriveItem AppRoot)> GetDriveItemAsync(GraphServiceClient graphClient)
     {
-        [JsonPropertyName("value")]
-        public T Value { get; set; } = default!;
+        if (DriveCache is null || DriveCache.Value.CacheTime < DateTime.UtcNow.AddSeconds(-5))
+        {
+            var driveItem = await graphClient.Me.Drive.GetAsync().ConfigureAwait(false);
+            var appRootFolder = await graphClient.Drives[driveItem!.Id].Special["AppRoot"].GetAsync().ConfigureAwait(false);
+
+            DriveCache = new (DateTime.UtcNow, driveItem!, appRootFolder!);
+        }
+
+        return (DriveCache.Value.Drive, DriveCache.Value.DriveItem);
     }
-#endif
 
     public override async Task<Dictionary<string, FileOverview>> GetFilesAsync(HashSet<string> allowedLowerCaseFilename)
     {
-
         try
         {
             var client = await GraphHelper.GetClientAsync().ConfigureAwait(false);
 
-#if NO_ANDROID_FIX
-            var childrenPage = await client.Me.Drive.Special.AppRoot.ItemWithPath(SyncPath).Children
-                .Request()
-                .GetAsync();
+            var driveData = await GetDriveItemAsync(client).ConfigureAwait(false);
 
-            var children = childrenPage.ToList();
-            int pagePos = 0;
+            var filesInSubFolder = await client
+                .Drives[driveData.Drive.Id]
+                .Items[driveData.AppRoot.Id]
+                .ItemWithPath(SyncPath)
+                .Children
+                .GetAsync()
+                .ConfigureAwait(false);
 
-            while (pagePos <= 10 && childrenPage.NextPageRequest is not null)
-            {
-                childrenPage = await childrenPage.NextPageRequest.GetAsync();
-                children.AddRange(childrenPage.ToList());
+            // Iterate thru all pages
+            var allFiles = new List<DriveItem>();
+            var filesIterator = PageIterator<DriveItem, DriveItemCollectionResponse>
+                                    .CreatePageIterator
+                                    (
+                                        client,
+                                        filesInSubFolder!,
+                                        (file) => { allFiles.Add(file); return true; }
+                                    );
+            await filesIterator.IterateAsync().ConfigureAwait(false);
 
-                pagePos++;
-            }
-#else
-            var response = await client.Me.Drive.Special.AppRoot.ItemWithPath(SyncPath).Children
-                .Request()
-                .GetResponseAsync();
-
-            string text = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-            var childrenPage = System.Text.Json.JsonSerializer.Deserialize<Response<List<DriveItem>>>(text)!;
-
-            var children = childrenPage.Value.ToList();
-
-            // Pagination will in weird unlikely cases be needed, but this is skipped for now
-            //int pagePos = 0;
-
-            //while (pagePos <= 10 && childrenPage.NextPageRequest is not null)
-            //{
-            //    childrenPage = await childrenPage.NextPageRequest.GetAsync();
-            //    children.AddRange(childrenPage.ToList());
-
-            //    pagePos++;
-            //}
-
-#endif
-
-            var filesData = children
-                        .Where(a => allowedLowerCaseFilename.Contains(a.Name.ToLower()))
+            var filesData = allFiles
+                        .Where(a => allowedLowerCaseFilename.Contains(a.Name!.ToLower()))
                         .Select(a => new FileOverview
                         (
-                            a.Name.ToLower(),
+                            a.Name!.ToLower(),
                             exists: true,
                             checkSum: GetStoredChecksum(a.Name.ToLower()),
                             isModified: IsModified(a.Name.ToLower(), a.LastModifiedDateTime, a.Size),
@@ -90,11 +77,11 @@ public sealed class GraphFileProvider : FileBaseProvider
 
             return filesData;
         }
-        catch (ServiceException ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
+        catch (ODataError ex) when (ex.ResponseStatusCode == (int) System.Net.HttpStatusCode.NotFound)
         {
             return new Dictionary<string, FileOverview>();
         }
-        catch(Exception ex2)
+        catch (Exception ex2)
         {
             Logger.LogError(ex2, "Failed to get files from Graph");
             
@@ -113,25 +100,17 @@ public sealed class GraphFileProvider : FileBaseProvider
 
         try
         {
-#if NO_ANDROID_FIX
-            var driveItem = await client.Me.Drive.Special.AppRoot.ItemWithPath(Path.Combine(SyncPath, filename))
-                .Request()
+            var driveData = await GetDriveItemAsync(client).ConfigureAwait(false);
+
+            var driveItem = await client
+                .Drives[driveData.Drive.Id]
+                .Items[driveData.AppRoot.Id]
+                .ItemWithPath(Path.Combine(SyncPath, filename))
                 .GetAsync()
                 .ConfigureAwait(false);
-#else
-            var response = await client.Me.Drive.Special.AppRoot.ItemWithPath(Path.Combine(SyncPath, filename))
-                .Request()
-                .GetResponseAsync()
-                .ConfigureAwait(false);
-
-            string text = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-
-            var driveItem = System.Text.Json.JsonSerializer.Deserialize<DriveItem>(text)!;
-
-#endif
 
             var fileData = new FileOverview(
-                driveItem.Name.ToLower(),
+                driveItem!.Name!.ToLower(),
                 exists: true,
                 checkSum: GetStoredChecksum(driveItem.Name.ToLower()),
                 isModified: IsModified(driveItem.Name.ToLower(), driveItem.LastModifiedDateTime, driveItem.Size),
@@ -141,7 +120,7 @@ public sealed class GraphFileProvider : FileBaseProvider
 
             return fileData;
         }
-        catch (ServiceException ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
+        catch (ODataError ex) when (ex.ResponseStatusCode == (int)System.Net.HttpStatusCode.NotFound)
         {
             return new FileOverview(filename, exists: false);
         }
@@ -151,34 +130,32 @@ public sealed class GraphFileProvider : FileBaseProvider
     {
         var client = await GraphHelper.GetClientAsync();
 
-        var driveItem = await client.Me.Drive.Special.AppRoot.ItemWithPath(Path.Combine(SyncPath, fileName)).Content
-            .Request()
-            .GetAsync()
-            .ConfigureAwait(false);
+        var driveData = await GetDriveItemAsync(client).ConfigureAwait(false);
 
-        return driveItem;
+        var myFileContent = await client
+                    .Drives[driveData.Drive.Id]
+                    .Items[driveData.AppRoot.Id]
+                    .ItemWithPath(Path.Combine(SyncPath, fileName))
+                    .Content
+                    .GetAsync()
+                    .ConfigureAwait(false);
+
+        return myFileContent!;
     }
 
     protected override async Task<(DateTimeOffset DateModified, long Size)> UploadFileAsync(string fileName, Stream stream)
     {
         var client = await GraphHelper.GetClientAsync();
 
-#if NO_ANDROID_FIX
-        var driveItem = await client.Me.Drive.Special.AppRoot.ItemWithPath(Path.Combine(SyncPath, fileName)).Content
-                .Request()
-                .PutAsync<DriveItem>(stream);
+        var driveData = await GetDriveItemAsync(client).ConfigureAwait(false);
 
-        return (driveItem.LastModifiedDateTime!.Value, driveItem.Size!.Value);            
-#else
-        var response = await client.Me.Drive.Special.AppRoot.ItemWithPath(Path.Combine(SyncPath, fileName)).Content
-                .Request()
-                .PutResponseAsync<DriveItem>(stream);
-        
-        string text = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-        
-        var driveItem = System.Text.Json.JsonSerializer.Deserialize<DriveItem>(text)!;
-            
-        return (driveItem.LastModifiedDateTime!.Value, driveItem.Size!.Value);
-#endif
+        var driveItem = await client
+                .Drives[driveData.Drive.Id]
+                .Items[driveData.AppRoot.Id]
+                .ItemWithPath(Path.Combine(SyncPath, fileName))
+                .Content
+                .PutAsync(stream);
+
+        return (driveItem!.LastModifiedDateTime!.Value, driveItem.Size!.Value);
     }
 }

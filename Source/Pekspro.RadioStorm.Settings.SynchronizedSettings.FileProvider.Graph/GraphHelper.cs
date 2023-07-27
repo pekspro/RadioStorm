@@ -182,7 +182,7 @@ public sealed class GraphHelper : IGraphHelper
 
         await RefreshTokenAsync().ConfigureAwait(false);
 
-        return GetGraphServiceClient(AuthResult.AccessToken, graphApiUrl);
+        return GetGraphServiceClient(AuthResult.AccessToken);
     }
 
     private async Task RefreshTokenAsync()
@@ -299,17 +299,10 @@ public sealed class GraphHelper : IGraphHelper
         return result;
     }
 
-    private static GraphServiceClient GetGraphServiceClient(string accessToken, string graphApiUrl)
+    private GraphServiceClient GetGraphServiceClient(string token)
     {
-        GraphServiceClient graphServiceClient = new GraphServiceClient(graphApiUrl,
-                                                             new DelegateAuthenticationProvider(
-                                                                 async (requestMessage) =>
-                                                                 {
-                                                                     await Task.Run(() =>
-                                                                     {
-                                                                         requestMessage.Headers.Authorization = new AuthenticationHeaderValue("bearer", accessToken);
-                                                                     });
-                                                                 }));
+        var authenticationProvider = new BaseBearerTokenAuthenticationProvider(new TokenProvider(token));
+        var graphServiceClient = new GraphServiceClient(authenticationProvider);
 
         return graphServiceClient;
     }
@@ -357,4 +350,22 @@ public sealed class GraphHelper : IGraphHelper
     }
 
     #endregion
+
+    public class TokenProvider : IAccessTokenProvider
+    {
+        public TokenProvider(string token)
+        {
+            Token = token;
+        }
+
+        public Task<string> GetAuthorizationTokenAsync(Uri uri, Dictionary<string, object>? additionalAuthenticationContext = null,
+            CancellationToken cancellationToken = default)
+        {
+            return Task.FromResult(Token);
+        }
+
+        public AllowedHostsValidator AllowedHostsValidator { get; } = null!;
+        
+        public string Token { get; }
+    }
 }
