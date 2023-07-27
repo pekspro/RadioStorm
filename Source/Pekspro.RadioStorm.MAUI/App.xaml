@@ -338,10 +338,10 @@
             </Style>
 
             <Style x:Key="Separator" TargetType="Rectangle">
-                <Setter Property="StrokeThickness" Value="0" />
+                <Setter Property="Stroke" Value="{AppThemeBinding Dark={StaticResource HyperlinkColorDark}, Light={StaticResource HyperlinkColorLight}}" />
+                <Setter Property="StrokeThickness" Value="1" />
                 <Setter Property="HeightRequest" Value="1" />
                 <Setter Property="Opacity" Value="0.4" />
-                <Setter Property="Fill" Value="{AppThemeBinding Dark={StaticResource HyperlinkColorDark}, Light={StaticResource HyperlinkColorLight}}" />
             </Style>
 
             <converters:StringToColorConverter x:Key="StringToColorConverter" FallbackColor="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}" />
