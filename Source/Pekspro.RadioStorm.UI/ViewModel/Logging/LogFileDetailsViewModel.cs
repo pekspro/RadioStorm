@@ -131,7 +131,7 @@ public sealed partial class LogFileDetailsViewModel : DownloadViewModel
     {
         StartParameter startParameter = StartParameterHelper.Deserialize<StartParameter>(parameter, LogFileDetailsStartParameterJsonContext.Default.StartParameter);
 
-        if (startParameter.LogFilePath != _LogFilePath)
+        if (startParameter.LogFilePath != LogFilePath)
         {
             LogFilePath = startParameter.LogFilePath;
         }

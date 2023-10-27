@@ -77,19 +77,19 @@ public sealed partial class SettingsViewModel : ObservableObject
     #region Commands
 
     [RelayCommand]
-    private async void Email()
+    private async Task Email()
     {
         await UriLauncher.LaunchAsync(new Uri($"mailto:{Strings.General_Pekspro_EmailAddress}"));
     }
 
     [RelayCommand]
-    private async void OpenWebPage()
+    private async Task OpenWebPage()
     {
         await UriLauncher.LaunchAsync(new Uri(Strings.General_Pekspro_Url));
     }
 
     [RelayCommand(CanExecute = nameof(CanClearCache))]
-    private async void ClearCache()
+    private async Task ClearCache()
     {
         CanClearCache = false;
         IsCacheCleared = false;
