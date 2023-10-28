@@ -620,7 +620,7 @@ public sealed partial class FavoritesViewModel : ListViewModel<FavoriteBaseModel
     }
 
     [RelayCommand]
-    private async void Email()
+    private async Task Email()
     {
         await UriLauncher.LaunchAsync(new Uri($"mailto:{Strings.General_Pekspro_EmailAddress}"));
     }

@@ -208,7 +208,7 @@ public sealed partial class PlayerViewModel : ObservableObject
     [NotifyPropertyChangedFor(nameof(IsMediaLengthKnown))]
     private TimeSpan _MediaLength;
 
-    public string MediaLengthString => CreatePositionString(_MediaLength);
+    public string MediaLengthString => CreatePositionString(MediaLength);
 
     public bool IsMediaLengthKnown
     {
@@ -219,7 +219,7 @@ public sealed partial class PlayerViewModel : ObservableObject
                 return false;
             }
 
-            return _MediaLength.Ticks > 0;
+            return MediaLength.Ticks > 0;
         }
     }
 
@@ -227,7 +227,7 @@ public sealed partial class PlayerViewModel : ObservableObject
     [NotifyPropertyChangedFor(nameof(BufferPercent))]
     private double? _BufferRatio;
 
-    public int? BufferPercent => _BufferRatio is null ? null : (int)(_BufferRatio * 100);
+    public int? BufferPercent => BufferRatio is null ? null : (int)(BufferRatio * 100);
 
     #endregion
 
@@ -334,7 +334,7 @@ public sealed partial class PlayerViewModel : ObservableObject
 
     private int _PlaybackRateIndex;
 
-    public bool HasNormalPlaybackRate => _PlaybackRateIndex == 2;
+    public bool HasNormalPlaybackRate => PlaybackRateIndex == 2;
     
     public string PlaybackRateShortString => AudioManager.PlaybackRate.ToString("0.00").Replace(".", ",").TrimEnd('0').TrimEnd(',') + "x";
 

@@ -53,7 +53,7 @@ public sealed partial class ReviewViewModel : ObservableObject
     #region Commands
 
     [RelayCommand]
-    private async void Yes()
+    private async Task Yes()
     {
         Logger.LogInformation("User wants to review.");
         

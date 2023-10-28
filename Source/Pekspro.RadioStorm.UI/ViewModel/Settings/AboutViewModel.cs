@@ -72,7 +72,7 @@ public sealed partial class AboutViewModel
     #region Commands
 
     [RelayCommand]
-    private async void OpenRepository()
+    private async Task OpenRepository()
     {
         await UriLauncher.LaunchAsync(new Uri(Strings.General_Pekspro_Repository_Url));
     }

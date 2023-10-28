@@ -175,17 +175,17 @@ public sealed partial class ProgramSettingsViewModel : ObservableObject
         var currentSetting = DownloadSettings.GetSettings(ProgramId);
         if (currentSetting is null)
         {
-            _SelectedDownloadOptionItem = DownloadOptionsItems[0];
+            SelectedDownloadOptionItem = DownloadOptionsItems[0];
         }
         else
         {
-            _SelectedDownloadOptionItem = DownloadOptionsItems.FirstOrDefault(a => a.Value == currentSetting.DownloadCount) ?? DownloadOptionsItems[0];
+            SelectedDownloadOptionItem = DownloadOptionsItems.FirstOrDefault(a => a.Value == currentSetting.DownloadCount) ?? DownloadOptionsItems[0];
         }
 
         OnPropertyChanged(nameof(SelectedDownloadOptionItem));
         OnPropertyChanged(nameof(IsAutomaticDownloadActivated));
 
-        _SortOrderPosition = EpisodesSortOrderManager.IsFavorite(ProgramId) ? 1 : 0;
+        SortOrderPosition = EpisodesSortOrderManager.IsFavorite(ProgramId) ? 1 : 0;
         OnPropertyChanged(nameof(SortOldestFirst));
         OnPropertyChanged(nameof(SortOrderPosition));
     }

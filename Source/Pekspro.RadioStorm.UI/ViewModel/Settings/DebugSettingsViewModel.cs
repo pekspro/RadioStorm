@@ -53,10 +53,10 @@ public sealed partial class DebugSettingsViewModel : ObservableObject
     public bool CanReadSelectedLogFile => LogFilesFullPath.Count > SelectedLogFileIndex && SelectedLogFileIndex >= 0;
 
     public string? SelectedLogFilePath =>
-        LogFilesFullPath.Count > SelectedLogFileIndex && SelectedLogFileIndex >= 0 ? LogFilesFullPath[_SelectedLogFileIndex] : null;
+        LogFilesFullPath.Count > SelectedLogFileIndex && SelectedLogFileIndex >= 0 ? LogFilesFullPath[SelectedLogFileIndex] : null;
 
     public string? SelectedLogFileName =>
-        LogFilesNameOnly.Count > SelectedLogFileIndex && SelectedLogFileIndex >= 0 ? LogFilesNameOnly[_SelectedLogFileIndex] : null;
+        LogFilesNameOnly.Count > SelectedLogFileIndex && SelectedLogFileIndex >= 0 ? LogFilesNameOnly[SelectedLogFileIndex] : null;
 
     public bool HasLogFiles => LogFilesFullPath.Any();
 
