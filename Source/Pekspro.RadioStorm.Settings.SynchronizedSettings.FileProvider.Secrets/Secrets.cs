@@ -17,9 +17,10 @@ public static partial class Secrets
 
 // To assign secrets, create a file named Secrets-Protected.cs.
 // This file is ignored in git.
+// Get the Graph client id from the Azure portal, it's called Application (client) ID.
 // The content of the file should be like this:
 
-// public static sealed partial class Secrets
+// public static partial class Secrets
 // {
 //    static partial void Initialize()
 //    {
