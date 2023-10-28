@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net7.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <Version>$(VersionPrefix)0.1.0</Version>
     <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
@@ -22,9 +22,9 @@
 
   <ItemGroup>
     <PackageReference Include="gong-wpf-dragdrop" Version="3.2.1" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
-	<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0-rc.2.23479.6" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0-rc.2.23479.6" />
+	<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="8.0.0-rc.2.23479.6" />
   </ItemGroup>
 
   <ItemGroup>

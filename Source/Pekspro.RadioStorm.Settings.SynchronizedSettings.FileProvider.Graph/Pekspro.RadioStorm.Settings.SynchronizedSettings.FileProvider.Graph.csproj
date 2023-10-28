@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <!--<EnableTrimAnalyzer>true</EnableTrimAnalyzer>-->
     <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
@@ -12,7 +12,7 @@
     <PackageReference Include="Microsoft.Graph" Version="5.32.0" />
     <PackageReference Include="Microsoft.Identity.Client" Version="4.57.0" />
     <PackageReference Include="Microsoft.Identity.Client.Extensions.Msal" Version="4.57.0" />
-    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="7.0.0" />
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="8.0.0-rc.2.23479.6" />
   </ItemGroup>
 
   <ItemGroup>
