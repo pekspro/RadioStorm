@@ -6,9 +6,9 @@ public sealed partial class GraphControl
     {
         InitializeComponent();
 
-        if (Services.ServiceProvider.Current is not null)
+        if (ServiceProviderHelper.Current is not null)
         {
-            var s = Services.ServiceProvider.GetRequiredService<GraphViewModel>();
+            var s = ServiceProviderHelper.GetRequiredService<GraphViewModel>();
 
             BindingContext = s;
         }

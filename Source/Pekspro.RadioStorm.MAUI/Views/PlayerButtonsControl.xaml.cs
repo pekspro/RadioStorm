@@ -6,9 +6,9 @@ public sealed partial class PlayerButtonsControl
     {
         InitializeComponent();
 
-        if (Services.ServiceProvider.Current is not null)
+        if (ServiceProviderHelper.Current is not null)
         {
-            var s = Services.ServiceProvider.GetRequiredService<PlayerViewModel>();
+            var s = ServiceProviderHelper.GetRequiredService<PlayerViewModel>();
 
             BindingContext = s;
         }

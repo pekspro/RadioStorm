@@ -6,7 +6,6 @@ using Android.Content;
 using Android.Net;
 using Android.Net.Wifi;
 using Android.OS;
-using Pekspro.RadioStorm.UI.Resources;
 using static Android.App.Notification;
 using Binder = Android.OS.Binder;
 
@@ -33,7 +32,7 @@ public sealed class DownloadService : Service
     {
         get
         {
-            return _Logger ??= MAUI.Services.ServiceProvider.Current.GetRequiredService<ILogger<DownloadService>>();
+            return _Logger ??= ServiceProviderHelper.GetRequiredService<ILogger<DownloadService>>();
         }
     }
 
@@ -85,7 +84,7 @@ public sealed class DownloadService : Service
         
         StringBuilder sb = new StringBuilder();
         
-        IDownloadManager downloadManager = MAUI.Services.ServiceProvider.GetService<IDownloadManager>();
+        IDownloadManager downloadManager = ServiceProviderHelper.GetService<IDownloadManager>();
 
         if (downloadManager is not null)
         {
@@ -133,7 +132,7 @@ public sealed class DownloadService : Service
         Notification notification = new Notification.Builder(this, CHANNEL_ID)
             .SetContentTitle(Strings.DownloadsNotification_Title)
             .SetContentText(shortDescription)
-            .SetSmallIcon(Resource.Drawable.ic_statusbar_download)
+            .SetSmallIcon(_Microsoft.Android.Resource.Designer.ResourceConstant.Drawable.ic_statusbar_download)
             .SetStyle(new BigTextStyle().BigText(longDescription))
             .SetContentIntent(openAppIntent)
             .Build();

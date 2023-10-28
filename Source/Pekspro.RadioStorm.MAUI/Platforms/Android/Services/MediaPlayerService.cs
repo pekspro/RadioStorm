@@ -88,7 +88,7 @@ public sealed class MediaPlayerService : Service,
     {
         get
         {
-            return _Logger ??= Pekspro.RadioStorm.MAUI.Services.ServiceProvider.Current.GetRequiredService<ILogger<MediaPlayerService>>();
+            return _Logger ??= ServiceProviderHelper.GetRequiredService<ILogger<MediaPlayerService>>();
         }
     }
 
@@ -129,7 +129,14 @@ public sealed class MediaPlayerService : Service,
                 Intent nIntent = new Intent(ApplicationContext, typeof(MainActivity));
 
                 mediaSession = new MediaSession(ApplicationContext, "MauiStreamingAudio");
-                mediaSession.SetSessionActivity(PendingIntent.GetActivity(ApplicationContext, 0, nIntent, PendingIntentFlags.Mutable));
+
+                PendingIntentFlags flags = 0;
+                if (OperatingSystem.IsAndroidVersionAtLeast(31))
+                {
+                    flags |= PendingIntentFlags.Mutable;
+                }
+
+                mediaSession.SetSessionActivity(PendingIntent.GetActivity(ApplicationContext, 0, nIntent, flags));
                 mediaController = new MediaController(ApplicationContext, mediaSession.SessionToken);
             }
 
@@ -445,7 +452,7 @@ public sealed class MediaPlayerService : Service,
                     _LatestValidPosition = -1;
 
                     AndroidNet.Uri uri = AndroidNet.Uri.Parse(item.PreferablePlayUrl);
-                    await mediaPlayer.SetDataSourceAsync(base.ApplicationContext, uri);
+                    await mediaPlayer.SetDataSourceAsync(ApplicationContext, uri);
 
                     // Make sure item hasn't been changed.
                     if (audioCounter != AudioCounter)
@@ -958,7 +965,7 @@ public sealed class MediaPlayerService : Service,
         {
             get
             {
-                return _Logger ??= MAUI.Services.ServiceProvider.Current.GetRequiredService<ILogger<MediaSessionCallback>>();
+                return _Logger ??= ServiceProviderHelper.GetRequiredService<ILogger<MediaSessionCallback>>();
             }
         }
 

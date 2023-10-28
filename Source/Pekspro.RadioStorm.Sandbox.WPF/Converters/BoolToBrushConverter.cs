@@ -1,5 +1,7 @@
 ﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Converters;
 
+#nullable enable
+
 public sealed class BoolToBrushConverter : IValueConverter
 {
     public BoolToBrushConverter()
@@ -8,19 +10,19 @@ public sealed class BoolToBrushConverter : IValueConverter
 
     #region TrueValue property
 
-    public Brush TrueValue { get; set; }
+    public Brush? TrueValue { get; set; }
 
     #endregion
 
 
     #region FalseValue property
 
-    public Brush FalseValue { get; set; }
+    public Brush? FalseValue { get; set; }
 
     #endregion
 
 
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         bool v = false;
         if (value is bool)
@@ -30,13 +32,13 @@ public sealed class BoolToBrushConverter : IValueConverter
 
         if (v)
         {
-            return TrueValue;
+            return TrueValue!;
         }
 
-        return FalseValue;
+        return FalseValue!;
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
     }

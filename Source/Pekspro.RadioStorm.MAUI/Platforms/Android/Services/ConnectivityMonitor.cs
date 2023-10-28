@@ -10,7 +10,7 @@ sealed class ConnectivityMonitor : ConnectivityManager.NetworkCallback
     {
         get
         {
-            return _Logger ??= MAUI.Services.ServiceProvider.Current.GetRequiredService<ILogger<ConnectivityMonitor>>();
+            return _Logger ??= ServiceProviderHelper.GetRequiredService<ILogger<ConnectivityMonitor>>();
         }
     }
 

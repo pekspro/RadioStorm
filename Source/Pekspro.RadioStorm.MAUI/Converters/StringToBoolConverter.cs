@@ -27,7 +27,7 @@ public sealed class StringToBoolConverter : IValueConverter
 
     #endregion
 
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         string? s = value as string;
 
@@ -39,7 +39,7 @@ public sealed class StringToBoolConverter : IValueConverter
         return !NullOrEmptyValue;
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
     }

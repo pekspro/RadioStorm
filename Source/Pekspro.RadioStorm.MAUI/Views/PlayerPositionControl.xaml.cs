@@ -6,12 +6,12 @@ public sealed partial class PlayerPositionControl
 
     public PlayerPositionControl()
     {
-        if (Services.ServiceProvider.Current is not null)
+        if (ServiceProviderHelper.Current is not null)
         {
-            BindingContext = Services.ServiceProvider.GetRequiredService<PlayerViewModel>();
+            BindingContext = ServiceProviderHelper.GetRequiredService<PlayerViewModel>();
 
-            var messenger = Services.ServiceProvider.GetRequiredService<IMessenger>();
-            var mainThreadRunner = Services.ServiceProvider.GetRequiredService<IMainThreadRunner>();
+            var messenger = ServiceProviderHelper.GetRequiredService<IMessenger>();
+            var mainThreadRunner = ServiceProviderHelper.GetRequiredService<IMainThreadRunner>();
 
             messenger.Register<MediaPositionChanged>(this, (sender, message) =>
             {

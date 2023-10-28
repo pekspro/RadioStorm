@@ -175,7 +175,7 @@ public sealed partial class SongsViewModel : ListViewModel<SongModel>, IDisposab
             Title = startParameter.Title;
         }
 
-        base.OnNavigatedTo();
+        OnNavigatedTo();
     }
 
     public override void OnNavigatedFrom()

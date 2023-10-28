@@ -136,7 +136,7 @@ public sealed partial class LogFileDetailsViewModel : DownloadViewModel
             LogFilePath = startParameter.LogFilePath;
         }
 
-        base.OnNavigatedTo();
+        OnNavigatedTo();
     }
 
     #endregion

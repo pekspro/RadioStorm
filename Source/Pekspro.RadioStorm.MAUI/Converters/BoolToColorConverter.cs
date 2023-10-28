@@ -1,5 +1,7 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Converters;
 
+#nullable enable
+
 public sealed class BoolToColorConverter : BindableObject, IValueConverter
 {
     public BoolToColorConverter()
@@ -24,7 +26,7 @@ public sealed class BoolToColorConverter : BindableObject, IValueConverter
         set { SetValue(FalseColorProperty, value); }
     }
 
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is bool b && b)
         {
@@ -34,7 +36,7 @@ public sealed class BoolToColorConverter : BindableObject, IValueConverter
         return FalseColor!;
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
     }

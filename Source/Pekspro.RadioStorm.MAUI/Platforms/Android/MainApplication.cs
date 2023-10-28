@@ -4,7 +4,6 @@ using Android.Net;
 using Android.OS;
 using Android.Runtime;
 using Pekspro.RadioStorm.MAUI.Platforms.Android.Services;
-using Pekspro.RadioStorm.MAUI.Services;
 using Intent = Android.Content.Intent;
 
 [assembly: UsesPermission(Android.Manifest.Permission.AccessNetworkState)]
@@ -37,7 +36,7 @@ public sealed class MainApplication : MauiApplication
         {
             TheApplication.MediaPlayerServiceBinder = null;
 
-            ((AndroidAudioManager)MAUI.Services.ServiceProvider.GetRequiredService<IAudioManager>()).MediaPlayerService = null!;
+            ((AndroidAudioManager)ServiceProviderHelper.GetRequiredService<IAudioManager>()).MediaPlayerService = null!;
         }
     }
 
@@ -119,7 +118,7 @@ public sealed class MainApplication : MauiApplication
         connectivityManager = (ConnectivityManager?) GetSystemService(ConnectivityService);
         connectivityManager?.RegisterDefaultNetworkCallback(new ConnectivityMonitor());
 
-        IMessenger? messenger = Services.GetService<IMessenger>();
+        IMessenger? messenger = ServiceProviderHelper.GetService<IMessenger>();
 
         if (messenger is not null)
         {
@@ -144,7 +143,7 @@ public sealed class MainApplication : MauiApplication
             });
         }
 
-        ((AndroidAudioManager)MAUI.Services.ServiceProvider.GetRequiredService<IAudioManager>()).MediaServiceStarter = MediaServiceStarter;
+        ((AndroidAudioManager)ServiceProviderHelper.GetRequiredService<IAudioManager>()).MediaServiceStarter = MediaServiceStarter;
     }
 
     private Action<MediaPlayerService>? MediaServiceStartedCallback;
@@ -179,15 +178,15 @@ public sealed class MainApplication : MauiApplication
     {
         Logger.LogInformation($"Media service started. Time to start service {MediaServiceStarterStopWatch?.Elapsed}");
 
-        ((AndroidAudioManager)MAUI.Services.ServiceProvider.GetRequiredService<IAudioManager>()).MediaPlayerService = mediaService;
+        ((AndroidAudioManager)ServiceProviderHelper.GetRequiredService<IAudioManager>()).MediaPlayerService = mediaService;
 
         MediaServiceStartedCallback?.Invoke(mediaService);
     }
 
     private void UpdateDownloadServiceExpectedStatus()
     {
-        IMainThreadRunner? mainThreadRunner = Services.GetService<IMainThreadRunner>();
-        IDownloadManager? downloadManager = Services.GetService<IDownloadManager>();
+        IMainThreadRunner? mainThreadRunner = ServiceProviderHelper.GetService<IMainThreadRunner>();
+        IDownloadManager? downloadManager = ServiceProviderHelper.GetService<IDownloadManager>();
 
         if (mainThreadRunner is not null && downloadManager is not null)
         {
@@ -247,7 +246,7 @@ public sealed class MainApplication : MauiApplication
 
     private void UpdateSleepTimerServiceExpectedStatus(SleepStateChanged message)
     {
-        IMainThreadRunner? mainThreadRunner = Services.GetService<IMainThreadRunner>();
+        IMainThreadRunner? mainThreadRunner = ServiceProviderHelper.GetService<IMainThreadRunner>();
         
         if (mainThreadRunner is not null)
         {
@@ -309,7 +308,7 @@ public sealed class MainApplication : MauiApplication
     {
         get
         {
-            return _Logger ??= Services.GetRequiredService<ILogger<App>>();
+            return _Logger ??= ServiceProviderHelper.GetRequiredService<ILogger<App>>();
         }
     }
         

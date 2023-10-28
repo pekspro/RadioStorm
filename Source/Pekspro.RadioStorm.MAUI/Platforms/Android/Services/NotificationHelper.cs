@@ -2,10 +2,9 @@
 using Android.Content;
 using Android.Content.PM;
 using Android.Graphics;
+using Android.Graphics.Drawables;
 using Android.Media;
-using Android.OS;
 using AndroidX.Core.App;
-using Pekspro.RadioStorm.UI.Resources;
 using static Android.App.Notification;
 using AndroidMedia = Android.Media;
 
@@ -18,7 +17,7 @@ public static class NotificationHelper
     public static readonly string CHANNEL_ID = "radiostorm_player_notification";
     private const int NotificationId = 1000;
 
-    internal static Notification.Action GenerateActionCompat(Context context, int icon, string title, string intentAction)
+    internal static Notification.Action GenerateActionCompat(Context context, int iconId, string title, string intentAction)
     {
         Intent intent = new Intent(context, typeof(MediaPlayerService));
         intent.SetAction(intentAction);
@@ -29,10 +28,15 @@ public static class NotificationHelper
             flags = PendingIntentFlags.CancelCurrent;
         }
 
-        flags |= PendingIntentFlags.Mutable;
+        if (OperatingSystem.IsAndroidVersionAtLeast(31))
+        {
+            flags |= PendingIntentFlags.Mutable;
+        }
 
         PendingIntent pendingIntent = PendingIntent.GetService(context, 1, intent, flags);
 
+        Icon icon = Icon.CreateWithResource(context, iconId);
+        
         return new Notification.Action.Builder(icon, title, pendingIntent).Build();
     }
 
@@ -87,7 +91,7 @@ public static class NotificationHelper
         MediaStyle style = new MediaStyle();
         style.SetMediaSession(mediaSession.SessionToken);
 
-        int color = context.GetColor(Resource.Color.notificationBackground);
+        int color = context.GetColor(_Microsoft.Android.Resource.Designer.ResourceConstant.Color.notificationBackground);
 
         var builder = new Builder(context, CHANNEL_ID)
             .SetStyle(style)
@@ -95,7 +99,7 @@ public static class NotificationHelper
             .SetContentText(currentTrack.GetString(MediaMetadata.MetadataKeyArtist))
             .SetSubText(currentTrack.GetString(MediaMetadata.MetadataKeyAlbum))
             .SetColor(color)
-            .SetSmallIcon(Resource.Drawable.ic_statusbar_play)
+            .SetSmallIcon(_Microsoft.Android.Resource.Designer.ResourceConstant.Drawable.ic_statusbar_play)
             .SetLargeIcon(largeIcon)
             .SetContentIntent(pendingIntent)
             .SetShowWhen(false)
@@ -113,17 +117,17 @@ public static class NotificationHelper
 
             if (playList.CanGoToPrevious)
             {
-                builder.AddAction(GenerateActionCompat(context, Resource.Drawable.ic_notification_skip_previous, Strings.Player_Previous, MediaPlayerService.ActionPrevious));
+                builder.AddAction(GenerateActionCompat(context, _Microsoft.Android.Resource.Designer.ResourceConstant.Drawable.ic_notification_skip_previous, Strings.Player_Previous, MediaPlayerService.ActionPrevious));
                 showOffset++;
             }
             
-            builder.AddAction(GenerateActionCompat(context, Resource.Drawable.ic_notification_fast_rewind, Strings.Player_Backward, MediaPlayerService.ActionRewind));
+            builder.AddAction(GenerateActionCompat(context, _Microsoft.Android.Resource.Designer.ResourceConstant.Drawable.ic_notification_fast_rewind, Strings.Player_Backward, MediaPlayerService.ActionRewind));
             AddPlayPauseActionCompat(builder, context, isPlaying);
-            builder.AddAction(GenerateActionCompat(context, Resource.Drawable.ic_notification_fast_forward, Strings.Player_Forward, MediaPlayerService.ActionForward));
+            builder.AddAction(GenerateActionCompat(context, _Microsoft.Android.Resource.Designer.ResourceConstant.Drawable.ic_notification_fast_forward, Strings.Player_Forward, MediaPlayerService.ActionForward));
 
             if (playList.CanGoToNext)
             {
-                builder.AddAction(GenerateActionCompat(context, Resource.Drawable.ic_notification_skip_next, Strings.Player_Next, MediaPlayerService.ActionNext));
+                builder.AddAction(GenerateActionCompat(context, _Microsoft.Android.Resource.Designer.ResourceConstant.Drawable.ic_notification_skip_next, Strings.Player_Next, MediaPlayerService.ActionNext));
             }
             style.SetShowActionsInCompactView(showOffset + 0, showOffset + 1, showOffset + 2);
         }
@@ -146,11 +150,11 @@ public static class NotificationHelper
     {
         if (isPlaying)
         {
-            builder.AddAction(GenerateActionCompat(context, Resource.Drawable.ic_notification_pause, Strings.Player_Pause, MediaPlayerService.ActionPause));
+            builder.AddAction(GenerateActionCompat(context, _Microsoft.Android.Resource.Designer.ResourceConstant.Drawable.ic_notification_pause, Strings.Player_Pause, MediaPlayerService.ActionPause));
         }
         else
         {
-            builder.AddAction(GenerateActionCompat(context, Resource.Drawable.ic_notification_play, Strings.Player_Play, MediaPlayerService.ActionPlay));
+            builder.AddAction(GenerateActionCompat(context, _Microsoft.Android.Resource.Designer.ResourceConstant.Drawable.ic_notification_play, Strings.Player_Play, MediaPlayerService.ActionPlay));
         }
     }
 }

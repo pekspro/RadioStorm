@@ -1,6 +1,4 @@
-﻿using Pekspro.RadioStorm.UI.Utilities;
-
-namespace Pekspro.RadioStorm.MAUI.Services;
+﻿namespace Pekspro.RadioStorm.MAUI.Services;
 
 public sealed class UriLauncher : IUriLauncher
 {

@@ -195,7 +195,7 @@ public sealed partial class ChannelDetailsViewModel : DownloadViewModel, IDispos
 
         ChannelRefreshHelper.RefreshChannelProgress(ChannelData);
 
-        base.OnNavigatedTo();
+        OnNavigatedTo();
     }
 
     public override void OnNavigatedFrom()

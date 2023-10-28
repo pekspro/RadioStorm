@@ -1,6 +1,4 @@
-﻿using Microsoft.Identity.Client.Extensions.Msal;
-
-namespace Pekspro.RadioStorm.Settings.SynchronizedSettings.FileProvider.Graph;
+﻿namespace Pekspro.RadioStorm.Settings.SynchronizedSettings.FileProvider.Graph;
 
 public static class CacheSettings
 {

@@ -1,5 +1,7 @@
 ﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Converters;
 
+#nullable enable
+
 public sealed class StringLengthToVisibilityConverter : IValueConverter
 {
     public StringLengthToVisibilityConverter()
@@ -25,7 +27,7 @@ public sealed class StringLengthToVisibilityConverter : IValueConverter
 
     #endregion
 
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is null || string.IsNullOrEmpty(value.ToString()))
         {
@@ -42,7 +44,7 @@ public sealed class StringLengthToVisibilityConverter : IValueConverter
         }
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
     }

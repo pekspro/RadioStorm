@@ -1,6 +1,4 @@
-﻿using Pekspro.RadioStorm.Sandbox.WPF.Episode;
-
-namespace Pekspro.RadioStorm.Sandbox.WPF.Episode;
+﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Episode;
 
 public sealed partial class DownloadsWindow : Window
 {

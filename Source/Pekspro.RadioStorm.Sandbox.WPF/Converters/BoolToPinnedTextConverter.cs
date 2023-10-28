@@ -1,5 +1,7 @@
 ﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Converters;
 
+#nullable enable
+
 public sealed class BoolToPinnedTextConverter : IValueConverter
 {
     public BoolToPinnedTextConverter()
@@ -7,7 +9,7 @@ public sealed class BoolToPinnedTextConverter : IValueConverter
 
     }
 
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         bool v = false;
         if (value is bool)
@@ -23,7 +25,7 @@ public sealed class BoolToPinnedTextConverter : IValueConverter
         return "Pin";
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
     }

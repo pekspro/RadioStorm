@@ -1,5 +1,7 @@
 ﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Converters;
 
+#nullable enable
+
 public sealed class LogLevelToBrushConverter : IValueConverter
 {
     public LogLevelToBrushConverter()
@@ -15,7 +17,7 @@ public sealed class LogLevelToBrushConverter : IValueConverter
 
     public Brush ErrorValue { get; set; } = new SolidColorBrush(Color.FromRgb(173, 78, 67));
 
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is LogLevel logLevel)
         {
@@ -33,7 +35,7 @@ public sealed class LogLevelToBrushConverter : IValueConverter
         return "";
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
     }

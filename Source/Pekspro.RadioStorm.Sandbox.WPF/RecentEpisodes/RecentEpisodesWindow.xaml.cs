@@ -1,6 +1,4 @@
-﻿using Pekspro.RadioStorm.Sandbox.WPF.Episode;
-
-namespace Pekspro.RadioStorm.Sandbox.WPF.RecentEpisodes;
+﻿namespace Pekspro.RadioStorm.Sandbox.WPF.RecentEpisodes;
 
 public sealed partial class RecentEpisodesWindow : Window
 {

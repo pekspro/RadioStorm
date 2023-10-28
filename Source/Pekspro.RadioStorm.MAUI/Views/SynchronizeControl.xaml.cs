@@ -6,9 +6,9 @@ public sealed partial class SynchronizeControl
     {
         InitializeComponent();
 
-        if (Services.ServiceProvider.Current is not null)
+        if (ServiceProviderHelper.Current is not null)
         {
-            var s = Services.ServiceProvider.GetRequiredService<SynchronizingViewModel>();
+            var s = ServiceProviderHelper.GetRequiredService<SynchronizingViewModel>();
 
             BindingContext = s;
         }

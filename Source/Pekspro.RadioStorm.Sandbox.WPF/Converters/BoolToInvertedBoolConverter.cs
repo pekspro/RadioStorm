@@ -1,8 +1,10 @@
 ﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Converters;
 
+#nullable enable
+
 public sealed class BoolToInvertedBoolConverter : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is bool b)
         {
@@ -14,7 +16,7 @@ public sealed class BoolToInvertedBoolConverter : IValueConverter
         }
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is bool)
         {

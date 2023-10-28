@@ -6,9 +6,9 @@ public sealed partial class CurrentPlayingControl
     {
         InitializeComponent();
 
-        if (Services.ServiceProvider.Current is not null)
+        if (ServiceProviderHelper.Current is not null)
         {
-            var s = Services.ServiceProvider.GetRequiredService<CurrentPlayingViewModel>();
+            var s = ServiceProviderHelper.GetRequiredService<CurrentPlayingViewModel>();
 
             BindingContext = s;
 

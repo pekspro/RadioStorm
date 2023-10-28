@@ -151,7 +151,7 @@ public sealed partial class ProgramDetailsViewModel : DownloadViewModel
             OnPropertyChanged(nameof(Name));
         }
 
-        base.OnNavigatedTo();
+        OnNavigatedTo();
         EpisodesViewModel.OnNavigatedTo(false);
     }
 

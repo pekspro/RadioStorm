@@ -18,7 +18,7 @@ public sealed class BoolToSelectionModeConverter : IValueConverter
     
 #endif
 
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is bool b && b)
         {
@@ -28,7 +28,7 @@ public sealed class BoolToSelectionModeConverter : IValueConverter
         return FalseSelectionMode!;
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
     }

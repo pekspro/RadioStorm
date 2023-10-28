@@ -1,5 +1,7 @@
 ﻿using MediaState = Pekspro.RadioStorm.UI.Model.MediaState;
 
+#nullable enable
+
 namespace Pekspro.RadioStorm.Sandbox.WPF.Converters;
 
 public sealed class MediaStateConverter : IValueConverter
@@ -8,7 +10,7 @@ public sealed class MediaStateConverter : IValueConverter
     {
     }
 
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is MediaState b)
         {
@@ -25,7 +27,7 @@ public sealed class MediaStateConverter : IValueConverter
         return "";
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
     }

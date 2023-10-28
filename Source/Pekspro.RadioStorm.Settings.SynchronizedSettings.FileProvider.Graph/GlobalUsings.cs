@@ -5,7 +5,6 @@ global using System.IO;
 global using System.Linq;
 global using System.Threading;
 global using System.Threading.Tasks;
-global using Azure.Core;
 global using CommunityToolkit.Mvvm.ComponentModel;
 global using CommunityToolkit.Mvvm.Input;
 global using CommunityToolkit.Mvvm.Messaging;

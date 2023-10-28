@@ -10,7 +10,7 @@ public sealed class DownloadDataStatusToVisibilityConverter : IValueConverter
     public DownloadDataStatus VisibilityValue2 { get; set; }
     public bool UseVisibilityValue2 { get; set; }
 
-    public object Convert(object v, Type targetType, object parameter, CultureInfo culture)
+    public object Convert(object? v, Type targetType, object? parameter, CultureInfo culture)
     {
         if (!(v is DownloadDataStatus))
         {
@@ -32,7 +32,7 @@ public sealed class DownloadDataStatusToVisibilityConverter : IValueConverter
         return false;
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
     }

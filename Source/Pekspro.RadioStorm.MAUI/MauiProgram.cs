@@ -2,11 +2,9 @@
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Pekspro.RadioStorm.MAUI.Pages.Favorite;
 using Pekspro.RadioStorm.MAUI.Pages.Recent;
-using Pekspro.RadioStorm.MAUI.Services;
 using Pekspro.RadioStorm.Options;
 using Pekspro.RadioStorm.Settings.SynchronizedSettings.FileProvider;
 using Pekspro.RadioStorm.UI;
-using Pekspro.RadioStorm.UI.Utilities;
 
 namespace Pekspro.RadioStorm.MAUI;
 
@@ -38,7 +36,7 @@ public static class MauiProgram
             ));
 #elif ANDROID
         string baseStoragePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-        string cachePath = MainApplication.Context.CacheDir!.AbsolutePath;
+        string cachePath = Android.App.Application.Context.CacheDir!.AbsolutePath;
         string temporaryPath = Path.Combine(cachePath, "temp");
         builder.Services.Configure<StorageLocations>(a => a.ConfigureFromBasePath(baseStoragePath, cachePath, temporaryPath));
 #else

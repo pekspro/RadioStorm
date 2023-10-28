@@ -252,7 +252,7 @@ public sealed partial class CurrentPlayingViewModel : DownloadViewModel, IDispos
     {
         ChannelRefreshHelper.RefreshChannelProgress(ChannelData);
 
-        base.OnNavigatedTo();
+        OnNavigatedTo();
     }
 
     public override void OnNavigatedFrom()

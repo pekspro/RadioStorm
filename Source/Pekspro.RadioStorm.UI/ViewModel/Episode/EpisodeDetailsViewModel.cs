@@ -195,7 +195,7 @@ public sealed partial class EpisodeDetailsViewModel : DownloadViewModel
 
         // SongsViewModel.OnNavigatedTo(false, EpisodeId);
 
-        base.OnNavigatedTo();
+        OnNavigatedTo();
     }
 
     public override void OnNavigatedFrom()

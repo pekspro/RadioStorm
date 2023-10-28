@@ -27,7 +27,7 @@ public sealed class StringToVisibilityConverter : IValueConverter
 
     #endregion
 
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         string? s = value as string;
 
@@ -46,7 +46,7 @@ public sealed class StringToVisibilityConverter : IValueConverter
         }
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
     }

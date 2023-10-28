@@ -1,5 +1,7 @@
 ﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Converters;
 
+#nullable enable
+
 public sealed class DownloadDataStatusToVisibilityConverter : IValueConverter
 {
     public DownloadDataStatusToVisibilityConverter()
@@ -32,7 +34,7 @@ public sealed class DownloadDataStatusToVisibilityConverter : IValueConverter
         return Visibility.Collapsed;
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
     }

@@ -1,6 +1,4 @@
-﻿using Pekspro.RadioStorm.UI.Model.Program;
-
-namespace Pekspro.RadioStorm.UI.ViewModel.Program;
+﻿namespace Pekspro.RadioStorm.UI.ViewModel.Program;
 
 public sealed partial class ProgramsViewModel : ListViewModel<ProgramModel>, ISearch
 {

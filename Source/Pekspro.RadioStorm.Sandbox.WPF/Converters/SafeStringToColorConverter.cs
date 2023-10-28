@@ -1,5 +1,7 @@
 ﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Converters;
 
+#nullable enable
+
 sealed class SafeStringToColorConverter : IValueConverter
 {
 
@@ -10,7 +12,7 @@ sealed class SafeStringToColorConverter : IValueConverter
     public Color FallbackColor { get; set; }
     public double Opacity { get; set; } = 1;
 
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         Color? converted = GetColorFromHexString(value as string, Opacity);
         if (converted.HasValue)
@@ -21,12 +23,12 @@ sealed class SafeStringToColorConverter : IValueConverter
         return FallbackColor;
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
     }
 
-    public static Color? GetColorFromHexString(string hexColor, double opacity)
+    public static Color? GetColorFromHexString(string? hexColor, double opacity)
     {
         if (hexColor is not null && hexColor.Length == 7 && hexColor.StartsWith("#"))
         {

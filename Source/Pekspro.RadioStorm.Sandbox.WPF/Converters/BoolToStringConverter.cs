@@ -1,5 +1,7 @@
 ﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Converters;
 
+#nullable enable
+
 public sealed class BoolToStringConverter : IValueConverter
 {
     public BoolToStringConverter()
@@ -10,9 +12,9 @@ public sealed class BoolToStringConverter : IValueConverter
 
     #region TrueValue property
 
-    private string _TrueValue;
+    private string? _TrueValue;
 
-    public string TrueValue
+    public string? TrueValue
     {
         get
         {
@@ -29,9 +31,9 @@ public sealed class BoolToStringConverter : IValueConverter
 
     #region FalseValue property
 
-    private string _FalseValue;
+    private string? _FalseValue;
 
-    public string FalseValue
+    public string? FalseValue
     {
         get
         {
@@ -46,7 +48,7 @@ public sealed class BoolToStringConverter : IValueConverter
     #endregion
 
 
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         bool v = false;
         if (value is bool)
@@ -56,13 +58,13 @@ public sealed class BoolToStringConverter : IValueConverter
 
         if (v)
         {
-            return TrueValue;
+            return TrueValue!;
         }
 
-        return FalseValue;
+        return FalseValue!;
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
     }

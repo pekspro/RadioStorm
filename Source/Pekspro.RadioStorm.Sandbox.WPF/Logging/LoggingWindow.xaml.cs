@@ -1,6 +1,4 @@
-﻿using Pekspro.RadioStorm.UI.ViewModel.Logging;
-
-namespace Pekspro.RadioStorm.Sandbox.WPF.Logging;
+﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Logging;
 
 public sealed partial class LoggingWindow : Window
 {

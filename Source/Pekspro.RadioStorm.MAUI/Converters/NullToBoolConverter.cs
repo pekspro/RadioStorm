@@ -25,7 +25,7 @@ public sealed class NullToBoolConverter : IValueConverter
 
     #endregion
 
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is null)
         {
@@ -35,7 +35,7 @@ public sealed class NullToBoolConverter : IValueConverter
         return !NullValue;
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
     }

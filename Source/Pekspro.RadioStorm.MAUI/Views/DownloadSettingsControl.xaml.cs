@@ -6,9 +6,9 @@ public sealed partial class DownloadSettingsControl
     {
         InitializeComponent();
 
-        if (Services.ServiceProvider.Current is not null)
+        if (ServiceProviderHelper.Current is not null)
         {
-            var s = Services.ServiceProvider.GetRequiredService<DownloadSettingsViewModel>();
+            var s = ServiceProviderHelper.GetRequiredService<DownloadSettingsViewModel>();
 
             BindingContext = s;
         }

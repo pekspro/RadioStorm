@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-
-namespace Pekspro.RadioStorm.DataFetcher;
+﻿namespace Pekspro.RadioStorm.DataFetcher;
 
 public sealed class DataFetcher : IDataFetcher
 {

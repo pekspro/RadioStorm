@@ -7,7 +7,7 @@ public sealed class EmptyToBoolConverter : IValueConverter
         
     }
 
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         bool emptyValue = true;
 
@@ -24,7 +24,7 @@ public sealed class EmptyToBoolConverter : IValueConverter
         return !emptyValue;
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
     }

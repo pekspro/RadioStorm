@@ -57,7 +57,7 @@ sealed class WpfAudioManager : AudioManagerBase
 
         for (int i = 0; i < 20; i++)
         {
-            await System.Threading.Tasks.Task.Delay(100);
+            await Task.Delay(100);
             RefreshState();
 
             if (CanPause)

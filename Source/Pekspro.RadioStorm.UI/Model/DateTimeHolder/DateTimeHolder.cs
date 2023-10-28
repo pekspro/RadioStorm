@@ -1,6 +1,4 @@
-﻿using Npgsql.Logging;
-
-namespace Pekspro.RadioStorm.UI.Model.DateTimeHolder;
+﻿namespace Pekspro.RadioStorm.UI.Model.DateTimeHolder;
 
 public sealed class DateTimeHolder
 {

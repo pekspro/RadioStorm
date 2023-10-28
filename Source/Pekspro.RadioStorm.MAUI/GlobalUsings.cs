@@ -23,6 +23,7 @@ global using Pekspro.RadioStorm.MAUI.Pages.Logging;
 global using Pekspro.RadioStorm.MAUI.Pages.Player;
 global using Pekspro.RadioStorm.MAUI.Pages.Program;
 global using Pekspro.RadioStorm.MAUI.Pages.Settings;
+global using Pekspro.RadioStorm.MAUI.Services;
 global using Pekspro.RadioStorm.MAUI.Utilities;
 global using Pekspro.RadioStorm.Settings;
 global using Pekspro.RadioStorm.Settings.SynchronizedSettings.FileProvider.Graph;

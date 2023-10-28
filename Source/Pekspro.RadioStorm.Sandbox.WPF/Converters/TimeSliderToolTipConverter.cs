@@ -1,8 +1,10 @@
 ﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Converters;
 
+#nullable enable
+
 sealed class TimeSliderToolTipConverter : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         var seconds = System.Convert.ToInt32(value);
 
@@ -14,7 +16,7 @@ sealed class TimeSliderToolTipConverter : IValueConverter
         return string.Format("{0:00}:{1:00}", seconds / 60 % 60, seconds % 60);
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
     }

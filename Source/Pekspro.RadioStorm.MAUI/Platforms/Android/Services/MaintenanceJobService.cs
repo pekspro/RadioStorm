@@ -14,7 +14,7 @@ public sealed class MaintenanceJobService : JobService
     {
         get
         {
-            return _Logger ??= Pekspro.RadioStorm.MAUI.Services.ServiceProvider.Current.GetRequiredService<ILogger<MediaPlayerService>>();
+            return _Logger ??= ServiceProviderHelper.GetRequiredService<ILogger<MediaPlayerService>>();
         }
     }
 
@@ -28,10 +28,10 @@ public sealed class MaintenanceJobService : JobService
             {
                 Logger.LogInformation("Starting maintenance.");
 
-                var autoDeleteManager = Pekspro.RadioStorm.MAUI.Services.ServiceProvider.Current.GetRequiredService<IAutoDownloadDeleteManager>();
+                var autoDeleteManager = ServiceProviderHelper.GetRequiredService<IAutoDownloadDeleteManager>();
                 autoDeleteManager.DeleteObseleteDownloads();
 
-                var cachePrefetcher = Pekspro.RadioStorm.MAUI.Services.ServiceProvider.Current.GetRequiredService<ICachePrefetcher>();
+                var cachePrefetcher = ServiceProviderHelper.GetRequiredService<ICachePrefetcher>();
                 await cachePrefetcher.PrefetchAsync(CancellationTokenSource.Token).ConfigureAwait(false);
             }
             catch (Exception e)

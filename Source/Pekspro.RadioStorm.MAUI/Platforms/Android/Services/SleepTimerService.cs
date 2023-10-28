@@ -1,8 +1,8 @@
 ﻿using Android.App;
 using Android.Content;
+using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Runtime;
-using Pekspro.RadioStorm.UI.Resources;
 using static Android.App.Notification;
 using Binder = Android.OS.Binder;
 
@@ -29,7 +29,7 @@ public sealed class SleepTimerService : Service
     {
         get
         {
-            return _Logger ??= MAUI.Services.ServiceProvider.Current.GetRequiredService<ILogger<SleepTimerService>>();
+            return _Logger ??= ServiceProviderHelper.GetRequiredService<ILogger<SleepTimerService>>();
         }
     }
     
@@ -37,7 +37,7 @@ public sealed class SleepTimerService : Service
     {
         get
         {
-            return MAUI.Services.ServiceProvider.Current.GetRequiredService<IAudioManager>();
+            return ServiceProviderHelper.GetRequiredService<IAudioManager>();
         }
     }
 
@@ -111,14 +111,21 @@ public sealed class SleepTimerService : Service
             );
     }
 
-    internal static Notification.Action GenerateActionCompat(Context context, int icon, string title, string intentAction)
+    internal static Notification.Action GenerateActionCompat(Context context, int iconId, string title, string intentAction)
     {
         Intent intent = new Intent(context, typeof(SleepTimerService));
         intent.SetAction(intentAction);
 
-        PendingIntentFlags flags = PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Mutable;
+        PendingIntentFlags flags = PendingIntentFlags.UpdateCurrent;
+
+        if (OperatingSystem.IsAndroidVersionAtLeast(31))
+        {
+            flags |= PendingIntentFlags.Mutable;
+        }
 
         PendingIntent pendingIntent = PendingIntent.GetService(context, 1, intent, flags);
+
+        Icon icon = Icon.CreateWithResource(context, iconId);
 
         return new Notification.Action.Builder(icon, title, pendingIntent).Build();
     }
@@ -129,8 +136,8 @@ public sealed class SleepTimerService : Service
 
         string increaseText = string.Format(Strings.SleepTimer_Notification_Change, "+" + defaultChangMinutes);
 
-        var cancelAction = GenerateActionCompat(context, Resource.Drawable.ic_notification_skip_next, Strings.SleepTimer_Notification_Action_Cancel, ActionStopSleepTimer);
-        var increaseAction = GenerateActionCompat(context, Resource.Drawable.ic_notification_pause, increaseText, ActionIncreaseSleepTimer);
+        var cancelAction = GenerateActionCompat(context, _Microsoft.Android.Resource.Designer.ResourceConstant.Drawable.ic_notification_skip_next, Strings.SleepTimer_Notification_Action_Cancel, ActionStopSleepTimer);
+        var increaseAction = GenerateActionCompat(context, _Microsoft.Android.Resource.Designer.ResourceConstant.Drawable.ic_notification_pause, increaseText, ActionIncreaseSleepTimer);
 
         var openAppIntent = PendingIntent.GetActivity(
                                 this, 
@@ -141,7 +148,7 @@ public sealed class SleepTimerService : Service
         var notificationBuilder = new Builder(this, CHANNEL_ID)
             .SetContentTitle(shortDescription)
             .SetContentText(longDescription)
-            .SetSmallIcon(Resource.Drawable.ic_statusbar_bed)
+            .SetSmallIcon(_Microsoft.Android.Resource.Designer.ResourceConstant.Drawable.ic_statusbar_bed)
             .AddAction(cancelAction)
             .AddAction(increaseAction)
             .SetContentIntent(openAppIntent);
@@ -150,7 +157,7 @@ public sealed class SleepTimerService : Service
         {
             string decreaseText = string.Format(Strings.SleepTimer_Notification_Change, "-" + defaultChangMinutes);
 
-            var dereaseAction = GenerateActionCompat(context, Resource.Drawable.ic_notification_pause, decreaseText, ActionDecreaseSleepTimer);
+            var dereaseAction = GenerateActionCompat(context, _Microsoft.Android.Resource.Designer.ResourceConstant.Drawable.ic_notification_pause, decreaseText, ActionDecreaseSleepTimer);
             notificationBuilder.AddAction(dereaseAction);
         }
 

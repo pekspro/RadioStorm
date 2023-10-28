@@ -14,7 +14,7 @@ public sealed partial class App : Application
     {
         InitializeComponent();
 
-        Logger = Services.ServiceProvider.GetRequiredService<ILogger<App>>();
+        Logger = ServiceProviderHelper.GetRequiredService<ILogger<App>>();
         Logger.LogInformation("Creating app.");
 
         Microsoft.Maui.Handlers.ToolbarHandler.Mapper.AppendToMapping("mytoolbar", (handler, view) =>
@@ -42,8 +42,8 @@ public sealed partial class App : Application
         Routing.RegisterRoute(nameof(PlaylistPage), typeof(PlaylistPage));
         Routing.RegisterRoute(nameof(LogFileDetailsPage), typeof(LogFileDetailsPage));
 
-        LocalSettings = Services.ServiceProvider.GetRequiredService<ILocalSettings>();
-        var messenger = Services.ServiceProvider.GetRequiredService<IMessenger>();
+        LocalSettings = ServiceProviderHelper.GetRequiredService<ILocalSettings>();
+        var messenger = ServiceProviderHelper.GetRequiredService<IMessenger>();
         
         messenger.Register<SettingChangedMessage>(this, (r, m) =>
         {
@@ -68,11 +68,11 @@ public sealed partial class App : Application
         {
             if (RequestedTheme == AppTheme.Light)
             {
-                ToolbarHandler.PlatformView.OverflowIcon = Platform.CurrentActivity!.GetDrawable(Resource.Drawable.ic_more_vert_24_light);
+                ToolbarHandler.PlatformView.OverflowIcon = Platform.CurrentActivity!.GetDrawable(_Microsoft.Android.Resource.Designer.ResourceConstant.Drawable.ic_more_vert_24_light);
             }
             else
             {
-                ToolbarHandler.PlatformView.OverflowIcon = Platform.CurrentActivity!.GetDrawable(Resource.Drawable.ic_more_vert_24_dark);
+                ToolbarHandler.PlatformView.OverflowIcon = Platform.CurrentActivity!.GetDrawable(_Microsoft.Android.Resource.Designer.ResourceConstant.Drawable.ic_more_vert_24_dark);
             }
         }
         catch (Exception ex)
@@ -137,7 +137,7 @@ base.OnSleep();
 
 Logger.LogInformation("OnSleep. Will shut down services, running on Windows.");
 
-var shutDownManager = Services.ServiceProvider.GetService<IShutDownManager>();
+var shutDownManager = ServiceProviderHelper.GetService<IShutDownManager>();
 
 if (shutDownManager is not null)
 {

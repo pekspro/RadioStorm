@@ -170,7 +170,7 @@ public sealed partial class SchedulesEpisodesViewModel : DownloadViewModel
             QueueRefresh(new RefreshSettings(FullRefresh: true));
         }
 
-        base.OnNavigatedTo();
+        OnNavigatedTo();
     }
 
     #endregion

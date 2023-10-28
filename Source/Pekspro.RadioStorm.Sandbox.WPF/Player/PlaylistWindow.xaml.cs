@@ -1,6 +1,4 @@
-﻿using Pekspro.RadioStorm.Sandbox.WPF.Episode;
-
-namespace Pekspro.RadioStorm.Sandbox.WPF.Player;
+﻿namespace Pekspro.RadioStorm.Sandbox.WPF.Player;
 
 public sealed partial class PlaylistWindow : Window
 {

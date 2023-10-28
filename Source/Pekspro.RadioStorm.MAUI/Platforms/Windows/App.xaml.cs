@@ -29,7 +29,7 @@ public sealed partial class App : MauiWinUIApplication
     {
         get
         {
-            return _Logger ??= Services.GetRequiredService<ILogger<App>>();
+            return _Logger ??= ServiceProviderHelper.GetRequiredService<ILogger<App>>();
         }       
     }
 

@@ -6,9 +6,9 @@ public sealed partial class DebugSettingsControl : ContentView
 	{
 		InitializeComponent();
 
-        if (Services.ServiceProvider.Current is not null)
+        if (ServiceProviderHelper.Current is not null)
         {
-            var debugSettingsViewModel = Services.ServiceProvider.GetRequiredService<DebugSettingsViewModel>();
+            var debugSettingsViewModel = ServiceProviderHelper.GetRequiredService<DebugSettingsViewModel>();
 
             BindingContext = debugSettingsViewModel;
 
@@ -24,7 +24,7 @@ public sealed partial class DebugSettingsControl : ContentView
             {
                 await Share.RequestAsync(new ShareFileRequest
                 {
-                    Title = Pekspro.RadioStorm.UI.Resources.Strings.About_Troubleshooting_LogFiles_SendLogFiles,
+                    Title = Strings.About_Troubleshooting_LogFiles_SendLogFiles,
                     File = new ShareFile(x)
                 });
             };
