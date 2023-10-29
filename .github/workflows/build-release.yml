@@ -36,7 +36,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: 8.0.100-rc.2.23502.2
         
     - name: Install MAUI Workload
       run: dotnet workload install maui --ignore-failed-sources
@@ -143,13 +143,13 @@ jobs:
       
     - name: Build MAUI for Windows
       if: github.event.inputs.buildWindows == 'true'
-      run: dotnet publish ./Source/Pekspro.RadioStorm.MAUI/Pekspro.RadioStorm.MAUI.csproj --framework:net7.0-windows10.0.19041.0 --configuration:Release /p:GenerateAppxPackageOnBuild=true /p:AppxPackageSigningEnabled=true /p:PackageCertificateThumbprint=${{ secrets.WINDOWS_KEY_THUMBPRINT }} --output ./publish
+      run: dotnet publish ./Source/Pekspro.RadioStorm.MAUI/Pekspro.RadioStorm.MAUI.csproj --framework:net8.0-windows10.0.19041.0 --configuration:Release /p:GenerateAppxPackageOnBuild=true /p:AppxPackageSigningEnabled=true /p:PackageCertificateThumbprint=${{ secrets.WINDOWS_KEY_THUMBPRINT }} --output ./publish
   
     - name: Move to root folder
       if: github.event.inputs.buildWindows == 'true'
       run: |
-        mv ./Source/Pekspro.RadioStorm.MAUI/bin/Release/net7.0-windows*/win10*/AppPackages/*/*.msix ./
-        mv ./Source/Pekspro.RadioStorm.MAUI/bin/Release/net7.0-windows*/win10*/AppPackages/*/*.cer ./
+        mv ./Source/Pekspro.RadioStorm.MAUI/bin/Release/net8.0-windows*/win10*/AppPackages/*/*.msix ./
+        mv ./Source/Pekspro.RadioStorm.MAUI/bin/Release/net8.0-windows*/win10*/AppPackages/*/*.cer ./
 
     - name: Upload Windows Artifact
       if: github.event.inputs.buildWindows == 'true'
@@ -193,7 +193,7 @@ jobs:
      
     - name: Build MAUI for Android
       if: github.event.inputs.buildAndroid == 'true'
-      run: dotnet publish ./Source/Pekspro.RadioStorm.MAUI/Pekspro.RadioStorm.MAUI.csproj --framework:net7.0-android --configuration:Release /p:AndroidSigningKeyStore=${{ steps.create_android_key_file.outputs.filePath }} /p:AndroidKeyStore=True /p:AndroidSigningKeyAlias=${{ secrets.ANDROID_KEY_ALIAS }} /p:AndroidSigningKeyPass=${{ secrets.ANDROID_KEY_PASSWORD }} /p:AndroidSigningStorePass=${{ secrets.ANDROID_KEY_PASSWORD }} /p:PublishTrimmed=false /p:RunAOTCompilation=false --output ./Android
+      run: dotnet publish ./Source/Pekspro.RadioStorm.MAUI/Pekspro.RadioStorm.MAUI.csproj --framework:net8.0-android --configuration:Release /p:AndroidSigningKeyStore=${{ steps.create_android_key_file.outputs.filePath }} /p:AndroidKeyStore=True /p:AndroidSigningKeyAlias=${{ secrets.ANDROID_KEY_ALIAS }} /p:AndroidSigningKeyPass=${{ secrets.ANDROID_KEY_PASSWORD }} /p:AndroidSigningStorePass=${{ secrets.ANDROID_KEY_PASSWORD }} /p:PublishTrimmed=false /p:RunAOTCompilation=false --output ./Android
 
     - name: Delete AAB-files
       if: github.event.inputs.buildAndroid == 'true' && github.event.inputs.androidKeepAab == 'false'
