@@ -7,6 +7,8 @@ using Pekspro.RadioStorm.MAUI.Platforms.Android.Services;
 using Intent = Android.Content.Intent;
 
 [assembly: UsesPermission(Android.Manifest.Permission.AccessNetworkState)]
+[assembly: UsesPermission(Android.Manifest.Permission.ForegroundServiceMediaPlayback)]
+[assembly: UsesPermission(Android.Manifest.Permission.ForegroundServiceDataSync)]
 
 namespace Pekspro.RadioStorm.MAUI;
 

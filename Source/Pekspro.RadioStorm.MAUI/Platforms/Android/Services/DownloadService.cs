@@ -3,6 +3,7 @@
 
 using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Android.Net;
 using Android.Net.Wifi;
 using Android.OS;
@@ -13,7 +14,7 @@ using Binder = Android.OS.Binder;
 
 namespace Pekspro.RadioStorm.MAUI.Platforms.Android.Services;
 
-[Service(Exported = false, ForegroundServiceType = global::Android.Content.PM.ForegroundService.TypeDataSync)]
+[Service(Exported = false, ForegroundServiceType = ForegroundService.TypeDataSync)]
 public sealed class DownloadService : Service
 {
     public const string CHANNEL_ID = "DownloadServiceChannel";

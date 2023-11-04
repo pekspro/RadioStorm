@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Runtime;
@@ -10,7 +11,7 @@ using Binder = Android.OS.Binder;
 
 namespace Pekspro.RadioStorm.MAUI.Platforms.Android.Services;
 
-[Service(Exported = false, ForegroundServiceType = global::Android.Content.PM.ForegroundService.TypeNone)]
+[Service(Exported = false, ForegroundServiceType = ForegroundService.TypeMediaPlayback)]
 [IntentFilter(new[] { ActionStopSleepTimer, ActionIncreaseSleepTimer, ActionDecreaseSleepTimer })]
 public sealed class SleepTimerService : Service
 {
