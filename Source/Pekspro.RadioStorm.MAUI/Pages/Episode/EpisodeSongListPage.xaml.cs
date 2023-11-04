@@ -21,13 +21,6 @@ public partial class EpisodeSongListPage : ContentPage
         ViewModel.OnNavigatedTo(false, Data);
     }
 
-    protected override void OnNavigatedTo(NavigatedToEventArgs args)
-    {
-        base.OnNavigatedTo(args);
-
-        this.FixToolbarItems();
-    }
-
     protected override void OnDisappearing()
     {
         base.OnDisappearing();

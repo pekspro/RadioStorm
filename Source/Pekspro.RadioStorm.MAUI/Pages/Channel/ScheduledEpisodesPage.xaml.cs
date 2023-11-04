@@ -33,13 +33,6 @@ public sealed partial class ScheduledEpisodesPage : ContentPage
 
         ViewModel.OnNavigatedTo(Data);
     }
-
-    protected override void OnNavigatedTo(NavigatedToEventArgs args)
-    {
-        base.OnNavigatedTo(args);
-
-        this.FixToolbarItems();
-    }
     
     protected override void OnDisappearing()
     {

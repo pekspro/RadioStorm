@@ -21,13 +21,6 @@ public partial class ChannelSongListPage : ContentPage
         ViewModel.OnNavigatedTo(true, Data);
     }
 
-    protected override void OnNavigatedTo(NavigatedToEventArgs args)
-    {
-        base.OnNavigatedTo(args);
-
-        this.FixToolbarItems();
-    }
-
     protected override void OnDisappearing()
     {
         base.OnDisappearing();

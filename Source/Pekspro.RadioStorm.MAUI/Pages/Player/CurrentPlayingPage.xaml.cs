@@ -21,13 +21,6 @@ public sealed partial class CurrentPlayingPage : ContentPage
         Navigation.RemovePage(page);
     }
 
-    protected override void OnNavigatedTo(NavigatedToEventArgs args)
-    {
-        base.OnNavigatedTo(args);
-
-        this.FixToolbarItems();
-    }
-
     private void ToolbarStop_Clicked(object sender, EventArgs e)
     {
         ViewModel.PlayerViewModel.Stop();
