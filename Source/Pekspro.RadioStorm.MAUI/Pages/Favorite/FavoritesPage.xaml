@@ -315,7 +315,7 @@
             </RefreshView>
 
             <RefreshView 
-                    x:Name="RefreshViewAlbum2"
+                    x:Name="RefreshViewAlbum"
                     Command="{Binding RefreshCommand}" 
                     IsRefreshing="{Binding IsRefreshing}"
                     Margin="{OnPlatform WinUI='8,0,0,0', Default='16,0'}"
@@ -328,6 +328,7 @@
                     >
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout 
+                            x:Name="AlbumGridLayout"
                             Orientation="Vertical"
                             Span="2"
                             VerticalItemSpacing="8"
@@ -340,169 +341,6 @@
                     </CollectionView.GroupHeaderTemplate>
                 </CollectionView>
             </RefreshView>
-
-            <RefreshView 
-                    x:Name="RefreshViewAlbum3"
-                    Command="{Binding RefreshCommand}" 
-                    IsRefreshing="{Binding IsRefreshing}"
-                    Margin="{OnPlatform WinUI='8,0,0,0', Default='16,0'}"
-                >
-                <CollectionView 
-                    ItemsSource="{Binding GroupedItems}"
-                    IsGrouped="True"
-                    SelectionMode="{Binding SelectionModeHelper.InSelectionMode, Converter={StaticResource BoolToSelectionMode}}"
-                    ItemTemplate="{StaticResource albumFavoriteTemplateSelector}" 
-                    >
-                    <CollectionView.ItemsLayout>
-                        <GridItemsLayout 
-                            Orientation="Vertical"
-                            Span="3"
-                            VerticalItemSpacing="8"
-                            HorizontalItemSpacing="4" />
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.GroupHeaderTemplate>
-                        <DataTemplate>
-                            <views:GroupHeaderControl HeaderMargin="{OnPlatform WinUI='-4,0,0,0', Default='0,12,0,0'}" />
-                        </DataTemplate>
-                    </CollectionView.GroupHeaderTemplate>
-                </CollectionView>
-            </RefreshView>
-
-            <RefreshView 
-                    x:Name="RefreshViewAlbum4"
-                    Command="{Binding RefreshCommand}" 
-                    IsRefreshing="{Binding IsRefreshing}"
-                    Margin="{OnPlatform WinUI='8,0,0,0', Default='16,0'}"
-                >
-                <CollectionView 
-                    ItemsSource="{Binding GroupedItems}"
-                    IsGrouped="True"
-                    SelectionMode="{Binding SelectionModeHelper.InSelectionMode, Converter={StaticResource BoolToSelectionMode}}"
-                    ItemTemplate="{StaticResource albumFavoriteTemplateSelector}" 
-                    >
-                    <CollectionView.ItemsLayout>
-                        <GridItemsLayout 
-                            Orientation="Vertical"
-                            Span="4"
-                            VerticalItemSpacing="8"
-                            HorizontalItemSpacing="4" />
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.GroupHeaderTemplate>
-                        <DataTemplate>
-                            <views:GroupHeaderControl HeaderMargin="{OnPlatform WinUI='-4,0,0,0', Default='0,12,0,0'}" />
-                        </DataTemplate>
-                    </CollectionView.GroupHeaderTemplate>
-                </CollectionView>
-            </RefreshView>
-
-            <RefreshView 
-                    x:Name="RefreshViewAlbum5"
-                    Command="{Binding RefreshCommand}" 
-                    IsRefreshing="{Binding IsRefreshing}"
-                    Margin="{OnPlatform WinUI='8,0,0,0', Default='16,0'}"
-                >
-                <CollectionView 
-                    ItemsSource="{Binding GroupedItems}"
-                    IsGrouped="True"
-                    SelectionMode="{Binding SelectionModeHelper.InSelectionMode, Converter={StaticResource BoolToSelectionMode}}"
-                    ItemTemplate="{StaticResource albumFavoriteTemplateSelector}" 
-                    >
-                    <CollectionView.ItemsLayout>
-                        <GridItemsLayout 
-                            Orientation="Vertical"
-                            Span="5"
-                            VerticalItemSpacing="8"
-                            HorizontalItemSpacing="4" />
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.GroupHeaderTemplate>
-                        <DataTemplate>
-                            <views:GroupHeaderControl HeaderMargin="{OnPlatform WinUI='-4,0,0,0', Default='0,12,0,0'}" />
-                        </DataTemplate>
-                    </CollectionView.GroupHeaderTemplate>
-                </CollectionView>
-            </RefreshView>
-
-            <RefreshView 
-                    x:Name="RefreshViewAlbum6"
-                    Command="{Binding RefreshCommand}" 
-                    IsRefreshing="{Binding IsRefreshing}"
-                    Margin="{OnPlatform WinUI='8,0,0,0', Default='16,0'}"
-                >
-                <CollectionView 
-                    ItemsSource="{Binding GroupedItems}"
-                    IsGrouped="True"
-                    SelectionMode="{Binding SelectionModeHelper.InSelectionMode, Converter={StaticResource BoolToSelectionMode}}"
-                    ItemTemplate="{StaticResource albumFavoriteTemplateSelector}" 
-                    >
-                    <CollectionView.ItemsLayout>
-                        <GridItemsLayout 
-                            Orientation="Vertical"
-                            Span="6"
-                            VerticalItemSpacing="8"
-                            HorizontalItemSpacing="4" />
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.GroupHeaderTemplate>
-                        <DataTemplate>
-                            <views:GroupHeaderControl HeaderMargin="{OnPlatform WinUI='-4,0,0,0', Default='0,12,0,0'}" />
-                        </DataTemplate>
-                    </CollectionView.GroupHeaderTemplate>
-                </CollectionView>
-            </RefreshView>
-
-            <RefreshView 
-                    x:Name="RefreshViewAlbum7"
-                    Command="{Binding RefreshCommand}" 
-                    IsRefreshing="{Binding IsRefreshing}"
-                    Margin="{OnPlatform WinUI='8,0,0,0', Default='16,0'}"
-                >
-                <CollectionView 
-                    ItemsSource="{Binding GroupedItems}"
-                    IsGrouped="True"
-                    SelectionMode="{Binding SelectionModeHelper.InSelectionMode, Converter={StaticResource BoolToSelectionMode}}"
-                    ItemTemplate="{StaticResource albumFavoriteTemplateSelector}" 
-                    >
-                    <CollectionView.ItemsLayout>
-                        <GridItemsLayout 
-                            Orientation="Vertical"
-                            Span="7"
-                            VerticalItemSpacing="8"
-                            HorizontalItemSpacing="4" />
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.GroupHeaderTemplate>
-                        <DataTemplate>
-                            <views:GroupHeaderControl HeaderMargin="{OnPlatform WinUI='-4,0,0,0', Default='0,12,0,0'}" />
-                        </DataTemplate>
-                    </CollectionView.GroupHeaderTemplate>
-                </CollectionView>
-            </RefreshView>
-
-            <RefreshView 
-                    x:Name="RefreshViewAlbum8"
-                    Command="{Binding RefreshCommand}" 
-                    IsRefreshing="{Binding IsRefreshing}"
-                    Margin="{OnPlatform WinUI='8,0,0,0', Default='16,0'}"
-                >
-                <CollectionView 
-                    ItemsSource="{Binding GroupedItems}"
-                    IsGrouped="True"
-                    SelectionMode="{Binding SelectionModeHelper.InSelectionMode, Converter={StaticResource BoolToSelectionMode}}"
-                    ItemTemplate="{StaticResource albumFavoriteTemplateSelector}" 
-                    >
-                    <CollectionView.ItemsLayout>
-                        <GridItemsLayout 
-                            Orientation="Vertical"
-                            Span="8"
-                            VerticalItemSpacing="8"
-                            HorizontalItemSpacing="4" />
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.GroupHeaderTemplate>
-                        <DataTemplate>
-                            <views:GroupHeaderControl HeaderMargin="{OnPlatform WinUI='-4,0,0,0', Default='0,12,0,0'}" />
-                        </DataTemplate>
-                    </CollectionView.GroupHeaderTemplate>
-                </CollectionView>
-            </RefreshView>
-
         </Grid>
 
         <HorizontalStackLayout

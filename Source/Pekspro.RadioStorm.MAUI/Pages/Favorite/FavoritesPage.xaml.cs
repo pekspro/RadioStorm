@@ -1,4 +1,5 @@
-﻿namespace Pekspro.RadioStorm.MAUI.Pages.Favorite;
+﻿
+namespace Pekspro.RadioStorm.MAUI.Pages.Favorite;
 
 public sealed partial class FavoritesPage : ContentPage
 {
@@ -164,13 +165,16 @@ public sealed partial class FavoritesPage : ContentPage
 
         if (AlbumMode)
         {
-            expectedColumnCount = (Width - sideMargin) switch
+            var usableSize = Width - sideMargin;
+
+            expectedColumnCount = usableSize switch
             {
-                >= normalMinItemWidth * 8 + itemMargin * 7 => 8,
-                >= normalMinItemWidth * 7 + itemMargin * 6 => 7,
-                >= normalMinItemWidth * 6 + itemMargin * 5 => 6,
-                >= normalMinItemWidth * 5 + itemMargin * 4 => 5,
-                >= normalMinItemWidth * 4 + itemMargin * 3 => 4,
+                //>= normalMinItemWidth * 8 + itemMargin * 7 => 8,
+                //>= normalMinItemWidth * 7 + itemMargin * 6 => 7,
+                //>= normalMinItemWidth * 6 + itemMargin * 5 => 6,
+                //>= normalMinItemWidth * 5 + itemMargin * 4 => 5,
+                //>= normalMinItemWidth * 4 + itemMargin * 3 => 4,
+                >= normalMinItemWidth * 4 + itemMargin * 3 => (int) ((usableSize + itemMargin) / (normalMinItemWidth + itemMargin)),
                 >= thinMinItemWidth   * 3 + itemMargin * 2 => 3,
                 >= thinMinItemWidth   * 2 + itemMargin * 1 => 2,
                 _ => 0
@@ -184,13 +188,10 @@ public sealed partial class FavoritesPage : ContentPage
             _CurrenColumnCount = expectedColumnCount;
 
             RefreshViewList.IsVisible = expectedColumnCount == 0;
-            RefreshViewAlbum2.IsVisible = expectedColumnCount == 2;
-            RefreshViewAlbum3.IsVisible = expectedColumnCount == 3;
-            RefreshViewAlbum4.IsVisible = expectedColumnCount == 4;
-            RefreshViewAlbum5.IsVisible = expectedColumnCount == 5;
-            RefreshViewAlbum6.IsVisible = expectedColumnCount == 6;
-            RefreshViewAlbum7.IsVisible = expectedColumnCount == 7;
-            RefreshViewAlbum8.IsVisible = expectedColumnCount == 8;
+
+            RefreshViewAlbum.IsVisible = expectedColumnCount >= 2;
+
+            AlbumGridLayout.Span = expectedColumnCount;
         }
 
         if (expectedColumnCount > 0)
