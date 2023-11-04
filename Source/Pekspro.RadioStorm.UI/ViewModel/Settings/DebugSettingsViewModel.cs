@@ -101,9 +101,6 @@ public sealed partial class DebugSettingsViewModel : ObservableObject
             LogFilesFullPath = logFiles.OrderBy(a => a).ToList();
             LogFilesNameOnly = logFiles.OrderBy(a => a).Select(a => Path.GetFileName(a) ?? a).ToList();
 
-            // TODO: Remove when fixed: https://github.com/dotnet/maui/issues/9239
-            LogFilesNameOnly = new List<string>(LogFilesNameOnly);
-
             if (LogFilesNameOnly.Any())
             {
                 // Make sure SelectedLogFileIndex get changed.
