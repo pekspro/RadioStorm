@@ -1,11 +1,13 @@
 name: Build test
 
 on:
-  workflow_dispatch:
   push:
-    branches: [ "main" ]
+    branches:
+      - '*'
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - '*'
+  workflow_dispatch:
 
 jobs:
   test-windows:
