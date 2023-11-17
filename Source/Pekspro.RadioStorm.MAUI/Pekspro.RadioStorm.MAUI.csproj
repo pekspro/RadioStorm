@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<!--<TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>-->
 		<TargetFrameworks>net8.0-android</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
+        <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
 		<OutputType>Exe</OutputType>
 		<RootNamespace>Pekspro.RadioStorm.MAUI</RootNamespace>
 		<UseMaui>true</UseMaui>
@@ -43,14 +43,9 @@
     
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'windows'"
-			      Include="Resources\AppIcon\appicon.svg" 
-                  ForegroundFile="Resources\AppIcon\appiconfg.svg" 
-                  Color="#222222" />
+		<MauiIcon Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'windows'" Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#222222" />
 
-        <MauiIcon Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'"
-                  Include="Resources\AppIcon\logonomargins.svg" 
-                  />
+        <MauiIcon Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" Include="Resources\AppIcon\logonomargins.svg" />
 
 		<!-- Splash Screen -->
 		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#222222" BaseSize="128,128" />
@@ -86,13 +81,13 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)' == 'Debug'">
-	  <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0-rc.2.23479.6" />
+	  <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Maui" Version="6.0.0" />
-      <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.0-rc.2.9373" />
-      <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.0-rc.2.9373" />
+      <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.3" />
+      <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.3" />
 	</ItemGroup>
 
 
