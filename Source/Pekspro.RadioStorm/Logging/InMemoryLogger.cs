@@ -12,7 +12,7 @@ public sealed class InMemoryLogger : ILogger
 
     private IDateTimeProvider DateTimeProvider { get; }
 
-    public IDisposable BeginScope<TState>(TState state) => null!;
+    public IDisposable? BeginScope<TState>(TState state) where TState : notnull => null;
 
     public bool IsEnabled(LogLevel logLevel) => true;
 

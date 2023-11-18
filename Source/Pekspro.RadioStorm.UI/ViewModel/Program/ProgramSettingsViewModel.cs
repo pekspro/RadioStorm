@@ -161,11 +161,11 @@ public sealed partial class ProgramSettingsViewModel : ObservableObject
         if (SelectedDownloadOptionItem.Value <= 0)
         {
             // Clear download history.
-            await Task.Run(() =>
+            await Task.Run(async () =>
             {
                 using var databaseContext = GeneralDatabaseContextFactory.Create();
 
-                databaseContext.DownloadState.Where(a => a.ProgramId == ProgramId).BatchDelete();
+                await databaseContext.DownloadState.Where(a => a.ProgramId == ProgramId).ExecuteDeleteAsync();
             }).ConfigureAwait(false);
         }
     }

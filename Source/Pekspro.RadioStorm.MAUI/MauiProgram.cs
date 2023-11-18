@@ -23,6 +23,9 @@ public static class MauiProgram
             })
             ;
 
+        // TODO: Remove when fixed: https://github.com/dotnet/efcore/issues/32346
+        System.AppContext.SetSwitch("Microsoft.EntityFrameworkCore.Issue31751", true);
+
 #if WINDOWS
         var currentApplicationData = global::Windows.Storage.ApplicationData.Current;
 

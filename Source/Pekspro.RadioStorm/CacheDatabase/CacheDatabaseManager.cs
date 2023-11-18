@@ -52,19 +52,19 @@ public sealed class CacheDatabaseManager
                 
                 using var trans = databaseContext.Database.BeginTransaction();
 
-                databaseContext.EpisodeData.Where(a => true).BatchDelete();
-                databaseContext.ProgramData.Where(a => true).BatchDelete();
-                databaseContext.ChannelData.Where(a => true).BatchDelete();
-                databaseContext.EpisodeListSyncStatusData.Where(a => true).BatchDelete();
-                databaseContext.ListSyncStatusData.Where(a => true).BatchDelete();
-                databaseContext.ScheduledEpisodeListSyncStatusData.Where(a => true).BatchDelete();
+                databaseContext.EpisodeData.ExecuteDelete();
+                databaseContext.ProgramData.ExecuteDelete();
+                databaseContext.ChannelData.ExecuteDelete();
+                databaseContext.EpisodeListSyncStatusData.ExecuteDelete();
+                databaseContext.ListSyncStatusData.ExecuteDelete();
+                databaseContext.ScheduledEpisodeListSyncStatusData.ExecuteDelete();
 
-                databaseContext.EpisodeSongListItemData.Where(a => true).BatchDelete();
-                databaseContext.EpisodeSongListSyncStatusData.Where(a => true).BatchDelete();
-                databaseContext.ChannelSongListItemData.Where(a => true).BatchDelete();
-                databaseContext.ChannelSongListSyncStatusData.Where(a => true).BatchDelete();
-                databaseContext.ChannelStatusData.Where(a => true).BatchDelete();
-                databaseContext.ScheduledEpisodeListItemData.Where(a => true).BatchDelete();
+                databaseContext.EpisodeSongListItemData.ExecuteDelete();
+                databaseContext.EpisodeSongListSyncStatusData.ExecuteDelete();
+                databaseContext.ChannelSongListItemData.ExecuteDelete();
+                databaseContext.ChannelSongListSyncStatusData.ExecuteDelete();
+                databaseContext.ChannelStatusData.ExecuteDelete();
+                databaseContext.ScheduledEpisodeListItemData.ExecuteDelete();
 
                 trans.Commit();
             }).ConfigureAwait(false);
@@ -129,7 +129,7 @@ public sealed class CacheDatabaseManager
                     //Delete existing?
                     if (p.Status == EpisodeListSyncStatusData.SyncStatus.FullySynchronized)
                     {
-                        await databaseContext.EpisodeData.Where(a => a.ProgramId == programId).BatchDeleteAsync(cancellationToken).ConfigureAwait(false);
+                        await databaseContext.EpisodeData.Where(a => a.ProgramId == programId).ExecuteDeleteAsync(cancellationToken).ConfigureAwait(false);
                     }
 
                     foreach (var data in episodes)
@@ -453,7 +453,7 @@ public sealed class CacheDatabaseManager
                     TypeId = ListSyncStatusData.ListType.Programs
                 };
 
-                await databaseContext.ProgramData.Where(a => true).BatchDeleteAsync(cancellationToken).ConfigureAwait(false);
+                await databaseContext.ProgramData.ExecuteDeleteAsync(cancellationToken).ConfigureAwait(false);
                 await databaseContext.BulkInsertOrUpdateAsync(programs, cancellationToken: cancellationToken).ConfigureAwait(false);
                 await databaseContext.BulkInsertOrUpdateAsync(new List<ListSyncStatusData>() { syncStats }, cancellationToken: cancellationToken).ConfigureAwait(false);
 
@@ -636,7 +636,7 @@ public sealed class CacheDatabaseManager
                     TypeId = ListSyncStatusData.ListType.Channels
                 };
 
-                await databaseContext.ChannelData.Where(a => true).BatchDeleteAsync(cancellationToken).ConfigureAwait(false);
+                await databaseContext.ChannelData.ExecuteDeleteAsync(cancellationToken).ConfigureAwait(false);
                 await databaseContext.BulkInsertOrUpdateAsync(channels, cancellationToken: cancellationToken).ConfigureAwait(false);
 
                 await databaseContext.BulkInsertOrUpdateAsync(new List<ListSyncStatusData>() { syncStats }, cancellationToken: cancellationToken).ConfigureAwait(false);
@@ -731,7 +731,7 @@ public sealed class CacheDatabaseManager
                 using var tran = databaseContext.Database.BeginTransaction();
 
                 //Delete existing
-                await databaseContext.EpisodeSongListItemData.Where(a => a.EpisodeId == episodeId).BatchDeleteAsync(cancellationToken).ConfigureAwait(false);
+                await databaseContext.EpisodeSongListItemData.Where(a => a.EpisodeId == episodeId).ExecuteDeleteAsync(cancellationToken).ConfigureAwait(false);
 
                 await databaseContext.BulkInsertAsync(songs, cancellationToken: cancellationToken).ConfigureAwait(false);
 
@@ -832,8 +832,8 @@ public sealed class CacheDatabaseManager
                 
                 using var tran = databaseContext.Database.BeginTransaction();
 
-                await databaseContext.EpisodeSongListSyncStatusData.Where(a => a.EpisodeId == episodeId).BatchDeleteAsync(cancellationToken).ConfigureAwait(false);
-                await databaseContext.EpisodeSongListItemData.Where(a => a.EpisodeId == episodeId).BatchDeleteAsync(cancellationToken).ConfigureAwait(false);
+                await databaseContext.EpisodeSongListSyncStatusData.Where(a => a.EpisodeId == episodeId).ExecuteDeleteAsync(cancellationToken).ConfigureAwait(false);
+                await databaseContext.EpisodeSongListItemData.Where(a => a.EpisodeId == episodeId).ExecuteDeleteAsync(cancellationToken).ConfigureAwait(false);
 
                 tran.Commit();
             }).ConfigureAwait(false);
@@ -872,7 +872,7 @@ public sealed class CacheDatabaseManager
                 using var tran = databaseContext.Database.BeginTransaction();
 
                 //Delete existing
-                await databaseContext.ChannelSongListItemData.Where(a => a.ChannelId == channelId).BatchDeleteAsync(cancellationToken).ConfigureAwait(false);
+                await databaseContext.ChannelSongListItemData.Where(a => a.ChannelId == channelId).ExecuteDeleteAsync(cancellationToken).ConfigureAwait(false);
 
                 await databaseContext.BulkInsertAsync(songs, cancellationToken: cancellationToken).ConfigureAwait(false);
 
@@ -973,8 +973,8 @@ public sealed class CacheDatabaseManager
                 
                 using var tran = databaseContext.Database.BeginTransaction();
 
-                await databaseContext.ChannelSongListSyncStatusData.Where(a => a.ChannelId == channelId).BatchDeleteAsync(cancellationToken).ConfigureAwait(false);
-                await databaseContext.ChannelSongListItemData.Where(a => a.ChannelId == channelId).BatchDeleteAsync(cancellationToken).ConfigureAwait(false);
+                await databaseContext.ChannelSongListSyncStatusData.Where(a => a.ChannelId == channelId).ExecuteDeleteAsync(cancellationToken).ConfigureAwait(false);
+                await databaseContext.ChannelSongListItemData.Where(a => a.ChannelId == channelId).ExecuteDeleteAsync(cancellationToken).ConfigureAwait(false);
 
                 tran.Commit();
             
@@ -1045,7 +1045,7 @@ public sealed class CacheDatabaseManager
 
                 using var tran = databaseContext.Database.BeginTransaction();
 
-                await databaseContext.ChannelStatusData.Where(a => true).BatchDeleteAsync(cancellationToken).ConfigureAwait(false);
+                await databaseContext.ChannelStatusData.ExecuteDeleteAsync(cancellationToken).ConfigureAwait(false);
 
                 await databaseContext.BulkInsertOrUpdateAsync(statuses, cancellationToken: cancellationToken).ConfigureAwait(false);
 
@@ -1140,7 +1140,7 @@ public sealed class CacheDatabaseManager
                 using var tran = databaseContext.Database.BeginTransaction();
 
                 //Delete existing
-                await databaseContext.ScheduledEpisodeListItemData.Where(a => a.ChannelId == channelId && a.Date == date).BatchDeleteAsync(cancellationToken).ConfigureAwait(false);
+                await databaseContext.ScheduledEpisodeListItemData.Where(a => a.ChannelId == channelId && a.Date == date).ExecuteDeleteAsync(cancellationToken).ConfigureAwait(false);
 
                 await databaseContext.BulkInsertAsync(episodes, cancellationToken: cancellationToken).ConfigureAwait(false);
 
@@ -1251,7 +1251,7 @@ public sealed class CacheDatabaseManager
 
                 await databaseContext.EpisodeListSyncStatusData
                             .Where(e => obseleteProgramIds.Contains(e.ProgramId))
-                            .BatchDeleteAsync(cancellationToken)
+                            .ExecuteDeleteAsync(cancellationToken)
                             .ConfigureAwait(false);
 
                 await databaseContext.EpisodeData
@@ -1259,7 +1259,7 @@ public sealed class CacheDatabaseManager
                                             &&
                                             !episodeIdsToKeep.Contains(e.EpisodeId)
                                     )
-                            .BatchDeleteAsync(cancellationToken)
+                            .ExecuteDeleteAsync(cancellationToken)
                             .ConfigureAwait(false);
 
                 tran.Commit();
@@ -1298,12 +1298,12 @@ public sealed class CacheDatabaseManager
                 {
                     await databaseContext.EpisodeSongListItemData
                         .Where(e => e.LatestUpdateTime < obseleteTime)
-                        .BatchDeleteAsync(cancellationToken)
+                        .ExecuteDeleteAsync(cancellationToken)
                         .ConfigureAwait(false);
 
                     await databaseContext.EpisodeSongListSyncStatusData
                         .Where(e => e.LatestUpdateTime < obseleteTime)
-                        .BatchDeleteAsync(cancellationToken)
+                        .ExecuteDeleteAsync(cancellationToken)
                         .ConfigureAwait(false);
 
                     tran.Commit();
@@ -1313,12 +1313,12 @@ public sealed class CacheDatabaseManager
                 {
                     await databaseContext.ChannelSongListItemData
                         .Where(e => e.LatestUpdateTime < obseleteTime)
-                        .BatchDeleteAsync(cancellationToken)
+                        .ExecuteDeleteAsync(cancellationToken)
                         .ConfigureAwait(false);
 
                     await databaseContext.ChannelSongListSyncStatusData
                         .Where(e => e.LatestUpdateTime < obseleteTime)
-                        .BatchDeleteAsync(cancellationToken)
+                        .ExecuteDeleteAsync(cancellationToken)
                         .ConfigureAwait(false);
 
                     tran.Commit();
@@ -1357,12 +1357,12 @@ public sealed class CacheDatabaseManager
                 {
                     await databaseContext.ScheduledEpisodeListSyncStatusData
                             .Where(e => e.Date < obseleteTime)
-                            .BatchDeleteAsync(cancellationToken)
+                            .ExecuteDeleteAsync(cancellationToken)
                             .ConfigureAwait(false);
 
                     await databaseContext.ScheduledEpisodeListItemData
                             .Where(e => e.Date < obseleteTime)
-                            .BatchDeleteAsync(cancellationToken)
+                            .ExecuteDeleteAsync(cancellationToken)
                             .ConfigureAwait(false);
 
                     tran.Commit();

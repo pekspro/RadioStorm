@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Messaging;
 using EFCore.BulkExtensions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -307,13 +308,13 @@ public sealed class Worker : BackgroundService
         ICacheDatabaseContextFactory factory = ServiceProvider.GetRequiredService<ICacheDatabaseContextFactory>();
         {
             using var contextBatch = factory.Create();
-            await contextBatch.EpisodeSongListItemData.BatchDeleteAsync(stoppingToken);
-
+            await contextBatch.EpisodeSongListItemData.ExecuteDeleteAsync(stoppingToken);
+            
             stopwatchBatch = Stopwatch.StartNew();
             await contextBatch.BulkInsertAsync(episodeSongItems, cancellationToken: stoppingToken);
             stopwatchBatch.Stop();
 
-            await contextBatch.EpisodeSongListItemData.BatchDeleteAsync(stoppingToken);
+            await contextBatch.EpisodeSongListItemData.ExecuteDeleteAsync(stoppingToken);
         }
 
         {
@@ -324,7 +325,7 @@ public sealed class Worker : BackgroundService
             await contextNormal.SaveChangesAsync(stoppingToken);
             stopwatchNormal.Stop();
 
-            await contextNormal.EpisodeSongListItemData.BatchDeleteAsync(stoppingToken);
+            await contextNormal.EpisodeSongListItemData.ExecuteDeleteAsync(stoppingToken);
         }
 
         await Task.Delay(1000);
