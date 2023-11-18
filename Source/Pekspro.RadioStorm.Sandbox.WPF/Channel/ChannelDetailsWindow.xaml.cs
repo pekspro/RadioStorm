@@ -28,7 +28,7 @@ public sealed partial class ChannelDetailsWindow : Window
         base.OnActivated(e);
 
         ViewModel.OnNavigatedTo(StartParameter);
-        SongsViewModel.OnNavigatedTo(true, ViewModel.ChannelId);
+        SongsViewModel.OnNavigatedTo(true, StartParameter);
         SchedulesEpisodesViewModel.OnNavigatedTo(StartParameter);
     }
 

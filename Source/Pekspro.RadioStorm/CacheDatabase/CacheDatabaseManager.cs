@@ -1,4 +1,6 @@
-﻿namespace Pekspro.RadioStorm.CacheDatabase;
+﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace Pekspro.RadioStorm.CacheDatabase;
 
 public sealed class CacheDatabaseManager
 {
@@ -87,10 +89,7 @@ public sealed class CacheDatabaseManager
                 
                 data.LatestUpdateTime = DateTimeProvider.OffsetNow;
 
-                await databaseContext.EpisodeData
-                    .Upsert(data)
-                    .RunAsync(cancellationToken)
-                    .ConfigureAwait(false);
+                await databaseContext.BulkInsertOrUpdateAsync(new List<EpisodeData>() { data }, cancellationToken: cancellationToken).ConfigureAwait(false);
                 
             }, cancellationToken).ConfigureAwait(false);
         }
@@ -140,7 +139,7 @@ public sealed class CacheDatabaseManager
                     }
 
                     await databaseContext.BulkInsertOrUpdateAsync(episodes, cancellationToken: cancellationToken);
-                    await databaseContext.EpisodeListSyncStatusData.Upsert(p).RunAsync(cancellationToken);
+                    await databaseContext.BulkInsertOrUpdateAsync(new List<EpisodeListSyncStatusData>() { p }, cancellationToken: cancellationToken).ConfigureAwait(false);
 
                     transaction.Commit();
                 };
@@ -415,7 +414,7 @@ public sealed class CacheDatabaseManager
                 using var databaseContext = CacheDatabaseContextFactory.Create();
                 
                 data.LatestUpdateTime = DateTimeProvider.OffsetNow;
-                await databaseContext.ProgramData.Upsert(data).RunAsync(cancellationToken).ConfigureAwait(false);
+                await databaseContext.BulkInsertOrUpdateAsync(new List<ProgramData>() { data }, cancellationToken: cancellationToken).ConfigureAwait(false);
             }, cancellationToken).ConfigureAwait(false);
         }
         catch (TaskCanceledException)
@@ -456,8 +455,7 @@ public sealed class CacheDatabaseManager
 
                 await databaseContext.ProgramData.Where(a => true).BatchDeleteAsync(cancellationToken).ConfigureAwait(false);
                 await databaseContext.BulkInsertOrUpdateAsync(programs, cancellationToken: cancellationToken).ConfigureAwait(false);
-
-                await databaseContext.ListSyncStatusData.Upsert(syncStats).RunAsync(cancellationToken).ConfigureAwait(false);
+                await databaseContext.BulkInsertOrUpdateAsync(new List<ListSyncStatusData>() { syncStats }, cancellationToken: cancellationToken).ConfigureAwait(false);
 
                 tran.Commit();
             
@@ -597,7 +595,7 @@ public sealed class CacheDatabaseManager
                 using var databaseContext = CacheDatabaseContextFactory.Create();
                 
                 data.LatestUpdateTime = DateTimeProvider.OffsetNow;
-                await databaseContext.ChannelData.Upsert(data).RunAsync(cancellationToken).ConfigureAwait(false);
+                await databaseContext.BulkInsertOrUpdateAsync(new List<ChannelData>() { data }, cancellationToken: cancellationToken).ConfigureAwait(false);
             }, cancellationToken).ConfigureAwait(false);
         }
         catch (TaskCanceledException)
@@ -641,7 +639,7 @@ public sealed class CacheDatabaseManager
                 await databaseContext.ChannelData.Where(a => true).BatchDeleteAsync(cancellationToken).ConfigureAwait(false);
                 await databaseContext.BulkInsertOrUpdateAsync(channels, cancellationToken: cancellationToken).ConfigureAwait(false);
 
-                await databaseContext.ListSyncStatusData.Upsert(syncStats).RunAsync(cancellationToken).ConfigureAwait(false);
+                await databaseContext.BulkInsertOrUpdateAsync(new List<ListSyncStatusData>() { syncStats }, cancellationToken: cancellationToken).ConfigureAwait(false);
 
                 tran.Commit();
             
@@ -737,11 +735,13 @@ public sealed class CacheDatabaseManager
 
                 await databaseContext.BulkInsertAsync(songs, cancellationToken: cancellationToken).ConfigureAwait(false);
 
-                await databaseContext.EpisodeSongListSyncStatusData.Upsert(new EpisodeSongListSyncStatusData()
-                {
-                    EpisodeId = episodeId,
-                    LatestUpdateTime = now
-                }).RunAsync(cancellationToken).ConfigureAwait(false);
+                await databaseContext.BulkInsertOrUpdateAsync(new List<EpisodeSongListSyncStatusData>() {
+                    new EpisodeSongListSyncStatusData()
+                    {
+                        EpisodeId = episodeId,
+                        LatestUpdateTime = now
+                    }
+                }, cancellationToken: cancellationToken).ConfigureAwait(false);
 
                 tran.Commit();
             
@@ -876,11 +876,13 @@ public sealed class CacheDatabaseManager
 
                 await databaseContext.BulkInsertAsync(songs, cancellationToken: cancellationToken).ConfigureAwait(false);
 
-                await databaseContext.ChannelSongListSyncStatusData.Upsert(new ChannelSongListSyncStatusData()
-                {
-                    ChannelId = channelId,
-                    LatestUpdateTime = now
-                }).RunAsync(cancellationToken).ConfigureAwait(false);
+                await databaseContext.BulkInsertOrUpdateAsync(new List<ChannelSongListSyncStatusData>() {
+                    new ChannelSongListSyncStatusData()
+                    {
+                        ChannelId = channelId,
+                        LatestUpdateTime = now
+                    }
+                }, cancellationToken: cancellationToken).ConfigureAwait(false);
 
                 tran.Commit();
                 
@@ -1004,7 +1006,7 @@ public sealed class CacheDatabaseManager
                 
                 status.LatestUpdateTime = DateTimeProvider.OffsetNow;
 
-                await databaseContext.ChannelStatusData.Upsert(status).RunAsync(cancellationToken).ConfigureAwait(false);
+                await databaseContext.BulkInsertOrUpdateAsync(new List<ChannelStatusData>() { status }, cancellationToken: cancellationToken).ConfigureAwait(false);
             }, cancellationToken).ConfigureAwait(false);
         }
         catch (TaskCanceledException)
@@ -1142,13 +1144,14 @@ public sealed class CacheDatabaseManager
 
                 await databaseContext.BulkInsertAsync(episodes, cancellationToken: cancellationToken).ConfigureAwait(false);
 
-                await databaseContext.ScheduledEpisodeListSyncStatusData.Upsert(new ScheduledEpisodeListSyncStatusData()
-                {
-                    ChannelId = channelId,
-                    Date = date,
-                    LatestUpdateTime = now
-                }
-                ).RunAsync(cancellationToken).ConfigureAwait(false);
+                await databaseContext.BulkInsertOrUpdateAsync(new List<ScheduledEpisodeListSyncStatusData>() {
+                    new ScheduledEpisodeListSyncStatusData()
+                    {
+                        ChannelId = channelId,
+                        Date = date,
+                        LatestUpdateTime = now
+                    }
+                }, cancellationToken: cancellationToken).ConfigureAwait(false);
 
                 tran.Commit();
                 
