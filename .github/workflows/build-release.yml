@@ -193,7 +193,7 @@ jobs:
      
     - name: Build MAUI for Android
       if: github.event.inputs.buildAndroid == 'true'
-      run: dotnet publish ./Source/Pekspro.RadioStorm.MAUI/Pekspro.RadioStorm.MAUI.csproj --framework:net8.0-android --configuration:Release /p:AndroidSigningKeyStore=${{ steps.create_android_key_file.outputs.filePath }} /p:AndroidKeyStore=True /p:AndroidSigningKeyAlias=${{ secrets.ANDROID_KEY_ALIAS }} /p:AndroidSigningKeyPass=${{ secrets.ANDROID_KEY_PASSWORD }} /p:AndroidSigningStorePass=${{ secrets.ANDROID_KEY_PASSWORD }} /p:PublishTrimmed=false /p:RunAOTCompilation=false --output ./Android
+      run: dotnet publish ./Source/Pekspro.RadioStorm.MAUI/Pekspro.RadioStorm.MAUI.csproj --framework:net8.0-android --configuration:Release /p:AndroidSigningKeyStore=${{ steps.create_android_key_file.outputs.filePath }} /p:AndroidKeyStore=True /p:AndroidSigningKeyAlias=${{ secrets.ANDROID_KEY_ALIAS }} /p:AndroidSigningKeyPass=${{ secrets.ANDROID_KEY_PASSWORD }} /p:AndroidSigningStorePass=${{ secrets.ANDROID_KEY_PASSWORD }} /p:PublishTrimmed=true /p:RunAOTCompilation=false --output ./Android
 
     - name: Delete AAB-files
       if: github.event.inputs.buildAndroid == 'true' && github.event.inputs.androidKeepAab == 'false'
