@@ -10,7 +10,12 @@
     <OpenApiReference Include=".\sverigesradio.yaml" CodeGenerator="NSwagCSharp" ClassName="SrClient" Link="OpenAPIs\sverigesradio.yaml" Options="/GenerateNullableReferenceTypes:true" />
   </ItemGroup>
 
-  <ItemGroup>
+    <!-- Workaround for https://github.com/RicoSuter/NSwag/issues/4633 -->
+    <PropertyGroup>
+        <NSwagGenerateExceptionClasses>true</NSwagGenerateExceptionClasses>
+    </PropertyGroup>
+
+    <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.ApiDescription.Client" Version="8.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
