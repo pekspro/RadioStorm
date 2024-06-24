@@ -23,6 +23,7 @@ global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Logging;
 global using Microsoft.Extensions.Options;
+global using Pekspro.BuildInformationGenerator;
 global using Pekspro.RadioStorm.Audio;
 global using Pekspro.RadioStorm.Audio.Message;
 global using Pekspro.RadioStorm.Audio.Models;

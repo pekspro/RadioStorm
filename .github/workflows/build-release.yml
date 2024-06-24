@@ -23,7 +23,6 @@ on:
 
 env:
   SECRETS_FILE: ./Source/Pekspro.RadioStorm.Settings.SynchronizedSettings.FileProvider.Secrets/Secrets-Protected.cs
-  BUILD_INFO_FILE: ./Source/Pekspro.RadioStorm/Utilities/BuildInformation-Build.cs
 
 
 jobs:
@@ -31,10 +30,10 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v2
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
         
@@ -45,33 +44,10 @@ jobs:
       run: |
         echo "CURRENT_TIME=$(date +'%Y%m%d_%H%M%S')" >> $env:GITHUB_ENV
         echo "CURRENT_TIME_UTC_STRING=$(date +'%Y-%m-%dT%H:%M:%SZ')" >> $env:GITHUB_ENV
-        echo "NET_VERSION_STRING=$(dotnet --version)" >> $env:GITHUB_ENV
         echo "SHORT_SHA=$("${{ github.sha }}".SubString(0, 8))" >> $env:GITHUB_ENV
-        echo "WORKLOAD_ANDROID_VERSION_STRING=$((dotnet workload list | Select-String maui)[0].ToString().Split(" ",[System.StringSplitOptions]::RemoveEmptyEntries)[1])" >> $env:GITHUB_ENV
-        echo "WORKLOAD_WINDOWS_VERSION_STRING=$((dotnet workload list | Select-String maui)[0].ToString().Split(" ",[System.StringSplitOptions]::RemoveEmptyEntries)[1])" >> $env:GITHUB_ENV
-        echo "WORKLOAD_IOS_VERSION_STRING=$((dotnet workload list | Select-String maui)[0].ToString().Split(" ",[System.StringSplitOptions]::RemoveEmptyEntries)[1])" >> $env:GITHUB_ENV
-        echo "WORKLOAD_MACCATALYST_VERSION_STRING=$((dotnet workload list | Select-String maui)[0].ToString().Split(" ",[System.StringSplitOptions]::RemoveEmptyEntries)[1])" >> $env:GITHUB_ENV
-
-    - name: Create build time file
-      run: |
-        echo "namespace Pekspro.RadioStorm.Utilities;" > $env:BUILD_INFO_FILE
-        echo "public static partial class BuildInformation" >> $env:BUILD_INFO_FILE
-        echo "{" >> $env:BUILD_INFO_FILE
-        echo "    static partial void Initialize()" >> $env:BUILD_INFO_FILE
-        echo "    {" >> $env:BUILD_INFO_FILE
-        echo "        Branch = ""${{ github.ref_name }}"";" >> $env:BUILD_INFO_FILE
-        echo "        BuildTimeString = ""${{ env.CURRENT_TIME_UTC_STRING }}"";" >> $env:BUILD_INFO_FILE
-        echo "        CommitId = ""${{ github.sha }}"";" >> $env:BUILD_INFO_FILE
-        echo "        DotNetVersionString = ""${{ env.NET_VERSION_STRING }}"";" >> $env:BUILD_INFO_FILE
-        echo "        MauiWorkloadAndroidVersionString = ""${{ env.WORKLOAD_ANDROID_VERSION_STRING }}"";" >> $env:BUILD_INFO_FILE
-        echo "        MauiWorkloadWindowsVersionString = ""${{ env.WORKLOAD_WINDOWS_VERSION_STRING }}"";" >> $env:BUILD_INFO_FILE
-        echo "        MauiWorkloadIosVersionString = ""${{ env.WORKLOAD_IOS_VERSION_STRING }}"";" >> $env:BUILD_INFO_FILE
-        echo "        MauiWorkloadMacCatalysVersionString = ""${{ env.WORKLOAD_MACCATALYST_VERSION_STRING }}"";" >> $env:BUILD_INFO_FILE
-        echo "    }" >> $env:BUILD_INFO_FILE
-        echo "}" >> $env:BUILD_INFO_FILE
-
+        
     - name: Upload source
-      uses: actions/upload-artifact@v3.1.0
+      uses: actions/upload-artifact@v4
       with:
         name: source-${{ env.CURRENT_TIME }}-${{ env.SHORT_SHA }}
         retention-days: 5
@@ -119,7 +95,7 @@ jobs:
     - name: Get Windows version
       if: github.event.inputs.buildWindows == 'true'
       id: windows_version
-      uses: mavrosxristoforos/get-xml-info@1.1.0
+      uses: mavrosxristoforos/get-xml-info@2
       with:
         xml-file: Source/Pekspro.RadioStorm.MAUI/Platforms/Windows/Package.appxmanifest
         xpath: /*[local-name()='Package']/*[local-name()='Identity']/@Version
@@ -153,7 +129,7 @@ jobs:
 
     - name: Upload Windows Artifact
       if: github.event.inputs.buildWindows == 'true'
-      uses: actions/upload-artifact@v3.1.0
+      uses: actions/upload-artifact@v4
       with:
         name: windows-${{ env.BUILD_TYPE }}-${{ env.CURRENT_TIME }}-${{ env.SHORT_SHA }}-${{ steps.windows_version.outputs.info }}
         retention-days: 5
@@ -165,7 +141,7 @@ jobs:
     - name: Get Android display version
       id: android_display_version
       if: github.event.inputs.buildAndroid == 'true'
-      uses: mavrosxristoforos/get-xml-info@1.1.1
+      uses: mavrosxristoforos/get-xml-info@2
       with:
         xml-file: Source/Pekspro.RadioStorm.MAUI/Pekspro.RadioStorm.MAUI.csproj
         xpath: /Project/PropertyGroup/ApplicationDisplayVersion
@@ -173,7 +149,7 @@ jobs:
     - name: Get Android version
       id: android_version
       if: github.event.inputs.buildAndroid == 'true'
-      uses: mavrosxristoforos/get-xml-info@1.1.1
+      uses: mavrosxristoforos/get-xml-info@2
       with:
         xml-file: Source/Pekspro.RadioStorm.MAUI/Pekspro.RadioStorm.MAUI.csproj
         xpath: /Project/PropertyGroup/ApplicationVersion
@@ -214,7 +190,7 @@ jobs:
 
     - name: Upload a Android Artifact
       if: github.event.inputs.buildAndroid == 'true'
-      uses: actions/upload-artifact@v3.1.0
+      uses: actions/upload-artifact@v4
       with:
         name: android-${{ env.BUILD_TYPE }}-${{ env.CURRENT_TIME }}-${{ env.SHORT_SHA }}-${{ steps.android_display_version.outputs.info }} [${{ steps.android_version.outputs.info }}]
         retention-days: 5

@@ -33,15 +33,10 @@ public sealed partial class AboutViewModel
 
     public string PureVersionString => VersionProvider.ApplicationVersion.ToString();
 
-    public string? BuildTimeDetails
+    public string BuildTimeDetails
     {
         get
         {
-            if (BuildInformation.BuildTimeString is null)
-            {
-                return null;
-            }
-            
             return string.Format
             (
                 "{0} {1}",
@@ -51,20 +46,14 @@ public sealed partial class AboutViewModel
         }
     }
 
-    public string? ShortCommitId => BuildInformation.ShortCommitId;
+    public string ShortCommitId => BuildInformation.Git.ShortCommitId;
     
-    public string? DotNetVersionString => BuildInformation.DotNetVersionString;
+    public string DotNetVersionString => BuildInformation.DotNetSdkVersion;
     
-    public string? Branch => BuildInformation.Branch;
+    public string Branch => BuildInformation.Git.Branch;
     
-    public string? MauiWorkloadWindowsVersionString => BuildInformation.MauiWorkloadWindowsVersionString;
+    public string MauiVersion => BuildInformation.Workloads.MauiVersion;
     
-    public string? MauiWorkloadAndroidVersionString => BuildInformation.MauiWorkloadAndroidVersionString;
-    
-    public string? MauiWorkloadIosVersionString => BuildInformation.MauiWorkloadIosVersionString;
-    
-    public string? MauiWorkloadMacCatalysVersionString => BuildInformation.MauiWorkloadMacCatalysVersionString;
-
     public ILocalSettings LocalSettings { get; }
 
     #endregion

@@ -67,26 +67,12 @@
 
                     <Label Grid.Row="2" Grid.Column="0"
                            Style="{StaticResource DetailedTextStyle}" 
-                           IsVisible="{OnPlatform WinUI={Binding MauiWorkloadWindowsVersionString, Converter={StaticResource NullToIsVisibleConverter}}, Default=False}"
                            Text="{x:Static r:Strings.About_BuildInformation_MauiVersion}"
                            />
 
                     <Label Grid.Row="2" Grid.Column="1"
                            Style="{StaticResource DetailedTextStyle}" 
-                           IsVisible="{OnPlatform WinUI={Binding MauiWorkloadWindowsVersionString, Converter={StaticResource NullToIsVisibleConverter}}, Default=False}"
-                           Text="{Binding MauiWorkloadWindowsVersionString}" 
-                           />
-
-                    <Label Grid.Row="2" Grid.Column="0"
-                           Style="{StaticResource DetailedTextStyle}" 
-                           IsVisible="{OnPlatform Android={Binding MauiWorkloadAndroidVersionString, Converter={StaticResource NullToIsVisibleConverter}}, Default=False}"
-                           Text="{x:Static r:Strings.About_BuildInformation_MauiVersion}"
-                            />
-
-                    <Label Grid.Row="2" Grid.Column="1"
-                           Style="{StaticResource DetailedTextStyle}" 
-                           IsVisible="{OnPlatform Android={Binding MauiWorkloadAndroidVersionString, Converter={StaticResource NullToIsVisibleConverter}}, Default=False}"
-                           Text="{Binding MauiWorkloadAndroidVersionString}"
+                           Text="{Binding MauiVersion}" 
                            />
 
                     <Label Grid.Row="3" Grid.Column="0"
