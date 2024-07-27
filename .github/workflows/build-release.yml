@@ -95,7 +95,7 @@ jobs:
     - name: Get Windows version
       if: github.event.inputs.buildWindows == 'true'
       id: windows_version
-      uses: mavrosxristoforos/get-xml-info@2
+      uses: mavrosxristoforos/get-xml-info@2.0
       with:
         xml-file: Source/Pekspro.RadioStorm.MAUI/Platforms/Windows/Package.appxmanifest
         xpath: /*[local-name()='Package']/*[local-name()='Identity']/@Version
@@ -141,7 +141,7 @@ jobs:
     - name: Get Android display version
       id: android_display_version
       if: github.event.inputs.buildAndroid == 'true'
-      uses: mavrosxristoforos/get-xml-info@2
+      uses: mavrosxristoforos/get-xml-info@2.0
       with:
         xml-file: Source/Pekspro.RadioStorm.MAUI/Pekspro.RadioStorm.MAUI.csproj
         xpath: /Project/PropertyGroup/ApplicationDisplayVersion
@@ -149,7 +149,7 @@ jobs:
     - name: Get Android version
       id: android_version
       if: github.event.inputs.buildAndroid == 'true'
-      uses: mavrosxristoforos/get-xml-info@2
+      uses: mavrosxristoforos/get-xml-info@2.0
       with:
         xml-file: Source/Pekspro.RadioStorm.MAUI/Pekspro.RadioStorm.MAUI.csproj
         xpath: /Project/PropertyGroup/ApplicationVersion
