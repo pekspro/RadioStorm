@@ -115,55 +115,55 @@ public sealed partial class App : Application
 
     private void UpdateTheme()
     {
-    var theme = LocalSettings.Theme;
+        var theme = LocalSettings.Theme;
 
-    UserAppTheme = theme switch
+        UserAppTheme = theme switch
+        {
+            ThemeType.Light => AppTheme.Light,
+            ThemeType.Dark => AppTheme.Dark,
+            _ => AppTheme.Unspecified,
+        };
+    }
+
+    public async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
     {
-        ThemeType.Light => AppTheme.Light,
-        ThemeType.Dark => AppTheme.Dark,
-        _ => AppTheme.Unspecified,
-    };
-}
+        await Shell.Current.GoToAsync(nameof(SettingsPage));
+    }
 
-public async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
-{
-await Shell.Current.GoToAsync(nameof(SettingsPage));
-}
+    #if WINDOWS
+    protected override void OnSleep()
+    {
+        base.OnSleep();
 
-#if WINDOWS
-protected async override void OnSleep()
-{
-base.OnSleep();
+        //Logger.LogInformation("OnSleep. Will shut down services, running on Windows.");
 
-Logger.LogInformation("OnSleep. Will shut down services, running on Windows.");
+        //var shutDownManager = ServiceProviderHelper.GetService<IShutDownManager>();
 
-var shutDownManager = ServiceProviderHelper.GetService<IShutDownManager>();
+        //if (shutDownManager is not null)
+        //{
+        //    await shutDownManager.ShutDownAsync();
+        //}
+    }
+    #else
+    protected override void OnSleep()
+    {
+        base.OnSleep();
 
-if (shutDownManager is not null)
-{
-    await shutDownManager.ShutDownAsync();
-}
-}
-#else
-protected override void OnSleep()
-{
-base.OnSleep();
+        Logger.LogInformation("OnSleep.");
+    }
+    #endif
 
-Logger.LogInformation("OnSleep.");
-}
-#endif
+    protected override void OnStart()
+    {
+        base.OnStart();
 
-protected override void OnStart()
-{
-base.OnStart();
+        Logger.LogInformation("OnStart.");
+    }
 
-Logger.LogInformation("OnStart.");
-}
+    protected override void OnResume()
+    {
+        base.OnResume();
 
-protected override void OnResume()
-{
-base.OnResume();
-
-Logger.LogInformation("OnResume.");
-}
+        Logger.LogInformation("OnResume.");
+    }
 }
