@@ -50,7 +50,7 @@ public class ReviewLauncherAndroid : IReviewLauncher
         try
         {
             var intent = GetRateIntent(url);
-            ((MainApplication)MauiApplication.Current).ApplicationContext!.StartActivity(intent);
+            Context.StartActivity(intent);
             return;
         }
         catch (Exception ex)
@@ -62,11 +62,14 @@ public class ReviewLauncherAndroid : IReviewLauncher
         try
         {
             var intent = GetRateIntent(url);
-            ((MainApplication)MauiApplication.Current).ApplicationContext!.StartActivity(intent);
+            Context.StartActivity(intent);
         }
         catch (Exception ex)
         {
             Logger.LogInformation(ex, "Unable to launch browser: " + ex.Message);
         }
     }
+
+    private Context Context => Platform.AppContext;
+
 }
