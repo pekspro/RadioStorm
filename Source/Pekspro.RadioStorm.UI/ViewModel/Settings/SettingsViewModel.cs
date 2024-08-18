@@ -84,7 +84,7 @@ public sealed partial class SettingsViewModel : ObservableObject
 
     public bool HasNotificationPermission => NotificationPermissionManager.HasPermission;
 
-    public bool HasNotificationPermissionBeenDenied => NotificationPermissionManager.HasPermissionBeenDenied;
+    public bool HasNotificationPermissionBeenDenied => !HasNotificationPermission && NotificationPermissionManager.HasPermissionBeenDenied;
 
     public bool NotificationPermissionsCanBeRequested => !HasNotificationPermission && !HasNotificationPermissionBeenDenied;
 
