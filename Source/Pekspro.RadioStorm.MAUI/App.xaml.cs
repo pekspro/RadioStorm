@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.PlatformConfiguration.AndroidSpecific;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using Application = Microsoft.Maui.Controls.Application;
 
 namespace Pekspro.RadioStorm.MAUI;
@@ -125,6 +126,8 @@ public sealed partial class App : Application
             ThemeType.Dark => AppTheme.Dark,
             _ => AppTheme.Unspecified,
         };
+
+        ConfigureStatusBar();
     }
 
     public void ConfigureStatusBar()
@@ -147,8 +150,8 @@ public sealed partial class App : Application
 
                 if (act?.Window is not null)
                 {
-                    Shell.Current.CurrentPage.On<Microsoft.Maui.Controls.PlatformConfiguration.Android>().SetStyle(NavigationBarStyle.DarkContent);
-            
+                    SetSystemNavigationBarAppearance(false);
+
                     act.Window.SetNavigationBarColor(Android.Graphics.Color.Rgb(255, 255, 255));
                 }
             }
@@ -160,7 +163,7 @@ public sealed partial class App : Application
 
                 if (act?.Window is not null)
                 {
-                    Shell.Current.CurrentPage.On<Microsoft.Maui.Controls.PlatformConfiguration.Android>().SetStyle(NavigationBarStyle.LightContent);
+                    SetSystemNavigationBarAppearance(true);
 
                     act.Window.SetNavigationBarColor(Android.Graphics.Color.Rgb(0, 0, 0));
                 }
@@ -168,10 +171,23 @@ public sealed partial class App : Application
         });
 #endif
 
+    }
+
+    static void SetSystemNavigationBarAppearance(bool isLightSystemNavigationBars)
+    {
+#if ANDROID
+        var window = Platform.CurrentActivity?.Window;
+
+        if (window is null)
+        {
+            return;
         }
+        var windowController = AndroidX.Core.View.WindowCompat.GetInsetsController(window, window.DecorView);
+        windowController.AppearanceLightNavigationBars = isLightSystemNavigationBars;
+#endif
+    }
 
-
-        public async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+    public async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
     {
         await Shell.Current.GoToAsync(nameof(SettingsPage));
     }

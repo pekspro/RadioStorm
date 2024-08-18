@@ -67,7 +67,6 @@
                 <Label Text="{x:Static r:Strings.Settings_Theme_Description}" />
 
                 <Picker ItemsSource="{Binding ThemeTypes}"
-                        SelectedIndexChanged="ThemePicker_SelectedIndexChanged"
                         SelectedIndex="{Binding ThemeIndex, Mode=TwoWay}"
                         Margin="{OnPlatform Default='0', WinUI='0,0,0,12'}"
                         />

@@ -27,6 +27,8 @@ public sealed class MainActivity : MauiAppCompatActivity
 
         GraphHelper.AuthUIParent = this;
 
+        ConfigureStatusBar();
+
         #region Scheduler
 
         var jobBuilder = MaintenanceJobService.CreateJobBuilderUsingJobId(this, 152);
@@ -71,6 +73,10 @@ public sealed class MainActivity : MauiAppCompatActivity
         #endregion
     }
 
+    private void ConfigureStatusBar()
+    {
+        (App.Current as Pekspro.RadioStorm.MAUI.App)?.ConfigureStatusBar();
+    }
 
     public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
     {
