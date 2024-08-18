@@ -919,7 +919,7 @@
     <value>Du kommer få en avisering när en nedladdning sker, sovtimer används med mera. Du kan ändra detta i inställningarna.</value>
   </data>
   <data name="Settings_Notifications_Button_OpenSettings" xml:space="preserve">
-    <value>Öppna appinställningar.</value>
+    <value>Öppna appinställningar</value>
   </data>
   <data name="Settings_Notifications_Button_RequirePermissions" xml:space="preserve">
     <value>Aktivera aviseringar</value>

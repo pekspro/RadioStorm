@@ -2464,7 +2464,7 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Öppna appinställningar..
+        ///   Looks up a localized string similar to Öppna appinställningar.
         /// </summary>
         public static string Settings_Notifications_Button_OpenSettings {
             get {
