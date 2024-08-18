@@ -915,6 +915,24 @@
   <data name="Settings_LiveTile_Title" xml:space="preserve">
     <value>Levande panel</value>
   </data>
+  <data name="Settings_Notifications_Active_Description" xml:space="preserve">
+    <value>Du kommer få en avisering när en nedladdning sker, sovtimer används med mera. Du kan ändra detta i inställningarna.</value>
+  </data>
+  <data name="Settings_Notifications_Button_OpenSettings" xml:space="preserve">
+    <value>Öppna appinställningar.</value>
+  </data>
+  <data name="Settings_Notifications_Button_RequirePermissions" xml:space="preserve">
+    <value>Aktivera aviseringar</value>
+  </data>
+  <data name="Settings_Notifications_Denied_Description" xml:space="preserve">
+    <value>Du har nekat tillgång till aviseringar och behöver därför aktivera detta i inställningarna.</value>
+  </data>
+  <data name="Settings_Notifications_NotActive_Description" xml:space="preserve">
+    <value>Aktivera om du vill se en avisering när en nedladdning sker, sovtimer används mer mera.</value>
+  </data>
+  <data name="Settings_Notifications_Title" xml:space="preserve">
+    <value>Aviseringar</value>
+  </data>
   <data name="Settings_Open_About" xml:space="preserve">
     <value>Visa mer information om RadioStorm</value>
   </data>

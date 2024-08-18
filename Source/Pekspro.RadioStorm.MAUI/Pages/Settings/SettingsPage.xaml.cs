@@ -11,6 +11,13 @@ public sealed partial class SettingsPage : ContentPage
 
     private SettingsViewModel ViewModel => (SettingsViewModel) BindingContext;
 
+    protected override void OnNavigatedTo(NavigatedToEventArgs args)
+    {
+        base.OnNavigatedTo(args);
+
+        ViewModel.RefreshNotificationSettings();
+    }
+
     protected override bool OnBackButtonPressed()
     {
         ((AppShell)Shell.Current).GoToFavorites();

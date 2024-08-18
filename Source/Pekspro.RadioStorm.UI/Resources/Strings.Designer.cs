@@ -2455,6 +2455,60 @@ namespace Pekspro.RadioStorm.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Du kommer få en avisering när en nedladdning sker, sovtimer används med mera. Du kan ändra detta i inställningarna..
+        /// </summary>
+        public static string Settings_Notifications_Active_Description {
+            get {
+                return ResourceManager.GetString("Settings_Notifications_Active_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Öppna appinställningar..
+        /// </summary>
+        public static string Settings_Notifications_Button_OpenSettings {
+            get {
+                return ResourceManager.GetString("Settings_Notifications_Button_OpenSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aktivera aviseringar.
+        /// </summary>
+        public static string Settings_Notifications_Button_RequirePermissions {
+            get {
+                return ResourceManager.GetString("Settings_Notifications_Button_RequirePermissions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Du har nekat tillgång till aviseringar och behöver därför aktivera detta i inställningarna..
+        /// </summary>
+        public static string Settings_Notifications_Denied_Description {
+            get {
+                return ResourceManager.GetString("Settings_Notifications_Denied_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aktivera om du vill se en avisering när en nedladdning sker, sovtimer används mer mera..
+        /// </summary>
+        public static string Settings_Notifications_NotActive_Description {
+            get {
+                return ResourceManager.GetString("Settings_Notifications_NotActive_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aviseringar.
+        /// </summary>
+        public static string Settings_Notifications_Title {
+            get {
+                return ResourceManager.GetString("Settings_Notifications_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Visa mer information om RadioStorm.
         /// </summary>
         public static string Settings_Open_About {

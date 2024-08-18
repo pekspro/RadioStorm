@@ -5,6 +5,7 @@ using Pekspro.RadioStorm.Bootstrap;
 using Pekspro.RadioStorm.Sandbox.WPF.LogFile;
 using Pekspro.RadioStorm.Sandbox.WPF.Player;
 using Pekspro.RadioStorm.Settings.SynchronizedSettings.FileProvider;
+using Pekspro.RadioStorm.UI.Utilities;
 
 namespace Pekspro.RadioStorm.Sandbox.WPF;
 
@@ -34,6 +35,7 @@ public sealed partial class App : Application
         services.TryAddSingleton<IAudioManager, WpfAudioManager>();
         services.TryAddSingleton<IMainThreadRunner, MainThreadRunner>();
         services.TryAddSingleton<IVersionProvider, VersionProvider>();
+        services.TryAddSingleton<INotificationPermissionManager, NotificationPermissionManagerDefault>();
         services.AddRadioStorm(configuration);
         services.AddRadioStormSandboxTools(configuration);
         services.AddRadioStormFileProviders(configuration, true);

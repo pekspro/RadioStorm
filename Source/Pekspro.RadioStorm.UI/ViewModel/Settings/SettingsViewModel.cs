@@ -24,19 +24,27 @@ public sealed partial class SettingsViewModel : ObservableObject
     {
         CacheDatabaseManager = null!;
         Settings = null!;
+        NotificationPermissionManager = null!;
         VersionProvider = null!;
         UriLauncher = null!;
     }
 
-    public SettingsViewModel(CacheDatabaseManager cacheDatabaseManager, ILocalSettings localSettings, IVersionProvider versionProvider, IUriLauncher uriLauncher)
+    public SettingsViewModel(CacheDatabaseManager cacheDatabaseManager, ILocalSettings localSettings, INotificationPermissionManager notificationPermissionManager, 
+        IMessenger messenger, IVersionProvider versionProvider, IUriLauncher uriLauncher)
     {
         CacheDatabaseManager = cacheDatabaseManager;
         Settings = localSettings;
+        NotificationPermissionManager = notificationPermissionManager;
         VersionProvider = versionProvider;
         UriLauncher = uriLauncher;
         ThemeTypes.Add(Strings.Settings_Theme_Default);
         ThemeTypes.Add(Strings.Settings_Theme_Light);
         ThemeTypes.Add(Strings.Settings_Theme_Dark);
+
+        messenger?.Register<NotificationPermissionChangedMessage>(this, (r, m) =>
+        {
+            RefreshNotificationSettings();
+        });
     }
 
     #endregion
@@ -44,6 +52,7 @@ public sealed partial class SettingsViewModel : ObservableObject
     #region Public properties
 
     public ILocalSettings Settings { get; }
+    public INotificationPermissionManager NotificationPermissionManager { get; }
 
     [ObservableProperty]
     private bool _IsCacheClearing = false;
@@ -70,7 +79,14 @@ public sealed partial class SettingsViewModel : ObservableObject
     public string VersionString => $"RadioStorm {VersionProvider.ApplicationVersion}";
 
     public string PureVersionString => VersionProvider.ApplicationVersion.ToString();
+   
+    public bool NotificationPermissionIsRequired => NotificationPermissionManager.PermissionIsRequired;
 
+    public bool HasNotificationPermission => NotificationPermissionManager.HasPermission;
+
+    public bool HasNotificationPermissionBeenDenied => NotificationPermissionManager.HasPermissionBeenDenied;
+
+    public bool NotificationPermissionsCanBeRequested => !HasNotificationPermission && !HasNotificationPermissionBeenDenied;
 
     #endregion
 
@@ -88,6 +104,12 @@ public sealed partial class SettingsViewModel : ObservableObject
         await UriLauncher.LaunchAsync(new Uri(Strings.General_Pekspro_Url));
     }
 
+    [RelayCommand]
+    private void RequestNotificationPermission()
+    {
+        NotificationPermissionManager.RequestPermission();
+    }
+
     [RelayCommand(CanExecute = nameof(CanClearCache))]
     private async Task ClearCache()
     {
@@ -103,4 +125,16 @@ public sealed partial class SettingsViewModel : ObservableObject
     }
 
     #endregion
+
+    #region Methods
+
+    public void RefreshNotificationSettings()
+    {
+        OnPropertyChanged(nameof(HasNotificationPermission));
+        OnPropertyChanged(nameof(HasNotificationPermissionBeenDenied));
+        OnPropertyChanged(nameof(NotificationPermissionsCanBeRequested));
+    }
+
+    #endregion
+
 }

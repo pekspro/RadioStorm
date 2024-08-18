@@ -55,9 +55,11 @@ public static class MauiProgram
         builder.Services.TryAddTransient<IVersionMigrator, Pekspro.RadioStorm.MAUI.Platforms.Windows.Services.VersionMigrator>();
         builder.Services.TryAddSingleton<IAudioManager, WindowsAudioManager>();
         builder.Services.TryAddSingleton<IReviewLauncher, Pekspro.RadioStorm.MAUI.Platforms.Windows.Services.ReviewLauncherWindows>();
+        builder.Services.TryAddSingleton<INotificationPermissionManager, NotificationPermissionManagerDefault>();
 #elif ANDROID
         builder.Services.TryAddSingleton<IAudioManager, AndroidAudioManager>();
         builder.Services.TryAddSingleton<IReviewLauncher, Pekspro.RadioStorm.MAUI.Platforms.Android.Services.ReviewLauncherAndroid>();
+        builder.Services.TryAddSingleton<INotificationPermissionManager, Pekspro.RadioStorm.MAUI.Platforms.Android.Services.NotificationPermissionManagerAndroid>();
 #endif
         builder.Services.AddRadioStorm(builder.Configuration);
         builder.Services.AddRadioStormUI(builder.Configuration);

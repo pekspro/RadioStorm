@@ -1,8 +1,10 @@
-﻿using Android.App;
+﻿using Android;
+using Android.App;
 using Android.App.Job;
 using Android.Content;
 using Android.Content.PM;
 using Android.OS;
+using AndroidX.Core.App;
 using Microsoft.Identity.Client;
 using Pekspro.RadioStorm.MAUI.Platforms.Android.Services;
 
@@ -15,6 +17,10 @@ namespace Pekspro.RadioStorm.MAUI;
             LaunchMode = LaunchMode.SingleTop)]
 public sealed class MainActivity : MauiAppCompatActivity
 {
+    private const int RequestCodeNotificationPermission = 1001;
+
+    public bool HasNotificationPermissionBeenDenied { get; set; }
+
     protected override void OnCreate(Bundle savedInstanceState)
     {
         base.OnCreate(savedInstanceState);
@@ -65,15 +71,28 @@ public sealed class MainActivity : MauiAppCompatActivity
         #endregion
     }
 
-    /*
+
     public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
     {
         Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
         base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-    */
 
+        if (requestCode == RequestCodeNotificationPermission)
+        {
+            HasNotificationPermissionBeenDenied = true;
+
+            if (grantResults.Length > 0)
+            {
+                HasNotificationPermissionBeenDenied = grantResults[0] != Permission.Granted;
+            }
+
+            IMessenger messenger = ServiceProviderHelper.GetService<IMessenger>();
+
+            messenger?.Send(new NotificationPermissionChangedMessage());
+        }
+    }
+    
     // <OnActivityResultSnippet>
     protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
     {
@@ -81,5 +100,21 @@ public sealed class MainActivity : MauiAppCompatActivity
         AuthenticationContinuationHelper
             .SetAuthenticationContinuationEventArgs(requestCode, resultCode, data);
     }
-    // </OnActivityResultSnippet>
+
+    public void RequestNotificationPermission()
+    {
+        if (OperatingSystem.IsAndroidVersionAtLeast(33))
+        {
+            ActivityCompat.RequestPermissions(this, [Manifest.Permission.PostNotifications], RequestCodeNotificationPermission);
+        }
+    }
+
+    public void OpenAppSettings()
+    {
+        // Open settings view instead.
+        var intent = new Intent(Android.Provider.Settings.ActionApplicationDetailsSettings);
+        var uri = Android.Net.Uri.FromParts("package", PackageName, null);
+        intent.SetData(uri);
+        StartActivity(intent);
+    }
 }

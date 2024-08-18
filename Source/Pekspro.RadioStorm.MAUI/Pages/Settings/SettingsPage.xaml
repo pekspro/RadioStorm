@@ -117,6 +117,45 @@
                 <Label Text="{x:Static r:Strings.Settings_Cache_Clearing}" IsVisible="{Binding IsCacheClearing}" />
                 <Label Text="{x:Static r:Strings.Settings_Cache_Cleared}" IsVisible="{Binding IsCacheCleared}" />
 
+                <VerticalStackLayout IsVisible="{Binding NotificationPermissionIsRequired}">
+
+                    <Rectangle Style="{StaticResource Separator}" />
+
+                    <Label Text="{x:Static r:Strings.Settings_Notifications_Title}" 
+                           Style="{StaticResource SubtitleTextBlockStyle}"
+                           Margin="{OnPlatform WinUI='0,8,0,8', Android='0,8,0,8', Default=0}"
+                           />
+
+                    <Label Text="{x:Static r:Strings.Settings_Notifications_Active_Description}"
+                           IsVisible="{Binding HasNotificationPermission}"
+                           Margin="{OnPlatform WinUI='0,0,0,8', Android='0,0,0,8', Default=0}"
+                           />
+
+                    <Label Text="{x:Static r:Strings.Settings_Notifications_NotActive_Description}"
+                           IsVisible="{Binding HasNotificationPermission, Converter={StaticResource InvertedBoolConverter}}"
+                           Margin="{OnPlatform WinUI='0,0,0,8', Android='0,0,0,8', Default=0}"
+                           />
+                    
+                    <Label Text="{x:Static r:Strings.Settings_Notifications_Denied_Description}"
+                           IsVisible="{Binding HasNotificationPermissionBeenDenied}"
+                           Margin="{OnPlatform WinUI='0,0,0,8', Android='0,0,0,8', Default=0}"
+                           />
+
+                    <Button Command="{Binding RequestNotificationPermissionCommand}" 
+                            Text="{x:Static r:Strings.Settings_Notifications_Button_RequirePermissions}"
+                            HorizontalOptions="Start"
+                            IsVisible="{Binding NotificationPermissionsCanBeRequested}"
+                            />
+
+                    <Button Command="{Binding RequestNotificationPermissionCommand}" 
+                            Text="{x:Static r:Strings.Settings_Notifications_Button_OpenSettings}"
+                            HorizontalOptions="Start"
+                            IsVisible="{Binding NotificationPermissionsCanBeRequested, Converter={StaticResource InvertedBoolConverter}}"
+                            />
+
+                </VerticalStackLayout>
+                
+                
                 <Rectangle Style="{StaticResource Separator}" />
 
                 <views:DownloadSettingsControl />
