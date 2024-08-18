@@ -1,4 +1,6 @@
-﻿using Application = Microsoft.Maui.Controls.Application;
+﻿using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Maui.PlatformConfiguration.AndroidSpecific;
+using Application = Microsoft.Maui.Controls.Application;
 
 namespace Pekspro.RadioStorm.MAUI;
 
@@ -125,7 +127,51 @@ public sealed partial class App : Application
         };
     }
 
-    public async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+    public void ConfigureStatusBar()
+    {
+#if ANDROID
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            var act = Platform.CurrentActivity;
+
+            if (act is null)
+            {
+                return;
+            }
+            
+            if (RequestedTheme == AppTheme.Light)
+            {
+                CommunityToolkit.Maui.Core.Platform.StatusBar.SetStyle(StatusBarStyle.DarkContent);
+
+                CommunityToolkit.Maui.Core.Platform.StatusBar.SetColor(Color.FromRgb(255, 255, 255));
+
+                if (act?.Window is not null)
+                {
+                    Shell.Current.CurrentPage.On<Microsoft.Maui.Controls.PlatformConfiguration.Android>().SetStyle(NavigationBarStyle.DarkContent);
+            
+                    act.Window.SetNavigationBarColor(Android.Graphics.Color.Rgb(255, 255, 255));
+                }
+            }
+            else
+            {
+                CommunityToolkit.Maui.Core.Platform.StatusBar.SetStyle(StatusBarStyle.LightContent);
+
+                CommunityToolkit.Maui.Core.Platform.StatusBar.SetColor(Color.FromRgb(0, 0, 0));
+
+                if (act?.Window is not null)
+                {
+                    Shell.Current.CurrentPage.On<Microsoft.Maui.Controls.PlatformConfiguration.Android>().SetStyle(NavigationBarStyle.LightContent);
+
+                    act.Window.SetNavigationBarColor(Android.Graphics.Color.Rgb(0, 0, 0));
+                }
+            }
+        });
+#endif
+
+        }
+
+
+        public async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
     {
         await Shell.Current.GoToAsync(nameof(SettingsPage));
     }

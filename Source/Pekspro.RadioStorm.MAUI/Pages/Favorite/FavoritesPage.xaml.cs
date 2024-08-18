@@ -1,5 +1,4 @@
-﻿
-namespace Pekspro.RadioStorm.MAUI.Pages.Favorite;
+﻿namespace Pekspro.RadioStorm.MAUI.Pages.Favorite;
 
 public sealed partial class FavoritesPage : ContentPage
 {
@@ -39,6 +38,8 @@ public sealed partial class FavoritesPage : ContentPage
         ViewModel.OnNavigatedTo();
         
         RefreshToolbarItems();
+
+        ConfigureStatusBar();
     }
 
     protected override void OnDisappearing()
@@ -46,6 +47,11 @@ public sealed partial class FavoritesPage : ContentPage
         base.OnDisappearing();
 
         ViewModel.OnNavigatedFrom();
+    }
+
+    private void ConfigureStatusBar()
+    {
+        (App.Current as Pekspro.RadioStorm.MAUI.App)?.ConfigureStatusBar();
     }
 
     private void RefreshToolbarItems()
