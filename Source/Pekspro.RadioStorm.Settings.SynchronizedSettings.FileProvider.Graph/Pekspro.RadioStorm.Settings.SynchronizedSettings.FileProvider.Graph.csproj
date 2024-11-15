@@ -1,18 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <!--<EnableTrimAnalyzer>true</EnableTrimAnalyzer>-->
     <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Azure.Identity" Version="1.12.0" />
-    <PackageReference Include="Microsoft.Graph" Version="5.56.0" />
-    <PackageReference Include="Microsoft.Identity.Client" Version="4.63.0" />
-    <PackageReference Include="Microsoft.Identity.Client.Extensions.Msal" Version="4.63.0" />
-    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="8.0.0" />
+    <PackageReference Include="Azure.Identity" Version="1.13.1" />
+    <PackageReference Include="EFCore.BulkExtensions" Version="8.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.11" />
+    <PackageReference Include="Microsoft.Graph" Version="5.65.0" />
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.66.2" />
+    <PackageReference Include="Microsoft.Identity.Client.Extensions.Msal" Version="4.66.2" />
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>

@@ -5,7 +5,6 @@
              xmlns:views="clr-namespace:Pekspro.RadioStorm.MAUI.Views"
              xmlns:vm="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Song;assembly=Pekspro.RadioStorm.UI"
              xmlns:m="clr-namespace:Pekspro.RadioStorm.UI.Model.Song;assembly=Pekspro.RadioStorm.UI"
-             Title="ChannelSongListPage"
              x:Class="Pekspro.RadioStorm.MAUI.Pages.Channel.ChannelSongListPage"
              x:DataType="vm:SongsViewModel"
              Shell.PresentationMode="NotAnimated"

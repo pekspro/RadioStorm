@@ -28,8 +28,6 @@ public sealed partial class App : Application
 
         RequestedThemeChanged += (s, e) => SetupMenuBarColorFix();
         
-        MainPage = new AppShell();
-
         Routing.RegisterRoute(nameof(SettingsPage), typeof(SettingsPage));
         Routing.RegisterRoute(nameof(AboutPage), typeof(AboutPage));
         Routing.RegisterRoute(nameof(ChannelsPage), typeof(ChannelsPage));
@@ -57,6 +55,13 @@ public sealed partial class App : Application
         });
 
         UpdateTheme();
+    }
+
+    protected override Window CreateWindow(IActivationState? activationState)
+    {
+        var window = new Window(new AppShell());
+
+        return window;
     }
 
     public void SetupMenuBarColorFix()
@@ -152,7 +157,9 @@ public sealed partial class App : Application
                 {
                     SetSystemNavigationBarAppearance(false);
 
+#pragma warning disable CA1422 
                     act.Window.SetNavigationBarColor(Android.Graphics.Color.Rgb(255, 255, 255));
+#pragma warning restore CA1422 
                 }
             }
             else
@@ -165,7 +172,9 @@ public sealed partial class App : Application
                 {
                     SetSystemNavigationBarAppearance(true);
 
+#pragma warning disable CA1422 
                     act.Window.SetNavigationBarColor(Android.Graphics.Color.Rgb(0, 0, 0));
+#pragma warning restore CA1422 
                 }
             }
         });
