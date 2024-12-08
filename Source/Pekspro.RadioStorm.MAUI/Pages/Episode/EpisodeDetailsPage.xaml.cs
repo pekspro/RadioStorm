@@ -1,9 +1,16 @@
 ﻿namespace Pekspro.RadioStorm.MAUI.Pages.Episode;
 
-[QueryProperty(nameof(Data), nameof(Data))]
-public sealed partial class EpisodeDetailsPage : ContentPage
+public sealed partial class EpisodeDetailsPage : ContentPage, IQueryAttributable
 {
     public string Data { get; set; } = null!;
+
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    {
+        if (query.TryGetValue(nameof(Data), out var data) && data is not null)
+        {
+            Data = data.ToString()!;
+        }
+    }
 
     public EpisodeDetailsPage(EpisodeDetailsViewModel viewModel)
     {

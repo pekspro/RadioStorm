@@ -1,9 +1,16 @@
 namespace Pekspro.RadioStorm.MAUI.Pages.Program;
 
-[QueryProperty(nameof(Data), nameof(Data))]
-public sealed partial class ProgramSettingsPage : ContentPage
+public sealed partial class ProgramSettingsPage : ContentPage, IQueryAttributable
 {
     public string Data { get; set; } = null!;
+
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    {
+        if (query.TryGetValue(nameof(Data), out var data) && data is not null)
+        {
+            Data = data.ToString()!;
+        }
+    }
 
     public ProgramSettingsPage(ProgramSettingsViewModel viewModel)
 	{

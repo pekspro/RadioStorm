@@ -1,9 +1,16 @@
 namespace Pekspro.RadioStorm.MAUI.Pages.Channel;
 
-[QueryProperty(nameof(Data), nameof(Data))]
-public partial class ChannelSongListPage : ContentPage
+public sealed partial class ChannelSongListPage : ContentPage, IQueryAttributable
 {
     public string Data { get; set; } = null!;
+
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    {
+        if (query.TryGetValue(nameof(Data), out var data) && data is not null)
+        {
+            Data = data.ToString()!;
+        }
+    }
 
     public ChannelSongListPage(SongsViewModel viewModel)
     {
