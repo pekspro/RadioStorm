@@ -253,7 +253,6 @@ public sealed class GraphHelper : IGraphHelper
             {
                 try
                 {
-
                     result = await PCA.AcquireTokenInteractive(scopes)
                                 // .WithUseEmbeddedWebView(false)
                                 //.WithSystemWebViewOptions(GetCustomHTML())

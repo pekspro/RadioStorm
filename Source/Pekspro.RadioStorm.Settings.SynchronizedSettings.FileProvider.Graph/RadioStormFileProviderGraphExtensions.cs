@@ -21,11 +21,11 @@ public static class RadioStormFileProviderGraphExtensions
 
                 if (useLocalRedirect)
                 {
-                    options.RedirectUri = "http://localhost"; // In WPF, Console. Maui Windows also works.
+                    options.RedirectUri = "http://localhost"; // In WPF, Console, MAUI Windows.
                 }
                 else
                 {
-                    options.RedirectUri = "msauth://com.pekspro.radiostorm"; // In MAUI
+                    options.RedirectUri = "msauth://com.pekspro.radiostorm"; // In MAUI Android
                 }
             });
         }
