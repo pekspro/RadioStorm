@@ -26,14 +26,14 @@ public sealed class GraphFileProvider : FileBaseProvider
     {
         if (DriveCache is null || DriveCache.Value.CacheTime < DateTime.UtcNow.AddSeconds(-5))
         {
-            //var result = await graphClient.Me.Drive
-            //    .WithUrl("https://graph.microsoft.com/v1.0/drive/special/approot")
-            //    .GetAsync();
+            var result = await graphClient.Me.Drive
+                .WithUrl("https://graph.microsoft.com/v1.0/drive/special/approot")
+                .GetAsync();
 
-            //string driveId = result!.Id!.Split("!")[0];
+            string driveId = result!.Id!.Split("!")[0];
 
-            var driveItem = await graphClient.Me.Drive.GetAsync().ConfigureAwait(false);
-            string driveId = driveItem!.Id!;
+            //var driveItem = await graphClient.Me.Drive.GetAsync().ConfigureAwait(false);
+            //string driveId = driveItem!.Id!;
 
             var appRootFolder = await graphClient.Drives[driveId].Special["AppRoot"].GetAsync().ConfigureAwait(false);
 
