@@ -20,19 +20,27 @@ public sealed class GraphFileProvider : FileBaseProvider
 
     public override bool IsSlow => true;
 
-    private (DateTime CacheTime, Drive Drive, DriveItem DriveItem)? DriveCache { get; set; }
+    private (DateTime CacheTime, string DriveId, DriveItem DriveItem)? DriveCache { get; set; }
 
-    private async Task<(Drive Drive, DriveItem AppRoot)> GetDriveItemAsync(GraphServiceClient graphClient)
+    private async Task<(string DriveId, DriveItem AppRoot)> GetDriveItemAsync(GraphServiceClient graphClient)
     {
         if (DriveCache is null || DriveCache.Value.CacheTime < DateTime.UtcNow.AddSeconds(-5))
         {
-            var driveItem = await graphClient.Me.Drive.GetAsync().ConfigureAwait(false);
-            var appRootFolder = await graphClient.Drives[driveItem!.Id].Special["AppRoot"].GetAsync().ConfigureAwait(false);
+            //var result = await graphClient.Me.Drive
+            //    .WithUrl("https://graph.microsoft.com/v1.0/drive/special/approot")
+            //    .GetAsync();
 
-            DriveCache = new (DateTime.UtcNow, driveItem!, appRootFolder!);
+            //string driveId = result!.Id!.Split("!")[0];
+
+            var driveItem = await graphClient.Me.Drive.GetAsync().ConfigureAwait(false);
+            string driveId = driveItem!.Id!;
+
+            var appRootFolder = await graphClient.Drives[driveId].Special["AppRoot"].GetAsync().ConfigureAwait(false);
+
+            DriveCache = new (DateTime.UtcNow, driveId, appRootFolder!);
         }
 
-        return (DriveCache.Value.Drive, DriveCache.Value.DriveItem);
+        return (DriveCache.Value.DriveId, DriveCache.Value.DriveItem);
     }
 
     public override async Task<Dictionary<string, FileOverview>> GetFilesAsync(HashSet<string> allowedLowerCaseFilename)
@@ -44,7 +52,7 @@ public sealed class GraphFileProvider : FileBaseProvider
             var driveData = await GetDriveItemAsync(client).ConfigureAwait(false);
 
             var filesInSubFolder = await client
-                .Drives[driveData.Drive.Id]
+                .Drives[driveData.DriveId]
                 .Items[driveData.AppRoot.Id]
                 .ItemWithPath(SyncPath)
                 .Children
@@ -103,7 +111,7 @@ public sealed class GraphFileProvider : FileBaseProvider
             var driveData = await GetDriveItemAsync(client).ConfigureAwait(false);
 
             var driveItem = await client
-                .Drives[driveData.Drive.Id]
+                .Drives[driveData.DriveId]
                 .Items[driveData.AppRoot.Id]
                 .ItemWithPath(Path.Combine(SyncPath, filename))
                 .GetAsync()
@@ -133,7 +141,7 @@ public sealed class GraphFileProvider : FileBaseProvider
         var driveData = await GetDriveItemAsync(client).ConfigureAwait(false);
 
         var myFileContent = await client
-                    .Drives[driveData.Drive.Id]
+                    .Drives[driveData.DriveId]
                     .Items[driveData.AppRoot.Id]
                     .ItemWithPath(Path.Combine(SyncPath, fileName))
                     .Content
@@ -150,7 +158,7 @@ public sealed class GraphFileProvider : FileBaseProvider
         var driveData = await GetDriveItemAsync(client).ConfigureAwait(false);
 
         var driveItem = await client
-                .Drives[driveData.Drive.Id]
+                .Drives[driveData.DriveId]
                 .Items[driveData.AppRoot.Id]
                 .ItemWithPath(Path.Combine(SyncPath, fileName))
                 .Content
