@@ -26,14 +26,24 @@ public sealed class GraphFileProvider : FileBaseProvider
     {
         if (DriveCache is null || DriveCache.Value.CacheTime < DateTime.UtcNow.AddSeconds(-5))
         {
-            var result = await graphClient.Me.Drive
-                .WithUrl("https://graph.microsoft.com/v1.0/drive/special/approot")
-                .GetAsync();
+            string driveId;
 
-            string driveId = result!.Id!.Split("!")[0];
+            try
+            {
+                var driveItem = await graphClient.Me.Drive.GetAsync().ConfigureAwait(false);
+                driveId = driveItem!.Id!;
+            }
+            catch (ODataError ex) when (ex.ResponseStatusCode == 403)
+            {
+                // https://github.com/microsoftgraph/msgraph-sdk-dotnet/issues/2624#issuecomment-2532361401
+                // Is this a real problem? Is below a solution?
 
-            //var driveItem = await graphClient.Me.Drive.GetAsync().ConfigureAwait(false);
-            //string driveId = driveItem!.Id!;
+                var result = await graphClient.Me.Drive
+                    .WithUrl($"{graphClient.RequestAdapter.BaseUrl}/drive/special/approot")
+                    .GetAsync();
+
+                driveId = result!.Id!.Split("!")[0];
+            }
 
             var appRootFolder = await graphClient.Drives[driveId].Special["AppRoot"].GetAsync().ConfigureAwait(false);
 
