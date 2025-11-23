@@ -192,7 +192,10 @@ public sealed partial class App : Application
             return;
         }
         var windowController = AndroidX.Core.View.WindowCompat.GetInsetsController(window, window.DecorView);
-        windowController.AppearanceLightNavigationBars = isLightSystemNavigationBars;
+        if (windowController is not null)
+        {
+            windowController.AppearanceLightNavigationBars = isLightSystemNavigationBars;
+        }
 #endif
     }
 
