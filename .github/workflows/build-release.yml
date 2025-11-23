@@ -30,10 +30,10 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v5.0.0
       with:
         dotnet-version: 9.0.x
         
@@ -47,7 +47,7 @@ jobs:
         echo "SHORT_SHA=$("${{ github.sha }}".SubString(0, 8))" >> $env:GITHUB_ENV
         
     - name: Upload source
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5.0.0
       with:
         name: source-${{ env.CURRENT_TIME }}-${{ env.SHORT_SHA }}
         retention-days: 5
@@ -129,7 +129,7 @@ jobs:
 
     - name: Upload Windows Artifact
       if: github.event.inputs.buildWindows == 'true'
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5.0.0
       with:
         name: windows-${{ env.BUILD_TYPE }}-${{ env.CURRENT_TIME }}-${{ env.SHORT_SHA }}-${{ steps.windows_version.outputs.info }}
         retention-days: 5
@@ -190,7 +190,7 @@ jobs:
 
     - name: Upload a Android Artifact
       if: github.event.inputs.buildAndroid == 'true'
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5.0.0
       with:
         name: android-${{ env.BUILD_TYPE }}-${{ env.CURRENT_TIME }}-${{ env.SHORT_SHA }}-${{ steps.android_display_version.outputs.info }} [${{ steps.android_version.outputs.info }}]
         retention-days: 5
