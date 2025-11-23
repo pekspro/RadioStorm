@@ -1,0 +1,23 @@
+<Solution>
+  <Folder Name="/File providers/">
+    <Project Path="Pekspro.RadioStorm.Settings.SynchronizedSettings.FileProvider.Graph/Pekspro.RadioStorm.Settings.SynchronizedSettings.FileProvider.Graph.csproj" />
+    <Project Path="Pekspro.RadioStorm.Settings.SynchronizedSettings.FileProvider.Secrets/Pekspro.RadioStorm.Settings.SynchronizedSettings.FileProvider.Secrets.csproj" />
+    <Project Path="Pekspro.RadioStorm.Settings.SynchronizedSettings.FileProvider/Pekspro.RadioStorm.Settings.SynchronizedSettings.FileProvider.csproj" />
+  </Folder>
+  <Folder Name="/Sandbox/">
+    <Project Path="Pekspro.RadioStorm.Sandbox.Common/Pekspro.RadioStorm.Sandbox.Common.csproj" />
+    <Project Path="Pekspro.RadioStorm.Sandbox.Console/Pekspro.RadioStorm.Sandbox.Console.csproj" />
+    <Project Path="Pekspro.RadioStorm.Sandbox.WPF/Pekspro.RadioStorm.Sandbox.WPF.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path="../.github/workflows/build-release.yml" />
+    <File Path="../.github/workflows/build-test.yml" />
+    <File Path=".editorconfig" />
+  </Folder>
+  <Project Path="Pekspro.RadioStorm.MAUI/Pekspro.RadioStorm.MAUI.csproj">
+    <Deploy Solution="Debug|*" />
+  </Project>
+  <Project Path="Pekspro.RadioStorm.UI/Pekspro.RadioStorm.UI.csproj" />
+  <Project Path="Pekspro.RadioStorm/Pekspro.RadioStorm.csproj" />
+  <Project Path="Pekspro.SwedRadio/Pekspro.SwedRadio.csproj" />
+</Solution>
