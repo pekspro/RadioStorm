@@ -13,6 +13,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
         <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+        <MauiEnableXamlCBindingWithSourceCompilation>true</MauiEnableXamlCBindingWithSourceCompilation>
 
         <!-- Display name -->
 		<ApplicationTitle>RadioStorm</ApplicationTitle>

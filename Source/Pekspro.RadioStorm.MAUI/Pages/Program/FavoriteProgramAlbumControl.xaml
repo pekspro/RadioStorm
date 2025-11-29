@@ -57,8 +57,8 @@
     </VisualStateManager.VisualStateGroups>
 
     <Border Style="{StaticResource AlbumCard}" 
-            WidthRequest="{Binding Source={RelativeSource AncestorType={x:Type favvm:FavoritesViewModel}}, Path=AlbumCardWidth}"
-            HeightRequest="{Binding Source={RelativeSource AncestorType={x:Type favvm:FavoritesViewModel}}, Path=AlbumCardHeight}"
+            WidthRequest="{Binding Source={RelativeSource AncestorType={x:Type favvm:FavoritesViewModel}}, Path=AlbumCardWidth, x:DataType=favvm:FavoritesViewModel}"
+            HeightRequest="{Binding Source={RelativeSource AncestorType={x:Type favvm:FavoritesViewModel}}, Path=AlbumCardHeight, x:DataType=favvm:FavoritesViewModel}"
             >
         <Grid Style="{StaticResource AlbumItem}" CompressedLayout.IsHeadless="True">
             <Label  x:Name="LabelProgramName"

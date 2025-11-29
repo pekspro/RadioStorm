@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:base="clr-namespace:Pekspro.RadioStorm.UI.ViewModel.Base;assembly=Pekspro.RadioStorm.UI"
              x:Class="Pekspro.RadioStorm.MAUI.Views.GroupHeaderControl"
+             x:DataType="base:IGroupHeader"
              >
     <Grid RowDefinitions="Auto, Auto" RowSpacing="4" Margin="{OnPlatform WinUI='-4,0,0,0', Default='16,12,16,0'}" x:Name="MainGrid">
         <Label Grid.Row="0" Text="{Binding Header}" Style="{StaticResource ListGroupTextStyle}" />
