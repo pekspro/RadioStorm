@@ -6,12 +6,12 @@ public sealed class GeneralDatabaseContext : DbContext
 
     public string FileName;
 
-    public GeneralDatabaseContext()
-    {
-        // Only used by ef migrations.
-        FileName = "@:";
-        LoggerFactory = null!;
-    }
+    //public GeneralDatabaseContext()
+    //{
+    //    // Only used by ef migrations.
+    //    FileName = "@:";
+    //    LoggerFactory = null!;
+    //}
 
     public GeneralDatabaseContext(IOptions<StorageLocations> storageLocationOptions, ILoggerFactory loggerFactory)
     {
@@ -25,7 +25,11 @@ public sealed class GeneralDatabaseContext : DbContext
             .UseLoggerFactory(LoggerFactory)
             .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
             .UseModel(CompiledModel.GeneralDatabaseContextModel.Instance)
-            .UseSqlite($"Data Source={FileName};");
+            .UseSqlite($"Data Source={FileName};")
+#if DEBUG
+            .EnableSensitiveDataLogging()
+#endif            
+            ;
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
