@@ -86,13 +86,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="CommunityToolkit.Maui" Version="9.1.1" />
+	  <PackageReference Include="CommunityToolkit.Maui" Version="12.3.0" />
 	  <PackageReference Include="EFCore.BulkExtensions" Version="8.1.2" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.11" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.11" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.11" />
-      <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.12" />
-      <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="9.0.12" />
+      <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.120" />
+      <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="9.0.120" />
 	</ItemGroup>
 
 
