@@ -15,7 +15,7 @@ public sealed partial class LogFileDetailsViewModel : DownloadViewModel
     {
     }
 
-    public static string CreateStartParameter(string logFileName) => 
+    public static string CreateStartParameter(string logFileName) =>
         StartParameterHelper.Serialize(
             new StartParameter()
             {
@@ -63,7 +63,7 @@ public sealed partial class LogFileDetailsViewModel : DownloadViewModel
 
     [ObservableProperty]
     private List<LogLine> _LogLines = new List<LogLine>();
-    
+
     #endregion
 
     #region Methods
@@ -86,40 +86,36 @@ public sealed partial class LogFileDetailsViewModel : DownloadViewModel
                 List<LogLine> logLines = new List<LogLine>();
 
                 // Read one line at the time
-                while (!reader.EndOfStream)
+                string? line;
+                while ((line = await reader.ReadLineAsync(cancellationToken)) != null)
                 {
                     if (cancellationToken.IsCancellationRequested)
                     {
                         break;
                     }
 
-                    string? line = await reader.ReadLineAsync();
+                    //LogFileContent += line.ReplaceLineEndings();
+                    // Split line by tabs, max 4 parts
+                    string[] parts = line.Split('\t', 4);
 
-                    if (line != null)
+                    // If line contains 4 parts, then it is a log line
+                    if (parts.Length == 4)
                     {
-                        //LogFileContent += line.ReplaceLineEndings();
-                        // Split line by tabs, max 4 parts
-                        string[] parts = line.Split('\t', 4);
-
-                        // If line contains 4 parts, then it is a log line
-                        if (parts.Length == 4)
+                        // Check first part match the patten 2022-09-02 12:34:56
+                        //if (Regex.IsMatch(parts[0], @"\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d"))
                         {
-                            // Check first part match the patten 2022-09-02 12:34:56
-                            //if (Regex.IsMatch(parts[0], @"\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d"))
-                            {
-                                logLines.Add(new LogLine(parts[0], parts[1], parts[2], parts[3]));
-                            }
+                            logLines.Add(new LogLine(parts[0], parts[1], parts[2], parts[3]));
                         }
-                        else
-                        {
-                            logLines.Add(new LogLine("xxxx", "Exception", "Bad", line));
-                        }
+                    }
+                    else
+                    {
+                        logLines.Add(new LogLine("xxxx", "Exception", "Bad", line));
                     }
                 }
 
                 LogLines = logLines;
             }
-            catch (Exception )
+            catch (Exception)
             {
             }
 
