@@ -6,12 +6,12 @@ public sealed class GeneralDatabaseContext : DbContext
 
     public string FileName;
 
-    //public GeneralDatabaseContext()
-    //{
-    //    // Only used by ef migrations.
-    //    FileName = "@:";
-    //    LoggerFactory = null!;
-    //}
+    public GeneralDatabaseContext()
+    {
+        // Only used by ef migrations.
+        FileName = "@:";
+        LoggerFactory = null!;
+    }
 
     public GeneralDatabaseContext(IOptions<StorageLocations> storageLocationOptions, ILoggerFactory loggerFactory)
     {

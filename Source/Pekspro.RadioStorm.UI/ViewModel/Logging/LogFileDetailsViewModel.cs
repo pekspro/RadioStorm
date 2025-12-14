@@ -15,7 +15,7 @@ public sealed partial class LogFileDetailsViewModel : DownloadViewModel
     {
     }
 
-    public static string CreateStartParameter(string logFileName) =>
+    public static string CreateStartParameter(string logFileName) => 
         StartParameterHelper.Serialize(
             new StartParameter()
             {
@@ -63,7 +63,7 @@ public sealed partial class LogFileDetailsViewModel : DownloadViewModel
 
     [ObservableProperty]
     private List<LogLine> _LogLines = new List<LogLine>();
-
+    
     #endregion
 
     #region Methods
@@ -115,7 +115,7 @@ public sealed partial class LogFileDetailsViewModel : DownloadViewModel
 
                 LogLines = logLines;
             }
-            catch (Exception)
+            catch (Exception )
             {
             }
 

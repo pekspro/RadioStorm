@@ -236,6 +236,11 @@ public sealed partial class FavoritesViewModel : ListViewModel<FavoriteBaseModel
 
             return;
         }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Error while refreshing favorites.");
+            throw;
+        }
 
         ChannelRefreshHelper.SetupStatusRefreshTimer(Items);
 
