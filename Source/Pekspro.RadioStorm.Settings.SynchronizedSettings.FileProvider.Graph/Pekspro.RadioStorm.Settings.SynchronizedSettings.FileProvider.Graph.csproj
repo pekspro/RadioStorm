@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Azure.Identity" Version="1.17.1" />
-    <PackageReference Include="Microsoft.Graph" Version="5.98.0" />
+    <PackageReference Include="Microsoft.Graph" Version="5.99.0" />
     <PackageReference Include="Microsoft.Identity.Client" Version="4.79.2" />
     <PackageReference Include="Microsoft.Identity.Client.Extensions.Msal" Version="4.79.2" />
     <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="10.0.1" />
