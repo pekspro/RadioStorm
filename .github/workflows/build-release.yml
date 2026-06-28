@@ -124,11 +124,11 @@ jobs:
     - name: Move to root folder
       if: github.event.inputs.buildWindows == 'true'
       run: |
-        mv ./Source/Pekspro.RadioStorm.MAUI/bin/Release/net10.0-windows*/win*/AppPackages/*/*.msix ./
+        mv ./Source/Pekspro.RadioStorm.MAUI/AppPackages/*/*.msix ./
 
     - name: Upload Windows Artifact
       if: github.event.inputs.buildWindows == 'true'
-      uses: actions/upload-artifact@v5.0.0
+      uses: actions/upload-artifact@v7.0.1
       with:
         name: windows-${{ env.BUILD_TYPE }}-${{ env.CURRENT_TIME }}-${{ env.SHORT_SHA }}-${{ steps.windows_version.outputs.info }}
         retention-days: 5
@@ -189,7 +189,7 @@ jobs:
 
     - name: Upload a Android Artifact
       if: github.event.inputs.buildAndroid == 'true'
-      uses: actions/upload-artifact@v5.0.0
+      uses: actions/upload-artifact@v7.0.1
       with:
         name: android-${{ env.BUILD_TYPE }}-${{ env.CURRENT_TIME }}-${{ env.SHORT_SHA }}-${{ steps.android_display_version.outputs.info }} [${{ steps.android_version.outputs.info }}]
         retention-days: 5
