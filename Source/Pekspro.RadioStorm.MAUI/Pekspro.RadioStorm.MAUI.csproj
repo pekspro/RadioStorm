@@ -81,13 +81,13 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)' == 'Debug'">
-	  <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.1" />
+	  <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.9" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="CommunityToolkit.Maui" Version="13.0.0" />
-      <PackageReference Include="Microsoft.Maui.Controls" Version="10.0.20" />
-      <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="10.0.20" />
+	  <PackageReference Include="CommunityToolkit.Maui" Version="14.2.0" />
+      <PackageReference Include="Microsoft.Maui.Controls" Version="10.0.80" />
+      <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="10.0.80" />
 	</ItemGroup>
 
 
