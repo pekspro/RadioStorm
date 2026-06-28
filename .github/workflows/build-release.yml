@@ -95,7 +95,7 @@ jobs:
     - name: Get Windows version
       if: github.event.inputs.buildWindows == 'true'
       id: windows_version
-      uses: mavrosxristoforos/get-xml-info@2.1.0
+      uses: mavrosxristoforos/get-xml-info@2.0
       with:
         xml-file: Source/Pekspro.RadioStorm.MAUI/Platforms/Windows/Package.appxmanifest
         xpath: /*[local-name()='Package']/*[local-name()='Identity']/@Version
