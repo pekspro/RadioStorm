@@ -713,26 +713,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/LastPublishedShowsResponse'
 
-  /vma:
-    get:
-      summary: Get important messages.
-      description: Listar alla tillgängliga viktiga meddelanden till allmänheten. https://sverigesradio.se/api/documentation/v2/metoder/vma.html
-      operationId: "getImportantMessages"
-      parameters:
-        - in: query
-          name: format
-          description: Format of response. Has to be json.
-          required: true
-          schema: 
-            $ref: '#/components/schemas/Format'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MessagesResponse'
-
   /traffic/areas:
     get:
       summary: Get traffic areas.
@@ -1824,17 +1804,6 @@ components:
           $ref: '#/components/schemas/ExtraLiveAudio'
         mobileliveaudio:
           $ref: '#/components/schemas/ExtraLiveAudio'
-    MessagesResponse:
-      allOf:
-        - $ref: '#/components/schemas/BaseResponse'
-        - type: object
-          required:
-            - messages
-          properties:
-            messages:
-              type: array
-              items:
-                $ref: '#/components/schemas/Message'
     TrafficArea:
       type: object
       required:
