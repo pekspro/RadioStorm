@@ -34,7 +34,7 @@ namespace Pekspro.RadioStorm.CacheDatabase.CompiledModel
             }
 
             model.Customize();
-            _instance = model;
+            _instance = (CacheDatabaseContextModel)model.FinalizeModel();
         }
 
         private static CacheDatabaseContextModel _instance;

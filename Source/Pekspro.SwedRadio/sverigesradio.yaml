@@ -842,7 +842,7 @@ components:
       type: string
       default: id
       enum:
-        - id
+        - id asc
         - id desc
         - name
         - name desc

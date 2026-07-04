@@ -34,7 +34,7 @@ namespace Pekspro.RadioStorm.GeneralDatabase.CompiledModel
             }
 
             model.Customize();
-            _instance = model;
+            _instance = (GeneralDatabaseContextModel)model.FinalizeModel();
         }
 
         private static GeneralDatabaseContextModel _instance;
