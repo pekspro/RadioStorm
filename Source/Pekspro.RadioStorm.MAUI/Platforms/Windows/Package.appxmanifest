@@ -7,12 +7,12 @@
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
   IgnorableNamespaces="uap rescap">
 
-  <Identity
-    Name="RadioStorm.MAUI"
-    Publisher="CN=30A7FC1D-484E-4B99-B58D-88EFCC23039F"
-    Version="0.1.0.0" />
+    <Identity
+      Name="19010PEKsProductions.RadioStorm"
+      Publisher="CN=30A7FC1D-484E-4B99-B58D-88EFCC23039F"
+      Version="1.2.0.0" />
 
-    <mp:PhoneIdentity PhoneProductId="4E8D64C2-A092-419E-B581-6B8874A44902" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+    <mp:PhoneIdentity PhoneProductId="e386e420-5404-46be-9908-02ee099ced25" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
     <!--<Properties>
     <DisplayName>Pekspro.RadioStorm.MAUI</DisplayName>
@@ -21,36 +21,36 @@
   </Properties>-->
 
     <Properties>
-	    <!-- <DisplayName>$placeholder$</DisplayName> -->
-	    <DisplayName>RadioStorm.MAUI</DisplayName>
-	    <PublisherDisplayName>PEK's Productions</PublisherDisplayName>
-	    <Logo>$placeholder$.png</Logo>
+        <!-- <DisplayName>$placeholder$</DisplayName> -->
+        <DisplayName>RadioStorm</DisplayName>
+        <PublisherDisplayName>PEK's Productions</PublisherDisplayName>
+        <Logo>$placeholder$.png</Logo>
     </Properties>
 
-  <Dependencies>
-    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.17763.0" MaxVersionTested="10.0.19041.0" />
-    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.17763.0" MaxVersionTested="10.0.19041.0" />
-  </Dependencies>
+    <Dependencies>
+        <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.17763.0" MaxVersionTested="10.0.19041.0" />
+        <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.17763.0" MaxVersionTested="10.0.19041.0" />
+    </Dependencies>
 
-  <Resources>
-    <Resource Language="x-generate"/>
-  </Resources>
+    <Resources>
+        <Resource Language="x-generate"/>
+    </Resources>
 
-  <Applications>
-    <Application Id="App"
-      Executable="$targetnametoken$.exe"
-      EntryPoint="$targetentrypoint$">
-		<uap:VisualElements
-              DisplayName="$placeholder$"
-              Description="$placeholder$"
-              Square150x150Logo="$placeholder$.png"
-              Square44x44Logo="$placeholder$.png"
-              BackgroundColor="transparent">
-			<uap:DefaultTile Square71x71Logo="$placeholder$.png" Wide310x150Logo="$placeholder$.png" Square310x310Logo="$placeholder$.png" />
-			<uap:SplashScreen Image="$placeholder$.png" />
-		</uap:VisualElements>
-		
-      <!--<uap:VisualElements
+    <Applications>
+        <Application Id="App"
+          Executable="$targetnametoken$.exe"
+          EntryPoint="$targetentrypoint$">
+            <uap:VisualElements
+                  DisplayName="$placeholder$"
+                  Description="$placeholder$"
+                  Square150x150Logo="$placeholder$.png"
+                  Square44x44Logo="$placeholder$.png"
+                  BackgroundColor="transparent">
+                <uap:DefaultTile Square71x71Logo="$placeholder$.png" Wide310x150Logo="$placeholder$.png" Square310x310Logo="$placeholder$.png" />
+                <uap:SplashScreen Image="$placeholder$.png" />
+            </uap:VisualElements>
+
+            <!--<uap:VisualElements
         DisplayName="Pekspro.RadioStorm.MAUI"
         Description="Pekspro.RadioStorm.MAUI"
         BackgroundColor="transparent"
@@ -68,11 +68,11 @@
         </uap:DefaultTile >
         <uap:SplashScreen Image="appiconfgSplashScreen.png" />
       </uap:VisualElements>-->
-    </Application>
-  </Applications>
+        </Application>
+    </Applications>
 
-  <Capabilities>
-    <rescap:Capability Name="runFullTrust" />
-  </Capabilities>
+    <Capabilities>
+        <rescap:Capability Name="runFullTrust" />
+    </Capabilities>
 
 </Package>

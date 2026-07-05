@@ -8,8 +8,12 @@ on:
         type: boolean
         default: true
         required: true
-      buildWindows:
-        description: 'Windows: Build'
+      buildWindowsX86:
+        description: 'Windows: Build x86'
+        type: boolean
+        default: true
+      buildWindowsX64:
+        description: 'Windows: Build x64'
         type: boolean
         default: true
       buildAndroid:
@@ -92,8 +96,12 @@ jobs:
         echo "Build setting: ${{ github.event.inputs.productionApiKeys }}"
         echo "Build time string: ${{ env.CURRENT_TIME_UTC_STRING }}"
 
+    - name: Set Windows build flag
+      if: github.event.inputs.buildWindowsX86 == 'true' || github.event.inputs.buildWindowsX64 == 'true'
+      run: echo "BUILD_WINDOWS=true" >> $env:GITHUB_ENV
+
     - name: Get Windows version
-      if: github.event.inputs.buildWindows == 'true'
+      if: env.BUILD_WINDOWS == 'true'
       id: windows_version
       uses: mavrosxristoforos/get-xml-info@2.0
       with:
@@ -101,39 +109,71 @@ jobs:
         xpath: /*[local-name()='Package']/*[local-name()='Identity']/@Version
 
     - name: Print Windows version
-      if: github.event.inputs.buildWindows == 'true'
+      if: env.BUILD_WINDOWS == 'true'
       run: |
         echo "Windows version ${{ steps.windows_version.outputs.info }} will be built."
 
     - name: Create Windows certificate file
-      if: github.event.inputs.buildWindows == 'true'
+      if: env.BUILD_WINDOWS == 'true'
       uses: timheuer/base64-to-file@v2
       id: create_windows_certificate_file
       with:
         fileName: radiostorm.pfx
         encodedString: ${{ secrets.WINDOWS_KEY_FILE }}
 
-    - name: Add certificate to Store
-      if: github.event.inputs.buildWindows == 'true'
-      run: certutil -user -q -p ${{ secrets.WINDOWS_KEY_PASSWORD }} -importpfx ${{ steps.create_windows_certificate_file.outputs.filePath }} NoRoot
+    - name: Build MAUI for Windows x86
+      if: github.event.inputs.buildWindowsX86 == 'true'
+      run: dotnet publish ./Source/Pekspro.RadioStorm.MAUI/Pekspro.RadioStorm.MAUI.csproj --framework:net10.0-windows10.0.19041.0 --configuration:Release /p:GenerateAppxPackageOnBuild=true /p:AppxBundle=Never /p:RuntimeIdentifier=win-x86 /p:UseMonoRuntime=false /p:AppxPackageSigningEnabled=false
       
-    - name: Build MAUI for Windows
-      if: github.event.inputs.buildWindows == 'true'
-      run: dotnet publish ./Source/Pekspro.RadioStorm.MAUI/Pekspro.RadioStorm.MAUI.csproj --framework:net10.0-windows10.0.19041.0 --configuration:Release /p:GenerateAppxPackageOnBuild=true /p:AppxPackageSigningEnabled=true /p:PackageCertificateThumbprint=${{ secrets.WINDOWS_KEY_THUMBPRINT }} --output ./publish
+    - name: Build MAUI for Windows x64
+      if: github.event.inputs.buildWindowsX64 == 'true'
+      run: dotnet publish ./Source/Pekspro.RadioStorm.MAUI/Pekspro.RadioStorm.MAUI.csproj --framework:net10.0-windows10.0.19041.0 --configuration:Release /p:GenerateAppxPackageOnBuild=true /p:AppxBundle=Never /p:RuntimeIdentifier=win-x64 /p:UseMonoRuntime=false /p:AppxPackageSigningEnabled=false
   
-    - name: Move to root folder
-      if: github.event.inputs.buildWindows == 'true'
+    - name: Create Windows msixbundle
+      if: env.BUILD_WINDOWS == 'true'
+      shell: pwsh
       run: |
-        mv ./Source/Pekspro.RadioStorm.MAUI/AppPackages/*/*.msix ./
+        $bundleName = "RadioStorm-${{ env.BUILD_TYPE }}-${{ steps.windows_version.outputs.info }}.msixbundle"
+        echo "WINDOWS_BUNDLE_NAME=$bundleName" >> $env:GITHUB_ENV
+
+        # Collect the per-architecture app packages, excluding framework dependency packages.
+        $packageFolder = "./WindowsPackages"
+        New-Item -ItemType Directory -Force -Path $packageFolder | Out-Null
+        Get-ChildItem -Path ./Source/Pekspro.RadioStorm.MAUI/AppPackages -Recurse -Filter *.msix |
+          Where-Object { $_.FullName -notmatch '\\Dependencies\\' } |
+          Copy-Item -Destination $packageFolder -Force
+
+        # Locate makeappx.exe from the latest installed Windows SDK.
+        $makeappx = (Get-ChildItem "C:\Program Files (x86)\Windows Kits\10\bin\*\x64\makeappx.exe" | Sort-Object FullName -Descending | Select-Object -First 1).FullName
+        echo "Using makeappx: $makeappx"
+
+        & $makeappx bundle /d $packageFolder /bv ${{ steps.windows_version.outputs.info }} /p "./$bundleName"
+        if ($LASTEXITCODE -ne 0) { throw "makeappx failed with exit code $LASTEXITCODE" }
+
+    - name: Sign Windows msixbundle
+      if: env.BUILD_WINDOWS == 'true'
+      shell: pwsh
+      run: |
+        $signtool = (Get-ChildItem "C:\Program Files (x86)\Windows Kits\10\bin\*\x64\signtool.exe" | Sort-Object FullName -Descending | Select-Object -First 1).FullName
+        echo "Using signtool: $signtool"
+
+        & $signtool sign /fd SHA256 /tr http://timestamp.digicert.com /td SHA256 /f "${{ steps.create_windows_certificate_file.outputs.filePath }}" /p "${{ secrets.WINDOWS_KEY_PASSWORD }}" "./${{ env.WINDOWS_BUNDLE_NAME }}"
+        if ($LASTEXITCODE -ne 0) { throw "signtool failed with exit code $LASTEXITCODE" }
+
+        # Export the public certificate so the signed bundle can be sideloaded.
+        $securePassword = ConvertTo-SecureString -String "${{ secrets.WINDOWS_KEY_PASSWORD }}" -AsPlainText -Force
+        $certificate = Get-PfxCertificate -FilePath "${{ steps.create_windows_certificate_file.outputs.filePath }}" -Password $securePassword
+        Export-Certificate -Cert $certificate -FilePath "./RadioStorm.cer" -Type CERT | Out-Null
 
     - name: Upload Windows Artifact
-      if: github.event.inputs.buildWindows == 'true'
+      if: env.BUILD_WINDOWS == 'true'
       uses: actions/upload-artifact@v7.0.1
       with:
         name: windows-${{ env.BUILD_TYPE }}-${{ env.CURRENT_TIME }}-${{ env.SHORT_SHA }}-${{ steps.windows_version.outputs.info }}
         retention-days: 5
         path: |
           ./*.msix
+          ./*.msixbundle
           ./*.cer
 
 
