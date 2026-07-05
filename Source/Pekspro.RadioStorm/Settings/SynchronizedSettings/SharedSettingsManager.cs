@@ -13,7 +13,7 @@ public sealed class SharedSettingsManager : ISharedSettingsManager
     public IConnectivityProvider ConnectivityProvider { get; }
     private SemaphoreSlim Semaphore { get; } = new SemaphoreSlim(1);
 
-    private static readonly TimeSpan SemaphoreTimeout = TimeSpan.FromSeconds(15);
+    private static readonly TimeSpan SemaphoreTimeout = TimeSpan.FromSeconds(30);
 
     public bool AllowBackgroundSaving { get; private set; }
 
@@ -206,7 +206,8 @@ public sealed class SharedSettingsManager : ISharedSettingsManager
 
         try
         {
-            if (ConnectivityProvider.HasInternetAccess)
+            // TODO: Does ConnectivityProvider.HasInternetAccess work on Windows?
+            if (true || ConnectivityProvider.HasInternetAccess)
             {
                 Stopwatch stopwatch = Stopwatch.StartNew();
                 List<FileBaseProviderAndFiles> fileBaseProviderAndFiles = new List<FileBaseProviderAndFiles>();
