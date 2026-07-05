@@ -6,7 +6,6 @@
              x:Class="Pekspro.RadioStorm.MAUI.Pages.Episode.EpisodeControl"
              x:DataType="vm:EpisodeModel"
              Style="{StaticResource ListItem}"
-             CompressedLayout.IsHeadless="True"
              >
 
     <!-- Column 0 is not used -->
@@ -14,7 +13,6 @@
     <Grid  Grid.Row="0" 
            Grid.Column="1" 
            Style="{StaticResource ListItemTitleArea}"
-           CompressedLayout.IsHeadless="True"
            >
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup Name="ListenState">
@@ -70,7 +68,7 @@
             MaxLines="1"
             />
 
-        <Grid Grid.Column="1" CompressedLayout.IsHeadless="True">
+        <Grid Grid.Column="1">
             <views:EpisodeDownloadStateControl 
                     HorizontalOptions="End"
                     BindingContext="{Binding }" 
@@ -80,7 +78,6 @@
 
     <Grid   Grid.Column="1"
             Grid.Row="1" 
-            CompressedLayout.IsHeadless="True"
             Style="{StaticResource ListItemContentArea}">
         <Label
             x:Name="LabelDescription"
