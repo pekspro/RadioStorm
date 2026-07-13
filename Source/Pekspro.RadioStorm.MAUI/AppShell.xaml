@@ -38,6 +38,20 @@
                             </VisualState>
 
                         </VisualStateGroup>
+
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <!-- Background stays as defined by CheckedStates -->
+                                </VisualState.Setters>
+                            </VisualState>
+
+                            <VisualState x:Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter TargetName="ActiveMenuIndicator" Property="Background" Value="{AppThemeBinding Dark={StaticResource Gray700}, Light={StaticResource Gray200}}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
                     </VisualStateGroupList>
                 </VisualStateManager.VisualStateGroups>
 
