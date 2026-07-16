@@ -61,8 +61,93 @@ public sealed partial class App : Application
     {
         var window = new Window(new AppShell());
 
+#if WINDOWS
+        window.HandlerChanged += (s, e) => UpdateWindowsTitleBarColors(window);
+        RequestedThemeChanged += (s, e) => UpdateWindowsTitleBarColors(window);
+#endif
+
         return window;
     }
+
+#if WINDOWS
+    private void UpdateWindowsTitleBarColors(Window window)
+    {
+        if (window.Handler?.PlatformView is not Microsoft.UI.Xaml.Window nativeWindow)
+        {
+            return;
+        }
+
+        bool isDark = RequestedTheme == AppTheme.Dark;
+        var foreground = new Microsoft.UI.Xaml.Media.SolidColorBrush(
+            isDark ? Microsoft.UI.Colors.White : Microsoft.UI.Colors.Black);
+
+        ApplyTitleBarForeground(nativeWindow, foreground);
+    }
+
+    private static void ApplyTitleBarForeground(
+        Microsoft.UI.Xaml.Window nativeWindow,
+        Microsoft.UI.Xaml.Media.SolidColorBrush foreground)
+    {
+        var root = nativeWindow.Content as Microsoft.UI.Xaml.FrameworkElement;
+        var appTitle = FindChildByName(root, "AppTitle");
+
+        if (appTitle is Microsoft.UI.Xaml.Controls.TextBlock titleTextBlock)
+        {
+            titleTextBlock.Foreground = foreground;
+            return;
+        }
+
+        // Visual tree not ready yet — retry after a short delay once the window is activated
+        void OnActivated(object sender, Microsoft.UI.Xaml.WindowActivatedEventArgs e)
+        {
+            nativeWindow.Activated -= OnActivated;
+            Task.Delay(100).ContinueWith(_ =>
+            {
+                nativeWindow.DispatcherQueue.TryEnqueue(() =>
+                {
+                    var root = nativeWindow.Content as Microsoft.UI.Xaml.FrameworkElement;
+                    var appTitle = FindChildByName(root, "AppTitle");
+                    if (appTitle is Microsoft.UI.Xaml.Controls.TextBlock tb)
+                    {
+                        tb.Foreground = foreground;
+                    }
+                });
+            });
+        }
+
+        nativeWindow.Activated += OnActivated;
+    }
+
+    private static Microsoft.UI.Xaml.FrameworkElement? FindChildByName(
+        Microsoft.UI.Xaml.FrameworkElement? parent, string name)
+    {
+        if (parent is null)
+        {
+            return null;
+        }
+
+        if (parent.Name == name)
+        {
+            return parent;
+        }
+
+        int count = Microsoft.UI.Xaml.Media.VisualTreeHelper.GetChildrenCount(parent);
+        for (int i = 0; i < count; i++)
+        {
+            if (Microsoft.UI.Xaml.Media.VisualTreeHelper.GetChild(parent, i)
+                    is Microsoft.UI.Xaml.FrameworkElement child)
+            {
+                var result = FindChildByName(child, name);
+                if (result is not null)
+                {
+                    return result;
+                }
+            }
+        }
+
+        return null;
+    }
+#endif
 
     public void SetupMenuBarColorFix()
     {
