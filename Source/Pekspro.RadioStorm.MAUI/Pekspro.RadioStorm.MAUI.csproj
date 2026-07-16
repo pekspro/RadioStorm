@@ -81,7 +81,7 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)' == 'Debug'">
-	  <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.9" />
+	  <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.10" />
 	</ItemGroup>
 
 	<ItemGroup>
