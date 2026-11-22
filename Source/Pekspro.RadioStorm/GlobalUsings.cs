@@ -14,7 +14,6 @@ global using System.Threading;
 global using System.Threading.Tasks;
 global using System.Timers;
 global using CommunityToolkit.Mvvm.Messaging;
-global using EFCore.BulkExtensions;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Infrastructure;
 global using Microsoft.EntityFrameworkCore.Migrations;
