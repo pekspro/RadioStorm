@@ -135,7 +135,6 @@
             <Grid x:Name="GridLayout" 
                   RowDefinitions="64,36,Auto" 
                   ColumnDefinitions="Auto,*" 
-                  HorizontalOptions="FillAndExpand"
                   Style="{StaticResource CardLayout}"
                   >
                 <!--<VisualStateManager.VisualStateGroups>

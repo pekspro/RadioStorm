@@ -292,7 +292,6 @@
         <!-- Breaks on Android: ItemSizingStrategy="MeasureFirstItem"-->
 
         <Grid IsVisible="{Binding HasData}"
-              VerticalOptions="FillAndExpand"
               Grid.Row="1">
 
             <RefreshView 

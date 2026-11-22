@@ -15,7 +15,6 @@
                         Grid.Row="0" 
                         Margin="{StaticResource NormalPageMargin}">
                     <Grid x:Name="GridLayout" 
-                            HorizontalOptions="FillAndExpand"
                             Style="{StaticResource CardLayout}">
 
                         <VerticalStackLayout Spacing="8" x:Name="AboutLayout">

@@ -68,8 +68,6 @@
 
         <!-- Background -->
         <Image Source="{Binding EpisodeData.ProgramDetails.ProgramImage.HighResolution}"
-               VerticalOptions="FillAndExpand"
-               HorizontalOptions="FillAndExpand"
                IsVisible="{Binding EpisodeData, Converter={StaticResource NullToIsVisibleConverter}}"
                Grid.RowSpan="4"
                Aspect="AspectFill"
@@ -77,8 +75,6 @@
                 />
 
         <Image Source="{Binding ChannelData.ChannelImage.HighResolution}"
-               VerticalOptions="FillAndExpand"
-               HorizontalOptions="FillAndExpand"
                IsVisible="{Binding ChannelData, Converter={StaticResource NullToIsVisibleConverter}}"
                Grid.RowSpan="4"
                Aspect="AspectFill"
