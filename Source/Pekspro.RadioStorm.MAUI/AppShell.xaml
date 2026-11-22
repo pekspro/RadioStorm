@@ -118,6 +118,7 @@
                                 Style="{x:StaticResource PathMenuFavorite}"
                                 HorizontalOptions="Center"
                                 IsVisible="{OnPlatform Default=True, WinUI=False}"
+                                Fill="{AppThemeBinding Dark={StaticResource PanelIconColorDark}, Light={StaticResource PanelIconColorLight}}"
                                 HeightRequest="36"
                                 WidthRequest="36"
                                 />
